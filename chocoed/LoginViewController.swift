@@ -26,6 +26,13 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         ConstraintsofUI()
+        mobileNumberTextFIeld.setBottomBorder()
+        otpDigitFirstTF.setBottomBorder()
+        otpDigitSecondTF.setBottomBorder()
+        otpDigitThirdTF.setBottomBorder()
+        otpDigitFourthTF.setBottomBorder()
+        
+
         otpDigitFirstTF.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControlEvents.editingChanged)
         otpDigitSecondTF.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControlEvents.editingChanged)
         otpDigitThirdTF.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControlEvents.editingChanged)
@@ -58,7 +65,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         imageViewMessage.translatesAutoresizingMaskIntoConstraints = false
         imageViewMessage.heightAnchor.constraint(equalToConstant: 55).isActive = true
         imageViewMessage.widthAnchor.constraint(equalToConstant: 70).isActive = true
-        imageViewMessage.topAnchor.constraint(equalTo: view.topAnchor, constant: 70).isActive = true
+        imageViewMessage.topAnchor.constraint(equalTo: view.topAnchor, constant: 120).isActive = true
         imageViewMessage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         labelInstruct.translatesAutoresizingMaskIntoConstraints = false
@@ -70,25 +77,18 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
 
         
         labelMobileNo.translatesAutoresizingMaskIntoConstraints = false
-        labelMobileNo.topAnchor.constraint(equalTo: labelInstruct.bottomAnchor, constant: 5).isActive = true
+       // labelMobileNo.topAnchor.constraint(equalTo: labelInstruct.bottomAnchor, constant: 5).isActive = true
        //labelMobileNo.topAnchor.constraint(equalTo: mobileNumberTextFIeld.topAnchor, constant: 5).isActive = true
         labelMobileNo.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
         labelMobileNo.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
         labelMobileNo.heightAnchor.constraint(equalToConstant: 20)
-        mobileNumberTextFIeld.translatesAutoresizingMaskIntoConstraints = false
-        mobileNumberTextFIeld.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
-        mobileNumberTextFIeld.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
-        mobileNumberTextFIeld.topAnchor.constraint(equalTo: labelMobileNo.bottomAnchor, constant: 5).isActive = true
-        mobileNumberTextFIeld.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -30).isActive = true
-
-        mobileNumberTextFIeld.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        mobileNumberTextFIeld.setBottomBorder()
-        otpDigitFirstTF.setBottomBorder()
-        otpDigitSecondTF.setBottomBorder()
-        otpDigitThirdTF.setBottomBorder()
-        otpDigitFourthTF.setBottomBorder()
-        
-
+//        mobileNumberTextFIeld.translatesAutoresizingMaskIntoConstraints = false
+//        mobileNumberTextFIeld.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
+//        mobileNumberTextFIeld.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
+//        mobileNumberTextFIeld.topAnchor.constraint(equalTo: labelMobileNo.bottomAnchor, constant: 5).isActive = true
+//        mobileNumberTextFIeld.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -30).isActive = true
+//        mobileNumberTextFIeld.heightAnchor.constraint(equalToConstant: 40).isActive = true
+//       
         sendOTPButton.translatesAutoresizingMaskIntoConstraints = false
         sendOTPButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 250).isActive = true
         sendOTPButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
@@ -110,36 +110,36 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         registerButton.layer.borderWidth = 1
         registerButton.layer.borderColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
         
-        otpDigitFirstTF.translatesAutoresizingMaskIntoConstraints =  false
-        otpDigitSecondTF.translatesAutoresizingMaskIntoConstraints =  false
-        otpDigitThirdTF.translatesAutoresizingMaskIntoConstraints =  false
-        otpDigitFourthTF.translatesAutoresizingMaskIntoConstraints =  false
-        
-        otpDigitFirstTF.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
-        otpDigitSecondTF.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 26).isActive = true
-        otpDigitThirdTF.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36).isActive = true
-        otpDigitFourthTF.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 46).isActive = true
-        
-        otpDigitFirstTF.trailingAnchor.constraint(equalTo: view.leadingAnchor, constant: -200).isActive = true
-        otpDigitSecondTF.trailingAnchor.constraint(equalTo: view.leadingAnchor, constant: -160).isActive = true
-        otpDigitThirdTF.trailingAnchor.constraint(equalTo: view.leadingAnchor, constant: -120).isActive = true
-        otpDigitFourthTF.trailingAnchor.constraint(equalTo: view.leadingAnchor, constant: -80).isActive = true
-        
-        otpDigitFirstTF.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        otpDigitSecondTF.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        otpDigitThirdTF.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        otpDigitFourthTF.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        otpDigitFirstTF.topAnchor.constraint(equalTo: labelOTPReceived.bottomAnchor, constant: 15).isActive = true
-        otpDigitSecondTF.topAnchor.constraint(equalTo: labelOTPReceived.bottomAnchor, constant: 15).isActive = true
-        otpDigitThirdTF.topAnchor.constraint(equalTo: labelOTPReceived.bottomAnchor, constant: 15).isActive = true
-        otpDigitFourthTF.topAnchor.constraint(equalTo: labelOTPReceived.bottomAnchor, constant: 15).isActive = true
-        
-        otpDigitFirstTF.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        otpDigitSecondTF.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        otpDigitThirdTF.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        otpDigitFourthTF.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
+//        otpDigitFirstTF.translatesAutoresizingMaskIntoConstraints =  false
+//        otpDigitSecondTF.translatesAutoresizingMaskIntoConstraints =  false
+//        otpDigitThirdTF.translatesAutoresizingMaskIntoConstraints =  false
+//        otpDigitFourthTF.translatesAutoresizingMaskIntoConstraints =  false
+//
+//        otpDigitFirstTF.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25).isActive = true
+//        otpDigitSecondTF.leadingAnchor.constraint(equalTo: otpDigitFirstTF.leadingAnchor, constant: 25).isActive = true
+//        otpDigitThirdTF.leadingAnchor.constraint(equalTo: otpDigitSecondTF.leadingAnchor, constant: 25).isActive = true
+//        otpDigitFourthTF.leadingAnchor.constraint(equalTo: otpDigitThirdTF.leadingAnchor, constant: 25).isActive = true
+//
+//        otpDigitFirstTF.trailingAnchor.constraint(equalTo: view.leadingAnchor, constant: -300).isActive = true
+//        otpDigitSecondTF.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -240).isActive = true
+//        otpDigitThirdTF.trailingAnchor.constraint(equalTo: view.leadingAnchor, constant: -180).isActive = true
+//        otpDigitFourthTF.trailingAnchor.constraint(equalTo: view.leadingAnchor, constant: -120).isActive = true
+//
+//        otpDigitFirstTF.widthAnchor.constraint(equalToConstant: 40).isActive = true
+//        otpDigitSecondTF.widthAnchor.constraint(equalToConstant: 40).isActive = true
+//        otpDigitThirdTF.widthAnchor.constraint(equalToConstant: 40).isActive = true
+//        otpDigitFourthTF.widthAnchor.constraint(equalToConstant: 40).isActive = true
+////
+//        otpDigitFirstTF.topAnchor.constraint(equalTo: labelOTPReceived.bottomAnchor, constant: 15).isActive = true
+//        otpDigitSecondTF.topAnchor.constraint(equalTo: labelOTPReceived.bottomAnchor, constant: 15).isActive = true
+//        otpDigitThirdTF.topAnchor.constraint(equalTo: labelOTPReceived.bottomAnchor, constant: 15).isActive = true
+//        otpDigitFourthTF.topAnchor.constraint(equalTo: labelOTPReceived.bottomAnchor, constant: 15).isActive = true
+//
+//        otpDigitFirstTF.heightAnchor.constraint(equalToConstant: 50).isActive = true
+//        otpDigitSecondTF.heightAnchor.constraint(equalToConstant: 50).isActive = true
+//        otpDigitThirdTF.heightAnchor.constraint(equalToConstant: 50).isActive = true
+//        otpDigitFourthTF.heightAnchor.constraint(equalToConstant: 50).isActive = true
+//
         
         
     }
