@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07AB84162152126C0029479A /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 07AB84122152126B0029479A /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
+		07AB84172152126C0029479A /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07AB84142152126C0029479A /* TPKeyboardAvoidingScrollView.m */; };
+		07AB841921521F940029479A /* loginButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 07AB841821521F930029479A /* loginButtonBackground.png */; };
 		BF2358EA214FD0AC00C73BE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2358E9214FD0AC00C73BE3 /* AppDelegate.swift */; };
 		BF2358EC214FD0AC00C73BE3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2358EB214FD0AC00C73BE3 /* ViewController.swift */; };
 		BF2358EF214FD0AC00C73BE3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF2358ED214FD0AC00C73BE3 /* Main.storyboard */; };
@@ -21,6 +24,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		07AB84112152126A0029479A /* chocoed-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "chocoed-Bridging-Header.h"; sourceTree = "<group>"; };
+		07AB84122152126B0029479A /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+TPKeyboardAvoidingAdditions.m"; path = "../../Downloads/UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
+		07AB84132152126C0029479A /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
+		07AB84142152126C0029479A /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
+		07AB84152152126C0029479A /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+TPKeyboardAvoidingAdditions.h"; path = "../../Downloads/UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
+		07AB841821521F930029479A /* loginButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loginButtonBackground.png; sourceTree = "<group>"; };
 		BF2358E6214FD0AC00C73BE3 /* chocoed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chocoed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF2358E9214FD0AC00C73BE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF2358EB214FD0AC00C73BE3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -69,7 +78,6 @@
 				BF2358E9214FD0AC00C73BE3 /* AppDelegate.swift */,
 				BF2358EB214FD0AC00C73BE3 /* ViewController.swift */,
 				BF2358ED214FD0AC00C73BE3 /* Main.storyboard */,
-				BF2358F0214FD0AE00C73BE3 /* Assets.xcassets */,
 				BF2358F2214FD0AE00C73BE3 /* LaunchScreen.storyboard */,
 				BF2358F5214FD0AE00C73BE3 /* Info.plist */,
 				BF2CBBDF2150C4D400E13EA5 /* LoginViewController.swift */,
@@ -78,6 +86,13 @@
 				BF2CBBE72150DCE400E13EA5 /* NewWorkExperienceVC.swift */,
 				BF2CBBE92150F31400E13EA5 /* EducationUIView.swift */,
 				BF2CBBEB2150F6C100E13EA5 /* SignUpViewController.swift */,
+				07AB84132152126C0029479A /* TPKeyboardAvoidingScrollView.h */,
+				07AB84142152126C0029479A /* TPKeyboardAvoidingScrollView.m */,
+				07AB84152152126C0029479A /* UIScrollView+TPKeyboardAvoidingAdditions.h */,
+				07AB84122152126B0029479A /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
+				BF2358F0214FD0AE00C73BE3 /* Assets.xcassets */,
+				07AB841821521F930029479A /* loginButtonBackground.png */,
+				07AB84112152126A0029479A /* chocoed-Bridging-Header.h */,
 			);
 			path = chocoed;
 			sourceTree = "<group>";
@@ -114,7 +129,7 @@
 				TargetAttributes = {
 					BF2358E5214FD0AC00C73BE3 = {
 						CreatedOnToolsVersion = 9.4.1;
-						LastSwiftMigration = 0940;
+						LastSwiftMigration = 0930;
 					};
 				};
 			};
@@ -142,6 +157,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF2358F4214FD0AE00C73BE3 /* LaunchScreen.storyboard in Resources */,
+				07AB841921521F940029479A /* loginButtonBackground.png in Resources */,
 				BF2358F1214FD0AE00C73BE3 /* Assets.xcassets in Resources */,
 				BF2358EF214FD0AC00C73BE3 /* Main.storyboard in Resources */,
 			);
@@ -155,9 +171,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF2CBBEA2150F31400E13EA5 /* EducationUIView.swift in Sources */,
+				07AB84172152126C0029479A /* TPKeyboardAvoidingScrollView.m in Sources */,
 				BF2CBBE82150DCE400E13EA5 /* NewWorkExperienceVC.swift in Sources */,
 				BF2CBBEC2150F6C100E13EA5 /* SignUpViewController.swift in Sources */,
 				BF2CBBE02150C4D400E13EA5 /* LoginViewController.swift in Sources */,
+				07AB84162152126C0029479A /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				BF2358EC214FD0AC00C73BE3 /* ViewController.swift in Sources */,
 				BF2358EA214FD0AC00C73BE3 /* AppDelegate.swift in Sources */,
 				BF2CBBE62150DC8800E13EA5 /* NewEducationExperienceVC.swift in Sources */,
@@ -307,13 +325,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3RU39A7L86;
+				DEVELOPMENT_TEAM = DAKPPCYSL8;
 				INFOPLIST_FILE = chocoed/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = barkha.com.chocoed;
+				PRODUCT_BUNDLE_IDENTIFIER = barkha.com.chocoed.tejal1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "chocoed/chocoed-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -328,13 +347,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3RU39A7L86;
+				DEVELOPMENT_TEAM = DAKPPCYSL8;
 				INFOPLIST_FILE = chocoed/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = barkha.com.chocoed;
+				PRODUCT_BUNDLE_IDENTIFIER = barkha.com.chocoed.tejal1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "chocoed/chocoed-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
