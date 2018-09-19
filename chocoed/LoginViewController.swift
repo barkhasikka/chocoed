@@ -56,32 +56,38 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
     func ConstraintsofUI()
     {
         imageViewMessage.translatesAutoresizingMaskIntoConstraints = false
-        imageViewMessage.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        imageViewMessage.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        imageViewMessage.topAnchor.constraint(equalTo: view.topAnchor, constant: 50).isActive = true
+        imageViewMessage.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        imageViewMessage.widthAnchor.constraint(equalToConstant: 70).isActive = true
+        imageViewMessage.topAnchor.constraint(equalTo: view.topAnchor, constant: 70).isActive = true
         imageViewMessage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         labelInstruct.translatesAutoresizingMaskIntoConstraints = false
         labelInstruct.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        labelInstruct.topAnchor.constraint(equalTo: imageViewMessage.bottomAnchor, constant: 20).isActive = true
+        labelInstruct.topAnchor.constraint(equalTo: imageViewMessage.bottomAnchor, constant: 15).isActive = true
         labelInstruct.heightAnchor.constraint(equalToConstant: 50).isActive =  true
+        labelInstruct.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
+        labelInstruct.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
+
         
         labelMobileNo.translatesAutoresizingMaskIntoConstraints = false
-        labelMobileNo.bottomAnchor.constraint(equalTo: mobileNumberTextFIeld.bottomAnchor, constant: 10).isActive = true
-        labelMobileNo.leadingAnchor.constraint(equalTo: view.trailingAnchor, constant: 16).isActive = true
-        labelMobileNo.trailingAnchor.constraint(equalTo: view.leadingAnchor, constant: -16).isActive = true
-
+        labelMobileNo.topAnchor.constraint(equalTo: labelInstruct.bottomAnchor, constant: 5).isActive = true
+       //labelMobileNo.topAnchor.constraint(equalTo: mobileNumberTextFIeld.topAnchor, constant: 5).isActive = true
+        labelMobileNo.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
+        labelMobileNo.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
+        labelMobileNo.heightAnchor.constraint(equalToConstant: 20)
         mobileNumberTextFIeld.translatesAutoresizingMaskIntoConstraints = false
         mobileNumberTextFIeld.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
         mobileNumberTextFIeld.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
         mobileNumberTextFIeld.topAnchor.constraint(equalTo: labelMobileNo.bottomAnchor, constant: 5).isActive = true
+        mobileNumberTextFIeld.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -30).isActive = true
+
+        mobileNumberTextFIeld.heightAnchor.constraint(equalToConstant: 40).isActive = true
         mobileNumberTextFIeld.setBottomBorder()
         otpDigitFirstTF.setBottomBorder()
         otpDigitSecondTF.setBottomBorder()
         otpDigitThirdTF.setBottomBorder()
         otpDigitFourthTF.setBottomBorder()
-        mobileNumberTextFIeld.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 50).isActive = true
-
+        
 
         sendOTPButton.translatesAutoresizingMaskIntoConstraints = false
         sendOTPButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 250).isActive = true
@@ -124,6 +130,13 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         otpDigitThirdTF.topAnchor.constraint(equalTo: labelOTPReceived.bottomAnchor, constant: 15).isActive = true
         otpDigitFourthTF.topAnchor.constraint(equalTo: labelOTPReceived.bottomAnchor, constant: 15).isActive = true
         
+        otpDigitFirstTF.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        otpDigitSecondTF.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        otpDigitThirdTF.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        otpDigitFourthTF.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+
+        
     }
     
     
@@ -131,7 +144,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         
         let charsLimit = 10
         
-        let startingLength = mobileNumberTextFIeld.text?.count ?? 0
+        let startingLength = textField.text?.count ?? 0
         let lengthToAdd = string.count
         let lengthToReplace =  range.length
         let newLength = startingLength + lengthToAdd - lengthToReplace
