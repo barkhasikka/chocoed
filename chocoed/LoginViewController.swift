@@ -120,6 +120,11 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         otpDigitThirdTF.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36).isActive = true
         otpDigitFourthTF.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 46).isActive = true
         
+        otpDigitFirstTF.trailingAnchor.constraint(equalTo: view.leadingAnchor, constant: -200).isActive = true
+        otpDigitSecondTF.trailingAnchor.constraint(equalTo: view.leadingAnchor, constant: -160).isActive = true
+        otpDigitThirdTF.trailingAnchor.constraint(equalTo: view.leadingAnchor, constant: -120).isActive = true
+        otpDigitFourthTF.trailingAnchor.constraint(equalTo: view.leadingAnchor, constant: -80).isActive = true
+        
         otpDigitFirstTF.widthAnchor.constraint(equalToConstant: 40).isActive = true
         otpDigitSecondTF.widthAnchor.constraint(equalToConstant: 40).isActive = true
         otpDigitThirdTF.widthAnchor.constraint(equalToConstant: 40).isActive = true
@@ -135,7 +140,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         otpDigitThirdTF.heightAnchor.constraint(equalToConstant: 50).isActive = true
         otpDigitFourthTF.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
-
+        
         
     }
     
