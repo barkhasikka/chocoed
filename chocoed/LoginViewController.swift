@@ -26,7 +26,12 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         ConstraintsofUI()
+        otpDigitFirstTF.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControlEvents.editingChanged)
+        otpDigitSecondTF.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControlEvents.editingChanged)
+        otpDigitThirdTF.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControlEvents.editingChanged)
+        otpDigitFourthTF.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControlEvents.editingChanged)
         
+        self.hideKeyboardWhenTappedAround()
         // Do any additional setup after loading the view.
     }
 
@@ -35,6 +40,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         // Dispose of any resources that can be recreated.
     }
     
+   
     @IBAction func sendOTPButtonAction(_ sender: Any) {
         
         
@@ -50,8 +56,8 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
     func ConstraintsofUI()
     {
         imageViewMessage.translatesAutoresizingMaskIntoConstraints = false
-        imageViewMessage.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        imageViewMessage.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        imageViewMessage.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        imageViewMessage.widthAnchor.constraint(equalToConstant: 60).isActive = true
         imageViewMessage.topAnchor.constraint(equalTo: view.topAnchor, constant: 50).isActive = true
         imageViewMessage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
@@ -138,6 +144,43 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         otpDigitFirstTF.becomeFirstResponder()
     }
     
-    
+    @objc func textFieldDidChange(textField: UITextField) {
+        let text = textField.text
+        if text?.utf16.count == 1
+        {
+            switch textField{
+            case otpDigitFirstTF:
+                otpDigitSecondTF.becomeFirstResponder()
+                
+            case otpDigitSecondTF:
+                otpDigitThirdTF.becomeFirstResponder()
+            
+            case otpDigitThirdTF :
+                otpDigitFourthTF.becomeFirstResponder()
+                
+            case otpDigitFourthTF :
+                otpDigitFourthTF.resignFirstResponder()
+            default:
+                print("default case")
+                break
+            }
+        }
+        else
+        {
+            
+        }
+    }
 
+   
+}
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
