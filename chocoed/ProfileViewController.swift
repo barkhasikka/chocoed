@@ -11,6 +11,7 @@ import YPImagePicker
 
 class ProfileViewController: UIViewController,UITextFieldDelegate {
 
+    @IBOutlet weak var popUpView: UIView!
     @IBOutlet weak var ButtonChoose: UIButton!
     @IBOutlet weak var imageviewCircle: UIImageView!
     @IBOutlet weak var submitButton: UIButton!
@@ -42,12 +43,15 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         labelMobileno.isHidden = true
         
         self.hideKeyboardWhenTappedAround()
-        
+        self.popUpView.isHidden = true
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         imageviewCircle.isUserInteractionEnabled = true
         imageviewCircle.addGestureRecognizer(tapGestureRecognizer)
        }
 
+    @IBAction func CloseAction(_ sender: Any) {
+        self.popUpView.isHidden = true
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -59,6 +63,8 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         //let tappedImage = tapGestureRecognizer.view as! UIImageView
         print("Please select image")
         // Your action
+        
+        popUpView.isHidden = false
     }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
