@@ -8,15 +8,21 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+    @IBOutlet weak var viewTable: UIView!
+    @IBOutlet weak var tableViewLanguage: UITableView!
     @IBOutlet weak var imageViewChocoed: UIImageView!
     @IBOutlet weak var labelChoice: UILabel!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
+    
+    let arrayLanguages = ["English","Hindi हिंदी","Gujarati ગુજરાતી","Marathi मराठी ","Tamil  தமிழ்","Telugu తెలుగు","Kannada ಕನ್ನಡ","Konkani","Malayalam മലയാളം","Bengali বাঙালি","Oriya ଓଡ଼ିଆ"]
     override func viewDidLoad() {
         super.viewDidLoad()
         constraintsOFUI()
+        self.viewTable.isHidden = true
+        
+        self.tableViewLanguage.isHidden = true
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -31,8 +37,11 @@ class ViewController: UIViewController {
     }
     
     @IBAction func signUpButtonAction(_ sender: Any) {
-        let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "signup") as! SignUpViewController
-        self.present(nextViewController, animated:true, completion:nil)
+        self.viewTable.isHidden = false
+        self.tableViewLanguage.isHidden = false
+        
+//        let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "signup") as! SignUpViewController
+//        self.present(nextViewController, animated:true, completion:nil)
     }
     
     func constraintsOFUI()
@@ -70,8 +79,17 @@ class ViewController: UIViewController {
         signUpButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
         signUpButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 30).isActive = true
         signUpButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+      return arrayLanguages.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! LanguageTableViewCell
         
- 
+        cell.labelLanguage.text = arrayLanguages[indexPath.row]
+        return cell
     }
 }
 
