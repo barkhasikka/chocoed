@@ -108,7 +108,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     
     
     @IBAction func submitButtonAction(_ sender: Any){
-        let vcEduProf = storyboard?.instantiateViewController(withIdentifier: "") as! NewEducationExperienceVC
+        let vcEduProf = storyboard?.instantiateViewController(withIdentifier: "signup") as! SignUpViewController
         
         self.present(vcEduProf, animated: true, completion: nil)
     }
