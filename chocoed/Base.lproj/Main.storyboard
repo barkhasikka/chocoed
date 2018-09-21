@@ -292,7 +292,6 @@
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KDe-lO-gfR">
                                         <rect key="frame" x="40" y="252" width="60" height="60"/>
-                                        <color key="backgroundColor" name="systemOrangeColor" catalog="System" colorSpace="catalog"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose any Avatar" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xF-OX-0NN">
                                         <rect key="frame" x="100" y="198" width="143" height="20"/>
@@ -305,7 +304,6 @@
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kOT-42-N4b">
                                         <rect key="frame" x="141" y="252" width="60" height="60"/>
-                                        <color key="backgroundColor" red="0.15686274510000001" green="0.19215686269999999" blue="0.65490196079999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="B6J-XH-FUE"/>
                                             <constraint firstAttribute="width" constant="60" id="ljh-gH-uoU"/>
@@ -314,15 +312,12 @@
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PhH-QB-Asw">
                                         <rect key="frame" x="242" y="252" width="60" height="60"/>
-                                        <color key="backgroundColor" red="0.35078869979999999" green="0.69693543290000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nFk-GY-nJz">
                                         <rect key="frame" x="40" y="341" width="60" height="60"/>
-                                        <color key="backgroundColor" red="0.35078869979999999" green="0.69693543290000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iTG-oB-te2">
                                         <rect key="frame" x="141" y="341" width="60" height="60"/>
-                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="SKQ-Xp-B5i"/>
                                             <constraint firstAttribute="width" constant="60" id="ope-gD-rEb"/>
@@ -331,7 +326,6 @@
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YPH-X7-hxy">
                                         <rect key="frame" x="242" y="341" width="60" height="60"/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qwc-Re-tUv">
                                         <rect key="frame" x="152" y="426" width="39" height="30"/>
@@ -426,6 +420,12 @@
                     <navigationItem key="navigationItem" title="Create Profile" id="wNe-Kx-CK6"/>
                     <connections>
                         <outlet property="ButtonChoose" destination="jVt-9N-c10" id="lJe-ZS-fRJ"/>
+                        <outlet property="imageView1" destination="KDe-lO-gfR" id="7af-fw-k9Y"/>
+                        <outlet property="imageView2" destination="kOT-42-N4b" id="TLB-KI-rLk"/>
+                        <outlet property="imageView3" destination="PhH-QB-Asw" id="2tD-V2-Sly"/>
+                        <outlet property="imageView4" destination="nFk-GY-nJz" id="alR-C3-8Il"/>
+                        <outlet property="imageView5" destination="iTG-oB-te2" id="dDq-ML-hJn"/>
+                        <outlet property="imageView6" destination="YPH-X7-hxy" id="g4r-Qc-0cw"/>
                         <outlet property="imageviewCircle" destination="4AE-DU-FlL" id="5Bo-GC-14D"/>
                         <outlet property="labelEmailId" destination="ZH3-0D-OnC" id="EH4-yQ-8Wr"/>
                         <outlet property="labelFirstName" destination="Hea-Rl-gNm" id="CtE-r4-fJB"/>

@@ -11,6 +11,12 @@ import YPImagePicker
 
 class ProfileViewController: UIViewController,UITextFieldDelegate {
 
+    @IBOutlet weak var imageView6: UIImageView!
+    @IBOutlet weak var imageView5: UIImageView!
+    @IBOutlet weak var imageView4: UIImageView!
+    @IBOutlet weak var imageView3: UIImageView!
+    @IBOutlet weak var imageView2: UIImageView!
+    @IBOutlet weak var imageView1: UIImageView!
     @IBOutlet weak var popUpView: UIView!
     @IBOutlet weak var ButtonChoose: UIButton!
     @IBOutlet weak var imageviewCircle: UIImageView!
@@ -47,6 +53,13 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         imageviewCircle.isUserInteractionEnabled = true
         imageviewCircle.addGestureRecognizer(tapGestureRecognizer)
+        imageView1.image = UIImage(named: "avatar_1")
+        imageView2.image = UIImage(named: "avatar_2")
+        imageView3.image = UIImage(named: "avatar_3")
+        imageView4.image = UIImage(named: "avatar_4")
+        imageView5.image = UIImage(named: "avatar_5")
+        imageView6.image = UIImage(named: "avatar_6")
+        
        }
 
     @IBAction func CloseAction(_ sender: Any) {
@@ -58,8 +71,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     }
     
 
-    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
-    {
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer){
         //let tappedImage = tapGestureRecognizer.view as! UIImageView
         print("Please select image")
         // Your action
@@ -85,8 +97,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         labelMobileno.isHidden = false
         }
     }
-    func imageviewCircular()
-    {
+    func imageviewCircular(){
         let image = UIImage(named: "no_image")
         imageviewCircle.layer.borderWidth = 1.0
         imageviewCircle.layer.masksToBounds = false
@@ -94,7 +105,9 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         imageviewCircle.layer.cornerRadius = (image?.size.width)! / 3.2
         imageviewCircle.clipsToBounds = true
     }
-    @IBAction func submitButtonAction(_ sender: Any) {
+    
+    
+    @IBAction func submitButtonAction(_ sender: Any){
         
         
     }
@@ -102,6 +115,9 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     
 
 }
+
+
+
 
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
