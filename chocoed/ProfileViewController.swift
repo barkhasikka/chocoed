@@ -108,6 +108,10 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     
     
     @IBAction func submitButtonAction(_ sender: Any){
+       
+        let params = ["userId":"\()", "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
+        let response = MakeHttpPostRequest(url: getUserInfo, params: params)
+        print(response)
         let vcEduProf = storyboard?.instantiateViewController(withIdentifier: "signup") as! SignUpViewController
         
         self.present(vcEduProf, animated: true, completion: nil)
