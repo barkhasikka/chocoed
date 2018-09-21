@@ -25,6 +25,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
     @IBOutlet weak var labelOTPReceived: UILabel!
     
     var button: UIButton!
+    var otpFromServer: Int = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,95 +68,19 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
     }
     
     @IBAction func registerButtonAction(_ sender: Any) {
-        let vcGetStarted = storyboard?.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
-        
-        self.present(vcGetStarted, animated: true, completion: nil)
+        var userEnteredOTPText = otpDigitFirstTF.text! + otpDigitSecondTF.text! + otpDigitThirdTF.text! + otpDigitFourthTF.text!
+        let userEnteredOTP = Int(userEnteredOTPText)
+        if userEnteredOTP == otpFromServer {
+            let vcGetStarted = storyboard?.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
+            
+            self.present(vcGetStarted, animated: true, completion: nil)
+        }else {
+            let alertcontrol = UIAlertController(title: "alert!", message: "Login Failed! Please check your OTP again.", preferredStyle: .alert)
+            let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertcontrol.addAction(alertaction)
+            self.present(alertcontrol, animated: true, completion: nil)
+        }
     }
-    
-    func ConstraintsofUI()
-    {
-        imageViewMessage.translatesAutoresizingMaskIntoConstraints = false
-        imageViewMessage.heightAnchor.constraint(equalToConstant: 55).isActive = true
-        imageViewMessage.widthAnchor.constraint(equalToConstant: 70).isActive = true
-        imageViewMessage.topAnchor.constraint(equalTo: view.topAnchor, constant: 120).isActive = true
-        imageViewMessage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-        labelInstruct.translatesAutoresizingMaskIntoConstraints = false
-        labelInstruct.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        labelInstruct.topAnchor.constraint(equalTo: imageViewMessage.bottomAnchor, constant: 15).isActive = true
-        labelInstruct.heightAnchor.constraint(equalToConstant: 50).isActive =  true
-        labelInstruct.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
-        labelInstruct.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
-
-        
-        labelMobileNo.translatesAutoresizingMaskIntoConstraints = false
-       // labelMobileNo.topAnchor.constraint(equalTo: labelInstruct.bottomAnchor, constant: 5).isActive = true
-       //labelMobileNo.topAnchor.constraint(equalTo: mobileNumberTextFIeld.topAnchor, constant: 5).isActive = true
-        labelMobileNo.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
-        labelMobileNo.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
-        labelMobileNo.heightAnchor.constraint(equalToConstant: 20)
-//        mobileNumberTextFIeld.translatesAutoresizingMaskIntoConstraints = false
-//        mobileNumberTextFIeld.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
-//        mobileNumberTextFIeld.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
-//        mobileNumberTextFIeld.topAnchor.constraint(equalTo: labelMobileNo.bottomAnchor, constant: 5).isActive = true
-//        mobileNumberTextFIeld.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -30).isActive = true
-//        mobileNumberTextFIeld.heightAnchor.constraint(equalToConstant: 40).isActive = true
-//       
-        sendOTPButton.translatesAutoresizingMaskIntoConstraints = false
-        sendOTPButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 250).isActive = true
-        sendOTPButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
-        sendOTPButton.topAnchor.constraint(equalTo: mobileNumberTextFIeld.bottomAnchor, constant: 5).isActive =  true
-        sendOTPButton.widthAnchor.constraint(equalToConstant: 60).isActive =  true
-
-        labelOTPReceived.translatesAutoresizingMaskIntoConstraints = false
-        labelOTPReceived.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
-        labelOTPReceived.topAnchor.constraint(equalTo: mobileNumberTextFIeld.bottomAnchor , constant: 30).isActive = true
-
-        registerButton.translatesAutoresizingMaskIntoConstraints = false
-        registerButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive =  true
-        registerButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        registerButton.topAnchor.constraint(equalTo: labelOTPReceived.bottomAnchor, constant: 100).isActive = true
-        registerButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive =  true
-        registerButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
-        registerButton.layer.cornerRadius = 20
-        registerButton.clipsToBounds = true
-        registerButton.layer.borderWidth = 1
-        registerButton.layer.borderColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
-        
-//        otpDigitFirstTF.translatesAutoresizingMaskIntoConstraints =  false
-//        otpDigitSecondTF.translatesAutoresizingMaskIntoConstraints =  false
-//        otpDigitThirdTF.translatesAutoresizingMaskIntoConstraints =  false
-//        otpDigitFourthTF.translatesAutoresizingMaskIntoConstraints =  false
-//
-//        otpDigitFirstTF.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25).isActive = true
-//        otpDigitSecondTF.leadingAnchor.constraint(equalTo: otpDigitFirstTF.leadingAnchor, constant: 25).isActive = true
-//        otpDigitThirdTF.leadingAnchor.constraint(equalTo: otpDigitSecondTF.leadingAnchor, constant: 25).isActive = true
-//        otpDigitFourthTF.leadingAnchor.constraint(equalTo: otpDigitThirdTF.leadingAnchor, constant: 25).isActive = true
-//
-//        otpDigitFirstTF.trailingAnchor.constraint(equalTo: view.leadingAnchor, constant: -300).isActive = true
-//        otpDigitSecondTF.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -240).isActive = true
-//        otpDigitThirdTF.trailingAnchor.constraint(equalTo: view.leadingAnchor, constant: -180).isActive = true
-//        otpDigitFourthTF.trailingAnchor.constraint(equalTo: view.leadingAnchor, constant: -120).isActive = true
-//
-//        otpDigitFirstTF.widthAnchor.constraint(equalToConstant: 40).isActive = true
-//        otpDigitSecondTF.widthAnchor.constraint(equalToConstant: 40).isActive = true
-//        otpDigitThirdTF.widthAnchor.constraint(equalToConstant: 40).isActive = true
-//        otpDigitFourthTF.widthAnchor.constraint(equalToConstant: 40).isActive = true
-////
-//        otpDigitFirstTF.topAnchor.constraint(equalTo: labelOTPReceived.bottomAnchor, constant: 15).isActive = true
-//        otpDigitSecondTF.topAnchor.constraint(equalTo: labelOTPReceived.bottomAnchor, constant: 15).isActive = true
-//        otpDigitThirdTF.topAnchor.constraint(equalTo: labelOTPReceived.bottomAnchor, constant: 15).isActive = true
-//        otpDigitFourthTF.topAnchor.constraint(equalTo: labelOTPReceived.bottomAnchor, constant: 15).isActive = true
-//
-//        otpDigitFirstTF.heightAnchor.constraint(equalToConstant: 50).isActive = true
-//        otpDigitSecondTF.heightAnchor.constraint(equalToConstant: 50).isActive = true
-//        otpDigitThirdTF.heightAnchor.constraint(equalToConstant: 50).isActive = true
-//        otpDigitFourthTF.heightAnchor.constraint(equalToConstant: 50).isActive = true
-//
-        
-        
-    }
-    
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
@@ -206,6 +131,9 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         let params = ["phone":"\(mobileNumberTextFIeld.text!)", "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
         let response = MakeHttpPostRequest(url: sendOtpApiURL, params: params)
         print(response)
+        let userID = response.object(forKey: "userId") as? Int ?? 0
+        otpFromServer = response.object(forKey: "otp") as? Int ?? 0
+        UserDefaults.standard.set(userID , forKey: "userid")
     }
     
     
