@@ -190,5 +190,89 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         }
     }
 
+    func sendOTPAPI()
+    {
+        let url = NSURL(string: "\(sendOtpApiURL)")
+        
+        //create the session object
+        let session = URLSession.shared
+        
+        //now create the NSMutableRequest object using the url object
+        let request = NSMutableURLRequest(url: url! as URL)
+        let params = ["phone":"\(mobileNumberTextFIeld.text!)"] as Dictionary<String, String>
+        
+        let parameters = ["method" : "MobileApiServices.Register","params" :  [params],"id": 1] as Dictionary<String, AnyObject>
+        request.httpMethod = "POST" //set http method as POST
+        
+        do {
+            let data1 =  try JSONSerialization.data(withJSONObject: parameters, options: JSONSerialization.WritingOptions.prettyPrinted) // first of all convert json to the data
+            print("DATA ONE", data1)
+            let convertedString = String(data: data1, encoding: String.Encoding.utf8) // the data will be converted to the string
+            print("CONVERTED STRING----", convertedString!)
+            request.httpBody = convertedString?.data(using: String.Encoding.utf8)
+            // pass dictionary to nsdata object and set it as request body
+            
+        } catch let error {
+            print("error in serialization==",error.localizedDescription)
+        }
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
+            guard error == nil else {
+                print("error in the request", error ?? "")
+                DispatchQueue.main.async(execute: {
+                    let alertcontrol = UIAlertController(title: "alert!", message: error?.localizedDescription, preferredStyle: .alert)
+                    let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alertcontrol.addAction(alertaction)
+                    self.present(alertcontrol, animated: true, completion: nil)
+                })
+                return
+            }
+            
+            guard let data = data else {
+                print("something is wrong")
+                DispatchQueue.main.async(execute: {
+                    let alertcontrol = UIAlertController(title: "alert!", message: "AppId not found", preferredStyle: .alert)
+                    let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    
+                    alertcontrol.addAction(alertaction)
+                    self.present(alertcontrol, animated: true, completion: nil)
+                })
+                return
+            }
+            if let httpResponse = response as? HTTPURLResponse {
+                let statusCode = httpResponse.statusCode
+                // do whatever with the status code
+                print(statusCode)
+            }
+            
+            do {
+                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject] {
+                    print(json)
+                    
+                    let jsonobject = json["result"] as? NSDictionary
+                    let appid = jsonobject?.object(forKey: "AppID") as? String ?? ""
+                    
+                    print(appid)
+                    UserDefaults.standard.set("\(appid)", forKey: "APPID")
+                    DispatchQueue.main.async(execute: {
+                        let viewcontrollerMain = self.storyboard?.instantiateViewController(withIdentifier: "tabbar")
+                        self.present(viewcontrollerMain!, animated: true, completion: nil)
+                    })
+                }
+            } catch let error {
+                print(error.localizedDescription)
+                DispatchQueue.main.async(execute: {
+                    let alertcontrol = UIAlertController(title: "alert!", message: error.localizedDescription, preferredStyle: .alert)
+                    let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    
+                    alertcontrol.addAction(alertaction)
+                    self.present(alertcontrol, animated: true, completion: nil)
+                })
+            }
+        }
+        task.resume()
+    }
+    
 }
 
