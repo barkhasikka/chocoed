@@ -11,11 +11,9 @@ import UIKit
 class SignUpViewController: UIViewController {
 
     @IBOutlet weak var educationUIView: UIView!
-    @IBOutlet weak var workUIView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
         educationUIView.isHidden = false
-        workUIView.isHidden = true
         // Do any additional setup after loading the view.
     }
 
@@ -26,12 +24,14 @@ class SignUpViewController: UIViewController {
     
     @IBAction func educationButtonAction(_ sender: Any) {
         educationUIView.isHidden = false
-        workUIView.isHidden = true
-    }
+        let vcNewEdu = storyboard?.instantiateViewController(withIdentifier: "neweducation") as! NewEducationExperienceVC
+        
+        self.present(vcNewEdu, animated: true, completion: nil)
+        
+       }
     
     @IBAction func workButtonAction(_ sender: Any) {
         educationUIView.isHidden = true
-        workUIView.isHidden = false
     }
     
     
@@ -43,6 +43,12 @@ class SignUpViewController: UIViewController {
     @IBAction func addNewEducationAction(_ sender: Any) {
         let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "neweducation") as! NewEducationExperienceVC
         self.present(nextViewController, animated:true, completion:nil)
+    }
+    @IBAction func nextButtonAction(_ sender: Any) {
+        let vcnext = storyboard?.instantiateViewController(withIdentifier: "work") as! WorkExpClickedViewController
+        
+        self.present(vcnext, animated: true, completion: nil)
+        
     }
     /*
     // MARK: - Navigation
