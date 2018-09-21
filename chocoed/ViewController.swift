@@ -36,6 +36,10 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.present(nextViewController, animated:true, completion:nil)
     }
     
+    @IBAction func cancelButton(_ sender: Any) {
+        viewTable.isHidden = true
+        
+    }
     @IBAction func signUpButtonAction(_ sender: Any) {
         self.viewTable.isHidden = false
         self.tableViewLanguage.isHidden = false
