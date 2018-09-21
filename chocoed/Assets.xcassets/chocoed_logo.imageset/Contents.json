@@ -2,15 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Screen Shot 2018-09-18 at 11.07.51 AM.png",
+      "filename" : "chocoed_logo.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "chocoed_logo-1.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "chocoed_logo-2.png",
       "scale" : "3x"
     }
   ],
