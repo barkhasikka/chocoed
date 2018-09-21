@@ -23,9 +23,23 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
     
     @IBOutlet weak var otpDigitFourthTF: UITextField!
     @IBOutlet weak var labelOTPReceived: UILabel!
+    
+    var button: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        ConstraintsofUI()
+        button = UIButton()
+        button.setTitle("Return", for: UIControlState())
+        button.setTitleColor(UIColor.black, for: UIControlState())
+        button.frame = CGRect(x: 0, y: 163, width: 106, height: 53)
+        button.adjustsImageWhenHighlighted = false
+        button.addTarget(self, action: #selector(self.sendOTPAPI), for: UIControlEvents.touchUpInside)
+        
+        self.addDoneButtonOnKeyboard()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+//        ConstraintsofUI()
         mobileNumberTextFIeld.setBottomBorder()
         otpDigitFirstTF.setBottomBorder()
         otpDigitSecondTF.setBottomBorder()
@@ -49,9 +63,6 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
     
    
     @IBAction func sendOTPButtonAction(_ sender: Any) {
-        
-        
-        
         
     }
     
@@ -160,7 +171,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        otpDigitFirstTF.becomeFirstResponder()
+//        otpDigitFirstTF.becomeFirstResponder()
     }
     
     @objc func textFieldDidChange(textField: UITextField) {
@@ -190,89 +201,48 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         }
     }
 
-    func sendOTPAPI()
-    {
-        let url = NSURL(string: "\(sendOtpApiURL)")
-        
-        //create the session object
-        let session = URLSession.shared
-        
-        //now create the NSMutableRequest object using the url object
-        let request = NSMutableURLRequest(url: url! as URL)
-        let params = ["phone":"\(mobileNumberTextFIeld.text!)"] as Dictionary<String, String>
-        
-        let parameters = ["method" : "MobileApiServices.Register","params" :  [params],"id": 1] as Dictionary<String, AnyObject>
-        request.httpMethod = "POST" //set http method as POST
-        
-        do {
-            let data1 =  try JSONSerialization.data(withJSONObject: parameters, options: JSONSerialization.WritingOptions.prettyPrinted) // first of all convert json to the data
-            print("DATA ONE", data1)
-            let convertedString = String(data: data1, encoding: String.Encoding.utf8) // the data will be converted to the string
-            print("CONVERTED STRING----", convertedString!)
-            request.httpBody = convertedString?.data(using: String.Encoding.utf8)
-            // pass dictionary to nsdata object and set it as request body
-            
-        } catch let error {
-            print("error in serialization==",error.localizedDescription)
-        }
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
-            guard error == nil else {
-                print("error in the request", error ?? "")
-                DispatchQueue.main.async(execute: {
-                    let alertcontrol = UIAlertController(title: "alert!", message: error?.localizedDescription, preferredStyle: .alert)
-                    let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alertcontrol.addAction(alertaction)
-                    self.present(alertcontrol, animated: true, completion: nil)
-                })
-                return
-            }
-            
-            guard let data = data else {
-                print("something is wrong")
-                DispatchQueue.main.async(execute: {
-                    let alertcontrol = UIAlertController(title: "alert!", message: "AppId not found", preferredStyle: .alert)
-                    let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    
-                    alertcontrol.addAction(alertaction)
-                    self.present(alertcontrol, animated: true, completion: nil)
-                })
-                return
-            }
-            if let httpResponse = response as? HTTPURLResponse {
-                let statusCode = httpResponse.statusCode
-                // do whatever with the status code
-                print(statusCode)
-            }
-            
-            do {
-                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject] {
-                    print(json)
-                    
-                    let jsonobject = json["result"] as? NSDictionary
-                    let appid = jsonobject?.object(forKey: "AppID") as? String ?? ""
-                    
-                    print(appid)
-                    UserDefaults.standard.set("\(appid)", forKey: "APPID")
-                    DispatchQueue.main.async(execute: {
-                        let viewcontrollerMain = self.storyboard?.instantiateViewController(withIdentifier: "tabbar")
-                        self.present(viewcontrollerMain!, animated: true, completion: nil)
-                    })
-                }
-            } catch let error {
-                print(error.localizedDescription)
-                DispatchQueue.main.async(execute: {
-                    let alertcontrol = UIAlertController(title: "alert!", message: error.localizedDescription, preferredStyle: .alert)
-                    let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    
-                    alertcontrol.addAction(alertaction)
-                    self.present(alertcontrol, animated: true, completion: nil)
-                })
-            }
-        }
-        task.resume()
+    @objc
+    func sendOTPAPI() {
+        let params = ["phone":"\(mobileNumberTextFIeld.text!)", "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
+        let response = MakeHttpPostRequest(url: sendOtpApiURL, params: params)
+        print(response)
     }
     
+    
+    func addDoneButtonOnKeyboard() {
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        doneToolbar.barStyle = UIBarStyle.default
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(self.sendOTPAPI))
+        
+        var items = [UIBarButtonItem]()
+        items.append(flexSpace)
+        items.append(done)
+        
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        self.mobileNumberTextFIeld.inputAccessoryView = doneToolbar
+        
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        let viewHeight = self.view.frame.height
+         print("value of y is-----", viewHeight, view.safeAreaInsets.bottom)
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0{
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0{
+                self.view.frame.origin.y += keyboardSize.height
+            }
+        }
+    }
 }
 
