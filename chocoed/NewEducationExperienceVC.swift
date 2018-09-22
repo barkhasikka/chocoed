@@ -26,14 +26,14 @@ class NewEducationExperienceVC: UIViewController, UIPickerViewDelegate, UIPicker
         //        let vcEduProf = storyboard?.instantiateViewController(withIdentifier: "signup") as!
         //
         
-        let url = NSURL(string: "\(getUserInfo)")
+        let url = NSURL(string: "\(userDropDown)")
         
         //create the session object
         let session = URLSession.shared
         
         //now create the NSMutableRequest object using the url object
         let request = NSMutableURLRequest(url: url! as URL)
-        request.httpMethod = "GET"
+        request.httpMethod = "POST"
         let params = ["access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
         
         do {
