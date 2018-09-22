@@ -8,8 +8,7 @@
 
 import Foundation
 
-func MakeHttpPostRequest(url: String, params: Dictionary<String, String>) ->  NSDictionary {
-    var jsonobject: NSDictionary!
+func MakeHttpPostRequest(url: String, params: Dictionary<String, String>, completion: @escaping ((_ success: Bool, _ response: NSDictionary) -> Void))  {
     
     let url = NSURL(string: url)
     let request = NSMutableURLRequest(url: url! as URL)
@@ -43,13 +42,14 @@ func MakeHttpPostRequest(url: String, params: Dictionary<String, String>) ->  NS
         
         do {
             if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject] {
-                jsonobject = json["result"] as? NSDictionary
+               let jsonobject = json as? NSDictionary
+                completion( true, jsonobject!)
             }
         } catch let error {
             print(error.localizedDescription)
         }
     }
     task.resume()
-    return jsonobject
+    return
 }
 
