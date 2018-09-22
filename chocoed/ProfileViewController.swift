@@ -60,6 +60,8 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         imageView5.image = UIImage(named: "avatar_5")
         imageView6.image = UIImage(named: "avatar_6")
         
+        GetUserInfo()
+        
        }
 
     @IBAction func CloseAction(_ sender: Any) {
@@ -105,84 +107,91 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         imageviewCircle.layer.cornerRadius = (image?.size.width)! / 3.2
         imageviewCircle.clipsToBounds = true
     }
+   
+    func GetUserInfo()
+    {
+        let userID = UserDefaults.standard.integer(forKey: "userid")
+        //
+        //        let params = ["userId":"\(userID)", "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
+        //        let response = MakeHttpPostRequest(url: getUserInfo, params: params)
+        //        print(response)
+        //        let vcEduProf = storyboard?.instantiateViewController(withIdentifier: "signup") as! SignUpViewController
+        //
+        
+        let url = NSURL(string: "\(getUserInfo)")
+        
+        //create the session object
+        let session = URLSession.shared
+        
+        //now create the NSMutableRequest object using the url object
+        let request = NSMutableURLRequest(url: url! as URL)
+        request.httpMethod = "GET"
+        let params = ["userId": "\(userID)",  "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
+        
+        do {
+            let httpBody =  try JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions.prettyPrinted)
+            let httpBodyString = String(data: httpBody, encoding: String.Encoding.utf8)
+            request.httpBody = httpBodyString?.data(using: String.Encoding.utf8)
+            
+        } catch let error {
+            print("error in serialization==",error.localizedDescription)
+        }
+        
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
+            guard error == nil else {
+                print("error in the request", error ?? "")
+                DispatchQueue.main.async(execute: {
+                    let alertcontrol = UIAlertController(title: "alert!", message: error?.localizedDescription, preferredStyle: .alert)
+                    let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alertcontrol.addAction(alertaction)
+                    self.present(alertcontrol, animated: true, completion: nil)
+                })
+                return
+            }
+            
+            guard let data = data else {
+                print("something is wrong")
+                DispatchQueue.main.async(execute: {
+                    let alertcontrol = UIAlertController(title: "alert!", message: "AppId not found", preferredStyle: .alert)
+                    let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    
+                    alertcontrol.addAction(alertaction)
+                    self.present(alertcontrol, animated: true, completion: nil)
+                })
+                return
+            }
+            if let httpResponse = response as? HTTPURLResponse {
+                let statusCode = httpResponse.statusCode
+                // do whatever with the status code
+                print(statusCode)
+            }
+            
+            do {
+                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject] {
+                    print(json)
+                    
+                    //                    let jsonobject = json[""] as? NSDictionary
+                    //                    let temp = jsonobject?.object(forKey: "userID") as? String ?? ""
+                    //
+                    //                    print(temp)
+                }
+            }catch let error {
+                print(error.localizedDescription)
+            }
+        }
+        task.resume()
+    }
+    
     
     
     @IBAction func submitButtonAction(_ sender: Any){
-        let userID = UserDefaults.standard.integer(forKey: "userid")
-//
-//        let params = ["userId":"\(userID)", "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
-//        let response = MakeHttpPostRequest(url: getUserInfo, params: params)
-//        print(response)
-//        let vcEduProf = storyboard?.instantiateViewController(withIdentifier: "signup") as! SignUpViewController
-//
-            let url = URL(string: "\(getUserInfo)")
-            
-            var request = URLRequest(url: url!)
-            
-            request.httpMethod = "GET"
-            
-            let session = URLSession.shared
-            
-            let task = session.dataTask(with: request) {(data : Data?, response : URLResponse?,error : Error?) in
-                
-                if error == nil
-                {
-                    print("unable to fetch")
-                    
-                }
-                
-                do
-                {
-                    let rootdictionary = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
-                    print(rootdictionary)
-                    
-//                    let rootarray = rootdictionary.object(forKey: "listEvent") as! NSArray
-//
-//                    for item in rootarray
-//                    {
-//
-//                        let obj = item as! NSDictionary
-//                        let temp = NGOEventDetails()
-//                        temp.eventid = obj.object(forKey: "EventID") as? Int
-//
-//                        temp.eventname = obj.object(forKey: "EventName") as? String ?? ""
-//
-//
-//                        temp.amountraised = obj.object(forKey: "AmountToBeRaised") as? String ?? ""
-//                        temp.category = obj.object(forKey: "Category") as? String ?? ""
-//                        temp.decription = obj.object(forKey: "Description") as? String ?? ""
-//                        temp.startdate = obj.object(forKey: "StartDate") as? String ?? ""
-//                        temp.enddate = obj.object(forKey: "EndDate") as? String ?? ""
-//                        temp.milestone = (obj.object(forKey: "Milestone") as? NSArray ?? [])
-//
-                    
-                        //                do {
-                        //                    if let data = data,
-                        //                        let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
-                        //                        let blogs = json["blxogs"] as? [[String: Any]] {
-                        //                        for blog in blogs {
-                        //                            if let name = blog["name"] as? String {
-                        //                                names.append(name)
-                        //                            }
-                        //                        }
-                        //                    }
-                        //                } catch {
-                        //                    print("Error deserializing JSON: \(error)")
-                        //                }
-                        //
-                        //                print(names)
-                        //
-                    
-                }
-            }
-            
-            task.resume()
-        }
+     
+    }
+
 }
-
-
-
-
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
