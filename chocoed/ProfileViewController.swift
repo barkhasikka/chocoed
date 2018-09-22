@@ -104,12 +104,13 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         imageviewCircle.layer.borderWidth = 1.0
         imageviewCircle.layer.masksToBounds = false
         imageviewCircle.layer.borderColor = UIColor.white.cgColor
-        imageviewCircle.layer.cornerRadius = (image?.size.width)! / 3.2
+        print(imageviewCircle.frame.width, "width is here", imageviewCircle.frame.height)
+        imageviewCircle.layer.cornerRadius = imageviewCircle.frame.width / 2
         imageviewCircle.clipsToBounds = true
+        imageviewCircle.image = image
     }
    
-    func GetUserInfo()
-    {
+    func GetUserInfo() {
         let userID = UserDefaults.standard.integer(forKey: "userid")
         //
         //        let params = ["userId":"\(userID)", "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
