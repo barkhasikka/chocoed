@@ -8,12 +8,14 @@
 
 import UIKit
 
-class NewWorkExperienceVC: UIViewController {
+class NewWorkExperienceVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
+    
 
     @IBOutlet weak var tableViewFromButton: UITableView!
     @IBOutlet weak var fromButtonView: UIView!
     @IBOutlet weak var fromButton: UIButton!
     @IBOutlet weak var textFieldCompany: UITextField!
+    var arrayOfValues = ["1990","1991","1992","1993","1994","1995","1996"]
     override func viewDidLoad() {
         super.viewDidLoad()
         fromButtonView.isHidden = true
@@ -29,14 +31,23 @@ class NewWorkExperienceVC: UIViewController {
         
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func toButtonAction(_ sender: Any) {
+        
+        
     }
-    */
-
+    @IBAction func ManagementLevelButtonAction(_ sender: Any) {
+        
+        
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return arrayOfValues.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellwork") as! WorkExpTableViewCell
+        let titlename = arrayOfValues[indexPath .row]
+        cell.value.text = titlename
+        return cell
+    }
 }

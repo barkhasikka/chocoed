@@ -1,17 +1,16 @@
 //
-//  LanguageTableViewCell.swift
+//  WorkExpTableViewCell.swift
 //  chocoed
 //
-//  Created by Tejal on 21/09/18.
+//  Created by Tejal on 22/09/18.
 //  Copyright © 2018 barkha sikka. All rights reserved.
 //
 
 import UIKit
 
-class LanguageTableViewCell: UITableViewCell {
+class WorkExpTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var radioButton: DLRadioButton!
-    @IBOutlet weak var labelLanguage: UILabel!
+    @IBOutlet weak var value: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -23,5 +22,4 @@ class LanguageTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    
 }
