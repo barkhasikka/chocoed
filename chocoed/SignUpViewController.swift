@@ -50,6 +50,8 @@ class SignUpViewController: UIViewController {
         self.present(vcnext, animated: true, completion: nil)
         
     }
+    
+    
     /*
     // MARK: - Navigation
 
