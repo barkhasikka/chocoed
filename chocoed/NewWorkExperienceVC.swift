@@ -10,10 +10,13 @@ import UIKit
 
 class NewWorkExperienceVC: UIViewController {
 
+    @IBOutlet weak var tableViewFromButton: UITableView!
+    @IBOutlet weak var fromButtonView: UIView!
+    @IBOutlet weak var fromButton: UIButton!
+    @IBOutlet weak var textFieldCompany: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        fromButtonView.isHidden = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,7 +24,11 @@ class NewWorkExperienceVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    @IBAction func fromButtonAction(_ sender: Any) {
+        fromButtonView.isHidden = false
+        
+    }
+    
     /*
     // MARK: - Navigation
 

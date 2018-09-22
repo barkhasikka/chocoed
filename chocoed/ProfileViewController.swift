@@ -29,6 +29,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var labelEmailId: UILabel!
     @IBOutlet weak var labelLastName: UILabel!
     @IBOutlet weak var labelFirstName: UILabel!
+    var fetchedvalueProfile = ModelProfileClass()
     override func viewDidLoad() {
         super.viewDidLoad()
         submitButton.layer.cornerRadius = 20
@@ -61,7 +62,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         imageView6.image = UIImage(named: "avatar_6")
         
         GetUserInfo()
-        
+       
        }
 
     @IBAction func CloseAction(_ sender: Any) {
@@ -173,19 +174,19 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject] {
                     print(json)
                     
-                   let jsonobject = json["info"] as? NSDictionary
-                    
-      //              let rootarray = jsonobject?.object(forKey: "email") as? String ?? ""
-                    
-//                    for item in rootarray
-//                    {
-                    
-//                        let obj = item as! NSDictionary
-//                        let temp = NGOEventDetails()
-//                        temp.eventid = obj.object(forKey: "EventID") as? Int
-//
-//                        temp.eventname = obj.object(forKey: "EventName") as? String ?? ""
-                //    }
+                    let jsonobject = json["info"] as? NSDictionary;
+                    print("====",jsonobject)
+                    let temp = ModelProfileClass()
+                    temp.firstName = jsonobject?.object(forKey: "firstName") as? String ?? ""
+                    temp.lastName = jsonobject?.object(forKey: "lastName") as? String ?? ""
+                    temp.email = jsonobject?.object(forKey: "email") as? String ?? ""
+                    temp.mobile = jsonobject?.object(forKey: "mobile") as? String ?? ""
+                    DispatchQueue.main.async(execute: {
+                    self.textfieldFirstName.text = temp.firstName
+                    self.textfieldLastName.text = temp.lastName
+                    self.textfieldEmailId.text = temp.email
+                    self.textfieldMobileNo.text = temp.mobile
+                    })
                     }
             }catch let error {
                 print(error.localizedDescription)
