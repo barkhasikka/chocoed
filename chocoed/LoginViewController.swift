@@ -20,7 +20,8 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
     @IBOutlet weak var otpDigitFirstTF: UITextField!
     @IBOutlet weak var otpDigitSecondTF: UITextField!
     @IBOutlet weak var otpDigitThirdTF: UITextField!
-    
+    @IBOutlet weak var otpDigitSixthTF: UITextField!
+    @IBOutlet weak var otpDigitFifthTF: UITextField!
     @IBOutlet weak var otpDigitFourthTF: UITextField!
     @IBOutlet weak var labelOTPReceived: UILabel!
     
@@ -38,20 +39,25 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         
         self.addDoneButtonOnKeyboard()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-//        ConstraintsofUI()
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+////        ConstraintsofUI()
         mobileNumberTextFIeld.setBottomBorder()
         otpDigitFirstTF.setBottomBorder()
         otpDigitSecondTF.setBottomBorder()
         otpDigitThirdTF.setBottomBorder()
         otpDigitFourthTF.setBottomBorder()
+        otpDigitFifthTF.setBottomBorder()
+        otpDigitSixthTF.setBottomBorder()
+        
         
 
         otpDigitFirstTF.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControlEvents.editingChanged)
         otpDigitSecondTF.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControlEvents.editingChanged)
         otpDigitThirdTF.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControlEvents.editingChanged)
         otpDigitFourthTF.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControlEvents.editingChanged)
+        otpDigitFifthTF.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControlEvents.editingChanged)
+        otpDigitSixthTF.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControlEvents.editingChanged)
         
         self.hideKeyboardWhenTappedAround()
         // Do any additional setup after loading the view.
@@ -68,7 +74,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
     }
     
     @IBAction func registerButtonAction(_ sender: Any) {
-        var userEnteredOTPText = otpDigitFirstTF.text! + otpDigitSecondTF.text! + otpDigitThirdTF.text! + otpDigitFourthTF.text!
+        var userEnteredOTPText = otpDigitFirstTF.text! + otpDigitSecondTF.text! + otpDigitThirdTF.text! + otpDigitFourthTF.text! + otpDigitFifthTF.text! + otpDigitSixthTF.text!
         let userEnteredOTP = Int(userEnteredOTPText)
         if userEnteredOTP == otpFromServer {
             let vcGetStarted = storyboard?.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
@@ -101,8 +107,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
     
     @objc func textFieldDidChange(textField: UITextField) {
         let text = textField.text
-        if text?.utf16.count == 1
-        {
+        if text?.utf16.count == 1 {
             switch textField{
             case otpDigitFirstTF:
                 otpDigitSecondTF.becomeFirstResponder()
@@ -114,15 +119,17 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
                 otpDigitFourthTF.becomeFirstResponder()
                 
             case otpDigitFourthTF :
+                otpDigitFifthTF.becomeFirstResponder()
+                
+            case otpDigitFifthTF :
+                otpDigitSixthTF.becomeFirstResponder()
+                
+            case otpDigitSixthTF :
                 otpDigitFourthTF.resignFirstResponder()
             default:
                 print("default case")
                 break
             }
-        }
-        else
-        {
-            
         }
     }
 
@@ -155,22 +162,22 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         
     }
     
-    @objc func keyboardWillShow(notification: NSNotification) {
-        let viewHeight = self.view.frame.height
-         print("value of y is-----", viewHeight, view.safeAreaInsets.bottom)
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0{
-                self.view.frame.origin.y -= keyboardSize.height
-            }
-        }
-    }
-    
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y != 0{
-                self.view.frame.origin.y += keyboardSize.height
-            }
-        }
-    }
+//    @objc func keyboardWillShow(notification: NSNotification) {
+//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+//            print("Value of yyy in show", self.view.frame.origin.y)
+//            if self.view.frame.origin.y == 0{
+//                self.view.frame.origin.y -= keyboardSize.height
+//            }
+//        }
+//    }
+//
+//    @objc func keyboardWillHide(notification: NSNotification) {
+//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+//            print("Value of yyy in hide", self.view.frame.origin.y)
+//            if self.view.frame.origin.y != 0{
+//                self.view.frame.origin.y += keyboardSize.height
+//            }
+//        }
+//    }
 }
 
