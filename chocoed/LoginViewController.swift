@@ -136,11 +136,12 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
     @objc
     func sendOTPAPI() {
         let params = ["phone":"\(mobileNumberTextFIeld.text!)", "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
-        let response = MakeHttpPostRequest(url: sendOtpApiURL, params: params)
-        print(response)
-        let userID = response.object(forKey: "userId") as? Int ?? 0
-        otpFromServer = response.object(forKey: "otp") as? Int ?? 0
-        UserDefaults.standard.set(userID , forKey: "userid")
+        MakeHttpPostRequest(url: sendOtpApiURL, params: params, completion: {(success, response) -> Void in
+            print(response)
+            let userID = response.object(forKey: "userId") as? Int ?? 0
+            self.otpFromServer = response.object(forKey: "otp") as? Int ?? 0
+            UserDefaults.standard.set(userID , forKey: "userid")
+        })
     }
     
     
