@@ -109,17 +109,75 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     
     @IBAction func submitButtonAction(_ sender: Any){
         let userID = UserDefaults.standard.integer(forKey: "userid")
-
-        let params = ["userId":"\(userID)", "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
-        let response = MakeHttpPostRequest(url: getUserInfo, params: params)
-        print(response)
-        let vcEduProf = storyboard?.instantiateViewController(withIdentifier: "signup") as! SignUpViewController
-        
-        self.present(vcEduProf, animated: true, completion: nil)
-    }
-    
-    
-
+//
+//        let params = ["userId":"\(userID)", "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
+//        let response = MakeHttpPostRequest(url: getUserInfo, params: params)
+//        print(response)
+//        let vcEduProf = storyboard?.instantiateViewController(withIdentifier: "signup") as! SignUpViewController
+//
+            let url = URL(string: "\(getUserInfo)")
+            
+            var request = URLRequest(url: url!)
+            
+            request.httpMethod = "GET"
+            
+            let session = URLSession.shared
+            
+            let task = session.dataTask(with: request) {(data : Data?, response : URLResponse?,error : Error?) in
+                
+                if error == nil
+                {
+                    print("unable to fetch")
+                    
+                }
+                
+                do
+                {
+                    let rootdictionary = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
+                    print(rootdictionary)
+                    
+//                    let rootarray = rootdictionary.object(forKey: "listEvent") as! NSArray
+//
+//                    for item in rootarray
+//                    {
+//
+//                        let obj = item as! NSDictionary
+//                        let temp = NGOEventDetails()
+//                        temp.eventid = obj.object(forKey: "EventID") as? Int
+//
+//                        temp.eventname = obj.object(forKey: "EventName") as? String ?? ""
+//
+//
+//                        temp.amountraised = obj.object(forKey: "AmountToBeRaised") as? String ?? ""
+//                        temp.category = obj.object(forKey: "Category") as? String ?? ""
+//                        temp.decription = obj.object(forKey: "Description") as? String ?? ""
+//                        temp.startdate = obj.object(forKey: "StartDate") as? String ?? ""
+//                        temp.enddate = obj.object(forKey: "EndDate") as? String ?? ""
+//                        temp.milestone = (obj.object(forKey: "Milestone") as? NSArray ?? [])
+//
+                    
+                        //                do {
+                        //                    if let data = data,
+                        //                        let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+                        //                        let blogs = json["blxogs"] as? [[String: Any]] {
+                        //                        for blog in blogs {
+                        //                            if let name = blog["name"] as? String {
+                        //                                names.append(name)
+                        //                            }
+                        //                        }
+                        //                    }
+                        //                } catch {
+                        //                    print("Error deserializing JSON: \(error)")
+                        //                }
+                        //
+                        //                print(names)
+                        //
+                    
+                }
+            }
+            
+            task.resume()
+        }
 }
 
 
