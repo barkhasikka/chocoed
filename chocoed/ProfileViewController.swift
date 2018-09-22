@@ -125,8 +125,8 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         
         //now create the NSMutableRequest object using the url object
         let request = NSMutableURLRequest(url: url! as URL)
-        request.httpMethod = "GET"
-        let params = ["userId": "\(userID)",  "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
+        request.httpMethod = "POST"
+        let params = ["userId": "\(59)",  "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
         
         do {
             let httpBody =  try JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions.prettyPrinted)
@@ -173,11 +173,20 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject] {
                     print(json)
                     
-                    //                    let jsonobject = json[""] as? NSDictionary
-                    //                    let temp = jsonobject?.object(forKey: "userID") as? String ?? ""
-                    //
-                    //                    print(temp)
-                }
+                   let jsonobject = json["info"] as? NSDictionary
+                    
+      //              let rootarray = jsonobject?.object(forKey: "email") as? String ?? ""
+                    
+//                    for item in rootarray
+//                    {
+                    
+//                        let obj = item as! NSDictionary
+//                        let temp = NGOEventDetails()
+//                        temp.eventid = obj.object(forKey: "EventID") as? Int
+//
+//                        temp.eventname = obj.object(forKey: "EventName") as? String ?? ""
+                //    }
+                    }
             }catch let error {
                 print(error.localizedDescription)
             }

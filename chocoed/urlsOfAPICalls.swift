@@ -9,5 +9,5 @@
 import Foundation
 
 let sendOtpApiURL = "http://dev.chocoed.com/api/user/sendOtp"
-let getUserInfo = "http://chocoed.in/user/getUserInfo"
+let getUserInfo = "http://dev.chocoed.com/api/user/getUserInfo"
 let userDropDown = "http://dev.chocoed.com/api/user/getDropdownList"
