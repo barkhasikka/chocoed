@@ -11,6 +11,9 @@ import YPImagePicker
 
 class ProfileViewController: UIViewController,UITextFieldDelegate {
 
+    @IBOutlet weak var profileDataUIViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var profileDataUIViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var profileDataUIView: UIView!
     @IBOutlet weak var imageView6: UIImageView!
     @IBOutlet weak var imageView5: UIImageView!
     @IBOutlet weak var imageView4: UIImageView!
@@ -29,14 +32,19 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var labelEmailId: UILabel!
     @IBOutlet weak var labelLastName: UILabel!
     @IBOutlet weak var labelFirstName: UILabel!
+    
     var fetchedvalueProfile = ModelProfileClass()
+    var activeField: UITextField!
+    var keyboardHeight: CGFloat!
+    var lastOffset: CGFloat!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         submitButton.layer.cornerRadius = 20
         submitButton.clipsToBounds = true
         submitButton.layer.borderWidth = 1
         submitButton.layer.borderColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
-
+//        self.profileDataUIViewTopConstraint.constant = -100
         imageviewCircular()
         
         textfieldFirstName.setBottomBorder()
@@ -61,9 +69,11 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         imageView5.image = UIImage(named: "avatar_5")
         imageView6.image = UIImage(named: "avatar_6")
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
         GetUserInfo()
-       
-       }
+   }
 
     @IBAction func CloseAction(_ sender: Any) {
         self.popUpView.isHidden = true
@@ -80,6 +90,17 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         // Your action
         
         popUpView.isHidden = false
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        activeField = textField
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        activeField?.resignFirstResponder()
+        activeField = nil
+        return true
     }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -113,87 +134,27 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
    
     func GetUserInfo() {
         let userID = UserDefaults.standard.integer(forKey: "userid")
-        //
-        //        let params = ["userId":"\(userID)", "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
-        //        let response = MakeHttpPostRequest(url: getUserInfo, params: params)
-        //        print(response)
-        //        let vcEduProf = storyboard?.instantiateViewController(withIdentifier: "signup") as! SignUpViewController
-        //
-        
-        let url = NSURL(string: "\(getUserInfo)")
-        
-        //create the session object
-        let session = URLSession.shared
-        
-        //now create the NSMutableRequest object using the url object
-        let request = NSMutableURLRequest(url: url! as URL)
-        request.httpMethod = "POST"
-        let params = ["userId": "\(59)",  "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
-        
-        do {
-            let httpBody =  try JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions.prettyPrinted)
-            let httpBodyString = String(data: httpBody, encoding: String.Encoding.utf8)
-            request.httpBody = httpBodyString?.data(using: String.Encoding.utf8)
-            
-        } catch let error {
-            print("error in serialization==",error.localizedDescription)
-        }
-        
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-        let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
-            guard error == nil else {
-                print("error in the request", error ?? "")
-                DispatchQueue.main.async(execute: {
-                    let alertcontrol = UIAlertController(title: "alert!", message: error?.localizedDescription, preferredStyle: .alert)
-                    let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alertcontrol.addAction(alertaction)
-                    self.present(alertcontrol, animated: true, completion: nil)
-                })
-                return
-            }
-            
-            guard let data = data else {
-                print("something is wrong")
-                DispatchQueue.main.async(execute: {
-                    let alertcontrol = UIAlertController(title: "alert!", message: "AppId not found", preferredStyle: .alert)
-                    let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    
-                    alertcontrol.addAction(alertaction)
-                    self.present(alertcontrol, animated: true, completion: nil)
-                })
-                return
-            }
-            if let httpResponse = response as? HTTPURLResponse {
-                let statusCode = httpResponse.statusCode
-                // do whatever with the status code
-                print(statusCode)
-            }
-            
+        let params = ["userId": "\(userID)",  "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
+        MakeHttpPostRequest(url: getUserInfo, params: params, completion: {(success, response) in
             do {
-                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject] {
-                    print(json)
-                    
-                    let jsonobject = json["info"] as? NSDictionary;
-                    print("====",jsonobject)
-                    let temp = ModelProfileClass()
-                    temp.firstName = jsonobject?.object(forKey: "firstName") as? String ?? ""
-                    temp.lastName = jsonobject?.object(forKey: "lastName") as? String ?? ""
-                    temp.email = jsonobject?.object(forKey: "email") as? String ?? ""
-                    temp.mobile = jsonobject?.object(forKey: "mobile") as? String ?? ""
-                    DispatchQueue.main.async(execute: {
+                print(response ,"get profile info reply")
+                let jsonobject = response["info"] as? NSDictionary;
+                print("====",jsonobject)
+                let temp = ModelProfileClass()
+                temp.firstName = jsonobject?.object(forKey: "firstName") as? String ?? ""
+                temp.lastName = jsonobject?.object(forKey: "lastName") as? String ?? ""
+                temp.email = jsonobject?.object(forKey: "email") as? String ?? ""
+                temp.mobile = jsonobject?.object(forKey: "mobile") as? String ?? ""
+                DispatchQueue.main.async(execute: {
                     self.textfieldFirstName.text = temp.firstName
                     self.textfieldLastName.text = temp.lastName
                     self.textfieldEmailId.text = temp.email
                     self.textfieldMobileNo.text = temp.mobile
-                    })
-                    }
+                })
             }catch let error {
                 print(error.localizedDescription)
             }
-        }
-        task.resume()
+        })
     }
     
     
@@ -201,8 +162,56 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     @IBAction func submitButtonAction(_ sender: Any){
      
     }
+    
+    @objc
+    func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            keyboardHeight = keyboardSize.height
+            let keyBoardY = self.view.frame.height - keyboardHeight
+            print("Value of keyboard Y", keyBoardY)
+            print("Y of active field keyboard will show", (self.activeField?.frame.origin.y)! + (self.activeField?.frame.height)!)
+            
+            // so increase contentView's height by keyboard height
+            UIView.animate(withDuration: 0.3, animations: {
+//                self.profileDataUIViewHeightConstraint.constant += self.keyboardHeight
+            })
+            // move if keyboard hide input field
+//            let distanceToBottom = self.profileDataUIView.frame.size.height - (activeField?.frame.origin.y)! - (activeField?.frame.size.height)!
+//            let collapseSpace = keyboardHeight - distanceToBottom
+//            if collapseSpace < 0 {
+//                // no collapse
+//                return
+//            }
+//            // set new offset for scroll view
+//            UIView.animate(withDuration: 0.3, animations: {
+//                // scroll to the position above keyboard 10 points
+////                self.profileDataUIView.safeAreaInsets.bottom = CGPoint(x: self.lastOffset.x, y: collapseSpace + 10)
+//            })
+        }
+    }
+    
+    @objc
+    func keyboardWillHide(notification: NSNotification) {
+        UIView.animate(withDuration: 0.3) {
+            if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+                
+               let  keyboardHeight = keyboardSize.height
+                let keyBoardY = self.view.frame.height - keyboardHeight
+                print("Value of keyboard Y", keyBoardY)
+                let y = self.activeField?.frame.origin.y
+                let height = self.activeField?.frame.height
+                print("Y of active field", y! + height!)
+            }
+            
+//            self.profileDataUIViewHeightConstraint.constant -= self.keyboardHeight
+//            self.profileDataUIView.safeAreaInsets.bottom = self.lastOffset
+        }
+        keyboardHeight = nil
+    }
 
 }
+
+
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
