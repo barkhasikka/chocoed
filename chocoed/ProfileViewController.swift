@@ -32,6 +32,8 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var labelEmailId: UILabel!
     @IBOutlet weak var labelLastName: UILabel!
     @IBOutlet weak var labelFirstName: UILabel!
+    let picker = YPImagePicker()
+    
     
     var fetchedvalueProfile = ModelProfileClass()
     var activeField: UITextField!
@@ -83,6 +85,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    
 
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer){
         //let tappedImage = tapGestureRecognizer.view as! UIImageView
@@ -90,6 +93,16 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         // Your action
         
         popUpView.isHidden = false
+        
+        //code of YPImagePickerView
+        picker.didSelectImage = { [unowned picker] img in
+            // image picked
+            print(img.size)
+            self.imageviewCircle.image = img
+            picker.dismiss(animated: true, completion: nil)
+        }
+        present(picker, animated: true, completion: nil)
+
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
