@@ -15,13 +15,27 @@ class NewWorkExperienceVC: UIViewController,UITableViewDelegate,UITableViewDataS
     @IBOutlet weak var fromButtonView: UIView!
     @IBOutlet weak var fromButton: UIButton!
     @IBOutlet weak var textFieldCompany: UITextField!
-    var arrayOfValues = ["1990","1991","1992","1993","1994","1995","1996"]
+    var tableViewData =  [NewWorkExperienceTableView]()
+    var teamsHandled: NSArray = []
+    var levelOfManagement: NSArray = []
+    var functionalDepartmentList: NSArray = []
+    var industrySectorList: NSArray = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        fromButtonView.isHidden = true
+        
         let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
-        MakeHttpPostRequest(url: sendOtpApiURL, params: params, completion: {(success, response) -> Void in
-            print(response)
+        MakeHttpPostRequest(url: userDropDown, params: params, completion: {(success, response) -> Void in
+            self.levelOfManagement = response.object(forKey: "levelOfManagemet") as? NSArray ?? []
+            self.teamsHandled = response.object(forKey: "teamsHandledList") as? NSArray ?? []
+            self.functionalDepartmentList = response.object(forKey: "functionalDepartmentList") as? NSArray ?? []
+            self.industrySectorList = response.object(forKey: "industrySectorList") as? NSArray ?? []
+//            for teamHandledSize in teamsHandledResponse {
+//                self.teamsHandled.append(TeamsHandledAndLevelOfManagement(teamHandledSize as! NSDictionary))
+//            }
+            
+//            print(response.object(forKey: "industrySectorList"), "industry sector list")
+//            response.object(forKey: "functionalDepartmentList")
         })
     }
 
@@ -45,13 +59,13 @@ class NewWorkExperienceVC: UIViewController,UITableViewDelegate,UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrayOfValues.count
+        return teamsHandled.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellwork") as! WorkExpTableViewCell
-        let titlename = arrayOfValues[indexPath .row]
-        cell.value.text = titlename
+        let titlename = tableViewData[indexPath .row]
+        cell.value.text = titlename.title
         return cell
     }
 }
