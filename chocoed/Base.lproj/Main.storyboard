@@ -4,8 +4,9 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -79,7 +80,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lGj-5h-QzP" customClass="DLRadioButton">
-                                                            <rect key="frame" x="271" y="7.5" width="30" height="30"/>
+                                                            <rect key="frame" x="271" y="8" width="30" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="0D0-0U-gp3"/>
                                                                 <constraint firstAttribute="width" constant="30" id="OCi-hY-X7U"/>
@@ -1384,6 +1385,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xwH-f3-c5t">
                                                 <rect key="frame" x="8" y="465" width="359" height="30"/>
                                                 <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="EduMediumButtonAction:" destination="RSA-Rr-Pil" eventType="touchUpInside" id="BfJ-cs-zqN"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kok-is-sMh">
                                                 <rect key="frame" x="8" y="569" width="359" height="30"/>
@@ -1531,8 +1535,11 @@
                         <outlet property="buttonQualification" destination="PlO-so-8eC" id="1et-iT-mum"/>
                         <outlet property="buttonSpecification" destination="Kok-is-sMh" id="rkf-cU-lre"/>
                         <outlet property="buttonYearofpassing" destination="fvu-mv-i73" id="Et2-2T-fP3"/>
+                        <outlet property="eduMediumButton" destination="xwH-f3-c5t" id="IW4-MC-T86"/>
+                        <outlet property="eduTableView" destination="ftU-uc-HQA" id="yKN-ja-I5R"/>
                         <outlet property="textfieldBoardUniv" destination="Caq-iW-Zfg" id="UjN-vf-O7B"/>
                         <outlet property="textfieldClgName" destination="z1B-2p-1cT" id="5IT-hR-UA3"/>
+                        <outlet property="viewTableEdu" destination="k8H-Ce-rd3" id="2w2-uj-rv0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="knY-Of-BMy" userLabel="First Responder" sceneMemberID="firstResponder"/>
