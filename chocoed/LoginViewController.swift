@@ -169,7 +169,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         doneToolbar.sizeToFit()
         
         self.mobileNumberTextFIeld.inputAccessoryView = doneToolbar
-        
+        keyboardWillHide()
     }
     
 //    @objc func keyboardWillShow(notification: NSNotification) {

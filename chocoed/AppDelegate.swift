@@ -16,12 +16,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-//        let userID = UserDefaults.standard.string(forKey: "userId")
-//        if userID != nil {
-//            //is already logged in
-//        } else {
-//            //is not logged in
-//        }
+        let userID = UserDefaults.standard.string(forKey: "userId")
+        
+        
+        if userID != nil {
+            let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let centerVC = mainStoryBoard.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
+            window!.rootViewController = centerVC
+            window!.makeKeyAndVisible()
+            
+        } else {
+            
+            let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let centerVC = mainStoryBoard.instantiateViewController(withIdentifier: "") as! 
+            
+            window!.rootViewController = centerVC
+            window!.makeKeyAndVisible()
+          }
         return true
     }
 
