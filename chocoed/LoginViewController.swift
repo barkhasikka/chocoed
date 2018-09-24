@@ -141,15 +141,9 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
            let temp = ModelClassLoginId()
             
             temp.userId = response.value(forKey: "userId") as? String ?? ""
-            print(temp.userId)
             temp.otp = response.value(forKey: "otp") as? Int ?? 0
-            print(temp.otp)
-          //  let user = UserDefaults.standard.set(temp.userId, forKey: "userid")
-            
+            UserDefaults.standard.set(Int(temp.userId), forKey: "userid")
             self.otpFromServer = temp.otp
-            
-           // let user = UserDefaults.standard.set(temp.userId, forKey: "userid")
-           // print(user)
         })
     }
     
