@@ -15,7 +15,7 @@ struct NewWorkExperienceTableView {
     }
 }
 
-struct TeamsHandledAndLevelOfManagement {
+struct FieldsOfWork {
     var id: String
     var name: String
     init(_ dictionary: NSDictionary) {
