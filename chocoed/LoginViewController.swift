@@ -135,6 +135,9 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
 
     @objc
     func sendOTPAPI() {
+        //hide keyboard
+        self.view.endEditing(true)
+        
         let params = ["phone":"\(mobileNumberTextFIeld.text!)", "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
         MakeHttpPostRequest(url: sendOtpApiURL, params: params, completion: {(success, response) -> Void in
             print(response)
@@ -145,6 +148,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
             UserDefaults.standard.set(Int(temp.userId), forKey: "userid")
             self.otpFromServer = temp.otp
         })
+        
     }
     
     
@@ -163,7 +167,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         doneToolbar.sizeToFit()
         
         self.mobileNumberTextFIeld.inputAccessoryView = doneToolbar
-        keyboardWillHide()
+        
     }
     
 //    @objc func keyboardWillShow(notification: NSNotification) {

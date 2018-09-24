@@ -16,21 +16,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        let userID = UserDefaults.standard.string(forKey: "userId")
-        
-        
+        let userID = UserDefaults.standard.integer(forKey: "userid")
+        print(userID)
         if userID != nil {
             let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let centerVC = mainStoryBoard.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
-            window!.rootViewController = centerVC
+            let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
+            window!.rootViewController = startVC
             window!.makeKeyAndVisible()
             
         } else {
             
             let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let centerVC = mainStoryBoard.instantiateViewController(withIdentifier: "") as! 
-            
-            window!.rootViewController = centerVC
+            let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "firstview") as! ViewController
+                window!.rootViewController = startVC
             window!.makeKeyAndVisible()
           }
         return true
