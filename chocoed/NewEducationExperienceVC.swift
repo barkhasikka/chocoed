@@ -10,16 +10,18 @@ import UIKit
 
 class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
+    @IBOutlet weak var eduTableView: UITableView!
+    @IBOutlet weak var viewTableEdu: UIView!
     @IBOutlet weak var buttonQualification: UIButton!
     
     @IBOutlet weak var buttonLocation: UIButton!
     
     @IBOutlet weak var buttonYearofpassing: UIButton!
     
+    @IBOutlet weak var eduMediumButton: UIButton!
     @IBOutlet weak var textfieldClgName: UITextField!
     @IBOutlet weak var textfieldBoardUniv: UITextField!
     @IBOutlet weak var buttonSpecification: UIButton!
-    //var arrayvalues = ["19999","21354","2155","2146","1534"]
     
     var tableViewData =  [NewWorkExperienceTableView]()
     var educationLevel = [FieldsOfEducation]()
@@ -27,6 +29,14 @@ class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableView
     var stateList = [FieldsOfEducation]()
     var mediumOfEduList = [FieldsOfEducation]()
     var PassingYears: [NewWorkExperienceTableView] = [NewWorkExperienceTableView("1990"), NewWorkExperienceTableView("1991"), NewWorkExperienceTableView("1991")]
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        viewTableEdu.isHidden = true
+        getDropdownList()
+    }
+    
+    
     func getDropdownList(){
         let params = ["access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
         MakeHttpPostRequest(url: userDropDown , params: params, completion: {(success, response) -> Void in
@@ -65,9 +75,10 @@ class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableView
         cell.valueEdu.text = titlename.title
         return cell
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        self.viewTableEdu.isHidden = true
+
      }
 
 
@@ -77,16 +88,42 @@ class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableView
     }
 
     @IBAction func qualificationButtonAction(_ sender: Any) {
+        
+        viewTableEdu.isHidden = false
+        tableViewData =  [NewWorkExperienceTableView]()
+        for qualify in  self.educationLevel{
+            tableViewData.append(NewWorkExperienceTableView(qualify.name))
+        }
+        self.eduTableView.reloadData()
     }
     
     @IBAction func locationButtonAction(_ sender: Any) {
+        
+         }
+    @IBAction func EduMediumButtonAction(_ sender: Any) {
+        viewTableEdu.isHidden = false
+        tableViewData =  [NewWorkExperienceTableView]()
+        for medium in  self.mediumOfEduList {
+            tableViewData.append(NewWorkExperienceTableView(medium.name))
+        }
+        self.eduTableView.reloadData()
+        
     }
-    
+
     @IBAction func spectificationButtonAction(_ sender: Any) {
+        viewTableEdu.isHidden = false
+        tableViewData =  [NewWorkExperienceTableView]()
+        for specifications in  self.specializationList {
+            tableViewData.append(NewWorkExperienceTableView(specifications.name))
+        }
+        self.eduTableView.reloadData()
+        
     }
     @IBAction func YearOfPassingButtonAction(_ sender: Any) {
         
-        
+        viewTableEdu.isHidden = false
+        tableViewData = PassingYears
+        self.eduTableView.reloadData()
     }
     @IBAction func buttonSave(_ sender: Any) {
     }
