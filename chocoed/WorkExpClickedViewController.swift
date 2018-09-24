@@ -17,6 +17,7 @@ class WorkExpClickedViewController: UIViewController {
         MakeHttpPostRequest(url: getUserInfo, params: params, completion: {(success, response) in
             let jsonobject = response["info"] as? NSDictionary;
             print(jsonobject,"PLEASE CHECK THIS VALUE")
+            let workExperiences = response.object(forKey: "userWorkExperienceList") as? NSArray ?? []
         })
         // Do any additional setup after loading the view.
     }
