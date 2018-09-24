@@ -11,6 +11,7 @@ import YPImagePicker
 
 class ProfileViewController: UIViewController,UITextFieldDelegate {
 
+    @IBOutlet weak var imageIcon: UIImageView!
     @IBOutlet weak var profileDataUIViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var profileDataUIViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var profileDataUIView: UIView!
@@ -61,7 +62,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         
         self.hideKeyboardWhenTappedAround()
         self.popUpView.isHidden = true
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTappedPopup(tapGestureRecognizer:)))
         imageviewCircle.isUserInteractionEnabled = true
         imageviewCircle.addGestureRecognizer(tapGestureRecognizer)
         imageView1.image = UIImage(named: "avatar_1")
@@ -103,7 +104,31 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         }
         present(picker, animated: true, completion: nil)
 
+        self.popUpView.isHidden = true
     }
+    
+    
+    @objc func imageTappedPopup(tapGestureRecognizer: UITapGestureRecognizer){
+        //let tappedImage = tapGestureRecognizer.view as! UIImageView
+        print("Please select image")
+        self.popUpView.isHidden =  false
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        imageIcon.isUserInteractionEnabled = true
+        imageIcon.addGestureRecognizer(tapGestureRecognizer)
+        
+    }
+    
+    @objc func imageTappedAvatar1(tapGestureRecognizer: UITapGestureRecognizer){
+        //let tappedImage = tapGestureRecognizer.view as! UIImageView
+        print("Please select image")
+        
+        imageviewCircle.image = imageView1.image
+        self.popUpView.isHidden = true
+        // Your action
+    }
+    
+    
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         activeField = textField
