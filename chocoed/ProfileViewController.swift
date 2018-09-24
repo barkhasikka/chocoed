@@ -246,24 +246,20 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         print(userID, "USER ID IS HERE")
         let params = ["userId": "\(userID)",  "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
         MakeHttpPostRequest(url: getUserInfo, params: params, completion: {(success, response) in
-            do {
-                let jsonobject = response["info"] as? NSDictionary;
-                let temp = ModelProfileClass()
-                temp.firstName = jsonobject?.object(forKey: "firstName") as? String ?? ""
-                temp.lastName = jsonobject?.object(forKey: "lastName") as? String ?? ""
-                temp.email = jsonobject?.object(forKey: "email") as? String ?? ""
-                temp.mobile = jsonobject?.object(forKey: "mobile") as? String ?? ""
-                let clientId = jsonobject?.object(forKey: "clientId") as? String ?? ""
-                UserDefaults.standard.set(Int(clientId), forKey: "clientid")
-                DispatchQueue.main.async(execute: {
-                    self.textfieldFirstName.text = temp.firstName
-                    self.textfieldLastName.text = temp.lastName
-                    self.textfieldEmailId.text = temp.email
-                    self.textfieldMobileNo.text = temp.mobile
-                })
-            }catch let error {
-                print(error.localizedDescription)
-            }
+            let jsonobject = response["info"] as? NSDictionary;
+            let temp = ModelProfileClass()
+            temp.firstName = jsonobject?.object(forKey: "firstName") as? String ?? ""
+            temp.lastName = jsonobject?.object(forKey: "lastName") as? String ?? ""
+            temp.email = jsonobject?.object(forKey: "email") as? String ?? ""
+            temp.mobile = jsonobject?.object(forKey: "mobile") as? String ?? ""
+            let clientId = jsonobject?.object(forKey: "clientId") as? String ?? ""
+            UserDefaults.standard.set(Int(clientId), forKey: "clientid")
+            DispatchQueue.main.async(execute: {
+                self.textfieldFirstName.text = temp.firstName
+                self.textfieldLastName.text = temp.lastName
+                self.textfieldEmailId.text = temp.email
+                self.textfieldMobileNo.text = temp.mobile
+            })
         })
     }
 
@@ -284,14 +280,9 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
             let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea", "userId": "\(userID)", "clientId": "\(clientID)", "firstName": fName, "lastName": lName, "email" : emailId, "mobile" : mobileNo] as! Dictionary<String, String>
             MakeHttpPostRequest(url: updateUserInfoURL, params: params, completion: {(success, response) -> Void in
                 print(response, "UPDATE USER INFO RESPONSE")
-                var success = Int()
-                success = response.value(forKey: "status") as? Int ?? 2
-                print(success)
+                let vcGetStarted = self.storyboard?.instantiateViewController(withIdentifier: "signup") as! SignUpViewController
                 
-                if success == 0
-                {
-                    
-                }
+                self.present(vcGetStarted, animated: true, completion: nil)
             })
         }
     }

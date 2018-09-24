@@ -41,6 +41,10 @@ class WorkExpClickedViewController: UIViewController {
     }
     */
 
+@IBAction func nextButtonAction(_ sender: Any) {
+}
+    
+    
     @IBAction func addNewWorkAction(_ sender: Any) {
         print("add new work clicked")
         let vcGetStarted = storyboard?.instantiateViewController(withIdentifier: "newwork") as! NewWorkExperienceVC

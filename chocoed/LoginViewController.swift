@@ -165,23 +165,5 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         self.mobileNumberTextFIeld.inputAccessoryView = doneToolbar
         
     }
-    
-//    @objc func keyboardWillShow(notification: NSNotification) {
-//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-//            print("Value of yyy in show", self.view.frame.origin.y)
-//            if self.view.frame.origin.y == 0{
-//                self.view.frame.origin.y -= keyboardSize.height
-//            }
-//        }
-//    }
-//
-//    @objc func keyboardWillHide(notification: NSNotification) {
-//        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-//            print("Value of yyy in hide", self.view.frame.origin.y)
-//            if self.view.frame.origin.y != 0{
-//                self.view.frame.origin.y += keyboardSize.height
-//            }
-//        }
-//    }
 }
 
