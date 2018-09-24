@@ -11,3 +11,4 @@ import Foundation
 let sendOtpApiURL = "http://dev.chocoed.com/api/user/sendOtp"
 let getUserInfo = "http://dev.chocoed.com/api/user/getUserInfo"
 let userDropDown = "http://dev.chocoed.com/api/user/getDropdownList"
+let updateUserInfoURL = "http://dev.chocoed.com/api/user/updateUserInfo"

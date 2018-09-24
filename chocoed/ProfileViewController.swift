@@ -11,6 +11,7 @@ import YPImagePicker
 
 class ProfileViewController: UIViewController,UITextFieldDelegate {
 
+    @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var imageIcon: UIImageView!
     @IBOutlet weak var profileDataUIViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var profileDataUIViewHeightConstraint: NSLayoutConstraint!
@@ -24,11 +25,12 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var popUpView: UIView!
     @IBOutlet weak var ButtonChoose: UIButton!
     @IBOutlet weak var imageviewCircle: UIImageView!
-    @IBOutlet weak var submitButton: UIButton!
+    
     @IBOutlet weak var textfieldMobileNo: UITextField!
     @IBOutlet weak var textfieldEmailId: UITextField!
     @IBOutlet weak var textfieldLastName: UITextField!
     @IBOutlet weak var textfieldFirstName: UITextField!
+    
     @IBOutlet weak var labelMobileno: UILabel!
     @IBOutlet weak var labelEmailId: UILabel!
     @IBOutlet weak var labelLastName: UILabel!
@@ -241,7 +243,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
    
     func GetUserInfo() {
         let userID = UserDefaults.standard.integer(forKey: "userid")
-        print(userID)
+        print(userID, "USER ID IS HERE")
         let params = ["userId": "\(userID)",  "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
         MakeHttpPostRequest(url: getUserInfo, params: params, completion: {(success, response) in
             do {
@@ -264,11 +266,24 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
             }
         })
     }
-    
-    
-    
-    @IBAction func submitButtonAction(_ sender: Any){
-     
+
+    @IBAction func submitActionUIButton(_ sender: Any) {
+        let mobileNo = textfieldMobileNo.text!
+        let emailId = textfieldEmailId.text!
+        let lName = textfieldLastName.text!
+        let fName = textfieldFirstName.text!
+        let userID = UserDefaults.standard.string(forKey: "userId")
+        if mobileNo == "" || emailId == "" || lName == "" || fName == "" {
+            let alertcontrol = UIAlertController(title: "alert!", message: "Please fill all the mandatory fields.", preferredStyle: .alert)
+            let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertcontrol.addAction(alertaction)
+            self.present(alertcontrol, animated: true, completion: nil)
+        }else {
+            let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea", "userId": userID, "clientId": "", "firstName": fName, "lastName": lName, "email" : emailId, "mobile" : mobileNo] as! Dictionary<String, String>
+            MakeHttpPostRequest(url: updateUserInfoURL, params: params, completion: {(success, response) -> Void in
+                print(response)
+            })
+        }
     }
     
     @objc
