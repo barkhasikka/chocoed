@@ -9,5 +9,5 @@
 import Foundation
 class ModelClassLoginId{
 var userId : String!
-var otp : String!
+var otp : Int!
 }

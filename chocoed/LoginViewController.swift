@@ -26,7 +26,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
     @IBOutlet weak var labelOTPReceived: UILabel!
     
     var button: UIButton!
-    var otpFromServer: Int = -1
+    var otpFromServer = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -137,11 +137,19 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
     func sendOTPAPI() {
         let params = ["phone":"\(mobileNumberTextFIeld.text!)", "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
         MakeHttpPostRequest(url: sendOtpApiURL, params: params, completion: {(success, response) -> Void in
-           
-            print(response.value(forKey: "userId") as! Int, "check here")
-            let userID = response.value(forKey: "userId") as? Int ?? 0
-            self.otpFromServer = response.value(forKey: "otp") as? Int ?? 0
-            UserDefaults.standard.set(userID, forKey: "userid")
+            print(response)
+           let temp = ModelClassLoginId()
+            
+            temp.userId = response.value(forKey: "userId") as? String ?? ""
+            print(temp.userId)
+            temp.otp = response.value(forKey: "otp") as? Int ?? 0
+            print(temp.otp)
+          //  let user = UserDefaults.standard.set(temp.userId, forKey: "userid")
+            
+            self.otpFromServer = temp.otp
+            
+           // let user = UserDefaults.standard.set(temp.userId, forKey: "userid")
+           // print(user)
         })
     }
     

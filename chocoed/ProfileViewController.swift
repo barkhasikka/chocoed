@@ -244,7 +244,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     func GetUserInfo() {
         let userID = UserDefaults.standard.integer(forKey: "userid")
         print(userID, "USER ID IS HERE")
-        let params = ["userId": "\(userID)",  "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
+        let params = ["userId": "\(59)",  "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
         MakeHttpPostRequest(url: getUserInfo, params: params, completion: {(success, response) in
             do {
                 print(response ,"get profile info reply")
@@ -279,9 +279,17 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
             alertcontrol.addAction(alertaction)
             self.present(alertcontrol, animated: true, completion: nil)
         }else {
-            let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea", "userId": userID, "clientId": "", "firstName": fName, "lastName": lName, "email" : emailId, "mobile" : mobileNo] as! Dictionary<String, String>
+            let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea", "userId": "59", "clientId": "", "firstName": fName, "lastName": lName, "email" : emailId, "mobile" : mobileNo] as! Dictionary<String, String>
             MakeHttpPostRequest(url: updateUserInfoURL, params: params, completion: {(success, response) -> Void in
                 print(response)
+                var success = Int()
+                success = response.value(forKey: "status") as? Int ?? 2
+                print(success)
+                
+                if success == 0
+                {
+                    
+                }
             })
         }
     }
