@@ -9,8 +9,15 @@
 import UIKit
 
 class WorkExpClickedViewController: UIViewController {
+    
+    @IBOutlet weak var addnewWorkButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        addnewWorkButton.backgroundColor = .clear
+        addnewWorkButton.layer.cornerRadius = 20
+        addnewWorkButton.layer.borderWidth = 1
+        addnewWorkButton.layer.borderColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
         let userID = UserDefaults.standard.integer(forKey: "userid")
         print(userID, "USER ID IS HERE")
         let params = ["userId": "\(59)",  "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
