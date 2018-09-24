@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1sA-bv-2FE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iCy-0b-QQ4">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1020,12 +1019,16 @@
                                             <action selector="addNewEducationAction:" destination="1sA-bv-2FE" eventType="touchUpInside" id="1cx-6R-hOk"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L5q-JD-7Ke">
-                                        <rect key="frame" x="247" y="359" width="88" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L5q-JD-7Ke">
+                                        <rect key="frame" x="235" y="361.5" width="100" height="30"/>
                                         <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="77Y-bb-oHs"/>
                                             <constraint firstAttribute="height" constant="30" id="Gtv-hg-Rkr"/>
                                         </constraints>
-                                        <state key="normal" title="Next  →"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="NEXT  →">
+                                            <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <action selector="nextButtonAction:" destination="1sA-bv-2FE" eventType="touchUpInside" id="u5o-id-ODR"/>
                                         </connections>
@@ -1167,7 +1170,10 @@
                                                     <constraint firstAttribute="height" constant="30" id="5hO-jR-ol4"/>
                                                     <constraint firstAttribute="width" constant="100" id="Utq-Km-x7U"/>
                                                 </constraints>
-                                                <state key="normal" title="←    Prev"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <state key="normal" title="←    PREV">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="PreviousButtonAction:" destination="XNa-9F-wTc" eventType="touchUpInside" id="Axz-IP-zic"/>
                                                 </connections>
@@ -1178,7 +1184,10 @@
                                                     <constraint firstAttribute="height" constant="30" id="8fq-MP-g0R"/>
                                                     <constraint firstAttribute="width" constant="100" id="URA-4W-27e"/>
                                                 </constraints>
-                                                <state key="normal" title="Next    →"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <state key="normal" title="NEXT    →">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="nextButtonAction:" destination="XNa-9F-wTc" eventType="touchUpInside" id="bt2-uy-rxW"/>
                                                 </connections>
