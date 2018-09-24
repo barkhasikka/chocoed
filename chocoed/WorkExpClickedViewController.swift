@@ -9,13 +9,15 @@
 import UIKit
 
 class WorkExpClickedViewController: UIViewController {
-
-    @IBOutlet weak var addNewWorkUIButton: UIButton!
-    @IBOutlet weak var workButton: UIButton!
-    @IBOutlet weak var educationButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let userID = UserDefaults.standard.integer(forKey: "userid")
+        print(userID, "USER ID IS HERE")
+        let params = ["userId": "\(59)",  "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
+        MakeHttpPostRequest(url: getUserInfo, params: params, completion: {(success, response) in
+            let jsonobject = response["info"] as? NSDictionary;
+            print(jsonobject,"PLEASE CHECK THIS VALUE")
+        })
         // Do any additional setup after loading the view.
     }
 
