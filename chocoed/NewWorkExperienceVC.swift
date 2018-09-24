@@ -10,7 +10,12 @@ import UIKit
 
 class NewWorkExperienceVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
-
+    @IBOutlet weak var funcExpButton: UIButton!
+    @IBOutlet weak var currentIndustryButton: UIButton!
+    @IBOutlet weak var termsHandeledButton: UIButton!
+    @IBOutlet weak var toButton: UIButton!
+    
+    @IBOutlet weak var managementLevelButton: UIButton!
     @IBOutlet weak var tableViewFromButton: UITableView!
     @IBOutlet weak var fromButtonView: UIView!
     @IBOutlet weak var fromButton: UIButton!
@@ -58,14 +63,26 @@ class NewWorkExperienceVC: UIViewController,UITableViewDelegate,UITableViewDataS
         
     }
     
+    @IBAction func termsHandledAction(_ sender: Any) {
+    }
+    @IBAction func currentIndustryButtonAction(_ sender: Any) {
+    }
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return teamsHandled.count
     }
     
+    @IBAction func myFunctionalExpButtonAction(_ sender: Any) {
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellwork") as! WorkExpTableViewCell
         let titlename = tableViewData[indexPath .row]
         cell.value.text = titlename.title
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.fromButtonView.isHidden = true
     }
 }
