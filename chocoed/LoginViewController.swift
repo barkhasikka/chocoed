@@ -12,6 +12,9 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
 {
     @IBOutlet weak var labelMobileNo: UILabel!
     
+    @IBOutlet weak var otpReceivedLabel: UILabel!
+    @IBOutlet weak var receivedOTPUIView: UIView!
+    
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var sendOTPButton: UIButton!
     @IBOutlet weak var labelInstruct: UILabel!
@@ -30,6 +33,10 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        otpReceivedLabel.isHidden = true
+        receivedOTPUIView.isHidden = true
+        registerButton.isHidden = true
+        
         button = UIButton()
         button.setTitle("Return", for: UIControlState())
         button.setTitleColor(UIColor.black, for: UIControlState())
@@ -76,16 +83,16 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
     @IBAction func registerButtonAction(_ sender: Any) {
         var userEnteredOTPText = otpDigitFirstTF.text! + otpDigitSecondTF.text! + otpDigitThirdTF.text! + otpDigitFourthTF.text! + otpDigitFifthTF.text! + otpDigitSixthTF.text!
         let userEnteredOTP = Int(userEnteredOTPText)
-        if userEnteredOTP == otpFromServer {
+//        if userEnteredOTP == otpFromServer {
             let vcGetStarted = storyboard?.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
             
             self.present(vcGetStarted, animated: true, completion: nil)
-        }else {
-            let alertcontrol = UIAlertController(title: "alert!", message: "Login Failed! Please check your OTP again.", preferredStyle: .alert)
-            let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertcontrol.addAction(alertaction)
-            self.present(alertcontrol, animated: true, completion: nil)
-        }
+//        }else {
+//            let alertcontrol = UIAlertController(title: "alert!", message: "Login Failed! Please check your OTP again.", preferredStyle: .alert)
+//            let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
+//            alertcontrol.addAction(alertaction)
+//            self.present(alertcontrol, animated: true, completion: nil)
+//        }
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -141,7 +148,12 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         let params = ["phone":"\(mobileNumberTextFIeld.text!)", "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
         MakeHttpPostRequest(url: sendOtpApiURL, params: params, completion: {(success, response) -> Void in
             print(response)
-           let temp = ModelClassLoginId()
+            
+            self.otpReceivedLabel.isHidden = false
+            self.receivedOTPUIView.isHidden = false
+            self.registerButton.isHidden = false
+            
+            let temp = ModelClassLoginId()
             
             temp.userId = response.value(forKey: "userId") as? String ?? ""
             temp.otp = response.value(forKey: "otp") as? Int ?? 0
