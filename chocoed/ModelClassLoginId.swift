@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class ModelClassLoginId(){
+class ModelClassLoginId{
 var userId : String!
 var otp : String!
 }
