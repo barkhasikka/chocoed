@@ -33,6 +33,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var labelEmailId: UILabel!
     @IBOutlet weak var labelLastName: UILabel!
     @IBOutlet weak var labelFirstName: UILabel!
+    
     let picker = YPImagePicker()
     
     
@@ -65,12 +66,41 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTappedPopup(tapGestureRecognizer:)))
         imageviewCircle.isUserInteractionEnabled = true
         imageviewCircle.addGestureRecognizer(tapGestureRecognizer)
+        
         imageView1.image = UIImage(named: "avatar_1")
         imageView2.image = UIImage(named: "avatar_2")
         imageView3.image = UIImage(named: "avatar_3")
         imageView4.image = UIImage(named: "avatar_4")
         imageView5.image = UIImage(named: "avatar_5")
         imageView6.image = UIImage(named: "avatar_6")
+        
+        let tapGestureRecognizer1 = UITapGestureRecognizer(target: self, action: #selector(imageTappedAvatar1(tapGestureRecognizer:)))
+        imageView1.isUserInteractionEnabled = true
+        imageView1.addGestureRecognizer(tapGestureRecognizer1)
+    
+        
+        let tapGestureRecognizer2 = UITapGestureRecognizer(target: self, action: #selector(imageTappedAvatar2(tapGestureRecognizer:)))
+        imageView2.isUserInteractionEnabled = true
+        imageView2.addGestureRecognizer(tapGestureRecognizer2)
+        
+        let tapGestureRecognizer3 = UITapGestureRecognizer(target: self, action: #selector(imageTappedAvatar3(tapGestureRecognizer:)))
+        imageView3.isUserInteractionEnabled = true
+        imageView3.addGestureRecognizer(tapGestureRecognizer3)
+        
+        
+        let tapGestureRecognizer4 = UITapGestureRecognizer(target: self, action: #selector(imageTappedAvatar4(tapGestureRecognizer:)))
+        imageView4.isUserInteractionEnabled = true
+        imageView4.addGestureRecognizer(tapGestureRecognizer4)
+        
+        
+        let tapGestureRecognizer5 = UITapGestureRecognizer(target: self, action: #selector(imageTappedAvatar5(tapGestureRecognizer:)))
+        imageView5.isUserInteractionEnabled = true
+        imageView5.addGestureRecognizer(tapGestureRecognizer5)
+        
+        
+        let tapGestureRecognizer6 = UITapGestureRecognizer(target: self, action: #selector(imageTappedAvatar6(tapGestureRecognizer:)))
+        imageView6.isUserInteractionEnabled = true
+        imageView6.addGestureRecognizer(tapGestureRecognizer6)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -89,12 +119,11 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     
 
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer){
-        //let tappedImage = tapGestureRecognizer.view as! UIImageView
         print("Please select image")
         // Your action
         
         popUpView.isHidden = false
-        
+    
         //code of YPImagePickerView
         picker.didSelectImage = { [unowned picker] img in
             // image picked
@@ -112,7 +141,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         //let tappedImage = tapGestureRecognizer.view as! UIImageView
         print("Please select image")
         self.popUpView.isHidden =  false
-        
+      
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         imageIcon.isUserInteractionEnabled = true
         imageIcon.addGestureRecognizer(tapGestureRecognizer)
@@ -127,7 +156,47 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         self.popUpView.isHidden = true
         // Your action
     }
-    
+    @objc func imageTappedAvatar6(tapGestureRecognizer: UITapGestureRecognizer){
+        //let tappedImage = tapGestureRecognizer.view as! UIImageView
+        print("Please select image")
+        
+        imageviewCircle.image = imageView6.image
+        self.popUpView.isHidden = true
+        // Your action
+    }
+    @objc func imageTappedAvatar2(tapGestureRecognizer: UITapGestureRecognizer){
+        //let tappedImage = tapGestureRecognizer.view as! UIImageView
+        print("Please select image")
+        
+        imageviewCircle.image = imageView2.image
+        self.popUpView.isHidden = true
+        // Your action
+    }
+    @objc func imageTappedAvatar3(tapGestureRecognizer: UITapGestureRecognizer){
+        //let tappedImage = tapGestureRecognizer.view as! UIImageView
+        print("Please select image")
+        
+        imageviewCircle.image = imageView3.image
+        self.popUpView.isHidden = true
+        // Your action
+    }
+    @objc func imageTappedAvatar4(tapGestureRecognizer: UITapGestureRecognizer){
+        //let tappedImage = tapGestureRecognizer.view as! UIImageView
+        print("Please select image")
+        
+        imageviewCircle.image = imageView4.image
+        self.popUpView.isHidden = true
+        // Your action
+    }
+    @objc func imageTappedAvatar5(tapGestureRecognizer: UITapGestureRecognizer){
+        //let tappedImage = tapGestureRecognizer.view as! UIImageView
+        print("Please select image")
+        
+        imageviewCircle.image = imageView5.image
+        self.popUpView.isHidden = true
+        // Your action
+    }
+
     
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -172,6 +241,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
    
     func GetUserInfo() {
         let userID = UserDefaults.standard.integer(forKey: "userid")
+        print(userID)
         let params = ["userId": "\(userID)",  "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
         MakeHttpPostRequest(url: getUserInfo, params: params, completion: {(success, response) in
             do {
