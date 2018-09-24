@@ -1351,6 +1351,9 @@
                                                     <constraint firstAttribute="width" constant="60" id="Uxk-Pe-bb4"/>
                                                 </constraints>
                                                 <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="buttonSave:" destination="RSA-Rr-Pil" eventType="touchUpInside" id="vmR-pf-UP5"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ph-bY-ulg">
                                                 <rect key="frame" x="8" y="361" width="359" height="30"/>
