@@ -8,7 +8,18 @@
 
 import UIKit
 
-class NewEducationExperienceVC: UIViewController {
+class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
+    
+    @IBOutlet weak var buttonQualification: UIButton!
+    
+    @IBOutlet weak var buttonLocation: UIButton!
+    
+    @IBOutlet weak var buttonYearofpassing: UIButton!
+    
+    @IBOutlet weak var textfieldClgName: UITextField!
+    @IBOutlet weak var textfieldBoardUniv: UITextField!
+    @IBOutlet weak var buttonSpecification: UIButton!
+    var arrayvalues = ["19999","21354","2155","2146","1534"]
     func getDropdownList(){
         let params = ["access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
         MakeHttpPostRequest(url: userDropDown , params: params, completion: {(success, response) -> Void in
@@ -89,14 +100,33 @@ class NewEducationExperienceVC: UIViewController {
 
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return arrayvalues.count
+    }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "celledu") as! EducationExpTableViewCell
+        let titlename = arrayvalues[indexPath .row]
+        cell.valueEdu.text = titlename
+        return cell
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func qualificationButtonAction(_ sender: Any) {
+    }
     
+    @IBAction func locationButtonAction(_ sender: Any) {
+    }
+    
+    @IBAction func spectificationButtonAction(_ sender: Any) {
+    }
+    @IBAction func YearOfPassingButtonAction(_ sender: Any) {
+    }
     /*
     // MARK: - Navigation
 
