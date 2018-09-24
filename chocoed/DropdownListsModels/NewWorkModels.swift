@@ -26,3 +26,27 @@ struct FieldsOfWork {
     }
 }
 
+struct NewEducationExperienceTableView{
+    var title : String
+    init(_ title : String) {
+        self.title = title
+    }
+}
+
+
+struct FieldsOfEducation {
+    var id : String
+    var name : String
+    var type : String
+    init(_ dictionary : NSDictionary) {
+        print("inside init",dictionary["name"]! as? String ?? "")
+        print("inside init",dictionary["id"]! as? String ?? "")
+        print("inside init",dictionary["type"] as? String ?? "")
+        
+        self.id = dictionary["id"] as? String ?? ""
+        self.name = dictionary["name"] as? String ?? ""
+        self.type = dictionary["type"] as? String ?? ""
+        
+    }
+    
+}
