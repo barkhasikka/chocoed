@@ -34,6 +34,7 @@ class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableView
         super.viewDidLoad()
         viewTableEdu.isHidden = true
         getDropdownList()
+        
     }
     
     

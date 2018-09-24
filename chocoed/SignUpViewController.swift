@@ -10,8 +10,15 @@ import UIKit
 
 class SignUpViewController: UIViewController {
 
+    @IBOutlet weak var addeducationButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        addeducationButton.backgroundColor = .clear
+        addeducationButton.layer.cornerRadius = 20
+        addeducationButton.layer.borderWidth = 1
+        addeducationButton.layer.borderColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+        
+
         // Do any additional setup after loading the view.
     }
 
