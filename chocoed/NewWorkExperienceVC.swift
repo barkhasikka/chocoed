@@ -19,6 +19,10 @@ class NewWorkExperienceVC: UIViewController,UITableViewDelegate,UITableViewDataS
     override func viewDidLoad() {
         super.viewDidLoad()
         fromButtonView.isHidden = true
+        let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
+        MakeHttpPostRequest(url: sendOtpApiURL, params: params, completion: {(success, response) -> Void in
+            print(response)
+        })
     }
 
     override func didReceiveMemoryWarning() {

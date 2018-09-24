@@ -10,6 +10,7 @@ import UIKit
 
 class WorkExpClickedViewController: UIViewController {
 
+    @IBOutlet weak var addNewWorkUIButton: UIButton!
     @IBOutlet weak var workButton: UIButton!
     @IBOutlet weak var educationButton: UIButton!
     override func viewDidLoad() {
@@ -40,4 +41,10 @@ class WorkExpClickedViewController: UIViewController {
     }
     */
 
+    @IBAction func addNewWorkAction(_ sender: Any) {
+        print("add new work clicked")
+        let vcGetStarted = storyboard?.instantiateViewController(withIdentifier: "newwork") as! NewWorkExperienceVC
+        
+        self.present(vcGetStarted, animated: true, completion: nil)
+    }
 }
