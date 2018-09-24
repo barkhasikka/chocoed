@@ -20,8 +20,8 @@ class NewEducationExperienceVC: UIViewController, UIPickerViewDelegate, UIPicker
 
     func getDropdownList(){
         let params = ["access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
-        MakeHttpPostRequest(url: sendOtpApiURL, params: params, completion: {(success, response) -> Void in
-                print(response)
+        MakeHttpPostRequest(url: userDropDown , params: params, completion: {(success, response) -> Void in
+        print(response)
             
             })
 //        //        let params = ["access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
