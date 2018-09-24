@@ -244,17 +244,17 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     func GetUserInfo() {
         let userID = UserDefaults.standard.integer(forKey: "userid")
         print(userID, "USER ID IS HERE")
-        let params = ["userId": "\(59)",  "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
+        let params = ["userId": "\(userID)",  "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
         MakeHttpPostRequest(url: getUserInfo, params: params, completion: {(success, response) in
             do {
-                print(response ,"get profile info reply")
                 let jsonobject = response["info"] as? NSDictionary;
-                print("====",jsonobject)
                 let temp = ModelProfileClass()
                 temp.firstName = jsonobject?.object(forKey: "firstName") as? String ?? ""
                 temp.lastName = jsonobject?.object(forKey: "lastName") as? String ?? ""
                 temp.email = jsonobject?.object(forKey: "email") as? String ?? ""
                 temp.mobile = jsonobject?.object(forKey: "mobile") as? String ?? ""
+                let clientId = jsonobject?.object(forKey: "clientId") as? String ?? ""
+                UserDefaults.standard.set(Int(clientId), forKey: "clientid")
                 DispatchQueue.main.async(execute: {
                     self.textfieldFirstName.text = temp.firstName
                     self.textfieldLastName.text = temp.lastName
@@ -272,16 +272,18 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         let emailId = textfieldEmailId.text!
         let lName = textfieldLastName.text!
         let fName = textfieldFirstName.text!
-        let userID = UserDefaults.standard.string(forKey: "userId")
+        let userID = UserDefaults.standard.integer(forKey: "userid")
+        let clientID = UserDefaults.standard.integer(forKey: "clientid")
+        
         if mobileNo == "" || emailId == "" || lName == "" || fName == "" {
             let alertcontrol = UIAlertController(title: "alert!", message: "Please fill all the mandatory fields.", preferredStyle: .alert)
             let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertcontrol.addAction(alertaction)
             self.present(alertcontrol, animated: true, completion: nil)
         }else {
-            let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea", "userId": "59", "clientId": "", "firstName": fName, "lastName": lName, "email" : emailId, "mobile" : mobileNo] as! Dictionary<String, String>
+            let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea", "userId": "\(userID)", "clientId": "\(clientID)", "firstName": fName, "lastName": lName, "email" : emailId, "mobile" : mobileNo] as! Dictionary<String, String>
             MakeHttpPostRequest(url: updateUserInfoURL, params: params, completion: {(success, response) -> Void in
-                print(response)
+                print(response, "UPDATE USER INFO RESPONSE")
                 var success = Int()
                 success = response.value(forKey: "status") as? Int ?? 2
                 print(success)
