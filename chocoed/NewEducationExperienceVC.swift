@@ -24,7 +24,7 @@ class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableView
     @IBOutlet weak var buttonSpecification: UIButton!
     var currentSelectedButton: String!
     
-    var educationLevel, location, mediumOfEducation, specialisation, state, yearOfCompletion,boardUniversity,nameOfInstitute : String!
+    var educationLevel = "", location = "", mediumOfEducation = "", specialisation = "", state = "", yearOfCompletion = "",boardUniversity="",nameOfInstitute=""
     var tableViewData =  [NewWorkExperienceTableView]()
     var educationLevel1 = [FieldsOfEducation]()
     var specializationList = [FieldsOfEducation]()
@@ -158,12 +158,15 @@ class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableView
         let nameOfInstitute = "Tejal"
         let nameofBoardUniv = "Ohara"
         
-        let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea", "userId": "\(59)","clientId":"\(16)", "educationLevel": "\(educationLevel!)", "boardUniversity": "\(nameofBoardUniv)", "location": "Pune", "mediumOfEducation" : "\(mediumOfEducation!)", "nameOfInstitute": "\(nameOfInstitute)", "specialisation" : "\(specialisation!)", "state" : "\(state!)", "id": "","yearOfCompletion":"\(yearOfCompletion!)"] as Dictionary<String, String>
+        let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea", "userId": "\(59)","clientId":"\(16)", "educationLevel": "\(educationLevel)", "boardUniversity": "\(nameofBoardUniv)", "location": "Pune", "mediumOfEducation" : "\(mediumOfEducation)", "nameOfInstitute": "\(nameOfInstitute)", "specialisation" : "\(specialisation)", "state" : "\(state)", "id": "","yearOfCompletion":"\(yearOfCompletion)"] as Dictionary<String, String>
+//        print(params)
         MakeHttpPostRequest(url: saveEducationExp, params: params, completion: {(success, response) -> Void in
             print(response, "SAVE WORK RESPONSE")
-            let vcGetStarted = self.storyboard?.instantiateViewController(withIdentifier: "work") as! WorkExpClickedViewController
-            
-            self.present(vcGetStarted, animated: true, completion: nil)
+            DispatchQueue.main.async {
+                let vcGetStarted = self.storyboard?.instantiateViewController(withIdentifier: "signup") as! SignUpViewController
+                
+                self.present(vcGetStarted, animated: true, completion: nil)
+            }
         })
     }
 }

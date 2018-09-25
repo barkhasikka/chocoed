@@ -172,9 +172,11 @@ class NewWorkExperienceVC: UIViewController,UITableViewDelegate,UITableViewDataS
         let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea", "userId": "\(59)","clientId":"\(16)", "companyName": "\(companyName)", "fromYear": "\(fromYear!)", "toYear": "\(toYear!)", "functionalDepartment" : "\(functionalDepartment!)", "industrySector": "\(industrySector!)", "levelOfManagemet" : "\(managementLevel!)", "teamSize" : "\(teamSize!)", "id": ""] as Dictionary<String, String>
         MakeHttpPostRequest(url: saveWorkExperience, params: params, completion: {(success, response) -> Void in
             print(response, "SAVE WORK RESPONSE")
-            let vcGetStarted = self.storyboard?.instantiateViewController(withIdentifier: "work") as! WorkExpClickedViewController
-            
-            self.present(vcGetStarted, animated: true, completion: nil)
+            DispatchQueue.main.async {
+                let vcGetStarted = self.storyboard?.instantiateViewController(withIdentifier: "work") as! WorkExpClickedViewController
+                
+                self.present(vcGetStarted, animated: true, completion: nil)
+            }
         })
     }
 }
