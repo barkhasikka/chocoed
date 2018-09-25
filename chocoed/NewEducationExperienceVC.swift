@@ -22,7 +22,7 @@ class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableView
     @IBOutlet weak var textfieldClgName: UITextField!
     @IBOutlet weak var textfieldBoardUniv: UITextField!
     @IBOutlet weak var buttonSpecification: UIButton!
-    
+    var currentSelectedButton: String!
     var tableViewData =  [NewWorkExperienceTableView]()
     var educationLevel = [FieldsOfEducation]()
     var specializationList = [FieldsOfEducation]()
@@ -96,6 +96,7 @@ class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableView
             tableViewData.append(NewWorkExperienceTableView(qualify.name))
         }
         self.eduTableView.reloadData()
+        currentSelectedButton = "Qualification"
     }
     
     @IBAction func locationButtonAction(_ sender: Any) {
@@ -108,7 +109,7 @@ class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableView
             tableViewData.append(NewWorkExperienceTableView(medium.name))
         }
         self.eduTableView.reloadData()
-        
+          currentSelectedButton = "Education Medium"
     }
 
     @IBAction func spectificationButtonAction(_ sender: Any) {
@@ -118,6 +119,7 @@ class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableView
             tableViewData.append(NewWorkExperienceTableView(specifications.name))
         }
         self.eduTableView.reloadData()
+          currentSelectedButton = "Specialization"
         
     }
     @IBAction func YearOfPassingButtonAction(_ sender: Any) {
@@ -125,6 +127,7 @@ class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableView
         viewTableEdu.isHidden = false
         tableViewData = PassingYears
         self.eduTableView.reloadData()
+        currentSelectedButton = "Year of Passing"
     }
     @IBAction func buttonSave(_ sender: Any) {
     }
