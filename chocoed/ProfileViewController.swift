@@ -104,10 +104,6 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         imageView6.isUserInteractionEnabled = true
         imageView6.addGestureRecognizer(tapGestureRecognizer6)
         
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
-        
         GetUserInfo()
         textfieldFirstName.isUserInteractionEnabled = false
         textfieldLastName.isUserInteractionEnabled = false
@@ -124,8 +120,20 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        print("View will appear")
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+    }
     
-
+    override func viewDidDisappear(_ animated: Bool) {
+        print("View will viewDidDisappear")
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer){
         print("Please select image")
         // Your action

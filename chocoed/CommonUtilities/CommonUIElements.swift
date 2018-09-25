@@ -24,5 +24,4 @@ class BoldLabel: UILabel {
         self.font = UIFont(name: "Halvetica", size: 17)
         self.textColor = UIColor.blue
     }
-        
 }

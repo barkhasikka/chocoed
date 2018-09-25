@@ -7,34 +7,66 @@
 //
 
 import UIKit
+import DropDown
 
-class NewWorkExperienceVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
+class NewWorkExperienceVC: UIViewController {
     
     var companyName = "", fromYear = "", toYear = "", functionalDepartment = "", industrySector = "", managementLevel = "", teamSize = ""
     
     @IBOutlet weak var funcExpButton: UIButton!
     @IBOutlet weak var currentIndustryButton: UIButton!
-    @IBOutlet weak var termsHandeledButton: UIButton!
+    @IBOutlet weak var teamsHandeledButton: UIButton!
     @IBOutlet weak var toButton: UIButton!
-    
-    @IBOutlet weak var managementLevelButton: UIButton!
-    @IBOutlet weak var tableViewFromButton: UITableView!
-    @IBOutlet weak var fromButtonView: UIView!
     @IBOutlet weak var fromButton: UIButton!
+    @IBOutlet weak var managementLevelButton: UIButton!
     @IBOutlet weak var textFieldCompany: UITextField!
     
     var currentSelectedButton: String!
     
-    var tableViewData =  [NewWorkExperienceTableView]()
+    var tableViewData =  [String]()
     var teamsHandled = [FieldsOfWork]()
     var levelOfManagement = [FieldsOfWork]()
     var functionalDepartmentList = [FieldsOfWork]()
     var industrySectorList = [FieldsOfWork]()
-    var fromToYears: [NewWorkExperienceTableView] = [NewWorkExperienceTableView("1990"), NewWorkExperienceTableView("1991"), NewWorkExperienceTableView("1992")]
+    var fromToYears: [String] = [("1990"), ("1991"), ("1992")]
+    
+    var dropDown: DropDown!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fromButtonView.isHidden = true
+        
+        dropDown = DropDown()
+        dropDown.direction = .any
+        dropDown.dismissMode = .automatic
+        dropDown.hide()
+        
+        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            print("Selected item: \(item) at index: \(index)")
+            switch self.currentSelectedButton {
+            case "From":
+                self.fromYear = item
+                self.fromButton.setTitle(item, for: .normal)
+            case "To":
+                self.toYear = item
+                self.toButton.setTitle(item, for: .normal)
+            case "ManagementLevel":
+                self.managementLevel = item
+                self.managementLevelButton.setTitle(item, for: .normal)
+            case "TeamsHandled":
+                self.teamSize = item
+                self.teamsHandeledButton.setTitle(item, for: .normal)
+            case "CurrentIndustry":
+                self.industrySector = item
+                self.currentIndustryButton.setTitle(item, for: .normal)
+            case "FunctionalDepartment":
+                self.functionalDepartment = item
+                self.funcExpButton.setTitle(item, for: .normal)
+            default:
+                print("whoops")
+            }
+        }
+        
+        
         let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
         MakeHttpPostRequest(url: userDropDown, params: params, completion: {(success, response) -> Void in
             let levelOfManagement = response.object(forKey: "levelOfManagemet") as? NSArray ?? []
@@ -70,100 +102,66 @@ class NewWorkExperienceVC: UIViewController,UITableViewDelegate,UITableViewDataS
     
     @IBAction func fromButtonAction(_ sender: Any) {
         self.view.endEditing(true)
-        fromButtonView.isHidden = false
-        tableViewData = fromToYears
-        tableViewFromButton.reloadData()
         currentSelectedButton = "From"
+        dropDown.show()
+        dropDown.anchorView = fromButton
+        dropDown.dataSource = fromToYears
     }
     
     @IBAction func toButtonAction(_ sender: Any) {
         self.view.endEditing(true)
-        fromButtonView.isHidden = false
-        tableViewData = fromToYears
-        tableViewFromButton.reloadData()
         currentSelectedButton = "To"
+        dropDown.show()
+        dropDown.anchorView = toButton
+        dropDown.dataSource = fromToYears
     }
     
     @IBAction func ManagementLevelButtonAction(_ sender: Any) {
         self.view.endEditing(true)
-        fromButtonView.isHidden = false
-        tableViewData =  [NewWorkExperienceTableView]()
+        var tableViewData =  [String]()
         for teamHandledSize in  self.levelOfManagement {
-            tableViewData.append(NewWorkExperienceTableView(teamHandledSize.name))
+            tableViewData.append((teamHandledSize.name))
         }
-        tableViewFromButton.reloadData()
+        dropDown.show()
+        dropDown.anchorView = managementLevelButton
+        dropDown.dataSource = tableViewData
         currentSelectedButton = "ManagementLevel"
     }
     
-    @IBAction func termsHandledAction(_ sender: Any) {
+    @IBAction func teamsHandledAction(_ sender: Any) {
         self.view.endEditing(true)
-        fromButtonView.isHidden = false
-        tableViewData =  [NewWorkExperienceTableView]()
+        var tableViewData =  [String]()
         for teamHandledSize in  self.teamsHandled {
-            tableViewData.append(NewWorkExperienceTableView(teamHandledSize.name))
+            tableViewData.append((teamHandledSize.name))
         }
-        tableViewFromButton.reloadData()
+        dropDown.show()
+        dropDown.anchorView = teamsHandeledButton
+        dropDown.dataSource = tableViewData
         currentSelectedButton = "TeamsHandled"
     }
     
     @IBAction func currentIndustryButtonAction(_ sender: Any) {
         self.view.endEditing(true)
-        fromButtonView.isHidden = false
-        tableViewData =  [NewWorkExperienceTableView]()
+        var tableViewData =  [String]()
         for teamHandledSize in  self.industrySectorList {
-            tableViewData.append(NewWorkExperienceTableView(teamHandledSize.name))
+            tableViewData.append(String(teamHandledSize.name))
         }
-        tableViewFromButton.reloadData()
+        dropDown.show()
+        dropDown.anchorView = currentIndustryButton
+        dropDown.dataSource = tableViewData
         currentSelectedButton = "CurrentIndustry"
-    }
-    
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableViewData.count
     }
     
     @IBAction func myFunctionalExpButtonAction(_ sender: Any) {
         self.view.endEditing(true)
-        fromButtonView.isHidden = false
-        tableViewData =  [NewWorkExperienceTableView]()
+        tableViewData =  [String]()
         for teamHandledSize in  self.functionalDepartmentList {
-            tableViewData.append(NewWorkExperienceTableView(teamHandledSize.name))
+            tableViewData.append(String(teamHandledSize.name))
         }
+        dropDown.show()
+        dropDown.anchorView = funcExpButton
+        dropDown.dataSource = tableViewData
         currentSelectedButton = "FunctionalDepartment"
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellwork") as! WorkExpTableViewCell
-        let titlename = tableViewData[indexPath .row]
-        cell.value.text = titlename.title
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.fromButtonView.isHidden = true
-        switch currentSelectedButton {
-        case "From":
-            fromYear = self.fromToYears[indexPath.row].title
-            fromButton.setTitle(self.fromToYears[indexPath.row].title, for: .normal)
-        case "To":
-            toYear = self.fromToYears[indexPath.row].title
-            toButton.setTitle(self.fromToYears[indexPath.row].title, for: .normal)
-        case "ManagementLevel":
-            managementLevel = self.levelOfManagement[indexPath.row].name
-            managementLevelButton.setTitle(self.levelOfManagement[indexPath.row].name, for: .normal)
-        case "TeamsHandled":
-            teamSize = self.teamsHandled[indexPath.row].name
-            termsHandeledButton.setTitle(self.teamsHandled[indexPath.row].name, for: .normal)
-        case "CurrentIndustry":
-            industrySector = self.industrySectorList[indexPath.row].name
-            currentIndustryButton.setTitle(self.industrySectorList[indexPath.row].name, for: .normal)
-        case "FunctionalDepartment":
-            functionalDepartment = self.functionalDepartmentList[indexPath.row].name
-            funcExpButton.setTitle(self.functionalDepartmentList[indexPath.row].name, for: .normal)
-        default:
-            print("whoops")
-        }
-        
     }
     
     @IBAction func addWorkExperience(_ sender: Any) {

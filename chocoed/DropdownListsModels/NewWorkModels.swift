@@ -69,7 +69,5 @@ struct ExistingEducationList {
     init(_ dictionary : NSDictionary) {
         self.name = dictionary["educationLevel"] as? String ?? ""
         self.field = "\(dictionary["nameOfInstitute"] as? String ?? ""),\(dictionary["location"] as? String ?? "")\(", ")\(dictionary["yearOfCompletion"] as? String ?? "")"
-//            dictionary["nameOfInstitute"] as? String ?? ""
-//        "\(dictionary["fromYear"] as? String ?? "")\(" to ")\(dictionary["fromYear"] as? String ?? "")\(", ")\(dictionary["teamSize"] as? String ?? "")\(" teams handled")"
     }
 }
