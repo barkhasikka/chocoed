@@ -10,7 +10,6 @@ import UIKit
 
 class LanguageTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var radioButton: DLRadioButton!
     @IBOutlet weak var labelLanguage: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -58,11 +58,11 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         textfieldEmailId.setBottomBorder()
         textfieldMobileNo.setBottomBorder()
         
-        labelFirstName.isHidden = true
-        labelLastName.isHidden = true
-        labelEmailId.isHidden = true
-        labelMobileno.isHidden = true
-        
+//        labelFirstName.isHidden = true
+//        labelLastName.isHidden = true
+//        labelEmailId.isHidden = true
+//        labelMobileno.isHidden = true
+//
         self.hideKeyboardWhenTappedAround()
         self.popUpView.isHidden = true
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTappedPopup(tapGestureRecognizer:)))
@@ -109,6 +109,11 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         
         GetUserInfo()
+        textfieldFirstName.isUserInteractionEnabled = false
+        textfieldLastName.isUserInteractionEnabled = false
+        textfieldEmailId.isUserInteractionEnabled = false
+        textfieldMobileNo.isUserInteractionEnabled = false
+        
    }
 
     @IBAction func CloseAction(_ sender: Any) {
@@ -220,24 +225,26 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         return true
     }
 
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField.tag == 1
-        {
-        labelFirstName.isHidden = false
-        }
-        else if textField.tag == 2
-        {
-        labelLastName.isHidden = false
-        }
-        else if textField.tag == 3
-        {
-        labelEmailId.isHidden = false
-        }
-        else if textField.tag == 4
-        {
-        labelMobileno.isHidden = false
-        }
-    }
+//    func textFieldDidBeginEditing(_ textField: UITextField) {
+//        if textField.tag == 1
+//        {
+//        labelFirstName.isHidden = false
+//        }
+//        else if textField.tag == 2
+//        {
+//        labelLastName.isHidden = false
+//        }
+//        else if textField.tag == 3
+//        {
+//        labelEmailId.isHidden = false
+//        }
+//        else if textField.tag == 4
+//        {
+//        labelMobileno.isHidden = false
+//        }
+//    }
+    
+    
     func imageviewCircular(){
         let image = UIImage(named: "no_image")
         imageviewCircle.layer.borderWidth = 1.0

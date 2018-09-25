@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     var tableViewData =  [ExistingEducationList]()
 
     @IBOutlet weak var educationDetailsTableView: UITableView!
@@ -39,18 +39,6 @@ class SignUpViewController: UIViewController {
             DispatchQueue.main.async {
                 self.educationDetailsTableView.reloadData()
             }
-            
-            //            if let json = try JSONSerialization.jsonObject(with: jsonobject, options: []) as? [String: AnyObject] {
-            //                let info = json as? NSDictionary
-            //                let workExperiences = info.object(forKey: "userEducationList") as? NSDictionary ?? [:]
-            //                print(workExperiences,"PLEASE CHECK THIS VALUE")
-            //                for experience in workExperiences {
-            //                    //                self.tableViewData.append(ExistingWorkList(experience as! NSDictionary))
-            //                }
-            //            }
-            
-            //            print(response.object(forKey: "industrySectorList"), "industry sector list")
-            //            response.object(forKey: "functionalDepartmentList")
         })
         // Do any additional setup after loading the view.
     }
@@ -70,5 +58,18 @@ class SignUpViewController: UIViewController {
         self.present(vcnext, animated: true, completion: nil)
         
     }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "existingeducationcell") as! ExistingEducationTableViewCell
+        print(tableViewData)
+        cell.labelQualification.text = tableViewData[indexPath.row].name
+        cell.labelInstitute.text = tableViewData[indexPath.row].field
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tableViewData.count
+    }
+    
 
 }

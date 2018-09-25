@@ -36,13 +36,17 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         otpReceivedLabel.isHidden = true
         receivedOTPUIView.isHidden = true
         registerButton.isHidden = true
-        
+        registerButton.backgroundColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+        registerButton.layer.cornerRadius = 20
+        registerButton.clipsToBounds = true
+        registerButton.layer.borderWidth = 1
+        registerButton.layer.borderColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
         button = UIButton()
         button.setTitle("Return", for: UIControlState())
         button.setTitleColor(UIColor.black, for: UIControlState())
         button.frame = CGRect(x: 0, y: 163, width: 106, height: 53)
         button.adjustsImageWhenHighlighted = false
-        button.addTarget(self, action: #selector(self.sendOTPAPI), for: UIControlEvents.touchUpInside)
+        //button.addTarget(self, action: #selector(self.sendOTPAPI), for: UIControlEvents.touchUpInside)
         
         self.addDoneButtonOnKeyboard()
         
@@ -84,8 +88,8 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         var userEnteredOTPText = otpDigitFirstTF.text! + otpDigitSecondTF.text! + otpDigitThirdTF.text! + otpDigitFourthTF.text! + otpDigitFifthTF.text! + otpDigitSixthTF.text!
         let userEnteredOTP = Int(userEnteredOTPText)
         if userEnteredOTP == otpFromServer {
+
             let vcGetStarted = storyboard?.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
-            
             self.present(vcGetStarted, animated: true, completion: nil)
         }else {
             let alertcontrol = UIAlertController(title: "alert!", message: "Login Failed! Please check your OTP again.", preferredStyle: .alert)
@@ -165,38 +169,40 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         }
     }
 
-    @objc
     func sendOTPAPI() {
-        //hide keyboard
-        self.view.endEditing(true)
-        
         let params = ["phone":"\(mobileNumberTextFIeld.text!)", "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
         MakeHttpPostRequest(url: sendOtpApiURL, params: params, completion: {(success, response) -> Void in
+            print(response)
             let temp = ModelClassLoginId()
             
             temp.userId = response.value(forKey: "userId") as? String ?? ""
             temp.otp = response.value(forKey: "otp") as? Int ?? 0
             UserDefaults.standard.set(Int(temp.userId), forKey: "userid")
             self.otpFromServer = temp.otp
-            DispatchQueue.main.async {
-                self.otpReceivedLabel.isHidden = false
-                self.receivedOTPUIView.isHidden = false
-                self.registerButton.isHidden = false
-                let vcGetStarted = self.storyboard?.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
-
-                self.present(vcGetStarted, animated: true, completion: nil)
-            }
         })
         
     }
-    
+    @objc
+    func hideKeyboard(){
+        DispatchQueue.main.async {
+                            self.otpReceivedLabel.isHidden = false
+                            self.receivedOTPUIView.isHidden = false
+                            self.registerButton.isHidden = false
+        }
+        self.view.endEditing(true)
+        sendOTPAPI()
+    }
     func addDoneButtonOnKeyboard() {
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
         doneToolbar.barStyle = UIBarStyle.default
         
         let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(self.sendOTPAPI))
+//        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(self.sendOTPAPI))
+//
         
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(self.hideKeyboard))
+        
+
         var items = [UIBarButtonItem]()
         items.append(flexSpace)
         items.append(done)

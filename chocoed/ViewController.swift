@@ -15,6 +15,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet weak var labelChoice: UILabel!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
+    var count = 0
     
     let arrayLanguages = ["English","Hindi हिंदी","Gujarati ગુજરાતી","Marathi मराठी ","Tamil  தமிழ்","Telugu తెలుగు","Kannada ಕನ್ನಡ","Konkani","Malayalam മലയാളം","Bengali বাঙালি","Oriya ଓଡ଼ିଆ"]
     override func viewDidLoad() {
@@ -41,6 +42,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         
     }
     @IBAction func signUpButtonAction(_ sender: Any) {
+        self.count = 0
         self.viewTable.isHidden = false
         self.tableViewLanguage.isHidden = false
         
@@ -75,6 +77,8 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         
         signUpButton.backgroundColor = .clear
         signUpButton.layer.cornerRadius = 20
+        signUpButton.clipsToBounds = true
+        
         signUpButton.layer.borderWidth = 1
         signUpButton.layer.borderColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
         
@@ -94,6 +98,43 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         
         cell.labelLanguage.text = arrayLanguages[indexPath.row]
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let text = arrayLanguages[indexPath.row]
+        if count == 0
+        {
+        let alertcontrol = UIAlertController(title: "Alert", message: "Would you like to use \(text) for learning language?", preferredStyle: .alert)
+        let alertaction = UIAlertAction(title: "No", style: .default) { (action) in
+            self.count = 1
+            
+        }
+        let alertaction1 = UIAlertAction(title: "Yes", style: .default) { (action) in
+            
+            self.viewTable.isHidden = true
+            
+            self.signUpButton.setTitle("\(text)", for: .normal)
+            
+            UserDefaults.standard.set(text, forKey: "Language1")
+            
+            UserDefaults.standard.set(text, forKey: "Language2")
+            
+        }
+        alertcontrol.addAction(alertaction)
+        alertcontrol.addAction(alertaction1)
+        self.present(alertcontrol, animated: true, completion: nil)
+        }
+
+        else
+        {
+            self.viewTable.isHidden = true
+            let userAppLang = UserDefaults.standard.string(forKey: "Language1")
+            print(userAppLang)
+            self.signUpButton.setTitle("\(userAppLang!)", for: .normal)
+            UserDefaults.standard.set(text, forKey: "Language2")
+            
+        }
     }
 }
 
