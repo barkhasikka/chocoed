@@ -140,6 +140,7 @@ class NewWorkExperienceVC: UIViewController,UITableViewDelegate,UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.fromButtonView.isHidden = true
         switch currentSelectedButton {
         case "From":
             fromYear = self.fromToYears[indexPath.row].title
@@ -162,7 +163,7 @@ class NewWorkExperienceVC: UIViewController,UITableViewDelegate,UITableViewDataS
         default:
             print("whoops")
         }
-        self.fromButtonView.isHidden = true
+        
     }
     
     @IBAction func addWorkExperience(_ sender: Any) {
