@@ -304,9 +304,10 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
             let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea", "userId": "\(userID)", "clientId": "\(clientID)", "firstName": fName, "lastName": lName, "email" : emailId, "mobile" : mobileNo] as! Dictionary<String, String>
             MakeHttpPostRequest(url: updateUserInfoURL, params: params, completion: {(success, response) -> Void in
                 print(response, "UPDATE USER INFO RESPONSE")
-                let vcGetStarted = self.storyboard?.instantiateViewController(withIdentifier: "signup") as! SignUpViewController
-                
-                self.present(vcGetStarted, animated: true, completion: nil)
+                DispatchQueue.main.async(execute: {
+                    let vcGetStarted = self.storyboard?.instantiateViewController(withIdentifier: "signup") as! SignUpViewController
+                    self.present(vcGetStarted, animated: true, completion: nil)
+                })
             })
         }
     }
