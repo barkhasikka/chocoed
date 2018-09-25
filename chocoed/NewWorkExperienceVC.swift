@@ -10,7 +10,7 @@ import UIKit
 
 class NewWorkExperienceVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
-    var companyName, fromYear, toYear, functionalDepartment, industrySector, managementLevel, teamSize: String!
+    var companyName = "", fromYear = "", toYear = "", functionalDepartment = "", industrySector = "", managementLevel = "", teamSize = ""
     
     @IBOutlet weak var funcExpButton: UIButton!
     @IBOutlet weak var currentIndustryButton: UIButton!
@@ -169,7 +169,7 @@ class NewWorkExperienceVC: UIViewController,UITableViewDelegate,UITableViewDataS
         let userID = UserDefaults.standard.integer(forKey: "userid")
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let companyName = textFieldCompany.text!
-        let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea", "userId": "\(59)","clientId":"\(16)", "companyName": "\(companyName)", "fromYear": "\(fromYear!)", "toYear": "\(toYear!)", "functionalDepartment" : "\(functionalDepartment!)", "industrySector": "\(industrySector!)", "levelOfManagemet" : "\(managementLevel!)", "teamSize" : "\(teamSize!)", "id": ""] as Dictionary<String, String>
+        let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea", "userId": "\(59)","clientId":"\(16)", "companyName": "\(companyName)", "fromYear": "\(fromYear)", "toYear": "\(toYear)", "functionalDepartment" : "\(functionalDepartment)", "industrySector": "\(industrySector)", "levelOfManagemet" : "\(managementLevel)", "teamSize" : "\(teamSize)", "id": ""] as Dictionary<String, String>
         MakeHttpPostRequest(url: saveWorkExperience, params: params, completion: {(success, response) -> Void in
             print(response, "SAVE WORK RESPONSE")
             DispatchQueue.main.async {
