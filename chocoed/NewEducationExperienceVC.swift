@@ -158,7 +158,7 @@ class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableView
         let nameOfInstitute = "Tejal"
         let nameofBoardUniv = "Ohara"
         
-        let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea", "userId": "\(59)","clientId":"\(16)", "educationLevel": "\(educationLevel)", "boardUniversity": "\(nameofBoardUniv)", "location": "Pune", "mediumOfEducation" : "\(mediumOfEducation)", "nameOfInstitute": "\(nameOfInstitute)", "specialisation" : "\(specialisation)", "state" : "\(state)", "id": "","yearOfCompletion":"\(yearOfCompletion)"] as Dictionary<String, String>
+        let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea", "userId": "\(userID)","clientId":"\(clientID)", "educationLevel": "\(educationLevel)", "boardUniversity": "\(nameofBoardUniv)", "location": "Pune", "mediumOfEducation" : "\(mediumOfEducation)", "nameOfInstitute": "\(nameOfInstitute)", "specialisation" : "\(specialisation)", "state" : "\(state)", "id": "","yearOfCompletion":"\(yearOfCompletion)"] as Dictionary<String, String>
 //        print(params)
         MakeHttpPostRequest(url: saveEducationExp, params: params, completion: {(success, response) -> Void in
             print(response, "SAVE WORK RESPONSE")

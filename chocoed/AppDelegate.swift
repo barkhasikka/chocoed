@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let userID = UserDefaults.standard.integer(forKey: "userid")
         print(userID)
-        if userID != nil {
+        if userID != 0 {
             let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
             window!.rootViewController = startVC

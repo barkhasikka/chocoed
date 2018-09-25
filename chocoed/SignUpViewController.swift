@@ -17,19 +17,20 @@ class SignUpViewController: UIViewController,UITableViewDelegate,UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewEdu.isHidden = false
+       // viewEdu.isHidden = false
         addeducationButton.setTitle("Add New Education", for: .normal)
         addeducationButton.backgroundColor = .clear
-        addeducationButton.layer.cornerRadius = 20
+        addeducationButton.layer.cornerRadius = 10
         addeducationButton.layer.borderWidth = 1
         addeducationButton.layer.borderColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
         
         let userID = UserDefaults.standard.integer(forKey: "userid")
         print(userID, "USER ID IS HERE")
         
-        let params = ["userId": "\(59)",  "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
+        let params = ["userId": "\(userID)",  "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
         
         MakeHttpPostRequest(url: getUserInfo, params: params, completion: {(success, response) -> Void in
+            print(response)
             let jsonobject = response["info"] as? NSDictionary;
             let workExperiences = jsonobject?["userEducationList"] as? NSArray ?? []
             
