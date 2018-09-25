@@ -53,3 +53,11 @@ func MakeHttpPostRequest(url: String, params: Dictionary<String, String>, comple
     return
 }
 
+extension String {
+    var isBackspace: Bool {
+        print("is backspace check", self.cString(using: String.Encoding.utf8))
+        let char = self.cString(using: String.Encoding.utf8)!
+        return strcmp(char, "\\b") == -92
+    }
+}
+

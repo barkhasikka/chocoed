@@ -83,19 +83,44 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
     @IBAction func registerButtonAction(_ sender: Any) {
         var userEnteredOTPText = otpDigitFirstTF.text! + otpDigitSecondTF.text! + otpDigitThirdTF.text! + otpDigitFourthTF.text! + otpDigitFifthTF.text! + otpDigitSixthTF.text!
         let userEnteredOTP = Int(userEnteredOTPText)
-//        if userEnteredOTP == otpFromServer {
+        if userEnteredOTP == otpFromServer {
             let vcGetStarted = storyboard?.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
             
             self.present(vcGetStarted, animated: true, completion: nil)
-//        }else {
-//            let alertcontrol = UIAlertController(title: "alert!", message: "Login Failed! Please check your OTP again.", preferredStyle: .alert)
-//            let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
-//            alertcontrol.addAction(alertaction)
-//            self.present(alertcontrol, animated: true, completion: nil)
-//        }
+        }else {
+            let alertcontrol = UIAlertController(title: "alert!", message: "Login Failed! Please check your OTP again.", preferredStyle: .alert)
+            let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertcontrol.addAction(alertaction)
+            self.present(alertcontrol, animated: true, completion: nil)
+        }
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if string.isBackspace && textField.text! == "" {
+            print("Back space is detected")
+            switch textField{
+            case otpDigitSecondTF:
+                otpDigitSecondTF.resignFirstResponder()
+                otpDigitFirstTF.becomeFirstResponder()
+                
+            case otpDigitThirdTF :
+                otpDigitSecondTF.becomeFirstResponder()
+                
+            case otpDigitFourthTF :
+                otpDigitThirdTF.becomeFirstResponder()
+                
+            case otpDigitFifthTF :
+                otpDigitFourthTF.becomeFirstResponder()
+                
+            case otpDigitSixthTF :
+                otpDigitFifthTF.becomeFirstResponder()
+            default:
+                print("default case")
+                break
+            }
+        }
+        
         
         let charsLimit = 10
         
@@ -148,21 +173,23 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         let params = ["phone":"\(mobileNumberTextFIeld.text!)", "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
         MakeHttpPostRequest(url: sendOtpApiURL, params: params, completion: {(success, response) -> Void in
             print(response)
-            
-            self.otpReceivedLabel.isHidden = false
-            self.receivedOTPUIView.isHidden = false
-            self.registerButton.isHidden = false
-            
             let temp = ModelClassLoginId()
             
             temp.userId = response.value(forKey: "userId") as? String ?? ""
             temp.otp = response.value(forKey: "otp") as? Int ?? 0
             UserDefaults.standard.set(Int(temp.userId), forKey: "userid")
             self.otpFromServer = temp.otp
+            DispatchQueue.main.async {
+                self.otpReceivedLabel.isHidden = false
+                self.receivedOTPUIView.isHidden = false
+                self.registerButton.isHidden = false
+                let vcGetStarted = self.storyboard?.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
+
+                self.present(vcGetStarted, animated: true, completion: nil)
+            }
         })
         
     }
-    
     
     func addDoneButtonOnKeyboard() {
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
