@@ -23,3 +23,22 @@ class WorkExpTableViewCell: UITableViewCell {
     }
 
 }
+
+class ExistingWorkTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var companyNameLabel: UILabel!
+    
+    @IBOutlet weak var fromToDetailsLabel: UILabel!
+    @IBOutlet weak var departmentLabel: UILabel!
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        // Configure the view for the selected state
+    }
+    
+}

@@ -104,8 +104,9 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         imageView6.isUserInteractionEnabled = true
         imageView6.addGestureRecognizer(tapGestureRecognizer6)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         
         GetUserInfo()
    }
@@ -130,6 +131,13 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         picker.didSelectImage = { [unowned picker] img in
             // image picked
             print(img.size)
+            let imageData = UIImagePNGRepresentation(self.imageviewCircle.image!)
+            let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea", "userId": "\(59)", "file": "\(imageData)"] as! Dictionary<String, String>
+            MakeHttpPostRequest(url: uploadProfilePicture, params: params, completion: {(success, response) -> Void in
+                print(response, "UPLOAD PROFILE PIC RESPONSE")
+                
+            })
+            
             self.imageviewCircle.image = img
             picker.dismiss(animated: true, completion: nil)
         }
@@ -279,7 +287,6 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
             self.present(alertcontrol, animated: true, completion: nil)
         }else {
             let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea", "userId": "\(userID)", "clientId": "\(clientID)", "firstName": fName, "lastName": lName, "email" : emailId, "mobile" : mobileNo] as! Dictionary<String, String>
-            print(params)
             MakeHttpPostRequest(url: updateUserInfoURL, params: params, completion: {(success, response) -> Void in
                 print(response, "UPDATE USER INFO RESPONSE")
                 let vcGetStarted = self.storyboard?.instantiateViewController(withIdentifier: "signup") as! SignUpViewController
@@ -291,42 +298,33 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     
     @objc
     func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            keyboardHeight = keyboardSize.height
-            let keyBoardY = self.view.frame.height - keyboardHeight
-            print("Value of keyboard Y", keyBoardY)
-            print("Y of active field keyboard will show", (self.activeField?.frame.origin.y)! + (self.activeField?.frame.height)!)
-            
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             // so increase contentView's height by keyboard height
             UIView.animate(withDuration: 0.3, animations: {
-//                self.profileDataUIViewHeightConstraint.constant += self.keyboardHeight
+                
+                let keyBoardY = keyboardSize.origin.y
+                
+                let activeFieldY = (self.activeField?.frame.origin.y)! + (self.activeField?.frame.height)!
+                print(keyBoardY, activeFieldY)
+                if keyBoardY.isLess(than: activeFieldY) {
+                    print("shifting up", (activeFieldY - keyBoardY))
+                    self.profileDataUIViewTopConstraint.constant = -(activeFieldY - keyBoardY)
+                }
             })
-            // move if keyboard hide input field
-//            let distanceToBottom = self.profileDataUIView.frame.size.height - (activeField?.frame.origin.y)! - (activeField?.frame.size.height)!
-//            let collapseSpace = keyboardHeight - distanceToBottom
-//            if collapseSpace < 0 {
-//                // no collapse
-//                return
-//            }
-//            // set new offset for scroll view
-//            UIView.animate(withDuration: 0.3, animations: {
-//                // scroll to the position above keyboard 10 points
-////                self.profileDataUIView.safeAreaInsets.bottom = CGPoint(x: self.lastOffset.x, y: collapseSpace + 10)
-//            })
         }
     }
     
     @objc
     func keyboardWillHide(notification: NSNotification) {
         UIView.animate(withDuration: 0.3) {
-            if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-                
-               let  keyboardHeight = keyboardSize.height
-                let keyBoardY = self.view.frame.height - keyboardHeight
-                print("Value of keyboard Y", keyBoardY)
-                let y = self.activeField?.frame.origin.y
-                let height = self.activeField?.frame.height
-                print("Y of active field", y! + height!)
+            if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+                print(keyboardSize.origin, "==", keyboardSize.size)
+                let keyBoardY = keyboardSize.origin.y
+                let activeFieldY = (self.activeField?.frame.origin.y)!
+                if activeFieldY.isLess(than: keyBoardY) {
+                    print("shifting down")
+                    self.profileDataUIViewTopConstraint.constant = 0
+                }
             }
             
 //            self.profileDataUIViewHeightConstraint.constant -= self.keyboardHeight

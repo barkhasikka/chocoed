@@ -50,3 +50,15 @@ struct FieldsOfEducation {
     }
     
 }
+
+struct ExistingWorkList {
+    var name: String
+    var field: String
+    var subField: String
+    init(_ dictionary : NSDictionary) {
+        self.name = dictionary["companyName"] as? String ?? ""
+        self.field = dictionary["industrySector"] as? String ?? ""
+        self.subField = "\(dictionary["fromYear"] as? String ?? "")\(" to ")\(dictionary["fromYear"] as? String ?? "")\(", ")\(dictionary["teamSize"] as? String ?? "")\(" teams handled")"
+        
+    }
+}
