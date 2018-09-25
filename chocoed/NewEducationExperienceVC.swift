@@ -23,8 +23,10 @@ class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableView
     @IBOutlet weak var textfieldBoardUniv: UITextField!
     @IBOutlet weak var buttonSpecification: UIButton!
     var currentSelectedButton: String!
+    
+    var educationLevel, location, mediumOfEducation, specialisation, state, yearOfCompletion,boardUniversity,nameOfInstitute : String!
     var tableViewData =  [NewWorkExperienceTableView]()
-    var educationLevel = [FieldsOfEducation]()
+    var educationLevel1 = [FieldsOfEducation]()
     var specializationList = [FieldsOfEducation]()
     var stateList = [FieldsOfEducation]()
     var mediumOfEduList = [FieldsOfEducation]()
@@ -48,7 +50,7 @@ class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableView
             let statelist = response.object(forKey: "statelist") as? NSArray ?? []
             
             for education in educationLevelList {
-                self.educationLevel.append(FieldsOfEducation( education as! NSDictionary))
+                self.educationLevel1.append(FieldsOfEducation( education as! NSDictionary))
             }
             
             for specialisation in specialisationList {
@@ -79,6 +81,24 @@ class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableView
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.viewTableEdu.isHidden = true
+        
+        switch currentSelectedButton {
+        case "Qualification":
+            educationLevel = self.educationLevel1[indexPath.row].name
+                buttonQualification.setTitle(self.educationLevel1[indexPath.row].name, for: .normal)
+        case "EducationMedium":
+            mediumOfEducation = self.mediumOfEduList[indexPath.row].name
+            eduMediumButton.setTitle(self.mediumOfEduList[indexPath.row].name, for: .normal)
+        case "Specialization":
+             specialisation = self.specializationList[indexPath.row].name
+            buttonSpecification.setTitle(self.specializationList[indexPath.row].name, for: .normal)
+        case "YearofPassing":
+            yearOfCompletion = self.PassingYears[indexPath.row].title
+            buttonYearofpassing.setTitle(self.PassingYears[indexPath.row].title, for: .normal)
+        default:
+            print("whoops")
+        }
+        self.viewTableEdu.isHidden = true
 
      }
 
@@ -89,10 +109,10 @@ class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableView
     }
 
     @IBAction func qualificationButtonAction(_ sender: Any) {
-        
+        self.view.endEditing(true)
         viewTableEdu.isHidden = false
         tableViewData =  [NewWorkExperienceTableView]()
-        for qualify in  self.educationLevel{
+        for qualify in  self.educationLevel1{
             tableViewData.append(NewWorkExperienceTableView(qualify.name))
         }
         self.eduTableView.reloadData()
@@ -103,16 +123,18 @@ class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableView
         
          }
     @IBAction func EduMediumButtonAction(_ sender: Any) {
+        self.view.endEditing(true)
         viewTableEdu.isHidden = false
         tableViewData =  [NewWorkExperienceTableView]()
         for medium in  self.mediumOfEduList {
             tableViewData.append(NewWorkExperienceTableView(medium.name))
         }
         self.eduTableView.reloadData()
-          currentSelectedButton = "Education Medium"
+          currentSelectedButton = "EducationMedium"
     }
 
     @IBAction func spectificationButtonAction(_ sender: Any) {
+        self.view.endEditing(true)
         viewTableEdu.isHidden = false
         tableViewData =  [NewWorkExperienceTableView]()
         for specifications in  self.specializationList {
@@ -123,22 +145,25 @@ class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableView
         
     }
     @IBAction func YearOfPassingButtonAction(_ sender: Any) {
-        
+        self.view.endEditing(true)
         viewTableEdu.isHidden = false
         tableViewData = PassingYears
         self.eduTableView.reloadData()
-        currentSelectedButton = "Year of Passing"
+        currentSelectedButton = "YearofPassing"
     }
     @IBAction func buttonSave(_ sender: Any) {
+        
+        let userID = UserDefaults.standard.integer(forKey: "userid")
+        let clientID = UserDefaults.standard.integer(forKey: "clientid")
+        let nameOfInstitute = "Tejal"
+        let nameofBoardUniv = "Ohara"
+        
+        let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea", "userId": "\(59)","clientId":"\(16)", "educationLevel": "\(educationLevel!)", "boardUniversity": "\(nameofBoardUniv)", "location": "Pune", "mediumOfEducation" : "\(mediumOfEducation!)", "nameOfInstitute": "\(nameOfInstitute)", "specialisation" : "\(specialisation!)", "state" : "\(state!)", "id": "","yearOfCompletion":"\(yearOfCompletion!)"] as Dictionary<String, String>
+        MakeHttpPostRequest(url: saveEducationExp, params: params, completion: {(success, response) -> Void in
+            print(response, "SAVE WORK RESPONSE")
+            let vcGetStarted = self.storyboard?.instantiateViewController(withIdentifier: "work") as! WorkExpClickedViewController
+            
+            self.present(vcGetStarted, animated: true, completion: nil)
+        })
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
