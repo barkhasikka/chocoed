@@ -62,3 +62,13 @@ struct ExistingWorkList {
         
     }
 }
+
+struct ExistingEducationList {
+    var name: String
+    var field: String
+    var subField: String
+    init(_ dictionary : NSDictionary) {
+        self.name = dictionary["educationLevel"] as? String ?? ""
+        self.field = dictionary["nameOfInstitute"] as? String ?? ""
+    }
+}
