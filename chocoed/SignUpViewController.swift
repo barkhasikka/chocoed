@@ -11,6 +11,7 @@ import UIKit
 class SignUpViewController: UIViewController {
     var tableViewData =  [ExistingEducationList]()
 
+    @IBOutlet weak var educationDetailsTableView: UITableView!
     @IBOutlet weak var viewEdu: UIView!
     @IBOutlet weak var addeducationButton: UIButton!
     override func viewDidLoad() {
@@ -36,7 +37,7 @@ class SignUpViewController: UIViewController {
                 self.tableViewData.append(ExistingEducationList(experience as! NSDictionary))
             }
             DispatchQueue.main.async {
-                self.workListTableView.reloadData()
+                self.educationDetailsTableView.reloadData()
             }
             
             //            if let json = try JSONSerialization.jsonObject(with: jsonobject, options: []) as? [String: AnyObject] {
