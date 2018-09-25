@@ -23,9 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
             window!.rootViewController = startVC
             window!.makeKeyAndVisible()
-            
+
         } else {
-            
+
             let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "firstview") as! ViewController
                 window!.rootViewController = startVC

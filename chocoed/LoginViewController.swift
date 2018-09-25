@@ -148,11 +148,11 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         let params = ["phone":"\(mobileNumberTextFIeld.text!)", "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
         MakeHttpPostRequest(url: sendOtpApiURL, params: params, completion: {(success, response) -> Void in
             print(response)
-            
+            DispatchQueue.main.async {
             self.otpReceivedLabel.isHidden = false
             self.receivedOTPUIView.isHidden = false
             self.registerButton.isHidden = false
-            
+            }
             let temp = ModelClassLoginId()
             
             temp.userId = response.value(forKey: "userId") as? String ?? ""
