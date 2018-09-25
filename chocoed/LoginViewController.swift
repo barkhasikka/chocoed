@@ -35,7 +35,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         super.viewDidLoad()
         otpReceivedLabel.isHidden = true
         receivedOTPUIView.isHidden = true
-        registerButton.isHidden = true
+//        registerButton.isHidden = true
         
         button = UIButton()
         button.setTitle("Return", for: UIControlState())
@@ -81,17 +81,33 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
     }
     
     @IBAction func registerButtonAction(_ sender: Any) {
-        var userEnteredOTPText = otpDigitFirstTF.text! + otpDigitSecondTF.text! + otpDigitThirdTF.text! + otpDigitFourthTF.text! + otpDigitFifthTF.text! + otpDigitSixthTF.text!
-        let userEnteredOTP = Int(userEnteredOTPText)
-        if userEnteredOTP == otpFromServer {
-            let vcGetStarted = storyboard?.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
-            
-            self.present(vcGetStarted, animated: true, completion: nil)
+        if otpFromServer == -1 {
+            let params = ["phone":"\(mobileNumberTextFIeld.text!)", "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
+            MakeHttpPostRequest(url: sendOtpApiURL, params: params, completion: {(success, response) -> Void in
+                let temp = ModelClassLoginId()
+                
+                temp.userId = response.value(forKey: "userId") as? String ?? ""
+                temp.otp = response.value(forKey: "otp") as? Int ?? 0
+                UserDefaults.standard.set(Int(temp.userId), forKey: "userid")
+                self.otpFromServer = temp.otp
+                DispatchQueue.main.async {
+                    self.otpReceivedLabel.isHidden = false
+                    self.receivedOTPUIView.isHidden = false
+                }
+            })
         }else {
-            let alertcontrol = UIAlertController(title: "alert!", message: "Login Failed! Please check your OTP again.", preferredStyle: .alert)
-            let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertcontrol.addAction(alertaction)
-            self.present(alertcontrol, animated: true, completion: nil)
+            var userEnteredOTPText = otpDigitFirstTF.text! + otpDigitSecondTF.text! + otpDigitThirdTF.text! + otpDigitFourthTF.text! + otpDigitFifthTF.text! + otpDigitSixthTF.text!
+            let userEnteredOTP = Int(userEnteredOTPText)
+            if userEnteredOTP == otpFromServer {
+                let vcGetStarted = storyboard?.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
+                
+                self.present(vcGetStarted, animated: true, completion: nil)
+            }else {
+                let alertcontrol = UIAlertController(title: "alert!", message: "Login Failed! Please check your OTP again.", preferredStyle: .alert)
+                let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertcontrol.addAction(alertaction)
+                self.present(alertcontrol, animated: true, completion: nil)
+            }
         }
     }
     
@@ -169,25 +185,6 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
     func sendOTPAPI() {
         //hide keyboard
         self.view.endEditing(true)
-        
-        let params = ["phone":"\(mobileNumberTextFIeld.text!)", "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
-        MakeHttpPostRequest(url: sendOtpApiURL, params: params, completion: {(success, response) -> Void in
-            let temp = ModelClassLoginId()
-            
-            temp.userId = response.value(forKey: "userId") as? String ?? ""
-            temp.otp = response.value(forKey: "otp") as? Int ?? 0
-            UserDefaults.standard.set(Int(temp.userId), forKey: "userid")
-            self.otpFromServer = temp.otp
-            DispatchQueue.main.async {
-                self.otpReceivedLabel.isHidden = false
-                self.receivedOTPUIView.isHidden = false
-                self.registerButton.isHidden = false
-                let vcGetStarted = self.storyboard?.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
-
-                self.present(vcGetStarted, animated: true, completion: nil)
-            }
-        })
-        
     }
     
     func addDoneButtonOnKeyboard() {
