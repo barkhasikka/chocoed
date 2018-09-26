@@ -23,6 +23,8 @@ class AddNewButtonLabel: UIButton {
         self.titleLabel?.font = UIFont(name: "Helvetica", size: 18)
         self.setTitleColor(UIColor.darkGray, for: .normal)
         self.backgroundColor = .white
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
 }
 
