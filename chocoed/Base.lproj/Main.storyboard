@@ -823,7 +823,7 @@
                                     <outlet property="delegate" destination="80O-yH-Nwh" id="WHd-Q4-BOA"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter OTP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wg6-UP-uko">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chocoed Token" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wg6-UP-uko">
                                 <rect key="frame" x="87.5" y="320" width="200" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="Qnz-KC-YKS"/>
@@ -1461,9 +1461,8 @@
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PlO-so-8eC">
                                                 <rect key="frame" x="8" y="49" width="359" height="30"/>
-                                                <color key="backgroundColor" red="0.84012135152284262" green="0.84012135152284262" blue="0.84012135152284262" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Click Here to Select Qualification">
-                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="qualificationButtonAction:" destination="RSA-Rr-Pil" eventType="touchUpInside" id="pIw-Cx-E6S"/>
@@ -1539,9 +1538,8 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xwH-f3-c5t">
                                                 <rect key="frame" x="8" y="406" width="359" height="30"/>
-                                                <color key="backgroundColor" red="0.84012135152284262" green="0.84012135152284262" blue="0.84012135152284262" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Click Here to Select Educational Medium">
-                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="EduMediumButtonAction:" destination="RSA-Rr-Pil" eventType="touchUpInside" id="BfJ-cs-zqN"/>
@@ -1549,9 +1547,8 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kok-is-sMh">
                                                 <rect key="frame" x="8" y="495" width="359" height="30"/>
-                                                <color key="backgroundColor" red="0.84012135152284262" green="0.84012135152284262" blue="0.84012135152284262" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Click here to Select Specification">
-                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="spectificationButtonAction:" destination="RSA-Rr-Pil" eventType="touchUpInside" id="Joz-ZT-zD0"/>
@@ -1559,9 +1556,8 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fvu-mv-i73">
                                                 <rect key="frame" x="8" y="584" width="359" height="30"/>
-                                                <color key="backgroundColor" red="0.84012135152284262" green="0.84012135152284262" blue="0.84012135152284262" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Click Here to Select Year of Passing">
-                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="YearOfPassingButtonAction:" destination="RSA-Rr-Pil" eventType="touchUpInside" id="Isk-My-ukU"/>
@@ -1761,12 +1757,11 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W8r-xb-Dyl">
                                                 <rect key="frame" x="8" y="140" width="359" height="30"/>
-                                                <color key="backgroundColor" red="0.8401213515" green="0.8401213515" blue="0.8401213515" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="IJR-0I-vTJ"/>
                                                 </constraints>
                                                 <state key="normal" title="Click Here to Select From">
-                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="fromButtonAction:" destination="7TH-s2-uMG" eventType="touchUpInside" id="nSb-VH-imB"/>
@@ -1783,12 +1778,11 @@
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="veW-ck-xas">
                                                 <rect key="frame" x="8" y="230" width="359" height="30"/>
-                                                <color key="backgroundColor" red="0.8401213515" green="0.8401213515" blue="0.8401213515" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="rGd-kZ-zw6"/>
                                                 </constraints>
                                                 <state key="normal" title="Click Here to Select To">
-                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="toButtonAction:" destination="7TH-s2-uMG" eventType="touchUpInside" id="hma-3r-fQM"/>
@@ -1796,12 +1790,11 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jTB-Y2-wLf">
                                                 <rect key="frame" x="8" y="320" width="359" height="30"/>
-                                                <color key="backgroundColor" red="0.8401213515" green="0.8401213515" blue="0.8401213515" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="yKK-Ix-Ce9"/>
                                                 </constraints>
                                                 <state key="normal" title="Click Here to Select Management Level">
-                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="ManagementLevelButtonAction:" destination="7TH-s2-uMG" eventType="touchUpInside" id="C2J-IZ-W07"/>
@@ -1809,12 +1802,11 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vH4-z1-jbn">
                                                 <rect key="frame" x="8" y="410" width="359" height="30"/>
-                                                <color key="backgroundColor" red="0.8401213515" green="0.8401213515" blue="0.8401213515" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="Kuq-DI-690"/>
                                                 </constraints>
                                                 <state key="normal" title="Click Here to Select Teams Handled">
-                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="teamsHandledAction:" destination="7TH-s2-uMG" eventType="touchUpInside" id="7Wc-Jw-t6g"/>
@@ -1822,12 +1814,11 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xix-eF-dve">
                                                 <rect key="frame" x="8" y="500" width="359" height="30"/>
-                                                <color key="backgroundColor" red="0.8401213515" green="0.8401213515" blue="0.8401213515" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="U74-Jj-U3p"/>
                                                 </constraints>
                                                 <state key="normal" title="Click Here to Select Current Industry">
-                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="currentIndustryButtonAction:" destination="7TH-s2-uMG" eventType="touchUpInside" id="jwf-ar-nbG"/>
@@ -1835,12 +1826,11 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ggM-u6-uAl">
                                                 <rect key="frame" x="8" y="590" width="359" height="30"/>
-                                                <color key="backgroundColor" red="0.8401213515" green="0.8401213515" blue="0.8401213515" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="7G2-VQ-WPI"/>
                                                 </constraints>
                                                 <state key="normal" title="Click Here to Select Functional Expertise">
-                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="myFunctionalExpButtonAction:" destination="7TH-s2-uMG" eventType="touchUpInside" id="XWo-2C-Sal"/>
