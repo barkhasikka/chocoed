@@ -62,14 +62,16 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         labelChoice.translatesAutoresizingMaskIntoConstraints = false
         labelChoice.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
         labelChoice.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -90).isActive =  true
-        loginButton.backgroundColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
-        loginButton.layer.cornerRadius = 20
-        loginButton.clipsToBounds = true
-        loginButton.layer.borderWidth = 1
-        loginButton.layer.borderColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
-        
+//        loginButton.backgroundColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+//        loginButton.layer.cornerRadius = 20
+//        loginButton.clipsToBounds = true
+//        loginButton.layer.borderWidth = 1
+//        loginButton.layer.borderColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+//        
         loginButton.translatesAutoresizingMaskIntoConstraints = false
-        
+        loginButton.setTitle("Login", for: .normal)
+        loginButton.titleLabel?.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+
         loginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
         loginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
         loginButton.topAnchor.constraint(equalTo: labelChoice.bottomAnchor, constant: 70).isActive = true

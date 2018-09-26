@@ -25,3 +25,29 @@ class BoldLabel: UILabel {
         self.textColor = UIColor.blue
     }
 }
+
+class imagetoButton : UIButton{
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        initializeLabel()
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        initializeLabel()
+    }
+    
+    func initializeLabel() {
+        
+       // let playButton  = UIButton(type: .custom)
+       // self..setImage(UIImage(named: "play.png"), for: .normal)
+        
+        
+        self.setImage(UIImage(named: "loginButtonBackground" ), for: .normal)
+        self.layer.cornerRadius = 20
+        self.clipsToBounds =  true
+        self.layer.borderWidth = 1
+        self.layer.borderColor = #colorLiteral(red: 0.1264051212, green: 0.3580443426, blue: 1, alpha: 1)
+        
+    }
+}
