@@ -13,6 +13,8 @@ class WorkExpClickedViewController: UIViewController, UITableViewDelegate,UITabl
     @IBOutlet weak var workListTableView: UITableView!
     @IBOutlet weak var addnewWorkButton: UIButton!
     var tableViewData =  [ExistingWorkList]()
+    var workExperiences: NSArray = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -20,15 +22,16 @@ class WorkExpClickedViewController: UIViewController, UITableViewDelegate,UITabl
         addnewWorkButton.layer.cornerRadius = 10
         addnewWorkButton.layer.borderWidth = 1
         addnewWorkButton.layer.borderColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+        
         let userID = UserDefaults.standard.integer(forKey: "userid")
-        print(userID, "USER ID IS HERE")
+        
         let params = ["userId": "\(userID)",  "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
         
         MakeHttpPostRequest(url: getUserInfo, params: params, completion: {(success, response) -> Void in
             let jsonobject = response["info"] as? NSDictionary;
-            let workExperiences = jsonobject?["userWorkExperienceList"] as? NSArray ?? []
+            self.workExperiences = jsonobject?["userWorkExperienceList"] as? NSArray ?? []
             
-            for experience in workExperiences {
+            for experience in self.workExperiences {
                 self.tableViewData.append(ExistingWorkList(experience as! NSDictionary))
             }
             DispatchQueue.main.async {
@@ -79,6 +82,14 @@ class WorkExpClickedViewController: UIViewController, UITableViewDelegate,UITabl
         cell.departmentLabel.text = tableViewData[indexPath.row].field
         cell.fromToDetailsLabel.text = tableViewData[indexPath.row].subField
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let data = WorkFields(self.workExperiences[indexPath.row] as! NSDictionary)
+        print(data, "converted data is here")
+        let vcGetStarted = storyboard?.instantiateViewController(withIdentifier: "newwork") as! NewWorkExperienceVC
+        vcGetStarted.selectedWorkExperience = data
+        self.present(vcGetStarted, animated: true, completion: nil)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -71,3 +71,27 @@ struct ExistingEducationList {
         self.field = "\(dictionary["nameOfInstitute"] as? String ?? ""),\(dictionary["location"] as? String ?? "")\(", ")\(dictionary["yearOfCompletion"] as? String ?? "")"
     }
 }
+
+struct WorkFields {
+    var companyName: String
+    var fromYear: String
+    var functionalDepartment: String
+    var id: Int
+    var industrySector: String
+    var levelOfManagement: String
+    var status: Int
+    var teamSize: String
+    var toYear: String
+    
+    init(_ dictionary : NSDictionary) {
+        self.companyName = dictionary["companyName"] as? String ?? ""
+        self.fromYear = dictionary["fromYear"] as? String ?? ""
+        self.functionalDepartment = dictionary["functionalDepartment"] as? String ?? ""
+        self.id = dictionary["id"] as? Int ?? -1
+        self.industrySector = dictionary["industrySector"] as? String ?? ""
+        self.levelOfManagement = dictionary["levelOfManagemet"] as? String ?? ""
+        self.status = dictionary["status"] as? Int ?? 0
+        self.teamSize = dictionary["teamSize"] as? String ?? ""
+        self.toYear = dictionary["toYear"] as? String ?? ""
+    }
+}
