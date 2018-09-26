@@ -95,3 +95,30 @@ struct WorkFields {
         self.toYear = dictionary["toYear"] as? String ?? ""
     }
 }
+
+
+struct EducationFields {
+    var boardUniversity: String
+    var educationLevel: String
+    var location: String
+    var id: Int
+    var mediumOfEducation: String
+    var nameOfInstitute: String
+    var specialisation: String
+    var state: String
+    var yearOfCompletion: String
+    var status: Int
+    
+    init(_ dictionary : NSDictionary) {
+        self.boardUniversity = dictionary["boardUniversity"] as? String ?? ""
+        self.educationLevel = dictionary["educationLevel"] as? String ?? ""
+        self.location = dictionary["location"] as? String ?? ""
+        self.id = dictionary["id"] as? Int ?? -1
+        self.mediumOfEducation = dictionary["mediumOfEducation"] as? String ?? ""
+        self.nameOfInstitute = dictionary["nameOfInstitute"] as? String ?? ""
+        self.specialisation = dictionary["specialisation"] as? String ?? ""
+        self.state = dictionary["state"] as? String ?? ""
+        self.yearOfCompletion = dictionary["yearOfCompletion"] as? String ?? ""
+        self.status = dictionary["status"] as? Int ?? 0
+    }
+}

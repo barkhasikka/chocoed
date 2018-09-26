@@ -14,6 +14,7 @@ class SignUpViewController: UIViewController,UITableViewDelegate,UITableViewData
     @IBOutlet weak var educationDetailsTableView: UITableView!
     @IBOutlet weak var viewEdu: UIView!
     @IBOutlet weak var addeducationButton: UIButton!
+    var workExperiences: NSArray = []
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,9 +33,9 @@ class SignUpViewController: UIViewController,UITableViewDelegate,UITableViewData
         MakeHttpPostRequest(url: getUserInfo, params: params, completion: {(success, response) -> Void in
             print(response)
             let jsonobject = response["info"] as? NSDictionary;
-            let workExperiences = jsonobject?["userEducationList"] as? NSArray ?? []
+            self.workExperiences = jsonobject?["userEducationList"] as? NSArray ?? []
             
-            for experience in workExperiences {
+            for experience in self.workExperiences {
                 self.tableViewData.append(ExistingEducationList(experience as! NSDictionary))
             }
             DispatchQueue.main.async {
@@ -66,6 +67,14 @@ class SignUpViewController: UIViewController,UITableViewDelegate,UITableViewData
         cell.labelQualification.text = tableViewData[indexPath.row].name
         cell.labelInstitute.text = tableViewData[indexPath.row].field
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(self.workExperiences[indexPath.row])
+        let data = EducationFields(self.workExperiences[indexPath.row] as! NSDictionary)
+        let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "neweducation") as! NewEducationExperienceVC
+        nextViewController.selectedEducation = data
+        self.present(nextViewController, animated:true, completion:nil)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

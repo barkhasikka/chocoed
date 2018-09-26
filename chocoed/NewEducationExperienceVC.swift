@@ -10,16 +10,14 @@ import UIKit
 import DropDown
 class NewEducationExperienceVC: UIViewController {
     @IBOutlet weak var buttonQualification: UIButton!
-    
-    @IBOutlet weak var buttonLocation: UIButton!
-    
     @IBOutlet weak var buttonYearofpassing: UIButton!
+    @IBOutlet weak var eduMediumButton: UIButton!
+    @IBOutlet weak var buttonSpecification: UIButton!
     
     @IBOutlet weak var locationTextField: UITextField!
-    @IBOutlet weak var eduMediumButton: UIButton!
     @IBOutlet weak var textfieldClgName: UITextField!
     @IBOutlet weak var textfieldBoardUniv: UITextField!
-    @IBOutlet weak var buttonSpecification: UIButton!
+    
     var currentSelectedButton: String!
     
     var dropDown: DropDown!
@@ -31,6 +29,8 @@ class NewEducationExperienceVC: UIViewController {
     var mediumOfEduList = [FieldsOfEducation]()
     var PassingYears: [String] = [("1990"), ("1991"), ("1992")]
     
+    var selectedEducation: EducationFields!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         getDropdownList()
@@ -38,6 +38,10 @@ class NewEducationExperienceVC: UIViewController {
         dropDown.direction = .any
         dropDown.dismissMode = .automatic
         dropDown.hide()
+        
+        if selectedEducation != nil {
+            initView()
+        }
         
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
@@ -58,8 +62,16 @@ class NewEducationExperienceVC: UIViewController {
                 print("whoops")
             }
         }
-        
-        
+    }
+    
+    func initView() {
+        self.buttonQualification.setTitle(selectedEducation.educationLevel, for: .normal)
+        self.eduMediumButton.setTitle(selectedEducation.mediumOfEducation, for: .normal)
+        self.buttonSpecification.setTitle(selectedEducation.specialisation, for: .normal)
+        self.buttonYearofpassing.setTitle(selectedEducation.yearOfCompletion, for: .normal)
+        self.locationTextField.text = selectedEducation.location
+        self.textfieldClgName.text = selectedEducation.nameOfInstitute
+        self.textfieldBoardUniv.text = selectedEducation.boardUniversity
     }
     
     

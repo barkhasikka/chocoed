@@ -29,7 +29,7 @@ class NewWorkExperienceVC: UIViewController {
     var functionalDepartmentList = [FieldsOfWork]()
     var industrySectorList = [FieldsOfWork]()
     var fromToYears: [String] = [("1990"), ("1991"), ("1992")]
-    
+    var selectedWorkExperience: WorkFields!
     var dropDown: DropDown!
     
     override func viewDidLoad() {
@@ -39,7 +39,9 @@ class NewWorkExperienceVC: UIViewController {
         dropDown.direction = .any
         dropDown.dismissMode = .automatic
         dropDown.hide()
-        
+        if selectedWorkExperience != nil {
+            initView()
+        }
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
             switch self.currentSelectedButton {
@@ -95,6 +97,16 @@ class NewWorkExperienceVC: UIViewController {
         })
     }
 
+    func initView() {
+        self.fromButton.setTitle(selectedWorkExperience.fromYear, for: .normal)
+        self.toButton.setTitle(selectedWorkExperience.toYear, for: .normal)
+        self.managementLevelButton.setTitle(selectedWorkExperience.levelOfManagement, for: .normal)
+        self.teamsHandeledButton.setTitle(selectedWorkExperience.teamSize, for: .normal)
+        self.currentIndustryButton.setTitle(selectedWorkExperience.industrySector, for: .normal)
+        self.funcExpButton.setTitle(selectedWorkExperience.functionalDepartment, for: .normal)
+        self.textFieldCompany.text = selectedWorkExperience.companyName
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
