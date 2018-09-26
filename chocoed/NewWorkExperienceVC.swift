@@ -11,7 +11,7 @@ import DropDown
 
 class NewWorkExperienceVC: UIViewController {
     
-    var companyName = "", fromYear = "", toYear = "", functionalDepartment = "", industrySector = "", managementLevel = "", teamSize = ""
+//    var companyName = "", fromYear = "", toYear = "", functionalDepartment = "", industrySector = "", managementLevel = "", teamSize = ""
     
     @IBOutlet weak var funcExpButton: UIButton!
     @IBOutlet weak var currentIndustryButton: UIButton!
@@ -39,29 +39,29 @@ class NewWorkExperienceVC: UIViewController {
         dropDown.direction = .any
         dropDown.dismissMode = .automatic
         dropDown.hide()
-        if selectedWorkExperience != nil {
+        if selectedWorkExperience.id != 0 {
             initView()
         }
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
             switch self.currentSelectedButton {
             case "From":
-                self.fromYear = item
+                self.selectedWorkExperience.fromYear = item
                 self.fromButton.setTitle(item, for: .normal)
             case "To":
-                self.toYear = item
+                self.selectedWorkExperience.toYear = item
                 self.toButton.setTitle(item, for: .normal)
             case "ManagementLevel":
-                self.managementLevel = item
+                self.selectedWorkExperience.levelOfManagement = item
                 self.managementLevelButton.setTitle(item, for: .normal)
             case "TeamsHandled":
-                self.teamSize = item
+                self.selectedWorkExperience.teamSize = item
                 self.teamsHandeledButton.setTitle(item, for: .normal)
             case "CurrentIndustry":
-                self.industrySector = item
+                self.selectedWorkExperience.industrySector = item
                 self.currentIndustryButton.setTitle(item, for: .normal)
             case "FunctionalDepartment":
-                self.functionalDepartment = item
+                self.selectedWorkExperience.functionalDepartment = item
                 self.funcExpButton.setTitle(item, for: .normal)
             default:
                 print("whoops")
@@ -182,10 +182,14 @@ class NewWorkExperienceVC: UIViewController {
     }
     
     @IBAction func addWorkExperience(_ sender: Any) {
+        if selectedWorkExperience == nil {
+            //show alert to select fields
+            return
+        }
         let userID = UserDefaults.standard.integer(forKey: "userid")
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let companyName = textFieldCompany.text!
-        let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea", "userId": "\(userID)","clientId":"\(clientID)", "companyName": "\(companyName)", "fromYear": "\(fromYear)", "toYear": "\(toYear)", "functionalDepartment" : "\(functionalDepartment)", "industrySector": "\(industrySector)", "levelOfManagemet" : "\(managementLevel)", "teamSize" : "\(teamSize)", "id": ""] as Dictionary<String, String>
+        let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea", "userId": "\(userID)","clientId":"\(clientID)", "companyName": "\(companyName)", "fromYear": "\(self.selectedWorkExperience.fromYear)", "toYear": "\(self.selectedWorkExperience.toYear)", "functionalDepartment" : "\(self.selectedWorkExperience.functionalDepartment)", "industrySector": "\(self.selectedWorkExperience.industrySector)", "levelOfManagemet" : "\(self.selectedWorkExperience.levelOfManagement)", "teamSize" : "\(self.selectedWorkExperience.teamSize)", "id": "\(self.selectedWorkExperience.id)"] as Dictionary<String, String>
         MakeHttpPostRequest(url: saveWorkExperience, params: params, completion: {(success, response) -> Void in
             print(response, "SAVE WORK RESPONSE")
             DispatchQueue.main.async {
