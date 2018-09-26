@@ -8,16 +8,14 @@
 
 import UIKit
 import DropDown
-class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
-    
-    @IBOutlet weak var eduTableView: UITableView!
-    @IBOutlet weak var viewTableEdu: UIView!
+class NewEducationExperienceVC: UIViewController {
     @IBOutlet weak var buttonQualification: UIButton!
     
     @IBOutlet weak var buttonLocation: UIButton!
     
     @IBOutlet weak var buttonYearofpassing: UIButton!
     
+    @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet weak var eduMediumButton: UIButton!
     @IBOutlet weak var textfieldClgName: UITextField!
     @IBOutlet weak var textfieldBoardUniv: UITextField!
@@ -26,21 +24,41 @@ class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableView
     
     var dropDown: DropDown!
     var educationLevel = "", location = "", mediumOfEducation = "", specialisation = "", state = "", yearOfCompletion = "",boardUniversity="",nameOfInstitute=""
-    var tableViewData =  [NewWorkExperienceTableView]()
+    var tableViewData =  [String]()
     var educationLevel1 = [FieldsOfEducation]()
     var specializationList = [FieldsOfEducation]()
     var stateList = [FieldsOfEducation]()
     var mediumOfEduList = [FieldsOfEducation]()
-    var PassingYears: [NewWorkExperienceTableView] = [NewWorkExperienceTableView("1990"), NewWorkExperienceTableView("1991"), NewWorkExperienceTableView("1991")]
+    var PassingYears: [String] = [("1990"), ("1991"), ("1992")]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewTableEdu.isHidden = true
         getDropdownList()
         dropDown = DropDown()
         dropDown.direction = .any
         dropDown.dismissMode = .automatic
         dropDown.hide()
+        
+        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            print("Selected item: \(item) at index: \(index)")
+            switch self.currentSelectedButton {
+            case "Qualification":
+                self.educationLevel = self.educationLevel1[index].name
+                self.buttonQualification.setTitle(self.educationLevel1[index].name, for: .normal)
+            case "EducationMedium":
+                self.mediumOfEducation = self.mediumOfEduList[index].name
+                self.eduMediumButton.setTitle(self.mediumOfEduList[index].name, for: .normal)
+            case "Specialization":
+                self.specialisation = self.specializationList[index].name
+                self.buttonSpecification.setTitle(self.specializationList[index].name, for: .normal)
+            case "YearofPassing":
+                self.yearOfCompletion = self.PassingYears[index]
+                self.buttonYearofpassing.setTitle(self.PassingYears[index], for: .normal)
+            default:
+                print("whoops")
+            }
+        }
+        
         
     }
     
@@ -73,39 +91,39 @@ class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableView
 
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableViewData.count
-    }
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return tableViewData.count
+//    }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "celledu") as! EducationExpTableViewCell
-        let titlename = tableViewData[indexPath .row]
-        cell.valueEdu.text = titlename.title
-        return cell
-    }
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "celledu") as! EducationExpTableViewCell
+//        let titlename = tableViewData[indexPath .row]
+//        cell.valueEdu.text = titlename.title
+//        return cell
+//    }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.viewTableEdu.isHidden = true
-        
-        switch currentSelectedButton {
-        case "Qualification":
-            educationLevel = self.educationLevel1[indexPath.row].name
-                buttonQualification.setTitle(self.educationLevel1[indexPath.row].name, for: .normal)
-        case "EducationMedium":
-            mediumOfEducation = self.mediumOfEduList[indexPath.row].name
-            eduMediumButton.setTitle(self.mediumOfEduList[indexPath.row].name, for: .normal)
-        case "Specialization":
-             specialisation = self.specializationList[indexPath.row].name
-            buttonSpecification.setTitle(self.specializationList[indexPath.row].name, for: .normal)
-        case "YearofPassing":
-            yearOfCompletion = self.PassingYears[indexPath.row].title
-            buttonYearofpassing.setTitle(self.PassingYears[indexPath.row].title, for: .normal)
-        default:
-            print("whoops")
-        }
-        self.viewTableEdu.isHidden = true
-
-     }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        self.viewTableEdu.isHidden = true
+//
+//        switch currentSelectedButton {
+//        case "Qualification":
+//            educationLevel = self.educationLevel1[indexPath.row].name
+//                buttonQualification.setTitle(self.educationLevel1[indexPath.row].name, for: .normal)
+//        case "EducationMedium":
+//            mediumOfEducation = self.mediumOfEduList[indexPath.row].name
+//            eduMediumButton.setTitle(self.mediumOfEduList[indexPath.row].name, for: .normal)
+//        case "Specialization":
+//             specialisation = self.specializationList[indexPath.row].name
+//            buttonSpecification.setTitle(self.specializationList[indexPath.row].name, for: .normal)
+//        case "YearofPassing":
+//            yearOfCompletion = self.PassingYears[indexPath.row].title
+//            buttonYearofpassing.setTitle(self.PassingYears[indexPath.row].title, for: .normal)
+//        default:
+//            print("whoops")
+//        }
+//        self.viewTableEdu.isHidden = true
+//
+//     }
 
 
     override func didReceiveMemoryWarning() {
@@ -115,13 +133,14 @@ class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableView
 
     @IBAction func qualificationButtonAction(_ sender: Any) {
         self.view.endEditing(true)
-        viewTableEdu.isHidden = false
-        tableViewData =  [NewWorkExperienceTableView]()
+        tableViewData =  [String]()
         for qualify in  self.educationLevel1{
-            tableViewData.append(NewWorkExperienceTableView(qualify.name))
+            tableViewData.append((qualify.name))
         }
-        self.eduTableView.reloadData()
         currentSelectedButton = "Qualification"
+        dropDown.show()
+        dropDown.anchorView = buttonQualification
+        dropDown.dataSource = tableViewData
     }
     
     @IBAction func locationButtonAction(_ sender: Any) {
@@ -129,41 +148,43 @@ class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableView
          }
     @IBAction func EduMediumButtonAction(_ sender: Any) {
         self.view.endEditing(true)
-        viewTableEdu.isHidden = false
-        tableViewData =  [NewWorkExperienceTableView]()
+        tableViewData =  [String]()
         for medium in  self.mediumOfEduList {
-            tableViewData.append(NewWorkExperienceTableView(medium.name))
+            tableViewData.append((medium.name))
         }
-        self.eduTableView.reloadData()
-          currentSelectedButton = "EducationMedium"
+        currentSelectedButton = "EducationMedium"
+        dropDown.show()
+        dropDown.anchorView = eduMediumButton
+        dropDown.dataSource = tableViewData
     }
 
     @IBAction func spectificationButtonAction(_ sender: Any) {
         self.view.endEditing(true)
-        viewTableEdu.isHidden = false
-        tableViewData =  [NewWorkExperienceTableView]()
+        tableViewData =  [String]()
         for specifications in  self.specializationList {
-            tableViewData.append(NewWorkExperienceTableView(specifications.name))
+            tableViewData.append((specifications.name))
         }
-        self.eduTableView.reloadData()
-          currentSelectedButton = "Specialization"
-        
+        currentSelectedButton = "Specialization"
+        dropDown.show()
+        dropDown.anchorView = buttonSpecification
+        dropDown.dataSource = tableViewData
     }
     @IBAction func YearOfPassingButtonAction(_ sender: Any) {
         self.view.endEditing(true)
-        viewTableEdu.isHidden = false
-        tableViewData = PassingYears
-        self.eduTableView.reloadData()
         currentSelectedButton = "YearofPassing"
+        dropDown.show()
+        dropDown.anchorView = buttonSpecification
+        dropDown.dataSource = PassingYears
     }
     @IBAction func buttonSave(_ sender: Any) {
         
         let userID = UserDefaults.standard.integer(forKey: "userid")
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
-        let nameOfInstitute = "Tejal"
-        let nameofBoardUniv = "Ohara"
+        let nameOfInstitute = textfieldClgName.text!
+        let nameofBoardUniv = textfieldBoardUniv.text!
+        let location = locationTextField.text!
         
-        let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea", "userId": "\(userID)","clientId":"\(clientID)", "educationLevel": "\(educationLevel)", "boardUniversity": "\(nameofBoardUniv)", "location": "Pune", "mediumOfEducation" : "\(mediumOfEducation)", "nameOfInstitute": "\(nameOfInstitute)", "specialisation" : "\(specialisation)", "state" : "\(state)", "id": "","yearOfCompletion":"\(yearOfCompletion)"] as Dictionary<String, String>
+        let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea", "userId": "\(userID)","clientId":"\(clientID)", "educationLevel": "\(educationLevel)", "boardUniversity": "\(nameofBoardUniv)", "location": "\(location)", "mediumOfEducation" : "\(mediumOfEducation)", "nameOfInstitute": "\(nameOfInstitute)", "specialisation" : "\(specialisation)", "state" : "\(state)", "id": "","yearOfCompletion":"\(yearOfCompletion)"] as Dictionary<String, String>
 //        print(params)
         MakeHttpPostRequest(url: saveEducationExp, params: params, completion: {(success, response) -> Void in
             print(response, "SAVE WORK RESPONSE")
