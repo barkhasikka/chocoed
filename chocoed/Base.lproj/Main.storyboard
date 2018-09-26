@@ -1460,7 +1460,7 @@
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PlO-so-8eC">
                                                 <rect key="frame" x="8" y="49" width="359" height="30"/>
-                                                <state key="normal" title="Select Qualification">
+                                                <state key="normal" title="Click Here to Select Qualification">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
@@ -1537,7 +1537,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xwH-f3-c5t">
                                                 <rect key="frame" x="8" y="406" width="359" height="30"/>
-                                                <state key="normal" title="Select Educational Medium">
+                                                <state key="normal" title="Click Here to Select Educational Medium">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
@@ -1546,7 +1546,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kok-is-sMh">
                                                 <rect key="frame" x="8" y="495" width="359" height="30"/>
-                                                <state key="normal" title="Select Specification">
+                                                <state key="normal" title="Click here to Select Specification">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
@@ -1555,7 +1555,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fvu-mv-i73">
                                                 <rect key="frame" x="8" y="584" width="359" height="30"/>
-                                                <state key="normal" title="Select Year of Passing">
+                                                <state key="normal" title="Click Here to Select Year of Passing">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
