@@ -39,7 +39,7 @@ class NewWorkExperienceVC: UIViewController {
         dropDown.direction = .any
         dropDown.dismissMode = .automatic
         dropDown.hide()
-        if selectedWorkExperience != nil || selectedWorkExperience.id != "" {
+        if selectedWorkExperience != nil && selectedWorkExperience.id != "" {
             print("this is edit")
             initView()
         }
