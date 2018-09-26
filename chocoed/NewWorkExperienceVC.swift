@@ -29,7 +29,7 @@ class NewWorkExperienceVC: UIViewController {
     var functionalDepartmentList = [FieldsOfWork]()
     var industrySectorList = [FieldsOfWork]()
     var fromToYears: [String] = [("1990"), ("1991"), ("1992")]
-    var selectedWorkExperience: WorkFields!
+    var selectedWorkExperience = WorkFields()
     var dropDown: DropDown!
     
     override func viewDidLoad() {

@@ -83,16 +83,16 @@ struct WorkFields {
     var teamSize: String
     var toYear: String
     
-    init(_ dictionary : NSDictionary) {
-        self.companyName = dictionary["companyName"] as? String ?? ""
-        self.fromYear = dictionary["fromYear"] as? String ?? ""
-        self.functionalDepartment = dictionary["functionalDepartment"] as? String ?? ""
-        self.id = dictionary["id"] as? Int ?? -1
-        self.industrySector = dictionary["industrySector"] as? String ?? ""
-        self.levelOfManagement = dictionary["levelOfManagemet"] as? String ?? ""
-        self.status = dictionary["status"] as? Int ?? 0
-        self.teamSize = dictionary["teamSize"] as? String ?? ""
-        self.toYear = dictionary["toYear"] as? String ?? ""
+    init(_ dictionary : NSDictionary? = nil) {
+        self.companyName = dictionary?["companyName"] as? String ?? ""
+        self.fromYear = dictionary?["fromYear"] as? String ?? ""
+        self.functionalDepartment = dictionary?["functionalDepartment"] as? String ?? ""
+        self.id = dictionary?["id"] as? Int ?? -1
+        self.industrySector = dictionary?["industrySector"] as? String ?? ""
+        self.levelOfManagement = dictionary?["levelOfManagemet"] as? String ?? ""
+        self.status = dictionary?["status"] as? Int ?? 0
+        self.teamSize = dictionary?["teamSize"] as? String ?? ""
+        self.toYear = dictionary?["toYear"] as? String ?? ""
     }
 }
 
