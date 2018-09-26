@@ -43,7 +43,7 @@ class imagetoButton : UIButton{
        // self..setImage(UIImage(named: "play.png"), for: .normal)
         
         
-        self.setImage(UIImage(named: "loginButtonBackground" ), for: .normal)
+        self.setBackgroundImage(UIImage(named: "loginButtonBackground" ), for: .normal)
         self.layer.cornerRadius = 20
         self.clipsToBounds =  true
         self.layer.borderWidth = 1
