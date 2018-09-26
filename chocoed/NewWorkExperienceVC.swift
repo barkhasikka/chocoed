@@ -116,6 +116,11 @@ class NewWorkExperienceVC: UIViewController {
         dropDown.dataSource = fromToYears
     }
     
+    
+    @IBAction func cancelButtonAction(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     @IBAction func ManagementLevelButtonAction(_ sender: Any) {
         self.view.endEditing(true)
         var tableViewData =  [String]()

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import DropDown
 class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     @IBOutlet weak var eduTableView: UITableView!
@@ -24,6 +24,7 @@ class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableView
     @IBOutlet weak var buttonSpecification: UIButton!
     var currentSelectedButton: String!
     
+    var dropDown: DropDown!
     var educationLevel = "", location = "", mediumOfEducation = "", specialisation = "", state = "", yearOfCompletion = "",boardUniversity="",nameOfInstitute=""
     var tableViewData =  [NewWorkExperienceTableView]()
     var educationLevel1 = [FieldsOfEducation]()
@@ -36,6 +37,10 @@ class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableView
         super.viewDidLoad()
         viewTableEdu.isHidden = true
         getDropdownList()
+        dropDown = DropDown()
+        dropDown.direction = .any
+        dropDown.dismissMode = .automatic
+        dropDown.hide()
         
     }
     
@@ -169,4 +174,10 @@ class NewEducationExperienceVC: UIViewController,UITableViewDelegate,UITableView
             }
         })
     }
+    
+    @IBAction func cancelButtonAction(_ sender: Any){
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }
