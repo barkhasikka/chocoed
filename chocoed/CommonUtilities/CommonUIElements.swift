@@ -66,6 +66,8 @@ class imagetoButton : UIButton{
         self.clipsToBounds =  true
         self.layer.borderWidth = 1
         self.layer.borderColor = #colorLiteral(red: 0.1264051212, green: 0.3580443426, blue: 1, alpha: 1)
-        
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.widthAnchor.constraint(equalToConstant: 250).isActive = true
+        self.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
 }
