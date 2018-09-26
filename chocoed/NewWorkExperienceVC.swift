@@ -39,7 +39,8 @@ class NewWorkExperienceVC: UIViewController {
         dropDown.direction = .any
         dropDown.dismissMode = .automatic
         dropDown.hide()
-        if selectedWorkExperience.id != 0 {
+        if selectedWorkExperience != nil || selectedWorkExperience.id != "" {
+            print("this is edit")
             initView()
         }
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
@@ -182,10 +183,10 @@ class NewWorkExperienceVC: UIViewController {
     }
     
     @IBAction func addWorkExperience(_ sender: Any) {
-        if selectedWorkExperience == nil {
-            //show alert to select fields
-            return
-        }
+//        if selectedWorkExperience == nil {
+//            //show alert to select fields
+//            return
+//        }
         let userID = UserDefaults.standard.integer(forKey: "userid")
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let companyName = textFieldCompany.text!

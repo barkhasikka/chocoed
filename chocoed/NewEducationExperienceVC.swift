@@ -21,7 +21,7 @@ class NewEducationExperienceVC: UIViewController {
     var currentSelectedButton: String!
     
     var dropDown: DropDown!
-    var educationLevel = "", location = "", mediumOfEducation = "", specialisation = "", state = "", yearOfCompletion = "",boardUniversity="",nameOfInstitute=""
+//    var educationLevel = "", location = "", mediumOfEducation = "", specialisation = "", state = "", yearOfCompletion = "",boardUniversity="",nameOfInstitute=""
     var tableViewData =  [String]()
     var educationLevel1 = [FieldsOfEducation]()
     var specializationList = [FieldsOfEducation]()
@@ -29,7 +29,7 @@ class NewEducationExperienceVC: UIViewController {
     var mediumOfEduList = [FieldsOfEducation]()
     var PassingYears: [String] = [("1990"), ("1991"), ("1992")]
     
-    var selectedEducation: EducationFields!
+    var selectedEducation = EducationFields()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +39,7 @@ class NewEducationExperienceVC: UIViewController {
         dropDown.dismissMode = .automatic
         dropDown.hide()
         
-        if selectedEducation != nil {
+        if selectedEducation != nil && selectedEducation.id != "" {
             initView()
         }
         
@@ -47,16 +47,16 @@ class NewEducationExperienceVC: UIViewController {
             print("Selected item: \(item) at index: \(index)")
             switch self.currentSelectedButton {
             case "Qualification":
-                self.educationLevel = self.educationLevel1[index].name
+                self.selectedEducation.educationLevel = self.educationLevel1[index].name
                 self.buttonQualification.setTitle(self.educationLevel1[index].name, for: .normal)
             case "EducationMedium":
-                self.mediumOfEducation = self.mediumOfEduList[index].name
+                self.selectedEducation.mediumOfEducation = self.mediumOfEduList[index].name
                 self.eduMediumButton.setTitle(self.mediumOfEduList[index].name, for: .normal)
             case "Specialization":
-                self.specialisation = self.specializationList[index].name
+                self.selectedEducation.specialisation = self.specializationList[index].name
                 self.buttonSpecification.setTitle(self.specializationList[index].name, for: .normal)
             case "YearofPassing":
-                self.yearOfCompletion = self.PassingYears[index]
+                self.selectedEducation.yearOfCompletion = self.PassingYears[index]
                 self.buttonYearofpassing.setTitle(self.PassingYears[index], for: .normal)
             default:
                 print("whoops")
@@ -157,7 +157,8 @@ class NewEducationExperienceVC: UIViewController {
     
     @IBAction func locationButtonAction(_ sender: Any) {
         
-         }
+    }
+    
     @IBAction func EduMediumButtonAction(_ sender: Any) {
         self.view.endEditing(true)
         tableViewData =  [String]()
@@ -189,17 +190,14 @@ class NewEducationExperienceVC: UIViewController {
         dropDown.dataSource = PassingYears
     }
     @IBAction func buttonSave(_ sender: Any) {
-        
         let userID = UserDefaults.standard.integer(forKey: "userid")
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let nameOfInstitute = textfieldClgName.text!
         let nameofBoardUniv = textfieldBoardUniv.text!
         let location = locationTextField.text!
         
-        let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea", "userId": "\(userID)","clientId":"\(clientID)", "educationLevel": "\(educationLevel)", "boardUniversity": "\(nameofBoardUniv)", "location": "\(location)", "mediumOfEducation" : "\(mediumOfEducation)", "nameOfInstitute": "\(nameOfInstitute)", "specialisation" : "\(specialisation)", "state" : "\(state)", "id": "","yearOfCompletion":"\(yearOfCompletion)"] as Dictionary<String, String>
-//        print(params)
+        let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea", "userId": "\(userID)","clientId":"\(clientID)", "educationLevel": "\(self.selectedEducation.educationLevel)", "boardUniversity": "\(nameofBoardUniv)", "location": "\(location)", "mediumOfEducation" : "\(self.selectedEducation.mediumOfEducation)", "nameOfInstitute": "\(nameOfInstitute)", "specialisation" : "\(self.selectedEducation.specialisation)", "state" : "\(self.selectedEducation.state)", "id": "\(self.selectedEducation.id )","yearOfCompletion":"\(self.selectedEducation.yearOfCompletion)"] as Dictionary<String, String>
         MakeHttpPostRequest(url: saveEducationExp, params: params, completion: {(success, response) -> Void in
-            print(response, "SAVE WORK RESPONSE")
             DispatchQueue.main.async {
                 let vcGetStarted = self.storyboard?.instantiateViewController(withIdentifier: "signup") as! SignUpViewController
                 
