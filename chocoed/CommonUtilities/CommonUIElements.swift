@@ -8,6 +8,24 @@
 
 import UIKit
 
+class AddNewButtonLabel: UIButton {
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        initializeLabel()
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        initializeLabel()
+    }
+    
+    func initializeLabel() {
+        
+        self.setTitleColor(UIColor.darkGray, for: .normal)
+        self.backgroundColor = .white
+    }
+}
+
 class BoldLabel: UILabel {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
