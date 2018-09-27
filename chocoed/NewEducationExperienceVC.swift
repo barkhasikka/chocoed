@@ -55,6 +55,18 @@ class NewEducationExperienceVC: UIViewController {
             switch self.currentSelectedButton {
             case "Qualification":
                 self.selectedEducation.educationLevel = self.educationLevel1[index].name
+                print(self.selectedEducation.educationLevel)
+                if self.selectedEducation.educationLevel == "10th Standard Board" || self.selectedEducation.educationLevel == "12th Standard Board / Diploma"
+                {
+                    self.buttonSpecification.isHidden = true
+                    self.labelSpecialization.isHidden = true
+                }
+                else
+                {
+                    self.buttonSpecification.isHidden = false
+                    self.labelSpecialization.isHidden = false
+                }
+                
                 self.buttonQualification.setTitle(self.educationLevel1[index].name, for: .normal)
             case "EducationMedium":
                 self.selectedEducation.mediumOfEducation = self.mediumOfEduList[index].name
@@ -153,17 +165,7 @@ class NewEducationExperienceVC: UIViewController {
     @IBAction func qualificationButtonAction(_ sender: Any) {
         self.view.endEditing(true)
         tableViewData =  [String]()
-        if buttonQualification.titleLabel?.text == "10th Standard Board" || buttonQualification.titleLabel?.text == "12th Standard Board / Diploma"
-        {
-            buttonSpecification.isHidden = true
-            labelSpecialization.isHidden = true
-        }
-        else
-        {
-            buttonSpecification.isHidden = false
-            labelSpecialization.isHidden = false
-        }
-        
+       
         for qualify in self.educationLevel1{
             tableViewData.append((qualify.name))
         }
