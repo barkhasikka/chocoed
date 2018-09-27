@@ -76,10 +76,10 @@ struct WorkFields {
     var companyName: String
     var fromYear: String
     var functionalDepartment: String
-    var id: Int
+    var id: String
     var industrySector: String
     var levelOfManagement: String
-    var status: Int
+    var status: String
     var teamSize: String
     var toYear: String
     
@@ -87,10 +87,10 @@ struct WorkFields {
         self.companyName = dictionary?["companyName"] as? String ?? ""
         self.fromYear = dictionary?["fromYear"] as? String ?? ""
         self.functionalDepartment = dictionary?["functionalDepartment"] as? String ?? ""
-        self.id = dictionary?["id"] as? Int ?? -1
+        self.id = dictionary?["id"] as? String ?? ""
         self.industrySector = dictionary?["industrySector"] as? String ?? ""
         self.levelOfManagement = dictionary?["levelOfManagemet"] as? String ?? ""
-        self.status = dictionary?["status"] as? Int ?? 0
+        self.status = dictionary?["status"] as? String ?? ""
         self.teamSize = dictionary?["teamSize"] as? String ?? ""
         self.toYear = dictionary?["toYear"] as? String ?? ""
     }
@@ -101,25 +101,25 @@ struct EducationFields {
     var boardUniversity: String
     var educationLevel: String
     var location: String
-    var id: Int
+    var id: String
     var mediumOfEducation: String
     var nameOfInstitute: String
     var specialisation: String
     var state: String
     var yearOfCompletion: String
-    var status: Int
+    var status: String
     
-    init(_ dictionary : NSDictionary) {
-        self.boardUniversity = dictionary["boardUniversity"] as? String ?? ""
-        self.educationLevel = dictionary["educationLevel"] as? String ?? ""
-        self.location = dictionary["location"] as? String ?? ""
-        self.id = dictionary["id"] as? Int ?? -1
-        self.mediumOfEducation = dictionary["mediumOfEducation"] as? String ?? ""
-        self.nameOfInstitute = dictionary["nameOfInstitute"] as? String ?? ""
-        self.specialisation = dictionary["specialisation"] as? String ?? ""
-        self.state = dictionary["state"] as? String ?? ""
-        self.yearOfCompletion = dictionary["yearOfCompletion"] as? String ?? ""
-        self.status = dictionary["status"] as? Int ?? 0
+    init(_ dictionary : NSDictionary? = nil) {
+        self.boardUniversity = dictionary?["boardUniversity"] as? String ?? ""
+        self.educationLevel = dictionary?["educationLevel"] as? String ?? ""
+        self.location = dictionary?["location"] as? String ?? ""
+        self.id = dictionary?["id"] as? String ?? ""
+        self.mediumOfEducation = dictionary?["mediumOfEducation"] as? String ?? ""
+        self.nameOfInstitute = dictionary?["nameOfInstitute"] as? String ?? ""
+        self.specialisation = dictionary?["specialisation"] as? String ?? ""
+        self.state = dictionary?["state"] as? String ?? ""
+        self.yearOfCompletion = dictionary?["yearOfCompletion"] as? String ?? ""
+        self.status = dictionary?["status"] as? String ?? ""
     }
 }
 
