@@ -35,7 +35,7 @@ class NewEducationExperienceVC: UIViewController {
     var specializationList = [FieldsOfEducation]()
     var stateList = [FieldsOfEducation]()
     var mediumOfEduList = [FieldsOfEducation]()
-    var PassingYears: [String] = [("1990"), ("1991"), ("1992")]
+    var PassingYears: [String] = []
     
     var selectedEducation = EducationFields()
     
@@ -46,6 +46,12 @@ class NewEducationExperienceVC: UIViewController {
         dropDown.direction = .any
         dropDown.dismissMode = .automatic
         dropDown.hide()
+       
+        for i in 1950 ..< 2019
+        {
+            self.PassingYears.append(String(i))
+            
+        }
         
         if selectedEducation != nil && selectedEducation.id != "" {
             initView()
@@ -235,7 +241,7 @@ class NewEducationExperienceVC: UIViewController {
         
         let params = [ "access_token":"\(accessToken)", "userId": "\(userID)","clientId":"\(clientID)", "educationLevel": "\(self.selectedEducation.educationLevel)", "boardUniversity": "\(nameofBoardUniv)", "location": "\(location)", "mediumOfEducation" : "\(self.selectedEducation.mediumOfEducation)", "nameOfInstitute": "\(nameOfInstitute)", "specialisation" : "\(self.selectedEducation.specialisation)", "state" : "\(self.selectedEducation.state)", "id": "\(self.selectedEducation.id )","yearOfCompletion":"\(self.selectedEducation.yearOfCompletion)"] as Dictionary<String, String>
 
-        MakeHttpPostRequest(url: saveEducationExp, params: params, completion: {(success, response) -> Void in
+            MakeHttpPostRequest(url: saveEducationExp, params: params, completion: {(success, response) -> Void in
             DispatchQueue.main.async {
                 let vcGetStarted = self.storyboard?.instantiateViewController(withIdentifier: "signup") as! SignUpViewController
                 

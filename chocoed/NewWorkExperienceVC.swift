@@ -28,7 +28,7 @@ class NewWorkExperienceVC: UIViewController {
     var levelOfManagement = [FieldsOfWork]()
     var functionalDepartmentList = [FieldsOfWork]()
     var industrySectorList = [FieldsOfWork]()
-    var fromToYears: [String] = [("1990"), ("1991"), ("1992")]
+    var fromToYears: [String] = []
     var selectedWorkExperience = WorkFields()
     var dropDown: DropDown!
     
@@ -39,6 +39,13 @@ class NewWorkExperienceVC: UIViewController {
         dropDown.direction = .any
         dropDown.dismissMode = .automatic
         dropDown.hide()
+        for i in 1950 ..< 2019
+        {
+            self.fromToYears.append(String(i))
+        
+        }
+        print(fromToYears)
+        
         if selectedWorkExperience != nil && selectedWorkExperience.id != "" {
             print("this is edit")
             initView()
@@ -161,6 +168,7 @@ class NewWorkExperienceVC: UIViewController {
     @IBAction func currentIndustryButtonAction(_ sender: Any) {
         self.view.endEditing(true)
         var tableViewData =  [String]()
+        
         for teamHandledSize in  self.industrySectorList {
             tableViewData.append(String(teamHandledSize.name))
         }
