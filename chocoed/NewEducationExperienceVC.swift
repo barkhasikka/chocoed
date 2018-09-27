@@ -14,6 +14,7 @@ class NewEducationExperienceVC: UIViewController {
     @IBOutlet weak var eduMediumButton: UIButton!
     @IBOutlet weak var buttonSpecification: UIButton!
     
+    @IBOutlet weak var outletofConstraints: NSLayoutConstraint!
     @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet weak var textfieldClgName: UITextField!
     @IBOutlet weak var textfieldBoardUniv: UITextField!
@@ -60,11 +61,26 @@ class NewEducationExperienceVC: UIViewController {
                 {
                     self.buttonSpecification.isHidden = true
                     self.labelSpecialization.isHidden = true
+                    
+                        self.view.layoutIfNeeded()
+                        UIView.animate(withDuration: 1, animations: {
+                    self.outletofConstraints.constant = -50
+                        self.view.layoutIfNeeded()
+                    })
+                   // self.labelPassing.topAnchor.constraint(equalTo: self.eduMediumButton.bottomAnchor , constant: 30 )
+                    
                 }
                 else
                 {
                     self.buttonSpecification.isHidden = false
                     self.labelSpecialization.isHidden = false
+                   
+                        self.view.layoutIfNeeded()
+                        UIView.animate(withDuration: 1, animations: {
+                    self.outletofConstraints.constant = 40
+                        self.view.layoutIfNeeded()
+                    })
+                   // self.labelSpecialization.topAnchor.constraint(equalTo: self.eduMediumButton.bottomAnchor , constant: 30 )
                 }
                 
                 self.buttonQualification.setTitle(self.educationLevel1[index].name, for: .normal)
