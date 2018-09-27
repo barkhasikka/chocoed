@@ -28,7 +28,7 @@ class SignUpViewController: UIViewController,UITableViewDelegate,UITableViewData
         let userID = UserDefaults.standard.integer(forKey: "userid")
         print(userID, "USER ID IS HERE")
         
-        let params = ["userId": "\(userID)",  "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
+        let params = ["userId": "\(userID)",  "access_token":"\(accessToken)"] as Dictionary<String, String>
         
         MakeHttpPostRequest(url: getUserInfo, params: params, completion: {(success, response) -> Void in
             print(response)

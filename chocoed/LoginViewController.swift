@@ -88,7 +88,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         var userEnteredOTPText = otpDigitFirstTF.text! + otpDigitSecondTF.text! + otpDigitThirdTF.text! + otpDigitFourthTF.text! + otpDigitFifthTF.text! + otpDigitSixthTF.text!
         let userEnteredOTP = Int(userEnteredOTPText)
         if userEnteredOTP == otpFromServer {
-
+            self.sendLanguagesSelected()
             let vcGetStarted = storyboard?.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
             self.present(vcGetStarted, animated: true, completion: nil)
         }else {
@@ -170,7 +170,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
     }
 
     func sendOTPAPI() {
-        let params = ["phone":"\(mobileNumberTextFIeld.text!)", "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
+        let params = ["phone":"\(mobileNumberTextFIeld.text!)", "access_token":"\(accessToken)"] as Dictionary<String, String>
         MakeHttpPostRequest(url: sendOtpApiURL, params: params, completion: {(success, response) -> Void in
             print(response)
             let temp = ModelClassLoginId()
@@ -213,5 +213,26 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         self.mobileNumberTextFIeld.inputAccessoryView = doneToolbar
         
     }
+    func sendLanguagesSelected()
+    {
+        let clientID = UserDefaults.standard.integer(forKey: "clientid")
+        let userid = UserDefaults.standard.string(forKey: "userid")
+        let language1 = UserDefaults.standard.string(forKey: "Language1")
+        let language2 = UserDefaults.standard.string(forKey: "Language2")
+        
+        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clientId":"\(clientID)","appLanguage":"\(language1!)","learningLanguage":"\(language2!)"] as Dictionary<String, String>
+        print(params)
+        MakeHttpPostRequest(url: saveLanguageSelected, params: params, completion: {(success, response) -> Void in
+            print(response)
+            ////            let language = response.object(forKey: "appList") as? NSArray ?? []
+            ////
+            ////            for languages in language {
+            ////                self.arrayLanguages.append(LanguageList( languages as! NSDictionary))
+            //            }
+            
+        })
+        
+    }
+
 }
 

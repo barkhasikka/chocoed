@@ -122,3 +122,16 @@ struct EducationFields {
         self.status = dictionary["status"] as? Int ?? 0
     }
 }
+
+
+struct LanguageList {
+    var dbname: String
+    var id: Int
+    var langDispalyName: String
+    init(_ dictionary : NSDictionary) {
+        self.dbname = dictionary["dbName"] as? String ?? ""
+        self.langDispalyName = dictionary["displayName"] as? String ?? ""
+         self.id = dictionary["id"] as? Int ?? -1
+        
+    }
+}

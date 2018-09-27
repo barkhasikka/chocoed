@@ -145,7 +145,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
             // image picked
             print(img.size)
             let imageData = UIImagePNGRepresentation(self.imageviewCircle.image!)
-            let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea", "userId": "\(59)", "file": "\(imageData)"] as! Dictionary<String, String>
+            let params = [ "access_token":"\(accessToken)", "userId": "\(59)", "file": "\(imageData)"] as! Dictionary<String, String>
             MakeHttpPostRequest(url: uploadProfilePicture, params: params, completion: {(success, response) -> Void in
                 print(response, "UPLOAD PROFILE PIC RESPONSE")
                 
@@ -267,7 +267,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     func GetUserInfo() {
         let userID = UserDefaults.standard.integer(forKey: "userid")
         print(userID, "USER ID IS HERE")
-        let params = ["userId": "\(userID)",  "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
+        let params = ["userId": "\(userID)",  "access_token":"\(accessToken)"] as Dictionary<String, String>
         MakeHttpPostRequest(url: getUserInfo, params: params, completion: {(success, response) in
             print(response)
             let jsonobject = response["info"] as? NSDictionary;
@@ -301,7 +301,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
             alertcontrol.addAction(alertaction)
             self.present(alertcontrol, animated: true, completion: nil)
         }else {
-            let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea", "userId": "\(userID)", "clientId": "\(clientID)", "firstName": fName, "lastName": lName, "email" : emailId, "mobile" : mobileNo] as! Dictionary<String, String>
+            let params = [ "access_token":"\(accessToken)", "userId": "\(userID)", "clientId": "\(clientID)", "firstName": fName, "lastName": lName, "email" : emailId, "mobile" : mobileNo] as! Dictionary<String, String>
             MakeHttpPostRequest(url: updateUserInfoURL, params: params, completion: {(success, response) -> Void in
                 print(response, "UPDATE USER INFO RESPONSE")
                 DispatchQueue.main.async(execute: {

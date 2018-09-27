@@ -18,6 +18,13 @@ class NewEducationExperienceVC: UIViewController {
     @IBOutlet weak var textfieldClgName: UITextField!
     @IBOutlet weak var textfieldBoardUniv: UITextField!
     
+    @IBOutlet weak var labelPassing: UILabel!
+    @IBOutlet weak var labelSpecialization: UILabel!
+    @IBOutlet weak var labelEducation: UILabel!
+    @IBOutlet weak var labelLocation: UILabel!
+    @IBOutlet weak var labelBoard: UILabel!
+    @IBOutlet weak var labelCollegeNAme: UILabel!
+    @IBOutlet weak var labelQualification: UILabel!
     var currentSelectedButton: String!
     
     var dropDown: DropDown!
@@ -76,7 +83,7 @@ class NewEducationExperienceVC: UIViewController {
     
     
     func getDropdownList(){
-        let params = ["access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
+        let params = ["access_token":"\(accessToken)"] as Dictionary<String, String>
         MakeHttpPostRequest(url: userDropDown , params: params, completion: {(success, response) -> Void in
         print(response)
             let educationLevelList = response.object(forKey: "educationLevelList") as? NSArray ?? []
@@ -146,14 +153,26 @@ class NewEducationExperienceVC: UIViewController {
     @IBAction func qualificationButtonAction(_ sender: Any) {
         self.view.endEditing(true)
         tableViewData =  [String]()
-        for qualify in  self.educationLevel1{
+        if buttonQualification.titleLabel?.text == "10th Standard Board" || buttonQualification.titleLabel?.text == "12th Standard Board / Diploma"
+        {
+            buttonSpecification.isHidden = true
+            labelSpecialization.isHidden = true
+        }
+        else
+        {
+            buttonSpecification.isHidden = false
+            labelSpecialization.isHidden = false
+        }
+        
+        for qualify in self.educationLevel1{
             tableViewData.append((qualify.name))
         }
         currentSelectedButton = "Qualification"
         dropDown.show()
         dropDown.anchorView = buttonQualification
         dropDown.dataSource = tableViewData
-    }
+       
+     }
     
     @IBAction func locationButtonAction(_ sender: Any) {
         
@@ -196,7 +215,7 @@ class NewEducationExperienceVC: UIViewController {
         let nameofBoardUniv = textfieldBoardUniv.text!
         let location = locationTextField.text!
         
-        let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea", "userId": "\(userID)","clientId":"\(clientID)", "educationLevel": "\(educationLevel)", "boardUniversity": "\(nameofBoardUniv)", "location": "\(location)", "mediumOfEducation" : "\(mediumOfEducation)", "nameOfInstitute": "\(nameOfInstitute)", "specialisation" : "\(specialisation)", "state" : "\(state)", "id": "","yearOfCompletion":"\(yearOfCompletion)"] as Dictionary<String, String>
+        let params = [ "access_token":"\(accessToken)", "userId": "\(userID)","clientId":"\(clientID)", "educationLevel": "\(educationLevel)", "boardUniversity": "\(nameofBoardUniv)", "location": "\(location)", "mediumOfEducation" : "\(mediumOfEducation)", "nameOfInstitute": "\(nameOfInstitute)", "specialisation" : "\(specialisation)", "state" : "\(state)", "id": "","yearOfCompletion":"\(yearOfCompletion)"] as Dictionary<String, String>
 //        print(params)
         MakeHttpPostRequest(url: saveEducationExp, params: params, completion: {(success, response) -> Void in
             print(response, "SAVE WORK RESPONSE")

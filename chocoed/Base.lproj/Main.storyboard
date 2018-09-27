@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gu3-VX-EYo" customClass="imagetoButton" customModule="chocoed" customModuleProvider="target">
-                                <rect key="frame" x="163" y="301" width="49" height="26"/>
+                                <rect key="frame" x="163" y="360" width="49" height="26"/>
                                 <color key="backgroundColor" red="0.12156862745098039" green="0.42352941176470588" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="contentEdgeInsets" minX="2" minY="2" maxX="2" maxY="2"/>
                                 <state key="normal" title="Login">
@@ -34,13 +34,13 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Chocoed" translatesAutoresizingMaskIntoConstraints="NO" id="ZOg-Vn-V7Z">
-                                <rect key="frame" x="64" y="70" width="247" height="86"/>
+                                <rect key="frame" x="64" y="129" width="247" height="86"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="86" id="4OI-OO-hJk"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choice, Content, Conversation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="36k-Iv-Vdf">
-                                <rect key="frame" x="71" y="176" width="233.5" height="25"/>
+                                <rect key="frame" x="71" y="235" width="233.5" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="h9A-63-FYg"/>
                                 </constraints>
@@ -49,7 +49,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r8X-bD-qXe" customClass="imagetoButton" customModule="chocoed" customModuleProvider="target">
-                                <rect key="frame" x="-138" y="377" width="651" height="97"/>
+                                <rect key="frame" x="-138" y="416" width="651" height="97"/>
                                 <inset key="contentEdgeInsets" minX="2" minY="2" maxX="2" maxY="2"/>
                                 <state key="normal" title="Select Prefered Language " backgroundImage="loginButtonBackground">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -134,16 +134,16 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="36k-Iv-Vdf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3HS-im-d2l"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rHh-nf-IGW" secondAttribute="trailing" constant="30" id="4BU-Il-naN"/>
                             <constraint firstItem="ZOg-Vn-V7Z" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="64" id="62K-xw-WHg"/>
                             <constraint firstItem="ZOg-Vn-V7Z" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6Os-Fv-rIh"/>
                             <constraint firstItem="rHh-nf-IGW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="OmV-QN-0we"/>
-                            <constraint firstItem="ZOg-Vn-V7Z" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="QOA-gH-8cb"/>
+                            <constraint firstItem="ZOg-Vn-V7Z" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="109" id="QOA-gH-8cb"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="rHh-nf-IGW" secondAttribute="bottom" constant="55" id="RRW-S8-CYA"/>
-                            <constraint firstItem="r8X-bD-qXe" firstAttribute="top" secondItem="gu3-VX-EYo" secondAttribute="bottom" constant="50" id="UBr-nI-Uw0"/>
+                            <constraint firstItem="r8X-bD-qXe" firstAttribute="top" secondItem="gu3-VX-EYo" secondAttribute="bottom" constant="30" id="UBr-nI-Uw0"/>
                             <constraint firstItem="gu3-VX-EYo" firstAttribute="top" secondItem="36k-Iv-Vdf" secondAttribute="bottom" constant="100" id="Y8P-bl-qgP"/>
                             <constraint firstItem="r8X-bD-qXe" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="YA5-fn-1QR"/>
                             <constraint firstItem="gu3-VX-EYo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="a50-tk-84l"/>
@@ -212,7 +212,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="b4E-8h-UYf" firstAttribute="centerX" secondItem="L6p-Jy-ujj" secondAttribute="centerX" id="45T-LL-Bmu"/>
                             <constraint firstItem="jOg-pn-qWh" firstAttribute="centerX" secondItem="L6p-Jy-ujj" secondAttribute="centerX" id="Sgw-8h-pbO"/>
@@ -1662,6 +1662,13 @@
                         <outlet property="buttonSpecification" destination="Kok-is-sMh" id="rkf-cU-lre"/>
                         <outlet property="buttonYearofpassing" destination="fvu-mv-i73" id="Et2-2T-fP3"/>
                         <outlet property="eduMediumButton" destination="xwH-f3-c5t" id="IW4-MC-T86"/>
+                        <outlet property="labelBoard" destination="E7R-M6-rD5" id="TXP-c7-GEz"/>
+                        <outlet property="labelCollegeNAme" destination="pPF-eQ-YiV" id="n9T-E1-sAE"/>
+                        <outlet property="labelEducation" destination="C2l-44-wfh" id="3ex-Tn-dkK"/>
+                        <outlet property="labelLocation" destination="9xl-GW-8cr" id="KXC-V6-MgI"/>
+                        <outlet property="labelPassing" destination="xCH-mF-6Tw" id="Bb8-y6-g9r"/>
+                        <outlet property="labelQualification" destination="tjh-DZ-Raj" id="9wT-In-D0C"/>
+                        <outlet property="labelSpecialization" destination="wlI-Eb-6xA" id="TNs-bI-abU"/>
                         <outlet property="locationTextField" destination="kOt-rX-Nex" id="7Rb-nR-jEs"/>
                         <outlet property="textfieldBoardUniv" destination="Caq-iW-Zfg" id="UjN-vf-O7B"/>
                         <outlet property="textfieldClgName" destination="z1B-2p-1cT" id="5IT-hR-UA3"/>

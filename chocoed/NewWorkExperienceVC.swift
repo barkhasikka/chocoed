@@ -69,7 +69,7 @@ class NewWorkExperienceVC: UIViewController {
         }
         
         
-        let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea"] as Dictionary<String, String>
+        let params = [ "access_token":"\(accessToken)"] as Dictionary<String, String>
         MakeHttpPostRequest(url: userDropDown, params: params, completion: {(success, response) -> Void in
             let levelOfManagement = response.object(forKey: "levelOfManagemet") as? NSArray ?? []
             let teamsHandled = response.object(forKey: "teamsHandledList") as? NSArray ?? []
@@ -189,7 +189,7 @@ class NewWorkExperienceVC: UIViewController {
         let userID = UserDefaults.standard.integer(forKey: "userid")
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let companyName = textFieldCompany.text!
-        let params = [ "access_token":"03db0f67032a1e3a82f28b476a8b81ea", "userId": "\(userID)","clientId":"\(clientID)", "companyName": "\(companyName)", "fromYear": "\(self.selectedWorkExperience.fromYear)", "toYear": "\(self.selectedWorkExperience.toYear)", "functionalDepartment" : "\(self.selectedWorkExperience.functionalDepartment)", "industrySector": "\(self.selectedWorkExperience.industrySector)", "levelOfManagemet" : "\(self.selectedWorkExperience.levelOfManagement)", "teamSize" : "\(self.selectedWorkExperience.teamSize)", "id": "\(self.selectedWorkExperience.id)"] as Dictionary<String, String>
+        let params = [ "access_token":"\(accessToken)", "userId": "\(userID)","clientId":"\(clientID)", "companyName": "\(companyName)", "fromYear": "\(self.selectedWorkExperience.fromYear)", "toYear": "\(self.selectedWorkExperience.toYear)", "functionalDepartment" : "\(self.selectedWorkExperience.functionalDepartment)", "industrySector": "\(self.selectedWorkExperience.industrySector)", "levelOfManagemet" : "\(self.selectedWorkExperience.levelOfManagement)", "teamSize" : "\(self.selectedWorkExperience.teamSize)", "id": "\(self.selectedWorkExperience.id)"] as Dictionary<String, String>
         MakeHttpPostRequest(url: saveWorkExperience, params: params, completion: {(success, response) -> Void in
             print(response, "SAVE WORK RESPONSE")
             DispatchQueue.main.async {

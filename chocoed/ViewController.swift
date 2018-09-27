@@ -17,7 +17,8 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet weak var signUpButton: UIButton!
     var count = 0
     
-    let arrayLanguages = ["English","Hindi हिंदी","Gujarati ગુજરાતી","Marathi मराठी ","Tamil  தமிழ்","Telugu తెలుగు","Kannada ಕನ್ನಡ","Konkani","Malayalam മലയാളം","Bengali বাঙালি","Oriya ଓଡ଼ିଆ"]
+    var arrayLanguages = [LanguageList]()
+        //["English","Hindi हिंदी","Gujarati ગુજરાતી","Marathi मराठी ","Tamil  தமிழ்","Telugu తెలుగు","Kannada ಕನ್ನಡ","Konkani","Malayalam മലയാളം","Bengali বাঙালি","Oriya ଓଡ଼ିଆ"]
     override func viewDidLoad() {
         super.viewDidLoad()
 //        constraintsOFUI()
@@ -45,9 +46,8 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.count = 0
         self.viewTable.isHidden = false
         self.tableViewLanguage.isHidden = false
-        
-//        let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "signup") as! SignUpViewController
-//        self.present(nextViewController, animated:true, completion:nil)
+        loadGetLanguageList()
+
     }
     
     func constraintsOFUI()
@@ -98,30 +98,29 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! LanguageTableViewCell
         
-        cell.labelLanguage.text = arrayLanguages[indexPath.row]
+        cell.labelLanguage.text = "\(arrayLanguages[indexPath.row].dbname) \(arrayLanguages[indexPath.row].langDispalyName)"
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let text = arrayLanguages[indexPath.row]
+        let text = arrayLanguages[indexPath.row].dbname
         if count == 0
         {
+            
         let alertcontrol = UIAlertController(title: "Alert", message: "Would you like to use \(text) for learning language?", preferredStyle: .alert)
         let alertaction = UIAlertAction(title: "No", style: .default) { (action) in
             self.count = 1
             
         }
         let alertaction1 = UIAlertAction(title: "Yes", style: .default) { (action) in
-            
-            self.viewTable.isHidden = true
-            
-            self.signUpButton.setTitle("\(text)", for: .normal)
-            
-            UserDefaults.standard.set(text, forKey: "Language1")
-            
-            UserDefaults.standard.set(text, forKey: "Language2")
-            
+                self.viewTable.isHidden = true
+                
+                self.signUpButton.setTitle("\(text)", for: .normal)
+                
+                UserDefaults.standard.set(text, forKey: "Language1")
+                
+                UserDefaults.standard.set(text, forKey: "Language2")
         }
         alertcontrol.addAction(alertaction)
         alertcontrol.addAction(alertaction1)
@@ -135,8 +134,32 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             print(userAppLang)
             self.signUpButton.setTitle("\(userAppLang!)", for: .normal)
             UserDefaults.standard.set(text, forKey: "Language2")
-            
         }
+        
     }
-}
+    
+    func loadGetLanguageList()
+    {
+        let clientid = UserDefaults.standard.string(forKey: "clientid")
+        let userid = UserDefaults.standard.string(forKey: "userid")
+
+        let params = ["access_token":"\(accessToken)","userId":"\(userid)","clientId":"\(clientid)"] as Dictionary<String, String>
+        MakeHttpPostRequest(url: getLanguageListCall, params: params, completion: {(success, response) -> Void in
+            print(response)
+            let language = response.object(forKey: "appList") as? NSArray ?? []
+
+            for languages in language {
+                self.arrayLanguages.append(LanguageList( languages as! NSDictionary))
+               
+            }
+            DispatchQueue.main.async {
+                self.tableViewLanguage.reloadData()
+            }
+                print(self.arrayLanguages)
+            
+        })
+        
+    }
+    
+    }
 
