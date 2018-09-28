@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "ic_message_bg-1.png",
+      "filename" : "psychometric_test.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "ic_message_bg-2.png",
+      "filename" : "psychometric_test@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "ic_message_bg.png",
+      "filename" : "psychometric_test@3x.png",
       "scale" : "3x"
     }
   ],
