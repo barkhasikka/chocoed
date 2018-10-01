@@ -34,7 +34,7 @@ class NewWorkExperienceVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        textFieldCompany.setBottomBorder()
         dropDown = DropDown()
         dropDown.direction = .any
         dropDown.dismissMode = .automatic

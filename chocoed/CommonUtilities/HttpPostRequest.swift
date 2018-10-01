@@ -41,6 +41,7 @@ func MakeHttpPostRequest(url: String, params: Dictionary<String, String>, comple
         }
         
         do {
+            print(data)
             if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject] {
                let jsonobject = json as? NSDictionary
                 completion( true, jsonobject!)

@@ -46,6 +46,14 @@ class NewEducationExperienceVC: UIViewController {
         dropDown.direction = .any
         dropDown.dismissMode = .automatic
         dropDown.hide()
+        dropDown.layer.cornerRadius = 8
+        dropDown.clipsToBounds =  true
+        dropDown.layer.borderWidth = 5
+        dropDown.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        
+        locationTextField.setBottomBorder()
+        textfieldClgName.setBottomBorder()
+        textfieldBoardUniv.setBottomBorder()
        
         for i in 1950 ..< 2019
         {
