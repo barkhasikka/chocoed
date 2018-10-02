@@ -104,7 +104,7 @@ class WorkExpClickedViewController: UIViewController, UITableViewDelegate,UITabl
     @IBAction func addNewWorkAction(_ sender: Any) {
         print("add new work clicked")
         let vcGetStarted = storyboard?.instantiateViewController(withIdentifier: "newwork") as! NewWorkExperienceVC
-        
+
         self.present(vcGetStarted, animated: true, completion: nil)
     }
 }

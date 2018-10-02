@@ -25,11 +25,11 @@ class QuizBahaviouralViewController: UIViewController {
     let clientID = UserDefaults.standard.integer(forKey: "clientid")
     let userid = UserDefaults.standard.string(forKey: "userid")
     
-    let params = ["access_token":"\(accessToken)","deviceId":"","deviceToken":"","deviceInfo":"","deviceType":"Andriod","userId":"\(userid!)","clienId":"\(clientID)","examId":"-10"] as Dictionary<String, String>
+    let params = ["access_token":"\(accessToken)","deviceId":"","deviceToken":"","deviceInfo":"","deviceType":"Andriod","userId":"\(userid!)","clienId":"\(clientID)","examId":"1"] as Dictionary<String, String>
 
-    print(params)
+    
     MakeHttpPostRequest(url: examDetails, params: params, completion: {(success, response) -> Void in
-    print(response)
+            print(response)
     ////            let language = response.object(forKey: "appList") as? NSArray ?? []
     ////
     ////            for languages in language {
@@ -42,17 +42,17 @@ class QuizBahaviouralViewController: UIViewController {
     let clientID = UserDefaults.standard.integer(forKey: "clientid")
     let userid = UserDefaults.standard.string(forKey: "userid")
     
-        let params = ["access_token":"\(accessToken)","deviceId":"","deviceToken":"","deviceInfo":"","deviceType":"Android","userId":"\(userid!)","clienId":"\(clientID)","examId":"0","questionId":"0","selectedAns":"","selectedAnsId":"","startTime":"","endTime":""] as Dictionary<String, String>
-    print(params)
-    MakeHttpPostRequest(url: saveUserExamQuestionAnswer , params: params, completion: {(success, response) -> Void in
-        print(response)
-        ////            let language = response.object(forKey: "appList") as? NSArray ?? []
-        ////
-        ////            for languages in language {
-        ////                self.arrayLanguages.append(LanguageList( languages as! NSDictionary))
-        //            }
-        
-    })
+//        let params = ["access_token":"\(accessToken)","deviceId":"","deviceToken":"","deviceInfo":"","deviceType":"Android","userId":"\(userid!)","clienId":"\(clientID)","examId":"0","questionId":"0","selectedAns":"","selectedAnsId":"","startTime":"","endTime":""] as Dictionary<String, String>
+////    print(params)
+//    MakeHttpPostRequest(url: saveUserExamQuestionAnswer , params: params, completion: {(success, response) -> Void in
+//        print(response)
+//        ////            let language = response.object(forKey: "appList") as? NSArray ?? []
+//        ////
+//        ////            for languages in language {
+//        ////                self.arrayLanguages.append(LanguageList( languages as! NSDictionary))
+//        //            }
+//        
+//    })
 }
     
 

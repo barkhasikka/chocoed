@@ -144,8 +144,9 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         picker.didSelectImage = { [unowned picker] img in
             // image picked
             print(img.size)
+            let userID = UserDefaults.standard.integer(forKey: "userid")
             let imageData = UIImagePNGRepresentation(self.imageviewCircle.image!)
-            let params = [ "access_token":"\(accessToken)", "userId": "\(59)", "file": "\(imageData)"] as! Dictionary<String, String>
+            let params = [ "access_token":"\(accessToken)", "userId": "\(userID)", "file": "\(imageData)"] as! Dictionary<String, String>
             MakeHttpPostRequest(url: uploadProfilePicture, params: params, completion: {(success, response) -> Void in
                 print(response, "UPLOAD PROFILE PIC RESPONSE")
                 
