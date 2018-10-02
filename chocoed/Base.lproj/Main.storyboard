@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -511,9 +510,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dem-Ge-dlw" userLabel="ProfileDataUIView">
                                 <rect key="frame" x="0.0" y="64" width="375" height="520"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4AE-DU-FlL">
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4AE-DU-FlL">
                                         <rect key="frame" x="137.5" y="30" width="100" height="100"/>
-                                        <color key="backgroundColor" red="0.02915863694" green="0.051812045680000002" blue="0.20986479920000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="3S5-6D-wlE"/>
                                             <constraint firstAttribute="width" constant="100" id="kWM-uH-wOe"/>
@@ -742,11 +741,6 @@
                             <constraint firstItem="aze-uW-Bd0" firstAttribute="trailing" secondItem="13M-gj-u9C" secondAttribute="trailing" constant="16" id="yzi-by-ga6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aze-uW-Bd0"/>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="13M-gj-u9C"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Create Profile" id="wNe-Kx-CK6"/>
                     <connections>
@@ -796,14 +790,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="thumbs_up_selected" translatesAutoresizingMaskIntoConstraints="NO" id="30w-9s-Syn">
-                                        <rect key="frame" x="42" y="175" width="60" height="60"/>
+                                        <rect key="frame" x="42" y="175.5" width="60" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="mN5-iF-zsO"/>
                                             <constraint firstAttribute="height" constant="60" id="oq8-TG-CdD"/>
                                         </constraints>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="thumbs_down_grey" translatesAutoresizingMaskIntoConstraints="NO" id="kqn-vR-m3x">
-                                        <rect key="frame" x="193" y="181" width="50" height="50"/>
+                                        <rect key="frame" x="193" y="181.5" width="50" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="C2r-yW-1sC"/>
                                             <constraint firstAttribute="height" constant="50" id="I3b-zP-9BS"/>
@@ -1250,7 +1244,7 @@
                                             <constraint firstAttribute="width" constant="60" id="Tgc-Ew-Q5H"/>
                                             <constraint firstAttribute="height" constant="60" id="tgV-CS-U0m"/>
                                         </constraints>
-                                        <state key="normal" title="Button" image="ic_soft_skills"/>
+                                        <state key="normal" title="Button" image="ic_education_selected"/>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Education" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ng-1W-W5j">
                                         <rect key="frame" x="1.5" y="80" width="77" height="21"/>
@@ -1284,7 +1278,7 @@
                                             <constraint firstAttribute="height" constant="60" id="qpf-jv-Hfj"/>
                                             <constraint firstAttribute="width" constant="60" id="uw3-fP-d72"/>
                                         </constraints>
-                                        <state key="normal" title="Button" image="ic_soft_skills"/>
+                                        <state key="normal" title="Button" image="ic_experience"/>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Work" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ffo-z2-Cwf">
                                         <rect key="frame" x="20" y="80" width="40" height="21"/>
@@ -1506,7 +1500,7 @@
                                             <constraint firstAttribute="width" constant="60" id="dpY-G0-q96"/>
                                             <constraint firstAttribute="height" constant="60" id="edM-DN-Mpq"/>
                                         </constraints>
-                                        <state key="normal" title="Button" image="ic_soft_skills"/>
+                                        <state key="normal" title="Button" image="ic_education"/>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Education" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NIZ-KH-kTN">
                                         <rect key="frame" x="1.5" y="80" width="77" height="21"/>
@@ -1534,7 +1528,7 @@
                                             <constraint firstAttribute="height" constant="60" id="BjX-PP-Bfe"/>
                                             <constraint firstAttribute="width" constant="60" id="OQ3-Zd-sSZ"/>
                                         </constraints>
-                                        <state key="normal" title="Button" image="ic_soft_skills"/>
+                                        <state key="normal" title="Button" image="ic_experience_selected"/>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Work" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mKB-cT-U4T">
                                         <rect key="frame" x="20" y="80" width="40" height="21"/>
@@ -2131,7 +2125,10 @@
         <image name="Chocoed" width="1024" height="1024"/>
         <image name="Message" width="58" height="48"/>
         <image name="ic_drop_down" width="24" height="24"/>
-        <image name="ic_soft_skills" width="216" height="216"/>
+        <image name="ic_education" width="50" height="50"/>
+        <image name="ic_education_selected" width="80" height="80"/>
+        <image name="ic_experience" width="50" height="50"/>
+        <image name="ic_experience_selected" width="80" height="80"/>
         <image name="image_icon" width="60" height="50"/>
         <image name="loginButtonBackground" width="651" height="97"/>
         <image name="maybe_grey" width="45" height="45"/>
