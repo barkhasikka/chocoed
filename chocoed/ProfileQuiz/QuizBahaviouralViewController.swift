@@ -65,31 +65,30 @@ class QuizBahaviouralViewController: UIViewController {
         //print(self.arrayoption)
         DispatchQueue.main.async {
             self.quetionLabel.text = self.arrayBehaviouralQuestion[self.currentQuestion].questionName
-            let optionsList = self.arrayBehaviouralQuestion[self.currentQuestion].option
-            var y = 10;
-            for option in optionsList
-            {
-                let optionObject =  BehaviouralOption(option as! NSDictionary)
-                DispatchQueue.main.async {
-                    y = y + 50
-                    print("value of y", y)
-                    let optionButton = UIButton()
-                    let option = optionObject.ansText
-                    optionButton.setTitle(option, for: .normal )
-                    optionButton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
-                    optionButton.frame = CGRect(x: 50, y: y, width: 100, height: 50)
-                    
-                    let previousButton = self.optionbutton
-                    
-                    previousButton.topAnchor.constraint(equalTo: self.optionbutton.bottomAnchor, constant: 20).isActive =  true
-                    previousButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 50).isActive =  true
-                    previousButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-                    previousButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
-                    
-                    optionButton.addTarget(self, action: #selector(self.pressed(sender:)), for: .touchUpInside)
-                    self.optionsView.addSubview(optionButton)
-                }
-            }
+//            let optionsList = self.arrayBehaviouralQuestion[self.currentQuestion].option
+//            var y = 10;
+//            var previousButton: UIButton!
+//            for option in optionsList
+//            {
+//                let optionObject =  BehaviouralOption(option as! NSDictionary)
+//                DispatchQueue.main.async {
+//                    y = y + 50
+//                    print("value of y", y)
+//                    let optionButton = UIButton()
+//                    let option = optionObject.ansText
+//                    optionButton.setTitle(option, for: .normal )
+//                    optionButton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
+//                    optionButton.frame = CGRect(x: 50, y: y, width: 100, height: 50)
+//                    optionButton.addTarget(self, action: #selector(self.pressed(sender:)), for: .touchUpInside)
+//                    self.optionsView.addSubview(optionButton)
+//                    self.setOptionButtonConstraint(previousButton: previousButton, currentButton: optionButton)
+//                    previousButton = optionButton
+//
+//                }
+//            }
+            
+            self.optionButtonfunction()
+            
         }
         
     })
@@ -137,10 +136,57 @@ class QuizBahaviouralViewController: UIViewController {
         if arrayBehaviouralQuestion.count > self.currentQuestion {
         self.quetionLabel.text = self.arrayBehaviouralQuestion[self.currentQuestion].questionName
         //self.optionbutton.setTitle(arrayBehaviouralQuestion[self.currentQuestion], for: .normal)
+        optionButtonfunction()
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         print("ViewWillApear called")
+    }
+    func optionButtonfunction(){
+        let optionsList = self.arrayBehaviouralQuestion[self.currentQuestion].option
+        //var y = 10;
+        var previousButton: UIButton!
+        for option in optionsList
+        {
+            let optionObject =  BehaviouralOption(option as! NSDictionary)
+            DispatchQueue.main.async {
+            //    y = y + 50
+              //  print("value of y", y)
+                let optionButton = UIButton()
+                let option = optionObject.ansText
+                optionButton.setTitle(option, for: .normal )
+                optionButton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
+                //optionButton.frame = CGRect(x: 50, y: y, width: 100, height: 50)
+                optionButton.addTarget(self, action: #selector(self.pressed(sender:)), for: .touchUpInside)
+                self.optionsView.addSubview(optionButton)
+                self.setOptionButtonConstraint(previousButton: previousButton, currentButton: optionButton)
+                previousButton = optionButton
+                
+                let imageviewopt = UIImageView()
+                let optionurl = optionObject.ansImageUrl
+                let data = try Data.init(contentsOf: URL.init(string:"\(optionurl)")!)
+                    if let data = data{
+                        imageviewopt.image = UIImage(data: data)
+                }
+
+                
+            }
+        }
+        
+    }
+    func setOptionButtonConstraint(previousButton: UIButton!, currentButton: UIButton) {
+        
+        currentButton.translatesAutoresizingMaskIntoConstraints = false
+        if previousButton != nil {
+            currentButton.topAnchor.constraint(equalTo: previousButton.bottomAnchor, constant: 20).isActive =  true
+            
+        }else {
+            currentButton.topAnchor.constraint(equalTo: self.optionsView.topAnchor, constant: 20).isActive = true
+            
+        }
+        currentButton.leadingAnchor.constraint(equalTo: self.optionsView.leadingAnchor, constant: 50).isActive =  true
+        currentButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        currentButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
     }
 }
