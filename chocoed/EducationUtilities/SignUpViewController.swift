@@ -55,9 +55,17 @@ class SignUpViewController: UIViewController,UITableViewDelegate,UITableViewData
         self.present(nextViewController, animated:true, completion:nil)
     }
     @IBAction func nextButtonAction(_ sender: Any) {
+        
+        
         let vcnext = storyboard?.instantiateViewController(withIdentifier: "work") as! WorkExpClickedViewController
         
-        self.present(vcnext, animated: true, completion: nil)
+        let transition = CATransition()
+        transition.duration = 0.25
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionFromRight
+        self.view.window!.layer.add(transition, forKey: kCATransition)
+        
+        self.present(vcnext, animated: false, completion: nil)
         
     }
     

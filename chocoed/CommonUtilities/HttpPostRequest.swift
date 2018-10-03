@@ -55,35 +55,19 @@ func MakeHttpPostRequest(url: String, params: Dictionary<String, String>, comple
 }
 
 
-
-
-func MakeHttpMIMEPostRequest(url: String, imageData: NSData, params: Dictionary<String, String>, completion: @escaping ((_ success: Bool, _ response: NSDictionary) -> Void))  {
-    
-    let url = NSURL(string: url)
-    let request = NSMutableURLRequest(url: url! as URL)
+func MakeHttpMIME2PostRequest(url: String, imageData: NSData, param: Dictionary<String, String>, completion: @escaping ((_ success: Bool, _ response: NSDictionary) -> Void)) {
+    var request = URLRequest(url: URL(string: url)!)
     request.httpMethod = "POST"
     let boundary = generateBoundaryString()
-    request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-    request.addValue("application/json", forHTTPHeaderField: "Accept")
-    
-    do {
-//        let httpBody =  try JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions.prettyPrinted)
-//        let httpBodyString = String(data: httpBody, encoding: String.Encoding.utf8)
-//        request.httpBody = httpBodyString?.data(using: String.Encoding.utf8)
-        request.httpBody = createBodyWithParameters(parameters: params, imageDataKey: imageData, boundary: boundary) as Data
-
-        
-    } catch let error {
-        print("error in serialization==",error.localizedDescription)
-    }
-    
+    request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+    request.httpBody = createBodyWithParameters(parameters: param, filePathKey: "file", imageDataKey: imageData as NSData, boundary: boundary) as Data
     let session = URLSession.shared
     let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
         guard error == nil else {
             print("error in the request", error ?? "")
             return
         }
-        
+
         if let httpResponse = response as? HTTPURLResponse {
             let statusCode = httpResponse.statusCode
             print("Status Code for url \(String(describing: url))", statusCode)
@@ -92,7 +76,7 @@ func MakeHttpMIMEPostRequest(url: String, imageData: NSData, params: Dictionary<
             print("something is wrong")
             return
         }
-        
+
         do {
             print(data)
             if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject] {
@@ -104,8 +88,46 @@ func MakeHttpMIMEPostRequest(url: String, imageData: NSData, params: Dictionary<
         }
     }
     task.resume()
-    return
 }
+
+//
+//func MakeHttpMIMEPostRequest(url: String, imageData: NSData, params: Dictionary<String, String>, completion: @escaping ((_ success: Bool, _ response: NSDictionary) -> Void))  {
+//
+//    let url = NSURL(string: url)
+//    let request = NSMutableURLRequest(url: url! as URL)
+//    request.httpMethod = "POST"
+//    let boundary = generateBoundaryString()
+//     request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+//    request.httpBody = createBodyWithParameters(parameters:params, filePathKey: "file", imageDataKey: imageData, boundary: boundary) as Data
+//    let session = URLSession.shared
+//    let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
+//        guard error == nil else {
+//            print("error in the request", error ?? "")
+//            return
+//        }
+//
+//        if let httpResponse = response as? HTTPURLResponse {
+//            let statusCode = httpResponse.statusCode
+//            print("Status Code for url \(String(describing: url))", statusCode)
+//        }
+//        guard let data = data else {
+//            print("something is wrong")
+//            return
+//        }
+//
+//        do {
+//            print(data)
+//            if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject] {
+//                let jsonobject = json as? NSDictionary
+//                completion( true, jsonobject!)
+//            }
+//        } catch let error {
+//            print(error.localizedDescription)
+//        }
+//    }
+//    task.resume()
+//
+//}
 
 extension String {
     var isBackspace: Bool {
@@ -115,26 +137,80 @@ extension String {
     }
 }
 
+//func generateBoundaryString() -> String {
+//    return "Boundary-\(NSUUID().uuidString)"
+//}
+//
+//func createBodyWithParameters(parameters: [String: String]?, filePathKey: String?, imageDataKey: NSData, boundary: String) -> NSData {
+//    let body = NSMutableData();
+//
+//    if parameters != nil {
+//        for (key, value) in parameters! {
+//
+//            body.append(NSString(string:"--\(boundary)\r\n").data(using: String.Encoding.utf8.rawValue)!)
+//            body.append(NSString(string:"Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n").data(using: String.Encoding.utf8.rawValue)!)
+//            body.append(NSString(string:"\(value)\r\n").data(using: String.Encoding.utf8.rawValue)!)
+//
+//        }
+//    }
+//
+////    let filename = "user-profile.jpg"
+////    let mimetype = "image/jpg"
+//
+//    body.append(NSString(string:"--\(boundary)\r\n").data(using:String.Encoding.utf8.rawValue)!)
+//    body.append(NSString(string:"Content-Disposition: form-data; name=\"\(filePathKey!)\" \r\n").data(using:String.Encoding.utf8.rawValue)!)
+//    body.append(imageDataKey as Data)
+////    body.append(NSString(string: "Content-Type: \(mimetype)\r\n\r\n").data(using:String.Encoding.utf8.rawValue)!)
+//
+//    body.append(NSString(string:"\r\n").data(using: String.Encoding.utf8.rawValue)!)
+//
+//
+//
+//    body.append(NSString(string:"--\(boundary)--\r\n").data(using:String.Encoding.utf8.rawValue)!)
+//
+//    return body
+//}
+
+func createBodyWithParameters(parameters: [String:String], filePathKey: String?, imageDataKey: NSData, boundary: String) -> NSData {
+    let body = NSMutableData();
+    
+    if parameters != nil {
+        for (key, value) in parameters {
+            print(key, value, "BLHA BLAH BLAH=====")
+            body.appendString(string: "--\(boundary)\r\n")
+            body.appendString(string: "Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
+            body.appendString(string: "\(value)\r\n")
+        }
+    }
+    
+    let filename = "userprofile.jpg"
+    
+    let mimetype = "image/jpg"
+    
+    body.appendString(string: "--\(boundary)\r\n")
+    
+    
+//    let imageData = UIImageJPEGRepresentation(img, 1)
+    body.appendString(string: "Content-Disposition: form-data; name=\"\(filePathKey!)\"; filename=\"\(filename)\"\r\n")
+    body.appendString(string: "Content-Type: \(mimetype)\r\n\r\n")
+    body.append(imageDataKey as Data)
+    body.appendString(string: "\r\n")
+    body.appendString(string: "--\(boundary)--\r\n")
+    return body
+}
+
+
+
 func generateBoundaryString() -> String {
     return "Boundary-\(NSUUID().uuidString)"
 }
 
-func createBodyWithParameters(parameters: [String: String]?, imageDataKey: NSData, boundary: String) -> NSData {
-    let body = NSMutableData();
+extension NSMutableData {
     
-    if parameters != nil {
-        for (key, value) in parameters! {
-            body.append(NSString(format: "\r\n--%@\r\n", boundary).data(using: String.Encoding.utf8.rawValue)!)
-            body.append(NSString(format: "Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n" as NSString).data(using: String.Encoding.utf8.rawValue)!)
-            body.append(NSString(format: (value as NSString)).data(using: String.Encoding.utf8.rawValue)!)
-        }
+    func appendString(string : String)
+    {
+        let data = string.data(using: String.Encoding.utf8, allowLossyConversion: true)
+        append(data!)
     }
-    
-    
-    body.append(NSString(format: "Content-Type: application/octet-stream\r\n\r\n").data(using: String.Encoding.utf8.rawValue)!)
-    body.append(imageDataKey as Data)
-    body.append(NSString(format: "\r\n--%@\r\n", boundary).data(using: String.Encoding.utf8.rawValue)!)
-    
-    return body
 }
 

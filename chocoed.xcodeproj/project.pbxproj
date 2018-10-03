@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		A2B2CB1A25278D36BECB09E6 /* Pods_chocoed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B250FCA754272F8054867D5 /* Pods_chocoed.framework */; };
+		BF20726A2164DDD10038F30B /* PersonalityTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2072692164DDD10038F30B /* PersonalityTestViewController.swift */; };
+		BF20726D2164DDFD0038F30B /* QuizPersonalityTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF20726B2164DDFD0038F30B /* QuizPersonalityTestViewController.swift */; };
+		BF20726E2164DDFD0038F30B /* QuizPsychomatricTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF20726C2164DDFD0038F30B /* QuizPsychomatricTestViewController.swift */; };
 		BF20E8402156558700CFA53C /* ModelProfileClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF20E83F2156558700CFA53C /* ModelProfileClass.swift */; };
 		BF20E84421566A0800CFA53C /* WorkExpTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF20E84321566A0700CFA53C /* WorkExpTableViewCell.swift */; };
 		BF2358EA214FD0AC00C73BE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2358E9214FD0AC00C73BE3 /* AppDelegate.swift */; };
@@ -31,7 +34,6 @@
 		BF40F43C215916E0000C8A3F /* EducationExpTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF40F43B215916E0000C8A3F /* EducationExpTableViewCell.swift */; };
 		BF4BE1F1216396260082198D /* BehavioralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4BE1F0216396260082198D /* BehavioralViewController.swift */; };
 		BF4BE1F32163962F0082198D /* QuizBahaviouralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4BE1F22163962F0082198D /* QuizBahaviouralViewController.swift */; };
-		BF4BE1F5216396470082198D /* PersonalityTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4BE1F4216396470082198D /* PersonalityTestViewController.swift */; };
 		BF4BE1F72163964D0082198D /* PsychometricTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4BE1F62163964D0082198D /* PsychometricTestViewController.swift */; };
 		BF52BD68215B8B3C00E2BDB9 /* ProfileSucessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF52BD67215B8B3C00E2BDB9 /* ProfileSucessViewController.swift */; };
 		BF6166F12154D1580009B991 /* GettingStartedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6166F02154D1580009B991 /* GettingStartedViewController.swift */; };
@@ -44,6 +46,9 @@
 		3FB7C1FAA18E54982E5C700C /* Pods-chocoed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chocoed.debug.xcconfig"; path = "Pods/Target Support Files/Pods-chocoed/Pods-chocoed.debug.xcconfig"; sourceTree = "<group>"; };
 		71D8E08D3C2165BF37086AB1 /* Pods-chocoed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chocoed.release.xcconfig"; path = "Pods/Target Support Files/Pods-chocoed/Pods-chocoed.release.xcconfig"; sourceTree = "<group>"; };
 		7B250FCA754272F8054867D5 /* Pods_chocoed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_chocoed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF2072692164DDD10038F30B /* PersonalityTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalityTestViewController.swift; sourceTree = "<group>"; };
+		BF20726B2164DDFD0038F30B /* QuizPersonalityTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizPersonalityTestViewController.swift; sourceTree = "<group>"; };
+		BF20726C2164DDFD0038F30B /* QuizPsychomatricTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizPsychomatricTestViewController.swift; sourceTree = "<group>"; };
 		BF20E83F2156558700CFA53C /* ModelProfileClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelProfileClass.swift; sourceTree = "<group>"; };
 		BF20E84321566A0700CFA53C /* WorkExpTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkExpTableViewCell.swift; sourceTree = "<group>"; };
 		BF2358E6214FD0AC00C73BE3 /* chocoed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chocoed.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,7 +75,6 @@
 		BF40F43B215916E0000C8A3F /* EducationExpTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EducationExpTableViewCell.swift; sourceTree = "<group>"; };
 		BF4BE1F0216396260082198D /* BehavioralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BehavioralViewController.swift; sourceTree = "<group>"; };
 		BF4BE1F22163962F0082198D /* QuizBahaviouralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizBahaviouralViewController.swift; sourceTree = "<group>"; };
-		BF4BE1F4216396470082198D /* PersonalityTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalityTestViewController.swift; sourceTree = "<group>"; };
 		BF4BE1F62163964D0082198D /* PsychometricTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PsychometricTestViewController.swift; sourceTree = "<group>"; };
 		BF52BD67215B8B3C00E2BDB9 /* ProfileSucessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSucessViewController.swift; sourceTree = "<group>"; };
 		BF6166F02154D1580009B991 /* GettingStartedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GettingStartedViewController.swift; sourceTree = "<group>"; };
@@ -143,7 +147,6 @@
 				BF2358ED214FD0AC00C73BE3 /* Main.storyboard */,
 				BF2358F2214FD0AE00C73BE3 /* LaunchScreen.storyboard */,
 				BF2358F5214FD0AE00C73BE3 /* Info.plist */,
-				BF4BE1F4216396470082198D /* PersonalityTestViewController.swift */,
 				BF2358F0214FD0AE00C73BE3 /* Assets.xcassets */,
 				BFCD0566215264B3009BE2C9 /* chocoed-Bridging-Header.h */,
 			);
@@ -188,6 +191,7 @@
 		BF4BE1ED21638F1E0082198D /* EducationUtilities */ = {
 			isa = PBXGroup;
 			children = (
+				BF2CBBEB2150F6C100E13EA5 /* SignUpViewController.swift */,
 				BF40F43B215916E0000C8A3F /* EducationExpTableViewCell.swift */,
 				BF2CBBE52150DC8800E13EA5 /* NewEducationExperienceVC.swift */,
 			);
@@ -211,7 +215,6 @@
 				BF356CC22155233C003CC228 /* LanguageTableViewCell.swift */,
 				BF40F4362158EB70000C8A3F /* ModelClassLoginId.swift */,
 				BF2358EB214FD0AC00C73BE3 /* ViewController.swift */,
-				BF2CBBEB2150F6C100E13EA5 /* SignUpViewController.swift */,
 				BF2CBBDF2150C4D400E13EA5 /* LoginViewController.swift */,
 			);
 			path = LoginUtilities;
@@ -220,6 +223,9 @@
 		BF4BE1FA216398680082198D /* ProfileQuiz */ = {
 			isa = PBXGroup;
 			children = (
+				BF20726B2164DDFD0038F30B /* QuizPersonalityTestViewController.swift */,
+				BF20726C2164DDFD0038F30B /* QuizPsychomatricTestViewController.swift */,
+				BF2072692164DDD10038F30B /* PersonalityTestViewController.swift */,
 				BF4BE1F0216396260082198D /* BehavioralViewController.swift */,
 				BF4BE1F22163962F0082198D /* QuizBahaviouralViewController.swift */,
 				BF4BE1F62163964D0082198D /* PsychometricTestViewController.swift */,
@@ -353,10 +359,12 @@
 				BF2CBBE82150DCE400E13EA5 /* NewWorkExperienceVC.swift in Sources */,
 				BF6166F32154D19D0009B991 /* urlsOfAPICalls.swift in Sources */,
 				BF2CBBEC2150F6C100E13EA5 /* SignUpViewController.swift in Sources */,
+				BF20726E2164DDFD0038F30B /* QuizPsychomatricTestViewController.swift in Sources */,
 				BF6166F12154D1580009B991 /* GettingStartedViewController.swift in Sources */,
 				BF356CC52155236C003CC228 /* WorkExpClickedViewController.swift in Sources */,
 				BF4BE1F32163962F0082198D /* QuizBahaviouralViewController.swift in Sources */,
 				BF2CBBE02150C4D400E13EA5 /* LoginViewController.swift in Sources */,
+				BF20726A2164DDD10038F30B /* PersonalityTestViewController.swift in Sources */,
 				BFCD056B215264B4009BE2C9 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				BF20E8402156558700CFA53C /* ModelProfileClass.swift in Sources */,
 				BF40F4372158EB70000C8A3F /* ModelClassLoginId.swift in Sources */,
@@ -365,6 +373,7 @@
 				BF356CBE2154D1E0003CC228 /* ProfileViewController.swift in Sources */,
 				BF40F43C215916E0000C8A3F /* EducationExpTableViewCell.swift in Sources */,
 				BF356CC12155135E003CC228 /* HttpPostRequest.swift in Sources */,
+				BF20726D2164DDFD0038F30B /* QuizPersonalityTestViewController.swift in Sources */,
 				BF356CC821552912003CC228 /* DLRadioButton.m in Sources */,
 				BF2E5A26215A1CE7005845A9 /* CommonUIElements.swift in Sources */,
 				BF52BD68215B8B3C00E2BDB9 /* ProfileSucessViewController.swift in Sources */,
@@ -372,7 +381,6 @@
 				BF4BE1F72163964D0082198D /* PsychometricTestViewController.swift in Sources */,
 				BF2CBBE62150DC8800E13EA5 /* NewEducationExperienceVC.swift in Sources */,
 				BF2CBBE22150C94500E13EA5 /* TextFieldDesign.swift in Sources */,
-				BF4BE1F5216396470082198D /* PersonalityTestViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -147,7 +147,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
             let userID = UserDefaults.standard.integer(forKey: "userid")
             let imageData = UIImagePNGRepresentation(self.imageviewCircle.image!)
             let params = [ "access_token":"\(accessToken)", "userId": "\(userID)"] as! Dictionary<String, String>
-            MakeHttpMIMEPostRequest(url: uploadProfilePicture, imageData: imageData as! NSData, params: params, completion: {(success, response) -> Void in
+            MakeHttpMIME2PostRequest(url: uploadProfilePicture, imageData: imageData as! NSData, param: params, completion: {(success, response) -> Void in
                 print(response, "UPLOAD PROFILE PIC RESPONSE")
                 
             })
@@ -261,7 +261,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         imageviewCircle.layer.borderColor = UIColor.darkGray.cgColor
         imageviewCircle.layer.cornerRadius = imageviewCircle.frame.width / 2
         imageviewCircle.clipsToBounds = true
-        imageviewCircle.image = image
+//        imageviewCircle.image = image
         imageviewCircle.contentMode = .center
     }
    
@@ -278,12 +278,19 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
             temp.email = jsonobject?.object(forKey: "email") as? String ?? ""
             temp.mobile = jsonobject?.object(forKey: "mobile") as? String ?? ""
             let clientId = jsonobject?.object(forKey: "clientId") as? String ?? ""
+            let url = jsonobject?.object(forKey: "profileImageUrl") as? String ?? ""
+            let fileUrl = URL(string: url)
             UserDefaults.standard.set(Int(clientId), forKey: "clientid")
             DispatchQueue.main.async(execute: {
                 self.textfieldFirstName.text = temp.firstName
                 self.textfieldLastName.text = temp.lastName
                 self.textfieldEmailId.text = temp.email
                 self.textfieldMobileNo.text = temp.mobile
+                if let data = try? Data(contentsOf: fileUrl!) {
+                    if let image = UIImage(data: data) {
+                        self.imageviewCircle.image = image
+                    }
+                }
             })
         })
     }

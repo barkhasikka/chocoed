@@ -62,8 +62,12 @@ class WorkExpClickedViewController: UIViewController, UITableViewDelegate,UITabl
     @IBAction func PreviousButtonAction(_ sender: Any) {
         
         let vcprev = storyboard?.instantiateViewController(withIdentifier: "signup") as! SignUpViewController
-        
-        self.present(vcprev, animated: true, completion: nil)
+        let transition = CATransition()
+        transition.duration = 0.25
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionFromLeft
+        self.view.window!.layer.add(transition, forKey: kCATransition)
+        self.present(vcprev, animated: false, completion: nil)
     }
     /*
     // MARK: - Navigation
