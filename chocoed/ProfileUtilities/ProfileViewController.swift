@@ -146,8 +146,8 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
             print(img.size)
             let userID = UserDefaults.standard.integer(forKey: "userid")
             let imageData = UIImagePNGRepresentation(self.imageviewCircle.image!)
-            let params = [ "access_token":"\(accessToken)", "userId": "\(userID)", "file": "\(imageData)"] as! Dictionary<String, String>
-            MakeHttpPostRequest(url: uploadProfilePicture, params: params, completion: {(success, response) -> Void in
+            let params = [ "access_token":"\(accessToken)", "userId": "\(userID)"] as! Dictionary<String, String>
+            MakeHttpMIMEPostRequest(url: uploadProfilePicture, imageData: imageData as! NSData, params: params, completion: {(success, response) -> Void in
                 print(response, "UPLOAD PROFILE PIC RESPONSE")
                 
             })
@@ -169,7 +169,6 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         imageIcon.isUserInteractionEnabled = true
         imageIcon.addGestureRecognizer(tapGestureRecognizer)
-        
     }
     
     @objc func imageTappedAvatar1(tapGestureRecognizer: UITapGestureRecognizer){
@@ -259,11 +258,11 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
      //   imageviewCircle.contentMode = .scaleAspectFit
         imageviewCircle.layer.borderWidth = 1.0
         imageviewCircle.layer.masksToBounds = false
-        imageviewCircle.layer.borderColor = UIColor.white.cgColor
-        print(imageviewCircle.frame.width, "width is here", imageviewCircle.frame.height)
+        imageviewCircle.layer.borderColor = UIColor.darkGray.cgColor
         imageviewCircle.layer.cornerRadius = imageviewCircle.frame.width / 2
         imageviewCircle.clipsToBounds = true
         imageviewCircle.image = image
+        imageviewCircle.contentMode = .center
     }
    
     func GetUserInfo() {
