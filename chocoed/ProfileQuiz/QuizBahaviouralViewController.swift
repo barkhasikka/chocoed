@@ -10,10 +10,10 @@ import UIKit
 
 class QuizBahaviouralViewController: UIViewController {
     
+    @IBOutlet weak var optionsView: UIView!
     @IBOutlet weak var quetionLabel: UILabel!
     var currentQuestion = Int()
     var valueofQuestionNo = Int()
-    var arrayoption = [BehaviouralQuestion]()
     let optionbutton = UIButton()
 
     var arrayBehaviouralQuestion = [BehaviouralQuestion]()
@@ -58,30 +58,39 @@ class QuizBahaviouralViewController: UIViewController {
         
         for question in questionsList {
             self.arrayBehaviouralQuestion.append(BehaviouralQuestion(question as! NSDictionary))
-            DispatchQueue.main.async {
-                self.quetionLabel.text = self.arrayBehaviouralQuestion[self.currentQuestion].questionName
-                let optionsList = self.arrayBehaviouralQuestion[self.currentQuestion].option
-                
-                        for option in optionsList
-                        {
-                           let optionObject =  BehaviouralOption(option as! NSDictionary)
-                            DispatchQueue.main.async {
-                                let option = optionObject.ansText
-//                                self.option1Button.setTitle(option, for: .normal)
-                                
-                                self.optionbutton.setTitle(option, for: .normal )
-                                self.optionbutton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
-                                self.optionbutton.frame = CGRect(x: 15, y: 80, width: 100, height: 50)
-                                self.optionbutton.addTarget(self, action: #selector(self.pressed(sender:)), for: .touchUpInside)
-                                self.view.addSubview(self.optionbutton)
-                            }
-                            }
-                        }
+         
                 }
         
         print("\(self.arrayBehaviouralQuestion)")
         //print(self.arrayoption)
-        
+        DispatchQueue.main.async {
+            self.quetionLabel.text = self.arrayBehaviouralQuestion[self.currentQuestion].questionName
+            let optionsList = self.arrayBehaviouralQuestion[self.currentQuestion].option
+            var y = 10;
+            for option in optionsList
+            {
+                let optionObject =  BehaviouralOption(option as! NSDictionary)
+                DispatchQueue.main.async {
+                    y = y + 50
+                    print("value of y", y)
+                    let optionButton = UIButton()
+                    let option = optionObject.ansText
+                    optionButton.setTitle(option, for: .normal )
+                    optionButton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
+                    optionButton.frame = CGRect(x: 50, y: y, width: 100, height: 50)
+                    
+                    let previousButton = self.optionbutton
+                    
+                    previousButton.topAnchor.constraint(equalTo: self.optionbutton.bottomAnchor, constant: 20).isActive =  true
+                    previousButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 50).isActive =  true
+                    previousButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+                    previousButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
+                    
+                    optionButton.addTarget(self, action: #selector(self.pressed(sender:)), for: .touchUpInside)
+                    self.optionsView.addSubview(optionButton)
+                }
+            }
+        }
         
     })
 }
@@ -118,11 +127,16 @@ class QuizBahaviouralViewController: UIViewController {
     */
 
     @IBAction func NextButton(_ sender: Any) {
-       
+        for subviews in self.optionsView.subviews {
+            if subviews is UIButton {
+                subviews.removeFromSuperview()
+            }
+        }
         self.currentQuestion = self.currentQuestion + 1
         print(arrayBehaviouralQuestion.count)
         if arrayBehaviouralQuestion.count > self.currentQuestion {
         self.quetionLabel.text = self.arrayBehaviouralQuestion[self.currentQuestion].questionName
+        //self.optionbutton.setTitle(arrayBehaviouralQuestion[self.currentQuestion], for: .normal)
         }
     }
     
