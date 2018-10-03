@@ -131,7 +131,38 @@ struct LanguageList {
     init(_ dictionary : NSDictionary) {
         self.dbname = dictionary["dbName"] as? String ?? ""
         self.langDispalyName = dictionary["displayName"] as? String ?? ""
-         self.id = dictionary["id"] as? Int ?? -1
+        self.id = dictionary["id"] as? Int ?? -1
         
     }
+}
+
+struct BehaviouralQuestion{
+    var questionName: String
+    var anstype: Int
+    var answerSubmitted : String
+    var id : Int
+    
+    var option : NSArray
+    init(_ dictionary : NSDictionary) {
+        self.questionName = dictionary["name"] as? String ?? ""
+        self.answerSubmitted = dictionary["isAnsSubmitted"] as? String ?? ""
+        self.anstype = dictionary["ansType"] as? Int ?? -1
+        self.id = dictionary["id"] as? Int ?? -1
+        self.option = dictionary["optionList"] as? NSArray ?? []
+    }
+
+}
+
+struct BehaviouralOption {
+    var ansImageUrl : String
+    var ansText: String
+    var id : Int
+
+    init(_ dictionary : NSDictionary) {
+        self.ansImageUrl = dictionary["ansImageUrl"] as? String ?? ""
+        self.ansText = dictionary["ansText"] as? String ?? ""
+        self.id = dictionary["id"] as? Int ?? -1
+
+    }
+
 }

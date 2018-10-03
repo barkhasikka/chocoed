@@ -256,6 +256,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     
     func imageviewCircular(){
         let image = UIImage(named: "camera_icon")
+     //   imageviewCircle.contentMode = .scaleAspectFit
         imageviewCircle.layer.borderWidth = 1.0
         imageviewCircle.layer.masksToBounds = false
         imageviewCircle.layer.borderColor = UIColor.white.cgColor
