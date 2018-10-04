@@ -7,9 +7,9 @@
 //
 
 import Foundation
-
+import UIKit
 func MakeHttpPostRequest(url: String, params: Dictionary<String, String>, completion: @escaping ((_ success: Bool, _ response: NSDictionary) -> Void))  {
-    
+
     let url = NSURL(string: url)
     let request = NSMutableURLRequest(url: url! as URL)
     request.httpMethod = "POST"

@@ -138,16 +138,16 @@ struct LanguageList {
 
 struct BehaviouralQuestion{
     var questionName: String
-    var anstype: Int
+    var anstype: String
     var answerSubmitted : String
-    var id : Int
+    var id : String
     
     var option : NSArray
     init(_ dictionary : NSDictionary) {
         self.questionName = dictionary["name"] as? String ?? ""
         self.answerSubmitted = dictionary["isAnsSubmitted"] as? String ?? ""
-        self.anstype = dictionary["ansType"] as? Int ?? -1
-        self.id = dictionary["id"] as? Int ?? -1
+        self.anstype = dictionary["ansType"] as? String ?? ""
+        self.id = dictionary["id"] as? String ?? ""
         self.option = dictionary["optionList"] as? NSArray ?? []
     }
 
@@ -156,12 +156,12 @@ struct BehaviouralQuestion{
 struct BehaviouralOption {
     var ansImageUrl : String
     var ansText: String
-    var id : Int
+    var id : String
 
     init(_ dictionary : NSDictionary) {
         self.ansImageUrl = dictionary["ansImageUrl"] as? String ?? ""
         self.ansText = dictionary["ansText"] as? String ?? ""
-        self.id = dictionary["id"] as? Int ?? -1
+        self.id = dictionary["id"] as? String ?? ""
 
     }
 

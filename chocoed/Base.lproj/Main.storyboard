@@ -301,12 +301,11 @@
                                     <constraint firstAttribute="width" constant="140" id="aDE-SH-mJ1"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ju9-n8-WL1">
-                                <rect key="frame" x="147.5" y="49.5" width="80" height="50"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Choice" translatesAutoresizingMaskIntoConstraints="NO" id="ju9-n8-WL1">
+                                <rect key="frame" x="147.5" y="59.5" width="80" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="O8e-jU-XJ4"/>
-                                    <constraint firstAttribute="height" constant="50" id="uWc-nm-NzI"/>
+                                    <constraint firstAttribute="height" constant="40" id="uWc-nm-NzI"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Let's begin with" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kkE-WV-mjW">
@@ -369,11 +368,10 @@
                                     <constraint firstAttribute="height" constant="140" id="eH3-C8-sXy"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nQI-kh-CoJ">
-                                <rect key="frame" x="147.5" y="49.5" width="80" height="50"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Choice" translatesAutoresizingMaskIntoConstraints="NO" id="nQI-kh-CoJ">
+                                <rect key="frame" x="147.5" y="59.5" width="80" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="CEE-jU-RTb"/>
+                                    <constraint firstAttribute="height" constant="40" id="CEE-jU-RTb"/>
                                     <constraint firstAttribute="width" constant="80" id="qYu-YL-Adu"/>
                                 </constraints>
                             </imageView>
@@ -437,12 +435,11 @@
                                     <constraint firstAttribute="height" constant="140" id="ial-Hq-O1d"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cNA-F3-v7j">
-                                <rect key="frame" x="147.5" y="49.5" width="80" height="50"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Choice" translatesAutoresizingMaskIntoConstraints="NO" id="cNA-F3-v7j">
+                                <rect key="frame" x="147.5" y="59.5" width="80" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="1bd-ze-dof"/>
-                                    <constraint firstAttribute="height" constant="50" id="ix6-IM-xZG"/>
+                                    <constraint firstAttribute="height" constant="40" id="ix6-IM-xZG"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Here is last test on" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H5X-DI-vOy">
@@ -783,7 +780,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I accept life as it comes" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qh3-pK-mqO">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qh3-pK-mqO">
                                 <rect key="frame" x="16" y="154" width="343" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="nmt-i6-rwc"/>
@@ -1757,6 +1754,7 @@
                         <outlet property="labelSpecialization" destination="wlI-Eb-6xA" id="TNs-bI-abU"/>
                         <outlet property="locationTextField" destination="kOt-rX-Nex" id="7Rb-nR-jEs"/>
                         <outlet property="outletofConstraints" destination="NJk-EF-6KM" id="h9Z-O5-D84"/>
+                        <outlet property="savebutton" destination="u7n-kt-Jes" id="L72-lE-xjY"/>
                         <outlet property="textfieldBoardUniv" destination="Caq-iW-Zfg" id="UjN-vf-O7B"/>
                         <outlet property="textfieldClgName" destination="z1B-2p-1cT" id="5IT-hR-UA3"/>
                     </connections>
@@ -2004,6 +2002,7 @@
                         <outlet property="fromButton" destination="W8r-xb-Dyl" id="2pK-AZ-e10"/>
                         <outlet property="funcExpButton" destination="ggM-u6-uAl" id="6h7-cF-NXI"/>
                         <outlet property="managementLevelButton" destination="jTB-Y2-wLf" id="ciP-6y-ef5"/>
+                        <outlet property="saveButton" destination="4Q9-B3-Sk2" id="tdh-CB-nhw"/>
                         <outlet property="teamsHandeledButton" destination="vH4-z1-jbn" id="VDl-67-IQR"/>
                         <outlet property="textFieldCompany" destination="BX3-dN-D3L" id="djc-Sw-4t6"/>
                         <outlet property="toButton" destination="veW-ck-xas" id="BN2-NH-Azm"/>
@@ -2109,6 +2108,7 @@
     <resources>
         <image name="Behavioral Test" width="168" height="157"/>
         <image name="Chocoed" width="1024" height="1024"/>
+        <image name="Choice" width="38" height="29"/>
         <image name="Message" width="58" height="48"/>
         <image name="ic_drop_down" width="24" height="24"/>
         <image name="ic_education" width="50" height="50"/>

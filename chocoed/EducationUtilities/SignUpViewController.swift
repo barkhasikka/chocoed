@@ -27,7 +27,12 @@ class SignUpViewController: UIViewController,UITableViewDelegate,UITableViewData
         
         let userID = UserDefaults.standard.integer(forKey: "userid")
         print(userID, "USER ID IS HERE")
-        
+        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        myActivityIndicator.center = view.center
+        myActivityIndicator.hidesWhenStopped = false
+        myActivityIndicator.startAnimating()
+        view.addSubview(myActivityIndicator)
+
         let params = ["userId": "\(userID)",  "access_token":"\(accessToken)"] as Dictionary<String, String>
         
         MakeHttpPostRequest(url: getUserInfo, params: params, completion: {(success, response) -> Void in
@@ -38,6 +43,13 @@ class SignUpViewController: UIViewController,UITableViewDelegate,UITableViewData
             for experience in self.workExperiences {
                 self.tableViewData.append(ExistingEducationList(experience as! NSDictionary))
             }
+
+            
+            DispatchQueue.main.async {
+                myActivityIndicator.stopAnimating()
+                myActivityIndicator.hidesWhenStopped = true
+            }
+            
             DispatchQueue.main.async {
                 self.educationDetailsTableView.reloadData()
             }

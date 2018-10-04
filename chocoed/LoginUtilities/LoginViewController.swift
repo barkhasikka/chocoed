@@ -219,9 +219,19 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         let userid = UserDefaults.standard.string(forKey: "userid")
         let language1 = UserDefaults.standard.string(forKey: "Language1")
         let language2 = UserDefaults.standard.string(forKey: "Language2")
-        
-        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clientId":"\(clientID)","appLanguage":"\(language1!)","learningLanguage":"\(language2!)"] as Dictionary<String, String>
+        var params =  Dictionary<String, String>()
+        if language1 == nil && language2 == nil
+        {
+        params = ["access_token":"\(accessToken)","userId":"\(userid!)","clientId":"\(clientID)","appLanguage":"","learningLanguage":""] as Dictionary<String, String>
         print(params)
+        }
+        else
+        {
+            params = ["access_token":"\(accessToken)","userId":"\(userid!)","clientId":"\(clientID)","appLanguage":"\(language1!)","learningLanguage":"\(language2!)"] as Dictionary<String, String>
+            print(params)
+
+        }
+        
         MakeHttpPostRequest(url: saveLanguageSelected, params: params, completion: {(success, response) -> Void in
             print(response)
             ////            let language = response.object(forKey: "appList") as? NSArray ?? []

@@ -23,6 +23,7 @@ class NewWorkExperienceVC: UIViewController {
     
     var currentSelectedButton: String!
     
+    @IBOutlet weak var saveButton: imagetoButton!
     var tableViewData =  [String]()
     var teamsHandled = [FieldsOfWork]()
     var levelOfManagement = [FieldsOfWork]()
@@ -191,16 +192,27 @@ class NewWorkExperienceVC: UIViewController {
     }
     
     @IBAction func addWorkExperience(_ sender: Any) {
-//        if selectedWorkExperience == nil {
-//            //show alert to select fields
-//            return
-//        }
+        saveButton.isEnabled = false
+        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        myActivityIndicator.center = view.center
+        myActivityIndicator.hidesWhenStopped = false
+        myActivityIndicator.startAnimating()
+        view.addSubview(myActivityIndicator)
+       
         let userID = UserDefaults.standard.integer(forKey: "userid")
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
+        
         let companyName = textFieldCompany.text!
+        
+    
         let params = [ "access_token":"\(accessToken)", "userId": "\(userID)","clientId":"\(clientID)", "companyName": "\(companyName)", "fromYear": "\(self.selectedWorkExperience.fromYear)", "toYear": "\(self.selectedWorkExperience.toYear)", "functionalDepartment" : "\(self.selectedWorkExperience.functionalDepartment)", "industrySector": "\(self.selectedWorkExperience.industrySector)", "levelOfManagemet" : "\(self.selectedWorkExperience.levelOfManagement)", "teamSize" : "\(self.selectedWorkExperience.teamSize)", "id": "\(self.selectedWorkExperience.id)"] as Dictionary<String, String>
         MakeHttpPostRequest(url: saveWorkExperience, params: params, completion: {(success, response) -> Void in
             print(response, "SAVE WORK RESPONSE")
+            DispatchQueue.main.async {
+                myActivityIndicator.stopAnimating()
+                self.saveButton.isEnabled = true
+            }
+
             DispatchQueue.main.async {
                 let vcGetStarted = self.storyboard?.instantiateViewController(withIdentifier: "work") as! WorkExpClickedViewController
                 

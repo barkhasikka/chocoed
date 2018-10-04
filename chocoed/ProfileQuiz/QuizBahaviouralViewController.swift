@@ -15,13 +15,13 @@ class QuizBahaviouralViewController: UIViewController {
     var currentQuestion = Int()
     var valueofQuestionNo = Int()
     let optionbutton = UIButton()
-
+    var selectedAnswer = ""
+    var questionId = ""
     var arrayBehaviouralQuestion = [BehaviouralQuestion]()
    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadQuizExamDetails()
-        loadSaveExamQuestionAnswer()
       //  backgroundImagebahavioural()        // Do any additional setup after loading the view.
     }
 
@@ -48,7 +48,12 @@ class QuizBahaviouralViewController: UIViewController {
     func loadQuizExamDetails(){
     let clientID = UserDefaults.standard.integer(forKey: "clientid")
     let userid = UserDefaults.standard.string(forKey: "userid")
-    
+    let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        myActivityIndicator.center = view.center
+        myActivityIndicator.hidesWhenStopped = false
+        myActivityIndicator.startAnimating()
+        view.addSubview(myActivityIndicator)
+
     let params = ["access_token":"\(accessToken)","deviceId":"","deviceToken":"","deviceInfo":"","deviceType":"Andriod","userId":"\(userid!)","clienId":"\(clientID)","examId":"1"] as Dictionary<String, String>
 
     MakeHttpPostRequest(url: examDetails, params: params, completion: {(success, response) -> Void in
@@ -65,67 +70,53 @@ class QuizBahaviouralViewController: UIViewController {
         //print(self.arrayoption)
         DispatchQueue.main.async {
             self.quetionLabel.text = self.arrayBehaviouralQuestion[self.currentQuestion].questionName
-//            let optionsList = self.arrayBehaviouralQuestion[self.currentQuestion].option
-//            var y = 10;
-//            var previousButton: UIButton!
-//            for option in optionsList
-//            {
-//                let optionObject =  BehaviouralOption(option as! NSDictionary)
-//                DispatchQueue.main.async {
-//                    y = y + 50
-//                    print("value of y", y)
-//                    let optionButton = UIButton()
-//                    let option = optionObject.ansText
-//                    optionButton.setTitle(option, for: .normal )
-//                    optionButton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
-//                    optionButton.frame = CGRect(x: 50, y: y, width: 100, height: 50)
-//                    optionButton.addTarget(self, action: #selector(self.pressed(sender:)), for: .touchUpInside)
-//                    self.optionsView.addSubview(optionButton)
-//                    self.setOptionButtonConstraint(previousButton: previousButton, currentButton: optionButton)
-//                    previousButton = optionButton
-//
-//                }
-//            }
-            
+
             self.optionButtonfunction()
             
+        }
+        DispatchQueue.main.async {
+            myActivityIndicator.stopAnimating()
+            myActivityIndicator.hidesWhenStopped = true
         }
         
     })
 }
     @objc func pressed(sender: UIButton!) {
        print("button Pressed")
+        for subviews in self.optionsView.subviews {
+            if subviews is UIButton {
+                var testButton = subviews as? UIButton
+                testButton?.setImage(UIImage(named: "checkbox_off"), for: .normal)
+            }
+        }
+        sender.contentHorizontalAlignment = .left
+        sender.setImage(UIImage(named: "checkbox_on"), for: .normal)
         print(sender.tag, "Selected answer ID", self.arrayBehaviouralQuestion[self.currentQuestion].id, "<<<<<---- QUESTION ID")
-    }
+        answerId = sender.tag
+        
+        selectedAnswer = (sender.titleLabel?.text)!
+        questionId = self.arrayBehaviouralQuestion[self.currentQuestion].id
+        print(answerId)
+        print(questionId)
+        }
     
     func loadSaveExamQuestionAnswer(){
     let clientID = UserDefaults.standard.integer(forKey: "clientid")
     let userid = UserDefaults.standard.string(forKey: "userid")
     
-//        let params = ["access_token":"\(accessToken)","deviceId":"","deviceToken":"","deviceInfo":"","deviceType":"Android","userId":"\(userid!)","clienId":"\(clientID)","examId":"0","questionId":"0","selectedAns":"","selectedAnsId":"","startTime":"","endTime":""] as Dictionary<String, String>
-////    print(params)
-//    MakeHttpPostRequest(url: saveUserExamQuestionAnswer , params: params, completion: {(success, response) -> Void in
-//        print(response)
-//        ////            let language = response.object(forKey: "appList") as? NSArray ?? []
-//        ////
-//        ////            for languages in language {
-//        ////                self.arrayLanguages.append(LanguageList( languages as! NSDictionary))
-//        //            }
-//
-//    })
+    let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"1","questionId":"\(questionId)","selectedAns":"\(selectedAnswer)","selectedAnsId":"\(answerId)","startTime":"1","endTime":"3"] as Dictionary<String, String>
+        print(params)
+        MakeHttpPostRequest(url: saveUserExamQuestionAnswer , params: params, completion: {(success, response) -> Void in
+        print(response)
+        ////            let language = response.object(forKey: "appList") as? NSArray ?? []
+        ////
+        ////            for languages in language {
+        ////                self.arrayLanguages.append(LanguageList( languages as! NSDictionary))
+        //            }
+
+    })
 }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
     @IBAction func NextButton(_ sender: Any) {
         for subviews in self.optionsView.subviews {
             if subviews is UIButton {
@@ -139,6 +130,15 @@ class QuizBahaviouralViewController: UIViewController {
         //self.optionbutton.setTitle(arrayBehaviouralQuestion[self.currentQuestion], for: .normal)
         optionButtonfunction()
         }
+        
+        loadSaveExamQuestionAnswer()
+        if arrayBehaviouralQuestion.count < self.currentQuestion
+        {
+            let vcNewSectionStarted = storyboard?.instantiateViewController(withIdentifier: "psychometric") as! PsychometricTestViewController
+            self.present(vcNewSectionStarted, animated: true, completion: nil)
+
+        }
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -165,7 +165,7 @@ class QuizBahaviouralViewController: UIViewController {
                 optionButton.titleLabel?.minimumScaleFactor = 0.5
                 optionButton.titleLabel?.numberOfLines = 0
                 optionButton.titleLabel?.adjustsFontSizeToFitWidth = true
-                optionButton.tag = optionObject.id
+                optionButton.tag = Int(optionObject.id)!
                 optionButton.addTarget(self, action: #selector(self.pressed(sender:)), for: .touchUpInside)
                 self.optionsView.addSubview(optionButton)
                 self.setOptionButtonConstraint(previousButton: previousButton, currentButton: optionButton)

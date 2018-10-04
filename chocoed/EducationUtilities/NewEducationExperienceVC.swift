@@ -28,6 +28,7 @@ class NewEducationExperienceVC: UIViewController {
     @IBOutlet weak var labelQualification: UILabel!
     var currentSelectedButton: String!
     
+    @IBOutlet weak var savebutton: imagetoButton!
     var dropDown: DropDown!
 //    var educationLevel = "", location = "", mediumOfEducation = "", specialisation = "", state = "", yearOfCompletion = "",boardUniversity="",nameOfInstitute=""
     var tableViewData =  [String]()
@@ -151,42 +152,6 @@ class NewEducationExperienceVC: UIViewController {
             })
 
     }
-    
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return tableViewData.count
-//    }
-    
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "celledu") as! EducationExpTableViewCell
-//        let titlename = tableViewData[indexPath .row]
-//        cell.valueEdu.text = titlename.title
-//        return cell
-//    }
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        self.viewTableEdu.isHidden = true
-//
-//        switch currentSelectedButton {
-//        case "Qualification":
-//            educationLevel = self.educationLevel1[indexPath.row].name
-//                buttonQualification.setTitle(self.educationLevel1[indexPath.row].name, for: .normal)
-//        case "EducationMedium":
-//            mediumOfEducation = self.mediumOfEduList[indexPath.row].name
-//            eduMediumButton.setTitle(self.mediumOfEduList[indexPath.row].name, for: .normal)
-//        case "Specialization":
-//             specialisation = self.specializationList[indexPath.row].name
-//            buttonSpecification.setTitle(self.specializationList[indexPath.row].name, for: .normal)
-//        case "YearofPassing":
-//            yearOfCompletion = self.PassingYears[indexPath.row].title
-//            buttonYearofpassing.setTitle(self.PassingYears[indexPath.row].title, for: .normal)
-//        default:
-//            print("whoops")
-//        }
-//        self.viewTableEdu.isHidden = true
-//
-//     }
-
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -241,21 +206,46 @@ class NewEducationExperienceVC: UIViewController {
         dropDown.dataSource = PassingYears
     }
     @IBAction func buttonSave(_ sender: Any) {
+        savebutton.isEnabled = false
+        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        myActivityIndicator.center = view.center
+        myActivityIndicator.hidesWhenStopped = false
+        myActivityIndicator.startAnimating()
+        view.addSubview(myActivityIndicator)
+        
         let userID = UserDefaults.standard.integer(forKey: "userid")
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let nameOfInstitute = textfieldClgName.text!
         let nameofBoardUniv = textfieldBoardUniv.text!
         let location = locationTextField.text!
-        
+        if  nameofBoardUniv == "" || location == "" || self.selectedEducation.mediumOfEducation == "" || nameOfInstitute == "" || self.selectedEducation.state == "" || self.selectedEducation.yearOfCompletion == "" {
+            
+            let alertcontrol = UIAlertController(title: "Alert", message: "Please check all fields are filled.", preferredStyle: .alert)
+            let alertaction = UIAlertAction(title: "OK", style: .default) { (action) in
+                print("default")
+                myActivityIndicator.stopAnimating()
+                myActivityIndicator.hidesWhenStopped = true
+                self.savebutton.isEnabled = true
+            }
+            alertcontrol.addAction(alertaction)
+            self.present(alertcontrol, animated: true, completion: nil)
+            
+        }
+        else{
         let params = [ "access_token":"\(accessToken)", "userId": "\(userID)","clientId":"\(clientID)", "educationLevel": "\(self.selectedEducation.educationLevel)", "boardUniversity": "\(nameofBoardUniv)", "location": "\(location)", "mediumOfEducation" : "\(self.selectedEducation.mediumOfEducation)", "nameOfInstitute": "\(nameOfInstitute)", "specialisation" : "\(self.selectedEducation.specialisation)", "state" : "\(self.selectedEducation.state)", "id": "\(self.selectedEducation.id )","yearOfCompletion":"\(self.selectedEducation.yearOfCompletion)"] as Dictionary<String, String>
 
             MakeHttpPostRequest(url: saveEducationExp, params: params, completion: {(success, response) -> Void in
             DispatchQueue.main.async {
+            myActivityIndicator.stopAnimating()
+            myActivityIndicator.hidesWhenStopped = true
+            self.savebutton.isEnabled = true
+            
                 let vcGetStarted = self.storyboard?.instantiateViewController(withIdentifier: "signup") as! SignUpViewController
                 
                 self.present(vcGetStarted, animated: true, completion: nil)
             }
         })
+        }
     }
     
     @IBAction func cancelButtonAction(_ sender: Any){

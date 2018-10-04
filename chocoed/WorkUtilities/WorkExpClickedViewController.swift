@@ -24,7 +24,12 @@ class WorkExpClickedViewController: UIViewController, UITableViewDelegate,UITabl
         addnewWorkButton.layer.borderColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
         
         let userID = UserDefaults.standard.integer(forKey: "userid")
-        
+        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        myActivityIndicator.center = view.center
+        myActivityIndicator.hidesWhenStopped = false
+        myActivityIndicator.startAnimating()
+        view.addSubview(myActivityIndicator)
+
         let params = ["userId": "\(userID)",  "access_token":"\(accessToken)"] as Dictionary<String, String>
         
         MakeHttpPostRequest(url: getUserInfo, params: params, completion: {(success, response) -> Void in
@@ -35,6 +40,8 @@ class WorkExpClickedViewController: UIViewController, UITableViewDelegate,UITabl
                 self.tableViewData.append(ExistingWorkList(experience as! NSDictionary))
             }
             DispatchQueue.main.async {
+                myActivityIndicator.stopAnimating()
+                myActivityIndicator.hidesWhenStopped = true
                 self.workListTableView.reloadData()
             }
             
@@ -69,15 +76,6 @@ class WorkExpClickedViewController: UIViewController, UITableViewDelegate,UITabl
         self.view.window!.layer.add(transition, forKey: kCATransition)
         self.present(vcprev, animated: false, completion: nil)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "existingworktvcell") as! ExistingWorkTableViewCell

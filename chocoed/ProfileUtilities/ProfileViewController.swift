@@ -261,6 +261,11 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     func GetUserInfo() {
         let userID = UserDefaults.standard.integer(forKey: "userid")
         print(userID, "USER ID IS HERE")
+        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        myActivityIndicator.center = view.center
+        myActivityIndicator.hidesWhenStopped = false
+        myActivityIndicator.startAnimating()
+        view.addSubview(myActivityIndicator)
         let params = ["userId": "\(userID)",  "access_token":"\(accessToken)"] as Dictionary<String, String>
         MakeHttpPostRequest(url: getUserInfo, params: params, completion: {(success, response) in
             print(response)
@@ -283,9 +288,12 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
                     if let image = UIImage(data: data) {
                         self.imageviewCircle.image = image
                     }
-                }
+                    myActivityIndicator.stopAnimating()
+                    myActivityIndicator.hidesWhenStopped = true
+                    }
             })
         })
+        
     }
 
     @IBAction func submitActionUIButton(_ sender: Any) {
@@ -302,9 +310,21 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
             alertcontrol.addAction(alertaction)
             self.present(alertcontrol, animated: true, completion: nil)
         }else {
+            let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+            myActivityIndicator.center = view.center
+            myActivityIndicator.hidesWhenStopped = false
+            myActivityIndicator.startAnimating()
+            view.addSubview(myActivityIndicator)
             let params = [ "access_token":"\(accessToken)", "userId": "\(userID)", "clientId": "\(clientID)", "firstName": fName, "lastName": lName, "email" : emailId, "mobile" : mobileNo] as! Dictionary<String, String>
             MakeHttpPostRequest(url: updateUserInfoURL, params: params, completion: {(success, response) -> Void in
                 print(response, "UPDATE USER INFO RESPONSE")
+                DispatchQueue.main.async {
+                    myActivityIndicator.stopAnimating()
+                    myActivityIndicator.hidesWhenStopped = true
+
+                    
+                }
+
                 DispatchQueue.main.async(execute: {
                     let vcGetStarted = self.storyboard?.instantiateViewController(withIdentifier: "signup") as! SignUpViewController
                     self.present(vcGetStarted, animated: true, completion: nil)

@@ -103,17 +103,16 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         let text = arrayLanguages[indexPath.row].dbname
-        if count == 0
-        {
-            
-        let alertcontrol = UIAlertController(title: "Alert", message: "Would you like to use \(text) for learning language?", preferredStyle: .alert)
-        let alertaction = UIAlertAction(title: "No", style: .default) { (action) in
-            self.count = 1
-            
-        }
-        let alertaction1 = UIAlertAction(title: "Yes", style: .default) { (action) in
+        print(text)
+        if count == 0 {
+            let alertcontrol = UIAlertController(title: "Alert", message: "Would you like to use \(text) for learning language?", preferredStyle: .alert)
+            let alertaction = UIAlertAction(title: "No", style: .default) { (action) in
+                self.count = 1
+                UserDefaults.standard.set(text, forKey: "Language1")
+
+            }
+            let alertaction1 = UIAlertAction(title: "Yes", style: .default) { (action) in
                 self.viewTable.isHidden = true
                 
                 self.signUpButton.setTitle("\(text)", for: .normal)
@@ -121,14 +120,11 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
                 UserDefaults.standard.set(text, forKey: "Language1")
                 
                 UserDefaults.standard.set(text, forKey: "Language2")
-        }
-        alertcontrol.addAction(alertaction)
-        alertcontrol.addAction(alertaction1)
-        self.present(alertcontrol, animated: true, completion: nil)
-        }
-
-        else
-        {
+            }
+            alertcontrol.addAction(alertaction)
+            alertcontrol.addAction(alertaction1)
+            self.present(alertcontrol, animated: true, completion: nil)
+        } else {
             self.viewTable.isHidden = true
             let userAppLang = UserDefaults.standard.string(forKey: "Language1")
             print(userAppLang)
@@ -142,7 +138,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     {
         let clientid = UserDefaults.standard.string(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
-
+        
         let params = ["access_token":"\(accessToken)","userId":"\(userid)","clientId":"\(clientid)"] as Dictionary<String, String>
         MakeHttpPostRequest(url: getLanguageListCall, params: params, completion: {(success, response) -> Void in
             print(response)
