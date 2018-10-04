@@ -95,6 +95,7 @@ class QuizBahaviouralViewController: UIViewController {
 }
     @objc func pressed(sender: UIButton!) {
        print("button Pressed")
+        print(sender.tag, "Selected answer ID", self.arrayBehaviouralQuestion[self.currentQuestion].id, "<<<<<---- QUESTION ID")
     }
     
     func loadSaveExamQuestionAnswer(){
@@ -164,6 +165,7 @@ class QuizBahaviouralViewController: UIViewController {
                 optionButton.titleLabel?.minimumScaleFactor = 0.5
                 optionButton.titleLabel?.numberOfLines = 0
                 optionButton.titleLabel?.adjustsFontSizeToFitWidth = true
+                optionButton.tag = optionObject.id
                 optionButton.addTarget(self, action: #selector(self.pressed(sender:)), for: .touchUpInside)
                 self.optionsView.addSubview(optionButton)
                 self.setOptionButtonConstraint(previousButton: previousButton, currentButton: optionButton)
