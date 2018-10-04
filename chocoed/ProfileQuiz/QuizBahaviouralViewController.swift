@@ -153,24 +153,28 @@ class QuizBahaviouralViewController: UIViewController {
             DispatchQueue.main.async {
             //    y = y + 50
               //  print("value of y", y)
-                let optionButton = UIButton()
+                var optionButton = UIButton()
+                optionButton = UIButton(type: UIButtonType.custom) as UIButton
+                
                 let option = optionObject.ansText
                 optionButton.setTitle(option, for: .normal )
                 optionButton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
-                //optionButton.frame = CGRect(x: 50, y: y, width: 100, height: 50)
+                optionButton.contentHorizontalAlignment = .left
+                optionButton.setImage(UIImage(named: "checkbox_off"), for: .normal)
+                optionButton.titleLabel?.minimumScaleFactor = 0.5
+                optionButton.titleLabel?.numberOfLines = 0
+                optionButton.titleLabel?.adjustsFontSizeToFitWidth = true
                 optionButton.addTarget(self, action: #selector(self.pressed(sender:)), for: .touchUpInside)
                 self.optionsView.addSubview(optionButton)
                 self.setOptionButtonConstraint(previousButton: previousButton, currentButton: optionButton)
                 previousButton = optionButton
                 
-                let imageviewopt = UIImageView()
-                let optionurl = optionObject.ansImageUrl
-                let data = try Data.init(contentsOf: URL.init(string:"\(optionurl)")!)
-                    if let data = data{
-                        imageviewopt.image = UIImage(data: data)
-                }
-
-                
+//                let imageviewopt = UIImageView()
+//                let optionurl = optionObject.ansImageUrl
+//                let data = try Data.init(contentsOf: URL.init(string:"\(optionurl)")!)
+//                    if let data = data{
+//                        imageviewopt.image = UIImage(data: data)
+//                }
             }
         }
         
@@ -186,7 +190,8 @@ class QuizBahaviouralViewController: UIViewController {
             
         }
         currentButton.leadingAnchor.constraint(equalTo: self.optionsView.leadingAnchor, constant: 50).isActive =  true
+        currentButton.trailingAnchor.constraint(equalTo: self.optionsView.trailingAnchor, constant: -10).isActive = true
         currentButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        currentButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
+      //  currentButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
     }
 }
