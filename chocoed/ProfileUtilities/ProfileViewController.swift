@@ -144,15 +144,8 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         picker.didSelectImage = { [unowned picker] img in
             // image picked
             print(img.size)
-            let userID = UserDefaults.standard.integer(forKey: "userid")
-            let imageData = UIImagePNGRepresentation(self.imageviewCircle.image!)
-            let params = [ "access_token":"\(accessToken)", "userId": "\(userID)"] as! Dictionary<String, String>
-            MakeHttpMIME2PostRequest(url: uploadProfilePicture, imageData: imageData as! NSData, param: params, completion: {(success, response) -> Void in
-                print(response, "UPLOAD PROFILE PIC RESPONSE")
-                
-            })
-            
             self.imageviewCircle.image = img
+            self.imageviewCircle.contentMode = .scaleAspectFit
             picker.dismiss(animated: true, completion: nil)
         }
         present(picker, animated: true, completion: nil)
@@ -261,7 +254,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         imageviewCircle.layer.borderColor = UIColor.darkGray.cgColor
         imageviewCircle.layer.cornerRadius = imageviewCircle.frame.width / 2
         imageviewCircle.clipsToBounds = true
-//        imageviewCircle.image = image
+        imageviewCircle.image = image
         imageviewCircle.contentMode = .center
     }
    
@@ -316,6 +309,46 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
                     let vcGetStarted = self.storyboard?.instantiateViewController(withIdentifier: "signup") as! SignUpViewController
                     self.present(vcGetStarted, animated: true, completion: nil)
                 })
+            })
+            
+            
+            let imageData = UIImagePNGRepresentation(self.imageviewCircle.image!)
+            
+            
+            
+            // get the documents directory url
+//            let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+//            // choose a name for your image
+//            let fileName = "image_check.jpg"
+//            // create the destination file url to save your image
+//            let fileURL = documentsDirectory.appendingPathComponent(fileName)
+//            // get your UIImage jpeg data representation and check if the destination file !url already exists
+////            if let data = UIImageJPEGRepresentation(self.imageviewCircle.image!, 1.0),
+////                !FileManager.default.fileExists(atPath: fileURL.path) {
+//                do {
+//                    // writes the image data to disk
+//                    try imageData!.write(to: fileURL)
+//                    print("file saved")
+//                    
+//                    let data = try? Data(contentsOf: fileURL)
+//                    
+//                    if let imageData = data {
+//                        let image = UIImage(data: imageData)
+//                        print("Changing circle viw image:", fileURL)
+//                        self.imageviewCircle.image = nil
+//                        self.imageviewCircle.image = image
+//                    }
+//                    
+//                    
+//                } catch {
+//                    print("error saving file:", error)
+//                }
+//            }
+            
+            let imageUploadParams = [ "access_token":"\(accessToken)", "userId": "\(userID)"] as! Dictionary<String, String>
+            MakeHttpMIME2PostRequest(url: uploadProfilePicture, imageData: imageData as! NSData, param: imageUploadParams, completion: {(success, response) -> Void in
+                print(response, "UPLOAD PROFILE PIC RESPONSE")
+                
             })
         }
     }

@@ -60,7 +60,7 @@ func MakeHttpMIME2PostRequest(url: String, imageData: NSData, param: Dictionary<
     request.httpMethod = "POST"
     let boundary = generateBoundaryString()
     request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-    request.httpBody = createBodyWithParameters(parameters: param, filePathKey: "file", imageDataKey: imageData as NSData, boundary: boundary) as Data
+    request.httpBody = createBodyWithParameters(parameters: param, filePathKey: "file", imageDataKey: imageData, boundary: boundary) as Data
     let session = URLSession.shared
     let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
         guard error == nil else {
