@@ -797,9 +797,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="P7G-8n-290"/>
                                 </constraints>
-                                <state key="normal" title="NEXT  ➔">
-                                    <color key="titleColor" red="0.02915863694" green="0.051812045680000002" blue="0.20986479920000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
+                                <state key="normal" title="NEXT  ➔"/>
                                 <connections>
                                     <action selector="NextButton:" destination="6C8-Nw-lOF" eventType="touchUpInside" id="qxP-a9-Fo3"/>
                                 </connections>
