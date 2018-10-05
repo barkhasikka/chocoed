@@ -20,4 +20,6 @@ let saveLanguageSelected = "http://dev.chocoed.com/api/user/saveUserLanguage"
 let accessToken = "03db0f67032a1e3a82f28b476a8b81ea"
 let examDetails = "http://dev.chocoed.com/api/user/getExamDetail"
 let saveUserExamQuestionAnswer = "http://dev.chocoed.com/api/user/saveExanQuestionAns"
-var answerId = -1 
+var answerId = -1
+var USERDETAILS : UserDetails!
+

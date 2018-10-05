@@ -166,3 +166,10 @@ struct Option {
     }
 
 }
+
+struct UserDetails{
+    var email : String
+    var firstName : String
+    var lastname : String
+    var imageurl : String
+}

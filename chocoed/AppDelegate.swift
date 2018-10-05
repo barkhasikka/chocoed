@@ -19,12 +19,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let userID = UserDefaults.standard.integer(forKey: "userid")
         print(userID)
+        GetUserInfo()
         if userID != 0 {
             let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
             window!.rootViewController = startVC
             window!.makeKeyAndVisible()
-            GetUserInfo()
+            
             
         } else {
 
@@ -58,12 +59,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let fileUrl = URL(string: url)
             UserDefaults.standard.set(Int(clientId), forKey: "clientid")
             
+            USERDETAILS = UserDetails(email: temp.email, firstName: temp.firstName, lastname: temp.lastName, imageurl: url)
+            
             if quizTaken == 1 {
                 print("1")
                 let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
+                let aObjNavi = UINavigationController(rootViewController: startVC)
                 DispatchQueue.main.async {
-                    self.window!.rootViewController = startVC
+                    self.window!.rootViewController = aObjNavi
                     self.window!.makeKeyAndVisible()
                 }
               

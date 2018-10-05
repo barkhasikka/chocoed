@@ -9,14 +9,28 @@
 import UIKit
 
 class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDataSource {
+    @IBOutlet weak var buttonEmail: UIButton!
+    @IBOutlet weak var labelUserNAme: UILabel!
+    @IBOutlet weak var imageProfile: UIImageView!
     var arraymenu = ["My Story","My Thought","My Progress","My Profile","Log out"]
     let cousesImages = [UIImage(named:"lotus_icon"),UIImage(named: "lotus_icon"), UIImage(named: "lotus_icon"), UIImage(named: "lotus_icon"), UIImage(named: "lotus_icon")]
     
     override func viewDidLoad() {
      super.viewDidLoad()
         
+        labelUserNAme.text = USERDETAILS.firstName + " " + USERDETAILS.lastname
+        let fileUrl = URL(string: USERDETAILS.imageurl)
+        if let data = try? Data(contentsOf: fileUrl!) {
+            if let image = UIImage(data: data) {
+                self.imageProfile.image = image
+            }
+        }
+        buttonEmail.setTitle(USERDETAILS.email, for: .normal)
+        
     }
 
+    @IBAction func emailDropDown(_ sender: Any) {
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

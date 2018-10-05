@@ -2329,9 +2329,12 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cwG-bQ-uYE">
                                         <rect key="frame" x="8" y="165" width="293" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button">
-                                            <color key="titleColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="emailDropDown:" destination="nB6-o5-SXB" eventType="touchUpInside" id="i8M-Ys-sQn"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2340,6 +2343,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="yOp-eL-DF8"/>
                     </view>
+                    <connections>
+                        <outlet property="buttonEmail" destination="cwG-bQ-uYE" id="1dK-hq-CLM"/>
+                        <outlet property="imageProfile" destination="DT8-iR-4tB" id="iO3-Em-fa4"/>
+                        <outlet property="labelUserNAme" destination="pWC-Hv-laz" id="Xt4-U7-qPU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uaa-kT-2dR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
