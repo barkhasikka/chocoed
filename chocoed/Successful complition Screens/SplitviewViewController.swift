@@ -9,16 +9,79 @@
 import UIKit
 
 class SplitviewViewController: UISplitViewController {
+    var menuvc : ViewControllerMenubar!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        menuvc = self.storyboard?.instantiateViewController(withIdentifier: "menu") as! ViewControllerMenubar
+        
+        let swiperight = UISwipeGestureRecognizer(target: self, action: #selector(responsetoright))
+        swiperight.direction = UISwipeGestureRecognizerDirection.right
+        
+        
+        self.view.addGestureRecognizer(swiperight)
+        
+        let swipeleft = UISwipeGestureRecognizer(target: self, action: #selector(responsetoright))
+        swipeleft.direction = UISwipeGestureRecognizerDirection.right
+        
+        
+        self.view.addGestureRecognizer(swipeleft)
+        
+    }
+
+    @objc func responsetoright(gesture : UISwipeGestureRecognizer)
+    {
+        switch gesture.direction
+        {
+        case UISwipeGestureRecognizerDirection.right:
+            print("left swipe")
+            showmethod()
+        case UISwipeGestureRecognizerDirection.left:
+            print("left swipe")
+            close_swipe()
+        default : break
+            
+        }
+    }
+
+    func showmethod()
+    {
+        UIView.animate(withDuration: 0.3) { ()->Void in
+            self.menuvc.view.frame = CGRect(x: 0, y: 60, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
+            self.addChildViewController(self.menuvc)
+            self.view.addSubview(self.menuvc.view)
+            self.menuvc.view.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+            AppDelegate.menu_bool = false
+        }
+        
+    }
+    func closemethod()
+    {
+        UIView.animate(withDuration: 0.3, animations: { ()->Void in
+            self.menuvc.view.frame = CGRect(x: 0, y: 60, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
+        }) { (finished) in
+            self.menuvc.view.removeFromSuperview()
+            
+        }
+        AppDelegate.menu_bool = true
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func close_swipe()
+    {
+        if AppDelegate.menu_bool {
+            showmethod()
+        }
+        else
+        {
+            closemethod()
+        }
     }
     
 
