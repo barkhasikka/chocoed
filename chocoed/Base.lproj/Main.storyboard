@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -2247,7 +2248,7 @@
         <!--View Controller-->
         <scene sceneID="HX3-ew-oE4">
             <objects>
-                <viewController id="nB6-o5-SXB" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="menu" id="nB6-o5-SXB" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="abq-Mr-eBy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2321,7 +2322,7 @@
             </objects>
             <point key="canvasLocation" x="-639.20000000000005" y="2246.6266866566721"/>
         </scene>
-        <!--Radar-->
+        <!--My Radar-->
         <scene sceneID="czr-80-0YD">
             <objects>
                 <viewController storyboardIdentifier="split" id="fPi-hO-h0h" customClass="SplitviewViewController" customModule="chocoed" customModuleProvider="target" sceneMemberID="viewController">
@@ -2334,6 +2335,23 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DU5-kb-2BZ">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XOq-ms-y9T">
+                                                <rect key="frame" x="33" y="65" width="99" height="40"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button" image="Mytalks"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1OS-GJ-OEj">
+                                                <rect key="frame" x="156" y="163" width="46" height="45"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button" image="Mythoughts"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Tt-Io-JV7">
+                                                <rect key="frame" x="235" y="77" width="50" height="41"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button" image="lotus_icon"/>
+                                            </button>
+                                        </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="250" id="i6Y-Z4-Zjz"/>
@@ -2357,19 +2375,22 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Qrs-iv-y1R"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Radar" id="76L-Cc-eeo">
+                    <navigationItem key="navigationItem" title="My Radar" id="76L-Cc-eeo">
                         <barButtonItem key="leftBarButtonItem" image="icons8-menu_filled" id="hkG-VQ-WxJ">
                             <color key="tintColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </barButtonItem>
                     </navigationItem>
                     <size key="freeformSize" width="375" height="900"/>
                     <connections>
+                        <outlet property="buttonLotus" destination="1Tt-Io-JV7" id="PNs-UB-XKU"/>
+                        <outlet property="buttonMiddleProfile" destination="1OS-GJ-OEj" id="Ui7-cw-95g"/>
+                        <outlet property="buttonMsg" destination="XOq-ms-y9T" id="Sim-SF-7Rx"/>
                         <outlet property="viewButtonsCircle" destination="DU5-kb-2BZ" id="l6N-or-fuY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DVQ-du-1sQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1028" y="2246.176911544228"/>
+            <point key="canvasLocation" x="968.79999999999995" y="2313.6431784107949"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="kE0-7Q-fbJ">
@@ -2467,6 +2488,8 @@
         <image name="Behavioral Test" width="168" height="157"/>
         <image name="Chocoed" width="1024" height="1024"/>
         <image name="Message" width="58" height="48"/>
+        <image name="Mytalks" width="45" height="40"/>
+        <image name="Mythoughts" width="42" height="45"/>
         <image name="chocoed_white_logo" width="222" height="60"/>
         <image name="ic_drop_down" width="24" height="24"/>
         <image name="ic_education" width="50" height="50"/>
@@ -2476,6 +2499,7 @@
         <image name="icons8-menu_filled" width="25" height="25"/>
         <image name="image_icon" width="60" height="50"/>
         <image name="loginButtonBackground" width="651" height="97"/>
+        <image name="lotus_icon" width="46" height="41"/>
         <image name="personality_test" width="168" height="157"/>
         <image name="psychometric_test" width="168" height="157"/>
         <image name="t_op_carousel" width="90" height="25"/>
