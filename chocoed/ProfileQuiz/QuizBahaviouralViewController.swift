@@ -17,7 +17,7 @@ class QuizBahaviouralViewController: UIViewController {
     let optionbutton = UIButton()
     var selectedAnswer = ""
     var questionId = ""
-    var arrayBehaviouralQuestion = [BehaviouralQuestion]()
+    var arrayBehaviouralQuestion = [Question]()
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +62,7 @@ class QuizBahaviouralViewController: UIViewController {
        // let optionsList = response.object(forKey: "optionList") as? NSArray ?? []
         
         for question in questionsList {
-            self.arrayBehaviouralQuestion.append(BehaviouralQuestion(question as! NSDictionary))
+            self.arrayBehaviouralQuestion.append(Question(question as! NSDictionary))
          
                 }
         
@@ -150,7 +150,7 @@ class QuizBahaviouralViewController: UIViewController {
         var previousButton: UIButton!
         for option in optionsList
         {
-            let optionObject =  BehaviouralOption(option as! NSDictionary)
+            let optionObject =  Option(option as! NSDictionary)
             DispatchQueue.main.async {
             //    y = y + 50
               //  print("value of y", y)
@@ -185,7 +185,7 @@ class QuizBahaviouralViewController: UIViewController {
         
         currentButton.translatesAutoresizingMaskIntoConstraints = false
         if previousButton != nil {
-            currentButton.topAnchor.constraint(equalTo: previousButton.bottomAnchor, constant: 20).isActive =  true
+            currentButton.topAnchor.constraint(equalTo: previousButton.bottomAnchor, constant: 15).isActive =  true
             
         }else {
             currentButton.topAnchor.constraint(equalTo: self.optionsView.topAnchor, constant: 20).isActive = true
@@ -193,7 +193,7 @@ class QuizBahaviouralViewController: UIViewController {
         }
         currentButton.leadingAnchor.constraint(equalTo: self.optionsView.leadingAnchor, constant: 50).isActive =  true
         currentButton.trailingAnchor.constraint(equalTo: self.optionsView.trailingAnchor, constant: -10).isActive = true
-        currentButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        currentButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
       //  currentButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
     }
 }

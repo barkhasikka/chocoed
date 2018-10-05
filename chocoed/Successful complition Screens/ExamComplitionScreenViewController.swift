@@ -1,20 +1,18 @@
 //
-//  ProfileSucessViewController.swift
+//  ExamComplitionScreenViewController.swift
 //  chocoed
 //
-//  Created by Tejal on 21/09/18.
+//  Created by Tejal on 05/10/18.
 //  Copyright © 2018 barkha sikka. All rights reserved.
 //
 
 import UIKit
 
-class ProfileSucessViewController: UIViewController {
+class ExamComplitionScreenViewController: UIViewController {
 
-    @IBOutlet weak var letBeginButton: UIButton!
+    @IBOutlet weak var beginButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-     //   self.view.backgroundColor = UIColor(patternImage: UIImage(named: "perfect")!)
-
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(named: "Group 4")
         backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
@@ -24,18 +22,19 @@ class ProfileSucessViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    func ButtonBorder()
-    {
-        letBeginButton.layer.cornerRadius = 20
-        letBeginButton.clipsToBounds = true
-        letBeginButton.layer.borderWidth = 1
-        letBeginButton.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        
-    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func ButtonBorder()
+    {
+        beginButton.layer.cornerRadius = 15
+        beginButton.clipsToBounds = true
+        beginButton.layer.borderWidth = 1
+        beginButton.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    }
+
     
 
     /*

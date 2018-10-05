@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07583C3A2167277D00CE6EB6 /* Chocoed Splash Screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 07583C392167277C00CE6EB6 /* Chocoed Splash Screen.png */; };
+		07583C3D21673EFE00CE6EB6 /* ExamComplitionScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07583C3C21673EFE00CE6EB6 /* ExamComplitionScreenViewController.swift */; };
 		A2B2CB1A25278D36BECB09E6 /* Pods_chocoed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B250FCA754272F8054867D5 /* Pods_chocoed.framework */; };
 		BF20726A2164DDD10038F30B /* PersonalityTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2072692164DDD10038F30B /* PersonalityTestViewController.swift */; };
 		BF20726D2164DDFD0038F30B /* QuizPersonalityTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF20726B2164DDFD0038F30B /* QuizPersonalityTestViewController.swift */; };
@@ -43,6 +45,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		07583C392167277C00CE6EB6 /* Chocoed Splash Screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chocoed Splash Screen.png"; sourceTree = "<group>"; };
+		07583C3C21673EFE00CE6EB6 /* ExamComplitionScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamComplitionScreenViewController.swift; sourceTree = "<group>"; };
 		3FB7C1FAA18E54982E5C700C /* Pods-chocoed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chocoed.debug.xcconfig"; path = "Pods/Target Support Files/Pods-chocoed/Pods-chocoed.debug.xcconfig"; sourceTree = "<group>"; };
 		71D8E08D3C2165BF37086AB1 /* Pods-chocoed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chocoed.release.xcconfig"; path = "Pods/Target Support Files/Pods-chocoed/Pods-chocoed.release.xcconfig"; sourceTree = "<group>"; };
 		7B250FCA754272F8054867D5 /* Pods_chocoed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_chocoed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,6 +102,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07583C3B21673EAA00CE6EB6 /* Successful complition Screens */ = {
+			isa = PBXGroup;
+			children = (
+				07583C3C21673EFE00CE6EB6 /* ExamComplitionScreenViewController.swift */,
+			);
+			path = "Successful complition Screens";
+			sourceTree = "<group>";
+		};
 		43C0788A6ECEC072412F5644 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +148,7 @@
 		BF2358E8214FD0AC00C73BE3 /* chocoed */ = {
 			isa = PBXGroup;
 			children = (
+				07583C3B21673EAA00CE6EB6 /* Successful complition Screens */,
 				BF4BE1FA216398680082198D /* ProfileQuiz */,
 				BF4BE1EF21638FAF0082198D /* LoginUtilities */,
 				BF4BE1EE21638F770082198D /* ProfileUtilities */,
@@ -148,6 +161,7 @@
 				BF2358F2214FD0AE00C73BE3 /* LaunchScreen.storyboard */,
 				BF2358F5214FD0AE00C73BE3 /* Info.plist */,
 				BF2358F0214FD0AE00C73BE3 /* Assets.xcassets */,
+				07583C392167277C00CE6EB6 /* Chocoed Splash Screen.png */,
 				BFCD0566215264B3009BE2C9 /* chocoed-Bridging-Header.h */,
 			);
 			path = chocoed;
@@ -294,6 +308,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07583C3A2167277D00CE6EB6 /* Chocoed Splash Screen.png in Resources */,
 				BF2358F4214FD0AE00C73BE3 /* LaunchScreen.storyboard in Resources */,
 				BF2358F1214FD0AE00C73BE3 /* Assets.xcassets in Resources */,
 				BF2358EF214FD0AC00C73BE3 /* Main.storyboard in Resources */,
@@ -379,6 +394,7 @@
 				BF52BD68215B8B3C00E2BDB9 /* ProfileSucessViewController.swift in Sources */,
 				BF4BE1F1216396260082198D /* BehavioralViewController.swift in Sources */,
 				BF4BE1F72163964D0082198D /* PsychometricTestViewController.swift in Sources */,
+				07583C3D21673EFE00CE6EB6 /* ExamComplitionScreenViewController.swift in Sources */,
 				BF2CBBE62150DC8800E13EA5 /* NewEducationExperienceVC.swift in Sources */,
 				BF2CBBE22150C94500E13EA5 /* TextFieldDesign.swift in Sources */,
 			);
@@ -527,14 +543,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WFBZ498FZ4;
+				DEVELOPMENT_TEAM = DAKPPCYSL8;
 				INFOPLIST_FILE = chocoed/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chocoed;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chocoed.tejal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "chocoed/chocoed-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -550,14 +566,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WFBZ498FZ4;
+				DEVELOPMENT_TEAM = DAKPPCYSL8;
 				INFOPLIST_FILE = chocoed/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chocoed;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chocoed.tejal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "chocoed/chocoed-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;

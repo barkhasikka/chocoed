@@ -136,7 +136,7 @@ struct LanguageList {
     }
 }
 
-struct BehaviouralQuestion{
+struct Question{
     var questionName: String
     var anstype: String
     var answerSubmitted : String
@@ -153,7 +153,7 @@ struct BehaviouralQuestion{
 
 }
 
-struct BehaviouralOption {
+struct Option {
     var ansImageUrl : String
     var ansText: String
     var id : String
