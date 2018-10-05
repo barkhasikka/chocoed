@@ -11,9 +11,16 @@ import UIKit
 class SplitviewViewController: UISplitViewController {
     var menuvc : ViewControllerMenubar!
 
+    @IBOutlet weak var viewButtonsCircle: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.image = UIImage(named: "dashboard_header")
+        backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
+        self.viewButtonsCircle.insertSubview(backgroundImage, at: 0)
+
+        
         menuvc = self.storyboard?.instantiateViewController(withIdentifier: "menu") as! ViewControllerMenubar
         
         let swiperight = UISwipeGestureRecognizer(target: self, action: #selector(responsetoright))
