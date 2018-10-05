@@ -23,24 +23,43 @@ class ProfileSucessViewController: UIViewController {
         ButtonBorder()
         // Do any additional setup after loading the view.
     }
+
     @IBAction func letsBeginAction(_ sender: Any) {
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
         let params = ["access_token":"\(accessToken)","deviceId":"","deviceToken":"","deviceInfo":"","deviceType":"Andriod","userId":"\(userid!)","clienId":"\(clientID)","examId":"-10"] as Dictionary<String, String>
-        
         MakeHttpPostRequest(url: examDetails, params: params, completion: {(success, response) -> Void in
             print(response)
+            let currentTestID = response.object(forKey: "inProgressExamId") as? Int ?? 0
+            print(currentTestID)
+            DispatchQueue.main.async {
+                switch currentTestID {
+                case 1:
+                    let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "behavioural") as! BehavioralViewController
+                    self.present(vcNewSectionStarted, animated: true, completion: nil)
+                    break
+                case 2:
+                    let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "psychometric") as! PsychometricTestViewController
+                    self.present(vcNewSectionStarted, animated: true, completion: nil)
+                    break
+                case 3:
+                    let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "personality") as! PersonalityTestViewController
+                    self.present(vcNewSectionStarted, animated: true, completion: nil)
+                    break
+                default:
+                    print("Blah Blha")
+                }
+            }
         })
     }
     
-    func ButtonBorder()
-    {
+    func ButtonBorder() {
         letBeginButton.layer.cornerRadius = 20
         letBeginButton.clipsToBounds = true
         letBeginButton.layer.borderWidth = 1
         letBeginButton.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        
     }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -104,6 +104,7 @@ class QuizPsychomatricTestViewController: UIViewController {
     }
 
     @IBAction func nextButton(_ sender: Any) {
+        loadSaveExamQuestionAnswer()
         for subviews in self.optionsVIew.subviews {
             if subviews is UIButton {
                 subviews.removeFromSuperview()
@@ -115,17 +116,10 @@ class QuizPsychomatricTestViewController: UIViewController {
             self.labelQuestion.text = self.arrayBehaviouralQuestion[self.currentQuestion].questionName
             //self.optionbutton.setTitle(arrayBehaviouralQuestion[self.currentQuestion], for: .normal)
             optionButtonfunction()
-        }
-        
-        loadSaveExamQuestionAnswer()
-        if arrayBehaviouralQuestion.count < self.currentQuestion
-        {
+        }else {
             let vcNewSectionStarted = storyboard?.instantiateViewController(withIdentifier: "personality") as! PersonalityTestViewController
             self.present(vcNewSectionStarted, animated: true, completion: nil)
-            
         }
-
-        
     }
     
     func optionButtonfunction(){

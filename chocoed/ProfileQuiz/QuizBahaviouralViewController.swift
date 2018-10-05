@@ -29,8 +29,7 @@ class QuizBahaviouralViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    func backgroundImagebahavioural()
-    {
+    func backgroundImagebahavioural() {
         let backgroundImage = UIImageView()
         backgroundImage.translatesAutoresizingMaskIntoConstraints = false
         backgroundImage.heightAnchor.constraint(equalToConstant: 250).isActive = true
@@ -45,42 +44,35 @@ class QuizBahaviouralViewController: UIViewController {
 //        backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
 //        self.view.insertSubview(backgroundImage, at: 0)
     }
+    
     func loadQuizExamDetails(){
-    let clientID = UserDefaults.standard.integer(forKey: "clientid")
-    let userid = UserDefaults.standard.string(forKey: "userid")
-    let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        let clientID = UserDefaults.standard.integer(forKey: "clientid")
+        let userid = UserDefaults.standard.string(forKey: "userid")
+        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         myActivityIndicator.center = view.center
         myActivityIndicator.hidesWhenStopped = false
         myActivityIndicator.startAnimating()
         view.addSubview(myActivityIndicator)
 
-    let params = ["access_token":"\(accessToken)","deviceId":"","deviceToken":"","deviceInfo":"","deviceType":"Andriod","userId":"\(userid!)","clienId":"\(clientID)","examId":"1"] as Dictionary<String, String>
+        let params = ["access_token":"\(accessToken)","deviceId":"","deviceToken":"","deviceInfo":"","deviceType":"Andriod","userId":"\(userid!)","clienId":"\(clientID)","examId":"1"] as Dictionary<String, String>
 
-    MakeHttpPostRequest(url: examDetails, params: params, completion: {(success, response) -> Void in
+        MakeHttpPostRequest(url: examDetails, params: params, completion: {(success, response) -> Void in
             print(response)
-        let questionsList = response.object(forKey: "questionList") as? NSArray ?? []
-       // let optionsList = response.object(forKey: "optionList") as? NSArray ?? []
+            let questionsList = response.object(forKey: "questionList") as? NSArray ?? []
+            for question in questionsList {
+                self.arrayBehaviouralQuestion.append(Question(question as! NSDictionary))
+            }
         
-        for question in questionsList {
-            self.arrayBehaviouralQuestion.append(Question(question as! NSDictionary))
-         
-                }
-        
-        print("\(self.arrayBehaviouralQuestion)")
-        //print(self.arrayoption)
-        DispatchQueue.main.async {
-            self.quetionLabel.text = self.arrayBehaviouralQuestion[self.currentQuestion].questionName
-
-            self.optionButtonfunction()
-            
-        }
-        DispatchQueue.main.async {
-            myActivityIndicator.stopAnimating()
-            myActivityIndicator.hidesWhenStopped = true
-        }
-        
-    })
-}
+            print("\(self.arrayBehaviouralQuestion)")
+            DispatchQueue.main.async {
+                self.quetionLabel.text = self.arrayBehaviouralQuestion[self.currentQuestion].questionName
+                self.optionButtonfunction()
+                myActivityIndicator.stopAnimating()
+                myActivityIndicator.hidesWhenStopped = true
+            }
+        })
+    }
+    
     @objc func pressed(sender: UIButton!) {
        print("button Pressed")
         for subviews in self.optionsView.subviews {
@@ -98,45 +90,41 @@ class QuizBahaviouralViewController: UIViewController {
         questionId = self.arrayBehaviouralQuestion[self.currentQuestion].id
         print(answerId)
         print(questionId)
-        }
+    }
     
     func loadSaveExamQuestionAnswer(){
-    let clientID = UserDefaults.standard.integer(forKey: "clientid")
-    let userid = UserDefaults.standard.string(forKey: "userid")
-    
-    let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"1","questionId":"\(questionId)","selectedAns":"\(selectedAnswer)","selectedAnsId":"\(answerId)","startTime":"1","endTime":"3"] as Dictionary<String, String>
-        print(params)
+        let clientID = UserDefaults.standard.integer(forKey: "clientid")
+        let userid = UserDefaults.standard.string(forKey: "userid")
+        
+        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"1","questionId":"\(questionId)","selectedAns":"\(selectedAnswer)","selectedAnsId":"\(answerId)","startTime":"1","endTime":"3"] as Dictionary<String, String>
+            print(params)
         MakeHttpPostRequest(url: saveUserExamQuestionAnswer , params: params, completion: {(success, response) -> Void in
-        print(response)
-        ////            let language = response.object(forKey: "appList") as? NSArray ?? []
-        ////
-        ////            for languages in language {
-        ////                self.arrayLanguages.append(LanguageList( languages as! NSDictionary))
-        //            }
+            print(response)
+    ////            let language = response.object(forKey: "appList") as? NSArray ?? []
+    ////
+    ////            for languages in language {
+    ////                self.arrayLanguages.append(LanguageList( languages as! NSDictionary))
+    //            }
 
-    })
-}
+        })
+    }
     
     @IBAction func NextButton(_ sender: Any) {
+        loadSaveExamQuestionAnswer()
         for subviews in self.optionsView.subviews {
             if subviews is UIButton {
                 subviews.removeFromSuperview()
             }
         }
         self.currentQuestion = self.currentQuestion + 1
-        print(arrayBehaviouralQuestion.count)
+        print(arrayBehaviouralQuestion.count, self.currentQuestion, "<<<---- CHECK HERE THE VALUES")
         if arrayBehaviouralQuestion.count > self.currentQuestion {
-        self.quetionLabel.text = self.arrayBehaviouralQuestion[self.currentQuestion].questionName
-        //self.optionbutton.setTitle(arrayBehaviouralQuestion[self.currentQuestion], for: .normal)
-        optionButtonfunction()
-        }
-        
-        loadSaveExamQuestionAnswer()
-        if arrayBehaviouralQuestion.count < self.currentQuestion
-        {
+            self.quetionLabel.text = self.arrayBehaviouralQuestion[self.currentQuestion].questionName
+            //self.optionbutton.setTitle(arrayBehaviouralQuestion[self.currentQuestion], for: .normal)
+            optionButtonfunction()
+        } else {
             let vcNewSectionStarted = storyboard?.instantiateViewController(withIdentifier: "psychometric") as! PsychometricTestViewController
             self.present(vcNewSectionStarted, animated: true, completion: nil)
-
         }
 
     }
