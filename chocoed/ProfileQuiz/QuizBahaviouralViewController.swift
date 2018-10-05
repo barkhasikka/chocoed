@@ -10,6 +10,7 @@ import UIKit
 
 class QuizBahaviouralViewController: UIViewController {
     
+    @IBOutlet weak var pagesViews: UIView!
     @IBOutlet weak var optionsView: UIView!
     @IBOutlet weak var quetionLabel: UILabel!
     var currentQuestion = Int()
@@ -22,6 +23,12 @@ class QuizBahaviouralViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadQuizExamDetails()
+        let frameRect = pagesViews.frame
+        let backgroundImage = UIImageView(frame: frameRect)
+        backgroundImage.image = UIImage(named: "pages")
+        backgroundImage.contentMode = UIViewContentMode.top
+        self.pagesViews.insertSubview(backgroundImage, at: 0)
+        
       //  backgroundImagebahavioural()        // Do any additional setup after loading the view.
     }
 
