@@ -55,13 +55,10 @@ class QuizPersonalityTestViewController: UIViewController{
                 self.labelQuestionpersonality.text = self.arrayBehaviouralQuestion[self.currentQuestion].questionName
                 
                 self.optionButtonfunction()
-                
-            }
-            DispatchQueue.main.async {
                 myActivityIndicator.stopAnimating()
                 myActivityIndicator.hidesWhenStopped = true
+                
             }
-            
         })
     }
 
@@ -103,7 +100,7 @@ class QuizPersonalityTestViewController: UIViewController{
 
     
     @IBAction func NextButton(_ sender: Any) {
-        
+        loadSaveExamQuestionAnswer()
         for subviews in self.optionView.subviews {
             if subviews is UIButton {
                 subviews.removeFromSuperview()
@@ -115,11 +112,7 @@ class QuizPersonalityTestViewController: UIViewController{
             self.labelQuestionpersonality.text = self.arrayBehaviouralQuestion[self.currentQuestion].questionName
             //self.optionbutton.setTitle(arrayBehaviouralQuestion[self.currentQuestion], for: .normal)
             optionButtonfunction()
-        }
-        
-        loadSaveExamQuestionAnswer()
-        if arrayBehaviouralQuestion.count < self.currentQuestion
-        {
+        }else {
             let vcNewSectionStarted = storyboard?.instantiateViewController(withIdentifier: "newscreen") as! ExamComplitionScreenViewController
             self.present(vcNewSectionStarted, animated: true, completion: nil)
             
