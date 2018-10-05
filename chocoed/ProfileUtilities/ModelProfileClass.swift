@@ -13,4 +13,5 @@ class ModelProfileClass{
     var lastName : String!
     var email : String!
     var mobile : String!
+    var quiztaken : String!
 }
