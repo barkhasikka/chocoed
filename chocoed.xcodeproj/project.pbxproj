@@ -9,7 +9,9 @@
 /* Begin PBXBuildFile section */
 		07583C3A2167277D00CE6EB6 /* Chocoed Splash Screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 07583C392167277C00CE6EB6 /* Chocoed Splash Screen.png */; };
 		07583C3D21673EFE00CE6EB6 /* ExamComplitionScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07583C3C21673EFE00CE6EB6 /* ExamComplitionScreenViewController.swift */; };
+		07967BF221679FBC00FB0E83 /* MenuBarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07967BF121679FBC00FB0E83 /* MenuBarTableViewCell.swift */; };
 		07994B6521676677007D3890 /* SplitviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07994B6421676677007D3890 /* SplitviewViewController.swift */; };
+		07994B672167716C007D3890 /* ViewControllerMenubar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07994B662167716C007D3890 /* ViewControllerMenubar.swift */; };
 		A2B2CB1A25278D36BECB09E6 /* Pods_chocoed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B250FCA754272F8054867D5 /* Pods_chocoed.framework */; };
 		BF20726A2164DDD10038F30B /* PersonalityTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2072692164DDD10038F30B /* PersonalityTestViewController.swift */; };
 		BF20726D2164DDFD0038F30B /* QuizPersonalityTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF20726B2164DDFD0038F30B /* QuizPersonalityTestViewController.swift */; };
@@ -48,7 +50,9 @@
 /* Begin PBXFileReference section */
 		07583C392167277C00CE6EB6 /* Chocoed Splash Screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chocoed Splash Screen.png"; sourceTree = "<group>"; };
 		07583C3C21673EFE00CE6EB6 /* ExamComplitionScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamComplitionScreenViewController.swift; sourceTree = "<group>"; };
+		07967BF121679FBC00FB0E83 /* MenuBarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarTableViewCell.swift; sourceTree = "<group>"; };
 		07994B6421676677007D3890 /* SplitviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitviewViewController.swift; sourceTree = "<group>"; };
+		07994B662167716C007D3890 /* ViewControllerMenubar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerMenubar.swift; sourceTree = "<group>"; };
 		3FB7C1FAA18E54982E5C700C /* Pods-chocoed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chocoed.debug.xcconfig"; path = "Pods/Target Support Files/Pods-chocoed/Pods-chocoed.debug.xcconfig"; sourceTree = "<group>"; };
 		71D8E08D3C2165BF37086AB1 /* Pods-chocoed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chocoed.release.xcconfig"; path = "Pods/Target Support Files/Pods-chocoed/Pods-chocoed.release.xcconfig"; sourceTree = "<group>"; };
 		7B250FCA754272F8054867D5 /* Pods_chocoed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_chocoed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,6 +113,8 @@
 			children = (
 				07583C3C21673EFE00CE6EB6 /* ExamComplitionScreenViewController.swift */,
 				07994B6421676677007D3890 /* SplitviewViewController.swift */,
+				07994B662167716C007D3890 /* ViewControllerMenubar.swift */,
+				07967BF121679FBC00FB0E83 /* MenuBarTableViewCell.swift */,
 			);
 			path = "Successful complition Screens";
 			sourceTree = "<group>";
@@ -394,6 +400,7 @@
 				BF356CC12155135E003CC228 /* HttpPostRequest.swift in Sources */,
 				BF20726D2164DDFD0038F30B /* QuizPersonalityTestViewController.swift in Sources */,
 				BF356CC821552912003CC228 /* DLRadioButton.m in Sources */,
+				07994B672167716C007D3890 /* ViewControllerMenubar.swift in Sources */,
 				BF2E5A26215A1CE7005845A9 /* CommonUIElements.swift in Sources */,
 				BF52BD68215B8B3C00E2BDB9 /* ProfileSucessViewController.swift in Sources */,
 				BF4BE1F1216396260082198D /* BehavioralViewController.swift in Sources */,
@@ -401,6 +408,7 @@
 				07583C3D21673EFE00CE6EB6 /* ExamComplitionScreenViewController.swift in Sources */,
 				BF2CBBE62150DC8800E13EA5 /* NewEducationExperienceVC.swift in Sources */,
 				BF2CBBE22150C94500E13EA5 /* TextFieldDesign.swift in Sources */,
+				07967BF221679FBC00FB0E83 /* MenuBarTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
