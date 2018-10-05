@@ -115,7 +115,6 @@ class QuizPersonalityTestViewController: UIViewController{
         }else {
             let vcNewSectionStarted = storyboard?.instantiateViewController(withIdentifier: "newscreen") as! ExamComplitionScreenViewController
             self.present(vcNewSectionStarted, animated: true, completion: nil)
-            
         }
 
     }
