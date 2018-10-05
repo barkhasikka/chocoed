@@ -23,7 +23,16 @@ class ProfileSucessViewController: UIViewController {
         ButtonBorder()
         // Do any additional setup after loading the view.
     }
-
+    @IBAction func letsBeginAction(_ sender: Any) {
+        let clientID = UserDefaults.standard.integer(forKey: "clientid")
+        let userid = UserDefaults.standard.string(forKey: "userid")
+        let params = ["access_token":"\(accessToken)","deviceId":"","deviceToken":"","deviceInfo":"","deviceType":"Andriod","userId":"\(userid!)","clienId":"\(clientID)","examId":"-10"] as Dictionary<String, String>
+        
+        MakeHttpPostRequest(url: examDetails, params: params, completion: {(success, response) -> Void in
+            print(response)
+        })
+    }
+    
     func ButtonBorder()
     {
         letBeginButton.layer.cornerRadius = 20
