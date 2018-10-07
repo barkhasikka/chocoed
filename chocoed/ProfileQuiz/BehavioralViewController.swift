@@ -9,7 +9,7 @@
 import UIKit
 
 class BehavioralViewController: UIViewController {
-
+    var arrayBehaviouralQuestion = [Question]()
     override func viewDidLoad() {
         super.viewDidLoad()
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
@@ -21,7 +21,21 @@ class BehavioralViewController: UIViewController {
     }
 
     @IBAction func continueAction(_ sender: Any) {
+        if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "quizb") as? QuizBahaviouralViewController {
+            vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
+            vcNewSectionStarted.currentExamID = 1
+            if let navigator = navigationController {
+                navigator.title = "Behavioural Test"
+//
+                navigator.navigationBar.tintColor = .white
+//                navigator.navigationBar.titleTextAttributes = []
+                
+                navigator.pushViewController(vcNewSectionStarted, animated: true)
+            }
+//            self.present(vcNewSectionStarted, animated: true, completion: nil)
+        }
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

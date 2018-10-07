@@ -11,6 +11,7 @@ import UIKit
 class ProfileSucessViewController: UIViewController {
 
     @IBOutlet weak var letBeginButton: UIButton!
+    var arrayBehaviouralQuestion = [Question]()
     override func viewDidLoad() {
         super.viewDidLoad()
      //   self.view.backgroundColor = UIColor(patternImage: UIImage(named: "perfect")!)
@@ -27,24 +28,44 @@ class ProfileSucessViewController: UIViewController {
     @IBAction func letsBeginAction(_ sender: Any) {
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
-        let params = ["access_token":"\(accessToken)","deviceId":"","deviceToken":"","deviceInfo":"","deviceType":"Andriod","userId":"\(userid!)","clienId":"\(clientID)","examId":"-10"] as Dictionary<String, String>
+        let params = ["access_token":"\(accessToken)","deviceId":"","deviceToken":"","deviceInfo":"","deviceType":"Andriod","userId":"\(userid!)","clienId":"\(clientID)","examId":"1"] as Dictionary<String, String>
         MakeHttpPostRequest(url: examDetails, params: params, completion: {(success, response) -> Void in
-            print(response)
             let currentTestID = response.object(forKey: "inProgressExamId") as? Int ?? 0
-            print(currentTestID)
+//            let currentTestID = 1
+            print(currentTestID, "<<<=== current test id")
+            print(response)
+            let questionsList = response.object(forKey: "questionList") as? NSArray ?? []
+            
+            for question in questionsList {
+                self.arrayBehaviouralQuestion.append(Question(question as! NSDictionary))
+            }
             DispatchQueue.main.async {
                 switch currentTestID {
                 case 1:
-                    let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "behavioural") as! BehavioralViewController
-                    self.present(vcNewSectionStarted, animated: true, completion: nil)
+                    DispatchQueue.main.async {
+                        let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "behavioural") as! BehavioralViewController
+                        vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
+                        
+                        let aObjNavi = UINavigationController(rootViewController: vcNewSectionStarted)
+                        aObjNavi.navigationBar.barTintColor = UIColor.blue
+                        self.present(aObjNavi, animated: true, completion: nil)
+                    }
+                    
                     break
                 case 2:
                     let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "psychometric") as! PsychometricTestViewController
-                    self.present(vcNewSectionStarted, animated: true, completion: nil)
+                    vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
+                    let aObjNavi = UINavigationController(rootViewController: vcNewSectionStarted)
+                    aObjNavi.navigationBar.barTintColor = UIColor.blue
+                    self.present(aObjNavi, animated: true, completion: nil)
+//                    self.present(vcNewSectionStarted, animated: true, completion: nil)
                     break
                 case 3:
                     let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "personality") as! PersonalityTestViewController
-                    self.present(vcNewSectionStarted, animated: true, completion: nil)
+                    vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
+                    let aObjNavi = UINavigationController(rootViewController: vcNewSectionStarted)
+                    aObjNavi.navigationBar.barTintColor = UIColor.blue
+                    self.present(aObjNavi, animated: true, completion: nil)
                     break
                 default:
                     print("Blah Blha")
@@ -64,16 +85,4 @@ class ProfileSucessViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

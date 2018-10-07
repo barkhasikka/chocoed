@@ -24,8 +24,9 @@ class SplitviewViewController: UIViewController {
         backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
         self.viewButtonsCircle.insertSubview(backgroundImage, at: 0 )
         
-        
-        constraintsToButton()
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+//        constraintsToButton()
         
         menuvc = self.storyboard?.instantiateViewController(withIdentifier: "menu") as! ViewControllerMenubar
         let swiperight = UISwipeGestureRecognizer(target: self, action: #selector(responsetoright))
@@ -70,8 +71,7 @@ class SplitviewViewController: UIViewController {
         self.buttonMiddleProfile.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
     }
     
-    @objc func responsetoright(gesture : UISwipeGestureRecognizer)
-    {
+    @objc func responsetoright(gesture : UISwipeGestureRecognizer) {
         switch gesture.direction
         {
         case UISwipeGestureRecognizerDirection.right:
@@ -85,9 +85,8 @@ class SplitviewViewController: UIViewController {
         }
     }
 
-    func showmethod()
-    {
-        UIView.animate(withDuration: 0.3) { ()->Void in
+    func showmethod() {
+        UIView.animate(withDuration: 0.1) { ()->Void in
             self.menuvc.view.frame = CGRect(x: 0, y: 60, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
             self.addChildViewController(self.menuvc)
             self.view.addSubview(self.menuvc.view)
@@ -98,7 +97,7 @@ class SplitviewViewController: UIViewController {
     }
     func closemethod()
     {
-        UIView.animate(withDuration: 0.3, animations: { ()->Void in
+        UIView.animate(withDuration: 0.1, animations: { ()->Void in
             self.menuvc.view.frame = CGRect(x: 0, y: 60, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
         }) { (finished) in
             self.menuvc.view.removeFromSuperview()

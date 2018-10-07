@@ -19,22 +19,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let userID = UserDefaults.standard.integer(forKey: "userid")
         print(userID)
-        GetUserInfo()
+        
         if userID != 0 {
+            GetUserInfo()
             let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
             window!.rootViewController = startVC
             window!.makeKeyAndVisible()
-            
-            
         } else {
-
             let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "firstview") as! ViewController
-                window!.rootViewController = startVC
+            window!.rootViewController = startVC
             window!.makeKeyAndVisible()
-          }
-       return true
+        }
+        return true
     }
 
     
@@ -66,11 +64,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
                 let aObjNavi = UINavigationController(rootViewController: startVC)
+                aObjNavi.navigationBar.barTintColor = UIColor.blue
                 DispatchQueue.main.async {
                     self.window!.rootViewController = aObjNavi
                     self.window!.makeKeyAndVisible()
                 }
-              
+
             }
 
             else {

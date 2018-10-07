@@ -25,6 +25,13 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                 self.imageProfile.image = image
             }
         }
+        imageProfile.layer.borderWidth = 1.0
+        imageProfile.layer.masksToBounds = false
+        imageProfile.layer.borderColor = UIColor.darkGray.cgColor
+        imageProfile.layer.cornerRadius = imageProfile.frame.width / 2
+        imageProfile.clipsToBounds = true
+        imageProfile.contentMode = .center
+        
         buttonEmail.setTitle(USERDETAILS.email, for: .normal)
         
     }
@@ -59,7 +66,7 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch(indexPath.row) {
             
-            case 0: let v1 = self.storyboard?.instantiateViewController(withIdentifier: "profile") as! ProfileViewController
+            case 3: let v1 = self.storyboard?.instantiateViewController(withIdentifier: "profile") as! ProfileViewController
             self.present(v1, animated: true, completion: nil)
             break;
             

@@ -9,9 +9,10 @@
 import UIKit
 
 class PersonalityTestViewController: UIViewController {
-
+    var arrayBehaviouralQuestion = [Question]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.setHidesBackButton(true, animated: true)
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(named: "ic_background_pattern")
         backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
@@ -27,6 +28,16 @@ class PersonalityTestViewController: UIViewController {
     
 
     @IBAction func continueAction(_ sender: Any) {
+        if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "quizb") as? QuizBahaviouralViewController {
+            vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
+            vcNewSectionStarted.currentExamID = 3
+//        self.present(vcNewSectionStarted, animated: true, completion: nil)
+            if let navigator = navigationController {
+                navigator.title = "Personality Test"
+                navigator.pushViewController(vcNewSectionStarted, animated: true)
+            }
+        }
+        
     }
     /*
     // MARK: - Navigation

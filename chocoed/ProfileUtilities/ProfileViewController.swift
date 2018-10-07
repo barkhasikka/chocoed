@@ -277,6 +277,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
             temp.mobile = jsonobject?.object(forKey: "mobile") as? String ?? ""
             let clientId = jsonobject?.object(forKey: "clientId") as? String ?? ""
             let url = jsonobject?.object(forKey: "profileImageUrl") as? String ?? ""
+            
             let fileUrl = URL(string: url)
             UserDefaults.standard.set(Int(clientId), forKey: "clientid")
             DispatchQueue.main.async(execute: {

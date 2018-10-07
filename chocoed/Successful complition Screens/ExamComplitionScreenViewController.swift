@@ -27,8 +27,7 @@ class ExamComplitionScreenViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func ButtonBorder()
-    {
+    func ButtonBorder() {
         beginButton.layer.cornerRadius = 15
         beginButton.clipsToBounds = true
         beginButton.layer.borderWidth = 1
@@ -37,6 +36,12 @@ class ExamComplitionScreenViewController: UIViewController {
 
     
 
+    @IBAction func letsBeginAction(_ sender: Any) {
+        let startVC = self.storyboard?.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
+        let aObjNavi = UINavigationController(rootViewController: startVC)
+        aObjNavi.navigationBar.barTintColor = UIColor.blue
+        self.present(aObjNavi, animated: true, completion: nil)
+    }
     /*
     // MARK: - Navigation
 

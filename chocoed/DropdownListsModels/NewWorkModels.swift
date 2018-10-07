@@ -143,12 +143,14 @@ struct Question{
     var id : String
     
     var option : NSArray
+    var questionList : NSArray
     init(_ dictionary : NSDictionary) {
         self.questionName = dictionary["name"] as? String ?? ""
         self.answerSubmitted = dictionary["isAnsSubmitted"] as? String ?? ""
         self.anstype = dictionary["ansType"] as? String ?? ""
         self.id = dictionary["id"] as? String ?? ""
         self.option = dictionary["optionList"] as? NSArray ?? []
+        self.questionList = dictionary["question_image_list"] as? NSArray ?? []
     }
 
 }
