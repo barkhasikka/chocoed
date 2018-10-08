@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1562,9 +1561,6 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="nextButtonAction:" destination="XNa-9F-wTc" eventType="touchUpInside" id="bt2-uy-rxW"/>
-                                                    <segue destination="zQ7-8m-tEv" kind="popoverPresentation" popoverAnchorView="Ma3-7J-rqN" id="DhO-h4-jVF">
-                                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                                    </segue>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -2061,13 +2057,13 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="254" text="Management Level" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0lz-ib-peu" userLabel="Management Level">
-                                                <rect key="frame" x="8" y="281" width="359" height="20.5"/>
+                                                <rect key="frame" x="8" y="305" width="359" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Q9-B3-Sk2" userLabel="Save" customClass="imagetoButton" customModule="chocoed" customModuleProvider="target">
-                                                <rect key="frame" x="170.5" y="621" width="34" height="30"/>
+                                                <rect key="frame" x="170.5" y="741" width="34" height="30"/>
                                                 <state key="normal" title="Save">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
@@ -2095,7 +2091,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="veW-ck-xas" customClass="ButtonWithImage" customModule="chocoed" customModuleProvider="target">
-                                                <rect key="frame" x="8" y="227" width="359" height="24"/>
+                                                <rect key="frame" x="8" y="227" width="359" height="48"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <state key="normal" title="Select Year" image="ic_drop_down">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2105,7 +2101,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jTB-Y2-wLf" customClass="ButtonWithImage" customModule="chocoed" customModuleProvider="target">
-                                                <rect key="frame" x="8" y="309.5" width="359" height="24"/>
+                                                <rect key="frame" x="8" y="333.5" width="359" height="48"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <state key="normal" title="Select Management Level" image="ic_drop_down">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2115,7 +2111,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vH4-z1-jbn" customClass="ButtonWithImage" customModule="chocoed" customModuleProvider="target">
-                                                <rect key="frame" x="8" y="392" width="359" height="24"/>
+                                                <rect key="frame" x="8" y="440" width="359" height="48"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <state key="normal" title="Select Teams Handled" image="ic_drop_down">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2125,7 +2121,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xix-eF-dve" customClass="ButtonWithImage" customModule="chocoed" customModuleProvider="target">
-                                                <rect key="frame" x="8" y="474.5" width="359" height="24"/>
+                                                <rect key="frame" x="8" y="546.5" width="359" height="48"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <state key="normal" title="Select Current Industry" image="ic_drop_down">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2135,7 +2131,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ggM-u6-uAl" customClass="ButtonWithImage" customModule="chocoed" customModuleProvider="target">
-                                                <rect key="frame" x="8" y="557" width="359" height="24"/>
+                                                <rect key="frame" x="8" y="653" width="359" height="48"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <state key="normal" title="Select Functional Expertise" image="ic_drop_down">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2145,19 +2141,19 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="257" text="My Current Industry" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="apw-jG-CTM" userLabel="My Current Industry">
-                                                <rect key="frame" x="8" y="446" width="359" height="20.5"/>
+                                                <rect key="frame" x="8" y="518" width="359" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Functional Expertise" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zro-6m-gif" userLabel="My Functional Expertise">
-                                                <rect key="frame" x="8" y="528.5" width="359" height="20.5"/>
+                                                <rect key="frame" x="8" y="624.5" width="359" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="255" text="Teams Handled" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BZi-h0-YOu" userLabel="Teams handled">
-                                                <rect key="frame" x="8" y="363.5" width="359" height="20.5"/>
+                                                <rect key="frame" x="8" y="411.5" width="359" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -2293,7 +2289,7 @@
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="menucell" rowHeight="66" id="WUN-rv-H5r" customClass="MenuBarTableViewCell" customModule="chocoed" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="315" height="66"/>
                                                 <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WUN-rv-H5r" id="WIP-fj-cH1">
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WUN-rv-H5r" id="WIP-fj-cH1">
                                                     <rect key="frame" x="0.0" y="0.0" width="315" height="66"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
@@ -2602,12 +2598,12 @@
         <image name="Mytalks" width="45" height="40"/>
         <image name="Mythoughts" width="42" height="45"/>
         <image name="chocoed_white_logo" width="222" height="60"/>
-        <image name="ic_drop_down" width="24" height="24"/>
+        <image name="ic_drop_down" width="48" height="48"/>
         <image name="ic_education" width="50" height="50"/>
         <image name="ic_education_selected" width="80" height="80"/>
         <image name="ic_experience" width="50" height="50"/>
         <image name="ic_experience_selected" width="80" height="80"/>
-        <image name="icons8-menu_filled" width="25" height="25"/>
+        <image name="icons8-menu_filled" width="50" height="50"/>
         <image name="image_icon" width="60" height="50"/>
         <image name="loginButtonBackground" width="651" height="97"/>
         <image name="lotus_icon" width="46" height="41"/>

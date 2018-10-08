@@ -20,17 +20,20 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
         
         labelUserNAme.text = USERDETAILS.firstName + " " + USERDETAILS.lastname
         let fileUrl = URL(string: USERDETAILS.imageurl)
-        if let data = try? Data(contentsOf: fileUrl!) {
-            if let image = UIImage(data: data) {
-                self.imageProfile.image = image
+        if fileUrl != nil {
+            if let data = try? Data(contentsOf: fileUrl!) {
+                if let image = UIImage(data: data) {
+                    self.imageProfile.image = image
+                }
             }
+            imageProfile.layer.borderWidth = 1.0
+            imageProfile.layer.masksToBounds = false
+            imageProfile.layer.borderColor = UIColor.darkGray.cgColor
+            imageProfile.layer.cornerRadius = imageProfile.frame.width / 2
+            imageProfile.clipsToBounds = true
+            imageProfile.contentMode = .center
         }
-        imageProfile.layer.borderWidth = 1.0
-        imageProfile.layer.masksToBounds = false
-        imageProfile.layer.borderColor = UIColor.darkGray.cgColor
-        imageProfile.layer.cornerRadius = imageProfile.frame.width / 2
-        imageProfile.clipsToBounds = true
-        imageProfile.contentMode = .center
+        
         
         buttonEmail.setTitle(USERDETAILS.email, for: .normal)
         

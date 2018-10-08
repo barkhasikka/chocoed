@@ -250,6 +250,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
                             navigator.pushViewController(vcNewSectionStarted, animated: true)
 //                            self.present(vcNewSectionStarted, animated: true, completion: nil)
                         }
+                        
                     }
                     
                     

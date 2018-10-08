@@ -117,7 +117,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
             let quizTaken =  jsonobject?.object(forKey:"quizTestGiven") as? Int ?? -1
             UserDefaults.standard.set(quizTaken, forKey: "quiztakenID")
             let quizID = UserDefaults.standard.string(forKey: "quiztakenID")
-            print(quizID)
+            print(quizID, quizTaken)
             let fileUrl = URL(string: url)
             UserDefaults.standard.set(Int(clientId), forKey: "clientid")
             
@@ -134,9 +134,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
                     
                 }
                 
-            }
-                
-            else {
+            } else {
                 let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "profileSuccess") as! ProfileSucessViewController
                 DispatchQueue.main.async {

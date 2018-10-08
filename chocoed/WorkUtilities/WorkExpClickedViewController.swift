@@ -100,17 +100,33 @@ class WorkExpClickedViewController: UIViewController, UITableViewDelegate,UITabl
     }
     
     @IBAction func nextButtonAction(_ sender: Any) {
-       let quizID = UserDefaults.standard.string(forKey: "quiztakenID")
+//       let quizID = UserDefaults.standard.string(forKey: "quiztakenID")
         
-        if quizID == "1"{
-            let dashboardvc = storyboard?.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
+        let userID = UserDefaults.standard.integer(forKey: "userid")
+        print(userID, "USER ID IS HERE")
+        let params = ["userId": "\(userID)",  "access_token":"\(accessToken)"] as Dictionary<String, String>
+        MakeHttpPostRequest(url: getUserInfo, params: params, completion: {(success, response) in
+            let jsonobject = response["info"] as? NSDictionary;
+            let quizTaken =  jsonobject?.object(forKey:"quizTestGiven") as? Int ?? -1
+            UserDefaults.standard.set(quizTaken, forKey: "quiztakenID")
             
-
-        }
-        else{
-            let profile = storyboard?.instantiateViewController(withIdentifier: "profileSuccess") as! ProfileSucessViewController
-            self.present(profile, animated: true, completion: nil)
-        }
+            if quizTaken == 1{
+                let dashboardvc = self.storyboard?.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
+                DispatchQueue.main.async {
+                    let aObjNavi = UINavigationController(rootViewController: dashboardvc)
+                    aObjNavi.navigationBar.barTintColor = UIColor.blue
+                    self.present(aObjNavi, animated: true, completion: nil)
+                    
+                }
+            } else{
+                let profile = self.storyboard?.instantiateViewController(withIdentifier: "profileSuccess") as! ProfileSucessViewController
+                DispatchQueue.main.async {
+                    
+                    self.present(profile, animated: true, completion: nil)
+                    
+                }
+            }
+        })
     }
     
     
