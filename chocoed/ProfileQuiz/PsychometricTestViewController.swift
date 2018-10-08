@@ -33,12 +33,15 @@ class PsychometricTestViewController: UIViewController {
         if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "quizb") as? QuizBahaviouralViewController {
             vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
             vcNewSectionStarted.currentExamID = 2
-            if let navigator = navigationController {
-                navigator.title = "Psychometric Test"
-                navigator.pushViewController(vcNewSectionStarted, animated: true)
-            }else {
-                print("whoops what is going wrong")
-            }
+            let aObjNavi = UINavigationController(rootViewController: vcNewSectionStarted)
+            aObjNavi.navigationBar.barTintColor = UIColor.blue
+            self.present(aObjNavi, animated: true, completion: nil)
+//            if let navigator = navigationController {
+//                navigator.title = "Psychometric Test"
+//                navigator.pushViewController(vcNewSectionStarted, animated: true)
+//            }else {
+//                print("whoops what is going wrong")
+//            }
         }
         
         

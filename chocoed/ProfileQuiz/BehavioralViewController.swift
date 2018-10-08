@@ -24,14 +24,18 @@ class BehavioralViewController: UIViewController {
         if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "quizb") as? QuizBahaviouralViewController {
             vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
             vcNewSectionStarted.currentExamID = 1
-            if let navigator = navigationController {
-                navigator.title = "Behavioural Test"
+            let aObjNavi = UINavigationController(rootViewController: vcNewSectionStarted)
+            aObjNavi.navigationBar.barTintColor = UIColor.blue
+            self.present(aObjNavi, animated: true, completion: nil)
+            
+//            if let navigator = navigationController {
+//                navigator.title = "Behavioural Test"
+////
+//                navigator.navigationBar.tintColor = .white
+////                navigator.navigationBar.titleTextAttributes = []
 //
-                navigator.navigationBar.tintColor = .white
-//                navigator.navigationBar.titleTextAttributes = []
-                
-                navigator.pushViewController(vcNewSectionStarted, animated: true)
-            }
+//                navigator.pushViewController(vcNewSectionStarted, animated: true)
+//            }
 //            self.present(vcNewSectionStarted, animated: true, completion: nil)
         }
     }

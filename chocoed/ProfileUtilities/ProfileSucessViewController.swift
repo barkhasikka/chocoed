@@ -45,26 +45,26 @@ class ProfileSucessViewController: UIViewController {
                         let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "behavioural") as! BehavioralViewController
                         vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
                         
-                        let aObjNavi = UINavigationController(rootViewController: vcNewSectionStarted)
-                        aObjNavi.navigationBar.barTintColor = UIColor.blue
-                        self.present(aObjNavi, animated: true, completion: nil)
+//                        let aObjNavi = UINavigationController(rootViewController: vcNewSectionStarted)
+//                        aObjNavi.navigationBar.barTintColor = UIColor.blue
+                        self.present(vcNewSectionStarted, animated: true, completion: nil)
                     }
                     
                     break
                 case 2:
                     let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "psychometric") as! PsychometricTestViewController
                     vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
-                    let aObjNavi = UINavigationController(rootViewController: vcNewSectionStarted)
-                    aObjNavi.navigationBar.barTintColor = UIColor.blue
-                    self.present(aObjNavi, animated: true, completion: nil)
+//                    let aObjNavi = UINavigationController(rootViewController: vcNewSectionStarted)
+//                    aObjNavi.navigationBar.barTintColor = UIColor.blue
+                    self.present(vcNewSectionStarted, animated: true, completion: nil)
 //                    self.present(vcNewSectionStarted, animated: true, completion: nil)
                     break
                 case 3:
                     let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "personality") as! PersonalityTestViewController
                     vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
-                    let aObjNavi = UINavigationController(rootViewController: vcNewSectionStarted)
-                    aObjNavi.navigationBar.barTintColor = UIColor.blue
-                    self.present(aObjNavi, animated: true, completion: nil)
+//                    let aObjNavi = UINavigationController(rootViewController: vcNewSectionStarted)
+//                    aObjNavi.navigationBar.barTintColor = UIColor.blue
+                    self.present(vcNewSectionStarted, animated: true, completion: nil)
                     break
                 default:
                     print("Blah Blha")

@@ -32,10 +32,13 @@ class PersonalityTestViewController: UIViewController {
             vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
             vcNewSectionStarted.currentExamID = 3
 //        self.present(vcNewSectionStarted, animated: true, completion: nil)
-            if let navigator = navigationController {
-                navigator.title = "Personality Test"
-                navigator.pushViewController(vcNewSectionStarted, animated: true)
-            }
+//            if let navigator = navigationController {
+//                navigator.title = "Personality Test"
+//                navigator.pushViewController(vcNewSectionStarted, animated: true)
+//            }
+            let aObjNavi = UINavigationController(rootViewController: vcNewSectionStarted)
+            aObjNavi.navigationBar.barTintColor = UIColor.blue
+            self.present(aObjNavi, animated: true, completion: nil)
         }
         
     }

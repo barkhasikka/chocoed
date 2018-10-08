@@ -246,10 +246,10 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
                 if self.currentExamID == 3 {
                     if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "personality") as? PersonalityTestViewController {
                         vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
-                        if let navigator = self.navigationController {
-                            navigator.pushViewController(vcNewSectionStarted, animated: true)
-//                            self.present(vcNewSectionStarted, animated: true, completion: nil)
-                        }
+//                        if let navigator = self.navigationController {
+//                            navigator.pushViewController(vcNewSectionStarted, animated: true)
+                            self.present(vcNewSectionStarted, animated: true, completion: nil)
+//                        }
                         
                     }
                     
@@ -257,13 +257,13 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
                 } else if self.currentExamID == 2 {
                     if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "psychometric") as? PsychometricTestViewController {
                         vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
-                        if let navigator = self.navigationController {
-                            navigator.pushViewController(vcNewSectionStarted, animated: true)
-                        }
-                        
+//                        if let navigator = self.navigationController {
+//                            navigator.pushViewController(vcNewSectionStarted, animated: true)
+//                        }
+                        self.present(vcNewSectionStarted, animated: true, completion: nil)
                     }
                     
-//                    self.present(vcNewSectionStarted, animated: true, completion: nil)
+
                 } else {
                     let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "newscreen") as! ExamComplitionScreenViewController
                     self.present(vcNewSectionStarted, animated: true, completion: nil)
