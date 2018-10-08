@@ -277,7 +277,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
             temp.mobile = jsonobject?.object(forKey: "mobile") as? String ?? ""
             let clientId = jsonobject?.object(forKey: "clientId") as? String ?? ""
             let url = jsonobject?.object(forKey: "profileImageUrl") as? String ?? ""
-            
+            print(url)
             let fileUrl = URL(string: url)
             UserDefaults.standard.set(Int(clientId), forKey: "clientid")
             DispatchQueue.main.async(execute: {
@@ -285,13 +285,16 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
                 self.textfieldLastName.text = temp.lastName
                 self.textfieldEmailId.text = temp.email
                 self.textfieldMobileNo.text = temp.mobile
+                if url != ""
+                {
                 if let data = try? Data(contentsOf: fileUrl!) {
                     if let image = UIImage(data: data) {
                         self.imageviewCircle.image = image
+                        }
                     }
-                    myActivityIndicator.stopAnimating()
-                    myActivityIndicator.hidesWhenStopped = true
-                    }
+                }
+                myActivityIndicator.stopAnimating()
+                myActivityIndicator.hidesWhenStopped = true
             })
         })
         

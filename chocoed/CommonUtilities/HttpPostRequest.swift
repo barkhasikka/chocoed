@@ -59,6 +59,10 @@ func MakeHttpMIME2PostRequest(url: String, imageData: NSData, param: Dictionary<
     var request = URLRequest(url: URL(string: url)!)
     request.httpMethod = "POST"
     let boundary = generateBoundaryString()
+    
+    let uuid = NSUUID().uuidString
+
+    
     request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
     request.httpBody = createBodyWithParameters(parameters: param, filePathKey: "file", imageDataKey: imageData, boundary: boundary) as Data
     let session = URLSession.shared
@@ -182,16 +186,14 @@ func createBodyWithParameters(parameters: [String:String], filePathKey: String?,
             body.appendString(string: "\(value)\r\n")
         }
     }
-    
-    let filename = "userprofile.jpg"
-    
+    let uuid = NSUUID().uuidString + ".jpg"
     let mimetype = "image/jpg"
     
     body.appendString(string: "--\(boundary)\r\n")
     
     
 //    let imageData = UIImageJPEGRepresentation(img, 1)
-    body.appendString(string: "Content-Disposition: form-data; name=\"\(filePathKey!)\"; filename=\"\(filename)\"\r\n")
+    body.appendString(string: "Content-Disposition: form-data; name=\"\(filePathKey!)\"; filename=\"\(uuid)\"\r\n")
     body.appendString(string: "Content-Type: \(mimetype)\r\n\r\n")
     body.append(imageDataKey as Data)
     body.appendString(string: "\r\n")
@@ -213,4 +215,5 @@ extension NSMutableData {
         append(data!)
     }
 }
+
 

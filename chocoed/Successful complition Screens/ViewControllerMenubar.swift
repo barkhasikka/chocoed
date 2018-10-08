@@ -70,12 +70,28 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
             self.present(v1, animated: true, completion: nil)
             break;
             
-//        case 1 : let v2 = self.storyboard?.instantiateViewController(withIdentifier: "contactpass") as! ViewControllerContactus
-//
-//        present(v2, animated: true, completion: nil)
-//
-//        break;
-//
+        case 4 :
+            let alertcontrol = UIAlertController(title: "Alert", message: "Are you sure you want to logout?",preferredStyle: .alert)
+            let alertaction = UIAlertAction(title: "No", style: .default) { (action) in
+                print("No I don't want to logout")
+            }
+            let alertaction1 = UIAlertAction(title: "Yes", style: .default) { (action) in
+                let domain = Bundle.main.bundleIdentifier!
+                UserDefaults.standard.removePersistentDomain(forName: domain)
+                UserDefaults.standard.synchronize()
+                print(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)
+                let v2 = self.storyboard?.instantiateViewController(withIdentifier: "firstview") as! ViewController
+                self.present(v2, animated: true, completion: nil)
+                
+               // self.navigationController?.pushViewController(v2, animated: true)
+            }
+            alertcontrol.addAction(alertaction)
+            alertcontrol.addAction(alertaction1)
+            self.present(alertcontrol, animated: true, completion: nil)
+            
+        
+        break;
+
 //        case 2 : let v3 = self.storyboard?.instantiateViewController(withIdentifier: "Terms") as! ViewControllerTOU
 //
 //        present(v3, animated: true, completion: nil)

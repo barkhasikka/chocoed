@@ -89,8 +89,9 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         let userEnteredOTP = Int(userEnteredOTPText)
         if userEnteredOTP == otpFromServer {
             self.sendLanguagesSelected()
-            let vcGetStarted = storyboard?.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
-            self.present(vcGetStarted, animated: true, completion: nil)
+            GetUserInfo()
+//            let vcGetStarted = storyboard?.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
+//            self.present(vcGetStarted, animated: true, completion: nil)
         }else {
             let alertcontrol = UIAlertController(title: "alert!", message: "Login Failed! Please check your OTP again.", preferredStyle: .alert)
             let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -99,6 +100,66 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         }
     }
     
+    func GetUserInfo() {
+        let userID = UserDefaults.standard.integer(forKey: "userid")
+        print(userID, "USER ID IS HERE")
+        let params = ["userId": "\(userID)",  "access_token":"\(accessToken)"] as Dictionary<String, String>
+        MakeHttpPostRequest(url: getUserInfo, params: params, completion: {(success, response) in
+            print(response)
+            let jsonobject = response["info"] as? NSDictionary;
+            let temp = ModelProfileClass()
+            temp.firstName = jsonobject?.object(forKey: "firstName") as? String ?? ""
+            temp.lastName = jsonobject?.object(forKey: "lastName") as? String ?? ""
+            temp.email = jsonobject?.object(forKey: "email") as? String ?? ""
+            temp.mobile = jsonobject?.object(forKey: "mobile") as? String ?? ""
+            let clientId = jsonobject?.object(forKey: "clientId") as? String ?? ""
+            let url = jsonobject?.object(forKey: "profileImageUrl") as? String ?? ""
+            let quizTaken =  jsonobject?.object(forKey:"quizTestGiven") as? Int ?? -1
+            UserDefaults.standard.set(quizTaken, forKey: "quiztakenID")
+            let quizID = UserDefaults.standard.string(forKey: "quiztakenID")
+            print(quizID)
+            let fileUrl = URL(string: url)
+            UserDefaults.standard.set(Int(clientId), forKey: "clientid")
+            
+            USERDETAILS = UserDetails(email: temp.email, firstName: temp.firstName, lastname: temp.lastName, imageurl: url)
+            
+            if quizTaken == 1 {
+                print("1")
+                let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
+                let aObjNavi = UINavigationController(rootViewController: startVC)
+                aObjNavi.navigationBar.barTintColor = UIColor.blue
+                DispatchQueue.main.async {
+                    self.present(aObjNavi, animated: true, completion: nil)
+                    
+                }
+                
+            }
+                
+            else {
+                let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "profileSuccess") as! ProfileSucessViewController
+                DispatchQueue.main.async {
+                    self.present(startVC, animated: true, completion: nil)
+                }
+                
+            }
+            //            DispatchQueue.main.async(execute: {
+            //                self.textfieldFirstName.text = temp.firstName
+            //                self.textfieldLastName.text = temp.lastName
+            //                self.textfieldEmailId.text = temp.email
+            //                self.textfieldMobileNo.text = temp.mobile
+            //                if let data = try? Data(contentsOf: fileUrl!) {
+            //                    if let image = UIImage(data: data) {
+            //                        self.imageviewCircle.image = image
+            //                    }
+            //
+            //                }
+            //            })
+        })
+        
+    }
+
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         if string.isBackspace && textField.text! == "" {

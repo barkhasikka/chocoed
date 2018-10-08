@@ -24,6 +24,7 @@ class WorkExpClickedViewController: UIViewController, UITableViewDelegate,UITabl
         addnewWorkButton.layer.borderColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
         
         let userID = UserDefaults.standard.integer(forKey: "userid")
+        
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         myActivityIndicator.center = view.center
         myActivityIndicator.hidesWhenStopped = false
@@ -99,7 +100,17 @@ class WorkExpClickedViewController: UIViewController, UITableViewDelegate,UITabl
     }
     
     @IBAction func nextButtonAction(_ sender: Any) {
+       let quizID = UserDefaults.standard.string(forKey: "quiztakenID")
         
+        if quizID == "1"{
+            let dashboardvc = storyboard?.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
+            
+
+        }
+        else{
+            let profile = storyboard?.instantiateViewController(withIdentifier: "profileSuccess") as! ProfileSucessViewController
+            self.present(profile, animated: true, completion: nil)
+        }
     }
     
     

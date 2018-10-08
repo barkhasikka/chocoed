@@ -30,8 +30,7 @@ class ProfileSucessViewController: UIViewController {
         let userid = UserDefaults.standard.string(forKey: "userid")
         let params = ["access_token":"\(accessToken)","deviceId":"","deviceToken":"","deviceInfo":"","deviceType":"Andriod","userId":"\(userid!)","clienId":"\(clientID)","examId":"1"] as Dictionary<String, String>
         MakeHttpPostRequest(url: examDetails, params: params, completion: {(success, response) -> Void in
-            let currentTestID = response.object(forKey: "inProgressExamId") as? Int ?? 0
-//            let currentTestID = 1
+            let currentTestID = response.object(forKey: "inProgressExamId") as? Int ?? 1
             print(currentTestID, "<<<=== current test id")
             print(response)
             let questionsList = response.object(forKey: "questionList") as? NSArray ?? []
