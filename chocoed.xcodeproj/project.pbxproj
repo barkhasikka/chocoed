@@ -14,8 +14,6 @@
 		07994B672167716C007D3890 /* ViewControllerMenubar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07994B662167716C007D3890 /* ViewControllerMenubar.swift */; };
 		A2B2CB1A25278D36BECB09E6 /* Pods_chocoed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B250FCA754272F8054867D5 /* Pods_chocoed.framework */; };
 		BF20726A2164DDD10038F30B /* PersonalityTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2072692164DDD10038F30B /* PersonalityTestViewController.swift */; };
-		BF20726D2164DDFD0038F30B /* QuizPersonalityTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF20726B2164DDFD0038F30B /* QuizPersonalityTestViewController.swift */; };
-		BF20726E2164DDFD0038F30B /* QuizPsychomatricTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF20726C2164DDFD0038F30B /* QuizPsychomatricTestViewController.swift */; };
 		BF20E8402156558700CFA53C /* ModelProfileClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF20E83F2156558700CFA53C /* ModelProfileClass.swift */; };
 		BF20E84421566A0800CFA53C /* WorkExpTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF20E84321566A0700CFA53C /* WorkExpTableViewCell.swift */; };
 		BF2358EA214FD0AC00C73BE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2358E9214FD0AC00C73BE3 /* AppDelegate.swift */; };
@@ -57,8 +55,6 @@
 		71D8E08D3C2165BF37086AB1 /* Pods-chocoed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chocoed.release.xcconfig"; path = "Pods/Target Support Files/Pods-chocoed/Pods-chocoed.release.xcconfig"; sourceTree = "<group>"; };
 		7B250FCA754272F8054867D5 /* Pods_chocoed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_chocoed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF2072692164DDD10038F30B /* PersonalityTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalityTestViewController.swift; sourceTree = "<group>"; };
-		BF20726B2164DDFD0038F30B /* QuizPersonalityTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizPersonalityTestViewController.swift; sourceTree = "<group>"; };
-		BF20726C2164DDFD0038F30B /* QuizPsychomatricTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizPsychomatricTestViewController.swift; sourceTree = "<group>"; };
 		BF20E83F2156558700CFA53C /* ModelProfileClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelProfileClass.swift; sourceTree = "<group>"; };
 		BF20E84321566A0700CFA53C /* WorkExpTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkExpTableViewCell.swift; sourceTree = "<group>"; };
 		BF2358E6214FD0AC00C73BE3 /* chocoed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chocoed.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -246,8 +242,6 @@
 		BF4BE1FA216398680082198D /* ProfileQuiz */ = {
 			isa = PBXGroup;
 			children = (
-				BF20726B2164DDFD0038F30B /* QuizPersonalityTestViewController.swift */,
-				BF20726C2164DDFD0038F30B /* QuizPsychomatricTestViewController.swift */,
 				BF2072692164DDD10038F30B /* PersonalityTestViewController.swift */,
 				BF4BE1F0216396260082198D /* BehavioralViewController.swift */,
 				BF4BE1F22163962F0082198D /* QuizBahaviouralViewController.swift */,
@@ -383,7 +377,6 @@
 				BF2CBBE82150DCE400E13EA5 /* NewWorkExperienceVC.swift in Sources */,
 				BF6166F32154D19D0009B991 /* urlsOfAPICalls.swift in Sources */,
 				BF2CBBEC2150F6C100E13EA5 /* SignUpViewController.swift in Sources */,
-				BF20726E2164DDFD0038F30B /* QuizPsychomatricTestViewController.swift in Sources */,
 				BF6166F12154D1580009B991 /* GettingStartedViewController.swift in Sources */,
 				BF356CC52155236C003CC228 /* WorkExpClickedViewController.swift in Sources */,
 				BF4BE1F32163962F0082198D /* QuizBahaviouralViewController.swift in Sources */,
@@ -398,7 +391,6 @@
 				BF356CBE2154D1E0003CC228 /* ProfileViewController.swift in Sources */,
 				BF40F43C215916E0000C8A3F /* EducationExpTableViewCell.swift in Sources */,
 				BF356CC12155135E003CC228 /* HttpPostRequest.swift in Sources */,
-				BF20726D2164DDFD0038F30B /* QuizPersonalityTestViewController.swift in Sources */,
 				BF356CC821552912003CC228 /* DLRadioButton.m in Sources */,
 				07994B672167716C007D3890 /* ViewControllerMenubar.swift in Sources */,
 				BF2E5A26215A1CE7005845A9 /* CommonUIElements.swift in Sources */,
@@ -555,14 +547,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WFBZ498FZ4;
+				DEVELOPMENT_TEAM = DAKPPCYSL8;
 				INFOPLIST_FILE = chocoed/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chocoed;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chocoed.tejal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "chocoed/chocoed-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -578,14 +570,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WFBZ498FZ4;
+				DEVELOPMENT_TEAM = DAKPPCYSL8;
 				INFOPLIST_FILE = chocoed/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chocoed;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chocoed.tejal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "chocoed/chocoed-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
