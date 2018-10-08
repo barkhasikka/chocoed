@@ -558,6 +558,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
                 }
                 self.optionsView.addSubview(imageView)
                 self.setQuestionImageViewConstraints(previousImageView: previousImageView, currentImageUIView: imageView)
+                imageView.topAnchor.constraint(equalTo: self.quetionLabel.bottomAnchor, constant: 15).isActive = true
                 previousImageView = imageView
             }
             
