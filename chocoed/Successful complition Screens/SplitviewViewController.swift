@@ -10,13 +10,26 @@ import UIKit
 
 class SplitviewViewController: UIViewController {
     var menuvc : ViewControllerMenubar!
-
+    var toggle = true
+    @IBOutlet weak var userProgressView: UIView!
+    @IBOutlet weak var imageViewLogo: UIImageView!
+    @IBOutlet weak var constraintOutlet: NSLayoutConstraint!
     @IBOutlet weak var buttonLotus: UIButton!
     @IBOutlet weak var buttonMiddleProfile: UIButton!
     @IBOutlet weak var buttonMsg: UIButton!
     @IBOutlet weak var viewButtonsCircle: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        let frame1 = CGRect(x: 8, y: 200, width: UIScreen.main.bounds.width - 16, height: 160)
+//        let backgroundImage1 = UIImageView(frame: fra)
+//        backgroundImage1.image = UIImage(named: "card_bg")
+//        backgroundImage1.contentMode = UIViewContentMode.scaleAspectFill
+//        self.userProgressView.insertSubview(backgroundImage1, at: 0)
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        imageViewLogo.isUserInteractionEnabled = true
+        imageViewLogo.addGestureRecognizer(tapGestureRecognizer)
         
         let frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height:200)
         let backgroundImage = UIImageView(frame: frame)
@@ -27,6 +40,7 @@ class SplitviewViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
 //        constraintsToButton()
+        
         
         menuvc = self.storyboard?.instantiateViewController(withIdentifier: "menu") as! ViewControllerMenubar
         let swiperight = UISwipeGestureRecognizer(target: self, action: #selector(responsetoright))
@@ -41,7 +55,25 @@ class SplitviewViewController: UIViewController {
         self.view.addGestureRecognizer(swipeleft)
         
     }
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer){
+        print("Please select image")
+        toggle = !toggle
+        print(toggle)
+        if toggle == true{
+        self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 1, animations: {
+            self.constraintOutlet.constant = 170
+            self.view.layoutIfNeeded()
+            })
+        }else{
+            self.view.layoutIfNeeded()
+            UIView.animate(withDuration: 1, animations: {
+                self.constraintOutlet.constant = 20
+                self.view.layoutIfNeeded()
 
+        })
+        }
+    }
     @IBAction func menuButton(_ sender: UIBarButtonItem) {
         if AppDelegate.menu_bool {
             showmethod()

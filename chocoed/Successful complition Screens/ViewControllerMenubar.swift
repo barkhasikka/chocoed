@@ -34,7 +34,6 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
             imageProfile.contentMode = .center
         }
         
-        
         buttonEmail.setTitle(USERDETAILS.email, for: .normal)
         
     }
