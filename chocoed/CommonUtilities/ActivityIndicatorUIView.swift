@@ -33,12 +33,16 @@ class ActivityIndicatorUIView: UIView {
     }
 
     func startAnimation() {
-        myActivityIndicator.hidesWhenStopped = false
-        myActivityIndicator.startAnimating()
+        DispatchQueue.main.async {
+            self.myActivityIndicator.hidesWhenStopped = false
+            self.myActivityIndicator.startAnimating()
+        }
     }
 
     func stopAnimation() {
-        myActivityIndicator.stopAnimating()
-        myActivityIndicator.hidesWhenStopped = true
+        DispatchQueue.main.async {
+            self.myActivityIndicator.stopAnimating()
+            self.myActivityIndicator.hidesWhenStopped = true
+        }
     }
 }

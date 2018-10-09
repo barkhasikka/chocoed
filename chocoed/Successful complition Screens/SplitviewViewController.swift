@@ -84,11 +84,12 @@ class SplitviewViewController: UIViewController {
             self.view.layoutIfNeeded()
             })
         }else{
-            self.arcView.isHidden = false
+          
             self.view.layoutIfNeeded()
             UIView.animate(withDuration: 1, animations: {
-                self.constraintOutlet.constant = 170
+                self.constraintOutlet.constant = 150
                 self.view.layoutIfNeeded()
+                self.arcView.isHidden = false
 
         })
         }

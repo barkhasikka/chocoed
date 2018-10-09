@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(userID)
         if userID != 0 {
             GetUserInfo()
-        
 //            let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
 //            let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
 //            window!.rootViewController = startVC
@@ -94,11 +93,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             if quizTaken == 1 {
                 print("1")
-                let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
-                let aObjNavi = UINavigationController(rootViewController: startVC)
-                aObjNavi.navigationBar.barTintColor = UIColor.blue
                 DispatchQueue.main.async {
+                    let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
+                    let aObjNavi = UINavigationController(rootViewController: startVC)
+                    aObjNavi.navigationBar.barTintColor = UIColor.blue
                     self.window!.rootViewController = aObjNavi
                     self.window!.makeKeyAndVisible()
                 }
@@ -106,9 +105,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
                 
             else {
-                let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "profileSuccess") as! ProfileSucessViewController
                 DispatchQueue.main.async {
+                    let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "profileSuccess") as! ProfileSucessViewController
                     self.window!.rootViewController = startVC
                     self.window!.makeKeyAndVisible()
                 }

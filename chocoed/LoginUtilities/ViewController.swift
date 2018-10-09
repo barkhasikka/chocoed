@@ -15,6 +15,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet weak var labelChoice: UILabel!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
+    var activityUIView: ActivityIndicatorUIView!
     var count = 0
     
     var arrayLanguages = [LanguageList]()
@@ -22,6 +23,10 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     override func viewDidLoad() {
         super.viewDidLoad()
 //        constraintsOFUI()
+        activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
+        self.view.addSubview(activityUIView)
+        activityUIView.isHidden = true
+        
         self.viewTable.isHidden = true
         count = 0
         self.tableViewLanguage.isHidden = true
@@ -140,6 +145,8 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         let userid = UserDefaults.standard.string(forKey: "userid")
         
         let params = ["access_token":"\(accessToken)","userId":"\(userid)","clientId":"\(clientid)"] as Dictionary<String, String>
+        activityUIView.isHidden = false
+        activityUIView.startAnimation()
         MakeHttpPostRequest(url: getLanguageListCall, params: params, completion: {(success, response) -> Void in
             print(response)
             let language = response.object(forKey: "appList") as? NSArray ?? []
@@ -149,7 +156,9 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
                
             }
             DispatchQueue.main.async {
-                self.tableViewLanguage.reloadData()
+                    self.tableViewLanguage.reloadData()
+                    self.activityUIView.isHidden = true
+                    self.activityUIView.stopAnimation()
             }
                 print(self.arrayLanguages)
             
@@ -157,6 +166,8 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             let alert = GetAlertWithOKAction(message: message)
             DispatchQueue.main.async {
                 self.present(alert, animated: true, completion: nil)
+                self.activityUIView.stopAnimation()
+
             }
         })
         

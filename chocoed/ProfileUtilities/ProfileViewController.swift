@@ -37,8 +37,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var labelFirstName: UILabel!
     
     let picker = YPImagePicker()
-    
-    
+    var activityUIView: ActivityIndicatorUIView!
     var fetchedvalueProfile = ModelProfileClass()
     var activeField: UITextField!
     var keyboardHeight: CGFloat!
@@ -52,6 +51,11 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         submitButton.layer.borderColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
 //        self.profileDataUIViewTopConstraint.constant = -100
         imageviewCircular()
+        
+        activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
+        self.view.addSubview(activityUIView)
+        activityUIView.isHidden = true
+        
         
         textfieldFirstName.setBottomBorder()
         textfieldLastName.setBottomBorder()
@@ -261,12 +265,11 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     func GetUserInfo() {
         let userID = UserDefaults.standard.integer(forKey: "userid")
         print(userID, "USER ID IS HERE")
-        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
-        myActivityIndicator.center = view.center
-        myActivityIndicator.hidesWhenStopped = false
-        myActivityIndicator.startAnimating()
-        view.addSubview(myActivityIndicator)
         let params = ["userId": "\(userID)",  "access_token":"\(accessToken)"] as Dictionary<String, String>
+        
+        activityUIView.isHidden = false
+        activityUIView.startAnimation()
+        
         MakeHttpPostRequest(url: getUserInfo, params: params, completion: {(success, response) in
             print(response)
             let jsonobject = response["info"] as? NSDictionary;
@@ -294,13 +297,14 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
                         }
                     }
                 }
-                myActivityIndicator.stopAnimating()
-                myActivityIndicator.hidesWhenStopped = true
+                    self.activityUIView.isHidden = true
+                    self.activityUIView.stopAnimation()
             })
         }, errorHandler: {(message) -> Void in
             let alert = GetAlertWithOKAction(message: message)
             DispatchQueue.main.async {
                 self.present(alert, animated: true, completion: nil)
+                self.activityUIView.stopAnimation()
             }
         })
         
@@ -320,25 +324,26 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
             alertcontrol.addAction(alertaction)
             self.present(alertcontrol, animated: true, completion: nil)
         }else {
-            let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
-            myActivityIndicator.center = view.center
-            myActivityIndicator.hidesWhenStopped = false
-            myActivityIndicator.startAnimating()
-            view.addSubview(myActivityIndicator)
             let params = [ "access_token":"\(accessToken)", "userId": "\(userID)", "clientId": "\(clientID)", "firstName": fName, "lastName": lName, "email" : emailId, "mobile" : mobileNo] as! Dictionary<String, String>
+            
+            activityUIView.isHidden = false
+            activityUIView.startAnimation()
+
             MakeHttpPostRequest(url: updateUserInfoURL, params: params, completion: {(success, response) -> Void in
                 print(response, "UPDATE USER INFO RESPONSE")
                 DispatchQueue.main.async {
-                    myActivityIndicator.stopAnimating()
-                    myActivityIndicator.hidesWhenStopped = true
+                    self.activityUIView.isHidden = true
+                    self.activityUIView.stopAnimation()
+
                     let vcGetStarted = self.storyboard?.instantiateViewController(withIdentifier: "signup") as! SignUpViewController
                     self.present(vcGetStarted, animated: true, completion: nil)
-                    
+                  
                 }
             }, errorHandler: {(message) -> Void in
                 let alert = GetAlertWithOKAction(message: message)
                 DispatchQueue.main.async {
                     self.present(alert, animated: true, completion: nil)
+                    self.activityUIView.stopAnimation()
                 }
             })
             

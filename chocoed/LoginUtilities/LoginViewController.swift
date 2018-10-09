@@ -105,6 +105,8 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         let userID = UserDefaults.standard.integer(forKey: "userid")
         print(userID, "USER ID IS HERE")
         let params = ["userId": "\(userID)",  "access_token":"\(accessToken)"] as Dictionary<String, String>
+        activityUIView.isHidden = false
+        activityUIView.startAnimation()
         MakeHttpPostRequest(url: getUserInfo, params: params, completion: {(success, response) in
             print(response)
             let jsonobject = response["info"] as? NSDictionary;
@@ -153,24 +155,17 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
                     }
                     
                 }
+                DispatchQueue.main.async {
+                    self.activityUIView.isHidden = true
+                    self.activityUIView.stopAnimation()
+                }
             }
-            
-            //            DispatchQueue.main.async(execute: {
-            //                self.textfieldFirstName.text = temp.firstName
-            //                self.textfieldLastName.text = temp.lastName
-            //                self.textfieldEmailId.text = temp.email
-            //                self.textfieldMobileNo.text = temp.mobile
-            //                if let data = try? Data(contentsOf: fileUrl!) {
-            //                    if let image = UIImage(data: data) {
-            //                        self.imageviewCircle.image = image
-            //                    }
-            //
-            //                }
-            //            })
         }, errorHandler: {(message) -> Void in
             let alert = GetAlertWithOKAction(message: message)
             DispatchQueue.main.async {
                 self.present(alert, animated: true, completion: nil)
+                self.activityUIView.stopAnimation()
+
             }
         })
         
@@ -255,10 +250,11 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
             self.present(alertcontrol, animated: true, completion: nil)
         }else {
             let params = ["phone":"\(mobileNumberTextFIeld.text!)", "access_token":"\(accessToken)"] as Dictionary<String, String>
-            
+            print(params)
             activityUIView.isHidden = false
             activityUIView.startAnimation()
             MakeHttpPostRequest(url: sendOtpApiURL, params: params, completion: {(success, response) -> Void in
+                print(response)
                 let temp = ModelClassLoginId()
                 
                 temp.userId = response.value(forKey: "userId") as? String ?? ""
@@ -327,19 +323,23 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
             print(params)
 
         }
-        
+        DispatchQueue.main.async {
+            self.activityUIView.isHidden = false
+            self.activityUIView.startAnimation()
+        }
         MakeHttpPostRequest(url: saveLanguageSelected, params: params, completion: {(success, response) -> Void in
             print(response)
-            ////            let language = response.object(forKey: "appList") as? NSArray ?? []
-            ////
-            ////            for languages in language {
-            ////                self.arrayLanguages.append(LanguageList( languages as! NSDictionary))
-            //            }
             
+            DispatchQueue.main.async {
+                self.activityUIView.isHidden = true
+                self.activityUIView.stopAnimation()
+            }
         }, errorHandler: {(message) -> Void in
             let alert = GetAlertWithOKAction(message: message)
             DispatchQueue.main.async {
                 self.present(alert, animated: true, completion: nil)
+                self.activityUIView.stopAnimation()
+
             }
         })
         

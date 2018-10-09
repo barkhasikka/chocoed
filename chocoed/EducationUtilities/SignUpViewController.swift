@@ -15,6 +15,8 @@ class SignUpViewController: UIViewController,UITableViewDelegate,UITableViewData
     @IBOutlet weak var viewEdu: UIView!
     @IBOutlet weak var addeducationButton: UIButton!
     var workExperiences: NSArray = []
+    var activityUIView: ActivityIndicatorUIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,16 +27,16 @@ class SignUpViewController: UIViewController,UITableViewDelegate,UITableViewData
         addeducationButton.layer.borderWidth = 1
         addeducationButton.layer.borderColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
         
+        activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
+        self.view.addSubview(activityUIView)
+        activityUIView.isHidden = true
+        
         let userID = UserDefaults.standard.integer(forKey: "userid")
         print(userID, "USER ID IS HERE")
-        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
-        myActivityIndicator.center = view.center
-        myActivityIndicator.hidesWhenStopped = false
-        myActivityIndicator.startAnimating()
-        view.addSubview(myActivityIndicator)
-
         let params = ["userId": "\(userID)",  "access_token":"\(accessToken)"] as Dictionary<String, String>
         
+        activityUIView.isHidden = false
+        activityUIView.startAnimation()
         MakeHttpPostRequest(url: getUserInfo, params: params, completion: {(success, response) -> Void in
             print(response)
             let jsonobject = response["info"] as? NSDictionary;
@@ -44,19 +46,19 @@ class SignUpViewController: UIViewController,UITableViewDelegate,UITableViewData
                 self.tableViewData.append(ExistingEducationList(experience as! NSDictionary))
             }
 
-            
-            DispatchQueue.main.async {
-                myActivityIndicator.stopAnimating()
-                myActivityIndicator.hidesWhenStopped = true
-            }
-            
             DispatchQueue.main.async {
                 self.educationDetailsTableView.reloadData()
+                
+                self.activityUIView.isHidden = true
+                self.activityUIView.stopAnimation()
+                
             }
         }, errorHandler: {(message) -> Void in
             let alert = GetAlertWithOKAction(message: message)
             DispatchQueue.main.async {
                 self.present(alert, animated: true, completion: nil)
+                self.activityUIView.stopAnimation()
+
             }
         })
         // Do any additional setup after loading the view.

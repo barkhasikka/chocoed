@@ -20,7 +20,7 @@ class NewWorkExperienceVC: UIViewController {
     @IBOutlet weak var fromButton: UIButton!
     @IBOutlet weak var managementLevelButton: UIButton!
     @IBOutlet weak var textFieldCompany: UITextField!
-    
+    var activityUIView: ActivityIndicatorUIView!
     var currentSelectedButton: String!
     
     @IBOutlet weak var saveButton: imagetoButton!
@@ -35,6 +35,11 @@ class NewWorkExperienceVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
+        self.view.addSubview(activityUIView)
+        activityUIView.isHidden = true
+        
         textFieldCompany.setBottomBorder()
         dropDown = DropDown()
         dropDown.direction = .any
@@ -198,27 +203,40 @@ class NewWorkExperienceVC: UIViewController {
     
     @IBAction func addWorkExperience(_ sender: Any) {
         saveButton.isEnabled = false
-        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
-        myActivityIndicator.center = view.center
-        myActivityIndicator.hidesWhenStopped = false
-        myActivityIndicator.startAnimating()
-        view.addSubview(myActivityIndicator)
-       
         let userID = UserDefaults.standard.integer(forKey: "userid")
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         
         let companyName = textFieldCompany.text!
+        if companyName == "" || self.toButton.titleLabel?.text == "Select Year" || self.fromButton.titleLabel?.text == "Select From" || self.managementLevelButton.titleLabel?.text == "Select Management Level" || self.teamsHandeledButton.titleLabel?.text == "Select Tearms Handled" || self.currentIndustryButton.titleLabel?.text == "Select Current Industry" || self.funcExpButton.titleLabel?.text == "Select Functional Experitise"{
+//            || self.selectedWorkExperience.industrySector == "" || companyName == "" || self.selectedWorkExperience.fromYear == "" ||  self.selectedWorkExperience.functionalDepartment == "" || self.selectedWorkExperience.levelOfManagement == "" || self.selectedWorkExperience.teamSize == "" ||  self.selectedWorkExperience.id == "" ) {
         
-    
-        let params = [ "access_token":"\(accessToken)", "userId": "\(userID)","clientId":"\(clientID)", "companyName": "\(companyName)", "fromYear": "\(self.selectedWorkExperience.fromYear)", "toYear": "\(self.selectedWorkExperience.toYear)", "functionalDepartment" : "\(self.selectedWorkExperience.functionalDepartment)", "industrySector": "\(self.selectedWorkExperience.industrySector)", "levelOfManagemet" : "\(self.selectedWorkExperience.levelOfManagement)", "teamSize" : "\(self.selectedWorkExperience.teamSize)", "id": "\(self.selectedWorkExperience.id)"] as Dictionary<String, String>
+            let alertcontrol = UIAlertController(title: "Alert", message: "Please check all fields are filled.", preferredStyle: .alert)
+            let alertaction = UIAlertAction(title: "OK", style: .default) { (action) in
+                print("default")
+              
+                self.activityUIView.isHidden = true
+                self.activityUIView.stopAnimation()
+                
+                self.saveButton.isEnabled = true
+            }
+            alertcontrol.addAction(alertaction)
+            self.present(alertcontrol, animated: true, completion: nil)
+            
+        }
+        else{
+        let params = ["access_token":"\(accessToken)", "userId": "\(userID)","clientId":"\(clientID)", "companyName": "\(companyName)", "fromYear": "\(self.selectedWorkExperience.fromYear)", "toYear": "\(self.selectedWorkExperience.toYear)", "functionalDepartment" : "\(self.selectedWorkExperience.functionalDepartment)", "industrySector": "\(self.selectedWorkExperience.industrySector)", "levelOfManagemet" : "\(self.selectedWorkExperience.levelOfManagement)", "teamSize" : "\(self.selectedWorkExperience.teamSize)", "id": "\(self.selectedWorkExperience.id)"] as Dictionary<String, String>
+        activityUIView.isHidden = false
+        activityUIView.startAnimation()
         MakeHttpPostRequest(url: saveWorkExperience, params: params, completion: {(success, response) -> Void in
             print(response, "SAVE WORK RESPONSE")
             DispatchQueue.main.async {
-                myActivityIndicator.stopAnimating()
                 self.saveButton.isEnabled = true
             }
 
             DispatchQueue.main.async {
+                self.activityUIView.isHidden = true
+                self.activityUIView.stopAnimation()
+
                 let vcGetStarted = self.storyboard?.instantiateViewController(withIdentifier: "work") as! WorkExpClickedViewController
                 
                 self.present(vcGetStarted, animated: true, completion: nil)
@@ -227,7 +245,10 @@ class NewWorkExperienceVC: UIViewController {
             let alert = GetAlertWithOKAction(message: message)
             DispatchQueue.main.async {
                 self.present(alert, animated: true, completion: nil)
+                self.activityUIView.stopAnimation()
+
             }
         })
+    }
     }
 }
