@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -2289,7 +2290,7 @@
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="menucell" rowHeight="66" id="WUN-rv-H5r" customClass="MenuBarTableViewCell" customModule="chocoed" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="315" height="66"/>
                                                 <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WUN-rv-H5r" id="WIP-fj-cH1">
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WUN-rv-H5r" id="WIP-fj-cH1">
                                                     <rect key="frame" x="0.0" y="0.0" width="315" height="66"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
@@ -2427,7 +2428,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="936"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Exg-cb-DbN">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kb4-gy-yRW">
                                                 <rect key="frame" x="8" y="646" width="359" height="128"/>
@@ -2649,7 +2650,7 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="kb4-gy-yRW" firstAttribute="top" secondItem="PS1-UI-Wo0" secondAttribute="bottom" constant="20" id="4Bc-J3-UIl"/>
-                                            <constraint firstAttribute="height" constant="1000" id="86q-KO-k1n"/>
+                                            <constraint firstAttribute="height" constant="800" id="86q-KO-k1n"/>
                                             <constraint firstItem="PS1-UI-Wo0" firstAttribute="top" secondItem="GvJ-xK-LRd" secondAttribute="bottom" constant="10" id="8Vw-D1-xBR"/>
                                             <constraint firstItem="GvJ-xK-LRd" firstAttribute="leading" secondItem="Exg-cb-DbN" secondAttribute="leading" constant="14" id="8q9-S8-E34"/>
                                             <constraint firstItem="DU5-kb-2BZ" firstAttribute="leading" secondItem="Exg-cb-DbN" secondAttribute="leading" id="F21-ab-P5I"/>
@@ -2707,6 +2708,7 @@
                         <outlet property="constraintOutlet" destination="4Bc-J3-UIl" id="vDa-GC-Jd6"/>
                         <outlet property="imageProfile" destination="RoJ-EW-Xzw" id="qnH-tg-6Gn"/>
                         <outlet property="imageViewLogo" destination="PS1-UI-Wo0" id="LwV-Lo-Urw"/>
+                        <outlet property="mainviewConstraintOutlet" destination="86q-KO-k1n" id="TU1-fj-7NT"/>
                         <outlet property="userProgressView" destination="GvJ-xK-LRd" id="1hD-uB-3bK"/>
                         <outlet property="viewButtonsCircle" destination="DU5-kb-2BZ" id="l6N-or-fuY"/>
                     </connections>
@@ -2819,12 +2821,12 @@
         <image name="chocoed_white_logo" width="222" height="60"/>
         <image name="completedtopics" width="24" height="22"/>
         <image name="content" width="32" height="31"/>
-        <image name="ic_drop_down" width="48" height="48"/>
+        <image name="ic_drop_down" width="24" height="24"/>
         <image name="ic_education" width="50" height="50"/>
         <image name="ic_education_selected" width="80" height="80"/>
         <image name="ic_experience" width="50" height="50"/>
         <image name="ic_experience_selected" width="80" height="80"/>
-        <image name="icons8-menu_filled" width="32" height="32"/>
+        <image name="icons8-menu_filled" width="16" height="16"/>
         <image name="image_icon" width="60" height="50"/>
         <image name="loginButtonBackground" width="651" height="97"/>
         <image name="lotus_icon" width="46" height="41"/>

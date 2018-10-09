@@ -12,6 +12,7 @@ class SplitviewViewController: UIViewController {
     var menuvc : ViewControllerMenubar!
     var toggle = true
     
+    @IBOutlet weak var mainviewConstraintOutlet: NSLayoutConstraint!
     @IBOutlet weak var arcView: UIView!
     @IBOutlet weak var imageProfile: UIImageView!
     @IBOutlet weak var userProgressView: UIView!
@@ -81,6 +82,7 @@ class SplitviewViewController: UIViewController {
         self.view.layoutIfNeeded()
         UIView.animate(withDuration: 1, animations: {
             self.constraintOutlet.constant = 20
+            self.mainviewConstraintOutlet.constant = 800
             self.view.layoutIfNeeded()
             })
         }else{
@@ -88,6 +90,7 @@ class SplitviewViewController: UIViewController {
             self.view.layoutIfNeeded()
             UIView.animate(withDuration: 1, animations: {
                 self.constraintOutlet.constant = 150
+                self.mainviewConstraintOutlet.constant = 900
                 self.view.layoutIfNeeded()
                 self.arcView.isHidden = false
 
