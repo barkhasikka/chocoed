@@ -10,6 +10,7 @@ import UIKit
 
 class PersonalityTestViewController: UIViewController {
     var arrayBehaviouralQuestion = [Question]()
+    var currentQuestion = 1
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated: true)
@@ -31,6 +32,7 @@ class PersonalityTestViewController: UIViewController {
         if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "quizb") as? QuizBahaviouralViewController {
             vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
             vcNewSectionStarted.currentExamID = 3
+            vcNewSectionStarted.currentQuestion = currentQuestion
 //        self.present(vcNewSectionStarted, animated: true, completion: nil)
 //            if let navigator = navigationController {
 //                navigator.title = "Personality Test"

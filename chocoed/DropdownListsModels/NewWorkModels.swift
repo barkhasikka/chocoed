@@ -139,16 +139,18 @@ struct LanguageList {
 struct Question{
     var questionName: String
     var anstype: String
-    var answerSubmitted : String
+    var answerSubmitted : Int
     var id : String
+    var selectedAns: String
     
     var option : NSArray
     var questionList : NSArray
     init(_ dictionary : NSDictionary) {
         self.questionName = dictionary["name"] as? String ?? ""
-        self.answerSubmitted = dictionary["isAnsSubmitted"] as? String ?? ""
+        self.answerSubmitted = dictionary["isAnsSubmitted"] as? Int ?? 0
         self.anstype = dictionary["ansType"] as? String ?? ""
         self.id = dictionary["id"] as? String ?? ""
+        self.selectedAns = dictionary["selectedAns"] as? String ?? ""
         self.option = dictionary["optionList"] as? NSArray ?? []
         self.questionList = dictionary["question_image_list"] as? NSArray ?? []
     }

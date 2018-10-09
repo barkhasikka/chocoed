@@ -124,11 +124,12 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
             
             USERDETAILS = UserDetails(email: temp.email, firstName: temp.firstName, lastname: temp.lastName, imageurl: url)
             
-            let isFirstTimeUser =  jsonobject?.object(forKey:"isFirstTimeUser") as? Bool ?? false
+            let isFirstTimeUser =  jsonobject?.object(forKey:"isFirstTimeUser") as? String ?? "true"
             self.sendLanguagesSelected()
-            if isFirstTimeUser {
+            print(isFirstTimeUser, "<<<<<<<---- first time user flag")
+            if isFirstTimeUser == "true" {
                 let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "profile") as! ProfileViewController
+                let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
                 DispatchQueue.main.async {
                     self.present(startVC, animated: true, completion: nil)
                 }
@@ -237,7 +238,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
                 otpDigitSixthTF.becomeFirstResponder()
                 
             case otpDigitSixthTF :
-                otpDigitFourthTF.resignFirstResponder()
+                otpDigitSixthTF.resignFirstResponder()
             default:
                 print("default case")
                 break

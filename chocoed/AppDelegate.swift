@@ -22,10 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if userID != 0 {
             GetUserInfo()
         
-            let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
-            window!.rootViewController = startVC
-            window!.makeKeyAndVisible()
+//            let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//            let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
+//            window!.rootViewController = startVC
+//            window!.makeKeyAndVisible()
         } else {
             let quiztakenid = UserDefaults.standard.string(forKey: "quiztakenID")
             print(quiztakenid)
@@ -36,10 +36,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 window!.makeKeyAndVisible()
             }
             else{
-            let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "firstview") as! ViewController
-            window!.rootViewController = startVC
-            window!.makeKeyAndVisible()
+                let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "firstview") as! ViewController
+                window!.rootViewController = startVC
+                window!.makeKeyAndVisible()
             }
         }
         return true

@@ -34,6 +34,8 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
             self.navigationItem.title = "Personality Test"
         }
         
+        print("the current question id id", currentQuestion)
+        
 //        self.pagesViews.layer.borderWidth = 1
 //        self.pagesViews.layer.borderColor = UIColor.lightGray.cgColor
         
@@ -151,10 +153,10 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
         let endTime = NSDate().timeIntervalSince1970 * 1000
-        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"1","questionId":"\(questionId)","selectedAns":"\(selectedAnswer)","selectedAnsId":"\(answerId)","startTime":"\(startTime)","endTime":"\(endTime)"] as Dictionary<String, String>
+        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(self.currentExamID)","questionId":"\(questionId)","selectedAns":"\(selectedAnswer)","selectedAnsId":"\(answerId)","startTime":"\(startTime)","endTime":"\(endTime)"] as Dictionary<String, String>
             print(params)
         MakeHttpPostRequest(url: saveUserExamQuestionAnswer , params: params, completion: {(success, response) -> Void in
-            print(response)
+            print(response, "<<<<<<-- SAVE ANSWER RESPONSE....")
     ////            let language = response.object(forKey: "appList") as? NSArray ?? []
     ////
     ////            for languages in language {
@@ -207,7 +209,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
         let optionsList = self.arrayBehaviouralQuestion[self.currentQuestion].option
         switch ansType {
         case "1":
-            generateTextOnlyOptions(optionList: optionsList)
+            generateTextOnlyOptions(optionList: optionsList, selectedAns: self.arrayBehaviouralQuestion[self.currentQuestion].selectedAns)
             break
         case "2":
             generateTextWithImageOptions(optionList: optionsList)
@@ -219,7 +221,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
             generateDragDropOptions(optionList: optionsList)
             break
         case "5":
-            generateTextOnlyOptions(optionList: optionsList)
+            generateTextOnlyOptions(optionList: optionsList, selectedAns: self.arrayBehaviouralQuestion[self.currentQuestion].selectedAns)
             break
         default:
             print("somethig went wrong")
@@ -239,11 +241,14 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
 
         MakeHttpPostRequest(url: examDetails, params: params, completion: {(success, response) -> Void in
             print(response)
-            
+            var currentQuestionID: Int =  -1
             self.arrayBehaviouralQuestion = [Question]()
             let questionsList = response.object(forKey: "questionList") as? NSArray ?? []
-            for question in questionsList {
+            for (index, question) in questionsList.enumerated() {
                 self.arrayBehaviouralQuestion.append(Question(question as! NSDictionary))
+                if self.arrayBehaviouralQuestion[index].answerSubmitted == 0 && currentQuestionID == -1 {
+                    currentQuestionID = index
+                }
             }
             DispatchQueue.main.async {
                 myActivityIndicator.stopAnimating()
@@ -251,6 +256,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
                 if self.currentExamID == 3 {
                     if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "personality") as? PersonalityTestViewController {
                         vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
+                        vcNewSectionStarted.currentQuestion = currentQuestionID
 //                        if let navigator = self.navigationController {
 //                            navigator.pushViewController(vcNewSectionStarted, animated: true)
                             self.present(vcNewSectionStarted, animated: true, completion: nil)
@@ -262,6 +268,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
                 } else if self.currentExamID == 2 {
                     if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "psychometric") as? PsychometricTestViewController {
                         vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
+                        vcNewSectionStarted.currentQuestion = currentQuestionID
 //                        if let navigator = self.navigationController {
 //                            navigator.pushViewController(vcNewSectionStarted, animated: true)
 //                        }
@@ -288,9 +295,16 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
         } else {
             //user has traversed all the questions. Now we need to hide next button and call end test API and then present new type nest vc
             self.nextUIButton.isHidden = true
-            self.currentExamID = self.currentExamID + 1
+            self.callEndTestAPI()
             loadSaveExamQuestionAnswer()
-            loadNextTypeQuestions()
+            if self.currentExamID == 3 {
+               
+                let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "newscreen") as! ExamComplitionScreenViewController
+                self.present(vcNewSectionStarted, animated: true, completion: nil)
+            }else {
+                self.currentExamID = self.currentExamID + 1
+                loadNextTypeQuestions()
+            }
         }
     }
     
@@ -358,7 +372,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
         })
     }
     
-    func generateTextOnlyOptions(optionList: NSArray){
+    func generateTextOnlyOptions(optionList: NSArray, selectedAns: String){
         var previousButton: UIButton!
         for option in optionList {
             let optionObject =  Option(option as! NSDictionary)
@@ -372,7 +386,12 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
                 optionButton.setTitle(option, for: .normal )
                 optionButton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
                 optionButton.contentHorizontalAlignment = .left
-                optionButton.setImage(UIImage(named: "checkbox_off"), for: .normal)
+                if optionObject.id == selectedAns {
+                    optionButton.setImage(UIImage(named: "checkbox_on"), for: .normal)
+                }else {
+                    optionButton.setImage(UIImage(named: "checkbox_off"), for: .normal)
+                }
+                
                 optionButton.titleLabel?.minimumScaleFactor = 0.5
                 optionButton.titleLabel?.numberOfLines = 0
                 optionButton.titleLabel?.adjustsFontSizeToFitWidth = true

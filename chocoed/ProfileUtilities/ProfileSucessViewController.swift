@@ -28,15 +28,19 @@ class ProfileSucessViewController: UIViewController {
     @IBAction func letsBeginAction(_ sender: Any) {
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
-        let params = ["access_token":"\(accessToken)","deviceId":"","deviceToken":"","deviceInfo":"","deviceType":"Andriod","userId":"\(userid!)","clienId":"\(clientID)","examId":"1"] as Dictionary<String, String>
+        var currentQuestionID: Int =  -1
+        let params = ["access_token":"\(accessToken)","deviceId":"","deviceToken":"","deviceInfo":"","deviceType":"Andriod","userId":"\(userid!)","clienId":"\(clientID)","examId":"-10"] as Dictionary<String, String>
         MakeHttpPostRequest(url: examDetails, params: params, completion: {(success, response) -> Void in
             let currentTestID = response.object(forKey: "inProgressExamId") as? Int ?? 1
             print(currentTestID, "<<<=== current test id")
             print(response)
             let questionsList = response.object(forKey: "questionList") as? NSArray ?? []
-            
-            for question in questionsList {
+            self.arrayBehaviouralQuestion = [Question]()
+            for (index, question) in questionsList.enumerated() {
                 self.arrayBehaviouralQuestion.append(Question(question as! NSDictionary))
+                if self.arrayBehaviouralQuestion[index].answerSubmitted == 0 && currentQuestionID == -1 {
+                    currentQuestionID = index
+                }
             }
             DispatchQueue.main.async {
                 switch currentTestID {
@@ -44,7 +48,7 @@ class ProfileSucessViewController: UIViewController {
                     DispatchQueue.main.async {
                         let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "behavioural") as! BehavioralViewController
                         vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
-                        
+                        vcNewSectionStarted.currentQuestion = currentQuestionID
 //                        let aObjNavi = UINavigationController(rootViewController: vcNewSectionStarted)
 //                        aObjNavi.navigationBar.barTintColor = UIColor.blue
                         self.present(vcNewSectionStarted, animated: true, completion: nil)
@@ -54,6 +58,7 @@ class ProfileSucessViewController: UIViewController {
                 case 2:
                     let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "psychometric") as! PsychometricTestViewController
                     vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
+                    vcNewSectionStarted.currentQuestion = currentQuestionID
 //                    let aObjNavi = UINavigationController(rootViewController: vcNewSectionStarted)
 //                    aObjNavi.navigationBar.barTintColor = UIColor.blue
                     self.present(vcNewSectionStarted, animated: true, completion: nil)
@@ -62,6 +67,7 @@ class ProfileSucessViewController: UIViewController {
                 case 3:
                     let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "personality") as! PersonalityTestViewController
                     vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
+                    vcNewSectionStarted.currentQuestion = currentQuestionID
 //                    let aObjNavi = UINavigationController(rootViewController: vcNewSectionStarted)
 //                    aObjNavi.navigationBar.barTintColor = UIColor.blue
                     self.present(vcNewSectionStarted, animated: true, completion: nil)

@@ -10,6 +10,7 @@ import UIKit
 
 class BehavioralViewController: UIViewController {
     var arrayBehaviouralQuestion = [Question]()
+    var currentQuestion = 1
     override func viewDidLoad() {
         super.viewDidLoad()
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
@@ -24,6 +25,7 @@ class BehavioralViewController: UIViewController {
         if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "quizb") as? QuizBahaviouralViewController {
             vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
             vcNewSectionStarted.currentExamID = 1
+            vcNewSectionStarted.currentQuestion = self.currentQuestion
             let aObjNavi = UINavigationController(rootViewController: vcNewSectionStarted)
             aObjNavi.navigationBar.barTintColor = UIColor.blue
             self.present(aObjNavi, animated: true, completion: nil)

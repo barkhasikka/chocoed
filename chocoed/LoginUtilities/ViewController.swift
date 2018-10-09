@@ -23,7 +23,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         super.viewDidLoad()
 //        constraintsOFUI()
         self.viewTable.isHidden = true
-        
+        count = 0
         self.tableViewLanguage.isHidden = true
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -114,7 +114,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             }
             let alertaction1 = UIAlertAction(title: "Yes", style: .default) { (action) in
                 self.viewTable.isHidden = true
-                
+                self.count = 0
                 self.signUpButton.setTitle("\(text)", for: .normal)
                 
                 UserDefaults.standard.set(text, forKey: "Language1")

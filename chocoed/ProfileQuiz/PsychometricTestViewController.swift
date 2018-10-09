@@ -10,6 +10,7 @@ import UIKit
 
 class PsychometricTestViewController: UIViewController {
     var arrayBehaviouralQuestion = [Question]()
+    var currentQuestion = 1
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated: true)
@@ -33,6 +34,7 @@ class PsychometricTestViewController: UIViewController {
         if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "quizb") as? QuizBahaviouralViewController {
             vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
             vcNewSectionStarted.currentExamID = 2
+            vcNewSectionStarted.currentQuestion = currentQuestion
             let aObjNavi = UINavigationController(rootViewController: vcNewSectionStarted)
             aObjNavi.navigationBar.barTintColor = UIColor.blue
             self.present(aObjNavi, animated: true, completion: nil)
