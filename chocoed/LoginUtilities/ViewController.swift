@@ -153,6 +153,11 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             }
                 print(self.arrayLanguages)
             
+        }, errorHandler: {(message) -> Void in
+            let alert = GetAlertWithOKAction(message: message)
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+            }
         })
         
     }

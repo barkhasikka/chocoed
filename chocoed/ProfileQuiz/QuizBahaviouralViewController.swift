@@ -161,6 +161,11 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
     ////                self.arrayLanguages.append(LanguageList( languages as! NSDictionary))
     //            }
 
+        }, errorHandler: {(message) -> Void in
+            let alert = GetAlertWithOKAction(message: message)
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+            }
         })
     }
     
@@ -269,6 +274,11 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
                     self.present(vcNewSectionStarted, animated: true, completion: nil)
                 }
             }
+        }, errorHandler: {(message) -> Void in
+            let alert = GetAlertWithOKAction(message: message)
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+            }
         })
     }
     
@@ -339,6 +349,11 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
 //                    let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "newscreen") as! ExamComplitionScreenViewController
 //                    self.present(vcNewSectionStarted, animated: true, completion: nil)
 //                }
+            }
+        }, errorHandler: {(message) -> Void in
+            let alert = GetAlertWithOKAction(message: message)
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
             }
         })
     }

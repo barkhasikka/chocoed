@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-func MakeHttpPostRequest(url: String, params: Dictionary<String, String>, completion: @escaping ((_ success: Bool, _ response: NSDictionary) -> Void))  {
+func MakeHttpPostRequest(url: String, params: Dictionary<String, String>, completion: @escaping ((_ success: Bool, _ response: NSDictionary) -> Void), errorHandler: @escaping ((_ message: String) -> Void))  {
 
     let url = NSURL(string: url)
     let request = NSMutableURLRequest(url: url! as URL)
@@ -44,7 +44,11 @@ func MakeHttpPostRequest(url: String, params: Dictionary<String, String>, comple
             print(data)
             if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject] {
                let jsonobject = json as? NSDictionary
-                completion( true, jsonobject!)
+                if jsonobject?.value(forKey: "statusCode") as! Int == 0 {
+                    errorHandler(jsonobject?.value(forKey: "statusMessage") as! String)
+                }else {
+                    completion( true, jsonobject!)
+                }
             }
         } catch let error {
             print(error.localizedDescription)
@@ -216,4 +220,10 @@ extension NSMutableData {
     }
 }
 
+func GetAlertWithOKAction(message: String) -> UIViewController {
+    let alertcontrol = UIAlertController(title: "alert!", message: message, preferredStyle: .alert)
+    let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
+    alertcontrol.addAction(alertaction)
+    return alertcontrol
+}
 

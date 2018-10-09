@@ -57,6 +57,11 @@ class WorkExpClickedViewController: UIViewController, UITableViewDelegate,UITabl
             
             //            print(response.object(forKey: "industrySectorList"), "industry sector list")
             //            response.object(forKey: "functionalDepartmentList")
+        }, errorHandler: {(message) -> Void in
+            let alert = GetAlertWithOKAction(message: message)
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+            }
         })
         // Do any additional setup after loading the view.
     }
@@ -125,6 +130,11 @@ class WorkExpClickedViewController: UIViewController, UITableViewDelegate,UITabl
                     self.present(profile, animated: true, completion: nil)
                     
                 }
+            }
+        }, errorHandler: {(message) -> Void in
+            let alert = GetAlertWithOKAction(message: message)
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
             }
         })
     }

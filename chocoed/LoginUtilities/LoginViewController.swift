@@ -27,7 +27,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
     @IBOutlet weak var otpDigitFifthTF: UITextField!
     @IBOutlet weak var otpDigitFourthTF: UITextField!
     @IBOutlet weak var labelOTPReceived: UILabel!
-    
+    var activityUIView: ActivityIndicatorUIView!
     var button: UIButton!
     var otpFromServer = -1
     
@@ -47,9 +47,11 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         button.frame = CGRect(x: 0, y: 163, width: 106, height: 53)
         button.adjustsImageWhenHighlighted = false
         //button.addTarget(self, action: #selector(self.sendOTPAPI), for: UIControlEvents.touchUpInside)
+        activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
+        self.view.addSubview(activityUIView)
+        activityUIView.isHidden = true
         
         self.addDoneButtonOnKeyboard()
-        
 //        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
 //        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
 ////        ConstraintsofUI()
@@ -88,8 +90,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         var userEnteredOTPText = otpDigitFirstTF.text! + otpDigitSecondTF.text! + otpDigitThirdTF.text! + otpDigitFourthTF.text! + otpDigitFifthTF.text! + otpDigitSixthTF.text!
         let userEnteredOTP = Int(userEnteredOTPText)
         if userEnteredOTP == otpFromServer {
-            self.sendLanguagesSelected()
-            GetUserInfo()
+            self.GetUserInfo()
 //            let vcGetStarted = storyboard?.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
 //            self.present(vcGetStarted, animated: true, completion: nil)
         }else {
@@ -123,25 +124,36 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
             
             USERDETAILS = UserDetails(email: temp.email, firstName: temp.firstName, lastname: temp.lastName, imageurl: url)
             
-            if quizTaken == 1 {
-                print("1")
+            let isFirstTimeUser =  jsonobject?.object(forKey:"isFirstTimeUser") as? Bool ?? false
+            self.sendLanguagesSelected()
+            if isFirstTimeUser {
                 let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
-                let aObjNavi = UINavigationController(rootViewController: startVC)
-                aObjNavi.navigationBar.barTintColor = UIColor.blue
-                DispatchQueue.main.async {
-                    self.present(aObjNavi, animated: true, completion: nil)
-                    
-                }
-                
-            } else {
-                let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "profileSuccess") as! ProfileSucessViewController
+                let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "profile") as! ProfileViewController
                 DispatchQueue.main.async {
                     self.present(startVC, animated: true, completion: nil)
                 }
-                
+            }else {
+                if quizTaken == 1 {
+                    print("1")
+                    let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
+                    let aObjNavi = UINavigationController(rootViewController: startVC)
+                    aObjNavi.navigationBar.barTintColor = UIColor.blue
+                    DispatchQueue.main.async {
+                        self.present(aObjNavi, animated: true, completion: nil)
+                        
+                    }
+                    
+                } else {
+                    let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "profileSuccess") as! ProfileSucessViewController
+                    DispatchQueue.main.async {
+                        self.present(startVC, animated: true, completion: nil)
+                    }
+                    
+                }
             }
+            
             //            DispatchQueue.main.async(execute: {
             //                self.textfieldFirstName.text = temp.firstName
             //                self.textfieldLastName.text = temp.lastName
@@ -154,6 +166,11 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
             //
             //                }
             //            })
+        }, errorHandler: {(message) -> Void in
+            let alert = GetAlertWithOKAction(message: message)
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+            }
         })
         
     }
@@ -229,24 +246,44 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
     }
 
     func sendOTPAPI() {
-        let params = ["phone":"\(mobileNumberTextFIeld.text!)", "access_token":"\(accessToken)"] as Dictionary<String, String>
-        MakeHttpPostRequest(url: sendOtpApiURL, params: params, completion: {(success, response) -> Void in
-            print(response)
-            let temp = ModelClassLoginId()
+        let startingLength = mobileNumberTextFIeld.text?.count ?? 0
+        if startingLength != 10 {
+            let alertcontrol = UIAlertController(title: "alert!", message: "Please enter valid mobile number.", preferredStyle: .alert)
+            let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertcontrol.addAction(alertaction)
+            self.present(alertcontrol, animated: true, completion: nil)
+        }else {
+            let params = ["phone":"\(mobileNumberTextFIeld.text!)", "access_token":"\(accessToken)"] as Dictionary<String, String>
             
-            temp.userId = response.value(forKey: "userId") as? String ?? ""
-            temp.otp = response.value(forKey: "otp") as? Int ?? 0
-            UserDefaults.standard.set(Int(temp.userId), forKey: "userid")
-            self.otpFromServer = temp.otp
-        })
-        
+            activityUIView.isHidden = false
+            activityUIView.startAnimation()
+            MakeHttpPostRequest(url: sendOtpApiURL, params: params, completion: {(success, response) -> Void in
+                let temp = ModelClassLoginId()
+                
+                temp.userId = response.value(forKey: "userId") as? String ?? ""
+                temp.otp = response.value(forKey: "otp") as? Int ?? 0
+                UserDefaults.standard.set(Int(temp.userId), forKey: "userid")
+                self.otpFromServer = temp.otp
+                
+                DispatchQueue.main.async {
+                    self.activityUIView.isHidden = true
+                    self.activityUIView.stopAnimation()
+                }
+            }, errorHandler: {(message) -> Void in
+                let alert = GetAlertWithOKAction(message: message)
+                DispatchQueue.main.async {
+                    self.present(alert, animated: true, completion: nil)
+                    self.activityUIView.stopAnimation()
+                }
+            })
+        }
     }
     @objc
     func hideKeyboard(){
         DispatchQueue.main.async {
-                            self.otpReceivedLabel.isHidden = false
-                            self.receivedOTPUIView.isHidden = false
-                            self.registerButton.isHidden = false
+            self.otpReceivedLabel.isHidden = false
+            self.receivedOTPUIView.isHidden = false
+            self.registerButton.isHidden = false
         }
         self.view.endEditing(true)
         sendOTPAPI()
@@ -272,8 +309,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         self.mobileNumberTextFIeld.inputAccessoryView = doneToolbar
         
     }
-    func sendLanguagesSelected()
-    {
+    func sendLanguagesSelected() {
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
         let language1 = UserDefaults.standard.string(forKey: "Language1")
@@ -299,6 +335,11 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
             ////                self.arrayLanguages.append(LanguageList( languages as! NSDictionary))
             //            }
             
+        }, errorHandler: {(message) -> Void in
+            let alert = GetAlertWithOKAction(message: message)
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+            }
         })
         
     }

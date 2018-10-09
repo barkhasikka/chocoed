@@ -70,6 +70,11 @@ class ProfileSucessViewController: UIViewController {
                     print("Blah Blha")
                 }
             }
+        }, errorHandler: {(message) -> Void in
+            let alert = GetAlertWithOKAction(message: message)
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+            }
         })
     }
     

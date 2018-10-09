@@ -149,7 +149,12 @@ class NewEducationExperienceVC: UIViewController {
             for mediumEdu in mediumOfEducationList {
                 self.mediumOfEduList.append(FieldsOfEducation(mediumEdu as! NSDictionary))
             }
-            })
+        }, errorHandler: {(message) -> Void in
+            let alert = GetAlertWithOKAction(message: message)
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+            }
+        })
 
     }
     override func didReceiveMemoryWarning() {
@@ -244,7 +249,12 @@ class NewEducationExperienceVC: UIViewController {
                 
                 self.present(vcGetStarted, animated: true, completion: nil)
             }
-        })
+            }, errorHandler: {(message) -> Void in
+                let alert = GetAlertWithOKAction(message: message)
+                DispatchQueue.main.async {
+                    self.present(alert, animated: true, completion: nil)
+                }
+            })
         }
     }
     

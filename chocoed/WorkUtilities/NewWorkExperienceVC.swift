@@ -103,6 +103,11 @@ class NewWorkExperienceVC: UIViewController {
             
 //            print(response.object(forKey: "industrySectorList"), "industry sector list")
 //            response.object(forKey: "functionalDepartmentList")
+        }, errorHandler: {(message) -> Void in
+            let alert = GetAlertWithOKAction(message: message)
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+            }
         })
     }
 
@@ -217,6 +222,11 @@ class NewWorkExperienceVC: UIViewController {
                 let vcGetStarted = self.storyboard?.instantiateViewController(withIdentifier: "work") as! WorkExpClickedViewController
                 
                 self.present(vcGetStarted, animated: true, completion: nil)
+            }
+        }, errorHandler: {(message) -> Void in
+            let alert = GetAlertWithOKAction(message: message)
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
             }
         })
     }

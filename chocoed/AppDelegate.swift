@@ -19,29 +19,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let userID = UserDefaults.standard.integer(forKey: "userid")
         print(userID)
-        if userID != 0 {
-            GetUserInfo()
-        
-            let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
-            window!.rootViewController = startVC
-            window!.makeKeyAndVisible()
-        } else {
-            let quiztakenid = UserDefaults.standard.string(forKey: "quiztakenID")
-            print(quiztakenid)
-            if quiztakenid == "1"{
-                let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
-                window!.rootViewController = startVC
-                window!.makeKeyAndVisible()
-            }
-            else{
-            let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "firstview") as! ViewController
-            window!.rootViewController = startVC
-            window!.makeKeyAndVisible()
-            }
-        }
+//        if userID != 0 {
+//            GetUserInfo()
+//        
+//            let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//            let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
+//            window!.rootViewController = startVC
+//            window!.makeKeyAndVisible()
+//        } else {
+//            let quiztakenid = UserDefaults.standard.string(forKey: "quiztakenID")
+//            print(quiztakenid)
+//            if quiztakenid == "1"{
+//                let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//                let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
+//                window!.rootViewController = startVC
+//                window!.makeKeyAndVisible()
+//            }
+//            else{
+//            let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//            let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "firstview") as! ViewController
+//            window!.rootViewController = startVC
+//            window!.makeKeyAndVisible()
+//            }
+//        }
         return true
     }
 
@@ -126,6 +126,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //
             //                }
             //            })
+        }, errorHandler: {(message) -> Void in
+            print("message", message)
+//            let alert = GetAlertWithOKAction(message: message)
+//            self.present(alert, animated: true, completion: nil)
         })
         
     }

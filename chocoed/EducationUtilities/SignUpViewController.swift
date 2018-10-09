@@ -53,6 +53,11 @@ class SignUpViewController: UIViewController,UITableViewDelegate,UITableViewData
             DispatchQueue.main.async {
                 self.educationDetailsTableView.reloadData()
             }
+        }, errorHandler: {(message) -> Void in
+            let alert = GetAlertWithOKAction(message: message)
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+            }
         })
         // Do any additional setup after loading the view.
     }

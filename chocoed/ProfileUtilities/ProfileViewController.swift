@@ -280,6 +280,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
             print(url)
             let fileUrl = URL(string: url)
             UserDefaults.standard.set(Int(clientId), forKey: "clientid")
+            
             DispatchQueue.main.async(execute: {
                 self.textfieldFirstName.text = temp.firstName
                 self.textfieldLastName.text = temp.lastName
@@ -296,6 +297,11 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
                 myActivityIndicator.stopAnimating()
                 myActivityIndicator.hidesWhenStopped = true
             })
+        }, errorHandler: {(message) -> Void in
+            let alert = GetAlertWithOKAction(message: message)
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+            }
         })
         
     }
@@ -325,14 +331,15 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
                 DispatchQueue.main.async {
                     myActivityIndicator.stopAnimating()
                     myActivityIndicator.hidesWhenStopped = true
-
-                    
-                }
-
-                DispatchQueue.main.async(execute: {
                     let vcGetStarted = self.storyboard?.instantiateViewController(withIdentifier: "signup") as! SignUpViewController
                     self.present(vcGetStarted, animated: true, completion: nil)
-                })
+                    
+                }
+            }, errorHandler: {(message) -> Void in
+                let alert = GetAlertWithOKAction(message: message)
+                DispatchQueue.main.async {
+                    self.present(alert, animated: true, completion: nil)
+                }
             })
             
             
