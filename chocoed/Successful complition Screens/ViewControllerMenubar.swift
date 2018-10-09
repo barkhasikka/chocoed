@@ -10,6 +10,7 @@ import UIKit
 
 class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDataSource {
     @IBOutlet weak var buttonEmail: UIButton!
+    @IBOutlet weak var tabGestureView: UIView!
     @IBOutlet weak var labelUserNAme: UILabel!
     @IBOutlet weak var imageProfile: UIImageView!
     var arraymenu = ["My Story","My Thought","My Progress","My Profile","Log out"]
@@ -35,9 +36,21 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
         }
         
         buttonEmail.setTitle(USERDETAILS.email, for: .normal)
+      
         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
+        tabGestureView.isUserInteractionEnabled = true
+        tabGestureView.addGestureRecognizer(tap)
+
     }
 
+    
+    @objc func handleTap(sender: UITapGestureRecognizer? = nil) {
+        closemethod()
+        }
+
+    
+    
     @IBAction func emailDropDown(_ sender: Any) {
     }
     override func didReceiveMemoryWarning() {
@@ -121,16 +134,16 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
         }
     }
 
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func closemethod()
+    {
+        UIView.animate(withDuration: 0.1, animations: { ()->Void in
+            self.view.frame = CGRect(x: 0, y: 60, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
+        }) { (finished) in
+            self.view.removeFromSuperview()
+            
+        }
+        AppDelegate.menu_bool = true
+        
     }
-    */
 
 }

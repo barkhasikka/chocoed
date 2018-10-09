@@ -11,6 +11,9 @@ import UIKit
 class SplitviewViewController: UIViewController {
     var menuvc : ViewControllerMenubar!
     var toggle = true
+    
+    @IBOutlet weak var arcView: UIView!
+    @IBOutlet weak var imageProfile: UIImageView!
     @IBOutlet weak var userProgressView: UIView!
     @IBOutlet weak var imageViewLogo: UIImageView!
     @IBOutlet weak var constraintOutlet: NSLayoutConstraint!
@@ -20,13 +23,22 @@ class SplitviewViewController: UIViewController {
     @IBOutlet weak var viewButtonsCircle: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        let frame1 = CGRect(x: 8, y: 200, width: UIScreen.main.bounds.width - 16, height: 160)
-//        let backgroundImage1 = UIImageView(frame: fra)
-//        backgroundImage1.image = UIImage(named: "card_bg")
-//        backgroundImage1.contentMode = UIViewContentMode.scaleAspectFill
-//        self.userProgressView.insertSubview(backgroundImage1, at: 0)
-        
+        self.arcView.isHidden = true
+        let fileUrl = URL(string: USERDETAILS.imageurl)
+        if fileUrl != nil {
+            if let data = try? Data(contentsOf: fileUrl!) {
+                if let image = UIImage(data: data) {
+                    self.imageProfile.image = image
+                }
+            }
+            imageProfile.layer.borderWidth = 1.0
+            imageProfile.layer.masksToBounds = false
+            imageProfile.layer.borderColor = UIColor.darkGray.cgColor
+            imageProfile.layer.cornerRadius = imageProfile.frame.width / 2
+            imageProfile.clipsToBounds = true
+            imageProfile.contentMode = .center
+        }
+
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         imageViewLogo.isUserInteractionEnabled = true
         imageViewLogo.addGestureRecognizer(tapGestureRecognizer)
@@ -41,6 +53,11 @@ class SplitviewViewController: UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
 //        constraintsToButton()
         
+//        let frame1 = CGRect(x: 0, y: 620, width: UIScreen.main.bounds.width, height: 120)
+//        let backgroundImage1 = UIImageView(frame: frame1)
+//        backgroundImage1.image = UIImage(named: "ic_choice_conversion_content_connect")
+//        backgroundImage1.contentMode = UIViewContentMode.scaleAspectFill
+//        self.arcView.insertSubview(backgroundImage, at: 0 )
         
         menuvc = self.storyboard?.instantiateViewController(withIdentifier: "menu") as! ViewControllerMenubar
         let swiperight = UISwipeGestureRecognizer(target: self, action: #selector(responsetoright))
@@ -60,15 +77,17 @@ class SplitviewViewController: UIViewController {
         toggle = !toggle
         print(toggle)
         if toggle == true{
+        self.arcView.isHidden = true
         self.view.layoutIfNeeded()
         UIView.animate(withDuration: 1, animations: {
-            self.constraintOutlet.constant = 170
+            self.constraintOutlet.constant = 20
             self.view.layoutIfNeeded()
             })
         }else{
+            self.arcView.isHidden = false
             self.view.layoutIfNeeded()
             UIView.animate(withDuration: 1, animations: {
-                self.constraintOutlet.constant = 20
+                self.constraintOutlet.constant = 170
                 self.view.layoutIfNeeded()
 
         })
