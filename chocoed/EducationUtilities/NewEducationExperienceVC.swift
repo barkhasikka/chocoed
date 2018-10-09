@@ -29,6 +29,7 @@ class NewEducationExperienceVC: UIViewController {
     var currentSelectedButton: String!
     
     @IBOutlet weak var savebutton: imagetoButton!
+    var activityUIView: ActivityIndicatorUIView!
     var dropDown: DropDown!
 //    var educationLevel = "", location = "", mediumOfEducation = "", specialisation = "", state = "", yearOfCompletion = "",boardUniversity="",nameOfInstitute=""
     var tableViewData =  [String]()
@@ -42,6 +43,11 @@ class NewEducationExperienceVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
+        self.view.addSubview(activityUIView)
+        activityUIView.isHidden = true
+        
         getDropdownList()
         dropDown = DropDown()
         dropDown.direction = .any
@@ -59,7 +65,6 @@ class NewEducationExperienceVC: UIViewController {
         for i in 1950 ..< 2019
         {
             self.PassingYears.append(String(i))
-            
         }
         
         if selectedEducation != nil && selectedEducation.id != "" {
@@ -127,6 +132,8 @@ class NewEducationExperienceVC: UIViewController {
     
     func getDropdownList(){
         let params = ["access_token":"\(accessToken)"] as Dictionary<String, String>
+        activityUIView.isHidden = false
+        activityUIView.startAnimation()
         MakeHttpPostRequest(url: userDropDown , params: params, completion: {(success, response) -> Void in
         print(response)
             let educationLevelList = response.object(forKey: "educationLevelList") as? NSArray ?? []
@@ -149,10 +156,17 @@ class NewEducationExperienceVC: UIViewController {
             for mediumEdu in mediumOfEducationList {
                 self.mediumOfEduList.append(FieldsOfEducation(mediumEdu as! NSDictionary))
             }
+            DispatchQueue.main.async {
+                self.activityUIView.isHidden = true
+                self.activityUIView.stopAnimation()
+            }
+        
         }, errorHandler: {(message) -> Void in
             let alert = GetAlertWithOKAction(message: message)
             DispatchQueue.main.async {
                 self.present(alert, animated: true, completion: nil)
+                self.activityUIView.stopAnimation()
+
             }
         })
 
@@ -212,39 +226,41 @@ class NewEducationExperienceVC: UIViewController {
     }
     @IBAction func buttonSave(_ sender: Any) {
         savebutton.isEnabled = false
-        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
-        myActivityIndicator.center = view.center
-        myActivityIndicator.hidesWhenStopped = false
-        myActivityIndicator.startAnimating()
-        view.addSubview(myActivityIndicator)
-        
         let userID = UserDefaults.standard.integer(forKey: "userid")
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let nameOfInstitute = textfieldClgName.text!
         let nameofBoardUniv = textfieldBoardUniv.text!
         let location = locationTextField.text!
+        if self.selectedEducation.educationLevel == "10th Standard Board" || self.selectedEducation.educationLevel == "12th Standard Board / Diploma"{
+            
         if  nameofBoardUniv == "" || location == "" || self.selectedEducation.mediumOfEducation == "" || nameOfInstitute == "" || self.selectedEducation.state == "" || self.selectedEducation.yearOfCompletion == "" {
+            
+            
+            }
             
             let alertcontrol = UIAlertController(title: "Alert", message: "Please check all fields are filled.", preferredStyle: .alert)
             let alertaction = UIAlertAction(title: "OK", style: .default) { (action) in
                 print("default")
-                myActivityIndicator.stopAnimating()
-                myActivityIndicator.hidesWhenStopped = true
+                self.activityUIView.isHidden = true
+                self.activityUIView.stopAnimation()
+                
                 self.savebutton.isEnabled = true
             }
             alertcontrol.addAction(alertaction)
             self.present(alertcontrol, animated: true, completion: nil)
             
-        }
-        else{
+        }else{
         let params = [ "access_token":"\(accessToken)", "userId": "\(userID)","clientId":"\(clientID)", "educationLevel": "\(self.selectedEducation.educationLevel)", "boardUniversity": "\(nameofBoardUniv)", "location": "\(location)", "mediumOfEducation" : "\(self.selectedEducation.mediumOfEducation)", "nameOfInstitute": "\(nameOfInstitute)", "specialisation" : "\(self.selectedEducation.specialisation)", "state" : "\(self.selectedEducation.state)", "id": "\(self.selectedEducation.id )","yearOfCompletion":"\(self.selectedEducation.yearOfCompletion)"] as Dictionary<String, String>
-
+            activityUIView.isHidden = false
+            activityUIView.startAnimation()
             MakeHttpPostRequest(url: saveEducationExp, params: params, completion: {(success, response) -> Void in
             DispatchQueue.main.async {
-            myActivityIndicator.stopAnimating()
-            myActivityIndicator.hidesWhenStopped = true
+
             self.savebutton.isEnabled = true
-            
+                
+                self.activityUIView.isHidden = true
+                self.activityUIView.stopAnimation()
+                
                 let vcGetStarted = self.storyboard?.instantiateViewController(withIdentifier: "signup") as! SignUpViewController
                 
                 self.present(vcGetStarted, animated: true, completion: nil)
@@ -253,6 +269,8 @@ class NewEducationExperienceVC: UIViewController {
                 let alert = GetAlertWithOKAction(message: message)
                 DispatchQueue.main.async {
                     self.present(alert, animated: true, completion: nil)
+                    self.activityUIView.stopAnimation()
+
                 }
             })
         }

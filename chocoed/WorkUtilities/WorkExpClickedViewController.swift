@@ -14,9 +14,13 @@ class WorkExpClickedViewController: UIViewController, UITableViewDelegate,UITabl
     @IBOutlet weak var addnewWorkButton: UIButton!
     var tableViewData =  [ExistingWorkList]()
     var workExperiences: NSArray = []
-    
+    var activityUIView: ActivityIndicatorUIView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
+        self.view.addSubview(activityUIView)
+        activityUIView.isHidden = true
         
         addnewWorkButton.backgroundColor = .clear
         addnewWorkButton.layer.cornerRadius = 10
@@ -24,15 +28,10 @@ class WorkExpClickedViewController: UIViewController, UITableViewDelegate,UITabl
         addnewWorkButton.layer.borderColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
         
         let userID = UserDefaults.standard.integer(forKey: "userid")
-        
-        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
-        myActivityIndicator.center = view.center
-        myActivityIndicator.hidesWhenStopped = false
-        myActivityIndicator.startAnimating()
-        view.addSubview(myActivityIndicator)
 
         let params = ["userId": "\(userID)",  "access_token":"\(accessToken)"] as Dictionary<String, String>
-        
+        activityUIView.isHidden = false
+        activityUIView.startAnimation()
         MakeHttpPostRequest(url: getUserInfo, params: params, completion: {(success, response) -> Void in
             let jsonobject = response["info"] as? NSDictionary;
             self.workExperiences = jsonobject?["userWorkExperienceList"] as? NSArray ?? []
@@ -41,9 +40,10 @@ class WorkExpClickedViewController: UIViewController, UITableViewDelegate,UITabl
                 self.tableViewData.append(ExistingWorkList(experience as! NSDictionary))
             }
             DispatchQueue.main.async {
-                myActivityIndicator.stopAnimating()
-                myActivityIndicator.hidesWhenStopped = true
+               
                 self.workListTableView.reloadData()
+                self.activityUIView.isHidden = true
+                self.activityUIView.stopAnimation()
             }
             
 //            if let json = try JSONSerialization.jsonObject(with: jsonobject, options: []) as? [String: AnyObject] {
@@ -61,6 +61,8 @@ class WorkExpClickedViewController: UIViewController, UITableViewDelegate,UITabl
             let alert = GetAlertWithOKAction(message: message)
             DispatchQueue.main.async {
                 self.present(alert, animated: true, completion: nil)
+                self.activityUIView.stopAnimation()
+
             }
         })
         // Do any additional setup after loading the view.
@@ -110,6 +112,8 @@ class WorkExpClickedViewController: UIViewController, UITableViewDelegate,UITabl
         let userID = UserDefaults.standard.integer(forKey: "userid")
         print(userID, "USER ID IS HERE")
         let params = ["userId": "\(userID)",  "access_token":"\(accessToken)"] as Dictionary<String, String>
+        activityUIView.isHidden = false
+        activityUIView.startAnimation()
         MakeHttpPostRequest(url: getUserInfo, params: params, completion: {(success, response) in
             let jsonobject = response["info"] as? NSDictionary;
             let quizTaken =  jsonobject?.object(forKey:"quizTestGiven") as? Int ?? -1
@@ -131,10 +135,17 @@ class WorkExpClickedViewController: UIViewController, UITableViewDelegate,UITabl
                     
                 }
             }
+            DispatchQueue.main.async {
+                self.activityUIView.isHidden = true
+                self.activityUIView.stopAnimation()
+            }
+
+
         }, errorHandler: {(message) -> Void in
             let alert = GetAlertWithOKAction(message: message)
             DispatchQueue.main.async {
                 self.present(alert, animated: true, completion: nil)
+                self.activityUIView.stopAnimation()
             }
         })
     }

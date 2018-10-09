@@ -12,6 +12,7 @@ class ProfileSucessViewController: UIViewController {
 
     @IBOutlet weak var letBeginButton: UIButton!
     var arrayBehaviouralQuestion = [Question]()
+    var activityUIView: ActivityIndicatorUIView!
     override func viewDidLoad() {
         super.viewDidLoad()
      //   self.view.backgroundColor = UIColor(patternImage: UIImage(named: "perfect")!)
@@ -21,6 +22,10 @@ class ProfileSucessViewController: UIViewController {
         backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
         self.view.insertSubview(backgroundImage, at: 0)
         
+        activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
+        self.view.addSubview(activityUIView)
+        activityUIView.isHidden = true
+        
         ButtonBorder()
         // Do any additional setup after loading the view.
     }
@@ -29,6 +34,10 @@ class ProfileSucessViewController: UIViewController {
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
         let params = ["access_token":"\(accessToken)","deviceId":"","deviceToken":"","deviceInfo":"","deviceType":"Andriod","userId":"\(userid!)","clienId":"\(clientID)","examId":"1"] as Dictionary<String, String>
+        
+        activityUIView.isHidden = false
+        activityUIView.startAnimation()
+
         MakeHttpPostRequest(url: examDetails, params: params, completion: {(success, response) -> Void in
             let currentTestID = response.object(forKey: "inProgressExamId") as? Int ?? 1
             print(currentTestID, "<<<=== current test id")
@@ -70,10 +79,17 @@ class ProfileSucessViewController: UIViewController {
                     print("Blah Blha")
                 }
             }
+            DispatchQueue.main.async {
+                self.activityUIView.isHidden = true
+                self.activityUIView.stopAnimation()
+                
+            }
         }, errorHandler: {(message) -> Void in
             let alert = GetAlertWithOKAction(message: message)
             DispatchQueue.main.async {
                 self.present(alert, animated: true, completion: nil)
+                self.activityUIView.stopAnimation()
+
             }
         })
     }

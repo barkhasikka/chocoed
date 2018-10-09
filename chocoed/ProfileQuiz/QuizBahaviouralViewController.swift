@@ -21,11 +21,18 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
     var arrayBehaviouralQuestion = [Question]()
     var currentExamID: Int = 0
     var startTime: Double = 0
+    var activityUIView: ActivityIndicatorUIView!
+    
     @IBOutlet weak var questionsProgressUILabel: UILabel!
     @IBOutlet weak var nextUIButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
+        self.view.addSubview(activityUIView)
+        activityUIView.isHidden = true
+        
         if currentExamID == 1 {
             self.navigationItem.title = "Behavioural Test"
         }else if currentExamID == 2 {
@@ -152,7 +159,9 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
         let userid = UserDefaults.standard.string(forKey: "userid")
         let endTime = NSDate().timeIntervalSince1970 * 1000
         let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"1","questionId":"\(questionId)","selectedAns":"\(selectedAnswer)","selectedAnsId":"\(answerId)","startTime":"\(startTime)","endTime":"\(endTime)"] as Dictionary<String, String>
-            print(params)
+        
+        activityUIView.isHidden = false
+        activityUIView.startAnimation()
         MakeHttpPostRequest(url: saveUserExamQuestionAnswer , params: params, completion: {(success, response) -> Void in
             print(response)
     ////            let language = response.object(forKey: "appList") as? NSArray ?? []
@@ -161,10 +170,17 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
     ////                self.arrayLanguages.append(LanguageList( languages as! NSDictionary))
     //            }
 
+            DispatchQueue.main.async {
+                self.activityUIView.isHidden = true
+                self.activityUIView.stopAnimation()
+            }
+            
         }, errorHandler: {(message) -> Void in
             let alert = GetAlertWithOKAction(message: message)
             DispatchQueue.main.async {
                 self.present(alert, animated: true, completion: nil)
+                self.activityUIView.stopAnimation()
+                
             }
         })
     }
@@ -229,14 +245,10 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
     func loadNextTypeQuestions(){
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
-        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
-        myActivityIndicator.center = view.center
-        myActivityIndicator.hidesWhenStopped = false
-        myActivityIndicator.startAnimating()
-        view.addSubview(myActivityIndicator)
-
+      
         let params = ["access_token":"\(accessToken)","deviceId":"","deviceToken":"","deviceInfo":"","deviceType":"Andriod","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(self.currentExamID)"] as Dictionary<String, String>
-
+        activityUIView.isHidden = false
+        activityUIView.startAnimation()
         MakeHttpPostRequest(url: examDetails, params: params, completion: {(success, response) -> Void in
             print(response)
             
@@ -246,8 +258,6 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
                 self.arrayBehaviouralQuestion.append(Question(question as! NSDictionary))
             }
             DispatchQueue.main.async {
-                myActivityIndicator.stopAnimating()
-                myActivityIndicator.hidesWhenStopped = true
                 if self.currentExamID == 3 {
                     if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "personality") as? PersonalityTestViewController {
                         vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
@@ -274,10 +284,18 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
                     self.present(vcNewSectionStarted, animated: true, completion: nil)
                 }
             }
+            
+            DispatchQueue.main.async {
+                self.activityUIView.isHidden = true
+                self.activityUIView.stopAnimation()
+            }
+            
         }, errorHandler: {(message) -> Void in
             let alert = GetAlertWithOKAction(message: message)
             DispatchQueue.main.async {
                 self.present(alert, animated: true, completion: nil)
+                self.activityUIView.stopAnimation()
+
             }
         })
     }
@@ -313,19 +331,14 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
         let endTime = NSDate().timeIntervalSince1970 * 1000
         print(endTime)
         let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(self.currentExamID)", "endTime": "\(endTime)"] as Dictionary<String, String>
-        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
-        myActivityIndicator.center = view.center
-        myActivityIndicator.hidesWhenStopped = false
-        myActivityIndicator.startAnimating()
-        view.addSubview(myActivityIndicator)
-        
+   
+        activityUIView.isHidden = false
+        activityUIView.startAnimation()
         MakeHttpPostRequest(url: endExamAPI, params: params, completion: {(success, response) -> Void in
             print(response)
             self.currentExamID = self.currentExamID + 1
             
             DispatchQueue.main.async {
-                myActivityIndicator.stopAnimating()
-                myActivityIndicator.hidesWhenStopped = true
                 self.loadNextTypeQuestions()
 //                if self.currentExamID == 3 {
 //                    if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "personality") as? PersonalityTestViewController {
@@ -349,11 +362,15 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
 //                    let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "newscreen") as! ExamComplitionScreenViewController
 //                    self.present(vcNewSectionStarted, animated: true, completion: nil)
 //                }
+                    self.activityUIView.isHidden = true
+                    self.activityUIView.stopAnimation()
+
             }
         }, errorHandler: {(message) -> Void in
             let alert = GetAlertWithOKAction(message: message)
             DispatchQueue.main.async {
                 self.present(alert, animated: true, completion: nil)
+                self.activityUIView.stopAnimation()
             }
         })
     }
