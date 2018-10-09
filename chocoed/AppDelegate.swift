@@ -21,20 +21,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(userID)
         if userID != 0 {
             GetUserInfo()
-//            let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//            let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
-//            window!.rootViewController = startVC
-//            window!.makeKeyAndVisible()
-        } else {
+       } else {
             let quiztakenid = UserDefaults.standard.string(forKey: "quiztakenID")
             print(quiztakenid)
             if quiztakenid == "1"{
+                self.window = UIWindow(frame: UIScreen.main.bounds)
                 let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
                 window!.rootViewController = startVC
                 window!.makeKeyAndVisible()
             }
             else{
+                self.window = UIWindow(frame: UIScreen.main.bounds)
                 let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "firstview") as! ViewController
                 window!.rootViewController = startVC

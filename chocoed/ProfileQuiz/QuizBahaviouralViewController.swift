@@ -8,8 +8,8 @@
 
 import UIKit
 
-class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelegate {
-    
+class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelegate,UIDragInteractionDelegate,UIDropInteractionDelegate {
+  
     @IBOutlet weak var pagesViews: UIView!
     @IBOutlet weak var optionsView: UIView!
     @IBOutlet weak var quetionLabel: UILabel!
@@ -22,12 +22,17 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
     var currentExamID: Int = 0
     var startTime: Double = 0
     var activityUIView: ActivityIndicatorUIView!
+    var imageView = UIImageView()
     
     @IBOutlet weak var questionsProgressUILabel: UILabel!
     @IBOutlet weak var nextUIButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let dragInteraction = UIDragInteraction(delegate: self)
+        imageView.addInteraction(dragInteraction)
+        imageView.isUserInteractionEnabled = true
+
         
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)
@@ -322,6 +327,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
                 self.present(vcNewSectionStarted, animated: true, completion: nil)
             }else {
                 self.currentExamID = self.currentExamID + 1
+                print(self.currentExamID)
                 loadNextTypeQuestions()
             }
         }
@@ -352,6 +358,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
         MakeHttpPostRequest(url: endExamAPI, params: params, completion: {(success, response) -> Void in
             print(response)
             self.currentExamID = self.currentExamID + 1
+            print(self.currentExamID)
             
             DispatchQueue.main.async {
                 self.loadNextTypeQuestions()
@@ -629,24 +636,33 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
             dragCircle.layer.borderWidth = 1
             dragCircle.layer.cornerRadius = 50
             dragCircle.layer.masksToBounds = true
-        
             
+            let dropInteraction = UIDropInteraction(delegate: self)
+            dragCircle.addInteraction(dropInteraction)
+            dragCircle.isUserInteractionEnabled = true
+
             previousImageView = nil
             for option in optionList {
                 let optionObject =  Option(option as! NSDictionary)
                 
-                    let imageView = UIImageView()
+                self.imageView = UIImageView()
+                
                     let fileUrl = URL(string: optionObject.ansImageUrl)
                     if let data = try? Data(contentsOf: fileUrl!) {
                         if let image = UIImage(data: data) {
-                            imageView.image = image
+                            self.imageView.image = image
+                         //   self.imageView.backgroundColor = #colorLiteral(red: 0.1921568662, green: 0.007843137719, blue: 0.09019608051, alpha: 1)
+//                            let dragInteraction = UIDragInteraction(delegate: self)
+//                            self.imageView.addInteraction(dragInteraction)
+                           self.imageView.isUserInteractionEnabled = true
                         }
                     }
-                    self.optionsView.addSubview(imageView)
-                
-                    self.setQuestionImageViewConstraints(previousImageView: previousImageView, currentImageUIView: imageView)
-                    imageView.topAnchor.constraint(equalTo: dragCircle.bottomAnchor, constant: 15).isActive = true
-                    previousImageView = imageView
+                self.optionsView.addSubview(self.imageView)
+              
+
+                self.setQuestionImageViewConstraints(previousImageView: previousImageView, currentImageUIView: self.imageView)
+                self.imageView.topAnchor.constraint(equalTo: dragCircle.bottomAnchor, constant: 15).isActive = true
+                previousImageView = self.imageView
                 
             }
         }
@@ -692,6 +708,19 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
         
     }
     
+    func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
+        let touchedPoint = session.location(in: self.view)
+        if let touchedimgeiew = self.view.hitTest(touchedPoint, with: nil) as? UIImageView{
+            let touchedimage = touchedimgeiew.image
+            let provider = NSItemProvider(object: touchedimage!)
+            let item = UIDragItem(itemProvider: provider)
+            return [item]
+            
+        }
+        
+        return []
+    }
+
     
     
     @objc func valueChanged(slider: UISlider) {
