@@ -102,9 +102,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     self.window!.makeKeyAndVisible()
                 }
                 
-            }
-                
-            else {
+            } else {
                 DispatchQueue.main.async {
                     let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                     let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "profileSuccess") as! ProfileSucessViewController
@@ -130,10 +128,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            let alert = GetAlertWithOKAction(message: message)
 //            self.present(alert, animated: true, completion: nil)
         })
-        
     }
-
-
-
 }
 
