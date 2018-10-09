@@ -514,7 +514,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
     
     func setTextWithImageOptionButtonConstraint(previousUIView: UIView!, currentUIViewFirst: UIView, currentUIViewSecond: UIView!) {
         currentUIViewFirst.translatesAutoresizingMaskIntoConstraints = false
-//        currentUIViewFirst.centerXAnchor.constraint(equalTo: self.optionsView.centerXAnchor).isActive = true
+        currentUIViewFirst.centerXAnchor.constraint(equalTo: self.optionsView.centerXAnchor).isActive = true
         currentUIViewFirst.widthAnchor.constraint(equalToConstant: 100).isActive = true
         currentUIViewFirst.heightAnchor.constraint(equalToConstant: 100).isActive = true
         if currentUIViewSecond != nil {
@@ -533,7 +533,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
                 currentUIViewSecond.topAnchor.constraint(equalTo: self.optionsView.topAnchor, constant: 20).isActive = true
             }
         }
-        currentUIViewFirst.leadingAnchor.constraint(equalTo: self.optionsView.leadingAnchor, constant: 20).isActive =  true
+//        currentUIViewFirst.leadingAnchor.constraint(equalTo: self.optionsView.leadingAnchor, constant: 20).isActive =  true
         if currentUIViewSecond != nil {
 //            currentUIViewSecond.trailingAnchor.constraint(equalTo: self.optionsView.trailingAnchor, constant: -20).isActive = true
             currentUIViewSecond.leadingAnchor.constraint(equalTo: currentUIViewFirst.trailingAnchor, constant: 30).isActive = true
