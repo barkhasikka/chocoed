@@ -11,7 +11,7 @@ import UIKit
 class SplitviewViewController: UIViewController {
     var menuvc : ViewControllerMenubar!
     var toggle = true
-    
+    var drag = ""
     @IBOutlet weak var mainviewConstraintOutlet: NSLayoutConstraint!
     @IBOutlet weak var arcView: UIView!
     @IBOutlet weak var imageProfile: UIImageView!
