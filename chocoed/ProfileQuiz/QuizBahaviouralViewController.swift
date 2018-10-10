@@ -197,7 +197,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
     //            }
 
             DispatchQueue.main.async {
-
+                self.activityUIView.isHidden = true
                 self.activityUIView.stopAnimation()
             }
             
@@ -205,6 +205,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
             let alert = GetAlertWithOKAction(message: message)
             DispatchQueue.main.async {
                 self.present(alert, animated: true, completion: nil)
+                self.activityUIView.isHidden = true
                 self.activityUIView.stopAnimation()
                 
             }
@@ -325,6 +326,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
             let alert = GetAlertWithOKAction(message: message)
             DispatchQueue.main.async {
                 self.present(alert, animated: true, completion: nil)
+                self.activityUIView.isHidden = true
                 self.activityUIView.stopAnimation()
 
             }

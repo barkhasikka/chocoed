@@ -84,6 +84,9 @@ class NewWorkExperienceVC: UIViewController {
         
         
         let params = [ "access_token":"\(accessToken)"] as Dictionary<String, String>
+        activityUIView.isHidden = false
+        activityUIView.startAnimation()
+        
         MakeHttpPostRequest(url: userDropDown, params: params, completion: {(success, response) -> Void in
             let levelOfManagement = response.object(forKey: "levelOfManagemet") as? NSArray ?? []
             let teamsHandled = response.object(forKey: "teamsHandledList") as? NSArray ?? []
@@ -111,7 +114,10 @@ class NewWorkExperienceVC: UIViewController {
         }, errorHandler: {(message) -> Void in
             let alert = GetAlertWithOKAction(message: message)
             DispatchQueue.main.async {
-                self.present(alert, animated: true, completion: nil)
+                    self.activityUIView.isHidden = true
+                    self.activityUIView.stopAnimation()
+                    self.present(alert, animated: true, completion: nil)
+                
             }
         })
     }
@@ -245,6 +251,7 @@ class NewWorkExperienceVC: UIViewController {
             let alert = GetAlertWithOKAction(message: message)
             DispatchQueue.main.async {
                 self.present(alert, animated: true, completion: nil)
+                self.activityUIView.isHidden = true
                 self.activityUIView.stopAnimation()
 
             }

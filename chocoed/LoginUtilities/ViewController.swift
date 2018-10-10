@@ -166,6 +166,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             let alert = GetAlertWithOKAction(message: message)
             DispatchQueue.main.async {
                 self.present(alert, animated: true, completion: nil)
+                self.activityUIView.isHidden = true
                 self.activityUIView.stopAnimation()
 
             }

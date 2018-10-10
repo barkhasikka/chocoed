@@ -61,6 +61,7 @@ class WorkExpClickedViewController: UIViewController, UITableViewDelegate,UITabl
             let alert = GetAlertWithOKAction(message: message)
             DispatchQueue.main.async {
                 self.present(alert, animated: true, completion: nil)
+                self.activityUIView.isHidden = true
                 self.activityUIView.stopAnimation()
 
             }
@@ -137,6 +138,7 @@ class WorkExpClickedViewController: UIViewController, UITableViewDelegate,UITabl
             }
             DispatchQueue.main.async {
                 self.activityUIView.isHidden = true
+                
                 self.activityUIView.stopAnimation()
             }
 
@@ -146,6 +148,7 @@ class WorkExpClickedViewController: UIViewController, UITableViewDelegate,UITabl
             DispatchQueue.main.async {
                 self.present(alert, animated: true, completion: nil)
                 self.activityUIView.stopAnimation()
+                self.activityUIView.isHidden = true
             }
         })
     }
