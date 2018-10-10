@@ -2666,7 +2666,7 @@
                                                                     <constraint firstAttribute="height" constant="30" id="obA-zt-Mvf"/>
                                                                     <constraint firstAttribute="width" constant="30" id="xKY-5e-6CW"/>
                                                                 </constraints>
-                                                                <state key="normal" image="ic_reatil_skill"/>
+                                                                <state key="normal" image="conversation_big"/>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2817,7 +2817,7 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Skills" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cCo-9w-MzR">
                                 <rect key="frame" x="0.0" y="64" width="375" height="25"/>
-                                <color key="backgroundColor" red="0.30588235294117649" green="0.0" blue="0.59607843137254901" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.13831761438221166" green="0.2274862161613441" blue="0.86042592005076146" alpha="0.85271297089041098" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="f24-5s-GsF"/>
                                 </constraints>
@@ -2904,11 +2904,51 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9RB-SA-jMX"/>
                     </view>
-                    <navigationItem key="navigationItem" title="My Choice" id="TNn-V2-zSt"/>
+                    <navigationItem key="navigationItem" title="My Choice" id="TNn-V2-zSt">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="icons8-long_arrow_left_filled" id="BfW-ey-kWM">
+                            <color key="tintColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="backButtonAction:" destination="gsz-Gt-PNX" id="l1q-nt-TJc"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="icons8-menu_2_filled" id="mhx-gJ-f2h">
+                            <color key="tintColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tTa-Sf-IXu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2688.8000000000002" y="2990.5547226386807"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="GOu-ix-irE">
+            <objects>
+                <viewController id="UxP-1i-fFc" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3lH-EL-7Y3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="1lK-mj-CpN"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SQO-zd-je6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3329" y="2991"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="8sd-LY-oU0">
+            <objects>
+                <viewController id="hU7-CB-gQP" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lXX-sU-5xG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="IMH-jx-J7q"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uUk-Gq-x9m" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3967" y="2991"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Cl4-ak-fna">
@@ -3012,13 +3052,15 @@
         <image name="chocoed_white_logo" width="222" height="60"/>
         <image name="completedtopics" width="24" height="22"/>
         <image name="content" width="32" height="31"/>
+        <image name="conversation_big" width="47" height="44"/>
         <image name="ic_choice_conversion_content_connect" width="1080" height="292"/>
         <image name="ic_drop_down" width="24" height="24"/>
         <image name="ic_education" width="50" height="50"/>
         <image name="ic_education_selected" width="80" height="80"/>
         <image name="ic_experience" width="50" height="50"/>
         <image name="ic_experience_selected" width="80" height="80"/>
-        <image name="ic_reatil_skill" width="200" height="192"/>
+        <image name="icons8-long_arrow_left_filled" width="16" height="16"/>
+        <image name="icons8-menu_2_filled" width="25" height="25"/>
         <image name="icons8-menu_filled" width="16" height="16"/>
         <image name="image_icon" width="60" height="50"/>
         <image name="loginButtonBackground" width="651" height="97"/>
