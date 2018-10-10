@@ -162,6 +162,13 @@ class SplitviewViewController: UIViewController {
         
     }
 
+    @IBAction func MychoiceAction(_ sender: Any) {
+        
+        let choicevc = self.storyboard?.instantiateViewController(withIdentifier: "mychoice") as? MyChoiceSkillsViewController
+            let aObjNavi = UINavigationController(rootViewController: choicevc!)
+            aObjNavi.navigationBar.barTintColor = UIColor.blue
+            self.present(aObjNavi, animated: true, completion: nil)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

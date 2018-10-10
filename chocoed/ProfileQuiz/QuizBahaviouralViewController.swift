@@ -666,21 +666,14 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
             for option in optionList {
                 let optionObject =  Option(option as! NSDictionary)
                 
-                self.imageView = UIImageView()
-                
                     let fileUrl = URL(string: optionObject.ansImageUrl)
                     if let data = try? Data(contentsOf: fileUrl!) {
                         if let image = UIImage(data: data) {
-                            self.imageView.image = image
-                         //   self.imageView.backgroundColor = #colorLiteral(red: 0.1921568662, green: 0.007843137719, blue: 0.09019608051, alpha: 1)
-//                            let dragInteraction = UIDragInteraction(delegate: self)
-//                            self.imageView.addInteraction(dragInteraction)
-                           self.imageView.isUserInteractionEnabled = true
+                            self.imageView = DraggableImageView(image:image)
+                            self.imageView.isUserInteractionEnabled = true
                         }
                     }
                 self.optionsView.addSubview(self.imageView)
-              
-
                 self.setQuestionImageViewConstraints(previousImageView: previousImageView, currentImageUIView: self.imageView)
                 self.imageView.topAnchor.constraint(equalTo: self.dragCircle.bottomAnchor, constant: 15).isActive = true
                 previousImageView = self.imageView

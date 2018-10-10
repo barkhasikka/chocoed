@@ -112,7 +112,8 @@ class DraggableImageView: UIImageView {
         
         self.isUserInteractionEnabled = true   //< w00000t!!!1
         
-        addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "handlePan:"))
+//        addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "handlePan:"))
+        addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePan(nizer:))))
         
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOffset = CGSize(width: 0, height: 3)
@@ -124,11 +125,10 @@ class DraggableImageView: UIImageView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func handlePan(nizer: UIPanGestureRecognizer!) {
+    @objc func handlePan(nizer: UIPanGestureRecognizer!) {
         if nizer.state == UIGestureRecognizerState.began {
             let locationInView = nizer.location(in: superview)
             dragStartPositionRelativeToCenter = CGPoint(x: locationInView.x - center.x, y: locationInView.y - center.y)
-            
             layer.shadowOffset = CGSize(width: 0, height: 20)
             layer.shadowOpacity = 0.3
             layer.shadowRadius = 6
