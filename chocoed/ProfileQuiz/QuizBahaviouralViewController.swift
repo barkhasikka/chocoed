@@ -319,16 +319,17 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
         } else {
             //user has traversed all the questions. Now we need to hide next button and call end test API and then present new type nest vc
             self.nextUIButton.isHidden = true
-            self.callEndTestAPI()
             loadSaveExamQuestionAnswer()
+            self.callEndTestAPI()
+            
             if self.currentExamID == 3 {
                
                 let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "newscreen") as! ExamComplitionScreenViewController
                 self.present(vcNewSectionStarted, animated: true, completion: nil)
             }else {
-                self.currentExamID = self.currentExamID + 1
-                print(self.currentExamID)
-                loadNextTypeQuestions()
+//                self.currentExamID = self.currentExamID + 1
+//                print(self.currentExamID)
+//                loadNextTypeQuestions()
             }
         }
     }
@@ -352,7 +353,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
         let endTime = NSDate().timeIntervalSince1970 * 1000
         print(endTime)
         let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(self.currentExamID)", "endTime": "\(endTime)"] as Dictionary<String, String>
-   
+        print(params, "<<<<-- end test api")
         activityUIView.isHidden = false
         activityUIView.startAnimation()
         MakeHttpPostRequest(url: endExamAPI, params: params, completion: {(success, response) -> Void in
@@ -361,6 +362,8 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
             print(self.currentExamID)
             
             DispatchQueue.main.async {
+                self.activityUIView.isHidden = true
+                self.activityUIView.stopAnimation()
                 self.loadNextTypeQuestions()
 //                if self.currentExamID == 3 {
 //                    if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "personality") as? PersonalityTestViewController {
@@ -383,15 +386,13 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
 //                } else {
 //                    let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "newscreen") as! ExamComplitionScreenViewController
 //                    self.present(vcNewSectionStarted, animated: true, completion: nil)
-//                }
-                    self.activityUIView.isHidden = true
-                    self.activityUIView.stopAnimation()
-
+                //                }
             }
         }, errorHandler: {(message) -> Void in
             let alert = GetAlertWithOKAction(message: message)
             DispatchQueue.main.async {
                 self.present(alert, animated: true, completion: nil)
+                self.activityUIView.isHidden = true
                 self.activityUIView.stopAnimation()
             }
         })
