@@ -8,8 +8,20 @@
 
 import UIKit
 
-class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelegate,UIDragInteractionDelegate,UIDropInteractionDelegate {
+class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelegate{
   
+
+    enum DraggingImageType {
+      case none
+      //  case afro
+        //case mask
+    }
+
+    enum DraggingOperationType {
+        case add
+        case remove
+    }
+
     @IBOutlet weak var pagesViews: UIView!
     @IBOutlet weak var optionsView: UIView!
     @IBOutlet weak var quetionLabel: UILabel!
@@ -23,16 +35,22 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
     var startTime: Double = 0
     var activityUIView: ActivityIndicatorUIView!
     var imageView = UIImageView()
+    var dragCircle = UILabel()
+    
     
     @IBOutlet weak var questionsProgressUILabel: UILabel!
     @IBOutlet weak var nextUIButton: UIButton!
-    
+    var draggingImageType: DraggingImageType = .none
+    var draggingOperationType: DraggingOperationType = .add
+//
     override func viewDidLoad() {
         super.viewDidLoad()
-        let dragInteraction = UIDragInteraction(delegate: self)
-        imageView.addInteraction(dragInteraction)
-        imageView.isUserInteractionEnabled = true
+        
+        imageView.transform = CGAffineTransform(rotationAngle: -.pi / 30.0)
 
+        imageView.isUserInteractionEnabled = true
+        imageView.addInteraction(UIDragInteraction(delegate: self))
+        dragCircle.addInteraction(UIDropInteraction(delegate: self as UIDropInteractionDelegate))
         
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)
@@ -179,7 +197,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
     //            }
 
             DispatchQueue.main.async {
-                self.activityUIView.isHidden = true
+
                 self.activityUIView.stopAnimation()
             }
             
@@ -608,38 +626,38 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
             let questionImageList = self.arrayBehaviouralQuestion[self.currentQuestion].questionList
             var previousImageView : UIImageView!
             for question in questionImageList {
-                let imageView = UIImageView()
+                let imageViewQuestion = UIImageView()
                 let fileUrl = URL(string: question as! String)
                 if let data = try? Data(contentsOf: fileUrl!) {
                     if let image = UIImage(data: data) {
-                        imageView.image = image
+                        imageViewQuestion.image = image
                     }
                 }
-                self.optionsView.addSubview(imageView)
-                self.setQuestionImageViewConstraints(previousImageView: previousImageView, currentImageUIView: imageView)
-                imageView.topAnchor.constraint(equalTo: self.quetionLabel.bottomAnchor, constant: 15).isActive = true
-                previousImageView = imageView
+                self.optionsView.addSubview(imageViewQuestion)
+                self.setQuestionImageViewConstraints(previousImageView: previousImageView, currentImageUIView: imageViewQuestion)
+                imageViewQuestion.topAnchor.constraint(equalTo: self.quetionLabel.bottomAnchor, constant: 15).isActive = true
+                previousImageView = imageViewQuestion
             }
             
             
-            let dragCircle = UILabel()
-            dragCircle.text = "Drag Here"
-            dragCircle.textColor = .darkGray
-            self.optionsView.addSubview(dragCircle)
-            dragCircle.translatesAutoresizingMaskIntoConstraints = false
-            dragCircle.textAlignment = NSTextAlignment.center
-            dragCircle.heightAnchor.constraint(equalToConstant: 100).isActive = true
-            dragCircle.widthAnchor.constraint(equalToConstant: 100).isActive = true
-            dragCircle.topAnchor.constraint(equalTo: previousImageView.bottomAnchor, constant: 15).isActive = true
-            dragCircle.centerXAnchor.constraint(equalTo: self.optionsView.centerXAnchor).isActive = true
-            dragCircle.layer.borderColor = UIColor.darkGray.cgColor
-            dragCircle.layer.borderWidth = 1
-            dragCircle.layer.cornerRadius = 50
-            dragCircle.layer.masksToBounds = true
+            self.dragCircle = UILabel()
+            self.dragCircle.text = "Drag Here"
+            self.dragCircle.textColor = .darkGray
+            self.optionsView.addSubview(self.dragCircle)
+            self.dragCircle.translatesAutoresizingMaskIntoConstraints = false
+            self.dragCircle.textAlignment = NSTextAlignment.center
+            self.dragCircle.heightAnchor.constraint(equalToConstant: 100).isActive = true
+            self.dragCircle.widthAnchor.constraint(equalToConstant: 100).isActive = true
+            self.dragCircle.topAnchor.constraint(equalTo: previousImageView.bottomAnchor, constant: 15).isActive = true
+            self.dragCircle.centerXAnchor.constraint(equalTo: self.optionsView.centerXAnchor).isActive = true
+            self.dragCircle.layer.borderColor = UIColor.darkGray.cgColor
+            self.dragCircle.layer.borderWidth = 1
+            self.dragCircle.layer.cornerRadius = 50
+            self.dragCircle.layer.masksToBounds = true
             
-            let dropInteraction = UIDropInteraction(delegate: self)
-            dragCircle.addInteraction(dropInteraction)
-            dragCircle.isUserInteractionEnabled = true
+//            let dropInteraction = UIDropInteraction(delegate: self as! UIDropInteractionDelegate)
+//            dragCircle.addInteraction(dropInteraction)
+//            dragCircle.isUserInteractionEnabled = true
 
             previousImageView = nil
             for option in optionList {
@@ -661,7 +679,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
               
 
                 self.setQuestionImageViewConstraints(previousImageView: previousImageView, currentImageUIView: self.imageView)
-                self.imageView.topAnchor.constraint(equalTo: dragCircle.bottomAnchor, constant: 15).isActive = true
+                self.imageView.topAnchor.constraint(equalTo: self.dragCircle.bottomAnchor, constant: 15).isActive = true
                 previousImageView = self.imageView
                 
             }
@@ -707,19 +725,19 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
             }
         
     }
-    
-    func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
-        let touchedPoint = session.location(in: self.view)
-        if let touchedimgeiew = self.view.hitTest(touchedPoint, with: nil) as? UIImageView{
-            let touchedimage = touchedimgeiew.image
-            let provider = NSItemProvider(object: touchedimage!)
-            let item = UIDragItem(itemProvider: provider)
-            return [item]
-            
-        }
-        
-        return []
-    }
+//
+//    func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
+//        let touchedPoint = session.location(in: self.view)
+//        if let touchedimgeiew = self.view.hitTest(touchedPoint, with: nil) as? UIImageView{
+//            let touchedimage = touchedimgeiew.image
+//            let provider = NSItemProvider(object: touchedimage!)
+//            let item = UIDragItem(itemProvider: provider)
+//            return [item]
+//
+//        }
+//
+//        return []
+//    }
 
     
     
