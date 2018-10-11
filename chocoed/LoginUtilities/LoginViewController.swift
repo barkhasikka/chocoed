@@ -10,11 +10,11 @@ import UIKit
 
 class LoginViewController: UIViewController ,UITextFieldDelegate
 {
+    @IBOutlet weak var topOutlet: NSLayoutConstraint!
     @IBOutlet weak var labelMobileNo: UILabel!
-    
     @IBOutlet weak var otpReceivedLabel: UILabel!
     @IBOutlet weak var receivedOTPUIView: UIView!
-    
+    var temp = ModelClassLoginId()
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var sendOTPButton: UIButton!
     @IBOutlet weak var labelInstruct: UILabel!
@@ -33,6 +33,8 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        registerButton.isEnabled = false
+        self.mobileNumberTextFIeld.text = textfieldMbNumber
         otpReceivedLabel.isHidden = true
         receivedOTPUIView.isHidden = true
         registerButton.isHidden = true
@@ -62,9 +64,6 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         otpDigitFourthTF.setBottomBorder()
         otpDigitFifthTF.setBottomBorder()
         otpDigitSixthTF.setBottomBorder()
-        
-        
-
         otpDigitFirstTF.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControlEvents.editingChanged)
         otpDigitSecondTF.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControlEvents.editingChanged)
         otpDigitThirdTF.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControlEvents.editingChanged)
@@ -90,6 +89,12 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         var userEnteredOTPText = otpDigitFirstTF.text! + otpDigitSecondTF.text! + otpDigitThirdTF.text! + otpDigitFourthTF.text! + otpDigitFifthTF.text! + otpDigitSixthTF.text!
         let userEnteredOTP = Int(userEnteredOTPText)
         if userEnteredOTP == otpFromServer {
+            
+            
+            let storedUserMobileNo = self.mobileNumberTextFIeld.text
+            UserDefaults.standard.set(storedUserMobileNo, forKey: "mobileno")
+
+            UserDefaults.standard.set(Int(temp.userId), forKey: "userid")
             self.GetUserInfo()
 //            let vcGetStarted = storyboard?.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
 //            self.present(vcGetStarted, animated: true, completion: nil)
@@ -173,9 +178,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
     }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
         if string.isBackspace && textField.text! == "" {
-            print("Back space is detected")
             switch textField{
             case otpDigitSecondTF:
                 otpDigitSecondTF.resignFirstResponder()
@@ -216,9 +219,16 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
     
     @objc func textFieldDidChange(textField: UITextField) {
         let text = textField.text
+        
         if text?.utf16.count == 1 {
             switch textField{
             case otpDigitFirstTF:
+                self.view.layoutIfNeeded()
+                UIView.animate(withDuration: 1, animations: {
+                    self.topOutlet.constant = 55
+                    self.view.layoutIfNeeded()
+                })
+
                 otpDigitSecondTF.becomeFirstResponder()
                 
             case otpDigitSecondTF:
@@ -256,16 +266,14 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
             activityUIView.startAnimation()
             MakeHttpPostRequest(url: sendOtpApiURL, params: params, completion: {(success, response) -> Void in
                 print(response)
-                let temp = ModelClassLoginId()
-                
-                temp.userId = response.value(forKey: "userId") as? String ?? ""
-                temp.otp = response.value(forKey: "otp") as? Int ?? 0
-                UserDefaults.standard.set(Int(temp.userId), forKey: "userid")
-                self.otpFromServer = temp.otp
+                 self.temp.userId = response.value(forKey: "userId") as? String ?? ""
+                self.temp.otp = response.value(forKey: "otp") as? Int ?? 0
+                self.otpFromServer = self.temp.otp
                 
                 DispatchQueue.main.async {
                     self.activityUIView.isHidden = true
                     self.activityUIView.stopAnimation()
+                    self.registerButton.isEnabled = true
                 }
             }, errorHandler: {(message) -> Void in
                 let alert = GetAlertWithOKAction(message: message)
@@ -279,10 +287,16 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
     }
     @objc
     func hideKeyboard(){
+        self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 1, animations: {
+            self.topOutlet.constant = 96
+            self.view.layoutIfNeeded()
+        })
         DispatchQueue.main.async {
             self.otpReceivedLabel.isHidden = false
             self.receivedOTPUIView.isHidden = false
             self.registerButton.isHidden = false
+            
         }
         self.view.endEditing(true)
         sendOTPAPI()

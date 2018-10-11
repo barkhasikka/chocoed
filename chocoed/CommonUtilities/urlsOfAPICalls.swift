@@ -23,4 +23,4 @@ let saveUserExamQuestionAnswer = "http://dev.chocoed.com/api/user/saveExanQuesti
 let endExamAPI = "http://dev.chocoed.com/api/user/endExam"
 var answerId = -1
 var USERDETAILS : UserDetails!
-
+var textfieldMbNumber = ""

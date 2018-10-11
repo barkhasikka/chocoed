@@ -14,7 +14,12 @@ class MyChoiceSkillsViewController: UIViewController,UICollectionViewDelegate,UI
     override func viewDidLoad() {
         
         super.viewDidLoad()
-
+        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.image = UIImage(named: "background_pattern")
+        backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
+        self.view.insertSubview(backgroundImage, at: 0)
+        
+        
         // Do any additional setup after loading the view.
     }
 
@@ -27,7 +32,10 @@ class MyChoiceSkillsViewController: UIViewController,UICollectionViewDelegate,UI
         
         let vcbackDashboard = self.storyboard?.instantiateViewController(withIdentifier: "split") as? SplitviewViewController
         let aObjNavi = UINavigationController(rootViewController: vcbackDashboard!)
-        aObjNavi.navigationBar.tintColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+        aObjNavi.navigationBar.barTintColor = #colorLiteral(red: 0.1383176144, green: 0.2274862162, blue: 0.8604259201, alpha: 1)
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+
         self.present(aObjNavi, animated: true, completion: nil)
 
     }
@@ -51,4 +59,25 @@ class MyChoiceSkillsViewController: UIViewController,UICollectionViewDelegate,UI
         cell.imageview.image = images[indexPath.row]
         return cell
     }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let padding: CGFloat =  50
+        let collectionViewSize = collectionView.frame.size.width - padding
+        
+        return CGSize(width: collectionViewSize/2, height: collectionViewSize/2)
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 0:
+            let vcSkills = self.storyboard?.instantiateViewController(withIdentifier: "personalityupgrade") as? personalityUpgradeViewController
+            let aObjNavi = UINavigationController(rootViewController: vcSkills!)
+            aObjNavi.navigationBar.barTintColor = #colorLiteral(red: 0.08052674438, green: 0.186350315, blue: 0.8756543464, alpha: 1)
+            aObjNavi.navigationBar.tintColor = UIColor.white
+            aObjNavi.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+            self.present(aObjNavi, animated: true, completion: nil)
+            break
+        default:
+            print("Nothing selected")
+        }
+    }
+
 }

@@ -86,20 +86,25 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
             break;
             
         case 4 :
+            textfieldMbNumber = UserDefaults.standard.string(forKey: "mobileno")!
             let alertcontrol = UIAlertController(title: "Alert", message: "Are you sure you want to logout?",preferredStyle: .alert)
             let alertaction = UIAlertAction(title: "No", style: .default) { (action) in
                 print("No I don't want to logout")
             }
             let alertaction1 = UIAlertAction(title: "Yes", style: .default) { (action) in
+                
+                textfieldMbNumber = UserDefaults.standard.string(forKey: "mobileno")! ?? ""
+                
                 let domain = Bundle.main.bundleIdentifier!
                 UserDefaults.standard.removePersistentDomain(forName: domain)
                 UserDefaults.standard.synchronize()
                 print(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)
                 let v2 = self.storyboard?.instantiateViewController(withIdentifier: "firstview") as! ViewController
                 self.present(v2, animated: true, completion: nil)
-                
+                print(textfieldMbNumber)
                // self.navigationController?.pushViewController(v2, animated: true)
             }
+            
             alertcontrol.addAction(alertaction)
             alertcontrol.addAction(alertaction1)
             self.present(alertcontrol, animated: true, completion: nil)

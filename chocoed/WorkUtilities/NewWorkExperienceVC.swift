@@ -108,9 +108,11 @@ class NewWorkExperienceVC: UIViewController {
             for teamHandledSize in industrySectorList {
                 self.industrySectorList.append(FieldsOfWork(teamHandledSize as! NSDictionary))
             }
+            DispatchQueue.main.async {
+                self.activityUIView.isHidden = true
+                self.activityUIView.stopAnimation()
+            }
             
-//            print(response.object(forKey: "industrySectorList"), "industry sector list")
-//            response.object(forKey: "functionalDepartmentList")
         }, errorHandler: {(message) -> Void in
             let alert = GetAlertWithOKAction(message: message)
             DispatchQueue.main.async {
@@ -213,6 +215,8 @@ class NewWorkExperienceVC: UIViewController {
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         
         let companyName = textFieldCompany.text!
+        
+        
         if companyName == "" || self.toButton.titleLabel?.text == "Select Year" || self.fromButton.titleLabel?.text == "Select From" || self.managementLevelButton.titleLabel?.text == "Select Management Level" || self.teamsHandeledButton.titleLabel?.text == "Select Tearms Handled" || self.currentIndustryButton.titleLabel?.text == "Select Current Industry" || self.funcExpButton.titleLabel?.text == "Select Functional Experitise"{
 //            || self.selectedWorkExperience.industrySector == "" || companyName == "" || self.selectedWorkExperience.fromYear == "" ||  self.selectedWorkExperience.functionalDepartment == "" || self.selectedWorkExperience.levelOfManagement == "" || self.selectedWorkExperience.teamSize == "" ||  self.selectedWorkExperience.id == "" ) {
         
@@ -236,17 +240,17 @@ class NewWorkExperienceVC: UIViewController {
         MakeHttpPostRequest(url: saveWorkExperience, params: params, completion: {(success, response) -> Void in
             print(response, "SAVE WORK RESPONSE")
             DispatchQueue.main.async {
-                self.saveButton.isEnabled = true
-            }
-
-            DispatchQueue.main.async {
                 self.activityUIView.isHidden = true
                 self.activityUIView.stopAnimation()
-
+                self.saveButton.isEnabled = true
                 let vcGetStarted = self.storyboard?.instantiateViewController(withIdentifier: "work") as! WorkExpClickedViewController
                 
                 self.present(vcGetStarted, animated: true, completion: nil)
             }
+
+//            DispatchQueue.main.async {
+//                
+//            }
         }, errorHandler: {(message) -> Void in
             let alert = GetAlertWithOKAction(message: message)
             DispatchQueue.main.async {

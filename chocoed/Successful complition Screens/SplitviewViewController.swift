@@ -168,7 +168,9 @@ class SplitviewViewController: UIViewController {
             let aObjNavi = UINavigationController(rootViewController: choicevc!)
           //  navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.1568627451, green: 0.1921568627, blue: 0.6549019608, alpha: 1)
                 //navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.1568627451, green: 0.1921568627, blue: 0.6549019608, alpha: 1)
-           aObjNavi.navigationBar.barTintColor = #colorLiteral(red: 0.08052674438, green: 0.186350315, blue: 0.8756543464, alpha: 1)
+            aObjNavi.navigationBar.barTintColor = #colorLiteral(red: 0.08052674438, green: 0.186350315, blue: 0.8756543464, alpha: 1)
+            aObjNavi.navigationBar.tintColor = UIColor.white
+            aObjNavi.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
             self.present(aObjNavi, animated: true, completion: nil)
     }
     override func didReceiveMemoryWarning() {

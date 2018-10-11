@@ -68,6 +68,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
 //        labelMobileno.isHidden = true
 //
         self.hideKeyboardWhenTappedAround()
+        
         self.popUpView.isHidden = true
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTappedPopup(tapGestureRecognizer:)))
         imageviewCircle.isUserInteractionEnabled = true
@@ -433,9 +434,11 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
 
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
+        
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
+        
     }
     
     @objc func dismissKeyboard() {

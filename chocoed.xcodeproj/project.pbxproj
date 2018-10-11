@@ -11,12 +11,15 @@
 		07583C3D21673EFE00CE6EB6 /* ExamComplitionScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07583C3C21673EFE00CE6EB6 /* ExamComplitionScreenViewController.swift */; };
 		0770F792216DCAF100FE6132 /* dragExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770F791216DCAF100FE6132 /* dragExtension.swift */; };
 		0770F794216DCBF300FE6132 /* dropExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770F793216DCBF300FE6132 /* dropExtension.swift */; };
+		07869427216F4F3A008DB9FF /* personalityUpgradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07869426216F4F3A008DB9FF /* personalityUpgradeViewController.swift */; };
+		07869429216F4F6D008DB9FF /* PersonalityUpgradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07869428216F4F6D008DB9FF /* PersonalityUpgradeTableViewCell.swift */; };
 		07967BF221679FBC00FB0E83 /* MenuBarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07967BF121679FBC00FB0E83 /* MenuBarTableViewCell.swift */; };
 		07994B6521676677007D3890 /* SplitviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07994B6421676677007D3890 /* SplitviewViewController.swift */; };
 		07994B672167716C007D3890 /* ViewControllerMenubar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07994B662167716C007D3890 /* ViewControllerMenubar.swift */; };
 		07ABDDAC216E10480029CC54 /* MyChoiceSkillsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07ABDDAB216E10480029CC54 /* MyChoiceSkillsViewController.swift */; };
 		07ABDDAE216E10910029CC54 /* MyskillsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07ABDDAD216E10910029CC54 /* MyskillsCollectionViewCell.swift */; };
 		07DB9F59216C866500696B5A /* ActivityIndicatorUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DB9F58216C866500696B5A /* ActivityIndicatorUIView.swift */; };
+		07E07B0B216F6A31004DBE2D /* SubViewPersonalityUpgradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E07B0A216F6A31004DBE2D /* SubViewPersonalityUpgradeViewController.swift */; };
 		A2B2CB1A25278D36BECB09E6 /* Pods_chocoed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B250FCA754272F8054867D5 /* Pods_chocoed.framework */; };
 		BF20726A2164DDD10038F30B /* PersonalityTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2072692164DDD10038F30B /* PersonalityTestViewController.swift */; };
 		BF20E8402156558700CFA53C /* ModelProfileClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF20E83F2156558700CFA53C /* ModelProfileClass.swift */; };
@@ -55,12 +58,15 @@
 		07583C3C21673EFE00CE6EB6 /* ExamComplitionScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamComplitionScreenViewController.swift; sourceTree = "<group>"; };
 		0770F791216DCAF100FE6132 /* dragExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dragExtension.swift; sourceTree = "<group>"; };
 		0770F793216DCBF300FE6132 /* dropExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dropExtension.swift; sourceTree = "<group>"; };
+		07869426216F4F3A008DB9FF /* personalityUpgradeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = personalityUpgradeViewController.swift; sourceTree = "<group>"; };
+		07869428216F4F6D008DB9FF /* PersonalityUpgradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalityUpgradeTableViewCell.swift; sourceTree = "<group>"; };
 		07967BF121679FBC00FB0E83 /* MenuBarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarTableViewCell.swift; sourceTree = "<group>"; };
 		07994B6421676677007D3890 /* SplitviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitviewViewController.swift; sourceTree = "<group>"; };
 		07994B662167716C007D3890 /* ViewControllerMenubar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerMenubar.swift; sourceTree = "<group>"; };
 		07ABDDAB216E10480029CC54 /* MyChoiceSkillsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyChoiceSkillsViewController.swift; sourceTree = "<group>"; };
 		07ABDDAD216E10910029CC54 /* MyskillsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyskillsCollectionViewCell.swift; sourceTree = "<group>"; };
 		07DB9F58216C866500696B5A /* ActivityIndicatorUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorUIView.swift; sourceTree = "<group>"; };
+		07E07B0A216F6A31004DBE2D /* SubViewPersonalityUpgradeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubViewPersonalityUpgradeViewController.swift; sourceTree = "<group>"; };
 		3FB7C1FAA18E54982E5C700C /* Pods-chocoed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chocoed.debug.xcconfig"; path = "Pods/Target Support Files/Pods-chocoed/Pods-chocoed.debug.xcconfig"; sourceTree = "<group>"; };
 		71D8E08D3C2165BF37086AB1 /* Pods-chocoed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chocoed.release.xcconfig"; path = "Pods/Target Support Files/Pods-chocoed/Pods-chocoed.release.xcconfig"; sourceTree = "<group>"; };
 		7B250FCA754272F8054867D5 /* Pods_chocoed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_chocoed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,6 +131,16 @@
 			path = "Successful complition Screens";
 			sourceTree = "<group>";
 		};
+		07869425216F4F09008DB9FF /* Personality Upgrades */ = {
+			isa = PBXGroup;
+			children = (
+				07869426216F4F3A008DB9FF /* personalityUpgradeViewController.swift */,
+				07E07B0A216F6A31004DBE2D /* SubViewPersonalityUpgradeViewController.swift */,
+				07869428216F4F6D008DB9FF /* PersonalityUpgradeTableViewCell.swift */,
+			);
+			path = "Personality Upgrades";
+			sourceTree = "<group>";
+		};
 		07ABDDAA216E0FA00029CC54 /* MychoiceModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -172,6 +188,7 @@
 		BF2358E8214FD0AC00C73BE3 /* chocoed */ = {
 			isa = PBXGroup;
 			children = (
+				07869425216F4F09008DB9FF /* Personality Upgrades */,
 				07ABDDAA216E0FA00029CC54 /* MychoiceModule */,
 				07583C3B21673EAA00CE6EB6 /* Successful complition Screens */,
 				BF4BE1FA216398680082198D /* ProfileQuiz */,
@@ -398,6 +415,7 @@
 				0770F792216DCAF100FE6132 /* dragExtension.swift in Sources */,
 				BF356CC32155233C003CC228 /* LanguageTableViewCell.swift in Sources */,
 				BFCD056C215264B4009BE2C9 /* TPKeyboardAvoidingScrollView.m in Sources */,
+				07869429216F4F6D008DB9FF /* PersonalityUpgradeTableViewCell.swift in Sources */,
 				BF2CBBE82150DCE400E13EA5 /* NewWorkExperienceVC.swift in Sources */,
 				BF6166F32154D19D0009B991 /* urlsOfAPICalls.swift in Sources */,
 				BF2CBBEC2150F6C100E13EA5 /* SignUpViewController.swift in Sources */,
@@ -407,6 +425,7 @@
 				BF2CBBE02150C4D400E13EA5 /* LoginViewController.swift in Sources */,
 				07994B6521676677007D3890 /* SplitviewViewController.swift in Sources */,
 				BF20726A2164DDD10038F30B /* PersonalityTestViewController.swift in Sources */,
+				07869427216F4F3A008DB9FF /* personalityUpgradeViewController.swift in Sources */,
 				BFCD056B215264B4009BE2C9 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				BF20E8402156558700CFA53C /* ModelProfileClass.swift in Sources */,
 				07ABDDAC216E10480029CC54 /* MyChoiceSkillsViewController.swift in Sources */,
@@ -422,6 +441,7 @@
 				BF2E5A26215A1CE7005845A9 /* CommonUIElements.swift in Sources */,
 				BF52BD68215B8B3C00E2BDB9 /* ProfileSucessViewController.swift in Sources */,
 				BF4BE1F1216396260082198D /* BehavioralViewController.swift in Sources */,
+				07E07B0B216F6A31004DBE2D /* SubViewPersonalityUpgradeViewController.swift in Sources */,
 				BF4BE1F72163964D0082198D /* PsychometricTestViewController.swift in Sources */,
 				07DB9F59216C866500696B5A /* ActivityIndicatorUIView.swift in Sources */,
 				07583C3D21673EFE00CE6EB6 /* ExamComplitionScreenViewController.swift in Sources */,
