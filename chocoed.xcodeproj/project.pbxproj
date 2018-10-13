@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		070791602170CF5600C01F70 /* TopicsStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0707915F2170CF5600C01F70 /* TopicsStatusViewController.swift */; };
 		07583C3A2167277D00CE6EB6 /* Chocoed Splash Screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 07583C392167277C00CE6EB6 /* Chocoed Splash Screen.png */; };
 		07583C3D21673EFE00CE6EB6 /* ExamComplitionScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07583C3C21673EFE00CE6EB6 /* ExamComplitionScreenViewController.swift */; };
 		0770F792216DCAF100FE6132 /* dragExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770F791216DCAF100FE6132 /* dragExtension.swift */; };
@@ -54,6 +55,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0707915F2170CF5600C01F70 /* TopicsStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsStatusViewController.swift; sourceTree = "<group>"; };
 		07583C392167277C00CE6EB6 /* Chocoed Splash Screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chocoed Splash Screen.png"; sourceTree = "<group>"; };
 		07583C3C21673EFE00CE6EB6 /* ExamComplitionScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamComplitionScreenViewController.swift; sourceTree = "<group>"; };
 		0770F791216DCAF100FE6132 /* dragExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dragExtension.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				07869426216F4F3A008DB9FF /* personalityUpgradeViewController.swift */,
+				0707915F2170CF5600C01F70 /* TopicsStatusViewController.swift */,
 				07E07B0A216F6A31004DBE2D /* SubViewPersonalityUpgradeViewController.swift */,
 				07869428216F4F6D008DB9FF /* PersonalityUpgradeTableViewCell.swift */,
 			);
@@ -418,6 +421,7 @@
 				07869429216F4F6D008DB9FF /* PersonalityUpgradeTableViewCell.swift in Sources */,
 				BF2CBBE82150DCE400E13EA5 /* NewWorkExperienceVC.swift in Sources */,
 				BF6166F32154D19D0009B991 /* urlsOfAPICalls.swift in Sources */,
+				070791602170CF5600C01F70 /* TopicsStatusViewController.swift in Sources */,
 				BF2CBBEC2150F6C100E13EA5 /* SignUpViewController.swift in Sources */,
 				BF6166F12154D1580009B991 /* GettingStartedViewController.swift in Sources */,
 				BF356CC52155236C003CC228 /* WorkExpClickedViewController.swift in Sources */,

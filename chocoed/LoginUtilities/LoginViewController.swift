@@ -244,6 +244,11 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
                 otpDigitSixthTF.becomeFirstResponder()
                 
             case otpDigitSixthTF :
+                self.view.layoutIfNeeded()
+                UIView.animate(withDuration: 1, animations: {
+                    self.topOutlet.constant = 96
+                    self.view.layoutIfNeeded()
+                })
                 otpDigitSixthTF.resignFirstResponder()
             default:
                 print("default case")
@@ -363,4 +368,5 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
     }
 
 }
+
 

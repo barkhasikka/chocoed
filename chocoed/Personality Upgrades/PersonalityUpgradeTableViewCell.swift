@@ -10,7 +10,6 @@ import UIKit
 
 class PersonalityUpgradeTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var labelStatus: UILabel!
     @IBOutlet weak var labelName: UILabel!
     @IBOutlet weak var imageviewComp: UIImageView!
     override func awakeFromNib() {
@@ -26,4 +25,24 @@ class PersonalityUpgradeTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+}
+class TopicStatusTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var viewTopics: UIView!
+    @IBOutlet weak var imageview: UIImageView!
+    @IBOutlet weak var labelStatus: UILabel!
+    @IBOutlet weak var labelName: UILabel!
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        
+        // Initialization code
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        // Configure the view for the selected state
+    }
+    
 }

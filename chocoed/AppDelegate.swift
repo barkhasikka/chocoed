@@ -28,17 +28,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.window = UIWindow(frame: UIScreen.main.bounds)
                 let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
-                window!.rootViewController = startVC
-                window!.makeKeyAndVisible()
+                let navigationController = UINavigationController(rootViewController: startVC)
+                self.window!.rootViewController = navigationController
             }
             else{
                 self.window = UIWindow(frame: UIScreen.main.bounds)
                 let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "firstview") as! ViewController
-                window!.rootViewController = startVC
-                window!.makeKeyAndVisible()
+                 window!.rootViewController = startVC
             }
+            
         }
+        
+        window!.makeKeyAndVisible()
+
         return true
     }
 

@@ -171,6 +171,67 @@ struct Option {
 
 }
 
+struct CourseList{
+    var calenderId : String
+    var courseId : String
+    var courseImageUrl : String
+    var courseName : String
+    init(_ dictionary : NSDictionary) {
+        self.calenderId = dictionary["calenderId"] as? String ?? ""
+        self.courseId = dictionary["courseId"] as? String ?? ""
+        self.courseImageUrl = dictionary["courseImageUrl"] as? String ?? ""
+        self.courseName = dictionary["courseName"] as? String ?? ""
+
+    }
+    
+}
+struct CourseTopicList{
+    var topicName : String
+    var topicId: String
+    var subTopicCount : String
+    var testCount : String
+    
+    init(_ dictionary : NSDictionary) {
+        self.topicName = dictionary["topicName"] as? String ?? ""
+        self.topicId = dictionary["topicId"] as? String ?? ""
+        self.subTopicCount = dictionary["subTopicCount"] as? String ?? ""
+        self.testCount = dictionary["testCount"] as? String ?? ""
+    }
+}
+
+struct CourseSubTopicList{
+    var calenderId : String
+    var calenderName : String
+    var examId : String
+    var examName : String
+    var examStatus : String
+    var subTopicName : String
+    var topicId : String
+    var topicLayouts : NSArray
+    var topicName : String
+    var topicStatus : String
+    var topicVideoUrl : String
+    var videoViewCount : String
+    var videoViewLimit : String
+    
+    
+    init(_ dictionary : NSDictionary) {
+        self.calenderId = dictionary["calenderId"] as? String ?? ""
+        self.calenderName = dictionary["calenderName"] as? String ?? ""
+        self.examId = dictionary["examId"] as? String ?? ""
+        self.examName = dictionary["examName"] as? String ?? ""
+        self.examStatus = dictionary["examStatus"] as? String ?? ""
+        self.subTopicName = dictionary["subTopicName"] as? String ?? ""
+        self.topicId = dictionary["topicId"] as? String ?? ""
+        self.topicLayouts = dictionary["topicLayouts"] as? NSArray ?? []
+        self.topicName = dictionary["topicName"] as? String ?? ""
+        self.topicStatus = dictionary["topicStatus"] as? String ?? ""
+        self.topicVideoUrl = dictionary["topicVideoUrl"] as? String ?? ""
+        self.videoViewCount = dictionary["videoViewCount"] as? String ?? ""
+        self.videoViewLimit = dictionary["videoViewLimit"] as? String ?? ""
+    }
+    
+}
 struct UserDetails{
     var email : String
     var firstName : String

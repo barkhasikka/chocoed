@@ -21,6 +21,9 @@ let accessToken = "03db0f67032a1e3a82f28b476a8b81ea"
 let examDetails = "http://dev.chocoed.com/api/user/getExamDetail"
 let saveUserExamQuestionAnswer = "http://dev.chocoed.com/api/user/saveExanQuestionAns"
 let endExamAPI = "http://dev.chocoed.com/api/user/endExam"
+let getMyCourseTopics = "http://dev.chocoed.com/api/user/getMyCourseList"
+let getMycourseTopicList = "http://dev.chocoed.com/api/user/getMyCourseTopicList"
+let getMySubTopics = "http://dev.chocoed.com/api/user/getMyCourseSubTopicList"
 var answerId = -1
 var USERDETAILS : UserDetails!
 var textfieldMbNumber = ""
