@@ -116,6 +116,10 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         textfieldMobileNo.isUserInteractionEnabled = false
         
    }
+    
+    override var shouldAutorotate: Bool{
+        return false
+    }
 
     @IBAction func CloseAction(_ sender: Any) {
         self.popUpView.isHidden = true

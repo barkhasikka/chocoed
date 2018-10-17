@@ -238,3 +238,57 @@ struct UserDetails{
     var lastname : String
     var imageurl : String
 }
+
+
+
+struct ExamList {
+    var examId: String
+    var examName: String
+    var examStatus: String
+    init(_ dictionary : NSDictionary) {
+        self.examId = dictionary["examId"] as? String ?? ""
+        self.examName = dictionary["examName"] as? String ?? ""
+        self.examStatus = dictionary["examStatus"] as? String ?? ""
+    }
+}
+
+struct TopicList{
+    
+    var calenderId : String
+    var calenderName : String
+    var examId : String
+    var examName : String
+    var examStatus : String
+    var subTopicName : String
+    var topicId : String
+    var topicName : String
+    var topicStatus : String
+    var topicVideoUrl : String
+    var videoViewCount : Int
+    var videoViewLimit : Int
+    var videoPosition : String
+    var isBlock : Bool
+    
+    
+    init(_ dictionary : NSDictionary) {
+        
+        self.calenderId = dictionary["calenderId"] as? String ?? ""
+        self.calenderName = dictionary["calenderName"] as? String ?? ""
+        self.examId = dictionary["examId"] as? String ?? ""
+        self.examName = dictionary["examName"] as? String ?? ""
+        self.examStatus = dictionary["examStatus"] as? String ?? ""
+        self.subTopicName = dictionary["subTopicName"] as? String ?? ""
+        self.topicId = dictionary["topicId"] as? String ?? ""
+        self.topicName = dictionary["topicName"] as? String ?? ""
+        self.topicStatus = dictionary["topicStatus"] as? String ?? ""
+        self.topicVideoUrl = dictionary["topicVideoUrl"] as? String ?? ""
+        self.videoViewCount = dictionary["videoViewCount"] as? Int ?? -1
+        self.videoViewLimit = dictionary["videoViewLimit"] as? Int ?? -1
+        self.videoPosition = dictionary["videoPosition"] as? String ?? ""
+        self.isBlock = false
+    }
+    
+}
+
+
+

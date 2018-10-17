@@ -24,6 +24,20 @@ let endExamAPI = "http://dev.chocoed.com/api/user/endExam"
 let getMyCourseTopics = "http://dev.chocoed.com/api/user/getMyCourseList"
 let getMycourseTopicList = "http://dev.chocoed.com/api/user/getMyCourseTopicList"
 let getMySubTopics = "http://dev.chocoed.com/api/user/getMyCourseSubTopicList"
+
+let getCourseData = "http://dev.chocoed.com/api/user/getUserCourseDetail"
+let getTopicData = "http://dev.chocoed.com/api/user/getUserCourseTopicList"
+let userTopicsAudit = "http://dev.chocoed.com/api/user/userTopicsAudit"
+
+
+var currentTopiceDate  = ""
+var currentCourseId  = ""
+var currentTopicPosition = -1
+
+var currentSelectedLang = ""
+
+
 var answerId = -1
 var USERDETAILS : UserDetails!
 var textfieldMbNumber = ""
+

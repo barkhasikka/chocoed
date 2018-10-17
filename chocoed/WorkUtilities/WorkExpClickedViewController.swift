@@ -6,6 +6,8 @@
 //  Copyright © 2018 barkha sikka. All rights reserved.
 //
 
+
+
 import UIKit
 
 class WorkExpClickedViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
@@ -72,6 +74,10 @@ class WorkExpClickedViewController: UIViewController, UITableViewDelegate,UITabl
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override var shouldAutorotate: Bool{
+        return false
     }
     
 

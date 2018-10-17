@@ -9,45 +9,74 @@
 import UIKit
 
 class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDataSource {
+    
     @IBOutlet weak var buttonEmail: UIButton!
     @IBOutlet weak var tabGestureView: UIView!
     @IBOutlet weak var labelUserNAme: UILabel!
     @IBOutlet weak var imageProfile: UIImageView!
-    var arraymenu = ["My Story","My Thought","My Progress","My Profile","Log out"]
-    let cousesImages = [UIImage(named:"lotus_icon"),UIImage(named: "lotus_icon"), UIImage(named: "lotus_icon"), UIImage(named: "lotus_icon"), UIImage(named: "lotus_icon")]
     
+    var userImageLoaded : UIImage? = nil
+    var languageUIView: LanguageUIView!
+    var count = 0
+    
+//    @IBOutlet weak var tabelviewLanguage: UITableView!
+//    @IBOutlet weak var languageview: UIView!
+    var arraymenu = ["My Talks","My Thought","My Progress","My Profile","Select Preferred Language","Log out"]
+    let cousesImages = [UIImage(named:"chat"),UIImage(named: "discussion_room"), UIImage(named: "myprocess_improvement"), UIImage(named: "icons_user"), UIImage(named: "icons_lang"), UIImage(named: "icon_logout")]
+    
+//    @IBAction func closeButtonLang(_ sender: Any) {
+//        languageview.isHidden = true
+//    }
     override func viewDidLoad() {
      super.viewDidLoad()
         
-        labelUserNAme.text = USERDETAILS.firstName + " " + USERDETAILS.lastname
-        let fileUrl = URL(string: USERDETAILS.imageurl)
-        if fileUrl != nil {
-            if let data = try? Data(contentsOf: fileUrl!) {
-                if let image = UIImage(data: data) {
-                    self.imageProfile.image = image
-                }
-            }
-            imageProfile.layer.borderWidth = 1.0
-            imageProfile.layer.masksToBounds = false
-            imageProfile.layer.borderColor = UIColor.darkGray.cgColor
-            imageProfile.layer.cornerRadius = imageProfile.frame.width / 2
-            imageProfile.clipsToBounds = true
-            imageProfile.contentMode = .center
-        }
         
+        labelUserNAme.text = USERDETAILS.firstName + " " + USERDETAILS.lastname
         buttonEmail.setTitle(USERDETAILS.email, for: .normal)
-      
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
+    
+            self.imageProfile.image = self.userImageLoaded
+            self.imageProfile.layer.borderWidth = 1.0
+            self.imageProfile.layer.masksToBounds = false
+            self.imageProfile.layer.borderColor = UIColor.darkGray.cgColor
+            self.imageProfile.layer.cornerRadius = self.imageProfile.frame.width / 2
+            self.imageProfile.clipsToBounds = true
+            self.imageProfile.contentMode = .center
+            
+        })
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
         tabGestureView.isUserInteractionEnabled = true
         tabGestureView.addGestureRecognizer(tap)
-
+        languageUIView = LanguageUIView(frame: CGRect(x: 30, y: 30, width: self.view.frame.width - 30, height: self.view.frame.height - 30))
+        languageUIView.tableViewLanguage.delegate = self
+        
+        self.view.addSubview(languageUIView)
+        languageUIView.isHidden = true
+//        languageview.isHidden = true
     }
-
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    override var shouldAutorotate: Bool{
+        return false
+    }
+    
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation{
+        return UIInterfaceOrientation.portrait
+    }
+    
+    override var supportedInterfaceOrientations:UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
+    }
+    
+
     @objc func handleTap(sender: UITapGestureRecognizer? = nil) {
         closemethod()
-        }
+     }
 
     
     
@@ -67,6 +96,7 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
         
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "menucell") as! MenuBarTableViewCell
         
         let images = cousesImages[indexPath .row]
@@ -79,64 +109,77 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch(indexPath.row) {
-            
-            case 3: let v1 = self.storyboard?.instantiateViewController(withIdentifier: "profile") as! ProfileViewController
-            self.present(v1, animated: true, completion: nil)
+        if tableView == languageUIView.tableViewLanguage {
+            let text = languageUIView.arrayLanguages[indexPath.row].dbname
+            print(text)
+            if count == 0 {
+                let alertcontrol = UIAlertController(title: "Alert", message: "Would you like to use \(text) for learning language?", preferredStyle: .alert)
+                let alertaction = UIAlertAction(title: "No", style: .default) { (action) in
+                    self.count = 1
+                    UserDefaults.standard.set(text, forKey: "Language1")
+                    
+                }
+                let alertaction1 = UIAlertAction(title: "Yes", style: .default) { (action) in
+                    self.languageUIView.isHidden = true
+                    self.count = 0
+//                    self.signUpButton.setTitle("\(text)", for: .normal)
+//
+                    UserDefaults.standard.set(text, forKey: "Language1")
+                    
+                    UserDefaults.standard.set(text, forKey: "Language2")
+                }
+                alertcontrol.addAction(alertaction)
+                alertcontrol.addAction(alertaction1)
+                self.present(alertcontrol, animated: true, completion: nil)
+                tableView.deselectRow(at: indexPath, animated: false)
+            } else {
+                self.languageUIView.isHidden = true
+                let userAppLang = UserDefaults.standard.string(forKey: "Language1")
+                print(userAppLang)
+//                self.signUpButton.setTitle("\(userAppLang!)", for: .normal)
+                UserDefaults.standard.set(text, forKey: "Language2")
+            }
+        }else {
+            switch(indexPath.row) {
+                
+            case 3:
+                let v1 = self.storyboard?.instantiateViewController(withIdentifier: "profile") as! ProfileViewController
+                self.present(v1, animated: true, completion: nil)
+                break;
+                
+            case 5 :
+                textfieldMbNumber = UserDefaults.standard.string(forKey: "mobileno")!
+                let alertcontrol = UIAlertController(title: "Alert", message: "Are you sure you want to logout?",preferredStyle: .alert)
+                let alertaction = UIAlertAction(title: "No", style: .default) { (action) in
+                    print("No I don't want to logout")
+                }
+                let alertaction1 = UIAlertAction(title: "Yes", style: .default) { (action) in
+                    
+                    textfieldMbNumber = UserDefaults.standard.string(forKey: "mobileno")!
+                    
+                    let domain = Bundle.main.bundleIdentifier!
+                    UserDefaults.standard.removePersistentDomain(forName: domain)
+                    UserDefaults.standard.synchronize()
+                    print(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)
+                    let v2 = self.storyboard?.instantiateViewController(withIdentifier: "firstview") as! ViewController
+                    self.present(v2, animated: true, completion: nil)
+                    print(textfieldMbNumber)
+                }
+                
+                alertcontrol.addAction(alertaction)
+                alertcontrol.addAction(alertaction1)
+                self.present(alertcontrol, animated: true, completion: nil)
+                break;
+                
+            case 4: self.languageUIView.isHidden = false
             break;
-            
-        case 4 :
-            textfieldMbNumber = UserDefaults.standard.string(forKey: "mobileno")!
-            let alertcontrol = UIAlertController(title: "Alert", message: "Are you sure you want to logout?",preferredStyle: .alert)
-            let alertaction = UIAlertAction(title: "No", style: .default) { (action) in
-                print("No I don't want to logout")
-            }
-            let alertaction1 = UIAlertAction(title: "Yes", style: .default) { (action) in
                 
-                textfieldMbNumber = UserDefaults.standard.string(forKey: "mobileno")! ?? ""
+            default: break
                 
-                let domain = Bundle.main.bundleIdentifier!
-                UserDefaults.standard.removePersistentDomain(forName: domain)
-                UserDefaults.standard.synchronize()
-                print(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)
-                let v2 = self.storyboard?.instantiateViewController(withIdentifier: "firstview") as! ViewController
-                self.present(v2, animated: true, completion: nil)
-                print(textfieldMbNumber)
-               // self.navigationController?.pushViewController(v2, animated: true)
             }
-            
-            alertcontrol.addAction(alertaction)
-            alertcontrol.addAction(alertaction1)
-            self.present(alertcontrol, animated: true, completion: nil)
-            
-        
-        break;
-
-//        case 2 : let v3 = self.storyboard?.instantiateViewController(withIdentifier: "Terms") as! ViewControllerTOU
-//
-//        present(v3, animated: true, completion: nil)
-//        break;
-//
-//
-//        case 3 : let v4 = self.storyboard?.instantiateViewController(withIdentifier: "privacy2") as! viewControllerPrivacypolicy
-//
-//        present(v4, animated: true, completion: nil)
-//        break;
-//        case 4 :
-//            UserDefaults.standard.set(false, forKey: "isNgoLoggedIn")
-//            UserDefaults.standard.synchronize()
-//
-//            let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "pass") as! ViewController
-//
-//            let appDel:AppDelegate = UIApplication.shared.delegate as! AppDelegate
-//
-//            appDel.window?.rootViewController = loginVC
-//            //let vc = self.storyboard?.instantiateViewController(withIdentifier: "pass") as! ViewController
-//            //    self.present(vc, animated: true, completion: nil)
-//            break;
-        default: break
-
         }
+        
+        
     }
 
     func closemethod()

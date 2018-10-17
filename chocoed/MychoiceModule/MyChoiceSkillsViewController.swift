@@ -33,6 +33,10 @@ class MyChoiceSkillsViewController: UIViewController,UICollectionViewDelegate,UI
         loadApiMyChioceList()
         // Do any additional setup after loading the view.
     }
+    
+    override var shouldAutorotate: Bool{
+        return false
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -91,7 +95,7 @@ class MyChoiceSkillsViewController: UIViewController,UICollectionViewDelegate,UI
         
         let vcbackDashboard = self.storyboard?.instantiateViewController(withIdentifier: "split") as? SplitviewViewController
         let aObjNavi = UINavigationController(rootViewController: vcbackDashboard!)
-        aObjNavi.navigationBar.barTintColor = #colorLiteral(red: 0.1383176144, green: 0.2274862162, blue: 0.8604259201, alpha: 1)
+        aObjNavi.navigationBar.barTintColor = #colorLiteral(red: 0.08052674438, green: 0.186350315, blue: 0.8756543464, alpha: 1)
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
         self.present(aObjNavi, animated: true, completion: nil)

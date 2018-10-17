@@ -29,6 +29,10 @@ class ProfileSucessViewController: UIViewController {
         ButtonBorder()
         // Do any additional setup after loading the view.
     }
+    
+    override var shouldAutorotate: Bool{
+        return false
+    }
 
     @IBAction func letsBeginAction(_ sender: Any) {
         let clientID = UserDefaults.standard.integer(forKey: "clientid")

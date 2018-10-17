@@ -20,6 +20,10 @@ class BehavioralViewController: UIViewController {
         
         // Do any additional setup after loading the view.
     }
+    
+    override var shouldAutorotate: Bool{
+        return false
+    }
 
     @IBAction func continueAction(_ sender: Any) {
         if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "quizb") as? QuizBahaviouralViewController {

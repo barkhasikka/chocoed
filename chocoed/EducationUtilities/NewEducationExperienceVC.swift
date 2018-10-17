@@ -1,3 +1,4 @@
+
 //
 //  NewEducationExperienceVC.swift
 //  chocoed
@@ -118,6 +119,11 @@ class NewEducationExperienceVC: UIViewController {
             }
         }
     }
+    
+    override var shouldAutorotate: Bool{
+        return false
+    }
+    
     
     func initView() {
         self.buttonQualification.setTitle(selectedEducation.educationLevel, for: .normal)

@@ -73,6 +73,12 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         
         self.hideKeyboardWhenTappedAround()
         // Do any additional setup after loading the view.
+        
+        mobileNumberTextFIeld.becomeFirstResponder()
+    }
+    
+    override var shouldAutorotate: Bool{
+        return false
     }
 
     override func didReceiveMemoryWarning() {
@@ -335,6 +341,11 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         var params =  Dictionary<String, String>()
         if language1 == nil && language2 == nil
         {
+            
+            UserDefaults.standard.set("English", forKey: "Language1")
+            UserDefaults.standard.set("English", forKey: "Language2")
+            
+            
         params = ["access_token":"\(accessToken)","userId":"\(userid!)","clientId":"\(clientID)","appLanguage":"","learningLanguage":""] as Dictionary<String, String>
         print(params)
         }

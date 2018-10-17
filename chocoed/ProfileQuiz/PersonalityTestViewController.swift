@@ -20,6 +20,10 @@ class PersonalityTestViewController: UIViewController {
         self.view.insertSubview(backgroundImage, at: 0)
         // Do any additional setup after loading the view.
     }
+    
+    override var shouldAutorotate: Bool{
+        return false
+    }
 
     
     override func didReceiveMemoryWarning() {

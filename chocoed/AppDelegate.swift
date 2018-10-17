@@ -12,17 +12,21 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    var shouldRotate = false
 
     static var menu_bool = true
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions:
+        
+        [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         let userID = UserDefaults.standard.integer(forKey: "userid")
         print(userID)
         if userID != 0 {
             GetUserInfo()
        } else {
-            let quiztakenid = UserDefaults.standard.string(forKey: "quiztakenID")
+           /* let quiztakenid = UserDefaults.standard.string(forKey: "quiztakenID")
             print(quiztakenid)
             if quiztakenid == "1"{
                 self.window = UIWindow(frame: UIScreen.main.bounds)
@@ -31,16 +35,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let navigationController = UINavigationController(rootViewController: startVC)
                 self.window!.rootViewController = navigationController
             }
-            else{
+            else{ */
+            
                 self.window = UIWindow(frame: UIScreen.main.bounds)
                 let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "firstview") as! ViewController
                  window!.rootViewController = startVC
-            }
+           // }
             
         }
         
-        window!.makeKeyAndVisible()
+        //window!.makeKeyAndVisible()
 
         return true
     }
@@ -86,8 +91,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let quizTaken =  jsonobject?.object(forKey:"quizTestGiven") as? Int ?? -1
             UserDefaults.standard.set(quizTaken, forKey: "quiztakenID")
             let quizID = UserDefaults.standard.string(forKey: "quiztakenID")
-            print(quizID)
-            let fileUrl = URL(string: url)
+           // print(quizID)
+           // let fileUrl = URL(string: url)
             UserDefaults.standard.set(Int(clientId), forKey: "clientid")
             
             USERDETAILS = UserDetails(email: temp.email, firstName: temp.firstName, lastname: temp.lastName, imageurl: url)
@@ -95,6 +100,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if quizTaken == 1 {
                 print("1")
                 DispatchQueue.main.async {
+                  
+                   // self.window = UIWindow(frame: UIScreen.main.bounds)
                     let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                     let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
                     let aObjNavi = UINavigationController(rootViewController: startVC)
@@ -105,6 +112,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
             } else {
                 DispatchQueue.main.async {
+                    
+                   // self.window = UIWindow(frame: UIScreen.main.bounds)
                     let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                     let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "profileSuccess") as! ProfileSucessViewController
                     self.window!.rootViewController = startVC
@@ -126,9 +135,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //            })
         }, errorHandler: {(message) -> Void in
             print("message", message)
-//            let alert = GetAlertWithOKAction(message: message)
-//            self.present(alert, animated: true, completion: nil)
+            
+            DispatchQueue.main.async {
+
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+            let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "firstview") as! ViewController
+            self.window!.rootViewController = startVC
+            self.window!.makeKeyAndVisible()
+
+                
+            }
+
         })
     }
+    
+ 
+    
+   
 }
 

@@ -34,7 +34,9 @@ class ExamComplitionScreenViewController: UIViewController {
         beginButton.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
 
-    
+    override var shouldAutorotate: Bool{
+        return false
+    }
 
     @IBAction func letsBeginAction(_ sender: Any) {
         let startVC = self.storyboard?.instantiateViewController(withIdentifier: "split") as! SplitviewViewController

@@ -36,6 +36,10 @@ class SubViewPersonalityUpgradeViewController: UIViewController {
         }
         // Do any additional setup after loading the view.
     }
+    
+    override var shouldAutorotate: Bool{
+        return false
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -7,21 +7,12 @@
 //
 
 import UIKit
+import MobileCoreServices
 
-class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelegate{
-  
-
-    enum DraggingImageType {
-      case none
-      //  case afro
-        //case mask
-    }
-
-    enum DraggingOperationType {
-        case add
-        case remove
-    }
-
+class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelegate {
+    
+    var dragCircle: UIImageView!
+    
     @IBOutlet weak var pagesViews: UIView!
     @IBOutlet weak var optionsView: UIView!
     @IBOutlet weak var quetionLabel: UILabel!
@@ -32,56 +23,52 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
     var questionId = ""
     var arrayBehaviouralQuestion = [Question]()
     var currentExamID: Int = 0
-    var startTime: Double = 0
+    var startTime: String = ""
     var activityUIView: ActivityIndicatorUIView!
-    var imageView = UIImageView()
-    var dragCircle = UILabel()
-    
-    
+    var dragImageViewArray: [UIImageView]!
     @IBOutlet weak var questionsProgressUILabel: UILabel!
     @IBOutlet weak var nextUIButton: UIButton!
-    var draggingImageType: DraggingImageType = .none
-    var draggingOperationType: DraggingOperationType = .add
-//
+    
+    var examName = ""
+    var fromType = ""
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        imageView.transform = CGAffineTransform(rotationAngle: -.pi / 30.0)
-
-        imageView.isUserInteractionEnabled = true
-        imageView.addInteraction(UIDragInteraction(delegate: self))
-        dragCircle.addInteraction(UIDropInteraction(delegate: self as UIDropInteractionDelegate))
         
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)
         activityUIView.isHidden = true
-        
         if currentExamID == 1 {
             self.navigationItem.title = "Behavioural Test"
         }else if currentExamID == 2 {
             self.navigationItem.title = "Psychometric Test"
         }else if currentExamID == 3 {
             self.navigationItem.title = "Personality Test"
+        }else {
+            
+            self.navigationItem.title = self.examName
         }
         
         print("the current question id id", currentQuestion)
-        
-//        self.pagesViews.layer.borderWidth = 1
-//        self.pagesViews.layer.borderColor = UIColor.lightGray.cgColor
         
         self.navigationItem.setHidesBackButton(true, animated: true)
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
         
         loadQuizExamDetails()
-//        let frameRect = pagesViews.frame
-//        let backgroundImage = UIImageView(frame: frameRect)
-//        backgroundImage.image = UIImage(named: "pages")
-//        backgroundImage.contentMode = UIViewContentMode.top
-//        self.pagesViews.insertSubview(backgroundImage, at: 0)
+
         questionsProgressUILabel.text = "\(self.currentQuestion + 1) / \(self.arrayBehaviouralQuestion.count)"
-        startTime = NSDate().timeIntervalSince1970 * 1000
-      //  backgroundImagebahavioural()        // Do any additional setup after loading the view.
+        startTime = self.getStartTime()
+        
+        
+        
+        
+      
+    }
+    
+    override var shouldAutorotate: Bool{
+        return false
     }
 
     override func didReceiveMemoryWarning() {
@@ -98,38 +85,16 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
         backgroundImage.contentMode = UIViewContentMode.scaleToFill
         self.view.insertSubview(backgroundImage, at: 0)
         
-//        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
-//        backgroundImage.image = UIImage(named: "ic_background_pattern")
-//        backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
-//        self.view.insertSubview(backgroundImage, at: 0)
     }
     
+    
+    
     func loadQuizExamDetails(){
-//        let clientID = UserDefaults.standard.integer(forKey: "clientid")
-//        let userid = UserDefaults.standard.string(forKey: "userid")
-//        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
-//        myActivityIndicator.center = view.center
-//        myActivityIndicator.hidesWhenStopped = false
-//        myActivityIndicator.startAnimating()
-//        view.addSubview(myActivityIndicator)
 
-//        let params = ["access_token":"\(accessToken)","deviceId":"","deviceToken":"","deviceInfo":"","deviceType":"Andriod","userId":"\(userid!)","clienId":"\(clientID)","examId":"1"] as Dictionary<String, String>
-
-//        MakeHttpPostRequest(url: examDetails, params: params, completion: {(success, response) -> Void in
-//            print(response)
-//            let questionsList = response.object(forKey: "questionList") as? NSArray ?? []
-//            for question in questionsList {
-//                self.arrayBehaviouralQuestion.append(Question(question as! NSDictionary))
-//            }
-        
             print("\(self.arrayBehaviouralQuestion)")
-//            DispatchQueue.main.async {
                 self.quetionLabel.text = self.arrayBehaviouralQuestion[self.currentQuestion].questionName
         self.optionButtonfunction(ansType: self.arrayBehaviouralQuestion[self.currentQuestion].anstype)
-//                myActivityIndicator.stopAnimating()
-//                myActivityIndicator.hidesWhenStopped = true
-//            }
-//        })
+
     }
     
     @objc func pressed(sender: UIButton!) {
@@ -137,11 +102,11 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
         for subviews in self.optionsView.subviews {
             if subviews is UIButton {
                 let testButton = subviews as? UIButton
-                testButton?.setImage(UIImage(named: "checkbox_off"), for: .normal)
+                testButton?.setImage(UIImage(named: "icons8-circle_filled_75"), for: .normal)
             }
         }
         sender.contentHorizontalAlignment = .left
-        sender.setImage(UIImage(named: "checkbox_on"), for: .normal)
+        sender.setImage(UIImage(named: "icons8-connection_status_on_filled"), for: .normal)
         print(sender.tag, "Selected answer ID", self.arrayBehaviouralQuestion[self.currentQuestion].id, "<<<<<---- QUESTION ID")
         answerId = sender.tag
         if sender.titleLabel != nil && sender.titleLabel?.text != nil {
@@ -168,10 +133,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
             sender?.view?.layer.borderColor = UIColor(red:222/255, green:225/255, blue:227/255, alpha: 1).cgColor
             print(sender?.view?.tag ?? 0, "Selected answer ID", self.arrayBehaviouralQuestion[self.currentQuestion].id, "<<<<<---- QUESTION ID")
             answerId = sender?.view?.tag ?? 0
-//            if sender.titleLabel != nil && sender.titleLabel?.text != nil {
-//                selectedAnswer0 = (sender.titleLabel?.text)!
-//            }
-            
+
             questionId = self.arrayBehaviouralQuestion[self.currentQuestion].id
             print(answerId)
             print(questionId)
@@ -182,7 +144,11 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
     func loadSaveExamQuestionAnswer(){
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
-        let endTime = NSDate().timeIntervalSince1970 * 1000
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss"
+        let endTime = formatter.string(from: Date())
+        
         let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(self.currentExamID)","questionId":"\(questionId)","selectedAns":"\(selectedAnswer)","selectedAnsId":"\(answerId)","startTime":"\(startTime)","endTime":"\(endTime)"] as Dictionary<String, String>
             print(params)
         
@@ -190,11 +156,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
         activityUIView.startAnimation()
         MakeHttpPostRequest(url: saveUserExamQuestionAnswer , params: params, completion: {(success, response) -> Void in
             print(response, "<<<<<<-- SAVE ANSWER RESPONSE....")
-    ////            let language = response.object(forKey: "appList") as? NSArray ?? []
-    ////
-    ////            for languages in language {
-    ////                self.arrayLanguages.append(LanguageList( languages as! NSDictionary))
-    //            }
+  
 
             DispatchQueue.main.async {
                 self.activityUIView.isHidden = true
@@ -227,17 +189,16 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
             self.quetionLabel.text = self.arrayBehaviouralQuestion[self.currentQuestion].questionName
             //self.optionbutton.setTitle(arrayBehaviouralQuestion[self.currentQuestion], for: .normal)
             optionButtonfunction(ansType: self.arrayBehaviouralQuestion[self.currentQuestion].anstype)
-            startTime = NSDate().timeIntervalSince1970 * 1000
+            startTime = self.getStartTime()
         } else {
             //user has traversed all the questions. Now we need to hide next button and call end test API and then present new type nest vc
             questionsProgressUILabel.text = "\(self.currentQuestion+1) / \(self.arrayBehaviouralQuestion.count)"
             self.quetionLabel.text = self.arrayBehaviouralQuestion[self.currentQuestion].questionName
             //self.optionbutton.setTitle(arrayBehaviouralQuestion[self.currentQuestion], for: .normal)
             optionButtonfunction(ansType: self.arrayBehaviouralQuestion[self.currentQuestion].anstype)
-            startTime = NSDate().timeIntervalSince1970 * 1000
+            startTime = self.getStartTime()
             self.nextUIButton.isHidden = true
-//            self.currentExamID = self.currentExamID + 1
-//            loadNextTypeQuestions()
+
         }
 
     }
@@ -311,7 +272,12 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
                     }
                     
 
-                } else {
+                } else if currentCourseId != "" {
+                    
+                    self.openRespectiveVC()
+                    
+                    
+                }else {
                     let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "newscreen") as! ExamComplitionScreenViewController
                     self.present(vcNewSectionStarted, animated: true, completion: nil)
                 }
@@ -346,20 +312,21 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
                
                 let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "newscreen") as! ExamComplitionScreenViewController
                 self.present(vcNewSectionStarted, animated: true, completion: nil)
-            }else {
-//                self.currentExamID = self.currentExamID + 1
-//                print(self.currentExamID)
-//                loadNextTypeQuestions()
+                
+            }else if currentCourseId != "" {
+                
+               
+                self.openRespectiveVC()
             }
         }
     }
     
     func showEndTestAlert() {
-        let alertcontrol = UIAlertController(title: "Alert", message: "This will end your assessment and any unanswered questions will be skipped. Do you wish to proceed?", preferredStyle: .alert)
-        let alertaction = UIAlertAction(title: "CANCEL", style: .cancel) { (action) in
-           
+        let alertcontrol = UIAlertController(title: "Oh!", message: "Your Appraisal is incomplete.You are so close to knowing your uniqueness. Why don’t you complete this?", preferredStyle: .alert)
+        let alertaction = UIAlertAction(title: "Yes I will", style: .cancel) { (action) in
         }
-        let alertaction1 = UIAlertAction(title: "END", style: .default) { (action) in
+        let alertaction1 = UIAlertAction(title: "Not now", style: .default) { (action) in
+            self.loadSaveExamQuestionAnswer()
             self.callEndTestAPI()
         }
         alertcontrol.addAction(alertaction)
@@ -370,8 +337,12 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
     func callEndTestAPI() {
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
-        let endTime = NSDate().timeIntervalSince1970 * 1000
-        print(endTime)
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss"
+        let endTime = formatter.string(from: Date())
+        
+        
         let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(self.currentExamID)", "endTime": "\(endTime)"] as Dictionary<String, String>
         print(params, "<<<<-- end test api")
         activityUIView.isHidden = false
@@ -384,7 +355,48 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
             DispatchQueue.main.async {
                 self.activityUIView.isHidden = true
                 self.activityUIView.stopAnimation()
-                self.loadNextTypeQuestions()
+               // self.loadNextTypeQuestions()
+                
+                if self.currentExamID <= 3 {
+                    
+                    self.loadNextTypeQuestions()
+                    
+                }else{
+                    
+                    if self.currentExamID == 3 {
+                        if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "personality") as? PersonalityTestViewController {
+                            vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
+                            vcNewSectionStarted.currentQuestion = self.currentQuestion
+                            //                        if let navigator = self.navigationController {
+                            //                            navigator.pushViewController(vcNewSectionStarted, animated: true)
+                            self.present(vcNewSectionStarted, animated: true, completion: nil)
+                            //                        }
+                            
+                        }
+                        
+                        
+                    } else if self.currentExamID == 2 {
+                        if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "psychometric") as? PsychometricTestViewController {
+                            vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
+                            vcNewSectionStarted.currentQuestion = self.currentQuestion
+                            //                        if let navigator = self.navigationController {
+                            //                            navigator.pushViewController(vcNewSectionStarted, animated: true)
+                            //                        }
+                            self.present(vcNewSectionStarted, animated: true, completion: nil)
+                        }
+                        
+                        
+                    } else if currentCourseId != "" {
+                        
+                        self.openRespectiveVC()
+                        
+                    } else {
+                        let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "newscreen") as! ExamComplitionScreenViewController
+                        self.present(vcNewSectionStarted, animated: true, completion: nil)
+                    }
+                }
+                
+                
 //                if self.currentExamID == 3 {
 //                    if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "personality") as? PersonalityTestViewController {
 //                        vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
@@ -433,9 +445,9 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
                 optionButton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
                 optionButton.contentHorizontalAlignment = .left
                 if optionObject.id == selectedAns {
-                    optionButton.setImage(UIImage(named: "checkbox_on"), for: .normal)
+                    optionButton.setImage(UIImage(named: "icons8-connection_status_on_filled"), for: .normal)
                 }else {
-                    optionButton.setImage(UIImage(named: "checkbox_off"), for: .normal)
+                    optionButton.setImage(UIImage(named: "icons8-circle_filled_75"), for: .normal)
                 }
                 
                 optionButton.titleLabel?.minimumScaleFactor = 0.5
@@ -480,8 +492,8 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
 //                buttonImageUIViewFirst.heightAnchor.constraint(equalToConstant: 100).isActive = true
 //                buttonImageUIViewFirst.widthAnchor.constraint(equalToConstant: 60).isActive = true
 //
-                var optionButton = UIImageView()
-                var optionText = UILabel()
+                let optionButton = UIImageView()
+                let optionText = UILabel()
                 
                 optionText.text = optionObject.ansText
                 optionText.textColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
@@ -604,7 +616,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
                     optionButton.setTitle(option, for: .normal )
                     optionButton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
                     optionButton.contentHorizontalAlignment = .left
-                    optionButton.setImage(UIImage(named: "checkbox_off"), for: .normal)
+                    optionButton.setImage(UIImage(named: "icons8-circle_filled_75"), for: .normal)
                     optionButton.titleLabel?.minimumScaleFactor = 0.5
                     optionButton.titleLabel?.numberOfLines = 0
                     optionButton.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -643,12 +655,15 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
             }
             
             
-            self.dragCircle = UILabel()
-            self.dragCircle.text = "Drag Here"
-            self.dragCircle.textColor = .darkGray
+            self.dragCircle = UIImageView()
+            self.dragCircle.isUserInteractionEnabled = true
+            self.dragCircle.addInteraction(UIDropInteraction(delegate: self))
+
+//            dragCircle.text = "Drag Here"
+//            dragCircle.textColor = .darkGray
             self.optionsView.addSubview(self.dragCircle)
             self.dragCircle.translatesAutoresizingMaskIntoConstraints = false
-            self.dragCircle.textAlignment = NSTextAlignment.center
+//            self.dragCircle.textAlignment = NSTextAlignment.center
             self.dragCircle.heightAnchor.constraint(equalToConstant: 100).isActive = true
             self.dragCircle.widthAnchor.constraint(equalToConstant: 100).isActive = true
             self.dragCircle.topAnchor.constraint(equalTo: previousImageView.bottomAnchor, constant: 15).isActive = true
@@ -657,30 +672,39 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
             self.dragCircle.layer.borderWidth = 1
             self.dragCircle.layer.cornerRadius = 50
             self.dragCircle.layer.masksToBounds = true
-            
-//            let dropInteraction = UIDropInteraction(delegate: self as! UIDropInteractionDelegate)
-//            dragCircle.addInteraction(dropInteraction)
-//            dragCircle.isUserInteractionEnabled = true
+
+           // let  drageer = UIDragInteraction(delegate: self)
+           // self.optionsView.addInteraction(drageer)
+            //drageer.isEnabled = true
 
             previousImageView = nil
+            self.dragImageViewArray = [DraggableImageView]()
             for option in optionList {
                 let optionObject =  Option(option as! NSDictionary)
                 
                     let fileUrl = URL(string: optionObject.ansImageUrl)
                     if let data = try? Data(contentsOf: fileUrl!) {
                         if let image = UIImage(data: data) {
-                            self.imageView = DraggableImageView(image:image)
-                            self.imageView.isUserInteractionEnabled = true
+                            
+                          let  imageView = DraggableImageView(image:image)
+                            //imageView.image = image
+                            imageView.isUserInteractionEnabled = true
+                            //imageView.addInteraction(UIDragInteraction(delegate: self))
+                            self.dragImageViewArray.append(imageView)
+                            self.optionsView.addSubview(imageView)
+                            self.setQuestionImageViewConstraints(previousImageView: previousImageView, currentImageUIView: imageView)
+                            imageView.topAnchor.constraint(equalTo: self.dragCircle.bottomAnchor, constant: 15).isActive = true
+                            previousImageView = imageView
+                        
                         }
                     }
-                self.optionsView.addSubview(self.imageView)
-                self.setQuestionImageViewConstraints(previousImageView: previousImageView, currentImageUIView: self.imageView)
-                self.imageView.topAnchor.constraint(equalTo: self.dragCircle.bottomAnchor, constant: 15).isActive = true
-                previousImageView = self.imageView
-                
+           
             }
         }
     }
+    
+    
+   
     
     func setQuestionImageViewConstraints(previousImageView: UIImageView!, currentImageUIView: UIImageView){
         currentImageUIView.contentMode = .scaleAspectFit
@@ -721,21 +745,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
             }
         
     }
-//
-//    func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
-//        let touchedPoint = session.location(in: self.view)
-//        if let touchedimgeiew = self.view.hitTest(touchedPoint, with: nil) as? UIImageView{
-//            let touchedimage = touchedimgeiew.image
-//            let provider = NSItemProvider(object: touchedimage!)
-//            let item = UIDragItem(itemProvider: provider)
-//            return [item]
-//
-//        }
-//
-//        return []
-//    }
 
-    
     
     @objc func valueChanged(slider: UISlider) {
         // round the slider position to the nearest index of the numbers array
@@ -745,4 +755,84 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
 //        slider?.setValue(Float(index), animated: false)
        
     }
+    
+    
+    func openRespectiveVC(){
+        
+        if self.fromType == "pending"{
+            
+            let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "PendingAssessment") as! PendingAssessment
+            self.present(vcNewSectionStarted, animated: true, completion: nil)
+            
+        }else{
+            
+            let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "ContentVC") as! ContentVC
+            self.present(vcNewSectionStarted, animated: true, completion: nil)
+            
+        }
+        
+    }
+    
+    func getStartTime() -> String {
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss"
+        return formatter.string(from: Date())
+        
+    }
+}
+
+
+//MARK:- UIDragInteractionDelegate Methods
+extension QuizBahaviouralViewController: UIDragInteractionDelegate {
+    // This method is used to drag the item
+    func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
+        print("dragInteraction")
+
+        if let imageView = interaction.view as? UIImageView {
+            guard let image = imageView.image else { return [] }
+            let provider = NSItemProvider(object: image)
+            let item = UIDragItem(itemProvider: provider)
+            return [item]
+        }
+        return []
+    }
+    
+    
+}
+
+//MARK:- UIDropInteractionDelegate Methods
+extension QuizBahaviouralViewController: UIDropInteractionDelegate {
+    //To Highlight whether the dragging item can drop in the specific area
+    func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
+        print("dropInteraction")
+
+        let location = session.location(in: self.view)
+        let dropOperation: UIDropOperation?
+       if session.canLoadObjects(ofClass: UIImage.self) {
+            if  self.dragCircle.frame.contains(location) {
+                dropOperation = .copy
+            } else {
+                dropOperation = .cancel
+            }
+        } else {
+            dropOperation = .cancel
+        }
+        
+        return UIDropProposal(operation: dropOperation!)
+    }
+    
+    //Drop the drag item and handle accordingly
+    func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
+        print("dropInteraction")
+       if session.canLoadObjects(ofClass: UIImage.self) {
+            session.loadObjects(ofClass: UIImage.self) { (items) in
+                if let images = items as? [UIImage] {
+                    self.dragCircle.image = images.last
+                }
+            }
+        }
+        
+    }
+    
 }

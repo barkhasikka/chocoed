@@ -32,6 +32,10 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.tableViewLanguage.isHidden = true
         // Do any additional setup after loading the view, typically from a nib.
     }
+    
+    override var shouldAutorotate: Bool{
+        return false
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -129,6 +133,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             alertcontrol.addAction(alertaction)
             alertcontrol.addAction(alertaction1)
             self.present(alertcontrol, animated: true, completion: nil)
+            tableView.deselectRow(at: indexPath, animated: false)
         } else {
             self.viewTable.isHidden = true
             let userAppLang = UserDefaults.standard.string(forKey: "Language1")
@@ -139,8 +144,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         
     }
     
-    func loadGetLanguageList()
-    {
+    func loadGetLanguageList() {
         let clientid = UserDefaults.standard.string(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
         

@@ -30,7 +30,24 @@ class personalityUpgradeViewController: UIViewController,UITableViewDelegate,UIT
         loadApiMyTopicList()
 
     }
-
+    
+    override var shouldAutorotate: Bool{
+        return false
+    }
+    
+   
+    @IBAction func backButton(_ sender: Any) {
+        let vcChoice = storyboard?.instantiateViewController(withIdentifier: "mychoice") as? MyChoiceSkillsViewController
+        let aObjNavi = UINavigationController(rootViewController: vcChoice!)
+        aObjNavi.navigationBar.barTintColor = #colorLiteral(red: 0.08052674438, green: 0.186350315, blue: 0.8756543464, alpha: 1)
+        aObjNavi.navigationBar.tintColor = UIColor.white
+        aObjNavi.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        self.present(aObjNavi, animated: true, completion: nil)
+        
+        
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

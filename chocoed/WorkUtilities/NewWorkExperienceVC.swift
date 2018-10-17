@@ -123,6 +123,10 @@ class NewWorkExperienceVC: UIViewController {
             }
         })
     }
+    
+    override var shouldAutorotate: Bool{
+        return false
+    }
 
     func initView() {
         self.fromButton.setTitle(selectedWorkExperience.fromYear, for: .normal)

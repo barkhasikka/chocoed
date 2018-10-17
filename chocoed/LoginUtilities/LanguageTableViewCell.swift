@@ -24,3 +24,22 @@ class LanguageTableViewCell: UITableViewCell {
 
     
 }
+
+
+class CommonLanguageTableViewCell: UITableViewCell {
+    
+    var labelLanguage: UILabel!
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupView()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    func setupView(){
+        labelLanguage = UILabel()
+        addSubview(labelLanguage)
+    }
+}

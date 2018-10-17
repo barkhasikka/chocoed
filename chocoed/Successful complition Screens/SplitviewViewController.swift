@@ -9,6 +9,15 @@
 import UIKit
 
 class SplitviewViewController: UIViewController {
+    
+    @IBOutlet var lblTestCount: UILabel!
+    
+    @IBOutlet var lblBadgesCount: UILabel!
+    @IBOutlet var lblTopicCount: UILabel!
+    
+    @IBOutlet weak var viewChoice: UIView!
+    @IBOutlet weak var viewvonversation: UIView!
+    @IBOutlet weak var viewContent: UIView!
     var menuvc : ViewControllerMenubar!
     var toggle = true
     var drag = ""
@@ -44,11 +53,14 @@ class SplitviewViewController: UIViewController {
         imageViewLogo.isUserInteractionEnabled = true
         imageViewLogo.addGestureRecognizer(tapGestureRecognizer)
         
-        let frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height:200)
-        let backgroundImage = UIImageView(frame: frame)
-        backgroundImage.image = UIImage(named: "dashboard_header")
-        backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
-        self.viewButtonsCircle.insertSubview(backgroundImage, at: 0 )
+//        let frame = CGRect(x: 0, y: 0, width: viewContent.Width, height:viewContent.Height)
+       
+        
+        // let backgroundImage = UIImageView(frame: frame)
+        //  backgroundImage.image = UIImage(named: "dashboard_header")
+        //  backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
+        //  self.viewButtonsCircle.insertSubview(backgroundImage, at: 0 )
+        
         
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
@@ -71,8 +83,25 @@ class SplitviewViewController: UIViewController {
         
         
         self.view.addGestureRecognizer(swipeleft)
+        if self.imageProfile.image != nil {
+            menuvc.userImageLoaded = self.imageProfile.image!
+        }
         
     }
+    
+    override var shouldAutorotate: Bool{
+        return false
+    }
+    
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation{
+        return UIInterfaceOrientation.portrait
+    }
+    
+    override var supportedInterfaceOrientations:UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
+    }
+    
+    
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer){
         print("Please select image")
         toggle = !toggle
@@ -82,7 +111,7 @@ class SplitviewViewController: UIViewController {
         self.view.layoutIfNeeded()
         UIView.animate(withDuration: 1, animations: {
             self.constraintOutlet.constant = 20
-            self.mainviewConstraintOutlet.constant = 800
+            self.mainviewConstraintOutlet.constant = 700
             self.view.layoutIfNeeded()
             })
         }else{
@@ -90,7 +119,7 @@ class SplitviewViewController: UIViewController {
             self.view.layoutIfNeeded()
             UIView.animate(withDuration: 1, animations: {
                 self.constraintOutlet.constant = 150
-                self.mainviewConstraintOutlet.constant = 900
+                self.mainviewConstraintOutlet.constant = 820
                 self.view.layoutIfNeeded()
                 self.arcView.isHidden = false
 
@@ -141,6 +170,7 @@ class SplitviewViewController: UIViewController {
     }
 
     func showmethod() {
+        
         UIView.animate(withDuration: 0.1) { ()->Void in
             self.menuvc.view.frame = CGRect(x: 0, y: 60, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
             self.addChildViewController(self.menuvc)
@@ -188,4 +218,64 @@ class SplitviewViewController: UIViewController {
             closemethod()
         }
     }
+    
+    @IBAction func content_clicked(_ sender: Any) {
+        
+        currentTopiceDate = ""
+        currentCourseId = ""
+        
+        
+        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "ContentVC") as! ContentVC
+        self.present(v1, animated: true, completion: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.GetUserInfo()
+        
+    }
+    
+    
+    func GetUserInfo() {
+        let userID = UserDefaults.standard.integer(forKey: "userid")
+        print(userID, "USER ID IS HERE")
+        let params = ["userId": "\(userID)",  "access_token":"\(accessToken)"] as Dictionary<String, String>
+        MakeHttpPostRequest(url: getUserInfo, params: params, completion: {(success, response) in
+            print(response)
+            let jsonobject = response["info"] as? NSDictionary;
+            let temp = ModelProfileClass()
+            temp.firstName = jsonobject?.object(forKey: "firstName") as? String ?? ""
+            temp.lastName = jsonobject?.object(forKey: "lastName") as? String ?? ""
+            temp.email = jsonobject?.object(forKey: "email") as? String ?? ""
+            temp.mobile = jsonobject?.object(forKey: "mobile") as? String ?? ""
+            let clientId = jsonobject?.object(forKey: "clientId") as? String ?? ""
+            let url = jsonobject?.object(forKey: "profileImageUrl") as? String ?? ""
+            let quizTaken =  jsonobject?.object(forKey:"quizTestGiven") as? Int ?? -1
+            UserDefaults.standard.set(quizTaken, forKey: "quiztakenID")
+            //let quizID = UserDefaults.standard.string(forKey: "quiztakenID")
+            // print(quizID)
+            // let fileUrl = URL(string: url)
+            UserDefaults.standard.set(Int(clientId), forKey: "clientid")
+            USERDETAILS = UserDetails(email: temp.email, firstName: temp.firstName, lastname: temp.lastName, imageurl: url)
+            
+            let badesEarned =  jsonobject?.object(forKey:"badesEarned") as? Int ?? 0
+            let completedTestCout =  jsonobject?.object(forKey:"completedTestCout") as? Int ?? 0
+            let completedTopicCout =  jsonobject?.object(forKey:"completedTopicCout") as? Int ?? 0
+
+            
+            DispatchQueue.main.async {
+                self.lblBadgesCount.text = String(badesEarned)
+                self.lblTestCount.text = String(completedTestCout)
+                self.lblTopicCount.text = String(completedTopicCout)
+            }
+
+            
+            
+            
+        }, errorHandler: {(message) -> Void in
+            print("message", message)
+        })
+    }
+    
 }
