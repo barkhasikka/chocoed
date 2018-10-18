@@ -83,8 +83,6 @@
 		07583C3C21673EFE00CE6EB6 /* ExamComplitionScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamComplitionScreenViewController.swift; sourceTree = "<group>"; };
 		0770F791216DCAF100FE6132 /* dragExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dragExtension.swift; sourceTree = "<group>"; };
 		0770F793216DCBF300FE6132 /* dropExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dropExtension.swift; sourceTree = "<group>"; };
-		0771456F21787DE8005888D1 /* as-IN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "as-IN"; path = "as-IN.lproj/Main.strings"; sourceTree = "<group>"; };
-		0771457021787DE8005888D1 /* as-IN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "as-IN"; path = "as-IN.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		07869426216F4F3A008DB9FF /* personalityUpgradeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = personalityUpgradeViewController.swift; sourceTree = "<group>"; };
 		07869428216F4F6D008DB9FF /* PersonalityUpgradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalityUpgradeTableViewCell.swift; sourceTree = "<group>"; };
 		07967BF121679FBC00FB0E83 /* MenuBarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarTableViewCell.swift; sourceTree = "<group>"; };
@@ -569,7 +567,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				BF2358EE214FD0AC00C73BE3 /* Base */,
-				0771456F21787DE8005888D1 /* as-IN */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -578,7 +575,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				BF2358F3214FD0AE00C73BE3 /* Base */,
-				0771457021787DE8005888D1 /* as-IN */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
