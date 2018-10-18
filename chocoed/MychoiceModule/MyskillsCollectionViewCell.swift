@@ -16,7 +16,13 @@ class MyskillsCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.view.layer.borderWidth = 2
-        self.view.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+//        self.view.layer.borderWidth = 2
+//        self.view.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+//
+        let backgroundImage = UIImageView(frame: frame)
+    
+        backgroundImage.image = UIImage(named: "card_bg")
+        backgroundImage.contentMode = UIViewContentMode.scaleAspectFit
+        self.view.insertSubview(backgroundImage, at: 0 )
     }
 }

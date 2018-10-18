@@ -116,10 +116,15 @@ class MyChoiceSkillsViewController: UIViewController,UICollectionViewDelegate,UI
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "skillcell", for: indexPath) as! MyskillsCollectionViewCell
+        
+        
+        
         cell.name.text = self.arrayCourseList[indexPath.row].courseName
         if self.arrayCourseList[indexPath.row].courseId == "-1" {
             cell.imageview.image = UIImage(named: self.arrayCourseList[indexPath.row].courseImageUrl)
+            
         }else {
             let fileUrl = URL(string: arrayCourseList[indexPath.row].courseImageUrl)
             if arrayCourseList[indexPath.row].courseImageUrl != ""
