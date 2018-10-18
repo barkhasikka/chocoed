@@ -1,0 +1,6 @@
+framework module Pods_chocoed {
+  umbrella header "Pods-chocoed-umbrella.h"
+
+  export *
+  module * { export * }
+}

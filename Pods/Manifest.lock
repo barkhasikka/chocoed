@@ -1,0 +1,28 @@
+PODS:
+  - DropDown (2.3.2)
+  - PryntTrimmerView (2.0.1)
+  - SteviaLayout (4.2.0)
+  - YPImagePicker (3.2.0):
+    - PryntTrimmerView (~> 2.0)
+    - SteviaLayout (~> 4.2.0)
+
+DEPENDENCIES:
+  - DropDown
+  - YPImagePicker
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - DropDown
+    - PryntTrimmerView
+    - SteviaLayout
+    - YPImagePicker
+
+SPEC CHECKSUMS:
+  DropDown: 7f87abecc28f9b4edad810fe1211c5c018c257e5
+  PryntTrimmerView: 4260ae497a2f3e1bbfc0b71247eb74ab92bf0490
+  SteviaLayout: 0d2112caea45707695e8c718262c8ea3dd37ef17
+  YPImagePicker: 2d9c7f1e29642fa43f875f66a9b6cc4c0793ec8a
+
+PODFILE CHECKSUM: b86dbe64c56d5953887faaa6b3b6de897154f221
+
+COCOAPODS: 1.5.3
