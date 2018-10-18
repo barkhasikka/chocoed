@@ -49,10 +49,10 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
         tabGestureView.isUserInteractionEnabled = true
         tabGestureView.addGestureRecognizer(tap)
-        languageUIView = LanguageUIView(frame: CGRect(x: 30, y: 30, width: self.view.frame.width - 30, height: self.view.frame.height - 30))
+        languageUIView = LanguageUIView(frame: CGRect(x: 30, y: 30, width: 360 , height: 500))
         languageUIView.tableViewLanguage.delegate = self
-        
         self.view.addSubview(languageUIView)
+        
         languageUIView.isHidden = true
 //        languageview.isHidden = true
     }
@@ -171,7 +171,16 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                 self.present(alertcontrol, animated: true, completion: nil)
                 break;
                 
-            case 4: self.languageUIView.isHidden = false
+            case 4:
+//            let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.regular)
+//            let blurEffectView = UIVisualEffectView(effect: blurEffect)
+//            blurEffectView.frame = view.bounds
+//            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//            view.addSubview(blurEffectView)
+            
+            self.languageUIView.isHidden = false
+            
+            
             break;
                 
             default: break

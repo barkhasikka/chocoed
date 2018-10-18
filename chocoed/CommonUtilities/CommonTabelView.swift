@@ -11,7 +11,8 @@ import UIKit
 
 class LanguageUIView : UIView, UITableViewDelegate ,UITableViewDataSource {
     var tableViewLanguage: UITableView!
-    
+    var label: UILabel = UILabel()
+    var btn: UIButton = UIButton()
     var arrayLanguages = [LanguageList]()
     
     required init?(coder aDecoder: NSCoder) {
@@ -22,13 +23,34 @@ class LanguageUIView : UIView, UITableViewDelegate ,UITableViewDataSource {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        tableViewLanguage = UITableView(frame: CGRect(x: 0, y: 0, width: self.frame.width - 30, height: self.frame.height - 30))
+        customElemetsOfview()
+        tableViewLanguage = UITableView(frame: CGRect(x: 0, y: 40, width: self.frame.width - 30, height: self.frame.height - 30))
         self.addSubview(tableViewLanguage)
         tableViewLanguage.dataSource = self
         tableViewLanguage.register(CommonLanguageTableViewCell.self, forCellReuseIdentifier: "cell")
+        
         loadGetLanguageList()
+        }
+    func customElemetsOfview()
+    {
+        btn.frame = CGRect(x: 0, y: 0, width: 30 , height: 40)
+        btn.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        btn.setTitle("X", for: UIControlState.normal)
+        btn.setTitleColor(#colorLiteral(red: 0.06274510175, green: 0, blue: 0.1921568662, alpha: 1), for: .normal)
+        btn.addTarget(self, action: #selector(closeButton), for: UIControlEvents.touchUpInside)
+        self.addSubview(btn)
+
+        label.frame = CGRect(x: 30 , y: 0, width: 300 , height: 40)
+        label.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        label.textAlignment = NSTextAlignment.center
+        label.text = "Please select the Preferred language"
+        self.addSubview(label)
     }
-    
+    @objc func closeButton()
+    {
+        print("Close button pressed")
+        self.isHidden = true
+    }
     func loadGetLanguageList() {
         let clientid = UserDefaults.standard.string(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
