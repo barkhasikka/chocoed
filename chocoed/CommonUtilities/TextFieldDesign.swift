@@ -22,3 +22,14 @@ extension UITextField {
     }
     
 }
+
+extension UIView{
+    func applyBackground(){
+        print("frames",self.frame)
+        let backgroundImage = UIImageView(frame: self.frame)
+        backgroundImage.image = UIImage(named: "back_circle_behind picture")
+        backgroundImage.contentMode = UIViewContentMode.scaleAspectFit
+        self.insertSubview(backgroundImage, at: 0 )
+
+    }
+}

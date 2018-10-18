@@ -157,28 +157,29 @@ class DraggableImageView: UIImageView {
 }
 }
 
-class BackgroundView : UIView{
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        applyBackground()
-    }
-    
-    func applyBackground() {
-        print(self.frame, "blah blah blah blah")
-//        self.backgroundColor = UIColor(patternImage: UIImage(named: "back_circle_behind picture.png")!)
-//        var imageView : UIImageView!
-//        imageView = UIImageView(frame: self.bounds)
-//        imageView.clipsToBounds = true
-//        imageView.image = UIImage(named: "back_circle_behind picture")
-//        imageView.center = self.center
-//        self.addSubview(imageView)
-//        self.sendSubview(toBack: imageView)
-//        self.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-//         let backgroundImage = UIImageView(frame: frame)
+//class BackgroundView : UIView{
+//    required init?(coder aDecoder: NSCoder) {
+//        super.init(coder: aDecoder)
+//        applyBackground()
+//    }
+//    
+//    func applyBackground() {
+//        print(self.frame, "blah blah blah blah")
+////        self.backgroundColor = UIColor(patternImage: UIImage(named: "back_circle_behind picture.png")!)
+////        var imageView : UIImageView!
+////        imageView = UIImageView(frame: self.bounds)
+////        imageView.clipsToBounds = true
+////        imageView.image = UIImage(named: "back_circle_behind picture")
+////        imageView.center = self.center
+////        self.addSubview(imageView)
+////        self.sendSubview(toBack: imageView)
+////        self.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+//        
+//          let backgroundImage = UIImageView(frame: frame)
 //          backgroundImage.image = UIImage(named: "back_circle_behind picture")
 //          backgroundImage.contentMode = UIViewContentMode.scaleAspectFit
 //          self.insertSubview(backgroundImage, at: 0 )
-    }
-}
+//    }
+//}
 
 

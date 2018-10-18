@@ -52,7 +52,28 @@ class SplitviewViewController: UIViewController {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         imageViewLogo.isUserInteractionEnabled = true
         imageViewLogo.addGestureRecognizer(tapGestureRecognizer)
+        //viewContent.applyBackground()
+        //viewvonversation.applyBackground()
+        //viewChoice.applyBackground()
         
+//        let backgroundImage = UIImageView(frame: self.viewChoice.bounds)
+//        backgroundImage.autoresizingMask = [.flexibleHeight, .flexibleWidth] // In case if your my_view_2 frames increases
+//        backgroundImage.image = UIImage(named: "back_circle_behind picture")
+//
+//        self.viewChoice.insertSubview(backgroundImage, at: 0)
+//
+//        let backgroundImage1 = UIImageView(frame: self.viewvonversation.bounds)
+//        backgroundImage1.autoresizingMask = [.flexibleHeight, .flexibleWidth] // In case if your my_view_2 frames increases
+//        backgroundImage1.image = UIImage(named: "circleback")
+//        
+//        self.viewvonversation.insertSubview(backgroundImage, at:0)
+//
+//        let backgroundImage2 = UIImageView(frame: self.viewContent.bounds)
+//        backgroundImage2.autoresizingMask = [.flexibleHeight, .flexibleWidth] // In case if your my_view_2 frames increases
+//        backgroundImage2.image = UIImage(named: "CicleMy")
+//        
+//        self.viewContent.insertSubview(backgroundImage, at: 0)
+
 //        let frame = CGRect(x: 0, y: 0, width: viewContent.Width, height:viewContent.Height)
        
         
