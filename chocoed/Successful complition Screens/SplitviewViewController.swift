@@ -101,106 +101,156 @@ class SplitviewViewController: UIViewController {
         if self.imageProfile.image != nil {
             menuvc.userImageLoaded = self.imageProfile.image!
         }
-        
-      
-        
     }
     
     @IBAction func MyProgressActionButton(_ sender: Any) {
         buttonProgrss = !buttonProgrss
+        
         if buttonProgrss == true{
             self.view.layoutIfNeeded()
-            UIView.animate(withDuration: 1, animations: {
-                self.heightprogrss.constant = 110
-                self.widthMyprogrss.constant = 110
-                self.view.layoutIfNeeded()
-                self.myProgressButton.setImage(UIImage(named: "my" ), for: UIControlState.normal)
-                self.myProgressButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
-                self.buttonThought = false
-                self.buttonchat = false
-                self.mychatButton.setImage(UIImage(named: "Icon-App-40x40-2" ), for: UIControlState.normal)
-                self.mychatButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
-
-                self.myThoughtsButton.setImage(UIImage(named: "Mythoughts" ), for: UIControlState.normal)
-                self.myThoughtsButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
-                
-
-                
-            })
-        }else{
+//            UIView.animate(withDuration: 1, animations: {
+            self.heightprogrss.constant = 100
+            self.widthMyprogrss.constant = 100
+            
+            self.heightmychat.constant = 80
+            self.widthMychat.constant = 80
+            
+            self.heightMyThought.constant = 80
+            self.widthMyThought.constant = 80
+            
             self.view.layoutIfNeeded()
-            UIView.animate(withDuration: 1, animations: {
-                self.heightprogrss.constant = 90
-                self.widthMyprogrss.constant = 90
-                self.view.layoutIfNeeded()
-                
-                self.myProgressButton.setImage(UIImage(named: "Icon-App-40x40" ), for: UIControlState.normal)
-                self.myProgressButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
-               
-            })
+            self.myProgressButton.setImage(UIImage(named: "my" ), for: UIControlState.normal)
+//            self.myProgressButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
+            
+            self.buttonThought = false
+            self.buttonchat = false
+          
+//            self.mychatButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
+
+            
+//            self.myThoughtsButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
+            
+            self.myProgressButton.setTitle("", for: .normal)
+            
+//            self.myProgressButton.centerVerticallyWithoutLabel()
+            
+//            })
+        } else {
+            self.view.layoutIfNeeded()
+//            UIView.animate(withDuration: 1, animations: {
+            self.heightprogrss.constant = 80
+            self.widthMyprogrss.constant = 80
+            self.view.layoutIfNeeded()
+            
+            self.myProgressButton.setImage(UIImage(named: "Icon-App-40x40" ), for: UIControlState.normal)
+//            self.myProgressButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
+            self.myProgressButton.setTitle("Progress", for: .normal)
+            
+            self.myProgressButton.centerVerticallyHere()
+//            })
         }
+        self.mychatButton.setTitle("Chat", for: .normal)
+          self.mychatButton.setImage(UIImage(named: "Icon-App-40x40-2" ), for: UIControlState.normal)
+        self.myThoughtsButton.setImage(UIImage(named: "Mythoughts" ), for: UIControlState.normal)
+        self.myThoughtsButton.setTitle("Thoughts", for: .normal)
+        self.myThoughtsButton.centerVerticallyHere()
+        self.mychatButton.centerVerticallyHere()
     }
+    
     @IBAction func MyChatActionButton(_ sender: Any) {
         buttonchat = !buttonchat
+        
         if buttonchat == true{
             self.view.layoutIfNeeded()
-            UIView.animate(withDuration: 1, animations: {
-                self.heightmychat.constant = 110
-                self.widthMychat.constant = 110
-                self.view.layoutIfNeeded()
-                self.mychatButton.setImage(UIImage(named: "my" ), for: UIControlState.normal)
-                self.mychatButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
-                self.buttonThought = false
-                self.buttonProgrss = false
-                self.myProgressButton.setImage(UIImage(named: "Icon-App-40x40" ), for: UIControlState.normal)
-                self.myProgressButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
-                self.myThoughtsButton.setImage(UIImage(named: "Mythoughts" ), for: UIControlState.normal)
-                self.myThoughtsButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
-                
-
-            })
+//            UIView.animate(withDuration: 1, animations: {
+            self.heightmychat.constant = 100
+            self.widthMychat.constant = 100
+            
+            self.heightMyThought.constant = 80
+            self.widthMyThought.constant = 80
+            
+            self.heightprogrss.constant = 80
+            self.widthMyprogrss.constant = 80
+            
+            self.view.layoutIfNeeded()
+            self.mychatButton.setImage(UIImage(named: "my" ), for: UIControlState.normal)
+            self.mychatButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
+            self.buttonThought = false
+            self.buttonProgrss = false
+          
+//            self.myThoughtsButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
+            
+            self.mychatButton.setTitle("", for: .normal)
+            
+//            self.mychatButton.centerVerticallyHere()
+//            })
         }else{
             self.view.layoutIfNeeded()
-            UIView.animate(withDuration: 1, animations: {
-                self.heightmychat.constant = 90
-                self.widthMychat.constant = 90
-                self.view.layoutIfNeeded()
-                self.mychatButton.setImage(UIImage(named: "Icon-App-40x40-2" ), for: UIControlState.normal)
-                self.mychatButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
-               
-            })
+//            UIView.animate(withDuration: 1, animations: {
+            self.heightmychat.constant = 80
+            self.widthMychat.constant = 80
+            self.view.layoutIfNeeded()
+            self.mychatButton.setImage(UIImage(named: "Icon-App-40x40-2" ), for: UIControlState.normal)
+//            self.mychatButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
+            
+            self.mychatButton.setTitle("Chat", for: .normal)
+            self.mychatButton.centerVerticallyHere()
+//            })
         }
+        self.myProgressButton.setTitle("Progress", for: .normal)
+        self.myThoughtsButton.setTitle("Thoughts", for: .normal)
+        self.myProgressButton.setImage(UIImage(named: "Icon-App-40x40" ), for: UIControlState.normal)
+        self.myThoughtsButton.setImage(UIImage(named: "Mythoughts" ), for: UIControlState.normal)
+        self.myProgressButton.centerVerticallyHere()
+        self.myThoughtsButton.centerVerticallyHere()
     }
     
     @IBAction func MyThoughtsActionButton(_ sender: Any) {
         buttonThought = !buttonThought
+        
         if buttonThought == true{
             self.view.layoutIfNeeded()
-            UIView.animate(withDuration: 1, animations: {
-                self.heightMyThought.constant = 110
-                self.widthMyThought.constant = 110
-                self.view.layoutIfNeeded()
-                self.myThoughtsButton.setImage(UIImage(named: "my" ), for: UIControlState.normal)
-                self.myThoughtsButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
-                self.buttonchat = false
-                self.buttonProgrss = false
-                self.mychatButton.setImage(UIImage(named: "Icon-App-40x40-2" ), for: UIControlState.normal)
-                self.mychatButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
-                self.myProgressButton.setImage(UIImage(named: "Icon-App-40x40" ), for: UIControlState.normal)
-                self.myProgressButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
-            })
+//            UIView.animate(withDuration: 1, animations: {
+            self.heightMyThought.constant = 100
+            self.widthMyThought.constant = 100
+//
+            self.heightmychat.constant = 80
+            self.widthMychat.constant = 80
+            
+            self.heightprogrss.constant = 80
+            self.widthMyprogrss.constant = 80
+            
+            self.view.layoutIfNeeded()
+            self.myThoughtsButton.setImage(UIImage(named: "my" ), for: UIControlState.normal)
+//            self.myThoughtsButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
+            self.buttonchat = false
+            self.buttonProgrss = false
+           
+//            self.myProgressButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
+            
+            self.myThoughtsButton.setTitle("", for: .normal)
+            
+//            self.myThoughtsButton.centerVerticallyHere()
+//            })
         }else{
             self.view.layoutIfNeeded()
-            UIView.animate(withDuration: 1, animations: {
-                self.heightMyThought.constant = 90
-                self.widthMyThought.constant = 90
-                self.view.layoutIfNeeded()
-                self.myThoughtsButton.setImage(UIImage(named: "Mythoughts"), for: UIControlState.normal)
-                self.myThoughtsButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
-                
-                
-            })
+//            UIView.animate(withDuration: 1, animations: {
+            self.heightMyThought.constant = 80
+            self.widthMyThought.constant = 80
+            self.view.layoutIfNeeded()
+            self.myThoughtsButton.setImage(UIImage(named: "Mythoughts"), for: UIControlState.normal)
+//            self.myThoughtsButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
+            self.myThoughtsButton.setTitle("Thoughts", for: .normal)
+            
+            self.myThoughtsButton.centerVerticallyHere()
+//            })
         }
+        self.myProgressButton.setTitle("Progress", for: .normal)
+        self.mychatButton.setTitle("Chat", for: .normal)
+        self.mychatButton.setImage(UIImage(named: "Icon-App-40x40-2" ), for: UIControlState.normal)
+        self.myProgressButton.setImage(UIImage(named: "Icon-App-40x40" ), for: UIControlState.normal)
+        self.myProgressButton.centerVerticallyHere()
+        self.mychatButton.centerVerticallyHere()
 
     }
     override var shouldAutorotate: Bool{

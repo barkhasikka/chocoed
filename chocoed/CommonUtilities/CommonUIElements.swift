@@ -9,6 +9,67 @@
 import UIKit
 
 
+extension UIButton {
+    
+    func centerVerticallyHere(padding: CGFloat = 0.0) {
+        guard
+            let imageViewSize = self.imageView?.frame.size,
+            let titleLabelSize = self.titleLabel?.frame.size else {
+                return
+        }
+        
+        
+        let totalHeight = imageViewSize.height + titleLabelSize.height + padding
+        print("imageview size", imageViewSize, "label size", titleLabelSize, "total height", totalHeight)
+        
+        self.imageEdgeInsets = UIEdgeInsets(
+            top: 0,
+            left: 20,
+            bottom: 10,
+            right: 0.0
+        )
+        print(self.titleEdgeInsets)
+        self.titleEdgeInsets = UIEdgeInsets(
+            top: 20,
+            left: -40,
+            bottom: -40,
+            right: 0
+        )
+        
+        self.contentEdgeInsets = UIEdgeInsets(
+            top: 0.0,
+            left: 0.0,
+            bottom: titleLabelSize.height,
+            right: 0.0
+        )
+    }
+    
+    func centerVerticallyWithoutLabel() {
+        
+        self.imageEdgeInsets = UIEdgeInsets(
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0.0
+        )
+        
+        self.titleEdgeInsets = UIEdgeInsets(
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0
+        )
+       
+        self.contentEdgeInsets = UIEdgeInsets(
+            top: 0.0,
+            left: 0.0,
+            bottom: 0,
+            right: 0.0
+        )
+    }
+    
+}
+
 class ButtonWithImage: UIButton {
     
     override func layoutSubviews() {
