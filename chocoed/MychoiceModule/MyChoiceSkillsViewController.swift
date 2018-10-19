@@ -12,9 +12,11 @@ class MyChoiceSkillsViewController: UIViewController,UICollectionViewDelegate,UI
     
     
     @IBOutlet weak var collectionViewSkills: UICollectionView!
-    let arrayTitle = ["Soft Skills","Sales Skills","Customer Skills","Life Skills","Retail Skills"]
-    let images = [UIImage(named: "soft_skills"),UIImage(named: "sales_skills"),UIImage(named: "customer_skills"), UIImage(named: "life_skills"),UIImage(named: "conversation_big")]
+   // let arrayTitle = ["Soft Skills","Sales Skills","Customer Skills","Life Skills","Retail Skills"]
+   // let images = [UIImage(named: "soft_skills"),UIImage(named: "sales_skills"),UIImage(named: "customer_skills"), UIImage(named: "life_skills"),UIImage(named: "conversation_big")]
     var activityUIView: ActivityIndicatorUIView!
+    
+    
     
     var arrayCourseList = [CourseList]()
     
@@ -61,7 +63,7 @@ class MyChoiceSkillsViewController: UIViewController,UICollectionViewDelegate,UI
                 self.arrayCourseList.append(CourseList(courses as! NSDictionary))
             }
             
-            var something = ["calenderId" : "0", "courseId" : "-1", "courseImageUrl" : "sales_skills", "courseName" : "Sales Skills"] as [String : Any]
+           /* var something = ["calenderId" : "0", "courseId" : "-1", "courseImageUrl" : "sales_skills", "courseName" : "Sales Skills"] as [String : Any]
             self.arrayCourseList.append(CourseList(something as NSDictionary))
             
             something = ["calenderId" : "0","courseId" : "-1","courseImageUrl" : "customer_skills","courseName" : "Customer Skills"] as [String : Any]
@@ -72,6 +74,8 @@ class MyChoiceSkillsViewController: UIViewController,UICollectionViewDelegate,UI
             
             something = ["calenderId" : "0","courseId" : "-1","courseImageUrl" : "conversation_big","courseName" : "Life Skills"] as [String : Any]
             self.arrayCourseList.append(CourseList(something as NSDictionary))
+ 
+            */
             
             print(self.arrayCourseList.count)
             DispatchQueue.main.async {
@@ -91,17 +95,7 @@ class MyChoiceSkillsViewController: UIViewController,UICollectionViewDelegate,UI
             }
         })
     }
-    @IBAction func backButtonAction(_ sender: Any) {
-        
-        let vcbackDashboard = self.storyboard?.instantiateViewController(withIdentifier: "split") as? SplitviewViewController
-        let aObjNavi = UINavigationController(rootViewController: vcbackDashboard!)
-        aObjNavi.navigationBar.barTintColor = #colorLiteral(red: 0.08052674438, green: 0.186350315, blue: 0.8756543464, alpha: 1)
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
-        self.present(aObjNavi, animated: true, completion: nil)
-
-    }
-    
+  
     /*
     // MARK: - Navigation
 
@@ -149,8 +143,8 @@ class MyChoiceSkillsViewController: UIViewController,UICollectionViewDelegate,UI
         return CGSize(width: collectionViewSize/2, height: collectionViewSize/2)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch indexPath.row {
-        case 0:
+      //  switch indexPath.row {
+      //  case 0:
             let vcSkills = self.storyboard?.instantiateViewController(withIdentifier: "personalityupgrade") as? personalityUpgradeViewController
             var courseidStored = self.arrayCourseList[indexPath.row].courseId
             var clanderidStored = self.arrayCourseList[indexPath.row].calenderId
@@ -159,16 +153,24 @@ class MyChoiceSkillsViewController: UIViewController,UICollectionViewDelegate,UI
             print(clanderidStored)
             vcSkills?.temp = courseidStored
             vcSkills?.temp1 = clanderidStored
-            let aObjNavi = UINavigationController(rootViewController: vcSkills!)
-            aObjNavi.navigationBar.barTintColor = #colorLiteral(red: 0.08052674438, green: 0.186350315, blue: 0.8756543464, alpha: 1)
-            aObjNavi.navigationBar.tintColor = UIColor.white
-            aObjNavi.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
-            
-            self.present(aObjNavi, animated: true, completion: nil)
-            break
-        default:
-            print("Nothing selected")
-        }
+            vcSkills?.navTitle = self.arrayCourseList[indexPath.row].courseName
+        self.present(vcSkills!, animated: true, completion: nil)
+          //  break
+        //default:
+          //  print("Nothing selected")
+       // }
     }
+    
+    @IBAction func back_btn_clicked(_ sender: Any) {
+        
+        let vcbackDashboard = self.storyboard?.instantiateViewController(withIdentifier: "split") as? SplitviewViewController
+        let aObjNavi = UINavigationController(rootViewController: vcbackDashboard!)
+        aObjNavi.navigationBar.barTintColor = #colorLiteral(red: 0.08052674438, green: 0.186350315, blue: 0.8756543464, alpha: 1)
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        self.present(aObjNavi, animated: true, completion: nil)
+
+    }
+    
 
 }

@@ -70,10 +70,10 @@ class VideoVC: UIViewController {
         
         self.hideControls()
         
-        let videoURL = self.arrayTopic[self.currentPosition].topicVideoUrl
-       /* if currentSelectedLang != "English" {
+        var videoURL = self.arrayTopic[self.currentPosition].topicVideoUrl
+        if currentSelectedLang != "English" {
          videoURL = videoURL.replacingOccurrences(of: ".mp4", with: "_\(currentSelectedLang).mp4")
-        } */
+        }
         
         print(videoURL)
         
@@ -419,7 +419,6 @@ class VideoVC: UIViewController {
                     
                 }else{
                     
-                    // show rewind option
                     
                     DispatchQueue.main.async {
                         self.closedPlayer()

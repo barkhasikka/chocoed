@@ -28,6 +28,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
     var courseImage = ""
     var toDate = ""
     var fromdate = ""
+    var currentPositionDate = ""
     
     var selectedDate =  ""
     
@@ -551,6 +552,9 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
             self.courseImage = response.object(forKey: "ciurseImageUrl") as? String ?? ""
             self.fromdate = response.object(forKey: "fromDate") as? String ?? ""
             self.toDate = response.object(forKey: "toDate") as? String ?? ""
+            self.currentPositionDate = response.object(forKey: "currentPositionDate") as? String ?? ""
+
+            
             
             DispatchQueue.main.async {
                 
@@ -618,7 +622,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                     
                 }else{
                     
-                    if currentDate == predate{
+                    if self.currentPositionDate == predate{
                         
                         print("Current Topic")
                         self.isMatch = true

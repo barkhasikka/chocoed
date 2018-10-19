@@ -12,6 +12,17 @@ class personalityUpgradeViewController: UIViewController,UITableViewDelegate,UIT
     var temp = ""
     var temp1 = ""
     
+    var navTitle = ""
+    
+    @IBAction func back_btn_clicked(_ sender: UIButton) {
+        
+        self.dismiss(animated: true, completion: nil)
+
+    }
+    
+    @IBOutlet var lblTitle: UILabel!
+    
+    
     @IBOutlet weak var tabelviewTopicsList: UITableView!
     var arrayCourseTopicList = [CourseTopicList]()
     var activityUIView: ActivityIndicatorUIView!
@@ -23,6 +34,9 @@ class personalityUpgradeViewController: UIViewController,UITableViewDelegate,UIT
         backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
         self.view.insertSubview(backgroundImage, at: 0)
         print(temp)
+        
+        self.lblTitle.text = self.navTitle
+        
         
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)
@@ -36,7 +50,7 @@ class personalityUpgradeViewController: UIViewController,UITableViewDelegate,UIT
     }
     
    
-    @IBAction func backButton(_ sender: Any) {
+ /*   @IBAction func backButton(_ sender: Any) {
         let vcChoice = storyboard?.instantiateViewController(withIdentifier: "mychoice") as? MyChoiceSkillsViewController
         let aObjNavi = UINavigationController(rootViewController: vcChoice!)
         aObjNavi.navigationBar.barTintColor = #colorLiteral(red: 0.08052674438, green: 0.186350315, blue: 0.8756543464, alpha: 1)
@@ -47,6 +61,7 @@ class personalityUpgradeViewController: UIViewController,UITableViewDelegate,UIT
         
         
     }
+ */
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -96,25 +111,24 @@ class personalityUpgradeViewController: UIViewController,UITableViewDelegate,UIT
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "personalitycell") as! PersonalityUpgradeTableViewCell
         cell.labelName.text = arrayCourseTopicList [indexPath.row].topicName
-//        cell.labelStatus.text = arraycolour[indexPath.row]
-//        if cell.labelStatus.text == "Completed"{
-//            cell.labelStatus.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
-//        }else if cell.labelStatus.text == "Inprogress" {
-//            cell.labelStatus.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
-//        }else{
-//            cell.labelStatus.backgroundColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
-//        }
-        cell.imageviewComp.image = UIImage(named: "computer")
+        
+        cell.lblTopicCount.text = "(" + String(arrayCourseTopicList [indexPath.row].subTopicCount) + ") Sub Topics"
+        
+         cell.lblExamCount.text = "(" + String(arrayCourseTopicList [indexPath.row].testCount) + ") Tests"
+
         return cell
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
+        
+        
         let vcnextDetails = self.storyboard?.instantiateViewController(withIdentifier: "topicstatus") as? TopicsStatusViewController
         vcnextDetails?.topicid = arrayCourseTopicList[indexPath.row].topicId
         vcnextDetails?.courseid = self.temp
         vcnextDetails?.calanderid = self.temp1
-        
-        self.navigationController?.pushViewController(vcnextDetails!, animated: true)
+        vcnextDetails?.navTitle = arrayCourseTopicList [indexPath.row].topicName
+        self.present(vcnextDetails!, animated: true, completion: nil)
     }
     
 

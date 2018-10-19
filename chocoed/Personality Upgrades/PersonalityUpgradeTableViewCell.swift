@@ -9,9 +9,14 @@
 import UIKit
 
 class PersonalityUpgradeTableViewCell: UITableViewCell {
+    
+    
 
+    @IBOutlet var lblExamCount: UILabel!
+    @IBOutlet var lblTopicCount: UILabel!
     @IBOutlet weak var labelName: UILabel!
-    @IBOutlet weak var imageviewComp: UIImageView!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -28,6 +33,8 @@ class PersonalityUpgradeTableViewCell: UITableViewCell {
 }
 class TopicStatusTableViewCell: UITableViewCell {
     
+    @IBOutlet var blockView: UIView!
+    @IBOutlet var lblViews: UILabel!
     @IBOutlet weak var viewTopics: UIView!
     @IBOutlet weak var imageview: UIImageView!
     @IBOutlet weak var labelStatus: UILabel!

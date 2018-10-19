@@ -222,7 +222,7 @@ extension NSMutableData {
 }
 
 func GetAlertWithOKAction(message: String) -> UIViewController {
-    let alertcontrol = UIAlertController(title: "alert!", message: message, preferredStyle: .alert)
+    let alertcontrol = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
     let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
     alertcontrol.addAction(alertaction)
     return alertcontrol

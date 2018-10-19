@@ -188,14 +188,14 @@ struct CourseList{
 struct CourseTopicList{
     var topicName : String
     var topicId: String
-    var subTopicCount : String
-    var testCount : String
+    var subTopicCount : Int
+    var testCount : Int
     
     init(_ dictionary : NSDictionary) {
         self.topicName = dictionary["topicName"] as? String ?? ""
         self.topicId = dictionary["topicId"] as? String ?? ""
-        self.subTopicCount = dictionary["subTopicCount"] as? String ?? ""
-        self.testCount = dictionary["testCount"] as? String ?? ""
+        self.subTopicCount = dictionary["subTopicCount"] as? Int ?? 0
+        self.testCount = dictionary["testCount"] as? Int ?? 0
     }
 }
 
@@ -206,13 +206,13 @@ struct CourseSubTopicList{
     var examName : String
     var examStatus : String
     var subTopicName : String
-    var topicId : String
+    var topicId : Int
     var topicLayouts : NSArray
     var topicName : String
     var topicStatus : String
     var topicVideoUrl : String
-    var videoViewCount : String
-    var videoViewLimit : String
+    var videoViewCount : Int
+    var videoViewLimit : Int
     
     
     init(_ dictionary : NSDictionary) {
@@ -222,13 +222,13 @@ struct CourseSubTopicList{
         self.examName = dictionary["examName"] as? String ?? ""
         self.examStatus = dictionary["examStatus"] as? String ?? ""
         self.subTopicName = dictionary["subTopicName"] as? String ?? ""
-        self.topicId = dictionary["topicId"] as? String ?? ""
+        self.topicId = dictionary["topicId"] as? Int ?? -1
         self.topicLayouts = dictionary["topicLayouts"] as? NSArray ?? []
         self.topicName = dictionary["topicName"] as? String ?? ""
         self.topicStatus = dictionary["topicStatus"] as? String ?? ""
         self.topicVideoUrl = dictionary["topicVideoUrl"] as? String ?? ""
-        self.videoViewCount = dictionary["videoViewCount"] as? String ?? ""
-        self.videoViewLimit = dictionary["videoViewLimit"] as? String ?? ""
+        self.videoViewCount = dictionary["videoViewCount"] as? Int ?? 0
+        self.videoViewLimit = dictionary["videoViewLimit"] as? Int ?? 3
     }
     
 }
