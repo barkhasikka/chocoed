@@ -22,12 +22,12 @@ extension UITextField {
     }
     
 }
-
+//
 extension UIView{
     func applyBackground(){
         print("frames",self.frame)
-        let backgroundImage = UIImageView(frame: self.frame)
-        backgroundImage.image = UIImage(named: "back_circle_behind picture")
+        let backgroundImage = UIImageView(frame: self.bounds)
+        backgroundImage.image = UIImage(named: "card_bg")
         backgroundImage.contentMode = UIViewContentMode.scaleAspectFit
         self.insertSubview(backgroundImage, at: 0 )
 

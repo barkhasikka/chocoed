@@ -23,23 +23,23 @@ extension UIButton {
         print("imageview size", imageViewSize, "label size", titleLabelSize, "total height", totalHeight)
         
         self.imageEdgeInsets = UIEdgeInsets(
-            top: 0,
-            left: 20,
-            bottom: 10,
-            right: 0.0
+            top: 5,
+            left: 15,
+            bottom: 30,
+            right: 15
         )
         print(self.titleEdgeInsets)
         self.titleEdgeInsets = UIEdgeInsets(
             top: 20,
-            left: -40,
-            bottom: -40,
-            right: 0
+            left: -10,
+            bottom: 0,
+            right: 20
         )
         
         self.contentEdgeInsets = UIEdgeInsets(
             top: 0.0,
             left: 0.0,
-            bottom: titleLabelSize.height,
+            bottom: 0,
             right: 0.0
         )
     }
@@ -236,8 +236,8 @@ class DraggableImageView: UIImageView {
 ////        self.sendSubview(toBack: imageView)
 ////        self.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
 //        
-//          let backgroundImage = UIImageView(frame: frame)
-//          backgroundImage.image = UIImage(named: "back_circle_behind picture")
+//          let backgroundImage = UIImageView(frame: self.bounds)
+//          backgroundImage.image = UIImage(named: "card_bg")
 //          backgroundImage.contentMode = UIViewContentMode.scaleAspectFit
 //          self.insertSubview(backgroundImage, at: 0 )
 //    }
