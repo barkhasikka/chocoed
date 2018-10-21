@@ -55,8 +55,20 @@ class TopicsStatusViewController: UIViewController,UITableViewDelegate,UITableVi
     
     override var shouldAutorotate: Bool{
         return false
+    
     }
 
+
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation{
+        return UIInterfaceOrientation.portrait
+    }
+    
+    override var supportedInterfaceOrientations:UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
+    }
+    
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
