@@ -9,6 +9,67 @@
 import UIKit
 
 
+extension UIButton {
+    
+    func centerVerticallyHere(padding: CGFloat = 0.0) {
+        guard
+            let imageViewSize = self.imageView?.frame.size,
+            let titleLabelSize = self.titleLabel?.frame.size else {
+                return
+        }
+        
+        
+        let totalHeight = imageViewSize.height + titleLabelSize.height + padding
+        print("imageview size", imageViewSize, "label size", titleLabelSize, "total height", totalHeight)
+        
+        self.imageEdgeInsets = UIEdgeInsets(
+            top: 5,
+            left: 15,
+            bottom: 30,
+            right: 15
+        )
+        print(self.titleEdgeInsets)
+        self.titleEdgeInsets = UIEdgeInsets(
+            top: 20,
+            left: -10,
+            bottom: 0,
+            right: 20
+        )
+        
+        self.contentEdgeInsets = UIEdgeInsets(
+            top: 0.0,
+            left: 0.0,
+            bottom: 0,
+            right: 0.0
+        )
+    }
+    
+    func centerVerticallyWithoutLabel() {
+        
+        self.imageEdgeInsets = UIEdgeInsets(
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0.0
+        )
+        
+        self.titleEdgeInsets = UIEdgeInsets(
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0
+        )
+       
+        self.contentEdgeInsets = UIEdgeInsets(
+            top: 0.0,
+            left: 0.0,
+            bottom: 0,
+            right: 0.0
+        )
+    }
+    
+}
+
 class ButtonWithImage: UIButton {
     
     override func layoutSubviews() {
@@ -175,8 +236,8 @@ class DraggableImageView: UIImageView {
 ////        self.sendSubview(toBack: imageView)
 ////        self.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
 //        
-//          let backgroundImage = UIImageView(frame: frame)
-//          backgroundImage.image = UIImage(named: "back_circle_behind picture")
+//          let backgroundImage = UIImageView(frame: self.bounds)
+//          backgroundImage.image = UIImage(named: "card_bg")
 //          backgroundImage.contentMode = UIViewContentMode.scaleAspectFit
 //          self.insertSubview(backgroundImage, at: 0 )
 //    }

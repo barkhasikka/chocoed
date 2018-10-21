@@ -22,6 +22,8 @@
 		07ABDDAE216E10910029CC54 /* MyskillsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07ABDDAD216E10910029CC54 /* MyskillsCollectionViewCell.swift */; };
 		07DB9F59216C866500696B5A /* ActivityIndicatorUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DB9F58216C866500696B5A /* ActivityIndicatorUIView.swift */; };
 		07E07B0B216F6A31004DBE2D /* SubViewPersonalityUpgradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E07B0A216F6A31004DBE2D /* SubViewPersonalityUpgradeViewController.swift */; };
+		3D754E2B2179CE8B00391BF8 /* my_hand.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D754E2A2179CE8800391BF8 /* my_hand.png */; };
+		3D754E2D2179D2E800391BF8 /* hand_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D754E2C2179D2E800391BF8 /* hand_image.png */; };
 		3DC3AE4D2173930500AE6091 /* icons_user.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DC3AE472173930200AE6091 /* icons_user.png */; };
 		3DC3AE4E2173930500AE6091 /* discussion_room.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DC3AE482173930300AE6091 /* discussion_room.png */; };
 		3DC3AE4F2173930500AE6091 /* icons_lang.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DC3AE492173930400AE6091 /* icons_lang.png */; };
@@ -92,6 +94,8 @@
 		07ABDDAD216E10910029CC54 /* MyskillsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyskillsCollectionViewCell.swift; sourceTree = "<group>"; };
 		07DB9F58216C866500696B5A /* ActivityIndicatorUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorUIView.swift; sourceTree = "<group>"; };
 		07E07B0A216F6A31004DBE2D /* SubViewPersonalityUpgradeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubViewPersonalityUpgradeViewController.swift; sourceTree = "<group>"; };
+		3D754E2A2179CE8800391BF8 /* my_hand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = my_hand.png; sourceTree = "<group>"; };
+		3D754E2C2179D2E800391BF8 /* hand_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hand_image.png; sourceTree = "<group>"; };
 		3DC3AE472173930200AE6091 /* icons_user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icons_user.png; sourceTree = "<group>"; };
 		3DC3AE482173930300AE6091 /* discussion_room.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = discussion_room.png; sourceTree = "<group>"; };
 		3DC3AE492173930400AE6091 /* icons_lang.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icons_lang.png; sourceTree = "<group>"; };
@@ -200,6 +204,8 @@
 		3DF065432172EEF200C26F90 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				3D754E2C2179D2E800391BF8 /* hand_image.png */,
+				3D754E2A2179CE8800391BF8 /* my_hand.png */,
 				3DFA0E1A2175ED3500F8A611 /* icons_pause.png */,
 				3DE2DC0A21746D1400C396BD /* icons_play.png */,
 				3DE2DC0921746D1300C396BD /* icons_stop_filled.png */,
@@ -443,10 +449,12 @@
 				3DF0654E2172EF3C00C26F90 /* ic_lock_white.png in Resources */,
 				3DC3AE522173930500AE6091 /* icon_logout.png in Resources */,
 				3DF0654C2172EF3C00C26F90 /* ic_play_gray.png in Resources */,
+				3D754E2B2179CE8B00391BF8 /* my_hand.png in Resources */,
 				3DFA0E1B2175ED4200F8A611 /* icons_pause.png in Resources */,
 				3DE2DC0B21746D1400C396BD /* icons_stop_filled.png in Resources */,
 				3DC3AE4F2173930500AE6091 /* icons_lang.png in Resources */,
 				07583C3A2167277D00CE6EB6 /* Chocoed Splash Screen.png in Resources */,
+				3D754E2D2179D2E800391BF8 /* hand_image.png in Resources */,
 				3DF0654B2172EF3C00C26F90 /* ic_arrow_right.png in Resources */,
 				3DF0654D2172EF3C00C26F90 /* ic_assessment.png in Resources */,
 				3DF065502172EF3C00C26F90 /* back.png in Resources */,
@@ -713,7 +721,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chocoed.tejal;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chocoed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "chocoed/chocoed-Bridging-Header.h";
@@ -738,7 +746,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chocoed.tejal;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chocoed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "chocoed/chocoed-Bridging-Header.h";
