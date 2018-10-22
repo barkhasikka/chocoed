@@ -29,6 +29,7 @@ class VideoVC: UIViewController {
     var topicId = ""
     var videoURl = ""
     var courseId = ""
+    var correctAnsId = ""
     
     var isStartFromFirst = false
     var isCalled = false
@@ -39,7 +40,32 @@ class VideoVC: UIViewController {
     var closed = false
     var hidShowControls = true
     
+    var currentQuesIndex = 0
+    var currentExamID = ""
+    var isLastQuestion = false
+    var selectAnsID = ""
+    var startTime: String = ""
+    var currentQuesId : String = ""
+    var selectedAnsText = ""
+
     
+    var arrayExams = [KnowledgeList]()
+
+    @IBOutlet var btnOption1: UIButton!
+    
+    @IBOutlet var btnOption2: UIButton!
+    
+    @IBOutlet var btnOption3: UIButton!
+    
+    
+    @IBOutlet var btnOption4: UIButton!
+    
+    
+    
+    @IBOutlet var lblQuestion: UILabel!
+    
+  
+    @IBOutlet var btnNextQues: UIButton!
     
     @IBOutlet var lblTitle: UILabel!
     
@@ -47,6 +73,42 @@ class VideoVC: UIViewController {
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var videoView: UIView!
     @IBOutlet var currentTimeLabel: UILabel!
+    @IBOutlet var viewQues: UIView!
+    
+   
+    
+    var arrayBehaviouralQuestion = [Question]()
+
+    var isExamLoaded  = false
+    
+    @IBAction func nextQuestion_clicked(_ sender: Any) {
+        
+       // if self.isLastQuestion == true {
+            
+          //  self.viewQues.isHidden = true;
+          //  player.play()
+            
+        //    self.loadSaveExamQuestionAnswer()
+
+            
+      //  }else{
+            
+            //self.currentQuesIndex = self.currentQuesIndex + 1
+            //self.loadQuest()
+            
+            if self.selectAnsID == "" {
+                
+                let alert = GetAlertWithOKAction(message: "Select Answer")
+                self.present(alert, animated: true, completion: nil)
+            }else{
+                self.loadSaveExamQuestionAnswer()
+            }
+            
+      //  }
+        
+       
+    }
+    
     
     
     override func viewDidLoad() {
@@ -58,17 +120,22 @@ class VideoVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        currentData()
+        self.viewQues.isHidden = true
         
-        print(currentSelectedLang)
+        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.image = UIImage(named: "quiz_bg")
+        backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
+        self.viewQues.insertSubview(backgroundImage, at: 0)
 
-        
+        currentData()
+     
         if self.currentPosition == 0 && self.arrayTopic[self.currentPosition].videoViewCount == 0  {
             autoPlayCount = 0
             isStartFromFirst = true
         }
         
         self.hideControls()
+        
         
         var videoURL = self.arrayTopic[self.currentPosition].topicVideoUrl
         if currentSelectedLang != "English" {
@@ -103,6 +170,8 @@ class VideoVC: UIViewController {
         
         let gesture = UITapGestureRecognizer(target: self, action: #selector(self.hideShow(sender:)))
         self.videoView.addGestureRecognizer(gesture)
+ 
+       
         
         
     }
@@ -110,9 +179,52 @@ class VideoVC: UIViewController {
     
     
     func currentData(){
+        
         calenderId = self.arrayTopic[self.currentPosition].calenderId
         topicId = self.arrayTopic[self.currentPosition].topicId
         self.lblTitle.text=self.arrayTopic[self.currentPosition].topicName
+        
+        if self.arrayExams.count > 0 {
+            self.arrayExams.removeAll()
+        }
+        
+        if self.arrayBehaviouralQuestion.count > 0 {
+            self.arrayBehaviouralQuestion.removeAll()
+        }
+        
+         currentQuesIndex = 0
+         currentExamID = ""
+         isLastQuestion = false
+         isExamLoaded = false
+        
+        
+        
+        for exam in self.arrayTopic[self.currentPosition].topicLayouts {
+            self.arrayExams.append(KnowledgeList( exam as! NSDictionary))
+        }
+
+    }
+    
+    func isExamPresent(dur : Float) -> Bool {
+        
+        if self.arrayExams.count > 0 {
+        
+        for e in self.arrayExams{
+            
+            print("Curr Time",dur)
+
+            print("Stop Time",e.videoPosition)
+
+            
+            if dur <= (e.videoPosition + 500) && dur > e.videoPosition  {
+               self.currentExamID = e.examId
+                return true
+            }
+         }
+            
+        }
+        
+        return false
     }
     
     /*** Control hide and show methods ****/
@@ -304,6 +416,24 @@ class VideoVC: UIViewController {
                         self?.timeSlider.minimumValue = 0
                         self?.timeSlider.value = Float(currentItem.currentTime().seconds)
                         self?.currentTimeLabel.text = self?.getTimeString(from: currentItem.currentTime())
+                     
+                       // print("Current Time")
+                      //  print(Float(currentItem.currentTime().seconds * 1000))
+                        
+                        
+                       
+                        if (self?.isExamPresent(dur: Float(currentItem.currentTime().seconds * 1000)))!{
+                            
+                            self?.player.pause()
+
+                            if self?.isExamLoaded == false{
+                                self?.isExamLoaded = true
+                                self?.loadExam(examid: (self?.currentExamID)!)
+                            }
+                            
+                            
+                            
+                        }
                         
                         
                         if self?.currentTimeLabel.text == self?.durationLabel.text{
@@ -527,7 +657,351 @@ class VideoVC: UIViewController {
         player = nil
         self.closed = true
         self.dismiss(animated: true, completion: nil)
+    
+    }
+    
+    
+    /*** Load Exam Details ****/
+    
+    func loadExam(examid : String){
+        let clientID = UserDefaults.standard.integer(forKey: "clientid")
+        let userid = UserDefaults.standard.string(forKey: "userid")
         
+        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(examid)"] as Dictionary<String, String>
+        MakeHttpPostRequest(url: examDetails, params: params, completion: {(success, response) -> Void in
+            print(response)
+
+            self.arrayBehaviouralQuestion = [Question]()
+            let questionsList = response.object(forKey: "questionList") as? NSArray ?? []
+            for (index, question) in questionsList.enumerated() {
+                self.arrayBehaviouralQuestion.append(Question(question as! NSDictionary))
+               
+                /*if self.arrayBehaviouralQuestion[index].answerSubmitted == 0 && currentQuestionID == -1 {
+                    currentQuestionID = index
+                }*/
+            }
+        
+            
+            DispatchQueue.main.async {
+                
+                self.viewQues.isHidden = false
+                self.loadQuest()
+        
+            }
+        
+            
+        }, errorHandler: {(message) -> Void in
+            let alert = GetAlertWithOKAction(message: message)
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+            }
+        })
+    }
+    
+    
+    func loadQuest(){
+        
+        self.defaultButtons()
+        
+         selectAnsID = ""
+         currentQuesId = ""
+         selectedAnsText = ""
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss"
+        self.startTime = formatter.string(from: Date())
+        
+        self.currentQuesId = self.arrayBehaviouralQuestion[self.currentQuesIndex].id
+        
+        self.lblQuestion.text = self.arrayBehaviouralQuestion[self.currentQuesIndex].questionName
+        
+        self.correctAnsId = self.arrayBehaviouralQuestion[self.currentQuesIndex].correctAnsId
+        
+        var i = self.arrayBehaviouralQuestion[self.currentQuesIndex].option.count - 1
+        
+        while i >= 0   {
+            
+            let optionObject =  Option(self.arrayBehaviouralQuestion[self.currentQuesIndex].option[i] as! NSDictionary)
+
+            if i == 3 {
+                
+                if self.arrayBehaviouralQuestion[self.currentQuesIndex].selectedAnsId == optionObject.id  {
+                    self.selectAnsID = optionObject.id
+                    self.btnOption4.backgroundColor = UIColor.green
+                }
+                
+                self.btnOption4.setTitle(optionObject.ansText, for: .normal)
+            }
+            
+            if i == 2 {
+                
+                if self.arrayBehaviouralQuestion[self.currentQuesIndex].selectedAnsId == optionObject.id  {
+                    self.selectAnsID = optionObject.id
+                    self.btnOption3.backgroundColor = UIColor.green
+                }
+                
+                
+                self.btnOption3.setTitle(optionObject.ansText, for: .normal)
+            }
+            
+            if i == 1 {
+                
+                if self.arrayBehaviouralQuestion[self.currentQuesIndex].selectedAnsId == optionObject.id  {
+                    self.selectAnsID = optionObject.id
+                    self.btnOption2.backgroundColor = UIColor.green
+                }
+                
+                
+                self.btnOption2.setTitle(optionObject.ansText, for: .normal)
+            }
+            
+            if i == 0 {
+                
+                if self.arrayBehaviouralQuestion[self.currentQuesIndex].selectedAnsId == optionObject.id  {
+                    self.selectAnsID = optionObject.id
+                    self.btnOption1.backgroundColor = UIColor.green
+                }
+                
+                
+                self.btnOption1.setTitle(optionObject.ansText, for: .normal)
+            }
+            
+            
+            i -= 1
+        }
+       
+        
+        if self.currentQuesIndex + 1  == self.arrayBehaviouralQuestion.count{
+            
+            self.btnNextQues.setTitle("Close", for: UIControlState.normal)
+            self.isLastQuestion = true
+        }
+    }
+    
+    func showCorrectAns(){
+        
+        var i = self.arrayBehaviouralQuestion[self.currentQuesIndex].option.count - 1
+        
+        while i >= 0   {
+            
+            let optionObject =  Option(self.arrayBehaviouralQuestion[self.currentQuesIndex].option[i] as! NSDictionary)
+            
+            if i == 3 {
+                
+                if self.correctAnsId == optionObject.id  {
+                    self.btnOption4.backgroundColor = UIColor.green
+                    
+                }else{
+                    self.btnOption4.backgroundColor = UIColor.red
+
+                }
+            }
+            
+            if i == 2 {
+                if self.correctAnsId == optionObject.id {
+                    self.btnOption3.backgroundColor = UIColor.green
+                }else{
+                    self.btnOption3.backgroundColor = UIColor.red
+                    
+                }
+            }
+            
+            if i == 1 {
+                if self.correctAnsId == optionObject.id {
+                    self.btnOption2.backgroundColor = UIColor.green
+                }else{
+                    self.btnOption2.backgroundColor = UIColor.red
+                    
+                }
+            }
+            
+            if i == 0 {
+                if self.correctAnsId == optionObject.id {
+                    self.btnOption1.backgroundColor = UIColor.green
+                }else{
+                    self.btnOption1.backgroundColor = UIColor.red
+                    
+                }
+            }
+            
+            i -= 1
+        }
+        
+    }
+    
+    
+    @IBAction func option_a_clicked(_ sender: Any) {
+        
+        let optionObject =  Option(self.arrayBehaviouralQuestion[self.currentQuesIndex].option[0] as! NSDictionary)
+        
+        self.selectedAnsText = optionObject.ansText
+        self.selectAnsID = optionObject.id
+        self.defaultButtons()
+       
+        
+        if self.correctAnsId == optionObject.id {
+            
+            self.btnOption1.backgroundColor = UIColor.green
+            
+        }else{
+            self.showCorrectAns()
+        }
+        
+
+        
+        
+    }
+    @IBAction func option_b_clicked(_ sender: Any) {
+        
+         let optionObject =  Option(self.arrayBehaviouralQuestion[self.currentQuesIndex].option[1] as! NSDictionary)
+        
+        self.selectedAnsText = optionObject.ansText
+        self.selectAnsID = optionObject.id
+        self.defaultButtons()
+        
+        if self.correctAnsId == optionObject.id {
+            
+            self.btnOption2.backgroundColor = UIColor.green
+            
+        }else{
+            self.showCorrectAns()
+        }
+        
+        
+        
+    
+    }
+    
+    @IBAction func option_c_clicked(_ sender: Any) {
+        
+        
+        let optionObject =  Option(self.arrayBehaviouralQuestion[self.currentQuesIndex].option[2] as! NSDictionary)
+        
+        self.selectedAnsText = optionObject.ansText
+        self.selectAnsID = optionObject.id
+        self.defaultButtons()
+        
+        
+        if self.correctAnsId == optionObject.id {
+            
+            self.btnOption3.backgroundColor = UIColor.green
+            
+        }else{
+            self.showCorrectAns()
+        }
+        
+
+    }
+    @IBAction func option_d_clicked(_ sender: Any) {
+        
+        let optionObject =  Option(self.arrayBehaviouralQuestion[self.currentQuesIndex].option[3] as! NSDictionary)
+        self.defaultButtons()
+
+        self.selectedAnsText = optionObject.ansText
+        self.selectAnsID = optionObject.id
+        
+        if self.correctAnsId == optionObject.id {
+            
+            self.btnOption4.backgroundColor = UIColor.green
+
+        }else{
+            self.showCorrectAns()
+        }
+        
+        
+    }
+    
+    
+    func defaultButtons(){
+        
+        self.btnOption1.layer.borderColor = UIColor.white.cgColor
+        self.btnOption1.layer.borderWidth = 2
+        self.btnOption1.layer.cornerRadius = 8
+        self.btnOption1.backgroundColor = .clear
+        
+        self.btnOption2.layer.borderColor = UIColor.white.cgColor
+        self.btnOption2.layer.borderWidth = 2
+        self.btnOption2.layer.cornerRadius = 8
+        self.btnOption2.backgroundColor = .clear
+        
+        self.btnOption3.layer.borderColor = UIColor.white.cgColor
+        self.btnOption3.layer.borderWidth = 2
+        self.btnOption3.layer.cornerRadius = 8
+        self.btnOption3.backgroundColor = .clear
+        
+        self.btnOption4.layer.borderColor = UIColor.white.cgColor
+        self.btnOption4.layer.borderWidth = 2
+        self.btnOption4.layer.cornerRadius = 8
+        self.btnOption4.backgroundColor = .clear
+        
+        
+    }
+  
+    func loadSaveExamQuestionAnswer(){
+        let clientID = UserDefaults.standard.integer(forKey: "clientid")
+        let userid = UserDefaults.standard.string(forKey: "userid")
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss"
+        let endTime = formatter.string(from: Date())
+        
+        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(self.currentExamID)","questionId":"\(self.currentQuesId)","selectedAns":"\(self.selectedAnsText)","selectedAnsId":"\(self.selectAnsID)","startTime":"\(startTime)","endTime":"\(endTime)"] as Dictionary<String, String>
+        print(params)
+        
+        MakeHttpPostRequest(url: saveUserExamQuestionAnswer , params: params, completion: {(success, response) -> Void in
+            print(response, "<<<<<<-- SAVE ANSWER RESPONSE....")
+            
+            
+            DispatchQueue.main.async {
+                
+                if self.isLastQuestion == true {
+                    
+                    self.callEndTestAPI()
+                    
+                }else{
+                    
+                    self.currentQuesIndex = self.currentQuesIndex + 1
+                    self.loadQuest()
+                }
+                
+                
+            }
+            
+        }, errorHandler: {(message) -> Void in
+            let alert = GetAlertWithOKAction(message: message)
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+            }
+        })
+    }
+    
+    
+    func callEndTestAPI() {
+        let clientID = UserDefaults.standard.integer(forKey: "clientid")
+        let userid = UserDefaults.standard.string(forKey: "userid")
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss"
+        let endTime = formatter.string(from: Date())
+        
+        
+        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(self.currentExamID)", "endTime": "\(endTime)"] as Dictionary<String, String>
+        print(params, "<<<<-- end test api")
+       
+        MakeHttpPostRequest(url: endExamAPI, params: params, completion: {(success, response) -> Void in
+            print(response)
+            
+            DispatchQueue.main.async {
+                self.viewQues.isHidden = true;
+                self.player.play()
+            }
+          
+        }, errorHandler: {(message) -> Void in
+            let alert = GetAlertWithOKAction(message: message)
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+            }
+        })
     }
  
 }

@@ -143,8 +143,10 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
             switch(indexPath.row) {
                 
             case 3:
-                let v1 = self.storyboard?.instantiateViewController(withIdentifier: "profile") as! ProfileViewController
+                
+                let v1 = self.storyboard?.instantiateViewController(withIdentifier: "ContentVC") as! ContentVC
                 self.present(v1, animated: true, completion: nil)
+                
                 break;
                 
             case 5 :

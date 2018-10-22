@@ -145,6 +145,11 @@ struct Question{
     
     var option : NSArray
     var questionList : NSArray
+    
+    var correctAnsId: String
+
+    var selectedAnsId : String
+    
     init(_ dictionary : NSDictionary) {
         self.questionName = dictionary["name"] as? String ?? ""
         self.answerSubmitted = dictionary["isAnsSubmitted"] as? Int ?? 0
@@ -153,6 +158,10 @@ struct Question{
         self.selectedAns = dictionary["selectedAns"] as? String ?? ""
         self.option = dictionary["optionList"] as? NSArray ?? []
         self.questionList = dictionary["question_image_list"] as? NSArray ?? []
+        self.correctAnsId = dictionary["correctAnsId"] as? String ?? ""
+        self.selectedAnsId = dictionary["selectedAnsId"] as? String ?? ""
+
+
     }
 
 }
@@ -252,6 +261,18 @@ struct ExamList {
     }
 }
 
+struct KnowledgeList {
+    var examId: String
+    var examName: String
+    var videoPosition: Float
+    init(_ dictionary : NSDictionary) {
+        self.examId = dictionary["examId"] as? String ?? ""
+        self.examName = dictionary["examName"] as? String ?? ""
+        self.videoPosition = Float(dictionary["videoPosition"] as? String ?? "")!
+    }
+}
+
+
 struct TopicList{
     
     var calenderId : String
@@ -262,6 +283,7 @@ struct TopicList{
     var subTopicName : String
     var topicId : String
     var topicName : String
+    var topicLayouts : NSArray
     var topicStatus : String
     var topicVideoUrl : String
     var videoViewCount : Int
@@ -285,6 +307,7 @@ struct TopicList{
         self.videoViewCount = dictionary["videoViewCount"] as? Int ?? -1
         self.videoViewLimit = dictionary["videoViewLimit"] as? Int ?? -1
         self.videoPosition = dictionary["videoPosition"] as? String ?? ""
+        self.topicLayouts = dictionary["topicLayouts"] as? NSArray ?? []
         self.isBlock = false
     }
     
