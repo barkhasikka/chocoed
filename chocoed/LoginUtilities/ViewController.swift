@@ -18,6 +18,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     var activityUIView: ActivityIndicatorUIView!
     var count = 0
     
+    @IBOutlet weak var labelLangChange: UILabel!
     var arrayLanguages = [LanguageList]()
         //["English","Hindi हिंदी","Gujarati ગુજરાતી","Marathi मराठी ","Tamil  தமிழ்","Telugu తెలుగు","Kannada ಕನ್ನಡ","Konkani","Malayalam മലയാളം","Bengali বাঙালি","Oriya ଓଡ଼ିଆ"]
     override func viewDidLoad() {
@@ -119,6 +120,11 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             let alertaction = UIAlertAction(title: "No", style: .default) { (action) in
                 self.count = 1
                 UserDefaults.standard.set(text, forKey: "Language1")
+                self.viewTable.isHidden = true
+
+                self.labelLangChange.text = "Please select your Learning preferred language"
+
+                self.viewTable.isHidden = false
 
             }
             let alertaction1 = UIAlertAction(title: "Yes", style: .default) { (action) in
