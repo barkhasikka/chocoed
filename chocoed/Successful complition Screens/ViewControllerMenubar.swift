@@ -49,7 +49,7 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
         tabGestureView.isUserInteractionEnabled = true
         tabGestureView.addGestureRecognizer(tap)
-        languageUIView = LanguageUIView(frame: CGRect(x: 30, y: 30, width: 360 , height: 500))
+        languageUIView = LanguageUIView(frame: self.view.bounds)
         languageUIView.tableViewLanguage.delegate = self
         self.view.addSubview(languageUIView)
         
@@ -117,6 +117,11 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                 let alertaction = UIAlertAction(title: "No", style: .default) { (action) in
                     self.count = 1
                     UserDefaults.standard.set(text, forKey: "Language1")
+                    self.languageUIView.isHidden = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        self.languageUIView.label.text = "Please select your Learning preferred language"
+                        self.languageUIView.isHidden = false
+                    }
                     
                 }
                 let alertaction1 = UIAlertAction(title: "Yes", style: .default) { (action) in
@@ -134,9 +139,11 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                 tableView.deselectRow(at: indexPath, animated: false)
             } else {
                 self.languageUIView.isHidden = true
+                let userLearningLang = UserDefaults.standard.string(forKey: "Language2")
+                
+                
                 let userAppLang = UserDefaults.standard.string(forKey: "Language1")
-                print(userAppLang)
-//                self.signUpButton.setTitle("\(userAppLang!)", for: .normal)
+                
                 UserDefaults.standard.set(text, forKey: "Language2")
             }
         }else {

@@ -118,8 +118,8 @@ class SplitviewViewController: UIViewController {
         if buttonProgrss == true{
             self.view.layoutIfNeeded()
 //            UIView.animate(withDuration: 1, animations: {
-            self.heightprogrss.constant = 100
-            self.widthMyprogrss.constant = 100
+//            self.heightprogrss.constant = 100
+//            self.widthMyprogrss.constant = 100
             self.myProgressHandUIView.applyBackground()
             self.heightmychat.constant = 80
             self.widthMychat.constant = 80
@@ -179,14 +179,14 @@ class SplitviewViewController: UIViewController {
 
             self.view.layoutIfNeeded()
 //            UIView.animate(withDuration: 1, animations: {
-            self.heightmychat.constant = 100
-            self.widthMychat.constant = 100
-            
+//            self.heightmychat.constant = 100
+//            self.widthMychat.constant = 100
+//
             self.myChatHandUIView.applyBackground()
             
             self.heightMyThought.constant = 80
             self.widthMyThought.constant = 80
-            
+
             self.heightprogrss.constant = 80
             self.widthMyprogrss.constant = 80
             
@@ -239,12 +239,12 @@ class SplitviewViewController: UIViewController {
 
             self.view.layoutIfNeeded()
 //            UIView.animate(withDuration: 1, animations: {
-            self.heightMyThought.constant = 100
-            self.widthMyThought.constant = 100
+//            self.heightMyThought.constant = 100
+//            self.widthMyThought.constant = 100
             self.myThoughtsHandUIView.applyBackground()
             self.heightmychat.constant = 80
             self.widthMychat.constant = 80
-            
+
             self.heightprogrss.constant = 80
             self.widthMyprogrss.constant = 80
             
@@ -269,7 +269,7 @@ class SplitviewViewController: UIViewController {
 //            UIView.animate(withDuration: 1, animations: {
             self.heightMyThought.constant = 80
             self.widthMyThought.constant = 80
-            
+//
             self.myThoughtsButton.isHidden = false
             self.myThoughtsHandUIView.isHidden = true
 //            self.view.layoutIfNeeded()

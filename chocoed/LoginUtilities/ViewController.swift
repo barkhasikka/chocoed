@@ -121,11 +121,12 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
                 self.count = 1
                 UserDefaults.standard.set(text, forKey: "Language1")
                 self.viewTable.isHidden = true
-
-                self.labelLangChange.text = "Please select your Learning preferred language"
-
-                self.viewTable.isHidden = false
-
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.labelLangChange.text = "Please select your Learning preferred language"
+                    self.viewTable.isHidden = false
+                    }
+                
+                
             }
             let alertaction1 = UIAlertAction(title: "Yes", style: .default) { (action) in
                 self.viewTable.isHidden = true
@@ -141,11 +142,18 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             self.present(alertcontrol, animated: true, completion: nil)
             tableView.deselectRow(at: indexPath, animated: false)
         } else {
+            
+             UserDefaults.standard.set(text, forKey: "Language2")
+
             self.viewTable.isHidden = true
             let userAppLang = UserDefaults.standard.string(forKey: "Language1")
+            let userLearningLang = UserDefaults.standard.string(forKey: "Language2")
+            
             print(userAppLang)
-            self.signUpButton.setTitle("\(userAppLang!)", for: .normal)
+            print(userLearningLang)
+            self.signUpButton.setTitle("\(userAppLang!)  \(userLearningLang!)", for: .normal)
             UserDefaults.standard.set(text, forKey: "Language2")
+            
         }
         
     }
