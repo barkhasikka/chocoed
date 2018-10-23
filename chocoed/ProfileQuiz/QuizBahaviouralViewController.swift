@@ -363,7 +363,23 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
                     
                 }else{
                     
-                    if self.currentExamID == 3 {
+                    
+                     if currentCourseId != "" {
+                        
+                        let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "WevViewVC") as! WevViewVC
+                        vcNewSectionStarted.currentExamID = self.currentExamID
+                        vcNewSectionStarted.fromType = self.fromType
+                        self.present(vcNewSectionStarted, animated: true, completion: nil)
+                        
+                    } else {
+                        
+                        let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "WevViewVC") as! WevViewVC
+                        vcNewSectionStarted.currentExamID = self.currentExamID
+                        self.present(vcNewSectionStarted, animated: true, completion: nil)
+                    }
+                    
+                    
+                   /* if self.currentExamID == 3 {
                         if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "personality") as? PersonalityTestViewController {
                             vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
                             vcNewSectionStarted.currentQuestion = self.currentQuestion
@@ -394,6 +410,8 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
                         let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "newscreen") as! ExamComplitionScreenViewController
                         self.present(vcNewSectionStarted, animated: true, completion: nil)
                     }
+ 
+                    */
                 }
                 
                 

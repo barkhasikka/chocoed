@@ -116,13 +116,13 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         let text = arrayLanguages[indexPath.row].dbname
         print(text)
         if count == 0 {
-            let alertcontrol = UIAlertController(title: "Alert", message: "Would you like to use \(text) for learning language?", preferredStyle: .alert)
+            let alertcontrol = UIAlertController(title: "My Choice!", message: "Would you like \(text) as preferred language for learning with Chocoed ?", preferredStyle: .alert)
             let alertaction = UIAlertAction(title: "No", style: .default) { (action) in
                 self.count = 1
                 UserDefaults.standard.set(text, forKey: "Language1")
                 self.viewTable.isHidden = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    self.labelLangChange.text = "Please select your Learning preferred language"
+                    self.labelLangChange.text = "Please select your preferred language for learning with Chocoed"
                     self.viewTable.isHidden = false
                     }
                 

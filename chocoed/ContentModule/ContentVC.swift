@@ -132,10 +132,31 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                 
                 showLockLayout = false
                 
-            } else if (( [self.arrayTopic.count] > [indexPath.row - 1])  &&
+            } /* else if (( [self.arrayTopic.count] > [indexPath.row - 1])  &&
                 (self.arrayTopic[indexPath.row - 1].videoViewCount > 0 ) ){
                 
                 showLockLayout = false
+            } */
+            
+            else {
+                
+                for index in stride(from: indexPath.row, through: 1, by: -1){
+                    
+                    
+                    if self.arrayTopic[index].topicId != "0"{
+                        
+                        if self.arrayTopic[indexPath.row - 1].videoViewCount > 0 {
+                            
+                            showLockLayout = false
+                        }else{
+                            showLockLayout = true
+                        }
+                        break
+                    }else{
+                        
+                        showLockLayout = false
+                    }
+                }
             }
             
         }
@@ -200,51 +221,20 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
         if arrayTopic[indexPath.row].isBlock == true{
             
             
-          /*  if self.previousDayStatus == 2 {
-                
-                
-                let alertView = UIAlertController(title: "Alert", message: "Dear \(USERDETAILS.firstName) you have some assessments pending, Would you like to complete them for effective learning?", preferredStyle: .alert)
-                let action = UIAlertAction(title: "Not Now", style: .default, handler: { (alert) in
-                    
-                    
-                    let cell = tableView.cellForRow(at: indexPath) as! ContentCell
-                    cell.blockView.isHidden = true
-                    self.arrayTopic[indexPath.row].isBlock = false
-                    self.loadNotNowVideo()
-                    
-                  
-                    
-                    
-                })
-                alertView.addAction(action)
-                
-                let actionSure = UIAlertAction(title: "Sure", style: .default, handler: { (alert) in
-                    
-                        currentCourseId = self.courseId
-                        currentTopiceDate = self.selectedDate
-                        
-                        if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "PendingAssessment") as? PendingAssessment {
-                            self.present(vcNewSectionStarted, animated: true, completion: nil)
-                           }
-                    
-                    
-                })
-                alertView.addAction(actionSure)
-                self.present(alertView, animated: true, completion: nil)
-                tableView.deselectRow(at: indexPath, animated: false)
-
-                
-                
-            }else{ */
-                
-                let alert = GetAlertWithOKAction(message: "Dear \(USERDETAILS.firstName) you are yet to complete previous topics. Please complete the same for effective learning")
+              /*  let alert = GetAlertWithOKAction(message: "Dear \(USERDETAILS.firstName) you are yet to complete previous topics. Please complete the same for effective learning")
                     self.present(alert, animated: true, completion: nil)
-                    tableView.deselectRow(at: indexPath, animated: false)
+            
+                    tableView.deselectRow(at: indexPath, animated: false) */
+            
+            let alertcontrol = UIAlertController(title: "Interesting Videos", message: "Dear \(USERDETAILS.firstName),there are videos yet to be seen by you. Please watch them first.", preferredStyle: .alert)
+            let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertcontrol.addAction(alertaction)
+            
+            self.present(alertcontrol, animated: true, completion: nil)
+            tableView.deselectRow(at: indexPath, animated: false)
 
                 
-           // }
-            
-            
+          
             
         }else{
             
@@ -254,7 +244,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
             if self.previousDayStatus == 2 {
                 
                 
-                let alertView = UIAlertController(title: "Alert", message: "Dear \(USERDETAILS.firstName) you have some assessments pending, Would you like to complete them for effective learning?", preferredStyle: .alert)
+                let alertView = UIAlertController(title: "Assessments to be Completed", message: "Dear \(USERDETAILS.firstName), You have some assessments to be completed.Would you like to do them now ?", preferredStyle: .alert)
                 let action = UIAlertAction(title: "Not Now", style: .default, handler: { (alert) in
                     
                     //  if indexPath.row == 0{
@@ -271,7 +261,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                 })
                 alertView.addAction(action)
                 
-                let actionSure = UIAlertAction(title: "Sure", style: .default, handler: { (alert) in
+                let actionSure = UIAlertAction(title: "Yes", style: .default, handler: { (alert) in
                     // go to pending list view
                     
                     
@@ -298,9 +288,23 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                     
                     if arrayTopic[indexPath.row].examStatus == "Completed"{
                         
-                        let alert = GetAlertWithOKAction(message: "Dear \(USERDETAILS.firstName) You have already completed this assessment.")
+                      /*  let alert = GetAlertWithOKAction(message: "Dear \(USERDETAILS.firstName) You have already completed this assessment.")
                             self.present(alert, animated: true, completion: nil)
                             tableView.deselectRow(at: indexPath, animated: false)
+ 
+                      */
+                        
+                        
+                        if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "WevViewVC") as? WevViewVC {
+                            
+                            currentCourseId = self.courseId
+                            currentTopiceDate = self.selectedDate
+             vcNewSectionStarted.currentExamID=Int(arrayTopic[indexPath.row].examId)!
+                            vcNewSectionStarted.fromType = "content"
+                            self.present(vcNewSectionStarted, animated: true, completion: nil)
+                            
+                        }
+                        
 
                         
                         
@@ -317,7 +321,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                     
                     if arrayTopic[indexPath.row].videoViewCount >=  arrayTopic[indexPath.row].videoViewLimit{
                         
-                        let alertcontrol = UIAlertController(title: "Proceed to next video!", message: "Dear \(USERDETAILS.firstName) You have reached maximum view count for this topic.", preferredStyle: .alert)
+                        let alertcontrol = UIAlertController(title: "Let’s get Chocoed!", message: "Dear \(USERDETAILS.firstName),there are many interesting videos awaiting you.Please proceed to watch them.", preferredStyle: .alert)
                         let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
                         alertcontrol.addAction(alertaction)
                         
@@ -480,8 +484,8 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
         }else{
             
             
-            let alertView = UIAlertController(title: "Choice", message: "So you wish to revise the topic, Great! In which language you wish to revise it, choice is yours", preferredStyle: .alert)
-            let action = UIAlertAction(title: "Cancel", style: .default, handler: { (alert) in
+            let alertView = UIAlertController(title: "Awesome Commitment!", message: "In which language would you like to watch this topic again?", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Not Now", style: .default, handler: { (alert) in
                 
             })
             alertView.addAction(action)

@@ -24,6 +24,14 @@ class BehavioralViewController: UIViewController {
     override var shouldAutorotate: Bool{
         return false
     }
+    
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation{
+        return UIInterfaceOrientation.portrait
+    }
+    
+    override var supportedInterfaceOrientations:UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
+    }
 
     @IBAction func continueAction(_ sender: Any) {
         if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "quizb") as? QuizBahaviouralViewController {

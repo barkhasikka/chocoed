@@ -113,13 +113,13 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
             let text = languageUIView.arrayLanguages[indexPath.row].dbname
             print(text)
             if count == 0 {
-                let alertcontrol = UIAlertController(title: "Alert", message: "Would you like to use \(text) for learning language?", preferredStyle: .alert)
+                let alertcontrol = UIAlertController(title: "My Choice!", message: "Would you like \(text) as preferred language for learning with Chocoed ?", preferredStyle: .alert)
                 let alertaction = UIAlertAction(title: "No", style: .default) { (action) in
                     self.count = 1
                     UserDefaults.standard.set(text, forKey: "Language1")
                     self.languageUIView.isHidden = false
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        self.languageUIView.label.text = "Please select your Learning preferred language"
+                        self.languageUIView.label.text = "Please select your preferred language for learning with Chocoed"
                         self.languageUIView.isHidden = false
                     }
                     
@@ -139,10 +139,8 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                 tableView.deselectRow(at: indexPath, animated: false)
             } else {
                 self.languageUIView.isHidden = true
-                let userLearningLang = UserDefaults.standard.string(forKey: "Language2")
-                
-                
-                let userAppLang = UserDefaults.standard.string(forKey: "Language1")
+                //let userLearningLang = UserDefaults.standard.string(forKey: "Language2")
+                //let userAppLang = UserDefaults.standard.string(forKey: "Language1")
                 
                 UserDefaults.standard.set(text, forKey: "Language2")
             }

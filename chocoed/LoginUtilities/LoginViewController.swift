@@ -105,7 +105,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
 //            let vcGetStarted = storyboard?.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
 //            self.present(vcGetStarted, animated: true, completion: nil)
         }else {
-            let alertcontrol = UIAlertController(title: "alert!", message: "Login Failed! Please check your OTP again.", preferredStyle: .alert)
+            let alertcontrol = UIAlertController(title: "Recheck!", message: "Incorrect Chocoed Token entered.", preferredStyle: .alert)
             let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertcontrol.addAction(alertaction)
             self.present(alertcontrol, animated: true, completion: nil)

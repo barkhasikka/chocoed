@@ -113,6 +113,36 @@ class VideoVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        var array1  = [TopicList]()
+        var array2  = [TopicList]()
+        
+        for obj in self.arrayTopic{
+            
+            if obj.topicId == "0"{
+                
+                array2.append(obj)
+                
+            }else{
+                
+                array1.append(obj)
+            }
+        }
+        
+        if array2.count > 0{
+            
+            array1 = array1 + array2
+            
+            self.arrayTopic = array1
+            
+        }else{
+            
+            self.arrayTopic = array1
+
+        }
+      
+        print("Sorted Array",self.arrayTopic)
         closed = false
     }
     
@@ -209,15 +239,15 @@ class VideoVC: UIViewController {
         
         if self.arrayExams.count > 0 {
         
-        for e in self.arrayExams{
+        for e in 0...self.arrayExams.count - 1{
             
             print("Curr Time",dur)
-
-            print("Stop Time",e.videoPosition)
+            print("Stop Time",self.arrayExams[e].videoPosition)
 
             
-            if dur <= (e.videoPosition + 500) && dur > e.videoPosition  {
-               self.currentExamID = e.examId
+            if dur <= (self.arrayExams[e].videoPosition + 500) && dur > self.arrayExams[e].videoPosition  {
+                self.currentExamID = self.arrayExams[e].examId
+                self.arrayExams.remove(at: e)
                 return true
             }
          }
@@ -272,11 +302,16 @@ class VideoVC: UIViewController {
             
             if self.autoPlayCount >= 1 {
                 
-                self.closedPlayer()
+              //  self.closedPlayer()
+                
+                // show load exam
+                
+                self.showExamPopup()
+                
                 
             }else{
                 
-                self.showRewindOption();
+                self.showRewindOption()
             }
             
             
@@ -284,7 +319,7 @@ class VideoVC: UIViewController {
         }else{
             
             self.isCalled = false
-            currentData();
+            currentData()
             
             player.pause()
             player.currentItem?.removeObserver(self, forKeyPath: "duration")
@@ -292,10 +327,10 @@ class VideoVC: UIViewController {
             
             
             
-            let videoURL = self.arrayTopic[self.currentPosition].topicVideoUrl
-          /*  if currentSelectedLang != "English" {
+            var videoURL = self.arrayTopic[self.currentPosition].topicVideoUrl
+            if currentSelectedLang != "English" {
                 videoURL = videoURL.replacingOccurrences(of: ".mp4", with: "_\(currentSelectedLang).mp4")
-            } */
+            }
             
             print(videoURL)
         
@@ -349,10 +384,10 @@ class VideoVC: UIViewController {
         // playerLayer = nil
         
         
-        let videoURL = self.arrayTopic[self.currentPosition].topicVideoUrl
-       /* if currentSelectedLang != "English" {
+        var videoURL = self.arrayTopic[self.currentPosition].topicVideoUrl
+        if currentSelectedLang != "English" {
             videoURL = videoURL.replacingOccurrences(of: ".mp4", with: "_\(currentSelectedLang).mp4")
-        } */
+        }
         
         print(videoURL)
         
@@ -417,17 +452,14 @@ class VideoVC: UIViewController {
                         self?.timeSlider.value = Float(currentItem.currentTime().seconds)
                         self?.currentTimeLabel.text = self?.getTimeString(from: currentItem.currentTime())
                      
-                       // print("Current Time")
-                      //  print(Float(currentItem.currentTime().seconds * 1000))
-                        
-                        
+                      
                        
                         if (self?.isExamPresent(dur: Float(currentItem.currentTime().seconds * 1000)))!{
                             
-                            self?.player.pause()
-
+                          
                             if self?.isExamLoaded == false{
                                 self?.isExamLoaded = true
+                                self?.player.pause()
                                 self?.loadExam(examid: (self?.currentExamID)!)
                             }
                             
@@ -583,7 +615,7 @@ class VideoVC: UIViewController {
             
         } else {
             
-            let alertView = UIAlertController(title: "Choice", message: "Great! You completed todays topics. Would you like to replay the topics in \(userAppLang2!) ", preferredStyle: .alert)
+            let alertView = UIAlertController(title: "Congratulations!", message: "Dear \(USERDETAILS.firstName),you are doing great .To completely get Chocoed ,watch today’s videos in \(userAppLang2!) ", preferredStyle: .alert)
             
             let action = UIAlertAction(title: "Not Now", style: .default, handler: { (alert) in
                 
@@ -651,10 +683,13 @@ class VideoVC: UIViewController {
     /*** Play Closed ***/
     
     func closedPlayer(){
-        
-        player.pause()
-        player.currentItem?.removeObserver(self, forKeyPath: "duration")
-        player = nil
+        if player != nil{
+            
+            player.pause()
+            player.currentItem?.removeObserver(self, forKeyPath: "duration")
+            player = nil
+        }
+       
         self.closed = true
         self.dismiss(animated: true, completion: nil)
     
@@ -724,44 +759,27 @@ class VideoVC: UIViewController {
             let optionObject =  Option(self.arrayBehaviouralQuestion[self.currentQuesIndex].option[i] as! NSDictionary)
 
             if i == 3 {
-                
-                if self.arrayBehaviouralQuestion[self.currentQuesIndex].selectedAnsId == optionObject.id  {
-                    self.selectAnsID = optionObject.id
-                    self.btnOption4.backgroundColor = UIColor.green
-                }
+              
                 
                 self.btnOption4.setTitle(optionObject.ansText, for: .normal)
             }
             
             if i == 2 {
-                
-                if self.arrayBehaviouralQuestion[self.currentQuesIndex].selectedAnsId == optionObject.id  {
-                    self.selectAnsID = optionObject.id
-                    self.btnOption3.backgroundColor = UIColor.green
-                }
-                
+               
                 
                 self.btnOption3.setTitle(optionObject.ansText, for: .normal)
             }
             
             if i == 1 {
                 
-                if self.arrayBehaviouralQuestion[self.currentQuesIndex].selectedAnsId == optionObject.id  {
-                    self.selectAnsID = optionObject.id
-                    self.btnOption2.backgroundColor = UIColor.green
-                }
-                
+               
                 
                 self.btnOption2.setTitle(optionObject.ansText, for: .normal)
             }
             
             if i == 0 {
                 
-                if self.arrayBehaviouralQuestion[self.currentQuesIndex].selectedAnsId == optionObject.id  {
-                    self.selectAnsID = optionObject.id
-                    self.btnOption1.backgroundColor = UIColor.green
-                }
-                
+               
                 
                 self.btnOption1.setTitle(optionObject.ansText, for: .normal)
             }
@@ -789,37 +807,41 @@ class VideoVC: UIViewController {
             if i == 3 {
                 
                 if self.correctAnsId == optionObject.id  {
-                    self.btnOption4.backgroundColor = UIColor.green
-                    
+                    self.btnOption4.backgroundColor = self.getGreenColor()
+                    return
                 }else{
-                    self.btnOption4.backgroundColor = UIColor.red
+                   // self.btnOption4.backgroundColor = UIColor.red
+                    
 
                 }
             }
             
             if i == 2 {
                 if self.correctAnsId == optionObject.id {
-                    self.btnOption3.backgroundColor = UIColor.green
+                    self.btnOption3.backgroundColor = self.getGreenColor()
+                    return
                 }else{
-                    self.btnOption3.backgroundColor = UIColor.red
+                  //  self.btnOption3.backgroundColor = UIColor.red
                     
                 }
             }
             
             if i == 1 {
                 if self.correctAnsId == optionObject.id {
-                    self.btnOption2.backgroundColor = UIColor.green
+                    self.btnOption2.backgroundColor = self.getGreenColor()
+                    return
                 }else{
-                    self.btnOption2.backgroundColor = UIColor.red
+                   // self.btnOption2.backgroundColor = UIColor.red
                     
                 }
             }
             
             if i == 0 {
                 if self.correctAnsId == optionObject.id {
-                    self.btnOption1.backgroundColor = UIColor.green
+                    self.btnOption1.backgroundColor = self.getGreenColor()
+                    return
                 }else{
-                    self.btnOption1.backgroundColor = UIColor.red
+                   // self.btnOption1.backgroundColor = UIColor.red
                     
                 }
             }
@@ -841,9 +863,11 @@ class VideoVC: UIViewController {
         
         if self.correctAnsId == optionObject.id {
             
-            self.btnOption1.backgroundColor = UIColor.green
+            self.btnOption1.backgroundColor = self.getGreenColor()
             
         }else{
+            self.btnOption1.backgroundColor = self.getRedColor()
+
             self.showCorrectAns()
         }
         
@@ -861,9 +885,11 @@ class VideoVC: UIViewController {
         
         if self.correctAnsId == optionObject.id {
             
-            self.btnOption2.backgroundColor = UIColor.green
+            self.btnOption2.backgroundColor = self.getGreenColor()
             
         }else{
+            self.btnOption2.backgroundColor = self.getRedColor()
+
             self.showCorrectAns()
         }
         
@@ -884,9 +910,11 @@ class VideoVC: UIViewController {
         
         if self.correctAnsId == optionObject.id {
             
-            self.btnOption3.backgroundColor = UIColor.green
+            self.btnOption3.backgroundColor = self.getGreenColor()
             
         }else{
+            self.btnOption3.backgroundColor = self.getRedColor()
+
             self.showCorrectAns()
         }
         
@@ -902,9 +930,11 @@ class VideoVC: UIViewController {
         
         if self.correctAnsId == optionObject.id {
             
-            self.btnOption4.backgroundColor = UIColor.green
+            self.btnOption4.backgroundColor = self.getGreenColor()
 
         }else{
+            self.btnOption4.backgroundColor = self.getRedColor()
+
             self.showCorrectAns()
         }
         
@@ -915,23 +945,23 @@ class VideoVC: UIViewController {
     func defaultButtons(){
         
         self.btnOption1.layer.borderColor = UIColor.white.cgColor
-        self.btnOption1.layer.borderWidth = 2
-        self.btnOption1.layer.cornerRadius = 8
+        self.btnOption1.layer.borderWidth = 1
+        self.btnOption1.layer.cornerRadius = self.btnOption1.frame.height / 2
         self.btnOption1.backgroundColor = .clear
         
         self.btnOption2.layer.borderColor = UIColor.white.cgColor
-        self.btnOption2.layer.borderWidth = 2
-        self.btnOption2.layer.cornerRadius = 8
+        self.btnOption2.layer.borderWidth = 1
+        self.btnOption2.layer.cornerRadius =  self.btnOption2.frame.height / 2
         self.btnOption2.backgroundColor = .clear
         
         self.btnOption3.layer.borderColor = UIColor.white.cgColor
-        self.btnOption3.layer.borderWidth = 2
-        self.btnOption3.layer.cornerRadius = 8
+        self.btnOption3.layer.borderWidth = 1
+        self.btnOption3.layer.cornerRadius =  self.btnOption3.frame.height / 2
         self.btnOption3.backgroundColor = .clear
         
         self.btnOption4.layer.borderColor = UIColor.white.cgColor
-        self.btnOption4.layer.borderWidth = 2
-        self.btnOption4.layer.cornerRadius = 8
+        self.btnOption4.layer.borderWidth = 1
+        self.btnOption4.layer.cornerRadius =  self.btnOption4.frame.height / 2
         self.btnOption4.backgroundColor = .clear
         
         
@@ -993,6 +1023,8 @@ class VideoVC: UIViewController {
             
             DispatchQueue.main.async {
                 self.viewQues.isHidden = true;
+                self.isExamLoaded = false
+                self.currentQuesIndex = 0
                 self.player.play()
             }
           
@@ -1003,5 +1035,117 @@ class VideoVC: UIViewController {
             }
         })
     }
+    
+    /** Load Same Day Assessment **/
+    
+    func showExamPopup(){
+       
+            
+            let alertView = UIAlertController(title: "Alert", message: "Great! You completed todays topics. Would you like to take assessment now? ", preferredStyle: .alert)
+            
+            let action = UIAlertAction(title: "Not Now", style: .default, handler: { (alert) in
+                
+                // closed player
+                
+                self.closedPlayer()
+                
+            })
+            alertView.addAction(action)
+            
+            let actionSure = UIAlertAction(title: "Yes", style: .default, handler: { (alert) in
+                
+                 self.loadExamAssessment(examID: self.arrayTopic[self.currentPosition].examId, examName: self.arrayTopic[self.currentPosition].examName)
+               
+            })
+            alertView.addAction(actionSure)
+            self.present(alertView, animated: true, completion: nil)
+  
+    }
+    
+    /** Exam Assessment **/
+    
+    func loadExamAssessment(examID : String, examName : String){
+        
+        let clientID = UserDefaults.standard.integer(forKey: "clientid")
+        let userid = UserDefaults.standard.string(forKey: "userid")
+        
+        var currentQuestionID: Int =  -1
+        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(examID)"] as Dictionary<String, String>
+        
+        print(params)
+        
+        MakeHttpPostRequest(url: examDetails, params: params, completion: {(success, response) -> Void in
+            
+            
+            let questionsList = response.object(forKey: "questionList") as? NSArray ?? []
+            self.arrayBehaviouralQuestion = [Question]()
+            for (index, question) in questionsList.enumerated() {
+                self.arrayBehaviouralQuestion.append(Question(question as! NSDictionary))
+                if self.arrayBehaviouralQuestion[index].answerSubmitted == 0 && currentQuestionID == -1 {
+                    currentQuestionID = index
+                }
+            }
+            
+            DispatchQueue.main.async {
+                
+                if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "quizb") as? QuizBahaviouralViewController {
+                    
+                    currentCourseId = self.courseId
+                    
+                    vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
+                    vcNewSectionStarted.currentExamID = Int(examID)!
+                    vcNewSectionStarted.currentQuestion = currentQuestionID
+                    vcNewSectionStarted.examName = examName
+                    vcNewSectionStarted.fromType = "content"
+                    let aObjNavi = UINavigationController(rootViewController: vcNewSectionStarted)
+                    aObjNavi.navigationBar.barTintColor = UIColor.blue
+                    self.present(aObjNavi, animated: true, completion: nil)
+                    
+                }
+                
+            }
+            
+            
+        }, errorHandler: {(message) -> Void in
+            let alert = GetAlertWithOKAction(message: message)
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+            }
+        })
+    }
+    
+    
+    func getGreenColor() -> UIColor {
+        
+        return self.hexStringToUIColor(hex: "#008000")
+    }
+    
+    func getRedColor() -> UIColor {
+        
+        return self.hexStringToUIColor(hex: "#B22222")
+    }
+    
+    func hexStringToUIColor (hex:String) -> UIColor {
+        var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        
+        if (cString.hasPrefix("#")) {
+            cString.remove(at: cString.startIndex)
+        }
+        
+        if ((cString.count) != 6) {
+            return UIColor.gray
+        }
+        
+        var rgbValue:UInt32 = 0
+        Scanner(string: cString).scanHexInt32(&rgbValue)
+        
+        return UIColor(
+            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+            alpha: CGFloat(1.0)
+        )
+    }
+    
  
 }
