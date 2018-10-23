@@ -24,8 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let userID = UserDefaults.standard.integer(forKey: "userid")
         print(userID)
         if userID != 0 {
-            GetUserInfo()
-       } else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) { // change 2 to desired number of seconds
+                self.GetUserInfo()
+            }
+                  } else {
            /* let quiztakenid = UserDefaults.standard.string(forKey: "quiztakenID")
             print(quiztakenid)
             if quiztakenid == "1"{

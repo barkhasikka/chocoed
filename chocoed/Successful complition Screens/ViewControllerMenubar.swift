@@ -10,6 +10,7 @@ import UIKit
 
 class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
+    @IBOutlet weak var profileGradiantView: UIView!
     @IBOutlet weak var buttonEmail: UIButton!
     @IBOutlet weak var tabGestureView: UIView!
     @IBOutlet weak var labelUserNAme: UILabel!
@@ -24,12 +25,14 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
     var arraymenu = ["My Talks","My Thought","My Progress","My Profile","Select Preferred Language","Log out"]
     let cousesImages = [UIImage(named:"chat"),UIImage(named: "discussion_room"), UIImage(named: "myprocess_improvement"), UIImage(named: "icons_user"), UIImage(named: "icons_lang"), UIImage(named: "icon_logout")]
     
-//    @IBAction func closeButtonLang(_ sender: Any) {
-//        languageview.isHidden = true
-//    }
-    override func viewDidLoad() {
-     super.viewDidLoad()
+        override func viewDidLoad() {
+            super.viewDidLoad()
         
+            let backgroundImage = UIImageView(frame: CGRect(x: 0, y: 0, width: self.profileGradiantView.bounds.width, height: self.profileGradiantView.bounds.height))
+            backgroundImage.image = UIImage(named: "Profile_page Gradient")
+            backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
+            self.profileGradiantView.insertSubview(backgroundImage, at: 0 )
+
         
         labelUserNAme.text = USERDETAILS.firstName + " " + USERDETAILS.lastname
         buttonEmail.setTitle(USERDETAILS.email, for: .normal)
@@ -50,6 +53,7 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
         tabGestureView.isUserInteractionEnabled = true
         tabGestureView.addGestureRecognizer(tap)
         languageUIView = LanguageUIView(frame: self.view.bounds)
+            //CGRect(x: 20, y: 20 , width: self.view.bounds.width - 20, height: self.view.bounds.height - 20))
         languageUIView.tableViewLanguage.delegate = self
         self.view.addSubview(languageUIView)
         
@@ -117,7 +121,7 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                 let alertaction = UIAlertAction(title: "No", style: .default) { (action) in
                     self.count = 1
                     UserDefaults.standard.set(text, forKey: "Language1")
-                    self.languageUIView.isHidden = false
+                    self.languageUIView.isHidden = true
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         self.languageUIView.label.text = "Please select your preferred language for learning with Chocoed"
                         self.languageUIView.isHidden = false
@@ -184,10 +188,7 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
 //            blurEffectView.frame = view.bounds
 //            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 //            view.addSubview(blurEffectView)
-            
             self.languageUIView.isHidden = false
-            
-            
             break;
                 
             default: break

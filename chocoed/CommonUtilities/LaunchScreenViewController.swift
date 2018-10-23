@@ -8,11 +8,13 @@
 
 import UIKit
 
-class launchScreenViewController: UIViewController {
+class LaunchScreenViewController: UIViewController {
 
+    @IBOutlet weak var imageLogoView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let Gif = UIImage.gifImageWithName("logo_1")
+        imageLogoView.image = Gif
         // Do any additional setup after loading the view.
     }
 

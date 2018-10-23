@@ -24,7 +24,7 @@ class LanguageUIView : UIView, UITableViewDelegate ,UITableViewDataSource {
     override init(frame: CGRect) {
         super.init(frame: frame)
         customElemetsOfview()
-        tableViewLanguage = UITableView(frame: CGRect(x: 0, y:30 , width: self.bounds.width, height: self.bounds.height - 30))
+        tableViewLanguage = UITableView(frame: CGRect(x: 0, y:50 , width: self.bounds.width , height: self.bounds.height - 30))
         self.addSubview(tableViewLanguage)
         tableViewLanguage.dataSource = self
         tableViewLanguage.register(CommonLanguageTableViewCell.self, forCellReuseIdentifier: "cell")
@@ -33,17 +33,22 @@ class LanguageUIView : UIView, UITableViewDelegate ,UITableViewDataSource {
         }
     func customElemetsOfview()
     {
-        btn.frame = CGRect(x: 0, y: 0, width: 30 , height: 30)
+        btn.frame = CGRect(x: 0, y: 0, width: 50 , height: 50)
         btn.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         btn.setTitle("X", for: UIControlState.normal)
         btn.setTitleColor(#colorLiteral(red: 0.06274510175, green: 0, blue: 0.1921568662, alpha: 1), for: .normal)
         btn.addTarget(self, action: #selector(closeButton), for: UIControlEvents.touchUpInside)
         self.addSubview(btn)
 
-        label.frame = CGRect(x: 30 , y: 0, width: self.bounds.width - 30 , height: 30)
+        label.frame = CGRect(x: 30 , y: 0, width: self.bounds.width - 30 , height: 50)
         label.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        label.numberOfLines = 0
+        label.heightAnchor.constraint(equalToConstant: 50)
         label.textAlignment = NSTextAlignment.center
-        label.text = "Please select the Preferred language"
+        label.textColor = #colorLiteral(red: 0.1529411765, green: 0.5490196078, blue: 0.937254902, alpha: 1)
+        label.textAlignment = .center
+        label.font = label.font.withSize(15)
+        label.text = "Please select your preferred language for Chocoed app screens"
         self.addSubview(label)
     }
     @objc func closeButton()
@@ -96,7 +101,7 @@ class LanguageUIView : UIView, UITableViewDelegate ,UITableViewDataSource {
         cell.labelLanguage.topAnchor.constraint(equalTo: cell.topAnchor, constant: 5).isActive = true
         cell.labelLanguage.bottomAnchor.constraint(equalTo: cell.bottomAnchor, constant: -5).isActive = true
         cell.labelLanguage.trailingAnchor.constraint(equalTo: cell.trailingAnchor, constant: -5).isActive = true
-        cell.labelLanguage.leadingAnchor.constraint(equalTo: cell.leadingAnchor, constant: 5).isActive = true
+        cell.labelLanguage.leadingAnchor.constraint(equalTo: cell.leadingAnchor, constant: 30).isActive = true
         cell.labelLanguage.text = "\(arrayLanguages[indexPath.row].dbname) \(arrayLanguages[indexPath.row].langDispalyName)"
         return cell
     }

@@ -58,6 +58,9 @@ class SplitviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let Gif = UIImage.gifImageWithName("logo_1")
+        print(Gif)
+        self.imageViewLogo.image = Gif
         self.myThoughtsHandUIView.isHidden = true
         self.myProgressHandUIView.isHidden = true
 //        self.heightmychat.constant = 100
@@ -178,58 +181,20 @@ class SplitviewViewController: UIViewController {
         if buttonchat == true{
 
             self.view.layoutIfNeeded()
-//            UIView.animate(withDuration: 1, animations: {
-//            self.heightmychat.constant = 100
-//            self.widthMychat.constant = 100
-//
             self.myChatHandUIView.applyBackground()
-            
-//            self.heightMyThought.constant = 80
-//            self.widthMyThought.constant = 80
-//
-//            self.heightprogrss.constant = 80
-//            self.widthMyprogrss.constant = 80
-//
             self.mychatButton.isHidden = true
             self.myChatHandUIView.isHidden = false
-            
-//            self.view.layoutIfNeeded()
-//            self.mychatButton.setImage(UIImage(named: "my" ), for: UIControlState.normal)
-//            self.mychatButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
             self.buttonThought = false
             self.buttonProgrss = false
-          
-//            self.myThoughtsButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
-            
-            
-//            self.mychatButton.setTitle("Chat", for: .normal)
-//            self.mychatButton.centerVerticallyHere()
-//            self.mychatButton.centerVerticallyHere()
-//            })
         }else{
             self.view.layoutIfNeeded()
-//            UIView.animate(withDuration: 1, animations: {
-//            self.heightmychat.constant = 80
-//            self.widthMychat.constant = 80
             self.mychatButton.isHidden = false
             self.myChatHandUIView.isHidden = true
-//            self.view.layoutIfNeeded()
-//            self.mychatButton.setImage(UIImage(named: "Icon-App-40x40-2" ), for: UIControlState.normal)
-////            self.mychatButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
-//
-//            self.mychatButton.setTitle("", for: .normal)
-//            })
-        }
-//        self.myProgressButton.setTitle("", for: .normal)
-//        self.myThoughtsButton.setTitle("", for: .normal)
-//        self.myProgressButton.setImage(UIImage(named: "Icon-App-40x40" ), for: UIControlState.normal)
-//        self.myThoughtsButton.setImage(UIImage(named: "Mythoughts" ), for: UIControlState.normal)
+       }
         self.myThoughtsHandUIView.isHidden = true
         self.myThoughtsButton.isHidden = false
         self.myProgressHandUIView.isHidden = true
         self.myProgressButton.isHidden = false
-//        self.myProgressButton.centerVerticallyHere()
-//        self.myThoughtsButton.centerVerticallyHere()
     }
     
     @IBAction func MyThoughtsActionButton(_ sender: Any) {
