@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import AVFoundation
 
 class LaunchScreenViewController: UIViewController {
-
+    var player: AVAudioPlayer?
+    
     @IBOutlet weak var imageLogoView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        playSound()
         let Gif = UIImage.gifImageWithName("logo_1")
         imageLogoView.image = Gif
         // Do any additional setup after loading the view.
@@ -24,14 +27,20 @@ class LaunchScreenViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+   
+    
+    func playSound() {
+        let url = Bundle.main.url(forResource: "jingle", withExtension: "mp3")!
+        
+        do {
+            player = try AVAudioPlayer(contentsOf: url)
+            guard let player = player else { return }
+            
+            player.prepareToPlay()
+            player.play()
+            
+        } catch let error as NSError {
+            print(error.description)
+        }
     }
-    */
-
 }

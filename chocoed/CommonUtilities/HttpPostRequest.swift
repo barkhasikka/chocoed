@@ -67,10 +67,6 @@ func MakeHttpPostRequest(url: String, params: Dictionary<String, String>, comple
 
 func MakeHttpMIME2PostRequest(url: String, imageData: NSData, param: Dictionary<String, String>, completion: @escaping ((_ success: Bool, _ response: NSDictionary) -> Void)) {
     
-  
-  
-    
-    
     var request = URLRequest(url: URL(string: url)!)
     request.httpMethod = "POST"
     let boundary = generateBoundaryString()

@@ -31,5 +31,19 @@ extension UIView{
         backgroundImage.contentMode = UIViewContentMode.scaleAspectFit
         self.insertSubview(backgroundImage, at: 0 )
 
+        
+    }
+    func removeBackground(){
+        for v in self.subviews
+        {
+            if v is UIImageView{
+                let viv = v as? UIImageView
+                if viv?.image ==  UIImage(named: "card_bg") {
+                    v.removeFromSuperview()
+                }
+            }
+        }
     }
 }
+
+

@@ -10,6 +10,8 @@ import UIKit
 
 class SplitviewViewController: UIViewController {
     
+    @IBOutlet weak var topArcVIew: NSLayoutConstraint!
+    
     @IBOutlet weak var myProgressHandUIView: UIView!
     @IBOutlet weak var myThoughtsHandUIView: UIView!
     @IBOutlet weak var myChatHandUIView: UIView!
@@ -33,7 +35,6 @@ class SplitviewViewController: UIViewController {
     @IBOutlet weak var imageProfile: UIImageView!
     @IBOutlet weak var userProgressView: UIView!
     @IBOutlet weak var imageViewLogo: UIImageView!
-    @IBOutlet weak var constraintOutlet: NSLayoutConstraint!
     @IBOutlet weak var buttonLotus: UIButton!
     @IBOutlet weak var buttonMiddleProfile: UIButton!
     @IBOutlet weak var buttonMsg: UIButton!
@@ -63,7 +64,7 @@ class SplitviewViewController: UIViewController {
         self.imageViewLogo.image = Gif
         self.myThoughtsHandUIView.isHidden = true
         self.myProgressHandUIView.isHidden = true
-//        self.heightmychat.constant = 100
+        
         self.myChatHandUIView.applyBackground()
         self.arcView.isHidden = true
         let fileUrl = URL(string: USERDETAILS.imageurl)
@@ -120,59 +121,23 @@ class SplitviewViewController: UIViewController {
 
         if buttonProgrss == true{
             self.view.layoutIfNeeded()
-//            UIView.animate(withDuration: 1, animations: {
-//            self.heightprogrss.constant = 100
-//            self.widthMyprogrss.constant = 100
+            self.myProgressHandUIView.removeBackground()
             self.myProgressHandUIView.applyBackground()
-//            self.heightmychat.constant = 80
-//            self.widthMychat.constant = 80
-//
-//            self.heightMyThought.constant = 80
-//            self.widthMyThought.constant = 80
-//
-//            self.view.layoutIfNeeded()
-//            self.myProgressButton.setImage(UIImage(named: "my" ), for: UIControlState.normal)
-//            self.myProgressButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
-            
+
             self.buttonThought = false
             self.buttonchat = false
-          
-//            self.mychatButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
-
-            
-//            self.myThoughtsButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
+            self.myThoughtsButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
             self.myProgressButton.isHidden = true
             self.myProgressHandUIView.isHidden = false
             
-//            self.myProgressButton.centerVerticallyHere()
-            
-            
-//            self.myProgressButton.centerVerticallyWithoutLabel()
-            
-//            })
         } else {
-//            self.view.layoutIfNeeded()
-//            UIView.animate(withDuration: 1, animations: {
-//            self.heightprogrss.constant = 80
-//            self.widthMyprogrss.constant = 80
-//            self.view.layoutIfNeeded()
             self.myProgressButton.isHidden = false
             self.myProgressHandUIView.isHidden = true
-//            self.myProgressButton.setImage(UIImage(named: "Icon-App-40x40" ), for: UIControlState.normal)
-//            self.myProgressButton.setBackgroundImage(UIImage(named: "card_bg"), for: .normal)
-//           self.myProgressButton.setTitle("", for: .normal)
-//            })
         }
-//        self.mychatButton.setTitle("", for: .normal)
-//          self.mychatButton.setImage(UIImage(named: "Icon-App-40x40-2" ), for: UIControlState.normal)
-//        self.myThoughtsButton.setImage(UIImage(named: "Mythoughts" ), for: UIControlState.normal)
-//        self.myThoughtsButton.setTitle("", for: .normal)
         self.myThoughtsHandUIView.isHidden = true
         self.myChatHandUIView.isHidden = true
         self.myThoughtsButton.isHidden = false
         self.mychatButton.isHidden = false
-//        self.myThoughtsButton.centerVerticallyHere()
-//        self.mychatButton.centerVerticallyHere()
     }
     
     @IBAction func MyChatActionButton(_ sender: Any) {
@@ -181,6 +146,7 @@ class SplitviewViewController: UIViewController {
         if buttonchat == true{
 
             self.view.layoutIfNeeded()
+            self.myChatHandUIView.removeBackground()
             self.myChatHandUIView.applyBackground()
             self.mychatButton.isHidden = true
             self.myChatHandUIView.isHidden = false
@@ -203,13 +169,8 @@ class SplitviewViewController: UIViewController {
         if buttonThought == true{
 
             self.view.layoutIfNeeded()
+            self.myThoughtsHandUIView.removeBackground()
             self.myThoughtsHandUIView.applyBackground()
-//            self.heightmychat.constant = 80
-//            self.widthMychat.constant = 80
-//
-//            self.heightprogrss.constant = 80
-//            self.widthMyprogrss.constant = 80
-//
             self.buttonchat = false
             self.buttonProgrss = false
             
@@ -217,16 +178,9 @@ class SplitviewViewController: UIViewController {
             self.myThoughtsHandUIView.isHidden = false
         }else{
             self.view.layoutIfNeeded()
-//            self.heightMyThought.constant = 80
-//            self.widthMyThought.constant = 80
-//
             self.myThoughtsButton.isHidden = false
             self.myThoughtsHandUIView.isHidden = true
         }
-//        self.myProgressButton.setTitle("", for: .normal)
-//        self.mychatButton.setTitle("", for: .normal)
-//        self.mychatButton.setImage(UIImage(named: "Icon-App-40x40-2" ), for: UIControlState.normal)
-//        self.myProgressButton.setImage(UIImage(named: "Icon-App-40x40" ), for: UIControlState.normal)
         self.myProgressHandUIView.isHidden = true
         self.myProgressButton.isHidden = false
         self.myChatHandUIView.isHidden = true
@@ -250,10 +204,10 @@ class SplitviewViewController: UIViewController {
         toggle = !toggle
         print(toggle)
         if toggle == true{
-        self.arcView.isHidden = true
         self.view.layoutIfNeeded()
         UIView.animate(withDuration: 1, animations: {
-            self.constraintOutlet.constant = 20
+            self.arcView.isHidden = true
+            self.topArcVIew.constant = 25
             self.mainviewConstraintOutlet.constant = 700
             self.view.layoutIfNeeded()
             })
@@ -261,8 +215,8 @@ class SplitviewViewController: UIViewController {
           
             self.view.layoutIfNeeded()
             UIView.animate(withDuration: 1, animations: {
-                self.constraintOutlet.constant = 150
-                self.mainviewConstraintOutlet.constant = 820
+                self.topArcVIew.constant = 175
+                self.mainviewConstraintOutlet.constant =  820
                 self.view.layoutIfNeeded()
                 self.arcView.isHidden = false
 
