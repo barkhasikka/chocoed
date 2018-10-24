@@ -143,8 +143,17 @@ class MyChoiceSkillsViewController: UIViewController,UICollectionViewDelegate,UI
         return CGSize(width: collectionViewSize/2, height: collectionViewSize/2)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-      //  switch indexPath.row {
-      //  case 0:
+        
+        let startdate = self.getDateFromString(date: self.arrayCourseList[indexPath.row].startdate)
+        
+        let enddate = self.getDateFromString(date: self.arrayCourseList[indexPath.row].enddate)
+        
+        let currentDate = self.getStringFromDate(date: Date())
+
+        let finalDate = self.getDateFromString(date: currentDate)
+        
+        if startdate <= finalDate && enddate >= finalDate {
+        
             let vcSkills = self.storyboard?.instantiateViewController(withIdentifier: "personalityupgrade") as? personalityUpgradeViewController
             var courseidStored = self.arrayCourseList[indexPath.row].courseId
             var clanderidStored = self.arrayCourseList[indexPath.row].calenderId
@@ -155,10 +164,34 @@ class MyChoiceSkillsViewController: UIViewController,UICollectionViewDelegate,UI
             vcSkills?.temp1 = clanderidStored
             vcSkills?.navTitle = self.arrayCourseList[indexPath.row].courseName
         self.present(vcSkills!, animated: true, completion: nil)
-          //  break
-        //default:
-          //  print("Nothing selected")
-       // }
+            
+        }else{
+            
+            if startdate >= finalDate {
+            
+                // future
+                
+                let alert = GetAlertWithOKAction(message: "Dear \(USERDETAILS.firstName), You are yet to start learning this course.you can revise topics which are completed from here.")
+                self.present(alert, animated: true, completion: nil)
+                
+            }else if enddate < finalDate{
+                
+                // completed
+                
+                let alert = GetAlertWithOKAction(message: "Dear \(USERDETAILS.firstName), This course subscription has already expired")
+                self.present(alert, animated: true, completion: nil)
+                
+            }else{
+                
+                
+                let alert = GetAlertWithOKAction(message: "Dear \(USERDETAILS.firstName), You are yet to learn this topic, you can revise topics which are completed from here.")
+                self.present(alert, animated: true, completion: nil)
+            }
+            
+         
+            
+        }
+        
     }
     
     @IBAction func back_btn_clicked(_ sender: Any) {
@@ -171,6 +204,28 @@ class MyChoiceSkillsViewController: UIViewController,UICollectionViewDelegate,UI
         self.present(aObjNavi, animated: true, completion: nil)
 
     }
+    
+    
+    /* : Get Date from String */
+    
+    func getDateFromString(date : String) -> Date {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT+0:00")
+        return dateFormatter.date(from: date)!
+    }
+    
+    /* : Get String from Date */
+    
+    func getStringFromDate(date : Date) -> String {
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: date)
+    }
+    
+    
     
 
 }

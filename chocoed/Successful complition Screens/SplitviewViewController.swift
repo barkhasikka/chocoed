@@ -58,7 +58,7 @@ class SplitviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let Gif = UIImage.gifImageWithName("logo_1")
+        let Gif = UIImage.gifImageWithName("chocoed_wave")
         print(Gif)
         self.imageViewLogo.image = Gif
         self.myThoughtsHandUIView.isHidden = true

@@ -9,6 +9,11 @@
 import Foundation
 import UIKit
 func MakeHttpPostRequest(url: String, params: Dictionary<String, String>, completion: @escaping ((_ success: Bool, _ response: NSDictionary) -> Void), errorHandler: @escaping ((_ message: String) -> Void))  {
+    
+    
+    if !ConnectionCheck.isConnectedToNetwork() {
+        errorHandler("Check your internet connection")
+    }
 
     let url = NSURL(string: url)
     let request = NSMutableURLRequest(url: url! as URL)
@@ -61,12 +66,18 @@ func MakeHttpPostRequest(url: String, params: Dictionary<String, String>, comple
 
 
 func MakeHttpMIME2PostRequest(url: String, imageData: NSData, param: Dictionary<String, String>, completion: @escaping ((_ success: Bool, _ response: NSDictionary) -> Void)) {
+    
+  
+  
+    
+    
     var request = URLRequest(url: URL(string: url)!)
     request.httpMethod = "POST"
     let boundary = generateBoundaryString()
     
     let uuid = NSUUID().uuidString
 
+    
     
     request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
     request.httpBody = createBodyWithParameters(parameters: param, filePathKey: "file", imageDataKey: imageData, boundary: boundary) as Data

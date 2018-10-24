@@ -185,12 +185,17 @@ struct CourseList{
     var courseId : String
     var courseImageUrl : String
     var courseName : String
+    var startdate : String
+    var enddate : String
+    
     init(_ dictionary : NSDictionary) {
+        
         self.calenderId = dictionary["calenderId"] as? String ?? ""
         self.courseId = dictionary["courseId"] as? String ?? ""
         self.courseImageUrl = dictionary["courseImageUrl"] as? String ?? ""
         self.courseName = dictionary["courseName"] as? String ?? ""
-
+        self.startdate = dictionary["startDate"] as? String ?? ""
+        self.enddate = dictionary["endDate"] as? String ?? ""
     }
     
 }

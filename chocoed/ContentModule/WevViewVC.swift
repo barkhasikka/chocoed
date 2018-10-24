@@ -76,10 +76,14 @@ class WevViewVC: UIViewController {
             print(response)
             
             
-          //  let webdata = response.object(forKey: "questionList") as? NSArray ?? []
+            let webdata = response.object(forKey: "result") as? NSString ?? ""
            
+            
         
             DispatchQueue.main.async {
+                
+                self.webView.loadHTMLString(webdata as String, baseURL: nil)
+                
                 self.activityUIView.isHidden = true
                 self.activityUIView.stopAnimation()
             }

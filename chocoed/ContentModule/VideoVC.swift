@@ -31,6 +31,8 @@ class VideoVC: UIViewController {
     var courseId = ""
     var correctAnsId = ""
     
+    var fromType = ""
+    
     var isStartFromFirst = false
     var isCalled = false
     var isEndPlaying = false
@@ -621,7 +623,9 @@ class VideoVC: UIViewController {
                 
                 // closed player
                 
-                self.closedPlayer()
+               // self.closedPlayer()
+                
+                self.showExamPopup()
                 
             })
             alertView.addAction(action)
@@ -691,7 +695,31 @@ class VideoVC: UIViewController {
         }
        
         self.closed = true
-        self.dismiss(animated: true, completion: nil)
+        
+        // add from choice
+        
+        
+        if self.fromType == "choice"{
+            
+          /*  let v1 = self.storyboard?.instantiateViewController(withIdentifier: "ContentVC") as! TopicsStatusViewController
+            self.present(v1, animated: true, completion: nil)
+ 
+           */
+            self.dismiss(animated: true, completion: nil)
+
+            
+        }else{
+            
+            let v1 = self.storyboard?.instantiateViewController(withIdentifier: "ContentVC") as! ContentVC
+            self.present(v1, animated: true, completion: nil)
+            
+            
+            
+        }
+        
+       
+       
+        // self.dismiss(animated: true, completion: nil)
     
     }
     
@@ -752,6 +780,8 @@ class VideoVC: UIViewController {
         
         self.correctAnsId = self.arrayBehaviouralQuestion[self.currentQuesIndex].correctAnsId
         
+        print(self.correctAnsId)
+        
         var i = self.arrayBehaviouralQuestion[self.currentQuesIndex].option.count - 1
         
         while i >= 0   {
@@ -790,10 +820,12 @@ class VideoVC: UIViewController {
        
         
         if self.currentQuesIndex + 1  == self.arrayBehaviouralQuestion.count{
-            
             self.btnNextQues.setTitle("Close", for: UIControlState.normal)
             self.isLastQuestion = true
+        }else{
+            self.btnNextQues.setTitle("Next", for: UIControlState.normal)
         }
+
     }
     
     func showCorrectAns(){
@@ -860,8 +892,9 @@ class VideoVC: UIViewController {
         self.selectAnsID = optionObject.id
         self.defaultButtons()
        
+        print(self.correctAnsId)
         
-        if self.correctAnsId == optionObject.id {
+        if self.correctAnsId == optionObject.id || self.correctAnsId == "0" {
             
             self.btnOption1.backgroundColor = self.getGreenColor()
             
@@ -883,8 +916,10 @@ class VideoVC: UIViewController {
         self.selectAnsID = optionObject.id
         self.defaultButtons()
         
-        if self.correctAnsId == optionObject.id {
-            
+        print(self.correctAnsId)
+
+        if self.correctAnsId == optionObject.id || self.correctAnsId == "0" {
+
             self.btnOption2.backgroundColor = self.getGreenColor()
             
         }else{
@@ -907,9 +942,10 @@ class VideoVC: UIViewController {
         self.selectAnsID = optionObject.id
         self.defaultButtons()
         
-        
-        if self.correctAnsId == optionObject.id {
-            
+        print(self.correctAnsId)
+
+        if self.correctAnsId == optionObject.id || self.correctAnsId == "0" {
+
             self.btnOption3.backgroundColor = self.getGreenColor()
             
         }else{
@@ -927,9 +963,10 @@ class VideoVC: UIViewController {
 
         self.selectedAnsText = optionObject.ansText
         self.selectAnsID = optionObject.id
-        
-        if self.correctAnsId == optionObject.id {
-            
+        print(self.correctAnsId)
+
+        if self.correctAnsId == optionObject.id || self.correctAnsId == "0" {
+
             self.btnOption4.backgroundColor = self.getGreenColor()
 
         }else{
@@ -1041,7 +1078,7 @@ class VideoVC: UIViewController {
     func showExamPopup(){
        
             
-            let alertView = UIAlertController(title: "Alert", message: "Great! You completed todays topics. Would you like to take assessment now? ", preferredStyle: .alert)
+            let alertView = UIAlertController(title: "Alert", message: "Check your understanding with our quick assessment on todays topics", preferredStyle: .alert)
             
             let action = UIAlertAction(title: "Not Now", style: .default, handler: { (alert) in
                 

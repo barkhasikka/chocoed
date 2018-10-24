@@ -114,14 +114,20 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let text = arrayLanguages[indexPath.row].dbname
+        let textL = arrayLanguages[indexPath.row].langDispalyName
         print(text)
         if count == 0 {
             let alertcontrol = UIAlertController(title: "My Choice!", message: "Would you like \(text) as preferred language for learning with Chocoed ?", preferredStyle: .alert)
             let alertaction = UIAlertAction(title: "No", style: .default) { (action) in
                 self.count = 1
+                
                 UserDefaults.standard.set(text, forKey: "Language1")
+                
+                UserDefaults.standard.set(textL, forKey: "first")
+
+                
                 self.viewTable.isHidden = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.labelLangChange.text = "Please select your preferred language for learning with Chocoed"
                     self.viewTable.isHidden = false
                     }
@@ -131,11 +137,24 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             let alertaction1 = UIAlertAction(title: "Yes", style: .default) { (action) in
                 self.viewTable.isHidden = true
                 self.count = 0
-                self.signUpButton.setTitle("\(text)", for: .normal)
+                //self.signUpButton.setTitle("\(text)", for: .normal)
                 
+
                 UserDefaults.standard.set(text, forKey: "Language1")
-                
                 UserDefaults.standard.set(text, forKey: "Language2")
+                
+                UserDefaults.standard.set(textL, forKey: "first")
+                UserDefaults.standard.set(textL, forKey: "second")
+
+                
+                let userAppLang = UserDefaults.standard.string(forKey: "first")
+                let userLearningLang = UserDefaults.standard.string(forKey: "second")
+                
+                  self.signUpButton.setTitle("\(userAppLang!)  \(userLearningLang!)", for: .normal)
+                
+
+                
+                 self.labelLangChange.text = "Please select your preferred language for Chocoed app screens"
             }
             alertcontrol.addAction(alertaction)
             alertcontrol.addAction(alertaction1)
@@ -144,15 +163,22 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         } else {
             
              UserDefaults.standard.set(text, forKey: "Language2")
+            
+             UserDefaults.standard.set(textL, forKey: "second")
+
 
             self.viewTable.isHidden = true
-            let userAppLang = UserDefaults.standard.string(forKey: "Language1")
-            let userLearningLang = UserDefaults.standard.string(forKey: "Language2")
             
-            print(userAppLang)
-            print(userLearningLang)
+            let userAppLang = UserDefaults.standard.string(forKey: "first")
+            let userLearningLang = UserDefaults.standard.string(forKey: "second")
+            
+         
             self.signUpButton.setTitle("\(userAppLang!)  \(userLearningLang!)", for: .normal)
+            
             UserDefaults.standard.set(text, forKey: "Language2")
+            
+            
+            self.labelLangChange.text = "Please select your preferred language for Chocoed app screens"
             
         }
         

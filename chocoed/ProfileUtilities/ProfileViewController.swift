@@ -357,40 +357,17 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
             
             let imageData = UIImagePNGRepresentation(self.imageviewCircle.image!)
             
-            
-            
-            // get the documents directory url
-//            let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-//            // choose a name for your image
-//            let fileName = "image_check.jpg"
-//            // create the destination file url to save your image
-//            let fileURL = documentsDirectory.appendingPathComponent(fileName)
-//            // get your UIImage jpeg data representation and check if the destination file !url already exists
-////            if let data = UIImageJPEGRepresentation(self.imageviewCircle.image!, 1.0),
-////                !FileManager.default.fileExists(atPath: fileURL.path) {
-//                do {
-//                    // writes the image data to disk
-//                    try imageData!.write(to: fileURL)
-//                    print("file saved")
-//                    
-//                    let data = try? Data(contentsOf: fileURL)
-//                    
-//                    if let imageData = data {
-//                        let image = UIImage(data: imageData)
-//                        print("Changing circle viw image:", fileURL)
-//                        self.imageviewCircle.image = nil
-//                        self.imageviewCircle.image = image
-//                    }
-//                    
-//                    
-//                } catch {
-//                    print("error saving file:", error)
-//                }
-//            }
-            
             let imageUploadParams = [ "access_token":"\(accessToken)", "userId": "\(userID)"] as! Dictionary<String, String>
             MakeHttpMIME2PostRequest(url: uploadProfilePicture, imageData: imageData as! NSData, param: imageUploadParams, completion: {(success, response) -> Void in
                 print(response, "UPLOAD PROFILE PIC RESPONSE")
+                
+                 let profileimg = response.object(forKey: "profileimg") as? String ?? ""
+
+                DispatchQueue.main.async {
+
+                USERDETAILS = UserDetails(email: self.textfieldEmailId.text!, firstName:self.textfieldLastName.text!, lastname: self.self.textfieldFirstName.text!, imageurl: profileimg)
+                    
+                }
                 
             })
         }

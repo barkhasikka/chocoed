@@ -91,17 +91,17 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
     }
     
     override var shouldAutorotate: Bool{
-        return false
+        return true
     }
     
- /*   override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation{
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation{
         return UIInterfaceOrientation.portrait
     }
     
     override var supportedInterfaceOrientations:UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.all
+        return UIInterfaceOrientationMask.portrait
     }
- */
+ 
     
     
     override func viewDidLoad() {
@@ -140,10 +140,16 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
             
             else {
                 
-                for index in stride(from: indexPath.row, through: 1, by: -1){
+              
+              //  for index in (0 ..< c ).reversed() {
+                
+                var index = indexPath.row - 1
+                
+                while index >= 0 {
                     
-                    
+                   
                     if self.arrayTopic[index].topicId != "0"{
+                        
                         
                         if self.arrayTopic[indexPath.row - 1].videoViewCount > 0 {
                             
@@ -156,7 +162,12 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                         
                         showLockLayout = false
                     }
+                    
+                     index -= 1
+                    //
                 }
+                
+                
             }
             
         }
@@ -327,7 +338,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                         
                             self.present(alertcontrol, animated: true, completion: nil)
                             tableView.deselectRow(at: indexPath, animated: false)
-
+                       
                         
                         
                     }else if arrayTopic[indexPath.row].videoViewCount > 0 {
@@ -396,7 +407,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                         
                         if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "VideoVC") as? VideoVC {
                             vcNewSectionStarted.arrayTopic = self.arrayTopic
-                            vcNewSectionStarted.currentPosition = self.tableRowPosition
+                            vcNewSectionStarted.currentPosition = 0
                             vcNewSectionStarted.courseId = self.courseId
                             
                             self.present(vcNewSectionStarted, animated: true, completion: nil)
@@ -447,7 +458,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
 
                 if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "VideoVC") as? VideoVC {
                     vcNewSectionStarted.arrayTopic = self.arrayTopic
-                    vcNewSectionStarted.currentPosition = self.tableRowPosition
+                    vcNewSectionStarted.currentPosition = 0
                     vcNewSectionStarted.courseId = self.courseId
                     
                     self.present(vcNewSectionStarted, animated: true, completion: nil)
@@ -475,7 +486,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
             
             if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "VideoVC") as? VideoVC {
                 vcNewSectionStarted.arrayTopic = self.arrayTopic
-                vcNewSectionStarted.currentPosition = self.tableRowPosition
+                vcNewSectionStarted.currentPosition = 0
                 vcNewSectionStarted.courseId = self.courseId
                 
                 self.present(vcNewSectionStarted, animated: true, completion: nil)
@@ -497,7 +508,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                 
                 if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "VideoVC") as? VideoVC {
                     vcNewSectionStarted.arrayTopic = self.arrayTopic
-                    vcNewSectionStarted.currentPosition = self.tableRowPosition
+                    vcNewSectionStarted.currentPosition = 0
                     vcNewSectionStarted.courseId = self.courseId
                     
                     self.present(vcNewSectionStarted, animated: true, completion: nil)
@@ -515,7 +526,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                 
                 if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "VideoVC") as? VideoVC {
                     vcNewSectionStarted.arrayTopic = self.arrayTopic
-                    vcNewSectionStarted.currentPosition = self.tableRowPosition
+                    vcNewSectionStarted.currentPosition = 0
                     vcNewSectionStarted.courseId = self.courseId
                     
                     self.present(vcNewSectionStarted, animated: true, completion: nil)
@@ -596,7 +607,6 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
             
             print(self.datesBetweenArray)
             
-            let currentDate = self.getStringFromDate(date: Date())
             
             
             for adate in self.datesBetweenArray{

@@ -39,10 +39,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             else{ */
             
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                
                 self.window = UIWindow(frame: UIScreen.main.bounds)
                 let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "firstview") as! ViewController
-                 window!.rootViewController = startVC
+                self.window!.rootViewController = startVC
+                self.window!.makeKeyAndVisible()
+                
+            }
+            
+            
            // }
             
         }

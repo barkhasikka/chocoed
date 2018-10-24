@@ -122,7 +122,7 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                     self.count = 1
                     UserDefaults.standard.set(text, forKey: "Language1")
                     self.languageUIView.isHidden = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5 ) {
                         self.languageUIView.label.text = "Please select your preferred language for learning with Chocoed"
                         self.languageUIView.isHidden = false
                     }
@@ -136,24 +136,35 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                     UserDefaults.standard.set(text, forKey: "Language1")
                     
                     UserDefaults.standard.set(text, forKey: "Language2")
+                    
+                    self.languageUIView.label.text = "Please select your preferred language for Chocoed app screens"
+
                 }
                 alertcontrol.addAction(alertaction)
                 alertcontrol.addAction(alertaction1)
                 self.present(alertcontrol, animated: true, completion: nil)
-                tableView.deselectRow(at: indexPath, animated: false)
+                languageUIView.tableViewLanguage.deselectRow(at: indexPath, animated: false)
             } else {
                 self.languageUIView.isHidden = true
                 //let userLearningLang = UserDefaults.standard.string(forKey: "Language2")
                 //let userAppLang = UserDefaults.standard.string(forKey: "Language1")
                 
                 UserDefaults.standard.set(text, forKey: "Language2")
+                self.languageUIView.label.text = "Please select your preferred language for Chocoed app screens"
+                languageUIView.tableViewLanguage.deselectRow(at: indexPath, animated: false)
+
+
             }
+            
+            
         }else {
+            
+            
             switch(indexPath.row) {
                 
             case 3:
                 
-                let v1 = self.storyboard?.instantiateViewController(withIdentifier: "ContentVC") as! ContentVC
+                let v1 = self.storyboard?.instantiateViewController(withIdentifier: "profile") as! ProfileViewController
                 self.present(v1, animated: true, completion: nil)
                 
                 break;
@@ -189,6 +200,8 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
 //            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 //            view.addSubview(blurEffectView)
             self.languageUIView.isHidden = false
+            self.count = 0
+
             break;
                 
             default: break

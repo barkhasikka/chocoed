@@ -187,7 +187,7 @@ class TopicsStatusViewController: UIViewController,UITableViewDelegate,UITableVi
            
             if arrayCourseSubTopicList[indexPath.row].videoViewCount >=  arrayCourseSubTopicList[indexPath.row].videoViewLimit{
                 
-                let alertcontrol = UIAlertController(title: "Proceed to next video!", message: "Dear \(USERDETAILS.firstName) You have reached maximum view count for this topic.", preferredStyle: .alert)
+                let alertcontrol = UIAlertController(title: "Let’s get Chocoed!", message: "Dear \(USERDETAILS.firstName),there are many interesting videos awaiting you.Please proceed to watch them.", preferredStyle: .alert)
                 let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alertcontrol.addAction(alertaction)
                 
@@ -234,6 +234,7 @@ class TopicsStatusViewController: UIViewController,UITableViewDelegate,UITableVi
                 vcNewSectionStarted.arrayTopic = self.arrayCourseSubTopicList
                 vcNewSectionStarted.currentPosition = self.tableRowPosition
                 vcNewSectionStarted.courseId = courseid
+                vcNewSectionStarted.fromType = "choice"
                 self.present(vcNewSectionStarted, animated: true, completion: nil)
             }
             
@@ -257,6 +258,7 @@ class TopicsStatusViewController: UIViewController,UITableViewDelegate,UITableVi
                     vcNewSectionStarted.arrayTopic = self.arrayCourseSubTopicList
                     vcNewSectionStarted.currentPosition = self.tableRowPosition
                     vcNewSectionStarted.courseId = self.courseid
+                    vcNewSectionStarted.fromType = "choice"
                     self.present(vcNewSectionStarted, animated: true, completion: nil)
                 }
                 
@@ -273,6 +275,7 @@ class TopicsStatusViewController: UIViewController,UITableViewDelegate,UITableVi
                     vcNewSectionStarted.arrayTopic = self.arrayCourseSubTopicList
                     vcNewSectionStarted.currentPosition = self.tableRowPosition
                     vcNewSectionStarted.courseId = self.courseid
+                    vcNewSectionStarted.fromType = "choice"
                     self.present(vcNewSectionStarted, animated: true, completion: nil)
                 }
                 
