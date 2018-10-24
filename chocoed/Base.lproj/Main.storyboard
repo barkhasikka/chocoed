@@ -3167,13 +3167,6 @@ the beginning of every beautiful journey.</string>
                                                     <constraint firstItem="jA9-FG-AMX" firstAttribute="centerX" secondItem="plK-mb-rWo" secondAttribute="centerX" id="yyq-eQ-7ye"/>
                                                 </constraints>
                                             </view>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PS1-UI-Wo0">
-                                                <rect key="frame" x="88" y="397" width="200" height="150"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="200" id="BQK-8w-Ryc"/>
-                                                    <constraint firstAttribute="height" constant="150" id="qK8-1O-ro6"/>
-                                                </constraints>
-                                            </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GvJ-xK-LRd" userLabel="UserProgress">
                                                 <rect key="frame" x="14" y="281" width="347" height="106"/>
                                                 <subviews>
@@ -3531,6 +3524,13 @@ the beginning of every beautiful journey.</string>
                                                     <constraint firstAttribute="trailing" secondItem="xHe-C2-Y4Y" secondAttribute="trailing" id="mrl-zR-Cd4"/>
                                                 </constraints>
                                             </view>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PS1-UI-Wo0">
+                                                <rect key="frame" x="88" y="397" width="200" height="150"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="200" id="BQK-8w-Ryc"/>
+                                                    <constraint firstAttribute="height" constant="150" id="qK8-1O-ro6"/>
+                                                </constraints>
+                                            </imageView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="750" id="86q-KO-k1n"/>
