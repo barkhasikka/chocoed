@@ -39,6 +39,8 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
     var arrayTopic = [TopicList]()
     var arrayPendingExamList = [ExamList]()
     var arrayBehaviouralQuestion = [Question]()
+    var activityUIView: ActivityIndicatorUIView!
+
     
     
     @IBAction func back_btn_clicked(_ sender: Any) {
@@ -91,7 +93,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
     }
     
     override var shouldAutorotate: Bool{
-        return true
+        return false
     }
     
     override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation{
@@ -106,6 +108,10 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
+        self.view.addSubview(activityUIView)
+        activityUIView.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -582,12 +588,12 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                             self.imgCourse.image = image
                         }
                     }
-                    self.imgCourse.layer.borderWidth = 1.0
+                   /* self.imgCourse.layer.borderWidth = 1.0
                     self.imgCourse.layer.masksToBounds = false
                     self.imgCourse.layer.borderColor = UIColor.darkGray.cgColor
                     self.imgCourse.layer.cornerRadius =  self.imgCourse.frame.width / 2
                     self.imgCourse.clipsToBounds = true
-                    self.imgCourse.contentMode = .center
+                    self.imgCourse.contentMode = .center */
                 }
                 
             }
@@ -712,8 +718,8 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
         
         print(params)
         
-        //activityUIView.isHidden = false
-        //activityUIView.startAnimation()
+        activityUIView.isHidden = false
+        activityUIView.startAnimation()
         MakeHttpPostRequest(url: getTopicData, params: params, completion: {(success, response) -> Void in
             
             
@@ -736,8 +742,8 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
             DispatchQueue.main.async {
                 
                 self.tblView.reloadData()
-                //  self.activityUIView.isHidden = true
-                //  self.activityUIView.stopAnimation()
+                  self.activityUIView.isHidden = true
+                  self.activityUIView.stopAnimation()
                 
                 if self.arrayTopic.count > 0 {
                     self.lblEmpty.isHidden = true
@@ -751,6 +757,8 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
             let alert = GetAlertWithOKAction(message: message)
             DispatchQueue.main.async {
                 self.present(alert, animated: true, completion: nil)
+                self.activityUIView.isHidden = true
+                self.activityUIView.stopAnimation()
             }
         })
         

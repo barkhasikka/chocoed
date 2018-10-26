@@ -56,6 +56,15 @@ class TopicsStatusViewController: UIViewController,UITableViewDelegate,UITableVi
     override var shouldAutorotate: Bool{
         return false
     }
+    
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation{
+        return UIInterfaceOrientation.portrait
+    }
+    
+    override var supportedInterfaceOrientations:UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -174,9 +183,18 @@ class TopicsStatusViewController: UIViewController,UITableViewDelegate,UITableVi
             
             if arrayCourseSubTopicList[indexPath.row].examStatus == "Completed"{
                 
-                let alert = GetAlertWithOKAction(message: "Dear \(USERDETAILS.firstName) You have already completed this assessment.")
+              /*  let alert = GetAlertWithOKAction(message: "Dear \(USERDETAILS.firstName) You have already completed this assessment.")
                 self.present(alert, animated: true, completion: nil)
                 tableView.deselectRow(at: indexPath, animated: false)
+              */
+                
+                if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "WevViewVC") as? WevViewVC {
+                vcNewSectionStarted.currentExamID=Int(arrayCourseSubTopicList[indexPath.row].examId)!
+                    vcNewSectionStarted.fromType = "choice"
+                    self.present(vcNewSectionStarted, animated: true, completion: nil)
+                }
+                
+                
                 
             }
             

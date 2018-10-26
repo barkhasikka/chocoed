@@ -29,6 +29,11 @@ class WevViewVC: UIViewController {
             let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "PendingAssessment") as! PendingAssessment
             self.present(vcNewSectionStarted, animated: true, completion: nil)
             
+        }else if self.fromType == "choice"{
+            
+            self.dismiss(animated: true, completion: nil)
+
+            
         }else{
             
             let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "ContentVC") as! ContentVC

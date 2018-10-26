@@ -339,22 +339,20 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
         let language1 = UserDefaults.standard.string(forKey: "Language1")
         let language2 = UserDefaults.standard.string(forKey: "Language2")
         var params =  Dictionary<String, String>()
-        if language1 == nil && language2 == nil
+        if language1 != nil && language2 != nil
         {
             
-            UserDefaults.standard.set("English", forKey: "Language1")
-            UserDefaults.standard.set("English", forKey: "Language2")
-            
-            
-        params = ["access_token":"\(accessToken)","userId":"\(userid!)","clientId":"\(clientID)","appLanguage":"","learningLanguage":""] as Dictionary<String, String>
-        print(params)
-        }
-        else
-        {
+            /* UserDefaults.standard.set("English", forKey: "Language1")
+             UserDefaults.standard.set("English", forKey: "Language2")
+             
+             
+             params = ["access_token":"\(accessToken)","userId":"\(userid!)","clientId":"\(clientID)","appLanguage":"","learningLanguage":""] as Dictionary<String, String>
+             print(params) */
+       
             params = ["access_token":"\(accessToken)","userId":"\(userid!)","clientId":"\(clientID)","appLanguage":"\(language1!)","learningLanguage":"\(language2!)"] as Dictionary<String, String>
             print(params)
 
-        }
+        
         DispatchQueue.main.async {
             self.activityUIView.isHidden = false
             self.activityUIView.startAnimation()
@@ -375,6 +373,8 @@ class LoginViewController: UIViewController ,UITextFieldDelegate
 
             }
         })
+            
+        }
         
     }
 

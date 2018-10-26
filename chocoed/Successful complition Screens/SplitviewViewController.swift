@@ -348,6 +348,16 @@ class SplitviewViewController: UIViewController {
             //let quizID = UserDefaults.standard.string(forKey: "quiztakenID")
             // print(quizID)
             // let fileUrl = URL(string: url)
+            
+            let applang = jsonobject?.object(forKey: "appLanguage") as? String ?? ""
+            let learningLang = jsonobject?.object(forKey: "learningLanguage") as? String ?? ""
+
+            
+            UserDefaults.standard.set(applang, forKey: "Language1")
+            UserDefaults.standard.set(learningLang, forKey: "Language2")
+            
+            
+            
             UserDefaults.standard.set(Int(clientId), forKey: "clientid")
             USERDETAILS = UserDetails(email: temp.email, firstName: temp.firstName, lastname: temp.lastName, imageurl: url)
             

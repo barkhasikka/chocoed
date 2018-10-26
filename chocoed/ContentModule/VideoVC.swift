@@ -51,6 +51,9 @@ class VideoVC: UIViewController {
     var selectedAnsText = ""
 
     
+    @IBOutlet var btnPlayAction: UIButton!
+    
+    
     var arrayExams = [KnowledgeList]()
 
     @IBOutlet var btnOption1: UIButton!
@@ -169,6 +172,9 @@ class VideoVC: UIViewController {
         self.hideControls()
         
         
+        //self.loadExam(examid: "24")
+        
+    
         var videoURL = self.arrayTopic[self.currentPosition].topicVideoUrl
         if currentSelectedLang != "English" {
          videoURL = videoURL.replacingOccurrences(of: ".mp4", with: "_\(currentSelectedLang).mp4")
@@ -196,19 +202,44 @@ class VideoVC: UIViewController {
         }
         
     
-        player.play()
+         player.play()
         isVideoPlaying = !isVideoPlaying
         addTimeObserver()
         
         let gesture = UITapGestureRecognizer(target: self, action: #selector(self.hideShow(sender:)))
         self.videoView.addGestureRecognizer(gesture)
- 
-       
         
+
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+        
+        
+        let notificationCenter1 = NotificationCenter.default
+        notificationCenter1.addObserver(self, selector: #selector(appMovedToFront), name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
+    }
+    
+    @objc func appMovedToBackground() {
+        print("App moved to background!")
+        
+       // player.pause()
+        self.btnPlayAction.setTitle("Play", for: .normal)
+        self.btnPlayAction.setImage(UIImage(named: "icons_play"), for: UIControlState.normal)
+        self.addTopicAudit(videopostion: Double(self.getMillisecond()),status: "pause")
+        isVideoPlaying = !isVideoPlaying
+    }
+    
+    @objc func appMovedToFront() {
+        print("App retur to front!")
+        
+        player.play()
+        self.btnPlayAction.setTitle("Pause", for: .normal)
+        self.btnPlayAction.setImage(UIImage(named: "icons_pause"), for: UIControlState.normal)
+        self.addTopicAudit(videopostion: self.getMillisecond(),status: "start")
+        isVideoPlaying = !isVideoPlaying
         
     }
     
-    
+  
     
     func currentData(){
         
@@ -434,8 +465,6 @@ class VideoVC: UIViewController {
     
     func addTimeObserver() {
         
-        
-        
         let interval = CMTime(seconds: 0.5, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
         let mainQueue = DispatchQueue.main
         
@@ -470,7 +499,7 @@ class VideoVC: UIViewController {
                         }
                         
                         
-                        if self?.currentTimeLabel.text == self?.durationLabel.text{
+                        if self?.currentTimeLabel.text == self?.durationLabel.text && self?.durationLabel.text != "00:00"{
                             
                             //video completed play next
                             
@@ -613,7 +642,18 @@ class VideoVC: UIViewController {
         
         if userAppLang1 == userAppLang2 {
             
-            self.closedPlayer()
+            if  self.arrayTopic[self.currentPosition].topicId == "0" {
+                
+                self.showExamPopup()
+                
+            }else{
+                
+                self.closedPlayer()
+
+            }
+
+                
+            
             
         } else {
             
@@ -782,6 +822,13 @@ class VideoVC: UIViewController {
         
         print(self.correctAnsId)
         
+        self.btnOption1.isHidden = true
+        self.btnOption2.isHidden = true
+        self.btnOption3.isHidden = true
+        self.btnOption4.isHidden = true
+
+
+        
         var i = self.arrayBehaviouralQuestion[self.currentQuesIndex].option.count - 1
         
         while i >= 0   {
@@ -790,27 +837,27 @@ class VideoVC: UIViewController {
 
             if i == 3 {
               
-                
+                self.btnOption4.isHidden = false
                 self.btnOption4.setTitle(optionObject.ansText, for: .normal)
             }
             
             if i == 2 {
                
-                
+                self.btnOption3.isHidden = false
                 self.btnOption3.setTitle(optionObject.ansText, for: .normal)
             }
             
             if i == 1 {
                 
                
-                
+                self.btnOption2.isHidden = false
                 self.btnOption2.setTitle(optionObject.ansText, for: .normal)
             }
             
             if i == 0 {
                 
                
-                
+                self.btnOption1.isHidden = false
                 self.btnOption1.setTitle(optionObject.ansText, for: .normal)
             }
             
@@ -892,7 +939,7 @@ class VideoVC: UIViewController {
         self.selectAnsID = optionObject.id
         self.defaultButtons()
        
-        print(self.correctAnsId)
+    //    print(self.correctAnsId)
         
         if self.correctAnsId == optionObject.id || self.correctAnsId == "0" {
             
@@ -981,24 +1028,29 @@ class VideoVC: UIViewController {
     
     func defaultButtons(){
         
+        
+        self.btnOption1.titleLabel?.numberOfLines = 0
         self.btnOption1.layer.borderColor = UIColor.white.cgColor
         self.btnOption1.layer.borderWidth = 1
-        self.btnOption1.layer.cornerRadius = self.btnOption1.frame.height / 2
+        self.btnOption1.layer.cornerRadius = 6  //self.btnOption1.frame.height / 2
         self.btnOption1.backgroundColor = .clear
         
+        self.btnOption2.titleLabel?.numberOfLines = 0
         self.btnOption2.layer.borderColor = UIColor.white.cgColor
         self.btnOption2.layer.borderWidth = 1
-        self.btnOption2.layer.cornerRadius =  self.btnOption2.frame.height / 2
+        self.btnOption2.layer.cornerRadius = 6 //self.btnOption2.frame.height / 2
         self.btnOption2.backgroundColor = .clear
         
+        self.btnOption3.titleLabel?.numberOfLines = 0
         self.btnOption3.layer.borderColor = UIColor.white.cgColor
         self.btnOption3.layer.borderWidth = 1
-        self.btnOption3.layer.cornerRadius =  self.btnOption3.frame.height / 2
+        self.btnOption3.layer.cornerRadius = 6 //self.btnOption3.frame.height / 2
         self.btnOption3.backgroundColor = .clear
         
+        self.btnOption4.titleLabel?.numberOfLines = 0
         self.btnOption4.layer.borderColor = UIColor.white.cgColor
         self.btnOption4.layer.borderWidth = 1
-        self.btnOption4.layer.cornerRadius =  self.btnOption4.frame.height / 2
+        self.btnOption4.layer.cornerRadius = 6 //self.btnOption4.frame.height / 2
         self.btnOption4.backgroundColor = .clear
         
         
@@ -1077,6 +1129,9 @@ class VideoVC: UIViewController {
     
     func showExamPopup(){
        
+        
+        if self.arrayTopic[self.currentPosition].examStatus != "Completed"{
+            
             
             let alertView = UIAlertController(title: "Alert", message: "Check your understanding with our quick assessment on todays topics", preferredStyle: .alert)
             
@@ -1091,12 +1146,19 @@ class VideoVC: UIViewController {
             
             let actionSure = UIAlertAction(title: "Yes", style: .default, handler: { (alert) in
                 
-                 self.loadExamAssessment(examID: self.arrayTopic[self.currentPosition].examId, examName: self.arrayTopic[self.currentPosition].examName)
-               
+                self.loadExamAssessment(examID: self.arrayTopic[self.currentPosition].examId, examName: self.arrayTopic[self.currentPosition].examName)
+                
             })
             alertView.addAction(actionSure)
             self.present(alertView, animated: true, completion: nil)
-  
+            
+        }else{
+            
+            self.closedPlayer()
+
+        }
+            
+        
     }
     
     /** Exam Assessment **/

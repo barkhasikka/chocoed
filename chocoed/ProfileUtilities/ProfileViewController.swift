@@ -74,12 +74,12 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         imageviewCircle.isUserInteractionEnabled = true
         imageviewCircle.addGestureRecognizer(tapGestureRecognizer)
         
-        imageView1.image = UIImage(named: "avatar_1.png")
-        imageView2.image = UIImage(named: "avatar_2")
-        imageView3.image = UIImage(named: "avatar_3")
-        imageView4.image = UIImage(named: "avatar_4")
-        imageView5.image = UIImage(named: "avatar_5")
-        imageView6.image = UIImage(named: "avatar_6")
+        imageView1.image = UIImage(named: "Man1_1")
+        imageView2.image = UIImage(named: "Woman1_1")
+        imageView3.image = UIImage(named: "Man2_2")
+        imageView4.image = UIImage(named: "Woman2_2")
+        imageView5.image = UIImage(named: "Man3_3")
+        imageView6.image = UIImage(named: "Woman3_3")
         
         let tapGestureRecognizer1 = UITapGestureRecognizer(target: self, action: #selector(imageTappedAvatar1(tapGestureRecognizer:)))
         imageView1.isUserInteractionEnabled = true

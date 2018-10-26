@@ -138,6 +138,8 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                     UserDefaults.standard.set(text, forKey: "Language2")
                     
                     self.languageUIView.label.text = "Please select your preferred language for Chocoed app screens"
+                    
+                    self.sendLanguagesSelected()
 
                 }
                 alertcontrol.addAction(alertaction)
@@ -152,7 +154,7 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                 UserDefaults.standard.set(text, forKey: "Language2")
                 self.languageUIView.label.text = "Please select your preferred language for Chocoed app screens"
                 languageUIView.tableViewLanguage.deselectRow(at: indexPath, animated: false)
-
+                self.sendLanguagesSelected()
 
             }
             
@@ -221,6 +223,31 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
             
         }
         AppDelegate.menu_bool = true
+        
+    }
+    
+    func sendLanguagesSelected() {
+        let clientID = UserDefaults.standard.integer(forKey: "clientid")
+        let userid = UserDefaults.standard.string(forKey: "userid")
+        let language1 = UserDefaults.standard.string(forKey: "Language1")
+        let language2 = UserDefaults.standard.string(forKey: "Language2")
+        var params =  Dictionary<String, String>()
+        if language1 != nil && language2 != nil
+        {
+            
+            params = ["access_token":"\(accessToken)","userId":"\(userid!)","clientId":"\(clientID)","appLanguage":"\(language1!)","learningLanguage":"\(language2!)"] as Dictionary<String, String>
+            print(params)
+          
+            MakeHttpPostRequest(url: saveLanguageSelected, params: params, completion: {(success, response) -> Void in
+                print(response)
+            }, errorHandler: {(message) -> Void in
+                let alert = GetAlertWithOKAction(message: message)
+                DispatchQueue.main.async {
+                    self.present(alert, animated: true, completion: nil)
+                }
+            })
+            
+        }
         
     }
 
