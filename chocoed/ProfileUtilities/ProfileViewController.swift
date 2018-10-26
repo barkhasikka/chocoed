@@ -11,6 +11,11 @@ import YPImagePicker
 
 class ProfileViewController: UIViewController,UITextFieldDelegate {
 
+    @IBOutlet weak var birthDateTextField: UITextField!
+    var gender = ""
+    let datePicker = UIDatePicker()
+    
+    @IBOutlet weak var btn: DLRadioButton!
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var imageIcon: UIImageView!
     @IBOutlet weak var profileDataUIViewTopConstraint: NSLayoutConstraint!
@@ -51,12 +56,12 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         submitButton.layer.borderColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
 //        self.profileDataUIViewTopConstraint.constant = -100
         imageviewCircular()
-        
+        createDatePicker()
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)
         activityUIView.isHidden = true
-        
-        
+        btn.isMultipleSelectionEnabled = false
+        birthDateTextField.setBottomBorder()
         textfieldFirstName.setBottomBorder()
         textfieldLastName.setBottomBorder()
         textfieldEmailId.setBottomBorder()
@@ -68,7 +73,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
 //        labelMobileno.isHidden = true
 //
         self.hideKeyboardWhenTappedAround()
-        
+
         self.popUpView.isHidden = true
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTappedPopup(tapGestureRecognizer:)))
         imageviewCircle.isUserInteractionEnabled = true
@@ -114,13 +119,43 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         textfieldLastName.isUserInteractionEnabled = false
         textfieldEmailId.isUserInteractionEnabled = false
         textfieldMobileNo.isUserInteractionEnabled = false
-        
    }
     
     override var shouldAutorotate: Bool{
         return false
     }
 
+    func createDatePicker(){
+        //for format of date
+        datePicker.datePickerMode = .date
+        birthDateTextField.inputView = datePicker
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        //add done button
+        let donebutton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(toolBarAction) )
+        toolbar.setItems([donebutton], animated: true)
+        birthDateTextField.inputAccessoryView = toolbar
+    }
+    
+    @objc func toolBarAction(){
+        //formate the date in text
+        print("123")
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        birthDateTextField.text = dateFormatter.string(from: datePicker.date)
+        print("\(String(describing: birthDateTextField.text))")
+        self.view.endEditing(true)
+    }
+    
+    @IBAction func radioButtonAction(_ sender: DLRadioButton) {
+        if sender.tag == 1 {
+            print("Male")
+            gender = "Male"
+        }else{
+            print("Female")
+            gender = "Female"
+        }
+    }
     @IBAction func CloseAction(_ sender: Any) {
         self.popUpView.isHidden = true
     }
@@ -129,19 +164,19 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        print("View will appear")
-        super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        print("View will viewDidDisappear")
-        super.viewDidDisappear(animated)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        print("View will appear")
+//        super.viewWillAppear(animated)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+//    }
+//
+//    override func viewDidDisappear(_ animated: Bool) {
+//        print("View will viewDidDisappear")
+//        super.viewDidDisappear(animated)
+//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+//    }
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer){
         print("Please select image")
@@ -235,6 +270,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         return true
     }
 
+
 //    func textFieldDidBeginEditing(_ textField: UITextField) {
 //        if textField.tag == 1
 //        {
@@ -254,6 +290,11 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
 //        }
 //    }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+//        if textField == birthDateTextField{
+//            createDatePicker()
+//        }
+    }
     
     func imageviewCircular(){
         let image = UIImage(named: "camera_icon")
@@ -283,8 +324,12 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
             temp.lastName = jsonobject?.object(forKey: "lastName") as? String ?? ""
             temp.email = jsonobject?.object(forKey: "email") as? String ?? ""
             temp.mobile = jsonobject?.object(forKey: "mobile") as? String ?? ""
+            temp.gender = jsonobject?.object(forKey: "gender") as? String ?? ""
+            temp.birthDate = jsonobject?.object(forKey: "birthDate") as? String ?? ""
+
             let clientId = jsonobject?.object(forKey: "clientId") as? String ?? ""
             let url = jsonobject?.object(forKey: "profileImageUrl") as? String ?? ""
+            
             print(url)
             let fileUrl = URL(string: url)
             UserDefaults.standard.set(Int(clientId), forKey: "clientid")
@@ -294,6 +339,12 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
                 self.textfieldLastName.text = temp.lastName
                 self.textfieldEmailId.text = temp.email
                 self.textfieldMobileNo.text = temp.mobile
+                self.birthDateTextField.text = temp.birthDate
+                if temp.gender == "Male" {
+                    self.btn.isSelected =  true
+                }else if temp.gender == "Female"{
+                    self.btn.isSelected = true
+                }
                 if url != ""
                 {
                 if let data = try? Data(contentsOf: fileUrl!) {
@@ -321,6 +372,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         let emailId = textfieldEmailId.text!
         let lName = textfieldLastName.text!
         let fName = textfieldFirstName.text!
+        let birthDate = birthDateTextField.text!
         let userID = UserDefaults.standard.integer(forKey: "userid")
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         
@@ -330,8 +382,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
             alertcontrol.addAction(alertaction)
             self.present(alertcontrol, animated: true, completion: nil)
         }else {
-            let params = [ "access_token":"\(accessToken)", "userId": "\(userID)", "clientId": "\(clientID)", "firstName": fName, "lastName": lName, "email" : emailId, "mobile" : mobileNo] as! Dictionary<String, String>
-            
+            let params = [ "access_token":"\(accessToken)", "userId": "\(userID)", "clientId": "\(clientID)", "firstName": fName, "lastName": lName, "email" : emailId, "mobile" : mobileNo,"birthDate":"\(birthDate)","gender":"\(gender)"] as! Dictionary<String, String>
             activityUIView.isHidden = false
             activityUIView.startAnimation()
 
