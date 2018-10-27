@@ -193,16 +193,9 @@ class TopicsStatusViewController: UIViewController,UITableViewDelegate,UITableVi
                     vcNewSectionStarted.fromType = "choice"
                     self.present(vcNewSectionStarted, animated: true, completion: nil)
                 }
-                
-                
-                
             }
-            
-            
         }else{
             print("video")
-            
-           
             if arrayCourseSubTopicList[indexPath.row].videoViewCount >=  arrayCourseSubTopicList[indexPath.row].videoViewLimit{
                 
                 let alertcontrol = UIAlertController(title: "Let’s get Chocoed!", message: "Dear \(USERDETAILS.firstName),there are many interesting videos awaiting you.Please proceed to watch them.", preferredStyle: .alert)

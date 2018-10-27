@@ -187,7 +187,6 @@ struct CourseList{
     var courseName : String
     var startdate : String
     var enddate : String
-    
     init(_ dictionary : NSDictionary) {
         
         self.calenderId = dictionary["calenderId"] as? String ?? ""
@@ -318,5 +317,45 @@ struct TopicList{
     
 }
 
+struct getMyProgressStruct{
+    var myTopicCount : String
+    var myTestCount : String
+    var myWeekNumber : String
+    var myRankNumber : String
+    var schduleMsg : String
+    var friendList : NSArray
+    var myCoursesCount: String
 
+    init(_ dictionary : NSDictionary) {
+        self.myTopicCount = dictionary["myTopicCount"] as? String ?? ""
+        self.myWeekNumber = dictionary["myWeekNumber"] as? String ?? ""
+        self.myTestCount = dictionary["myTestCount"] as? String ?? ""
+        self.myRankNumber = dictionary["myRankNumber"] as? String ?? ""
+        self.schduleMsg = dictionary["schduleMessage"] as? String ?? ""
+        self.friendList = dictionary["friendList"] as? NSArray ?? []
+        self.myCoursesCount = dictionary["myCoursesCount"] as? String ?? ""
+}
+}
+
+struct FriendProgress{
+    var friendId : Int
+    var friendImageUrl : String
+    var friendName : String
+    var rankNumber : Int
+    var testCount : Int
+    var topicCount : Int
+    var weekNumber: Int
+    
+    init(_ dictionary : NSDictionary) {
+        self.friendId = dictionary["friendId"] as? Int ?? 0
+        self.friendImageUrl = dictionary["friendImageUrl"] as? String ?? ""
+        self.friendName = dictionary["friendName"] as? String ?? ""
+        self.rankNumber = dictionary["rankNumber"] as? Int ?? 0
+        self.testCount = dictionary["testCount"] as? Int ?? 0
+        self.topicCount = dictionary["topicCount"] as? Int ?? 0
+        self.weekNumber = dictionary["weekNumber"] as? Int ?? 0
+        
+    }
+    
+}
 

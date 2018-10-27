@@ -7,19 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0703A85D21834BE700D01C02 /* ProgressViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0703A85C21834BE700D01C02 /* ProgressViewTableViewCell.swift */; };
 		07052DD82177411300748554 /* CommonTabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07052DD72177411300748554 /* CommonTabelView.swift */; };
 		070791602170CF5600C01F70 /* TopicsStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0707915F2170CF5600C01F70 /* TopicsStatusViewController.swift */; };
-		07583C3A2167277D00CE6EB6 /* Chocoed Splash Screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 07583C392167277C00CE6EB6 /* Chocoed Splash Screen.png */; };
 		07583C3D21673EFE00CE6EB6 /* ExamComplitionScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07583C3C21673EFE00CE6EB6 /* ExamComplitionScreenViewController.swift */; };
+		07619D85217DB11E00899F7E /* GifImgageVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619D84217DB11E00899F7E /* GifImgageVIew.swift */; };
+		07619D87217DB32700899F7E /* background_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 07619D86217DB32700899F7E /* background_blue.png */; };
+		07619D89217DB37600899F7E /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07619D88217DB37600899F7E /* LaunchScreenViewController.swift */; };
+		07619D8B217DB9A700899F7E /* logo_1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 07619D8A217DB9A700899F7E /* logo_1.gif */; };
 		0770F792216DCAF100FE6132 /* dragExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770F791216DCAF100FE6132 /* dragExtension.swift */; };
 		0770F794216DCBF300FE6132 /* dropExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0770F793216DCBF300FE6132 /* dropExtension.swift */; };
+		07746E1F2182DC4200673252 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07746E1E2182DC4200673252 /* ProgressBarView.swift */; };
 		07869427216F4F3A008DB9FF /* personalityUpgradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07869426216F4F3A008DB9FF /* personalityUpgradeViewController.swift */; };
 		07869429216F4F6D008DB9FF /* PersonalityUpgradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07869428216F4F6D008DB9FF /* PersonalityUpgradeTableViewCell.swift */; };
 		07967BF221679FBC00FB0E83 /* MenuBarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07967BF121679FBC00FB0E83 /* MenuBarTableViewCell.swift */; };
 		07994B6521676677007D3890 /* SplitviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07994B6421676677007D3890 /* SplitviewViewController.swift */; };
 		07994B672167716C007D3890 /* ViewControllerMenubar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07994B662167716C007D3890 /* ViewControllerMenubar.swift */; };
+		07A1639E21803994005E9B7D /* ConnectionCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A1639D21803994005E9B7D /* ConnectionCheck.swift */; };
+		07A163A021803E0E005E9B7D /* chocoed_wave.gif in Resources */ = {isa = PBXBuildFile; fileRef = 07A1639F21803E0E005E9B7D /* chocoed_wave.gif */; };
 		07ABDDAC216E10480029CC54 /* MyChoiceSkillsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07ABDDAB216E10480029CC54 /* MyChoiceSkillsViewController.swift */; };
 		07ABDDAE216E10910029CC54 /* MyskillsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07ABDDAD216E10910029CC54 /* MyskillsCollectionViewCell.swift */; };
+		07C23DA5217EED2C00726890 /* WevViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C23DA4217EED2C00726890 /* WevViewVC.swift */; };
+		07D19E322184390000687AF4 /* CommonProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D19E312184390000687AF4 /* CommonProgressView.swift */; };
+		07D19E3521845E9C00687AF4 /* LeaderBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D19E3421845E9C00687AF4 /* LeaderBoardViewController.swift */; };
+		07D19E37218471B900687AF4 /* LeaderBoardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D19E36218471B900687AF4 /* LeaderBoardTableViewCell.swift */; };
+		07D19E392184861100687AF4 /* chocoed_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 07D19E382184861100687AF4 /* chocoed_music.mp3 */; };
 		07DB9F59216C866500696B5A /* ActivityIndicatorUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DB9F58216C866500696B5A /* ActivityIndicatorUIView.swift */; };
 		07E07B0B216F6A31004DBE2D /* SubViewPersonalityUpgradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E07B0A216F6A31004DBE2D /* SubViewPersonalityUpgradeViewController.swift */; };
 		3DC3AE4D2173930500AE6091 /* icons_user.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DC3AE472173930200AE6091 /* icons_user.png */; };
@@ -77,19 +89,31 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0703A85C21834BE700D01C02 /* ProgressViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewTableViewCell.swift; sourceTree = "<group>"; };
 		07052DD72177411300748554 /* CommonTabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonTabelView.swift; sourceTree = "<group>"; };
 		0707915F2170CF5600C01F70 /* TopicsStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsStatusViewController.swift; sourceTree = "<group>"; };
-		07583C392167277C00CE6EB6 /* Chocoed Splash Screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chocoed Splash Screen.png"; sourceTree = "<group>"; };
 		07583C3C21673EFE00CE6EB6 /* ExamComplitionScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamComplitionScreenViewController.swift; sourceTree = "<group>"; };
+		07619D84217DB11E00899F7E /* GifImgageVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifImgageVIew.swift; sourceTree = "<group>"; };
+		07619D86217DB32700899F7E /* background_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_blue.png; sourceTree = "<group>"; };
+		07619D88217DB37600899F7E /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
+		07619D8A217DB9A700899F7E /* logo_1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = logo_1.gif; sourceTree = "<group>"; };
 		0770F791216DCAF100FE6132 /* dragExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dragExtension.swift; sourceTree = "<group>"; };
 		0770F793216DCBF300FE6132 /* dropExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dropExtension.swift; sourceTree = "<group>"; };
+		07746E1E2182DC4200673252 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		07869426216F4F3A008DB9FF /* personalityUpgradeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = personalityUpgradeViewController.swift; sourceTree = "<group>"; };
 		07869428216F4F6D008DB9FF /* PersonalityUpgradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalityUpgradeTableViewCell.swift; sourceTree = "<group>"; };
 		07967BF121679FBC00FB0E83 /* MenuBarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarTableViewCell.swift; sourceTree = "<group>"; };
 		07994B6421676677007D3890 /* SplitviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitviewViewController.swift; sourceTree = "<group>"; };
 		07994B662167716C007D3890 /* ViewControllerMenubar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerMenubar.swift; sourceTree = "<group>"; };
+		07A1639D21803994005E9B7D /* ConnectionCheck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionCheck.swift; sourceTree = "<group>"; };
+		07A1639F21803E0E005E9B7D /* chocoed_wave.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = chocoed_wave.gif; sourceTree = "<group>"; };
 		07ABDDAB216E10480029CC54 /* MyChoiceSkillsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyChoiceSkillsViewController.swift; sourceTree = "<group>"; };
 		07ABDDAD216E10910029CC54 /* MyskillsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyskillsCollectionViewCell.swift; sourceTree = "<group>"; };
+		07C23DA4217EED2C00726890 /* WevViewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WevViewVC.swift; sourceTree = "<group>"; };
+		07D19E312184390000687AF4 /* CommonProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonProgressView.swift; sourceTree = "<group>"; };
+		07D19E3421845E9C00687AF4 /* LeaderBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderBoardViewController.swift; sourceTree = "<group>"; };
+		07D19E36218471B900687AF4 /* LeaderBoardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderBoardTableViewCell.swift; sourceTree = "<group>"; };
+		07D19E382184861100687AF4 /* chocoed_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = chocoed_music.mp3; sourceTree = "<group>"; };
 		07DB9F58216C866500696B5A /* ActivityIndicatorUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorUIView.swift; sourceTree = "<group>"; };
 		07E07B0A216F6A31004DBE2D /* SubViewPersonalityUpgradeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubViewPersonalityUpgradeViewController.swift; sourceTree = "<group>"; };
 		3DC3AE472173930200AE6091 /* icons_user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icons_user.png; sourceTree = "<group>"; };
@@ -197,6 +221,15 @@
 			path = MychoiceModule;
 			sourceTree = "<group>";
 		};
+		07D19E3321845E6C00687AF4 /* LeaderBoard */ = {
+			isa = PBXGroup;
+			children = (
+				07D19E3421845E9C00687AF4 /* LeaderBoardViewController.swift */,
+				07D19E36218471B900687AF4 /* LeaderBoardTableViewCell.swift */,
+			);
+			path = LeaderBoard;
+			sourceTree = "<group>";
+		};
 		3DF065432172EEF200C26F90 /* images */ = {
 			isa = PBXGroup;
 			children = (
@@ -227,6 +260,7 @@
 				3DF065552172F69300C26F90 /* ContentCell.swift */,
 				3DF065572172F8E400C26F90 /* PendingAssessment.swift */,
 				3DF065592172F90600C26F90 /* ExamCell.swift */,
+				07C23DA4217EED2C00726890 /* WevViewVC.swift */,
 				3DF0655B2172F92500C26F90 /* VideoVC.swift */,
 			);
 			path = ContentModule;
@@ -270,6 +304,7 @@
 		BF2358E8214FD0AC00C73BE3 /* chocoed */ = {
 			isa = PBXGroup;
 			children = (
+				07D19E3321845E6C00687AF4 /* LeaderBoard */,
 				3DF065522172F51E00C26F90 /* ContentModule */,
 				3DF065432172EEF200C26F90 /* images */,
 				07869425216F4F09008DB9FF /* Personality Upgrades */,
@@ -283,11 +318,14 @@
 				BF40F4382158FE10000C8A3F /* DropdownListsModels */,
 				BF356CBF215512F9003CC228 /* CommonUtilities */,
 				BF2358E9214FD0AC00C73BE3 /* AppDelegate.swift */,
+				07619D86217DB32700899F7E /* background_blue.png */,
 				BF2358ED214FD0AC00C73BE3 /* Main.storyboard */,
 				BF2358F2214FD0AE00C73BE3 /* LaunchScreen.storyboard */,
+				07D19E382184861100687AF4 /* chocoed_music.mp3 */,
 				BF2358F5214FD0AE00C73BE3 /* Info.plist */,
+				07619D8A217DB9A700899F7E /* logo_1.gif */,
+				07A1639F21803E0E005E9B7D /* chocoed_wave.gif */,
 				BF2358F0214FD0AE00C73BE3 /* Assets.xcassets */,
-				07583C392167277C00CE6EB6 /* Chocoed Splash Screen.png */,
 				BFCD0566215264B3009BE2C9 /* chocoed-Bridging-Header.h */,
 			);
 			path = chocoed;
@@ -302,8 +340,13 @@
 				07052DD72177411300748554 /* CommonTabelView.swift */,
 				BF6166F22154D19D0009B991 /* urlsOfAPICalls.swift */,
 				BF2CBBE12150C94500E13EA5 /* TextFieldDesign.swift */,
+				07619D84217DB11E00899F7E /* GifImgageVIew.swift */,
 				BF356CC02155135E003CC228 /* HttpPostRequest.swift */,
+				07A1639D21803994005E9B7D /* ConnectionCheck.swift */,
+				07746E1E2182DC4200673252 /* ProgressBarView.swift */,
 				BF2E5A25215A1CE7005845A9 /* CommonUIElements.swift */,
+				07619D88217DB37600899F7E /* LaunchScreenViewController.swift */,
+				07D19E312184390000687AF4 /* CommonProgressView.swift */,
 				BFCD0569215264B4009BE2C9 /* UIScrollView+TPKeyboardAvoidingAdditions.h */,
 				BFCD0567215264B3009BE2C9 /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
 				BFCD056A215264B4009BE2C9 /* TPKeyboardAvoidingScrollView.h */,
@@ -371,6 +414,7 @@
 				0770F791216DCAF100FE6132 /* dragExtension.swift */,
 				0770F793216DCBF300FE6132 /* dropExtension.swift */,
 				BF4BE1F62163964D0082198D /* PsychometricTestViewController.swift */,
+				0703A85C21834BE700D01C02 /* ProgressViewTableViewCell.swift */,
 			);
 			path = ProfileQuiz;
 			sourceTree = "<group>";
@@ -441,19 +485,22 @@
 				3DF0654F2172EF3C00C26F90 /* ic_video_play.png in Resources */,
 				3DE2DC0C21746D1400C396BD /* icons_play.png in Resources */,
 				3DF0654E2172EF3C00C26F90 /* ic_lock_white.png in Resources */,
+				07619D8B217DB9A700899F7E /* logo_1.gif in Resources */,
 				3DC3AE522173930500AE6091 /* icon_logout.png in Resources */,
 				3DF0654C2172EF3C00C26F90 /* ic_play_gray.png in Resources */,
 				3DFA0E1B2175ED4200F8A611 /* icons_pause.png in Resources */,
 				3DE2DC0B21746D1400C396BD /* icons_stop_filled.png in Resources */,
 				3DC3AE4F2173930500AE6091 /* icons_lang.png in Resources */,
-				07583C3A2167277D00CE6EB6 /* Chocoed Splash Screen.png in Resources */,
 				3DF0654B2172EF3C00C26F90 /* ic_arrow_right.png in Resources */,
 				3DF0654D2172EF3C00C26F90 /* ic_assessment.png in Resources */,
 				3DF065502172EF3C00C26F90 /* back.png in Resources */,
 				BF2358F4214FD0AE00C73BE3 /* LaunchScreen.storyboard in Resources */,
+				07A163A021803E0E005E9B7D /* chocoed_wave.gif in Resources */,
+				07D19E392184861100687AF4 /* chocoed_music.mp3 in Resources */,
 				3DC3AE512173930500AE6091 /* chat.png in Resources */,
 				BF2358F1214FD0AE00C73BE3 /* Assets.xcassets in Resources */,
 				3DC3AE4E2173930500AE6091 /* discussion_room.png in Resources */,
+				07619D87217DB32700899F7E /* background_blue.png in Resources */,
 				BF2358EF214FD0AC00C73BE3 /* Main.storyboard in Resources */,
 				3DC3AE4D2173930500AE6091 /* icons_user.png in Resources */,
 			);
@@ -515,12 +562,16 @@
 				BF40F43A2158FE29000C8A3F /* NewWorkModels.swift in Sources */,
 				0770F792216DCAF100FE6132 /* dragExtension.swift in Sources */,
 				BF356CC32155233C003CC228 /* LanguageTableViewCell.swift in Sources */,
+				07D19E3521845E9C00687AF4 /* LeaderBoardViewController.swift in Sources */,
 				BFCD056C215264B4009BE2C9 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				07869429216F4F6D008DB9FF /* PersonalityUpgradeTableViewCell.swift in Sources */,
 				BF2CBBE82150DCE400E13EA5 /* NewWorkExperienceVC.swift in Sources */,
+				07D19E37218471B900687AF4 /* LeaderBoardTableViewCell.swift in Sources */,
 				BF6166F32154D19D0009B991 /* urlsOfAPICalls.swift in Sources */,
 				070791602170CF5600C01F70 /* TopicsStatusViewController.swift in Sources */,
 				BF2CBBEC2150F6C100E13EA5 /* SignUpViewController.swift in Sources */,
+				07C23DA5217EED2C00726890 /* WevViewVC.swift in Sources */,
+				07619D89217DB37600899F7E /* LaunchScreenViewController.swift in Sources */,
 				BF6166F12154D1580009B991 /* GettingStartedViewController.swift in Sources */,
 				BF356CC52155236C003CC228 /* WorkExpClickedViewController.swift in Sources */,
 				BF4BE1F32163962F0082198D /* QuizBahaviouralViewController.swift in Sources */,
@@ -531,10 +582,15 @@
 				BF20726A2164DDD10038F30B /* PersonalityTestViewController.swift in Sources */,
 				07869427216F4F3A008DB9FF /* personalityUpgradeViewController.swift in Sources */,
 				BFCD056B215264B4009BE2C9 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
+				07D19E322184390000687AF4 /* CommonProgressView.swift in Sources */,
 				BF20E8402156558700CFA53C /* ModelProfileClass.swift in Sources */,
 				07ABDDAC216E10480029CC54 /* MyChoiceSkillsViewController.swift in Sources */,
+				07A1639E21803994005E9B7D /* ConnectionCheck.swift in Sources */,
+				07619D85217DB11E00899F7E /* GifImgageVIew.swift in Sources */,
 				BF40F4372158EB70000C8A3F /* ModelClassLoginId.swift in Sources */,
 				3DF065542172F54F00C26F90 /* ContentVC.swift in Sources */,
+				0703A85D21834BE700D01C02 /* ProgressViewTableViewCell.swift in Sources */,
+				07746E1F2182DC4200673252 /* ProgressBarView.swift in Sources */,
 				BF2358EC214FD0AC00C73BE3 /* ViewController.swift in Sources */,
 				0770F794216DCBF300FE6132 /* dropExtension.swift in Sources */,
 				BF2358EA214FD0AC00C73BE3 /* AppDelegate.swift in Sources */,
@@ -706,14 +762,17 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WFBZ498FZ4;
+				DEVELOPMENT_TEAM = DAKPPCYSL8;
+				ENABLE_BITCODE = NO;
+				ENABLE_TESTABILITY = NO;
+				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = chocoed/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chocoed;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chocoed.tejalohara;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "chocoed/chocoed-Bridging-Header.h";
@@ -731,14 +790,16 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WFBZ498FZ4;
+				DEVELOPMENT_TEAM = DAKPPCYSL8;
+				ENABLE_BITCODE = NO;
+				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = chocoed/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chocoed;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chocoed.tejalohara;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "chocoed/chocoed-Bridging-Header.h";

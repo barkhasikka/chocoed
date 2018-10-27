@@ -28,6 +28,7 @@ let getMySubTopics = "http://dev.chocoed.com/api/user/getMyCourseSubTopicList"
 let getCourseData = "http://dev.chocoed.com/api/user/getUserCourseDetail"
 let getTopicData = "http://dev.chocoed.com/api/user/getUserCourseTopicList"
 let userTopicsAudit = "http://dev.chocoed.com/api/user/userTopicsAudit"
+let getProgress = "http://dev.chocoed.com/api/user/getMyProgressData"
 
 
 var currentTopiceDate  = ""

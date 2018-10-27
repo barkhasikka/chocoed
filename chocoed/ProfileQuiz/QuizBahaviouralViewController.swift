@@ -12,7 +12,6 @@ import MobileCoreServices
 class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelegate {
     
     var dragCircle: UIImageView!
-    
     @IBOutlet weak var pagesViews: UIView!
     @IBOutlet weak var optionsView: UIView!
     @IBOutlet weak var quetionLabel: UILabel!
@@ -465,7 +464,11 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
         }
         currentButton.leadingAnchor.constraint(equalTo: self.optionsView.leadingAnchor, constant: 50).isActive =  true
         currentButton.trailingAnchor.constraint(equalTo: self.optionsView.trailingAnchor, constant: -10).isActive = true
-        currentButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
+    //    currentButton.centerXAnchor.constraint(equalTo: self.optionsView.centerXAnchor, constant: 0).isActive = true
+        currentButton.titleLabel?.numberOfLines = 0
+        currentButton.titleLabel?.lineBreakMode = NSLineBreakMode.byCharWrapping
+        
+        currentButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
         //  currentButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
     }
     
