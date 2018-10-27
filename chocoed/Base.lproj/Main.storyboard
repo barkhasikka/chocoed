@@ -3875,7 +3875,7 @@ the beginning of every beautiful journey.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tTa-Sf-IXu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2688.8000000000002" y="2990.5547226386807"/>
+            <point key="canvasLocation" x="3628" y="2990.5547226386807"/>
         </scene>
         <!--Personality Update-->
         <scene sceneID="GOu-ix-irE">
@@ -3995,7 +3995,7 @@ the beginning of every beautiful journey.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SQO-zd-je6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4268" y="2990.5547226386807"/>
+            <point key="canvasLocation" x="5207.1999999999998" y="2990.5547226386807"/>
         </scene>
         <!--Topics Status View Controller-->
         <scene sceneID="qcn-ff-pVQ">
@@ -4116,7 +4116,7 @@ the beginning of every beautiful journey.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S24-kI-Y9q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4912.8000000000002" y="2990.5547226386807"/>
+            <point key="canvasLocation" x="5852" y="2990.5547226386807"/>
         </scene>
         <!--Sub View Personality Upgrade View Controller-->
         <scene sceneID="8sd-LY-oU0">
@@ -4201,7 +4201,7 @@ the beginning of every beautiful journey.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uUk-Gq-x9m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5706" y="3000"/>
+            <point key="canvasLocation" x="6644" y="2999.5502248875564"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Cl4-ak-fna">
@@ -4529,6 +4529,91 @@ the beginning of every beautiful journey.</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ZD-we-a5V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="88.799999999999997" y="2913.1934032983509"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="AGs-eZ-QpM">
+            <objects>
+                <viewController id="Eci-gY-T6c" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CSQ-sS-Z7g">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wSN-sR-AGC">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="tMq-sM-lzR"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rmo-CX-5mF">
+                                <rect key="frame" x="16" y="261" width="343" height="396"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2vv-JK-WR3">
+                                        <rect key="frame" x="121" y="46" width="100" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="JEG-9v-yh6"/>
+                                            <constraint firstAttribute="width" constant="100" id="Ybe-Kd-FPF"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add 5 of your contacts to see their progress as well." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UWe-LW-iKY">
+                                        <rect key="frame" x="8" y="162" width="327" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="TXL-ft-6EL"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="UWe-LW-iKY" firstAttribute="centerX" secondItem="Rmo-CX-5mF" secondAttribute="centerX" id="CHh-Zb-Zje"/>
+                                    <constraint firstItem="UWe-LW-iKY" firstAttribute="leading" secondItem="Rmo-CX-5mF" secondAttribute="leading" constant="8" id="UOL-D8-POJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="UWe-LW-iKY" secondAttribute="trailing" constant="8" id="rFq-di-cHK"/>
+                                    <constraint firstItem="UWe-LW-iKY" firstAttribute="top" secondItem="2vv-JK-WR3" secondAttribute="bottom" constant="16" id="trm-f0-lJS"/>
+                                    <constraint firstItem="2vv-JK-WR3" firstAttribute="centerX" secondItem="Rmo-CX-5mF" secondAttribute="centerX" id="vuk-m9-6YK"/>
+                                    <constraint firstItem="2vv-JK-WR3" firstAttribute="top" secondItem="Rmo-CX-5mF" secondAttribute="top" constant="46" id="wTV-rf-Tpv"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="wSN-sR-AGC" firstAttribute="leading" secondItem="Wbc-1n-PFa" secondAttribute="leading" id="MCX-I5-EQp"/>
+                            <constraint firstItem="wSN-sR-AGC" firstAttribute="centerX" secondItem="CSQ-sS-Z7g" secondAttribute="centerX" id="NLW-Mc-d4N"/>
+                            <constraint firstItem="Wbc-1n-PFa" firstAttribute="trailing" secondItem="Rmo-CX-5mF" secondAttribute="trailing" constant="16" id="Ta2-ck-Vpc"/>
+                            <constraint firstItem="Wbc-1n-PFa" firstAttribute="bottom" secondItem="Rmo-CX-5mF" secondAttribute="bottom" constant="10" id="Tew-vZ-LUh"/>
+                            <constraint firstItem="Rmo-CX-5mF" firstAttribute="top" secondItem="Wbc-1n-PFa" secondAttribute="top" constant="197" id="V3N-Xl-cOS"/>
+                            <constraint firstItem="wSN-sR-AGC" firstAttribute="trailing" secondItem="Wbc-1n-PFa" secondAttribute="trailing" id="lUG-Oo-7vy"/>
+                            <constraint firstItem="Rmo-CX-5mF" firstAttribute="centerX" secondItem="CSQ-sS-Z7g" secondAttribute="centerX" id="miC-lm-eHV"/>
+                            <constraint firstItem="Rmo-CX-5mF" firstAttribute="leading" secondItem="Wbc-1n-PFa" secondAttribute="leading" constant="16" id="oRV-Ef-Xq6"/>
+                            <constraint firstItem="wSN-sR-AGC" firstAttribute="top" secondItem="CSQ-sS-Z7g" secondAttribute="top" id="ujs-mA-ZWH"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Wbc-1n-PFa"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="qP9-Fi-DbU"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bzn-E4-JZS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2160.8000000000002" y="3046.3268365817094"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="2pm-ZC-RQg">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gq8-af-X9J" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3TJ-cN-HrQ">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Eci-gY-T6c" kind="relationship" relationship="rootViewController" id="NZT-eZ-Mw7"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8O6-MU-zyt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1437.5999999999999" y="3047.226386806597"/>
         </scene>
     </scenes>
     <resources>
