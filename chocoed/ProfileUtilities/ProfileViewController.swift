@@ -6,11 +6,23 @@
 //  Copyright © 2018 barkha sikka. All rights reserved.
 //
 
+
 import UIKit
 import YPImagePicker
 
 class ProfileViewController: UIViewController,UITextFieldDelegate {
-
+    
+    
+    
+    @IBAction func female_clicked(_ sender: DLRadioButton) {
+        
+        gender = "Female"
+        self.btn.isSelected = false
+        self.btnFemale.isSelected = true
+    }
+    
+    @IBOutlet var btnFemale: DLRadioButton!
+    
     @IBOutlet weak var birthDateTextField: UITextField!
     var gender = ""
     let datePicker = UIDatePicker()
@@ -60,7 +72,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)
         activityUIView.isHidden = true
-        btn.isMultipleSelectionEnabled = false
+       // btn.isMultipleSelectionEnabled = false
         birthDateTextField.setBottomBorder()
         textfieldFirstName.setBottomBorder()
         textfieldLastName.setBottomBorder()
@@ -127,7 +139,17 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
 
     func createDatePicker(){
         //for format of date
+        
         datePicker.datePickerMode = .date
+        datePicker.maximumDate = Date()
+        
+        var dateComponent = DateComponents()
+        dateComponent.year = -43
+        
+        let maxdate  =  Calendar.current.date(byAdding: dateComponent, to: Date())
+        
+        datePicker.minimumDate = maxdate
+        
         birthDateTextField.inputView = datePicker
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
@@ -135,6 +157,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         let donebutton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(toolBarAction) )
         toolbar.setItems([donebutton], animated: true)
         birthDateTextField.inputAccessoryView = toolbar
+        
     }
     
     @objc func toolBarAction(){
@@ -148,13 +171,19 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     }
     
     @IBAction func radioButtonAction(_ sender: DLRadioButton) {
-        if sender.tag == 1 {
+        
+        
+        gender = "Male"
+        self.btn.isSelected = true
+        self.btnFemale.isSelected = false
+
+       /* if sender.tag == 1 {
             print("Male")
             gender = "Male"
         }else{
             print("Female")
             gender = "Female"
-        }
+        }*/
     }
     @IBAction func CloseAction(_ sender: Any) {
         self.popUpView.isHidden = true
@@ -341,9 +370,15 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
                 self.textfieldMobileNo.text = temp.mobile
                 self.birthDateTextField.text = temp.birthDate
                 if temp.gender == "Male" {
+                    
                     self.btn.isSelected =  true
+                    self.btnFemale.isSelected = false
+                    
                 }else if temp.gender == "Female"{
-                    self.btn.isSelected = true
+                    
+                    self.btn.isSelected = false
+                    self.btnFemale.isSelected = true
+
                 }
                 if url != ""
                 {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TWi-rM-jqp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TWi-rM-jqp">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -1266,7 +1266,6 @@ the beginning of every beautiful journey.</string>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="radioButtonAction:" destination="iCy-0b-QQ4" eventType="touchUpInside" id="Kpv-OK-w5y"/>
-                                            <outletCollection property="otherButtons" destination="oOT-Pb-yga" id="iFS-Eg-cuW"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oOT-Pb-yga" customClass="DLRadioButton">
@@ -1288,7 +1287,7 @@ the beginning of every beautiful journey.</string>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="radioButtonAction:" destination="iCy-0b-QQ4" eventType="touchUpInside" id="WcH-4T-soI"/>
+                                            <action selector="female_clicked:" destination="iCy-0b-QQ4" eventType="touchUpInside" id="9yJ-6M-irI"/>
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="usi-vq-eJG">
@@ -1484,17 +1483,13 @@ the beginning of every beautiful journey.</string>
                             <constraint firstItem="aze-uW-Bd0" firstAttribute="trailing" secondItem="13M-gj-u9C" secondAttribute="trailing" constant="16" id="yzi-by-ga6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aze-uW-Bd0"/>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="13M-gj-u9C"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Create Profile" id="wNe-Kx-CK6"/>
                     <connections>
                         <outlet property="ButtonChoose" destination="jVt-9N-c10" id="lJe-ZS-fRJ"/>
                         <outlet property="birthDateTextField" destination="usi-vq-eJG" id="gGn-S4-jO6"/>
                         <outlet property="btn" destination="4Aa-Np-Uwp" id="UEq-uH-g21"/>
+                        <outlet property="btnFemale" destination="oOT-Pb-yga" id="JFl-FE-hUp"/>
                         <outlet property="imageIcon" destination="Hkv-iK-cSK" id="xGp-qA-RP7"/>
                         <outlet property="imageView1" destination="KDe-lO-gfR" id="7af-fw-k9Y"/>
                         <outlet property="imageView2" destination="kOT-42-N4b" id="TLB-KI-rLk"/>

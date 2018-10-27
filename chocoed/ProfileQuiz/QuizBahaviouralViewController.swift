@@ -70,6 +70,15 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
     override var shouldAutorotate: Bool{
         return false
     }
+    
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation{
+        return UIInterfaceOrientation.portrait
+    }
+    
+    override var supportedInterfaceOrientations:UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
