@@ -728,7 +728,6 @@ class VideoVC: UIViewController {
     
     func closedPlayer(){
         if player != nil{
-            
             player.pause()
             player.currentItem?.removeObserver(self, forKeyPath: "duration")
             player = nil
@@ -743,7 +742,6 @@ class VideoVC: UIViewController {
             
           /*  let v1 = self.storyboard?.instantiateViewController(withIdentifier: "ContentVC") as! TopicsStatusViewController
             self.present(v1, animated: true, completion: nil)
- 
            */
             self.dismiss(animated: true, completion: nil)
 
@@ -939,21 +937,15 @@ class VideoVC: UIViewController {
         self.selectAnsID = optionObject.id
         self.defaultButtons()
        
-    //    print(self.correctAnsId)
+        //print(self.correctAnsId)
         
         if self.correctAnsId == optionObject.id || self.correctAnsId == "0" {
-            
             self.btnOption1.backgroundColor = self.getGreenColor()
-            
         }else{
             self.btnOption1.backgroundColor = self.getRedColor()
-
             self.showCorrectAns()
         }
-        
-
-        
-        
+    
     }
     @IBAction func option_b_clicked(_ sender: Any) {
         
@@ -1196,9 +1188,9 @@ class VideoVC: UIViewController {
                     vcNewSectionStarted.currentQuestion = currentQuestionID
                     vcNewSectionStarted.examName = examName
                     vcNewSectionStarted.fromType = "content"
-                    let aObjNavi = UINavigationController(rootViewController: vcNewSectionStarted)
+                   let aObjNavi = UINavigationController(rootViewController: vcNewSectionStarted)
                     aObjNavi.navigationBar.barTintColor = UIColor.blue
-                    self.present(aObjNavi, animated: true, completion: nil)
+                    self.present(vcNewSectionStarted, animated: true, completion: nil)
                     
                 }
                 

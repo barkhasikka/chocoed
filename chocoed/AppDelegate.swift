@@ -12,9 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
     var shouldRotate = false
-
     static var menu_bool = true
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions:
@@ -24,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let userID = UserDefaults.standard.integer(forKey: "userid")
         print(userID)
         if userID != 0 {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5) { // change 2 to desired number of seconds
+            DispatchQueue.main.asyncAfter(deadline: .now() + 8) { // change 2 to desired number of seconds
                 self.GetUserInfo()
             }
                   } else {
@@ -39,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             else{ */
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
                 
                 self.window = UIWindow(frame: UIScreen.main.bounds)
                 let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)

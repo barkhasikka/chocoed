@@ -30,7 +30,7 @@ class LaunchScreenViewController: UIViewController {
    
     
     func playSound() {
-        let url = Bundle.main.url(forResource: "jingle", withExtension: "mp3")!
+        let url = Bundle.main.url(forResource: "chocoed_music", withExtension: "mp3")!
         
         do {
             player = try AVAudioPlayer(contentsOf: url)
