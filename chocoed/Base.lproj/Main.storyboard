@@ -238,10 +238,7 @@ world. Let’s build your personal vitae</string>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Rac-dV-zUd"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <state key="normal" title="GET STARTED  ➔">
-                                    <color key="titleColor" red="0.1098629436" green="0.33624166500000002" blue="0.98299890759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
+                                <state key="normal" title="GET STARTED  ➔"/>
                                 <connections>
                                     <segue destination="oTT-A4-GGa" kind="show" id="bk0-IL-iuO"/>
                                 </connections>
