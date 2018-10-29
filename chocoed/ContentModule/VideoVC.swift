@@ -164,7 +164,7 @@ class VideoVC: UIViewController {
 
         currentData()
      
-        if self.currentPosition == 0 && self.arrayTopic[self.currentPosition].videoViewCount == 0  {
+        if self.currentPosition == 0 {  //&& self.arrayTopic[self.currentPosition].videoViewCount == 0  {
             autoPlayCount = 0
             isStartFromFirst = true
         }
@@ -326,6 +326,12 @@ class VideoVC: UIViewController {
         
         self.currentPosition = self.currentPosition + 1;
         
+        print(self.currentPosition,"Current Position")
+        print(self.arrayTopic.count,"Topic Count")
+
+        
+        if self.currentPosition < self.arrayTopic.count  {
+        
         
         if  self.arrayTopic[self.currentPosition].topicId == "0" {
             
@@ -397,9 +403,17 @@ class VideoVC: UIViewController {
             addTimeObserver()
             
             
-        }
+          }
+            
         
+    }else{
+    
+            isEndPlaying = true
+            self.showRewindOption()
+          
     }
+    
+}
     
     /*** Auto Play Method with position 0  **/
     
@@ -465,6 +479,8 @@ class VideoVC: UIViewController {
     
     func addTimeObserver() {
         
+        let calenderId = self.arrayTopic[self.currentPosition].calenderId
+        
         let interval = CMTime(seconds: 0.5, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
         let mainQueue = DispatchQueue.main
         
@@ -491,7 +507,7 @@ class VideoVC: UIViewController {
                             if self?.isExamLoaded == false{
                                 self?.isExamLoaded = true
                                 self?.player.pause()
-                                self?.loadExam(examid: (self?.currentExamID)!)
+                                self?.loadExam(calenderId:calenderId,examid: (self?.currentExamID)!)
                             }
                             
                             
@@ -642,15 +658,25 @@ class VideoVC: UIViewController {
         
         if userAppLang1 == userAppLang2 {
             
-            if  self.arrayTopic[self.currentPosition].topicId == "0" {
+            if self.currentPosition < self.arrayTopic.count {
                 
-                self.showExamPopup()
+                
+                if  self.arrayTopic[self.currentPosition].topicId == "0" {
+                    
+                    self.showExamPopup()
+                    
+                }else{
+                    
+                    self.closedPlayer()
+                    
+                }
                 
             }else{
                 
                 self.closedPlayer()
 
             }
+         
 
                 
             
@@ -665,7 +691,21 @@ class VideoVC: UIViewController {
                 
                // self.closedPlayer()
                 
-                self.showExamPopup()
+               // self.showExamPopup()
+                
+                
+                
+                if self.currentPosition < self.arrayTopic.count {
+                    
+                        self.showExamPopup()
+                    
+                    
+                }else{
+                    
+                    self.closedPlayer()
+                    
+                }
+                
                 
             })
             alertView.addAction(action)
@@ -764,11 +804,11 @@ class VideoVC: UIViewController {
     
     /*** Load Exam Details ****/
     
-    func loadExam(examid : String){
+    func loadExam(calenderId: String,examid : String){
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
         
-        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(examid)"] as Dictionary<String, String>
+        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(examid)","calendarId":"\(calenderId)"] as Dictionary<String, String>
         MakeHttpPostRequest(url: examDetails, params: params, completion: {(success, response) -> Void in
             print(response)
 
@@ -780,6 +820,7 @@ class VideoVC: UIViewController {
                 /*if self.arrayBehaviouralQuestion[index].answerSubmitted == 0 && currentQuestionID == -1 {
                     currentQuestionID = index
                 }*/
+                
             }
         
             
@@ -1088,6 +1129,7 @@ class VideoVC: UIViewController {
     
     
     func callEndTestAPI() {
+        
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
         
@@ -1138,8 +1180,19 @@ class VideoVC: UIViewController {
             
             let actionSure = UIAlertAction(title: "Yes", style: .default, handler: { (alert) in
                 
-                self.loadExamAssessment(examID: self.arrayTopic[self.currentPosition].examId, examName: self.arrayTopic[self.currentPosition].examName)
                 
+                isLoadExamFromVideo = "1"
+                isLoadExamId = self.arrayTopic[self.currentPosition].examId
+                isLoadCalendarId = self.arrayTopic[self.currentPosition].calenderId
+                isLoadExamName = self.arrayTopic[self.currentPosition].examName
+                
+                self.closedPlayer()
+
+                
+                
+                
+               /* self.loadExamAssessment(calendarId : self.arrayTopic[self.currentPosition].calenderId,examID: self.arrayTopic[self.currentPosition].examId, examName: self.arrayTopic[self.currentPosition].examName)
+                */
             })
             alertView.addAction(actionSure)
             self.present(alertView, animated: true, completion: nil)
@@ -1149,19 +1202,18 @@ class VideoVC: UIViewController {
             self.closedPlayer()
 
         }
-            
         
     }
     
     /** Exam Assessment **/
     
-    func loadExamAssessment(examID : String, examName : String){
+    func loadExamAssessment(calendarId: String, examID : String, examName : String){
         
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
         
         var currentQuestionID: Int =  -1
-        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(examID)"] as Dictionary<String, String>
+        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(examID)","calendarId":"\(calenderId)"] as Dictionary<String, String>
         
         print(params)
         

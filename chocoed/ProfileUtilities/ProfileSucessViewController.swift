@@ -39,15 +39,17 @@ class ProfileSucessViewController: UIViewController {
         let userid = UserDefaults.standard.string(forKey: "userid")
 
         var currentQuestionID: Int =  -1
-        let params = ["access_token":"\(accessToken)","deviceId":"","deviceToken":"","deviceInfo":"","deviceType":"Andriod","userId":"\(userid!)","clienId":"\(clientID)","examId":"-10"] as Dictionary<String, String>
+        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"-10","calendarId":"0"] as Dictionary<String, String>
         activityUIView.isHidden = false
         activityUIView.startAnimation()
+        
+        print(params)
 
 
         MakeHttpPostRequest(url: examDetails, params: params, completion: {(success, response) -> Void in
             let currentTestID = response.object(forKey: "inProgressExamId") as? Int ?? 1
             print(currentTestID, "<<<=== current test id")
-            print(response)
+           // print(response)
             let questionsList = response.object(forKey: "questionList") as? NSArray ?? []
             self.arrayBehaviouralQuestion = [Question]()
             for (index, question) in questionsList.enumerated() {

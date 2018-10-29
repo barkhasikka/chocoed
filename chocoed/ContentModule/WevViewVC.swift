@@ -16,6 +16,8 @@ class WevViewVC: UIViewController {
     var activityUIView: ActivityIndicatorUIView!
     var currentExamID : Int = 0
     var fromType : String = ""
+    var calenderId : String = ""
+
 
 
     
@@ -74,7 +76,7 @@ class WevViewVC: UIViewController {
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
         
-        let params = ["access_token":"\(accessToken)","deviceId":"","deviceToken":"","deviceInfo":"","deviceType":"Andriod","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(self.currentExamID)"] as Dictionary<String, String>
+        let params = ["access_token":"\(accessToken)","deviceId":"","deviceToken":"","deviceInfo":"","deviceType":"Andriod","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(self.currentExamID)","calendarId":"\(calenderId)"] as Dictionary<String, String>
         activityUIView.isHidden = false
         activityUIView.startAnimation()
         MakeHttpPostRequest(url: examDetails, params: params, completion: {(success, response) -> Void in

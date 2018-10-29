@@ -37,6 +37,8 @@ class PersonalityTestViewController: UIViewController {
             vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
             vcNewSectionStarted.currentExamID = 3
             vcNewSectionStarted.currentQuestion = currentQuestion
+            vcNewSectionStarted.calenderId = "0"
+
 //        self.present(vcNewSectionStarted, animated: true, completion: nil)
 //            if let navigator = navigationController {
 //                navigator.title = "Personality Test"
