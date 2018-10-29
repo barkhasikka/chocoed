@@ -102,8 +102,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
     
     
     func loadQuizExamDetails(){
-
-            print("\(self.arrayBehaviouralQuestion)")
+        print("\(self.arrayBehaviouralQuestion)")
                 self.quetionLabel.text = self.arrayBehaviouralQuestion[self.currentQuestion].questionName
         self.optionButtonfunction(ansType: self.arrayBehaviouralQuestion[self.currentQuestion].anstype)
 
@@ -429,14 +428,14 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
     }
     
     func generateTextOnlyOptions(optionList: NSArray, selectedAns: String){
-        var previousButton: UIButton!
+        var previousButton: ResizableButton!
         for option in optionList {
             let optionObject =  Option(option as! NSDictionary)
             DispatchQueue.main.async {
                 //    y = y + 50
                 //  print("value of y", y)
-                var optionButton = UIButton()
-                optionButton = UIButton(type: UIButtonType.custom) as UIButton
+                var optionButton = ResizableButton()
+                optionButton = ResizableButton(type: UIButtonType.custom) 
                 
                 let option = optionObject.ansText
                 optionButton.setTitle(option, for: .normal )
@@ -450,25 +449,24 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
                 
                 optionButton.titleLabel?.minimumScaleFactor = 0.5
                 optionButton.titleLabel?.numberOfLines = 0
-                optionButton.titleLabel?.numberOfLines = 0
-                optionButton.titleLabel?.lineBreakMode = NSLineBreakMode.byCharWrapping
-                
-                optionButton.titleLabel?.adjustsFontSizeToFitWidth = true
+                optionButton.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
+                optionButton.titleLabel?.adjustsFontSizeToFitWidth =  true
+               // let sizebnt = optionButton.titleLabel?.frame.size.height
+               // optionButton.heightAnchor.constraint(equalToConstant: sizebnt!).isActive = true
+               // print(sizebnt)
                 optionButton.tag = Int(optionObject.id)!
-                
                 optionButton.addTarget(self, action: #selector(self.pressed(sender:)), for: .touchUpInside)
                 self.optionsView.addSubview(optionButton)
-                self.setOptionButtonConstraint(previousButton: previousButton, currentButton: optionButton)
+                self.setOptionButtonConstraint(previousButton: previousButton , currentButton: optionButton)
                 previousButton = optionButton
             }
         }
     }
     
-    func setOptionButtonConstraint(previousButton: UIButton!, currentButton: UIButton) {
-        
-        currentButton.translatesAutoresizingMaskIntoConstraints = false
+    func setOptionButtonConstraint(previousButton: ResizableButton!, currentButton: ResizableButton) {
+         currentButton.translatesAutoresizingMaskIntoConstraints = false
         if previousButton != nil {
-            currentButton.topAnchor.constraint(equalTo: previousButton.bottomAnchor, constant: 15).isActive =  true
+            currentButton.topAnchor.constraint(equalTo: previousButton.bottomAnchor, constant: 20).isActive =  true
             
         }else {
             currentButton.topAnchor.constraint(equalTo: self.optionsView.topAnchor, constant: 20).isActive = true
@@ -476,16 +474,31 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
         }
         currentButton.leadingAnchor.constraint(equalTo: self.optionsView.leadingAnchor, constant: 40).isActive =  true
         currentButton.trailingAnchor.constraint(equalTo: self.optionsView.trailingAnchor, constant: -5).isActive = true
+    
+        //currentButton.heightAnchor.constraint(equalToConstant: 50).isActive =  true
     //    currentButton.centerXAnchor.constraint(equalTo: self.optionsView.centerXAnchor, constant: 0).isActive = true
       //  currentButton.titleLabel?.numberOfLines = 0
       //  currentButton.titleLabel?.lineBreakMode = NSLineBreakMode.byCharWrapping
     
        // [button setFrame:CGRectMake(10,0,stringsize.width, stringsize.height)];
-
-        currentButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+       
+      //  [self.view.addConstraint(item: currentButton, attribute: NSLayoutAttribute.height , relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.height, multiplier: 0.5, constant: 0.5)]
+//            
+//            //:[NSLayoutConstraint constraintWithItem:self.currentButton.titleLabel
+//            attribute:NSLayoutAttributeHeight
+//            relatedBy:NSLayoutRelationEqual
+//            toItem:self.view
+//            attribute:NSLayoutAttributeHeight
+//            multiplier:0.5
+//            constant:0]];
+//        currentButton.titleLabel?.adjustsFontSizeToFitWidth =  true
+//        currentButton.titleLabel?.minimumScaleFactor = 6.0
     
+        //  let sizeButton = currentButton.titleLabel?.intrinsicContentSize.height
+//        print(sizeButton)
+        
     }
-    
+   
     func generateTextWithImageOptions(optionList: NSArray){
         var previousUIView: UIView!
         
@@ -610,15 +623,15 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
     
     
     func generateImageOnlyOptions(optionList: NSArray){
-        var previousButton: UIButton!
+        var previousButton: ResizableButton!
         
             DispatchQueue.main.async {
                 //    y = y + 50
                 //  print("value of y", y)
                 for option in optionList {
                     let optionObject =  Option(option as! NSDictionary)
-                    var optionButton = UIButton()
-                    optionButton = UIButton(type: UIButtonType.custom) as UIButton
+                    var optionButton = ResizableButton()
+                    optionButton = ResizableButton(type: UIButtonType.custom) as ResizableButton
                     
                     let option = optionObject.ansText
                     optionButton.setTitle(option, for: .normal )
@@ -631,7 +644,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
                     optionButton.tag = Int(optionObject.id)!
                     optionButton.addTarget(self, action: #selector(self.pressed(sender:)), for: .touchUpInside)
                     self.optionsView.addSubview(optionButton)
-                    self.setOptionButtonConstraint(previousButton: previousButton, currentButton: optionButton)
+                    self.setOptionButtonConstraint(previousButton: previousButton, currentButton: optionButton as! ResizableButton)
                     previousButton = optionButton
                     
                     //                let imageviewopt = UIImageView()
