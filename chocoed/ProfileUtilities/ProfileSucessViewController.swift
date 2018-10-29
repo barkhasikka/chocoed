@@ -56,6 +56,9 @@ class ProfileSucessViewController: UIViewController {
                     currentQuestionID = index
                 }
             }
+            if currentQuestionID == -1{
+                currentQuestionID = 0
+            }
             DispatchQueue.main.async {
                 switch currentTestID {
                 case 1:

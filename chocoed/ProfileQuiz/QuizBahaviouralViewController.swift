@@ -17,6 +17,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
     @IBOutlet weak var quetionLabel: UILabel!
     var currentQuestion = Int()
     var valueofQuestionNo = Int()
+    var option = ""
     let optionbutton = UIButton()
     var selectedAnswer = ""
     var questionId = ""
@@ -242,7 +243,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
       
-        let params = ["access_token":"\(accessToken)","deviceId":"","deviceToken":"","deviceInfo":"","deviceType":"Andriod","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(self.currentExamID)"] as Dictionary<String, String>
+        let params = ["access_token":"\(accessToken)","deviceId":"","deviceToken":"","deviceInfo":"","deviceType":"Andriod","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(self.currentExamID)","calendarId": "0"] as Dictionary<String, String>
         activityUIView.isHidden = false
         activityUIView.startAnimation()
         MakeHttpPostRequest(url: examDetails, params: params, completion: {(success, response) -> Void in
@@ -348,7 +349,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
         let endTime = formatter.string(from: Date())
         
         
-        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(self.currentExamID)", "endTime": "\(endTime)"] as Dictionary<String, String>
+        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(self.currentExamID)", "endTime": "\(endTime)","calendarId":"0"] as Dictionary<String, String>
         print(params, "<<<<-- end test api")
         activityUIView.isHidden = false
         activityUIView.startAnimation()
@@ -442,8 +443,12 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
                 
                 optionButton.titleLabel?.minimumScaleFactor = 0.5
                 optionButton.titleLabel?.numberOfLines = 0
+                optionButton.titleLabel?.numberOfLines = 0
+                optionButton.titleLabel?.lineBreakMode = NSLineBreakMode.byCharWrapping
+                
                 optionButton.titleLabel?.adjustsFontSizeToFitWidth = true
                 optionButton.tag = Int(optionObject.id)!
+                
                 optionButton.addTarget(self, action: #selector(self.pressed(sender:)), for: .touchUpInside)
                 self.optionsView.addSubview(optionButton)
                 self.setOptionButtonConstraint(previousButton: previousButton, currentButton: optionButton)
@@ -462,14 +467,16 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
             currentButton.topAnchor.constraint(equalTo: self.optionsView.topAnchor, constant: 20).isActive = true
             
         }
-        currentButton.leadingAnchor.constraint(equalTo: self.optionsView.leadingAnchor, constant: 50).isActive =  true
-        currentButton.trailingAnchor.constraint(equalTo: self.optionsView.trailingAnchor, constant: -10).isActive = true
+        currentButton.leadingAnchor.constraint(equalTo: self.optionsView.leadingAnchor, constant: 40).isActive =  true
+        currentButton.trailingAnchor.constraint(equalTo: self.optionsView.trailingAnchor, constant: -5).isActive = true
     //    currentButton.centerXAnchor.constraint(equalTo: self.optionsView.centerXAnchor, constant: 0).isActive = true
-        currentButton.titleLabel?.numberOfLines = 0
-        currentButton.titleLabel?.lineBreakMode = NSLineBreakMode.byCharWrapping
-        
-        currentButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
-        //  currentButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
+      //  currentButton.titleLabel?.numberOfLines = 0
+      //  currentButton.titleLabel?.lineBreakMode = NSLineBreakMode.byCharWrapping
+    
+       // [button setFrame:CGRectMake(10,0,stringsize.width, stringsize.height)];
+
+        currentButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+    
     }
     
     func generateTextWithImageOptions(optionList: NSArray){
