@@ -119,6 +119,12 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
         
         if isLoadExamFromVideo == "1"
         {
+            
+            self.courseId = currentCourseId
+            self.selectedDate = currentTopiceDate
+            
+        
+            
              self.loadExam(calendarid: isLoadCalendarId,examID: isLoadExamId, examName: isLoadExamName)
             
             isLoadExamFromVideo = ""
@@ -250,11 +256,6 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
         if arrayTopic[indexPath.row].isBlock == true{
             
             
-              /*  let alert = GetAlertWithOKAction(message: "Dear \(USERDETAILS.firstName) you are yet to complete previous topics. Please complete the same for effective learning")
-                    self.present(alert, animated: true, completion: nil)
-            
-                    tableView.deselectRow(at: indexPath, animated: false) */
-            
             let alertcontrol = UIAlertController(title: "Interesting Videos", message: "Dear \(USERDETAILS.firstName),there are videos yet to be seen by you. Please watch them first.", preferredStyle: .alert)
             let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertcontrol.addAction(alertaction)
@@ -317,12 +318,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                     
                     if arrayTopic[indexPath.row].examStatus == "Completed"{
                         
-                      /*  let alert = GetAlertWithOKAction(message: "Dear \(USERDETAILS.firstName) You have already completed this assessment.")
-                            self.present(alert, animated: true, completion: nil)
-                            tableView.deselectRow(at: indexPath, animated: false)
- 
-                      */
-                        
+                   
                         
                         if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "WevViewVC") as? WevViewVC {
                             
@@ -359,6 +355,8 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                         
                             self.present(alertcontrol, animated: true, completion: nil)
                             tableView.deselectRow(at: indexPath, animated: false)
+ 
+ 
                        
                         
                         
@@ -366,55 +364,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                         
                         // for revise language
                         
-                        /*let userAppLang1 = "English"
-                        let userAppLang2 = UserDefaults.standard.string(forKey: "Language2")
-                        
-                        
-                        
-                        let alertView = UIAlertController(title: "Choice", message: "So you wish to revise the topic, Great! In which language you wish to revise it, choice is yours", preferredStyle: .alert)
-                        let action = UIAlertAction(title: "Cancel", style: .default, handler: { (alert) in
-                            
-                        })
-                        alertView.addAction(action)
-                        
-                        let actionSure = UIAlertAction(title: userAppLang1, style: .default, handler: { (alert) in
-                            
-                                currentSelectedLang = userAppLang1
-                                currentTopiceDate = self.selectedDate
-                                
-                                if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "VideoVC") as? VideoVC {
-                                    vcNewSectionStarted.arrayTopic = self.arrayTopic
-                                    vcNewSectionStarted.currentPosition = self.tableRowPosition
-                                    vcNewSectionStarted.courseId = self.courseId
-                                    
-                                    self.present(vcNewSectionStarted, animated: true, completion: nil)
-                                }
-                            
-                            
-                        })
-                        alertView.addAction(actionSure)
-                        
-                        let actionSure1 = UIAlertAction(title: userAppLang2, style: .default, handler: { (alert) in
-                            
-                                currentSelectedLang = userAppLang2!
-                                currentTopiceDate = self.selectedDate
-                                
-                                if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "VideoVC") as? VideoVC {
-                                    vcNewSectionStarted.arrayTopic = self.arrayTopic
-                                    vcNewSectionStarted.currentPosition = self.tableRowPosition
-                                    vcNewSectionStarted.courseId = self.courseId
-                                    
-                                    self.present(vcNewSectionStarted, animated: true, completion: nil)
-                                }
-                            
-                            
-                        })
-                        alertView.addAction(actionSure1)
-                        
-                        self.present(alertView, animated: true, completion: nil)
- 
-                            */
-                        
+                      
                         self.revwindVideo()
                         tableView.deselectRow(at: indexPath, animated: false)
                         
@@ -453,9 +403,12 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
             
             if arrayTopic[self.tableRowPosition].examStatus == "Completed"{
                 
-                let alert = GetAlertWithOKAction(message: "Dear \(USERDETAILS.firstName) You have already completed this assessment.")
+            let alert = GetAlertWithOKAction(message: "Dear \(USERDETAILS.firstName) You have already completed this assessment.")
                     self.present(alert, animated: true, completion: nil)
+ 
+ 
                 
+            
                 
                 
             }else{
@@ -814,6 +767,10 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                     
                     currentCourseId = self.courseId
                     currentTopiceDate = self.selectedDate
+                    
+                    print(currentCourseId)
+                    print(currentTopiceDate)
+
                     
                     vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
                     vcNewSectionStarted.currentExamID = Int(examID)!

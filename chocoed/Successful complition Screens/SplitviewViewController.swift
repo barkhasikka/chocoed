@@ -79,7 +79,7 @@ class SplitviewViewController: UIViewController {
             imageProfile.layer.borderColor = UIColor.darkGray.cgColor
             imageProfile.layer.cornerRadius = imageProfile.frame.width / 2
             imageProfile.clipsToBounds = true
-            imageProfile.contentMode = .center
+            imageProfile.contentMode = .scaleAspectFit
         }
 
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
