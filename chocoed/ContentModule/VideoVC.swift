@@ -1158,38 +1158,22 @@ class VideoVC: UIViewController {
     /** Load Same Day Assessment **/
     
     func showExamPopup(){
+        
+        
+        
        
         
     if self.arrayTopic[self.currentPosition].examStatus != "Completed"{
-            
-            
-            let alertView = UIAlertController(title: "Alert", message: "Check your understanding with our quick assessment on todays topics", preferredStyle: .alert)
-            
-            let action = UIAlertAction(title: "Not Now", style: .default, handler: { (alert) in
-                
-                // closed player
-                
-                self.closedPlayer()
-                
-            })
-            alertView.addAction(action)
-            
-            let actionSure = UIAlertAction(title: "Yes", style: .default, handler: { (alert) in
-                
-                currentCourseId = self.courseId
-
-                isLoadExamFromVideo = "1"
-                isLoadExamId = self.arrayTopic[self.currentPosition].examId
-                isLoadCalendarId = self.arrayTopic[self.currentPosition].calenderId
-                isLoadExamName = self.arrayTopic[self.currentPosition].examName
-                
-                self.closedPlayer()
-
-                
-               
-            })
-            alertView.addAction(actionSure)
-            self.present(alertView, animated: true, completion: nil)
+        
+        
+        currentCourseId = self.courseId
+        
+        isLoadExamFromVideo = "1"
+        isLoadExamId = self.arrayTopic[self.currentPosition].examId
+        isLoadCalendarId = self.arrayTopic[self.currentPosition].calenderId
+        isLoadExamName = self.arrayTopic[self.currentPosition].examName
+        
+        self.closedPlayer()
             
         }else{
             

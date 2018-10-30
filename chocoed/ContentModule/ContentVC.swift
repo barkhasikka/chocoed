@@ -120,14 +120,39 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
         if isLoadExamFromVideo == "1"
         {
             
-            self.courseId = currentCourseId
-            self.selectedDate = currentTopiceDate
             
-        
+            let alertView = UIAlertController(title: "Alert", message: "Check your understanding with our quick assessment on todays topics", preferredStyle: .alert)
             
-             self.loadExam(calendarid: isLoadCalendarId,examID: isLoadExamId, examName: isLoadExamName)
+            let action = UIAlertAction(title: "Not Now", style: .default, handler: { (alert) in
+                
+                // closed player
+                
+                isLoadExamFromVideo = ""
+                isLoadCalendarId = ""
+                isLoadExamId = ""
+                isLoadExamName = ""
+                self.loadCourseData();
+
+                
+            })
+            alertView.addAction(action)
             
-            isLoadExamFromVideo = ""
+            let actionSure = UIAlertAction(title: "Yes", style: .default, handler: { (alert) in
+                
+                self.courseId = currentCourseId
+                self.selectedDate = currentTopiceDate
+            
+                self.loadExam(calendarid: isLoadCalendarId,examID: isLoadExamId, examName: isLoadExamName)
+                
+                isLoadExamFromVideo = ""
+                
+                
+                
+            })
+            alertView.addAction(actionSure)
+            self.present(alertView, animated: true, completion: nil)
+            
+           
             
         }else{
           

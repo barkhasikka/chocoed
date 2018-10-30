@@ -164,6 +164,18 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
             
             switch(indexPath.row) {
                 
+                
+          
+                
+                
+         /*   case 2:
+                let v1 = self.storyboard?.instantiateViewController(withIdentifier: "leader") as! LeaderBoardViewController
+                self.present(v1, animated: true, completion: nil)
+                
+                break;
+
+           */
+                
             case 3:
                 
                 let v1 = self.storyboard?.instantiateViewController(withIdentifier: "profile") as! ProfileViewController
@@ -205,15 +217,23 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
             self.count = 0
 
             break;
+        
                 
-            case 2:
-                let v1 = self.storyboard?.instantiateViewController(withIdentifier: "leader") as! LeaderBoardViewController
+            default:
+                
+                currentTopiceDate = ""
+                currentCourseId = ""
+                
+                isLoadExamFromVideo = ""
+                isLoadExamId = ""
+                isLoadCalendarId = ""
+                isLoadExamName = ""
+                
+            
+                let v1 = self.storyboard?.instantiateViewController(withIdentifier: "ContentVC") as! ContentVC
                 self.present(v1, animated: true, completion: nil)
                 
-                break;
-
-                
-            default: break
+                break
                 
             }
         }

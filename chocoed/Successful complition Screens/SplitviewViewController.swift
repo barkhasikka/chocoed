@@ -138,6 +138,18 @@ class SplitviewViewController: UIViewController {
         self.myChatHandUIView.isHidden = true
         self.myThoughtsButton.isHidden = false
         self.mychatButton.isHidden = false
+        
+        currentTopiceDate = ""
+        currentCourseId = ""
+        
+        isLoadExamFromVideo = ""
+        isLoadExamId = ""
+        isLoadCalendarId = ""
+        isLoadExamName = ""
+        
+        
+        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "ContentVC") as! ContentVC
+        self.present(v1, animated: true, completion: nil)
     }
     
     @IBAction func MyChatActionButton(_ sender: Any) {
@@ -161,6 +173,18 @@ class SplitviewViewController: UIViewController {
         self.myThoughtsButton.isHidden = false
         self.myProgressHandUIView.isHidden = true
         self.myProgressButton.isHidden = false
+        
+        currentTopiceDate = ""
+        currentCourseId = ""
+        
+        isLoadExamFromVideo = ""
+        isLoadExamId = ""
+        isLoadCalendarId = ""
+        isLoadExamName = ""
+        
+        
+        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "ContentVC") as! ContentVC
+        self.present(v1, animated: true, completion: nil)
     }
     
     @IBAction func MyThoughtsActionButton(_ sender: Any) {
@@ -185,6 +209,18 @@ class SplitviewViewController: UIViewController {
         self.myProgressButton.isHidden = false
         self.myChatHandUIView.isHidden = true
         self.mychatButton.isHidden = false
+        
+        currentTopiceDate = ""
+        currentCourseId = ""
+        
+        isLoadExamFromVideo = ""
+        isLoadExamId = ""
+        isLoadCalendarId = ""
+        isLoadExamName = ""
+        
+        
+        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "ContentVC") as! ContentVC
+        self.present(v1, animated: true, completion: nil)
     }
     override var shouldAutorotate: Bool{
         return false
