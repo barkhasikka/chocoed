@@ -125,6 +125,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
         questionId = self.arrayBehaviouralQuestion[self.currentQuestion].id
         print(answerId)
         print(questionId)
+        
     }
     
     @objc func handleTapTextWithImage(sender: UITapGestureRecognizer? = nil) {
@@ -439,6 +440,9 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
                 optionButton.setTitle(option, for: .normal )
                 optionButton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
                 optionButton.contentHorizontalAlignment = .left
+                //var expand : CGFloat = 10.0
+                optionButton.imageEdgeInsets = UIEdgeInsetsMake(-10, -20 , -10, 10)
+                
                 if optionObject.id == selectedAns {
                     optionButton.setImage(UIImage(named: "icons8-connection_status_on_filled"), for: .normal)
                 }else {
