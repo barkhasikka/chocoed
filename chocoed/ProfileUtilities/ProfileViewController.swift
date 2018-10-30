@@ -235,6 +235,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         imageIcon.isUserInteractionEnabled = true
         imageIcon.addGestureRecognizer(tapGestureRecognizer)
+        
     }
     
     @objc func imageTappedAvatar1(tapGestureRecognizer: UITapGestureRecognizer){
@@ -242,6 +243,12 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         print("Please select image")
         
         imageviewCircle.image = imageView1.image
+        imageviewCircle.layer.borderWidth = 1.0
+        imageviewCircle.layer.masksToBounds = false
+        imageviewCircle.layer.borderColor = UIColor.darkGray.cgColor
+        imageviewCircle.layer.cornerRadius = imageviewCircle.frame.width / 2
+        imageviewCircle.clipsToBounds = true
+        imageviewCircle.contentMode = .scaleAspectFit
         self.popUpView.isHidden = true
         // Your action
     }
@@ -250,6 +257,12 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         print("Please select image")
         
         imageviewCircle.image = imageView6.image
+        imageviewCircle.layer.borderWidth = 1.0
+        imageviewCircle.layer.masksToBounds = false
+        imageviewCircle.layer.borderColor = UIColor.darkGray.cgColor
+        imageviewCircle.layer.cornerRadius = imageviewCircle.frame.width / 2
+        imageviewCircle.clipsToBounds = true
+        imageviewCircle.contentMode = .scaleAspectFit
         self.popUpView.isHidden = true
         // Your action
     }
@@ -258,6 +271,12 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         print("Please select image")
         
         imageviewCircle.image = imageView2.image
+        imageviewCircle.layer.borderWidth = 1.0
+        imageviewCircle.layer.masksToBounds = false
+        imageviewCircle.layer.borderColor = UIColor.darkGray.cgColor
+        imageviewCircle.layer.cornerRadius = imageviewCircle.frame.width / 2
+        imageviewCircle.clipsToBounds = true
+        imageviewCircle.contentMode = .scaleAspectFit
         self.popUpView.isHidden = true
         // Your action
     }
@@ -266,6 +285,12 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         print("Please select image")
         
         imageviewCircle.image = imageView3.image
+        imageviewCircle.layer.borderWidth = 1.0
+        imageviewCircle.layer.masksToBounds = false
+        imageviewCircle.layer.borderColor = UIColor.darkGray.cgColor
+        imageviewCircle.layer.cornerRadius = imageviewCircle.frame.width / 2
+        imageviewCircle.clipsToBounds = true
+        imageviewCircle.contentMode = .scaleAspectFit
         self.popUpView.isHidden = true
         // Your action
     }
@@ -274,6 +299,12 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         print("Please select image")
         
         imageviewCircle.image = imageView4.image
+        imageviewCircle.layer.borderWidth = 1.0
+        imageviewCircle.layer.masksToBounds = false
+        imageviewCircle.layer.borderColor = UIColor.darkGray.cgColor
+        imageviewCircle.layer.cornerRadius = imageviewCircle.frame.width / 2
+        imageviewCircle.clipsToBounds = true
+        imageviewCircle.contentMode = .scaleAspectFit
         self.popUpView.isHidden = true
         // Your action
     }
@@ -282,6 +313,12 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         print("Please select image")
         
         imageviewCircle.image = imageView5.image
+        imageviewCircle.layer.borderWidth = 1.0
+        imageviewCircle.layer.masksToBounds = false
+        imageviewCircle.layer.borderColor = UIColor.darkGray.cgColor
+        imageviewCircle.layer.cornerRadius = imageviewCircle.frame.width / 2
+        imageviewCircle.clipsToBounds = true
+        imageviewCircle.contentMode = .scaleAspectFit
         self.popUpView.isHidden = true
         // Your action
     }
@@ -385,6 +422,13 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
                 if let data = try? Data(contentsOf: fileUrl!) {
                     if let image = UIImage(data: data) {
                         self.imageviewCircle.image = image
+                        self.imageviewCircle.layer.borderWidth = 1.0
+                        self.imageviewCircle.layer.masksToBounds = false
+                        self.imageviewCircle.layer.borderColor = UIColor.darkGray.cgColor
+                        self.imageviewCircle.layer.cornerRadius = self.imageviewCircle.frame.width / 2
+                        self.imageviewCircle.clipsToBounds = true
+                        self.imageviewCircle.contentMode = .scaleAspectFit
+                        
                         }
                     }
                 }

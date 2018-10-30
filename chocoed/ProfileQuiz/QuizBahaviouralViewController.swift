@@ -64,9 +64,6 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
         questionsProgressUILabel.text = "\(self.currentQuestion + 1) / \(self.arrayBehaviouralQuestion.count)"
         startTime = self.getStartTime()
         
-        
-        
-        
       
     }
     
@@ -74,13 +71,14 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
         return false
     }
     
-    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation{
+  /*  override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation{
         return UIInterfaceOrientation.portrait
     }
     
     override var supportedInterfaceOrientations:UIInterfaceOrientationMask {
         return UIInterfaceOrientationMask.portrait
     }
+ */
     
 
     override func didReceiveMemoryWarning() {

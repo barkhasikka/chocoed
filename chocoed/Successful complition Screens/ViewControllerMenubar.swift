@@ -45,7 +45,7 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
             self.imageProfile.layer.borderColor = UIColor.darkGray.cgColor
             self.imageProfile.layer.cornerRadius = self.imageProfile.frame.width / 2
             self.imageProfile.clipsToBounds = true
-            self.imageProfile.contentMode = .center
+            self.imageProfile.contentMode = .scaleAspectFit
             
         })
         

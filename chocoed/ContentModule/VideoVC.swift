@@ -50,8 +50,9 @@ class VideoVC: UIViewController {
     var currentQuesId : String = ""
     var selectedAnsText = ""
 
-    
     @IBOutlet var btnPlayAction: UIButton!
+    
+    //@IBOutlet var btnPlayAction: UIButton!
     
     
     var arrayExams = [KnowledgeList]()
@@ -164,15 +165,13 @@ class VideoVC: UIViewController {
 
         currentData()
      
-        if self.currentPosition == 0 {  //&& self.arrayTopic[self.currentPosition].videoViewCount == 0  {
+        if self.currentPosition == 0 && self.arrayTopic[self.currentPosition].videoViewCount == 0  {
             autoPlayCount = 0
             isStartFromFirst = true
         }
         
         self.hideControls()
         
-        
-        //self.loadExam(examid: "24")
         
     
         var videoURL = self.arrayTopic[self.currentPosition].topicVideoUrl
@@ -222,8 +221,8 @@ class VideoVC: UIViewController {
         print("App moved to background!")
         
        // player.pause()
-        self.btnPlayAction.setTitle("Play", for: .normal)
-        self.btnPlayAction.setImage(UIImage(named: "icons_play"), for: UIControlState.normal)
+       // self.btnPlayAction.setTitle("Play", for: .normal)
+      //  self.btnPlayAction.setImage(UIImage(named: "icons_play"), for: UIControlState.normal)
         self.addTopicAudit(videopostion: Double(self.getMillisecond()),status: "pause")
         isVideoPlaying = !isVideoPlaying
     }
@@ -232,8 +231,8 @@ class VideoVC: UIViewController {
         print("App retur to front!")
         
         player.play()
-        self.btnPlayAction.setTitle("Pause", for: .normal)
-        self.btnPlayAction.setImage(UIImage(named: "icons_pause"), for: UIControlState.normal)
+       // self.btnPlayAction.setTitle("Pause", for: .normal)
+       // self.btnPlayAction.setImage(UIImage(named: "icons_pause"), for: UIControlState.normal)
         self.addTopicAudit(videopostion: self.getMillisecond(),status: "start")
         isVideoPlaying = !isVideoPlaying
         
@@ -341,10 +340,7 @@ class VideoVC: UIViewController {
             
             if self.autoPlayCount >= 1 {
                 
-              //  self.closedPlayer()
-                
-                // show load exam
-                
+              
                 self.showExamPopup()
                 
                 
@@ -1164,7 +1160,7 @@ class VideoVC: UIViewController {
     func showExamPopup(){
        
         
-        if self.arrayTopic[self.currentPosition].examStatus != "Completed"{
+    if self.arrayTopic[self.currentPosition].examStatus != "Completed"{
             
             
             let alertView = UIAlertController(title: "Alert", message: "Check your understanding with our quick assessment on todays topics", preferredStyle: .alert)
@@ -1180,7 +1176,8 @@ class VideoVC: UIViewController {
             
             let actionSure = UIAlertAction(title: "Yes", style: .default, handler: { (alert) in
                 
-                
+                currentCourseId = self.courseId
+
                 isLoadExamFromVideo = "1"
                 isLoadExamId = self.arrayTopic[self.currentPosition].examId
                 isLoadCalendarId = self.arrayTopic[self.currentPosition].calenderId
@@ -1189,10 +1186,7 @@ class VideoVC: UIViewController {
                 self.closedPlayer()
 
                 
-                
-                
-               /* self.loadExamAssessment(calendarId : self.arrayTopic[self.currentPosition].calenderId,examID: self.arrayTopic[self.currentPosition].examId, examName: self.arrayTopic[self.currentPosition].examName)
-                */
+               
             })
             alertView.addAction(actionSure)
             self.present(alertView, animated: true, completion: nil)

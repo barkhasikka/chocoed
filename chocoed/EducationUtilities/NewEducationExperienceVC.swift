@@ -238,12 +238,15 @@ class NewEducationExperienceVC: UIViewController {
         let nameOfInstitute = textfieldClgName.text!
         let nameofBoardUniv = textfieldBoardUniv.text!
         let location = locationTextField.text!
-        if self.selectedEducation.educationLevel == "10th Standard Board" || self.selectedEducation.educationLevel == "12th Standard Board / Diploma"{
+        
+        let params = [ "access_token":"\(accessToken)", "userId": "\(userID)","clientId":"\(clientID)", "educationLevel": "\(self.selectedEducation.educationLevel)", "boardUniversity": "\(nameofBoardUniv)", "location": "\(location)", "mediumOfEducation" : "\(self.selectedEducation.mediumOfEducation)", "nameOfInstitute": "\(nameOfInstitute)", "specialisation" : "\(self.selectedEducation.specialisation)", "state" : "\(self.selectedEducation.state)", "id": "\(self.selectedEducation.id )","yearOfCompletion":"\(self.selectedEducation.yearOfCompletion)"] as Dictionary<String, String>
+        
+        print(params)
+        
+        if self.selectedEducation.educationLevel == "" || nameofBoardUniv == "" || location == "" || self.selectedEducation.mediumOfEducation == "" || nameOfInstitute == ""  || self.selectedEducation.yearOfCompletion == "" {
             
-        if  nameofBoardUniv == "" || location == "" || self.selectedEducation.mediumOfEducation == "" || nameOfInstitute == "" || self.selectedEducation.state == "" || self.selectedEducation.yearOfCompletion == "" {
             
             
-            }
             
             let alertcontrol = UIAlertController(title: "Alert", message: "Please check all fields are filled.", preferredStyle: .alert)
             let alertaction = UIAlertAction(title: "OK", style: .default) { (action) in
