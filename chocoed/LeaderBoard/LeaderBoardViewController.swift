@@ -48,7 +48,15 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
         
         loadGetMyProgress()
         
+        
+        imageViewLabelImage.layer.borderWidth = 3
+        imageViewLabelImage.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        imageViewLabelImage.clipsToBounds = true
+        
+        
         // Do any additional setup after loading the view.
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
