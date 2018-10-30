@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TWi-rM-jqp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TWi-rM-jqp">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -4534,6 +4534,10 @@ the beginning of every beautiful journey.</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wSN-sR-AGC">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
                                 <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="transparent" translatesAutoresizingMaskIntoConstraints="NO" id="gH3-XW-vsh">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="09" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pfj-om-2as">
                                         <rect key="frame" x="34" y="100" width="40" height="40"/>
                                         <constraints>
@@ -4555,34 +4559,51 @@ the beginning of every beautiful journey.</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Fl-OU-1mc">
-                                        <rect key="frame" x="137.5" y="85" width="100" height="100"/>
+                                        <rect key="frame" x="128" y="85" width="120" height="120"/>
                                         <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon-App-76x76" translatesAutoresizingMaskIntoConstraints="NO" id="OIZ-7b-9We">
+                                                <rect key="frame" x="45" y="-7" width="30" height="30"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="30" id="Kvy-D5-lhu"/>
+                                                    <constraint firstAttribute="height" constant="30" id="O2I-Bg-hqm"/>
+                                                </constraints>
+                                            </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Img-DM-8Zb">
-                                                <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                                 <state key="normal" backgroundImage="back_circle_behind picture"/>
                                             </button>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rRH-BE-RKF">
-                                                <rect key="frame" x="15" y="14" width="70" height="70"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="70" id="hbo-pR-Eo1"/>
-                                                    <constraint firstAttribute="height" constant="70" id="pDE-IW-0nV"/>
-                                                </constraints>
+                                                <rect key="frame" x="25" y="23" width="70" height="70"/>
                                             </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Hj-7M-8Wv">
+                                                <rect key="frame" x="75" y="72" width="20" height="20"/>
+                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="SNh-vJ-xgt"/>
+                                                    <constraint firstAttribute="width" constant="20" id="UIw-ef-6Xu"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="rRH-BE-RKF" firstAttribute="top" secondItem="9Fl-OU-1mc" secondAttribute="top" constant="14" id="DbI-Gk-ei5"/>
-                                            <constraint firstAttribute="bottom" secondItem="rRH-BE-RKF" secondAttribute="bottom" constant="16" id="Hnc-DI-Uc1"/>
-                                            <constraint firstAttribute="trailing" secondItem="rRH-BE-RKF" secondAttribute="trailing" constant="15" id="HsF-aJ-WAk"/>
+                                            <constraint firstItem="rRH-BE-RKF" firstAttribute="centerX" secondItem="Img-DM-8Zb" secondAttribute="centerX" id="DQs-08-DvD"/>
+                                            <constraint firstItem="rRH-BE-RKF" firstAttribute="leading" secondItem="9Fl-OU-1mc" secondAttribute="leading" constant="25" id="Kua-hh-b33"/>
+                                            <constraint firstAttribute="bottom" secondItem="6Hj-7M-8Wv" secondAttribute="bottom" constant="28" id="L40-3h-ldr"/>
                                             <constraint firstAttribute="bottom" secondItem="Img-DM-8Zb" secondAttribute="bottom" id="R33-eC-WTl"/>
-                                            <constraint firstAttribute="width" constant="100" id="V2O-Jc-b7C"/>
-                                            <constraint firstItem="rRH-BE-RKF" firstAttribute="leading" secondItem="9Fl-OU-1mc" secondAttribute="leading" constant="15" id="Xbp-mn-lIC"/>
+                                            <constraint firstItem="rRH-BE-RKF" firstAttribute="top" secondItem="OIZ-7b-9We" secondAttribute="bottom" id="UMY-OB-zh3"/>
+                                            <constraint firstAttribute="width" constant="120" id="V2O-Jc-b7C"/>
                                             <constraint firstItem="Img-DM-8Zb" firstAttribute="top" secondItem="9Fl-OU-1mc" secondAttribute="top" id="aCg-kR-fGu"/>
                                             <constraint firstItem="Img-DM-8Zb" firstAttribute="leading" secondItem="9Fl-OU-1mc" secondAttribute="leading" id="ciD-DN-KQX"/>
-                                            <constraint firstAttribute="height" constant="100" id="hwc-Nk-k1v"/>
-                                            <constraint firstItem="rRH-BE-RKF" firstAttribute="centerX" secondItem="9Fl-OU-1mc" secondAttribute="centerX" id="pWl-44-S8N"/>
+                                            <constraint firstItem="OIZ-7b-9We" firstAttribute="centerX" secondItem="9Fl-OU-1mc" secondAttribute="centerX" id="cjP-0l-uyM"/>
+                                            <constraint firstAttribute="height" constant="120" id="hwc-Nk-k1v"/>
+                                            <constraint firstItem="rRH-BE-RKF" firstAttribute="top" secondItem="9Fl-OU-1mc" secondAttribute="top" constant="23" id="jWZ-Hu-i0T"/>
+                                            <constraint firstItem="rRH-BE-RKF" firstAttribute="centerY" secondItem="Img-DM-8Zb" secondAttribute="centerY" constant="-2" id="nFb-07-cz6"/>
                                             <constraint firstAttribute="trailing" secondItem="Img-DM-8Zb" secondAttribute="trailing" id="u8w-xR-nDL"/>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="uuh-53-onv"/>
+                                            <constraint firstAttribute="trailing" secondItem="6Hj-7M-8Wv" secondAttribute="trailing" constant="25" id="uFd-td-DM1"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8oT-TD-ppb">
@@ -4627,6 +4648,9 @@ the beginning of every beautiful journey.</string>
                                                 <state key="normal" image="back.png">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="BackButton:" destination="Eci-gY-T6c" eventType="touchUpInside" id="ohB-dI-E6G"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -4639,7 +4663,7 @@ the beginning of every beautiful journey.</string>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sanjay Patil" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JDv-hH-qB8">
-                                        <rect key="frame" x="142.5" y="193" width="90" height="21"/>
+                                        <rect key="frame" x="143" y="201" width="90" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="z7y-8b-6KH"/>
                                         </constraints>
@@ -4648,31 +4672,35 @@ the beginning of every beautiful journey.</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="iXi-SW-biT" secondAttribute="trailing" constant="8" id="4QF-jI-bm2"/>
                                     <constraint firstItem="iXi-SW-biT" firstAttribute="top" secondItem="8oT-TD-ppb" secondAttribute="bottom" id="9iu-I8-fr9"/>
                                     <constraint firstItem="vWz-Dh-55L" firstAttribute="leading" secondItem="wSN-sR-AGC" secondAttribute="leading" constant="8" id="AgE-0I-8kK"/>
                                     <constraint firstItem="9Fl-OU-1mc" firstAttribute="centerX" secondItem="wSN-sR-AGC" secondAttribute="centerX" id="Bfi-Zq-Mdi"/>
                                     <constraint firstItem="JDv-hH-qB8" firstAttribute="centerX" secondItem="wSN-sR-AGC" secondAttribute="centerX" id="Ijk-Jn-6yu"/>
-                                    <constraint firstItem="JDv-hH-qB8" firstAttribute="top" secondItem="9Fl-OU-1mc" secondAttribute="bottom" constant="8" id="M8V-7J-oEh"/>
+                                    <constraint firstItem="gH3-XW-vsh" firstAttribute="top" secondItem="wSN-sR-AGC" secondAttribute="top" id="M4L-32-sK4"/>
+                                    <constraint firstItem="JDv-hH-qB8" firstAttribute="top" secondItem="9Fl-OU-1mc" secondAttribute="bottom" constant="-4" id="M8V-7J-oEh"/>
                                     <constraint firstAttribute="trailing" secondItem="8oT-TD-ppb" secondAttribute="trailing" constant="34" id="SeD-Ee-hJb"/>
                                     <constraint firstItem="gKw-h7-wUS" firstAttribute="leading" secondItem="wSN-sR-AGC" secondAttribute="leading" id="TCd-GE-jJR"/>
                                     <constraint firstItem="Pfj-om-2as" firstAttribute="top" secondItem="wSN-sR-AGC" secondAttribute="top" constant="100" id="b1V-Kg-Tz1"/>
                                     <constraint firstItem="9Fl-OU-1mc" firstAttribute="top" secondItem="wSN-sR-AGC" secondAttribute="top" constant="85" id="bxx-b1-MEB"/>
                                     <constraint firstItem="gKw-h7-wUS" firstAttribute="top" secondItem="wSN-sR-AGC" secondAttribute="top" constant="1" id="d8y-VS-lcu"/>
+                                    <constraint firstItem="gH3-XW-vsh" firstAttribute="leading" secondItem="wSN-sR-AGC" secondAttribute="leading" id="h5l-z5-9MG"/>
                                     <constraint firstItem="vWz-Dh-55L" firstAttribute="top" secondItem="Pfj-om-2as" secondAttribute="bottom" id="hLK-cN-usY"/>
                                     <constraint firstAttribute="trailing" secondItem="gKw-h7-wUS" secondAttribute="trailing" id="kTa-t0-gRC"/>
+                                    <constraint firstAttribute="trailing" secondItem="gH3-XW-vsh" secondAttribute="trailing" id="o1b-xH-6lL"/>
                                     <constraint firstAttribute="height" constant="300" id="tMq-sM-lzR"/>
+                                    <constraint firstAttribute="bottom" secondItem="gH3-XW-vsh" secondAttribute="bottom" id="u7G-fx-RLc"/>
                                     <constraint firstItem="Pfj-om-2as" firstAttribute="leading" secondItem="wSN-sR-AGC" secondAttribute="leading" constant="34" id="xUI-l3-vbn"/>
                                     <constraint firstItem="8oT-TD-ppb" firstAttribute="top" secondItem="wSN-sR-AGC" secondAttribute="top" constant="100" id="xap-Xm-4ST"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rmo-CX-5mF">
-                                <rect key="frame" x="16" y="255" width="343" height="402"/>
+                                <rect key="frame" x="16" y="260" width="343" height="387"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2vv-JK-WR3">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon-App-76x76-1" translatesAutoresizingMaskIntoConstraints="NO" id="2vv-JK-WR3">
                                         <rect key="frame" x="121" y="80" width="100" height="100"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="JEG-9v-yh6"/>
                                             <constraint firstAttribute="width" constant="100" id="Ybe-Kd-FPF"/>
@@ -4699,13 +4727,13 @@ the beginning of every beautiful journey.</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="knx-Ea-QK9">
-                                <rect key="frame" x="16" y="252" width="343" height="395"/>
+                                <rect key="frame" x="16" y="260" width="343" height="387"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RoG-WQ-We3">
-                                        <rect key="frame" x="0.0" y="27" width="343" height="368"/>
+                                        <rect key="frame" x="0.0" y="27" width="343" height="348"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="leadercell" rowHeight="80" id="BBW-e3-Fq1" customClass="LeaderBoardTableViewCell" customModule="chocoed" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="leadercell" rowHeight="80" id="BBW-e3-Fq1" customClass="LeaderBoardTableViewCell" customModule="chocoed" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="343" height="80"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BBW-e3-Fq1" id="nf7-RR-HUW">
@@ -4713,7 +4741,7 @@ the beginning of every beautiful journey.</string>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zqD-8h-ze0">
-                                                            <rect key="frame" x="0.0" y="0.0" width="343" height="79.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="343" height="80"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bYs-Ek-6ad">
                                                                     <rect key="frame" x="16" y="10" width="60" height="60"/>
@@ -4724,7 +4752,7 @@ the beginning of every beautiful journey.</string>
                                                                     </constraints>
                                                                 </imageView>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5GS-hj-lqG">
-                                                                    <rect key="frame" x="84" y="8" width="251" height="63.5"/>
+                                                                    <rect key="frame" x="84" y="8" width="251" height="64"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b95-ee-LJY">
                                                                             <rect key="frame" x="8" y="8" width="235" height="21"/>
@@ -4811,11 +4839,23 @@ the beginning of every beautiful journey.</string>
                                                                         <constraint firstAttribute="bottom" secondItem="ZPE-bz-p7H" secondAttribute="bottom" constant="6.5" id="uKJ-Ez-iKQ"/>
                                                                     </constraints>
                                                                 </view>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Cs-6I-0hM">
+                                                                    <rect key="frame" x="56" y="49" width="20" height="20"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="20" id="Ky9-kh-TRw"/>
+                                                                        <constraint firstAttribute="width" constant="20" id="ddL-8K-2v9"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstItem="5GS-hj-lqG" firstAttribute="top" secondItem="zqD-8h-ze0" secondAttribute="top" constant="8" id="0xV-Rm-OUq"/>
                                                                 <constraint firstItem="5GS-hj-lqG" firstAttribute="leading" secondItem="bYs-Ek-6ad" secondAttribute="trailing" constant="8" id="7ib-V4-oI3"/>
+                                                                <constraint firstAttribute="bottom" secondItem="5Cs-6I-0hM" secondAttribute="bottom" constant="11" id="Cpc-B6-8Gn"/>
+                                                                <constraint firstItem="5GS-hj-lqG" firstAttribute="leading" secondItem="5Cs-6I-0hM" secondAttribute="trailing" constant="8" id="GbW-KV-ozz"/>
                                                                 <constraint firstAttribute="bottom" secondItem="5GS-hj-lqG" secondAttribute="bottom" constant="8" id="H6F-HW-7RV"/>
                                                                 <constraint firstAttribute="bottom" secondItem="bYs-Ek-6ad" secondAttribute="bottom" constant="9.5" id="MSQ-QN-oQJ"/>
                                                                 <constraint firstItem="bYs-Ek-6ad" firstAttribute="top" secondItem="zqD-8h-ze0" secondAttribute="top" constant="10" id="Nmy-Oa-MGc"/>
@@ -4840,6 +4880,7 @@ the beginning of every beautiful journey.</string>
                                                     <outlet property="noOfWeek" destination="3j2-xA-GI8" id="ex2-Hm-HY4"/>
                                                     <outlet property="noofCOurses" destination="bGc-fJ-vNj" id="SvG-zB-tgl"/>
                                                     <outlet property="noofTest" destination="hV7-gH-dbe" id="keN-Zb-rvN"/>
+                                                    <outlet property="rank" destination="5Cs-6I-0hM" id="tmC-dz-ccC"/>
                                                     <outlet property="testImage" destination="ZPE-bz-p7H" id="jGz-Yz-qVB"/>
                                                     <outlet property="weekImage" destination="9ob-pE-O4h" id="ges-RW-B2Q"/>
                                                 </connections>
@@ -4863,7 +4904,7 @@ the beginning of every beautiful journey.</string>
                                     <constraint firstAttribute="trailing" secondItem="RoG-WQ-We3" secondAttribute="trailing" id="G7X-gn-X1d"/>
                                     <constraint firstItem="RoG-WQ-We3" firstAttribute="leading" secondItem="knx-Ea-QK9" secondAttribute="leading" id="Xhd-Zp-ZiC"/>
                                     <constraint firstItem="RoG-WQ-We3" firstAttribute="top" secondItem="knx-Ea-QK9" secondAttribute="top" constant="27" id="cKr-OJ-77R"/>
-                                    <constraint firstAttribute="bottom" secondItem="RoG-WQ-We3" secondAttribute="bottom" id="qdi-sb-Olc"/>
+                                    <constraint firstAttribute="bottom" secondItem="RoG-WQ-We3" secondAttribute="bottom" constant="12" id="qdi-sb-Olc"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xp4-2N-ybB">
@@ -4893,7 +4934,7 @@ the beginning of every beautiful journey.</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You are just 1 day behind the schedule" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="umV-uv-S2R">
-                                <rect key="frame" x="39" y="224" width="280" height="20"/>
+                                <rect key="frame" x="48" y="228" width="280" height="20"/>
                                 <color key="backgroundColor" red="0.13831761440000001" green="0.22748621620000001" blue="0.86042592009999996" alpha="0.87326091610000001" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="H2r-MU-Ks6"/>
@@ -4908,13 +4949,13 @@ the beginning of every beautiful journey.</string>
                         <constraints>
                             <constraint firstItem="Wbc-1n-PFa" firstAttribute="trailing" secondItem="Xp4-2N-ybB" secondAttribute="trailing" constant="16" id="D6B-nR-bDY"/>
                             <constraint firstItem="Xp4-2N-ybB" firstAttribute="top" secondItem="wSN-sR-AGC" secondAttribute="bottom" constant="292" id="Hhn-xL-isp"/>
-                            <constraint firstItem="knx-Ea-QK9" firstAttribute="top" secondItem="umV-uv-S2R" secondAttribute="bottom" constant="8" id="JiD-0e-f9f"/>
+                            <constraint firstItem="knx-Ea-QK9" firstAttribute="top" secondItem="umV-uv-S2R" secondAttribute="bottom" constant="12" id="JiD-0e-f9f"/>
                             <constraint firstItem="wSN-sR-AGC" firstAttribute="leading" secondItem="Wbc-1n-PFa" secondAttribute="leading" id="MCX-I5-EQp"/>
                             <constraint firstItem="wSN-sR-AGC" firstAttribute="centerX" secondItem="CSQ-sS-Z7g" secondAttribute="centerX" id="NLW-Mc-d4N"/>
                             <constraint firstItem="Wbc-1n-PFa" firstAttribute="trailing" secondItem="Rmo-CX-5mF" secondAttribute="trailing" constant="16" id="Ta2-ck-Vpc"/>
-                            <constraint firstItem="Wbc-1n-PFa" firstAttribute="bottom" secondItem="Rmo-CX-5mF" secondAttribute="bottom" constant="10" id="Tew-vZ-LUh"/>
-                            <constraint firstItem="umV-uv-S2R" firstAttribute="top" secondItem="JDv-hH-qB8" secondAttribute="bottom" constant="10" id="U6N-PG-Jjz"/>
-                            <constraint firstItem="Rmo-CX-5mF" firstAttribute="top" secondItem="Wbc-1n-PFa" secondAttribute="top" constant="235" id="V3N-Xl-cOS"/>
+                            <constraint firstItem="Wbc-1n-PFa" firstAttribute="bottom" secondItem="Rmo-CX-5mF" secondAttribute="bottom" constant="20" id="Tew-vZ-LUh"/>
+                            <constraint firstItem="umV-uv-S2R" firstAttribute="top" secondItem="JDv-hH-qB8" secondAttribute="bottom" constant="6" id="U6N-PG-Jjz"/>
+                            <constraint firstItem="Rmo-CX-5mF" firstAttribute="top" secondItem="Wbc-1n-PFa" secondAttribute="top" constant="240" id="V3N-Xl-cOS"/>
                             <constraint firstItem="Wbc-1n-PFa" firstAttribute="trailing" secondItem="knx-Ea-QK9" secondAttribute="trailing" constant="16" id="XYP-QB-CcO"/>
                             <constraint firstItem="knx-Ea-QK9" firstAttribute="leading" secondItem="Wbc-1n-PFa" secondAttribute="leading" constant="16" id="idL-oe-1MP"/>
                             <constraint firstItem="wSN-sR-AGC" firstAttribute="trailing" secondItem="Wbc-1n-PFa" secondAttribute="trailing" id="lUG-Oo-7vy"/>
@@ -4922,7 +4963,7 @@ the beginning of every beautiful journey.</string>
                             <constraint firstItem="Rmo-CX-5mF" firstAttribute="leading" secondItem="Wbc-1n-PFa" secondAttribute="leading" constant="16" id="oRV-Ef-Xq6"/>
                             <constraint firstItem="wSN-sR-AGC" firstAttribute="top" secondItem="CSQ-sS-Z7g" secondAttribute="top" id="ujs-mA-ZWH"/>
                             <constraint firstItem="Wbc-1n-PFa" firstAttribute="bottom" secondItem="knx-Ea-QK9" secondAttribute="bottom" constant="20" id="vZp-1n-hcM"/>
-                            <constraint firstItem="umV-uv-S2R" firstAttribute="centerX" secondItem="CSQ-sS-Z7g" secondAttribute="centerX" constant="-8.5" id="xMg-IT-DBX"/>
+                            <constraint firstItem="umV-uv-S2R" firstAttribute="centerX" secondItem="CSQ-sS-Z7g" secondAttribute="centerX" constant="0.5" id="xMg-IT-DBX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Wbc-1n-PFa"/>
                     </view>
@@ -4937,6 +4978,7 @@ the beginning of every beautiful journey.</string>
                         <outlet property="completedTestLabel" destination="Pfj-om-2as" id="0Fd-ef-cPa"/>
                         <outlet property="courseCompletedLabel" destination="8oT-TD-ppb" id="MBt-ly-wRy"/>
                         <outlet property="imageViewLabelImage" destination="rRH-BE-RKF" id="GlP-x3-fzO"/>
+                        <outlet property="labelRank" destination="6Hj-7M-8Wv" id="fTC-Jx-YX0"/>
                         <outlet property="reportLabel" destination="umV-uv-S2R" id="BTh-Pa-1HJ"/>
                         <outlet property="tabelViewReport" destination="RoG-WQ-We3" id="54O-Na-gOF"/>
                         <outlet property="viewFortableView" destination="knx-Ea-QK9" id="aUY-TC-WPP"/>
@@ -4955,6 +4997,8 @@ the beginning of every beautiful journey.</string>
         <image name="Icon-App-40x40" width="40" height="40"/>
         <image name="Icon-App-40x40-2" width="40" height="40"/>
         <image name="Icon-App-60x60" width="60" height="60"/>
+        <image name="Icon-App-76x76" width="76" height="76"/>
+        <image name="Icon-App-76x76-1" width="76" height="76"/>
         <image name="MyHand" width="256" height="256"/>
         <image name="Mytalks" width="45" height="40"/>
         <image name="Mythoughts" width="42" height="45"/>
@@ -4993,5 +5037,6 @@ the beginning of every beautiful journey.</string>
         <image name="t_op_carousel" width="90" height="25"/>
         <image name="top_carousel" width="83" height="25"/>
         <image name="top_carousel_last" width="90" height="25"/>
+        <image name="transparent" width="180" height="113"/>
     </resources>
 </document>

@@ -36,22 +36,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.window!.rootViewController = navigationController
             }
             else{ */
-            
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
-                
+
                 self.window = UIWindow(frame: UIScreen.main.bounds)
                 let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "firstview") as! ViewController
                 self.window!.rootViewController = startVC
                 self.window!.makeKeyAndVisible()
-                
+
             }
-            
-            
+
+
            // }
-            
+
         }
-        
+    
         //window!.makeKeyAndVisible()
 
         return true

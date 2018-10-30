@@ -11,6 +11,8 @@ import UIKit
 class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     var activityUIView: ActivityIndicatorUIView!
     var arrayProgress = [FriendProgress]()
+    
+    @IBOutlet weak var labelRank: UILabel!
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var courseCompletedLabel: UILabel!
     @IBOutlet weak var completedTestLabel: UILabel!
@@ -27,6 +29,7 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
     @IBOutlet weak var viewFortableView: UIView!
     
     @IBOutlet weak var tabelViewReport: UITableView!
+    var userImageLoaded : UIImage? = nil
     
     
     override func viewDidLoad() {
@@ -34,6 +37,18 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)
         activityUIView.isHidden = true
+        
+        let backgroundImage = UIImageView(frame: backgroundView.bounds)
+        backgroundImage.image = UIImage(named: "gradient_pattern_oval")
+        backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
+        self.view.insertSubview(backgroundImage, at: 0)
+
+        let backgroundImage1 = UIImageView(frame: view.bounds)
+        backgroundImage1.image = UIImage(named: "background")
+        backgroundImage1.contentMode = UIViewContentMode.scaleAspectFill
+        self.view.insertSubview(backgroundImage1, at: 0)
+ 
+        
         viewFortableView.layer.cornerRadius = 20
         viewFortableView.clipsToBounds = true
         tabelViewReport.layer.cornerRadius = 20
@@ -46,14 +61,35 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
         reportLabel.layer.cornerRadius = 10
         reportLabel.clipsToBounds = true
         
+        labelRank.layer.cornerRadius = 10
+        labelRank.clipsToBounds = true
+        
         loadGetMyProgress()
         
         
+        let fileUrl = URL(string: "\(USERDETAILS.imageurl)")
+        if fileUrl != nil {
+            if let data = try? Data(contentsOf: fileUrl!) {
+                if let image = UIImage(data: data) {
+                    self.imageViewLabelImage.image = image
+                }
+            }
+        }
+        NameLabel.text = USERDETAILS.firstName + " " + USERDETAILS.lastname
         imageViewLabelImage.layer.borderWidth = 3
+        imageViewLabelImage.layer.cornerRadius = 35
         imageViewLabelImage.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         imageViewLabelImage.clipsToBounds = true
         
+        addContactView.isHidden = true
         
+        if arrayProgress.count != 0 {
+            addContactView.isHidden = false
+            viewFortableView.isHidden = true
+        }else{
+            addContactView.isHidden = true
+            viewFortableView.isHidden = false
+        }
         // Do any additional setup after loading the view.
         
         
@@ -69,6 +105,15 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
         return arrayProgress.count
     }
     
+    @IBAction func BackButton(_ sender: Any) {
+        
+        let dashboardvc = self.storyboard?.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
+        DispatchQueue.main.async {
+            let aObjNavi = UINavigationController(rootViewController: dashboardvc)
+            aObjNavi.navigationBar.barTintColor = UIColor.blue
+            self.present(aObjNavi, animated: true, completion: nil)
+        }
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "leadercell", for: indexPath) as! LeaderBoardTableViewCell
         var url = arrayProgress[indexPath.row].friendImageUrl
@@ -78,15 +123,15 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
                 cell.imageViewLeader.image = image
             }
         }
-        cell.CoursesImage.image = UIImage(named: "Man3_3")
+        cell.CoursesImage.image = UIImage(named: "computerImage")
         cell.NameLeader.text = arrayProgress[indexPath.row].friendName
         cell.noofCOurses.text = "\(arrayProgress[indexPath.row].topicCount)"
         cell.noofTest.text = "\(arrayProgress[indexPath.row].testCount)"
         cell.noOfWeek.text = "\(arrayProgress[indexPath.row].weekNumber)"
         
-        cell.weekImage.image = UIImage(named: "Man3_3")
-        cell.testImage.image = UIImage(named: "Man3_3")
-        
+        cell.weekImage.image = UIImage(named: "fileImage")
+        cell.testImage.image = UIImage(named: "questionImage")
+        cell.rank.text = "\(arrayProgress[indexPath.row].rankNumber)"
         return cell
     }
 
@@ -104,6 +149,11 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
                 self.arrayProgress.append(FriendProgress( pg as! NSDictionary))
                 print(self.arrayProgress.count,"Progress----->")
                 
+            }
+            DispatchQueue.main.async {
+                self.labelRank.text = "\(progressofFriend.myRankNumber)"
+                self.courseCompletedLabel.text = "\(progressofFriend.myCoursesCount)"
+                self.completedTestLabel.text = "\(progressofFriend.myTestCount)"
             }
             DispatchQueue.main.async {
                 self.tabelViewReport.reloadData()

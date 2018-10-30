@@ -318,22 +318,22 @@ struct TopicList{
 }
 
 struct getMyProgressStruct{
-    var myTopicCount : String
-    var myTestCount : String
-    var myWeekNumber : String
-    var myRankNumber : String
+    var myTopicCount : Int
+    var myTestCount : Int
+    var myWeekNumber : Int
+    var myRankNumber : Int
     var schduleMsg : String
     var friendList : NSArray
-    var myCoursesCount: String
+    var myCoursesCount: Int
 
     init(_ dictionary : NSDictionary) {
-        self.myTopicCount = dictionary["myTopicCount"] as? String ?? ""
-        self.myWeekNumber = dictionary["myWeekNumber"] as? String ?? ""
-        self.myTestCount = dictionary["myTestCount"] as? String ?? ""
-        self.myRankNumber = dictionary["myRankNumber"] as? String ?? ""
+        self.myTopicCount = dictionary["myTopicCount"] as? Int ?? 0
+        self.myWeekNumber = dictionary["myWeekNumber"] as? Int ?? 0
+        self.myTestCount = dictionary["myTestCount"] as? Int ?? 0
+        self.myRankNumber = dictionary["myRankNumber"] as? Int ?? 0
         self.schduleMsg = dictionary["schduleMessage"] as? String ?? ""
         self.friendList = dictionary["friendList"] as? NSArray ?? []
-        self.myCoursesCount = dictionary["myCoursesCount"] as? String ?? ""
+        self.myCoursesCount = dictionary["myCoursesCount"] as? Int ?? 0
 }
 }
 

@@ -206,6 +206,13 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
 
             break;
                 
+            case 2:
+                let v1 = self.storyboard?.instantiateViewController(withIdentifier: "leader") as! LeaderBoardViewController
+                self.present(v1, animated: true, completion: nil)
+                
+                break;
+
+                
             default: break
                 
             }
