@@ -316,6 +316,12 @@ class SplitviewViewController: UIViewController {
         currentTopiceDate = ""
         currentCourseId = ""
         
+        isLoadExamFromVideo = ""
+        isLoadExamId = ""
+        isLoadCalendarId = ""
+        isLoadExamName = ""
+        
+        
         
         let v1 = self.storyboard?.instantiateViewController(withIdentifier: "ContentVC") as! ContentVC
         self.present(v1, animated: true, completion: nil)

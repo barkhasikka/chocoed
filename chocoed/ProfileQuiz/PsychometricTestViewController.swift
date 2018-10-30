@@ -37,6 +37,7 @@ class PsychometricTestViewController: UIViewController {
         if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "quizb") as? QuizBahaviouralViewController {
             vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
             vcNewSectionStarted.currentExamID = 2
+            vcNewSectionStarted.calenderId = "0"
             vcNewSectionStarted.currentQuestion = currentQuestion
             let aObjNavi = UINavigationController(rootViewController: vcNewSectionStarted)
             aObjNavi.navigationBar.barTintColor = UIColor.blue

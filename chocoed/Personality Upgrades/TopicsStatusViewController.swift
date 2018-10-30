@@ -191,9 +191,18 @@ class TopicsStatusViewController: UIViewController,UITableViewDelegate,UITableVi
                 if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "WevViewVC") as? WevViewVC {
                 vcNewSectionStarted.currentExamID=Int(arrayCourseSubTopicList[indexPath.row].examId)!
                     vcNewSectionStarted.fromType = "choice"
+                    vcNewSectionStarted.calenderId = arrayCourseSubTopicList[indexPath.row].calenderId
                     self.present(vcNewSectionStarted, animated: true, completion: nil)
                 }
+                
+            }else{
+                
+                let alert = GetAlertWithOKAction(message: "Dear \(USERDETAILS.firstName), You are yet to complete this Assessment.")
+                self.present(alert, animated: true, completion: nil)
+                tableView.deselectRow(at: indexPath, animated: false)
+                
             }
+            
         }else{
             print("video")
             if arrayCourseSubTopicList[indexPath.row].videoViewCount >=  arrayCourseSubTopicList[indexPath.row].videoViewLimit{

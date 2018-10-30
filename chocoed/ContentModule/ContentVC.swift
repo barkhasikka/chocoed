@@ -116,7 +116,19 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        loadCourseData();
+        
+        if isLoadExamFromVideo == "1"
+        {
+             self.loadExam(calendarid: isLoadCalendarId,examID: isLoadExamId, examName: isLoadExamName)
+            
+            isLoadExamFromVideo = ""
+            
+        }else{
+          
+         loadCourseData();
+
+        }
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -316,8 +328,10 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                             
                             currentCourseId = self.courseId
                             currentTopiceDate = self.selectedDate
+                        
              vcNewSectionStarted.currentExamID=Int(arrayTopic[indexPath.row].examId)!
                             vcNewSectionStarted.fromType = "content"
+                            vcNewSectionStarted.calenderId = arrayTopic[indexPath.row].calenderId
                             self.present(vcNewSectionStarted, animated: true, completion: nil)
                             
                         }
@@ -327,7 +341,8 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                         
                     }else{
                         
-                        self.loadExam(examID: arrayTopic[indexPath.row].examId, examName: arrayTopic[indexPath.row].examName)
+                        self.loadExam(calendarid: arrayTopic[indexPath.row].calenderId,examID: arrayTopic[indexPath.row].examId, examName: arrayTopic[indexPath.row].examName)
+                        
                     }
                     
                     
@@ -445,7 +460,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                 
             }else{
                 
-                self.loadExam(examID: arrayTopic[self.tableRowPosition].examId, examName: arrayTopic[self.tableRowPosition].examName)
+                self.loadExam(calendarid: arrayTopic[self.tableRowPosition].calenderId,examID: arrayTopic[self.tableRowPosition].examId, examName: arrayTopic[self.tableRowPosition].examName)
             }
             
             
@@ -697,6 +712,9 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
         DispatchQueue.main.async {
             self.selectedDate = date
             self.lblActiveDate.text = date1
+            self.activityUIView.isHidden = false
+            self.activityUIView.startAnimation()
+            
         }
         
         if(self.arrayTopic.count > 0)
@@ -718,8 +736,8 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
         
         print(params)
         
-        activityUIView.isHidden = false
-        activityUIView.startAnimation()
+        
+        
         MakeHttpPostRequest(url: getTopicData, params: params, completion: {(success, response) -> Void in
             
             
@@ -768,13 +786,13 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
     /* : Load Exam Data API */
     
     
-    func loadExam(examID : String, examName : String){
+    func loadExam(calendarid : String, examID : String, examName : String){
         
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
         
         var currentQuestionID: Int =  -1
-        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(examID)"] as Dictionary<String, String>
+        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(examID)","calendarId":"\(calendarid)"] as Dictionary<String, String>
         
         print(params)
         
@@ -802,6 +820,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                     vcNewSectionStarted.currentQuestion = currentQuestionID
                     vcNewSectionStarted.examName = examName
                     vcNewSectionStarted.fromType = "content"
+                    vcNewSectionStarted.calenderId = calendarid
                     let aObjNavi = UINavigationController(rootViewController: vcNewSectionStarted)
                     aObjNavi.navigationBar.barTintColor = UIColor.blue
                     self.present(aObjNavi, animated: true, completion: nil)

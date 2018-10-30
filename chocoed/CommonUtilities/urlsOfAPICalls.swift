@@ -42,3 +42,10 @@ var answerId = -1
 var USERDETAILS : UserDetails!
 var textfieldMbNumber = ""
 
+var isLoadExamFromVideo = ""
+var isLoadExamId = ""
+var isLoadCalendarId = ""
+var isLoadExamName = ""
+
+
+

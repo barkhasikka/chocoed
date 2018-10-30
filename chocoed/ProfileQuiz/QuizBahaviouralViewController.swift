@@ -17,6 +17,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
     @IBOutlet weak var quetionLabel: UILabel!
     var currentQuestion = Int()
     var valueofQuestionNo = Int()
+    var calenderId = ""
     var option = ""
     let optionbutton = UIButton()
     var selectedAnswer = ""
@@ -35,6 +36,8 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        isLoadExamFromVideo = ""
         
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)
@@ -157,7 +160,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
         formatter.dateFormat = "HH:mm:ss"
         let endTime = formatter.string(from: Date())
         
-        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(self.currentExamID)","questionId":"\(questionId)","selectedAns":"\(selectedAnswer)","selectedAnsId":"\(answerId)","startTime":"\(startTime)","endTime":"\(endTime)"] as Dictionary<String, String>
+        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(self.currentExamID)","questionId":"\(questionId)","selectedAns":"\(selectedAnswer)","selectedAnsId":"\(answerId)","startTime":"\(startTime)","endTime":"\(endTime)","calendarId":"\(calenderId)"] as Dictionary<String, String>
             print(params)
         
         activityUIView.isHidden = false
@@ -242,7 +245,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
       
-        let params = ["access_token":"\(accessToken)","deviceId":"","deviceToken":"","deviceInfo":"","deviceType":"Andriod","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(self.currentExamID)","calendarId": "0"] as Dictionary<String, String>
+        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(self.currentExamID)","calendarId": "\(calenderId)"] as Dictionary<String, String>
         activityUIView.isHidden = false
         activityUIView.startAnimation()
         MakeHttpPostRequest(url: examDetails, params: params, completion: {(success, response) -> Void in
@@ -286,12 +289,14 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
                 let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "WevViewVC") as! WevViewVC
                 vcNewSectionStarted.currentExamID = self.currentExamID - 1
                 vcNewSectionStarted.fromType = self.fromType
+                vcNewSectionStarted.calenderId = self.calenderId
                 self.present(vcNewSectionStarted, animated: true, completion: nil)
                 
             } else {
                 
                 let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "WevViewVC") as! WevViewVC
-                vcNewSectionStarted.currentExamID = 3
+                vcNewSectionStarted.currentExamID = -10
+                vcNewSectionStarted.calenderId = self.calenderId
                 self.present(vcNewSectionStarted, animated: true, completion: nil)
             }
             
@@ -348,7 +353,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
         let endTime = formatter.string(from: Date())
         
         
-        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(self.currentExamID)", "endTime": "\(endTime)","calendarId":"0"] as Dictionary<String, String>
+        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(self.currentExamID)", "endTime": "\(endTime)","calendarId":"\(calenderId)"] as Dictionary<String, String>
         print(params, "<<<<-- end test api")
         activityUIView.isHidden = false
         activityUIView.startAnimation()
@@ -374,12 +379,14 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
                         let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "WevViewVC") as! WevViewVC
                         vcNewSectionStarted.currentExamID = self.currentExamID - 1
                         vcNewSectionStarted.fromType = self.fromType
+                        vcNewSectionStarted.calenderId = self.calenderId
                         self.present(vcNewSectionStarted, animated: true, completion: nil)
                         
                     } else {
                         
                         let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "WevViewVC") as! WevViewVC
-                        vcNewSectionStarted.currentExamID = 3
+                        vcNewSectionStarted.currentExamID = -10
+                        vcNewSectionStarted.calenderId = self.calenderId
                         self.present(vcNewSectionStarted, animated: true, completion: nil)
                     }
                     
