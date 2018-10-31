@@ -359,3 +359,29 @@ struct FriendProgress{
     
 }
 
+struct FriendList{
+    var friendId : String
+    var friendImageUrl : String
+    var friendName : String
+    var selected : Bool
+    
+    init(_ dictionary : NSDictionary) {
+        self.friendId = dictionary["friendId"] as? String ?? ""
+        self.friendImageUrl = dictionary["friendImageUrl"] as? String ?? ""
+        self.friendName = dictionary["friendName"] as? String ?? ""
+        self.selected = dictionary["selected"] as? Bool ?? true
+    }
+    
+}
+
+struct FriendListUpdate{
+    var friendId : Int
+    var friendName : String
+    
+    init(_ dictionary : NSDictionary) {
+        self.friendId = dictionary["friendId"] as? Int ?? 0
+        self.friendName = dictionary["friendName"] as? String ?? ""
+    }
+    
+}
+

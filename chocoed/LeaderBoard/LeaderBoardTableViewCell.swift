@@ -38,3 +38,18 @@ class LeaderBoardTableViewCell: UITableViewCell {
     }
 
 }
+
+class LeaderBoardAddContactTableViewCell: UITableViewCell
+{
+    
+    @IBOutlet weak var labelId: UILabel!
+    @IBOutlet weak var imageOfContact: UIImageView!
+    @IBOutlet weak var labelName: UILabel!
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        imageOfContact.layer.cornerRadius = 30
+        imageOfContact.clipsToBounds = true
+    }
+    
+}

@@ -34,6 +34,7 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)
         activityUIView.isHidden = true
@@ -65,6 +66,7 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
         labelRank.clipsToBounds = true
         
         loadGetMyProgress()
+        
         
         
         let fileUrl = URL(string: "\(USERDETAILS.imageurl)")
@@ -132,6 +134,7 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
         cell.weekImage.image = UIImage(named: "fileImage")
         cell.testImage.image = UIImage(named: "questionImage")
         cell.rank.text = "\(arrayProgress[indexPath.row].rankNumber)"
+        
         return cell
     }
 
@@ -147,7 +150,11 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
             let progressofFriend = getMyProgressStruct((response as? NSDictionary)!)
             for pg in progressofFriend.friendList {
                 self.arrayProgress.append(FriendProgress( pg as! NSDictionary))
+                
+                
                 print(self.arrayProgress.count,"Progress----->")
+                
+              //  let uniqueArray = arrayProgress.removeDuplicate()
                 
             }
             DispatchQueue.main.async {
@@ -172,6 +179,9 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
             }
         })
         
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        loadGetMyProgress()
     }
 
 }

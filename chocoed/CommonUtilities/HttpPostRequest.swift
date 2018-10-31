@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-func MakeHttpPostRequest(url: String, params: Dictionary<String, String>, completion: @escaping ((_ success: Bool, _ response: NSDictionary) -> Void), errorHandler: @escaping ((_ message: String) -> Void))  {
+func MakeHttpPostRequest(url: String, params: Dictionary<String, Any>, completion: @escaping ((_ success: Bool, _ response: NSDictionary) -> Void), errorHandler: @escaping ((_ message: String) -> Void))  {
     
     
     if !ConnectionCheck.isConnectedToNetwork() {
