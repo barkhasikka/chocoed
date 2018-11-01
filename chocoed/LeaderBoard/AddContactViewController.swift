@@ -10,8 +10,6 @@ import UIKit
 
 class AddContactViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
   
-    var someDict = [String: String]()
-
     var activityUIView: ActivityIndicatorUIView!
     var arrayContactList = [FriendList]()
     var arrayUpdateFriendList = [FriendListUpdate]()
@@ -116,16 +114,16 @@ class AddContactViewController: UIViewController,UITableViewDelegate,UITableView
     func uploadAddContactData(){
                 let userID = UserDefaults.standard.integer(forKey: "userid")
                 let clientID = UserDefaults.standard.integer(forKey: "clientid")
-        
+                var someArray = [Any]()
+
                 for item in arrayUpdateFriendList{
 //                    String(item.friendId)
 //                    String(item.friendName)
                     let addContactItem = ["friendId": "\(String(item.friendId))", "friendName": "\(String(item.friendName))"] as Dictionary<String, String>
-                    
-
+                    someArray.append(addContactItem) 
 
                 }
-                let params = ["access_token":"\(accessToken)","deviceType":"Android","userId":"\(userID)","clientId":"\(clientID)","list": [arrayUpdateFriendList]] as Dictionary<String, Any>
+                let params = ["access_token":"\(accessToken)","deviceType":"Android","userId":"\(userID)","clientId":"\(clientID)","list": [someArray]] as Dictionary<String, Any>
                 print(params)
                 activityUIView.isHidden = false
                 activityUIView.startAnimation()
