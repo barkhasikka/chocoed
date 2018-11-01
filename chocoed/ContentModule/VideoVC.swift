@@ -32,6 +32,8 @@ class VideoVC: UIViewController {
     var correctAnsId = ""
     
     var fromType = ""
+    var videoPosition : Float = 0
+
     
     var isStartFromFirst = false
     var isCalled = false
@@ -106,7 +108,9 @@ class VideoVC: UIViewController {
                 
                 let alert = GetAlertWithOKAction(message: "Select Answer")
                 self.present(alert, animated: true, completion: nil)
+                
             }else{
+                
                 self.loadSaveExamQuestionAnswer()
             }
             
@@ -220,21 +224,29 @@ class VideoVC: UIViewController {
     @objc func appMovedToBackground() {
         print("App moved to background!")
         
+        if player != nil {
+
        // player.pause()
        // self.btnPlayAction.setTitle("Play", for: .normal)
       //  self.btnPlayAction.setImage(UIImage(named: "icons_play"), for: UIControlState.normal)
         self.addTopicAudit(videopostion: Double(self.getMillisecond()),status: "pause")
         isVideoPlaying = !isVideoPlaying
+       }
     }
     
     @objc func appMovedToFront() {
         print("App retur to front!")
         
-        player.play()
-       // self.btnPlayAction.setTitle("Pause", for: .normal)
-       // self.btnPlayAction.setImage(UIImage(named: "icons_pause"), for: UIControlState.normal)
-        self.addTopicAudit(videopostion: self.getMillisecond(),status: "start")
-        isVideoPlaying = !isVideoPlaying
+        if player != nil {
+            
+            player.play()
+            // self.btnPlayAction.setTitle("Pause", for: .normal)
+            // self.btnPlayAction.setImage(UIImage(named: "icons_pause"), for: UIControlState.normal)
+            self.addTopicAudit(videopostion: self.getMillisecond(),status: "start")
+            isVideoPlaying = !isVideoPlaying
+        }
+        
+       
         
     }
     
@@ -273,11 +285,13 @@ class VideoVC: UIViewController {
         
         for e in 0...self.arrayExams.count - 1{
             
-            print("Curr Time",dur)
-            print("Stop Time",self.arrayExams[e].videoPosition)
+            //print("Curr Time",dur)
+            //print("Stop Time",self.arrayExams[e].videoPosition)
 
             
             if dur <= (self.arrayExams[e].videoPosition + 500) && dur > self.arrayExams[e].videoPosition  {
+                
+                self.videoPosition = self.arrayExams[e].videoPosition
                 self.currentExamID = self.arrayExams[e].examId
                 self.arrayExams.remove(at: e)
                 return true
@@ -615,6 +629,12 @@ class VideoVC: UIViewController {
             if status == "complete"{
                 
                 
+                if self.currentExamID != "" {
+                    
+                    self.callEndTestAPI()
+                }
+                
+                
                 
                 if self.isStartFromFirst == true {
                 
@@ -796,7 +816,7 @@ class VideoVC: UIViewController {
         // self.dismiss(animated: true, completion: nil)
     
     }
-    
+
     
     /*** Load Exam Details ****/
     
@@ -804,8 +824,11 @@ class VideoVC: UIViewController {
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
         
-        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(examid)","calendarId":"\(calenderId)"] as Dictionary<String, String>
-        MakeHttpPostRequest(url: examDetails, params: params, completion: {(success, response) -> Void in
+        
+        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(examid)","calendarId":"\(calenderId)","language":"\(currentSelectedLang)","position":"\(self.videoPosition.clean)"] as Dictionary<String, String>
+        
+        print(params)
+        MakeHttpPostRequest(url: examKCDetails, params: params, completion: {(success, response) -> Void in
             print(response)
 
             self.arrayBehaviouralQuestion = [Question]()
@@ -822,8 +845,13 @@ class VideoVC: UIViewController {
             
             DispatchQueue.main.async {
                 
-                self.viewQues.isHidden = false
-                self.loadQuest()
+                if(self.arrayBehaviouralQuestion.count > 0){
+                    
+                    self.viewQues.isHidden = false
+                    self.loadQuest()
+                }
+                
+            
         
             }
         
@@ -906,6 +934,7 @@ class VideoVC: UIViewController {
             self.isLastQuestion = true
         }else{
             self.btnNextQues.setTitle("Next", for: UIControlState.normal)
+            self.isLastQuestion = false
         }
 
     }
@@ -1104,7 +1133,12 @@ class VideoVC: UIViewController {
                 
                 if self.isLastQuestion == true {
                     
-                    self.callEndTestAPI()
+                   // self.callEndTestAPI()
+                    
+                    self.viewQues.isHidden = true;
+                    self.isExamLoaded = false
+                    self.currentQuesIndex = 0
+                    self.player.play()
                     
                 }else{
                     
@@ -1140,12 +1174,13 @@ class VideoVC: UIViewController {
         MakeHttpPostRequest(url: endExamAPI, params: params, completion: {(success, response) -> Void in
             print(response)
             
-            DispatchQueue.main.async {
+           /* DispatchQueue.main.async {
+                
                 self.viewQues.isHidden = true;
                 self.isExamLoaded = false
                 self.currentQuesIndex = 0
                 self.player.play()
-            }
+            } */
           
         }, errorHandler: {(message) -> Void in
             let alert = GetAlertWithOKAction(message: message)
@@ -1268,5 +1303,10 @@ class VideoVC: UIViewController {
         )
     }
     
- 
+}
+
+extension Float {
+    var clean : String{
+      return  self.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
+    }
 }

@@ -104,18 +104,19 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
         return UIInterfaceOrientationMask.portrait
     }
  
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
-        self.view.addSubview(activityUIView)
-        activityUIView.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
+        self.view.addSubview(activityUIView)
+        activityUIView.isHidden = true
+        
+        
         
         if isLoadExamFromVideo == "1"
         {
@@ -175,7 +176,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
         
         var showLockLayout = true
         
-        if self.previousDayStatus == 99 || self.previousDayStatus == 2 {
+     /*   if self.previousDayStatus == 99 || self.previousDayStatus == 2 {
             
             if indexPath.row == 0 {
                 
@@ -220,11 +221,59 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
             }
             
         }
+ 
+       */
+        
+        
+        if self.previousDayStatus == 99 || self.previousDayStatus == 2 {
+            
+            if indexPath.row == 0 {
+                
+                showLockLayout = false
+                
+            }else{
+                
+                var index = indexPath.row - 1
+                
+                while index >= 0 {
+                    
+            if self.arrayTopic[index].topicId != "0"{
+
+                    
+                    if self.arrayTopic[index].videoViewCount > 0 {
+                        
+                        showLockLayout = false
+                        
+                        
+                    }else{
+                        
+                        showLockLayout = true
+                    }
+                
+                break
+                
+            }else{
+                
+                showLockLayout = false
+
+                
+            }
+                
+                    
+                    index = index - 1
+                }
+                
+               
+            }
+            
+            
+        }
         
         if showLockLayout == true{
             
             cell.blockView.isHidden = false
             self.arrayTopic[indexPath.row].isBlock = true
+            
             
         }else{
             

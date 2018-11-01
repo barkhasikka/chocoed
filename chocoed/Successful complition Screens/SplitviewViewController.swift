@@ -139,17 +139,7 @@ class SplitviewViewController: UIViewController {
         self.myThoughtsButton.isHidden = false
         self.mychatButton.isHidden = false
         
-        currentTopiceDate = ""
-        currentCourseId = ""
-        
-        isLoadExamFromVideo = ""
-        isLoadExamId = ""
-        isLoadCalendarId = ""
-        isLoadExamName = ""
-        
-        
-        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "ContentVC") as! ContentVC
-        self.present(v1, animated: true, completion: nil)
+      
     }
     
     @IBAction func MyChatActionButton(_ sender: Any) {
@@ -174,17 +164,7 @@ class SplitviewViewController: UIViewController {
         self.myProgressHandUIView.isHidden = true
         self.myProgressButton.isHidden = false
         
-        currentTopiceDate = ""
-        currentCourseId = ""
-        
-        isLoadExamFromVideo = ""
-        isLoadExamId = ""
-        isLoadCalendarId = ""
-        isLoadExamName = ""
-        
-        
-        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "ContentVC") as! ContentVC
-        self.present(v1, animated: true, completion: nil)
+      
     }
     
     @IBAction func MyThoughtsActionButton(_ sender: Any) {
@@ -209,18 +189,8 @@ class SplitviewViewController: UIViewController {
         self.myProgressButton.isHidden = false
         self.myChatHandUIView.isHidden = true
         self.mychatButton.isHidden = false
-        
-        currentTopiceDate = ""
-        currentCourseId = ""
-        
-        isLoadExamFromVideo = ""
-        isLoadExamId = ""
-        isLoadCalendarId = ""
-        isLoadExamName = ""
-        
-        
-        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "ContentVC") as! ContentVC
-        self.present(v1, animated: true, completion: nil)
+     
+       
     }
     override var shouldAutorotate: Bool{
         return false
@@ -327,7 +297,11 @@ class SplitviewViewController: UIViewController {
 
     @IBAction func MychoiceAction(_ sender: Any) {
         
-        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "mychoice") as! MyChoiceSkillsViewController
+       /* let v1 = self.storyboard?.instantiateViewController(withIdentifier: "mychoice") as! MyChoiceSkillsViewController
+        self.present(v1, animated: true, completion: nil)
+      */
+        
+        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
         self.present(v1, animated: true, completion: nil)
     
     }

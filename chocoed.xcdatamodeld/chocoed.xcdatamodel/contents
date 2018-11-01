@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Friends" representedClassName=".Friends" syncable="YES">
+        <attribute name="contact_number" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="created" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fcm_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="is_mine" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="is_typing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="last_msg" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="last_msg_time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="last_msg_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="modified" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="profile_image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="read_count" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="user_id" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Msg" representedClassName=".Msg" syncable="YES">
+        <attribute name="created" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="file_url" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="from_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="is_download" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="is_mine" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="is_streaming" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="is_upload" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="modified" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="msg" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="msg_ack" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="msg_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="msg_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="to_id" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Friends" positionX="-63" positionY="-18" width="128" height="255"/>
+        <element name="Msg" positionX="-63" positionY="90" width="128" height="255"/>
+    </elements>
+</model>

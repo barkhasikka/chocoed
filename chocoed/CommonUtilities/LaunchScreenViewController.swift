@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import Firebase
 
 class LaunchScreenViewController: UIViewController {
     var player: AVAudioPlayer?
@@ -19,6 +20,14 @@ class LaunchScreenViewController: UIViewController {
         let Gif = UIImage.gifImageWithName("logo_1")
         imageLogoView.image = Gif
         // Do any additional setup after loading the view.
+        
+        InstanceID.instanceID().instanceID { (result, error) in
+            if let error = error {
+                print("Error fetching remote instange ID: \(error)")
+            } else if let result = result {
+                print("Remote instance ID token: \(result.token)")
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
