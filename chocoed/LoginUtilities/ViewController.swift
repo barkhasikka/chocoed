@@ -112,9 +112,28 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         return cell
     }
     
+    func LanguageChanged(StringLang : String) {
+        self.labelLangChange.text = "LabelLanguageStringKey".localizableString(loc: StringLang)
+        self.loginButton.titleLabel?.text = "LoginButtonKey".localizableString(loc: StringLang)
+        print(loginButton.titleLabel?.text)
+        
+    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let text = arrayLanguages[indexPath.row].dbname
         let textL = arrayLanguages[indexPath.row].langDispalyName
+        
+        switch indexPath.row {
+        case 2 :
+            self.LanguageChanged(StringLang: "en")
+            break
+        case 4 :
+            self.LanguageChanged(StringLang: "hi")
+            break
+        default:
+            print("default value is selected")
+            break
+        }
+        
         print(text)
         if count == 0 {
             let alertcontrol = UIAlertController(title: "My Choice!", message: "Would you like \(text) as preferred language for learning with Chocoed ?", preferredStyle: .alert)
@@ -128,7 +147,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
                 
                 self.viewTable.isHidden = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.labelLangChange.text = "Please select your preferred language for learning with Chocoed"
+                  //  self.labelLangChange.text = "Please select your preferred language for learning with Chocoed"
                     self.viewTable.isHidden = false
                     }
                 
@@ -154,7 +173,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
                 
 
                 
-                 self.labelLangChange.text = "Please select your preferred language for Chocoed app screens"
+                // self.labelLangChange.text = "Please select your preferred language for Chocoed app screens"
             }
             alertcontrol.addAction(alertaction)
             alertcontrol.addAction(alertaction1)

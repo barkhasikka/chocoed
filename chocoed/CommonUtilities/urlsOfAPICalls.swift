@@ -30,7 +30,8 @@ let getTopicData = "https://dev.chocoed.com/api/user/getUserCourseTopicList"
 let userTopicsAudit = "https://dev.chocoed.com/api/user/userTopicsAudit"
 let getProgress = "https://dev.chocoed.com/api/user/getMyProgressData"
 let examKCDetails = "https://dev.chocoed.com/api/user/getKCExamDetail"
-
+let friendList = "https://dev.chocoed.com/api/user/getFriendList"
+let updateMyProgressFriend = "https://dev.chocoed.com/api/user/updateMyProgressFriends"
 
 var currentTopiceDate  = ""
 var currentCourseId  = ""

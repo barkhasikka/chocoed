@@ -34,6 +34,7 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)
         activityUIView.isHidden = true
@@ -63,8 +64,8 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
         
         labelRank.layer.cornerRadius = 10
         labelRank.clipsToBounds = true
-        
         loadGetMyProgress()
+        
         
         
         let fileUrl = URL(string: "\(USERDETAILS.imageurl)")
@@ -102,6 +103,7 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(arrayProgress.count)
         return arrayProgress.count
     }
     
@@ -114,15 +116,20 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
             self.present(aObjNavi, animated: true, completion: nil)
         }
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "leadercell", for: indexPath) as! LeaderBoardTableViewCell
+        
         var url = arrayProgress[indexPath.row].friendImageUrl
         var fileUrl = URL(string: url)
-        if let data = try? Data(contentsOf: fileUrl!) {
-            if let image = UIImage(data: data) {
-                cell.imageViewLeader.image = image
+        if fileUrl != nil{
+            if let data = try? Data(contentsOf: fileUrl!) {
+                if let image = UIImage(data: data) {
+                    cell.imageViewLeader.image = image
+                }
             }
         }
+        
         cell.CoursesImage.image = UIImage(named: "computerImage")
         cell.NameLeader.text = arrayProgress[indexPath.row].friendName
         cell.noofCOurses.text = "\(arrayProgress[indexPath.row].topicCount)"
@@ -132,6 +139,7 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
         cell.weekImage.image = UIImage(named: "fileImage")
         cell.testImage.image = UIImage(named: "questionImage")
         cell.rank.text = "\(arrayProgress[indexPath.row].rankNumber)"
+        
         return cell
     }
 
@@ -144,10 +152,15 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
         activityUIView.startAnimation()
         MakeHttpPostRequest(url: getProgress , params: params, completion: {(success, response) -> Void in
             print(response)
+            self.arrayProgress.removeAll()
             let progressofFriend = getMyProgressStruct((response as? NSDictionary)!)
             for pg in progressofFriend.friendList {
                 self.arrayProgress.append(FriendProgress( pg as! NSDictionary))
+                
+                
                 print(self.arrayProgress.count,"Progress----->")
+                
+              //  let uniqueArray = arrayProgress.removeDuplicate()
                 
             }
             DispatchQueue.main.async {
@@ -172,6 +185,10 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
             }
         })
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loadGetMyProgress()
     }
 
 }

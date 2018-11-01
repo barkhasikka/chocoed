@@ -8,8 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController ,UITextFieldDelegate
-{
+class LoginViewController: UIViewController ,UITextFieldDelegate{
     @IBOutlet weak var topOutlet: NSLayoutConstraint!
     @IBOutlet weak var labelMobileNo: UILabel!
     @IBOutlet weak var otpReceivedLabel: UILabel!
