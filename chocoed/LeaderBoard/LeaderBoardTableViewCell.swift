@@ -42,7 +42,7 @@ class LeaderBoardTableViewCell: UITableViewCell {
 class LeaderBoardAddContactTableViewCell: UITableViewCell
 {
     
-    @IBOutlet weak var labelId: UILabel!
+    @IBOutlet weak var checkUncheckImageView: UIImageView!
     @IBOutlet weak var imageOfContact: UIImageView!
     @IBOutlet weak var labelName: UILabel!
     override func awakeFromNib() {

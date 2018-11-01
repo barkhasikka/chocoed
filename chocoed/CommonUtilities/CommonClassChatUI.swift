@@ -10,51 +10,63 @@ import Foundation
 import UIKit
 
 class CommonChatLabel : UIView{
-        var ProfileImagechat : UIImageView!
-        var labelChat : UILabel!
-        var labelTime : UILabel!
-    
+        var ProfileImagechat = UIImageView()
+        var labelChat = UILabel()
+        var labelTime = UILabel()
+
         override init(frame: CGRect){
             super.init(frame: frame)
-            self.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-            
-            ProfileImagechat = UIImageView(frame: CGRect.zero)
-            ProfileImagechat.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+            self.addCustomChatView()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    func addCustomChatView(){
+            self.backgroundColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
+        
+           ProfileImagechat = UIImageView(frame: frame)
+            self.addSubview(ProfileImagechat)
             ProfileImagechat.translatesAutoresizingMaskIntoConstraints = false
             ProfileImagechat.heightAnchor.constraint(equalToConstant: 50).isActive = true
             ProfileImagechat.alignmentRectInsets.left
             ProfileImagechat.contentMode = .scaleToFill
-            ProfileImagechat.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).isActive = true
+            ProfileImagechat.image = UIImage(named: "Woman1_1")
+            ProfileImagechat.layer.cornerRadius = 25
+            ProfileImagechat.clipsToBounds = true
+            ProfileImagechat.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        
+           // ProfileImagechat.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).isActive = true
+           // ProfileImagechat.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
             ProfileImagechat.widthAnchor.constraint(equalToConstant: 50).isActive = true
-            self.addSubview(ProfileImagechat)
-            
-            labelChat.translatesAutoresizingMaskIntoConstraints = false
-            labelChat = UILabel(frame: CGRect.zero)
+        
+            labelChat = UILabel(frame: frame)
             labelChat.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            labelChat.text = "nhfhhgkj"
+            self.addSubview(labelChat)
+            labelChat.translatesAutoresizingMaskIntoConstraints = false
             labelChat.font = UIFont(name: "Halvetica", size: 15)
-            labelChat.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
-            labelChat.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5).isActive = true
-            labelChat.leadingAnchor.constraint(equalTo: ProfileImagechat.trailingAnchor , constant: 10).isActive = true
+            labelChat.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+            labelChat.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+            labelChat.leadingAnchor.constraint(equalTo: ProfileImagechat.trailingAnchor).isActive = true
+            labelChat.heightAnchor.constraint(greaterThanOrEqualToConstant: 20).isActive = true
             labelChat.numberOfLines = 0
             labelChat.lineBreakMode = .byWordWrapping
-            self.addSubview(labelChat)
-            
-            labelChat.translatesAutoresizingMaskIntoConstraints = false
-            labelTime = UILabel(frame: CGRect.zero)
+        
+            labelTime = UILabel(frame: frame)
             labelTime.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            self.addSubview(labelTime)
+            labelTime.translatesAutoresizingMaskIntoConstraints = false
+        
             labelTime.font = UIFont(name: "Halvetica", size: 15)
+            labelTime.text = "11:20"
             labelTime.heightAnchor.constraint(equalToConstant: 20).isActive = false
+            labelTime.widthAnchor.constraint(equalToConstant: 30).isActive = true
             labelTime.bottomAnchor.constraint(equalTo: self.bottomAnchor , constant: -10).isActive = true
             labelTime.trailingAnchor.constraint(equalTo: self.trailingAnchor , constant: -10).isActive = true
             labelTime.textAlignment = .right
-            self.addSubview(labelTime)
-            
             }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
+        }
 
 class ImagewithLabel : UIView{
     var RandomImagechat : UIImageView!
@@ -63,35 +75,49 @@ class ImagewithLabel : UIView{
     
     override init(frame: CGRect){
         super.init(frame: frame)
-        self.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        RandomImagechat.translatesAutoresizingMaskIntoConstraints = false
-        RandomImagechat = UIImageView(frame: CGRect.zero)
-        RandomImagechat.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        RandomImagechat.contentMode = .scaleToFill
-        RandomImagechat.topAnchor.constraint(equalTo: self.topAnchor , constant: 10).isActive = true
-        RandomImagechat.heightAnchor.constraint(equalToConstant: 150).isActive = true
-        RandomImagechat.alignmentRectInsets.right
-        RandomImagechat.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        RandomImagechat.bottomAnchor.constraint(equalTo: self.bottomAnchor , constant: -50).isActive = true
-        RandomImagechat.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
-        RandomImagechat.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
-        self.addSubview(RandomImagechat)
-        
-        ImagelabelChat.translatesAutoresizingMaskIntoConstraints = false
-        ImagelabelChat = UILabel(frame: CGRect.zero)
-        ImagelabelChat.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        ImagelabelChat.topAnchor.constraint(equalTo: RandomImagechat.topAnchor, constant:0).isActive = true
-        ImagelabelChat.leadingAnchor.constraint(equalTo: self.leadingAnchor , constant: 10).isActive = true
-        ImagelabelChat.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        ImagelabelChat.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
-        ImagelabelChat.numberOfLines = 0
-        ImagelabelChat.lineBreakMode = .byWordWrapping
-        self.addSubview(ImagelabelChat)
-        
-        
-}
+        addImageConstraint()
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    func addImageConstraint()
+    {
+        self.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        RandomImagechat = UIImageView(frame: frame)
+        self.addSubview(RandomImagechat)
+        
+        RandomImagechat.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        RandomImagechat.translatesAutoresizingMaskIntoConstraints = false
+        RandomImagechat.contentMode = .scaleToFill
+        RandomImagechat.topAnchor.constraint(equalTo: self.topAnchor , constant: 10).isActive = true
+        RandomImagechat.heightAnchor.constraint(equalToConstant: 100).isActive = true
+       // RandomImagechat.alignmentRectInsets.right
+        RandomImagechat.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        RandomImagechat.bottomAnchor.constraint(equalTo: self.bottomAnchor , constant: -20).isActive = true
+        RandomImagechat.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8).isActive = true
+        RandomImagechat.topAnchor.constraint(equalTo: self.topAnchor, constant: 8).isActive = true
+        RandomImagechat.layer.cornerRadius = 5
+        RandomImagechat.image = UIImage(named: "Woman1_1")
+        RandomImagechat.clipsToBounds =  true
+        
+        ImagelabelChat = UILabel(frame: frame)
+        self.addSubview(ImagelabelChat)
+        ImagelabelChat.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        ImagelabelChat.text = "ImageViewChat"
+        ImagelabelChat.translatesAutoresizingMaskIntoConstraints = false
+        ImagelabelChat.topAnchor.constraint(equalTo: RandomImagechat.bottomAnchor, constant:0).isActive = true
+        ImagelabelChat.leadingAnchor.constraint(equalTo: self.leadingAnchor , constant: 8).isActive = true
+        ImagelabelChat.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        ImagelabelChat.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        ImagelabelChat.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8).isActive = true
+        ImagelabelChat.numberOfLines = 0
+        ImagelabelChat.lineBreakMode = .byWordWrapping
+        
+
+        
 }
+}
+
+
 
