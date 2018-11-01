@@ -164,6 +164,16 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
             
             switch(indexPath.row) {
                 
+                
+    
+            case 2:
+                let v1 = self.storyboard?.instantiateViewController(withIdentifier: "leader") as! LeaderBoardViewController
+                self.present(v1, animated: true, completion: nil)
+                
+                break;
+
+           
+                
             case 3:
                 
                 let v1 = self.storyboard?.instantiateViewController(withIdentifier: "profile") as! ProfileViewController
@@ -205,15 +215,12 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
             self.count = 0
 
             break;
+        
                 
-            case 2:
-                let v1 = self.storyboard?.instantiateViewController(withIdentifier: "leader") as! LeaderBoardViewController
-                self.present(v1, animated: true, completion: nil)
+            default:
                 
-                break;
 
-                
-            default: break
+                break
                 
             }
         }

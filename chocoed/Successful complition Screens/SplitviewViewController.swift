@@ -138,6 +138,8 @@ class SplitviewViewController: UIViewController {
         self.myChatHandUIView.isHidden = true
         self.myThoughtsButton.isHidden = false
         self.mychatButton.isHidden = false
+        
+      
     }
     
     @IBAction func MyChatActionButton(_ sender: Any) {
@@ -161,6 +163,8 @@ class SplitviewViewController: UIViewController {
         self.myThoughtsButton.isHidden = false
         self.myProgressHandUIView.isHidden = true
         self.myProgressButton.isHidden = false
+        
+      
     }
     
     @IBAction func MyThoughtsActionButton(_ sender: Any) {
@@ -185,6 +189,8 @@ class SplitviewViewController: UIViewController {
         self.myProgressButton.isHidden = false
         self.myChatHandUIView.isHidden = true
         self.mychatButton.isHidden = false
+     
+       
     }
     override var shouldAutorotate: Bool{
         return false
@@ -291,7 +297,11 @@ class SplitviewViewController: UIViewController {
 
     @IBAction func MychoiceAction(_ sender: Any) {
         
-        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "mychoice") as! MyChoiceSkillsViewController
+       /* let v1 = self.storyboard?.instantiateViewController(withIdentifier: "mychoice") as! MyChoiceSkillsViewController
+        self.present(v1, animated: true, completion: nil)
+      */
+        
+        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
         self.present(v1, animated: true, completion: nil)
     
     }

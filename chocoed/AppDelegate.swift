@@ -7,6 +7,11 @@
 //
 
 import UIKit
+import CoreData
+
+import UserNotifications
+import Firebase
+import FirebaseMessaging
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,10 +19,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var shouldRotate = false
     static var menu_bool = true
+    
+    //AAAAgSFpxh8:APA91bGGeQMgz_qm9bi61kY3iPQchcn3ooeTCwToMdK6cycrreGlzqJ9mkXRSR75EC2QhCvJ8SpGFT9yPH0o4iNtKGfK10p2uacPLjJppz71rvln42yNf5cUMI3o-ELWibBTpHUvMV9N
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions:
         
         [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        
+       
+        FirebaseApp.configure()
+        application.registerForRemoteNotifications()
+        Messaging.messaging().delegate = self
+    
+        
+        requestNotificationAuthorization(application: application)
+        if let userInfo = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] {
+            NSLog("[RemoteNotification] applicationState: \(applicationStateString) didFinishLaunchingWithOptions for iOS9: \(userInfo)")
+            //TODO: Handle background notification
+            
+            
+        }
+        
+       // FirebaseApp.configure()
+        
+        CoreDataStack.sharedInstance.applicationDocumentsDirectory()
+        
+        OneChat.start(true, delegate: nil) { (stream, error) -> Void in
+            if let _ = error {
+                //handle start errors here
+                print("errors from appdelegate")
+            } else {
+                print("Yayyyy")
+                //Activate online UI
+            }
+        }
+        
+        
+        
         // Override point for customization after application launch.
         let userID = UserDefaults.standard.integer(forKey: "userid")
         print(userID)
@@ -51,10 +90,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
            // }
 
         }
+        
+    
     
         //window!.makeKeyAndVisible()
 
         return true
+    }
+
+    
+    var applicationStateString: String {
+        if UIApplication.shared.applicationState == .active {
+            return "active"
+        } else if UIApplication.shared.applicationState == .background {
+            return "background"
+        }else {
+            return "inactive"
+        }
+    }
+    
+    func requestNotificationAuthorization(application: UIApplication) {
+        if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().delegate = self
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: {_, _ in })
+        } else {
+            let settings: UIUserNotificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            application.registerUserNotificationSettings(settings)
+        }
     }
 
     
@@ -79,7 +142,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        
+          CoreDataStack.sharedInstance.saveContext()
     }
+    
+    func applicationReceivedRemoteMessage(_ remoteMessage: MessagingRemoteMessage) {
+        print(remoteMessage.appData)
+    }
+    
+  
     
     func GetUserInfo() {
         let userID = UserDefaults.standard.integer(forKey: "userid")
@@ -156,9 +227,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         })
     }
+}
+
+@available(iOS 10, *)
+extension AppDelegate : UNUserNotificationCenterDelegate {
+    // iOS10+, called when presenting notification in foreground
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        let userInfo = notification.request.content.userInfo
+        NSLog("[UserNotificationCenter] applicationState: \(applicationStateString) willPresentNotification: \(userInfo)")
+        //TODO: Handle foreground notification
+        completionHandler([.alert])
+    }
     
- 
+    // iOS10+, called when received response (default open, dismiss or custom action) for a notification
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let userInfo = response.notification.request.content.userInfo
+        NSLog("[UserNotificationCenter] applicationState: \(applicationStateString) didReceiveResponse: \(userInfo)")
+        //TODO: Handle background notification
+        completionHandler()
+    }
+}
+
+extension AppDelegate : MessagingDelegate {
+    func messaging(_ messaging: Messaging, didRefreshRegistrationToken fcmToken: String) {
+        NSLog("[RemoteNotification] didRefreshRegistrationToken: \(fcmToken)")
+    }
     
-   
+    // iOS9, called when presenting notification in foreground
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        NSLog("[RemoteNotification] applicationState: \(applicationStateString) didReceiveRemoteNotification for iOS9: \(userInfo)")
+        if UIApplication.shared.applicationState == .active {
+            //TODO: Handle foreground notification
+        } else {
+            //TODO: Handle background notification
+        }
+    }
 }
 
