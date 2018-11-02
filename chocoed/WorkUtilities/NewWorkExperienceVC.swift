@@ -13,6 +13,16 @@ class NewWorkExperienceVC: UIViewController {
     
 //    var companyName = "", fromYear = "", toYear = "", functionalDepartment = "", industrySector = "", managementLevel = "", teamSize = ""
     
+    
+    @IBOutlet weak var letUsKnowLabel1: UILabel!
+    @IBOutlet weak var companyLabel: UILabel!
+    @IBOutlet weak var fromLabel: UILabel!
+    @IBOutlet weak var tolabel: UILabel!
+    @IBOutlet weak var managementLabel: UILabel!
+    
+    @IBOutlet weak var functionalLabel: UILabel!
+    @IBOutlet weak var industryLabel: UILabel!
+    @IBOutlet weak var teamsHandledLabel: UILabel!
     @IBOutlet weak var funcExpButton: UIButton!
     @IBOutlet weak var currentIndustryButton: UIButton!
     @IBOutlet weak var teamsHandeledButton: UIButton!

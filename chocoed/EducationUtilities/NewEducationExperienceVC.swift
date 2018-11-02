@@ -10,6 +10,9 @@
 import UIKit
 import DropDown
 class NewEducationExperienceVC: UIViewController {
+    
+    
+    @IBOutlet weak var letUsKnowLabel: UILabel!
     @IBOutlet weak var buttonQualification: UIButton!
     @IBOutlet weak var buttonYearofpassing: UIButton!
     @IBOutlet weak var eduMediumButton: UIButton!

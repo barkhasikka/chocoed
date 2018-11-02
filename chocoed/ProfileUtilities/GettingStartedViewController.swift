@@ -10,6 +10,9 @@ import UIKit
 
 class GettingStartedViewController: UIViewController {
 
+    @IBOutlet weak var getStartedButtonLabel: UIButton!
+    @IBOutlet weak var thereIsOnlyYouLabel: UILabel!
+    @IBOutlet weak var welcomeLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 

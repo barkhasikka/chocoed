@@ -27,6 +27,10 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     var gender = ""
     let datePicker = UIDatePicker()
     
+    @IBOutlet weak var proceedLabel: imagetoButton!
+    @IBOutlet weak var chooseAvatarLabel: UILabel!
+    @IBOutlet weak var orLabel: UILabel!
+    
     @IBOutlet weak var btn: DLRadioButton!
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var imageIcon: UIImageView!
@@ -43,6 +47,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var ButtonChoose: UIButton!
     @IBOutlet weak var imageviewCircle: UIImageView!
     
+    @IBOutlet weak var chooseGalleryLabel: UILabel!
     @IBOutlet weak var textfieldMobileNo: UITextField!
     @IBOutlet weak var textfieldEmailId: UITextField!
     @IBOutlet weak var textfieldLastName: UITextField!

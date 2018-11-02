@@ -11,6 +11,12 @@ import UIKit
 class SignUpViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     var tableViewData =  [ExistingEducationList]()
 
+    
+    @IBOutlet weak var firstStepLabel: UILabel!
+    
+    @IBOutlet weak var workLabel: UILabel!
+    @IBOutlet weak var educationLabel: UILabel!
+    @IBOutlet weak var nextButtonLabel: UIButton!
     @IBOutlet weak var educationDetailsTableView: UITableView!
     @IBOutlet weak var viewEdu: UIView!
     @IBOutlet weak var addeducationButton: UIButton!

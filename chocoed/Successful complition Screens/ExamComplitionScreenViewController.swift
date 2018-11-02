@@ -10,6 +10,7 @@ import UIKit
 
 class ExamComplitionScreenViewController: UIViewController {
 
+    @IBOutlet weak var awesomeMessageLabel: UILabel!
     @IBOutlet weak var beginButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()

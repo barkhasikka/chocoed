@@ -12,6 +12,9 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
     var activityUIView: ActivityIndicatorUIView!
     var arrayProgress = [FriendProgress]()
     
+    @IBOutlet weak var completedTestsLabel: UILabel!
+    
+   
     @IBOutlet weak var labelRank: UILabel!
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var courseCompletedLabel: UILabel!
@@ -19,6 +22,8 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
     @IBOutlet weak var addContactView: UIView!
     @IBOutlet weak var addContactLabel: UILabel!
     
+    @IBOutlet weak var friendsLabel: UILabel!
+    @IBOutlet weak var coursestoDisplaylable: UILabel!
     @IBOutlet weak var addConatctButton: UIButton!
     @IBOutlet weak var addContactImage: UIImageView!
     @IBOutlet weak var reportLabel: UILabel!
