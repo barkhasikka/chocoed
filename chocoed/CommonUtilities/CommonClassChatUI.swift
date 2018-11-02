@@ -28,16 +28,15 @@ class CommonChatLabel : UIView{
            ProfileImagechat = UIImageView(frame: frame)
             self.addSubview(ProfileImagechat)
             ProfileImagechat.translatesAutoresizingMaskIntoConstraints = false
-            ProfileImagechat.heightAnchor.constraint(equalToConstant: 50).isActive = true
             ProfileImagechat.alignmentRectInsets.left
             ProfileImagechat.contentMode = .scaleToFill
             ProfileImagechat.image = UIImage(named: "Woman1_1")
             ProfileImagechat.layer.cornerRadius = 25
             ProfileImagechat.clipsToBounds = true
             ProfileImagechat.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        
-           // ProfileImagechat.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).isActive = true
-           // ProfileImagechat.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+            ProfileImagechat.heightAnchor.constraint(equalToConstant: 50).isActive = true
+            ProfileImagechat.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).isActive = true
+            ProfileImagechat.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
             ProfileImagechat.widthAnchor.constraint(equalToConstant: 50).isActive = true
         
             labelChat = UILabel(frame: frame)
@@ -46,8 +45,8 @@ class CommonChatLabel : UIView{
             self.addSubview(labelChat)
             labelChat.translatesAutoresizingMaskIntoConstraints = false
             labelChat.font = UIFont(name: "Halvetica", size: 15)
-            labelChat.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-            labelChat.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+            labelChat.topAnchor.constraint(equalTo: self.topAnchor,constant: 10).isActive = true
+            labelChat.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
             labelChat.leadingAnchor.constraint(equalTo: ProfileImagechat.trailingAnchor).isActive = true
             labelChat.heightAnchor.constraint(greaterThanOrEqualToConstant: 20).isActive = true
             labelChat.numberOfLines = 0
@@ -61,8 +60,9 @@ class CommonChatLabel : UIView{
             labelTime.font = UIFont(name: "Halvetica", size: 15)
             labelTime.text = "11:20"
             labelTime.heightAnchor.constraint(equalToConstant: 20).isActive = false
-            labelTime.widthAnchor.constraint(equalToConstant: 30).isActive = true
-            labelTime.bottomAnchor.constraint(equalTo: self.bottomAnchor , constant: -10).isActive = true
+            labelTime.widthAnchor.constraint(equalToConstant: 70).isActive = true
+            labelTime.topAnchor.constraint(equalTo: labelChat.topAnchor, constant: 8).isActive = true
+            labelTime.bottomAnchor.constraint(equalTo: self.bottomAnchor , constant: 0).isActive = true
             labelTime.trailingAnchor.constraint(equalTo: self.trailingAnchor , constant: -10).isActive = true
             labelTime.textAlignment = .right
             }
