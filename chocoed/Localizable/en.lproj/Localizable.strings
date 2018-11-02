@@ -25,5 +25,45 @@
 "ContinueKey" = "CONTINUE";
 "PsycomatricKey" = "Psychometric Test";
 "PersonalityKey" = "Personality Test";
-"LasttestKey" = "";
-"HonestAnswerKey" = "";
+"LasttestKey" = "Here is last test on";
+"HonestAnswerKey" = "Answer honestly, even if you don't like the answer";
+"Educationkey" = "Education";
+"WorkKey" = "Work";
+"NextButtonKey" = "NEXT";
+"PrevButtonKey" = "PREV";
+"FirstStepKey" = "You are on the First Step";
+"AddNewWorkKey" = "Add New Work";
+"QulificationKey" = "Qualification";
+"NameofCollegeKey" = "Name of College";
+"NameofBoardUniversityKey" = "Board / University";
+"LocationKey" = "Location";
+"EduactionMediumKey" = "Education Medium";
+"SpecializationKey" = "Specification";
+"YearofPassKey" = "Year of Passing";
+"NameofCOmpanyKey" = "Name of Company";
+"EducationTopMsgKey" = "Let us know about your education";
+"WorkTopMsgLabel" = "Let us know about your work experience"
+"FromKey" = "From";
+"ToKey" = "To";
+"ManagementLevelKey" = "Management Level";
+"TeamHandelKey" = "Team Handled";
+"CurrrentInstKey" = "My Current Industry";
+"FunctionalExpKey" = "My Functional Experience";
+"SelectQualificationButtonKey" = "Select Qualification";
+"EnterNameClgKey" = "Enter College Name";
+"EnterBoardKey" = "Enter Board University";
+"EnterLocationKey" = "Enter Location";
+"SelectEduMediumKey" = "Select Education Medium";
+"SelectSpecialixationKey" = "Select Specification";
+"SelectYearPassingButtonKey" = "Select Year";
+"EnterCompanyNameKey" = "Enter the Name of Company";
+"SelectYearFromKey" = "Select Year";
+"SelectYearToKEy" = "Select Year";
+"SelectManagementLevelKey" = "Select Management Level";
+"SelectTeamHAndleKEy" = "Select Teams Handled";
+"SelectCurrentIndustryKey" = "Select Current Industry";
+"SelectFunctionExp" = "Select Functional Industry";
+
+
+
+
