@@ -24,6 +24,9 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     override func viewDidLoad() {
         super.viewDidLoad()
 //        constraintsOFUI()
+        
+        
+        
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)
         activityUIView.isHidden = true
@@ -114,9 +117,14 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     func LanguageChanged(StringLang : String) {
         self.labelLangChange.text = "LabelLanguageStringKey".localizableString(loc: StringLang)
-        self.loginButton.titleLabel?.text = "LoginButtonKey".localizableString(loc: StringLang)
-        print(loginButton.titleLabel?.text)
-        
+        //self.signUpButton.titleLabel?.text = "SignUpKey".localizableString(loc: StringLang)
+       // self.loginButton.titleLabel?.text = "LoginButtonKey".localizableString(loc: StringLang)
+    
+       // self.signUpButton.setTitle("\("SignUpKey".localizableString(loc: StringLang))", for:.normal )
+        print(loginButton.titleLabel?.text ?? "")
+        self.loginButton.setTitle("\("LoginButtonKey".localizableString(loc: StringLang))", for:.normal)
+        self.labelChoice.text = "ChoicContectKey".localizableString(loc: StringLang)
+
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let text = arrayLanguages[indexPath.row].dbname
@@ -125,6 +133,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         switch indexPath.row {
         case 2 :
             self.LanguageChanged(StringLang: "en")
+            
             break
         case 4 :
             self.LanguageChanged(StringLang: "hi")

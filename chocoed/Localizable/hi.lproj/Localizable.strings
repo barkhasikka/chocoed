@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  chocoed
+
+  Created by Tejal on 30/10/18.
+  Copyright © 2018 barkha sikka. All rights reserved.
+*/
+"LabelLanguageStringKey" = "पसंदीदा भाषा चुनें";
+"LoginButtonKey" = "लॉगइन";
+"SignUpKey" = "पसंदीदा भाषा चुनें";
+"ChoicContectKey" = "विकल्प, सामग्री, वार्तालाप";
+"RequestOfEnterMobileNoKey" ="कृपया उस डिवाइस का मोबाइल नंबर दर्ज करें जिस पर आप चोकॉइड इंस्टॉल करेंगे।";
+"InputChocoedTokenKey" = "चोकोइड टोकन डालें";
