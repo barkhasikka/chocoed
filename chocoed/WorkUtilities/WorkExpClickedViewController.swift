@@ -12,6 +12,10 @@ import UIKit
 
 class WorkExpClickedViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
     
+    @IBOutlet weak var workLabel1: UILabel!
+    @IBOutlet weak var educationLabel1: UILabel!
+    @IBOutlet weak var nextButtonLabel1: UIButton!
+    @IBOutlet weak var prevButtonLabel: UIButton!
     @IBOutlet weak var workListTableView: UITableView!
     @IBOutlet weak var addnewWorkButton: UIButton!
     var tableViewData =  [ExistingWorkList]()

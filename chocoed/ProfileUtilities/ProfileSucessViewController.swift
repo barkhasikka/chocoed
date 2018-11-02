@@ -10,6 +10,8 @@ import UIKit
 
 class ProfileSucessViewController: UIViewController {
 
+    @IBOutlet weak var PersonalisedMessageLabel: UILabel!
+    @IBOutlet weak var impressiveProfileMessageLabel: UILabel!
     @IBOutlet weak var letBeginButton: UIButton!
     var arrayBehaviouralQuestion = [Question]()
     var activityUIView: ActivityIndicatorUIView!
