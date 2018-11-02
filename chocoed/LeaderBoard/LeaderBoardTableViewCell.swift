@@ -27,7 +27,7 @@ class LeaderBoardTableViewCell: UITableViewCell {
         
         rank.layer.cornerRadius = 10
         rank.clipsToBounds = true
-        rank.backgroundColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
+        rank.backgroundColor = #colorLiteral(red: 0.1215686275, green: 0.4235294118, blue: 0.7254901961, alpha: 1)
         
     }
 

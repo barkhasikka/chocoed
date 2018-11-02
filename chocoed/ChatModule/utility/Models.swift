@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct FriendList {
+struct FriendListChat {
     
     var name : String
     var image: String
@@ -16,8 +16,6 @@ struct FriendList {
     var last_msg_type : String
     var last_msg : String
     var count : String
-    
-    
     
     init(_ dictionary : NSDictionary) {
         self.name = dictionary["name"] as? String ?? ""

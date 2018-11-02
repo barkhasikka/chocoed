@@ -22,8 +22,8 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
     
 //    @IBOutlet weak var tabelviewLanguage: UITableView!
 //    @IBOutlet weak var languageview: UIView!
-    var arraymenu = ["My Talks","My Thought","My Progress","My Profile","Select Preferred Language","Log out"]
-    let cousesImages = [UIImage(named:"chat"),UIImage(named: "discussion_room"), UIImage(named: "myprocess_improvement"), UIImage(named: "icons_user"), UIImage(named: "icons_lang"), UIImage(named: "icon_logout")]
+    var arraymenu = ["My Choice","My Plan","My Progress","My Profile","Select Preferred Language","Log out","Support"]
+    let cousesImages = [UIImage(named:"chat"),UIImage(named: "discussion_room"), UIImage(named: "myprocess_improvement"), UIImage(named: "icons_user"), UIImage(named: "icons_lang"), UIImage(named: "icon_logout"),UIImage(named: "chat")]
     
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -164,6 +164,30 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
             
             switch(indexPath.row) {
                 
+            case 0:
+                
+                let v1 = self.storyboard?.instantiateViewController(withIdentifier: "mychoice") as! MyChoiceSkillsViewController
+                self.present(v1, animated: true, completion: nil)
+                
+                break;
+                
+            case 1:
+                
+                currentTopiceDate = ""
+                currentCourseId = ""
+                
+                isLoadExamFromVideo = ""
+                isLoadExamId = ""
+                isLoadCalendarId = ""
+                isLoadExamName = ""
+                
+                let v1 = self.storyboard?.instantiateViewController(withIdentifier: "ContentVC") as! ContentVC
+                self.present(v1, animated: true, completion: nil)
+                
+                
+                
+                break;
+                
                 
     
             case 2:
@@ -204,6 +228,13 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                 alertcontrol.addAction(alertaction1)
                 self.present(alertcontrol, animated: true, completion: nil)
                 break;
+                
+            case 6 :
+                
+                let alert = GetAlertWithOKAction(message: "If you need help - just drop us an email at contact@skillcues.com")
+                self.present(alert, animated: true, completion: nil)
+                
+                break
                 
             case 4:
 //            let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.regular)

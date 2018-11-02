@@ -12,7 +12,7 @@ class AddContactViewController: UIViewController,UITableViewDelegate,UITableView
   
     var activityUIView: ActivityIndicatorUIView!
     var arrayContactList = [FriendList]()
-    var arrayUpdateFriendList = [FriendListUpdate]()
+   // var arrayUpdateFriendList = [FriendListUpdate]()
     @IBOutlet weak var tableViewCOntacts: UITableView!
     var contactArrayIndex = 0
     override func viewDidLoad() {
@@ -50,11 +50,16 @@ class AddContactViewController: UIViewController,UITableViewDelegate,UITableView
         MakeHttpPostRequest(url: friendList , params: params, completion: {(success, response) -> Void in
             print(response)
             let list = response.object(forKey: "list") as? NSArray ?? []
-            for (index, addcontacts) in list.enumerated() {
+          /*  for (index, addcontacts) in list.enumerated() {
                 let friendObject = FriendList(addcontacts as! NSDictionary)
-                if(friendObject.selected != 1) {
+               
+                //if(friendObject.selected != 1) {
                     self.arrayContactList.append(FriendList(addcontacts as! NSDictionary))
-                }
+               // }
+            } */
+            
+            for pg in list {
+                self.arrayContactList.append(FriendList( pg as! NSDictionary))
             }
             DispatchQueue.main.async {
                 self.tableViewCOntacts.reloadData()
@@ -82,8 +87,11 @@ class AddContactViewController: UIViewController,UITableViewDelegate,UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "addContactsCell", for: indexPath) as! LeaderBoardAddContactTableViewCell
         cell.labelName.text = arrayContactList[indexPath.row].friendName
         let url = arrayContactList[indexPath.row].friendImageUrl
-        //if is selected is == 1 then show check image
-        if arrayContactList[indexPath.row].selected == 1{
+        
+        print(arrayContactList[indexPath.row].selected)
+        
+        if arrayContactList[indexPath.row].selected == true {
+            
             cell.checkUncheckImageView.image = UIImage(named: "icons8-checked_filled-1")
         }
         else{
@@ -101,35 +109,76 @@ class AddContactViewController: UIViewController,UITableViewDelegate,UITableView
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.arrayUpdateFriendList.append(FriendListUpdate(id: arrayContactList[indexPath.row].friendId, name: arrayContactList[indexPath.row].friendName))
-        if self.arrayContactList[indexPath.row].selected == 1 {
-           self.arrayContactList[indexPath.row].selected = 0
+        
+        
+       // self.arrayUpdateFriendList.append(FriendListUpdate(id: arrayContactList[indexPath.row].friendId, name: arrayContactList[indexPath.row].friendName))
+        
+        
+        if self.arrayContactList[indexPath.row].selected == true {
+            
+           self.arrayContactList[indexPath.row].selected = false
+            
         }else {
-            self.arrayContactList[indexPath.row].selected = 1
+            
+            self.arrayContactList[indexPath.row].selected = true
         }
         tableView.reloadData()
 
     }
     
     func uploadAddContactData(){
+        
+        
+        
                 let userID = UserDefaults.standard.integer(forKey: "userid")
                 let clientID = UserDefaults.standard.integer(forKey: "clientid")
                 var someArray = [Any]()
 
-                for item in arrayUpdateFriendList{
-//                    String(item.friendId)
-//                    String(item.friendName)
-                    let addContactItem = ["friendId": "\(String(item.friendId))", "friendName": "\(String(item.friendName))"] as Dictionary<String, String>
-                    someArray.append(addContactItem) 
-
+                for item in arrayContactList{
+                    
+                    if item.selected == true {
+                    
+                        let addContactItem = ["friendId": Int(item.friendId)] as! Dictionary<String, Int>
+                        someArray.append(addContactItem)
+                        
+                    }
                 }
-                let params = ["access_token":"\(accessToken)","deviceType":"Android","userId":"\(userID)","clientId":"\(clientID)","list": [someArray]] as Dictionary<String, Any>
+        
+        
+        
+        if someArray.count == 0 {
+            
+            let alert = GetAlertWithOKAction(message: "Select Friend")
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        var poststring = ""
+        do{
+            
+            let postdat = try JSONSerialization.data(withJSONObject: someArray, options: JSONSerialization.WritingOptions.prettyPrinted)
+            
+            poststring = String(data : postdat,encoding : .utf8)!
+
+            
+        }catch{
+            
+        }
+        
+        
+        poststring = String(poststring.filter {!" \n\t\r".contains($0)})
+        poststring = poststring.replacingOccurrences(of: "'\'", with: "")
+
+       // poststring = poststring.replaceSubrange("\r", with: "")
+        
+        
+        //print(poststring.replaceSubrange("\n", with: ""))
+        
+                let params = ["access_token":"\(accessToken)","userId":"\(userID)","clientId":"\(clientID)","list":"\(poststring)"] as Dictionary<String, Any>
                 print(params)
                 activityUIView.isHidden = false
                 activityUIView.startAnimation()
                 MakeHttpPostRequest(url: updateMyProgressFriend , params: params, completion: {(success, response) -> Void in
                     print(response)
-                    let list = response.object(forKey: "list") as? NSArray ?? []
                     
                     DispatchQueue.main.async {
                         self.tableViewCOntacts.reloadData()

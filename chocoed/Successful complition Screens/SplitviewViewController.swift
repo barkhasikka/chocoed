@@ -139,6 +139,10 @@ class SplitviewViewController: UIViewController {
         self.myThoughtsButton.isHidden = false
         self.mychatButton.isHidden = false
         
+        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "leader") as! LeaderBoardViewController
+        self.present(v1, animated: true, completion: nil)
+        
+        
       
     }
     
@@ -163,6 +167,10 @@ class SplitviewViewController: UIViewController {
         self.myThoughtsButton.isHidden = false
         self.myProgressHandUIView.isHidden = true
         self.myProgressButton.isHidden = false
+        
+        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "leader") as! LeaderBoardViewController
+        self.present(v1, animated: true, completion: nil)
+        
         
       
     }
@@ -189,6 +197,10 @@ class SplitviewViewController: UIViewController {
         self.myProgressButton.isHidden = false
         self.myChatHandUIView.isHidden = true
         self.mychatButton.isHidden = false
+        
+        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "leader") as! LeaderBoardViewController
+        self.present(v1, animated: true, completion: nil)
+        
      
        
     }
@@ -297,12 +309,12 @@ class SplitviewViewController: UIViewController {
 
     @IBAction func MychoiceAction(_ sender: Any) {
         
-       /* let v1 = self.storyboard?.instantiateViewController(withIdentifier: "mychoice") as! MyChoiceSkillsViewController
+        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "mychoice") as! MyChoiceSkillsViewController
         self.present(v1, animated: true, completion: nil)
-      */
+ 
         
-        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
-        self.present(v1, animated: true, completion: nil)
+       /* let v1 = self.storyboard?.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
+        self.present(v1, animated: true, completion: nil) */
     
     }
     override func didReceiveMemoryWarning() {

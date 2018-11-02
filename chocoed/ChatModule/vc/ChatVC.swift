@@ -25,7 +25,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
     
     @IBOutlet var editMsg: UITextField!
     
-    var friendModel : FriendList!
+    var friendModel : FriendListChat!
     
     var imagePicker = UIImagePickerController()
 

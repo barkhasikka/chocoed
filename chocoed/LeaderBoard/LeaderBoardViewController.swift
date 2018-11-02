@@ -84,16 +84,27 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
         
         addContactView.isHidden = true
         
-        if arrayProgress.count != 0 {
-            addContactView.isHidden = false
-            viewFortableView.isHidden = true
-        }else{
+        if arrayProgress.count > 0 {
             addContactView.isHidden = true
             viewFortableView.isHidden = false
+        }else{
+            addContactView.isHidden = false
+            viewFortableView.isHidden = true
+            
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(self.emptyAction))
+            self.addContactView.addGestureRecognizer(gesture)
+            
         }
         // Do any additional setup after loading the view.
         
         
+    }
+    
+    @objc func emptyAction(sender : UITapGestureRecognizer){
+        
+        let dashboardvc = self.storyboard?.instantiateViewController(withIdentifier: "addcontact") as! AddContactViewController
+        self.present(dashboardvc, animated: true, completion: nil)
+    
     }
 
     override func didReceiveMemoryWarning() {
@@ -134,7 +145,7 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
         cell.NameLeader.text = arrayProgress[indexPath.row].friendName
         cell.noofCOurses.text = "\(arrayProgress[indexPath.row].topicCount)"
         cell.noofTest.text = "\(arrayProgress[indexPath.row].testCount)"
-        cell.noOfWeek.text = "\(arrayProgress[indexPath.row].weekNumber)"
+        cell.noOfWeek.text = "\(arrayProgress[indexPath.row].weekNumber) Wk"
         
         cell.weekImage.image = UIImage(named: "fileImage")
         cell.testImage.image = UIImage(named: "questionImage")
@@ -163,10 +174,22 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
               //  let uniqueArray = arrayProgress.removeDuplicate()
                 
             }
+            
+           
+            
             DispatchQueue.main.async {
                 self.labelRank.text = "\(progressofFriend.myRankNumber)"
                 self.courseCompletedLabel.text = "\(progressofFriend.myCoursesCount)"
                 self.completedTestLabel.text = "\(progressofFriend.myTestCount)"
+                self.reportLabel.text = "\(progressofFriend.schduleMsg)"
+                
+                if self.arrayProgress.count > 0 {
+                    
+                }else{
+                    
+                    //self.addContactView.i
+                }
+                
             }
             DispatchQueue.main.async {
                 self.tabelViewReport.reloadData()

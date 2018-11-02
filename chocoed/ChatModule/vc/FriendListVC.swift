@@ -10,7 +10,7 @@ import UIKit
 
 class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSource {
 
-    var arrayFriends = [FriendList]()
+    var arrayFriends = [FriendListChat]()
 
     @IBOutlet var tblView: UITableView!
     
@@ -19,7 +19,7 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
 
         let params = ["name":"Mahesh Nikam","last_msg_time":"Yesterday","last_msg":"Hello How are you","friendImage":"","lastMsgTypeImage":"","count":""] as Dictionary<String, String>
         
-        self.arrayFriends.append(FriendList(params as NSDictionary))
+       // self.arrayFriends.append(FriendListChat(params as NSDictionary))
         
         self.checkChatConnection()
         
