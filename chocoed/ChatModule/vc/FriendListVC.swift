@@ -17,9 +17,9 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let params = ["name":"Mahesh Nikam","last_msg_time":"Yesterday","last_msg":"Hello How are you","friendImage":"","lastMsgTypeImage":"","count":""] as Dictionary<String, String>
+        let params = ["name":"Mahesh Nikam","last_msg_time":"Yesterday","last_msg":"Hello How are you","friendImage":"","lastMsgTypeImage":"","count":"","userId":"7774960386"] as Dictionary<String, String>
         
-       // self.arrayFriends.append(FriendListChat(params as NSDictionary))
+        self.arrayFriends.append(FriendListChat(params as NSDictionary))
         
         self.checkChatConnection()
         

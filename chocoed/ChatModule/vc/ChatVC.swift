@@ -11,6 +11,9 @@ import XMPPFramework
 import CoreData
 import MobileCoreServices
 
+import YPImagePicker
+
+
 class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITableViewDataSource ,UIImagePickerControllerDelegate,UINavigationControllerDelegate , UIDocumentPickerDelegate  {
    
    
@@ -27,7 +30,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
     
     var friendModel : FriendListChat!
     
-    var imagePicker = UIImagePickerController()
+    var imagePicker =  YPImagePicker()
 
     
     
@@ -72,17 +75,61 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
     
     func openGallary(){
         
-        imagePicker.allowsEditing = false
-        imagePicker.sourceType = .photoLibrary
+        imagePicker.didSelectImage = { [unowned imagePicker] img in
+            // image picked
+            print(img.size)
+            
+            let url = self.savefiletoDirector(image: img)
+            print(url)
+            
+            self.saveInCoreDataWith(object: Message(
+                msg: "",
+                msgId: "1234",
+                msgType: kXMPP.TYPE_IMAGE,
+                msgACk: "0",
+                fromID: "7722007008",
+                toID: self.friendModel.userId,
+                fileUrl: url,
+                isUpload: "0",
+                isDownload: "0",
+                isStreaming: "0",
+                isMine: "1",
+                created: "",
+                status: "",
+                modified: ""))
+            self.imagePicker.dismiss(animated: true, completion: nil)
+        }
         present(imagePicker, animated: true, completion: nil)
     }
     
     func openCamera(){
         
-    imagePicker.allowsEditing = false
-    imagePicker.sourceType = .camera
-    present(imagePicker, animated: true, completion: nil)
+        imagePicker.didSelectImage = { [unowned imagePicker] img in
+            // image picked
+            print(img.size)
+            
+            let url = self.savefiletoDirector(image: img)
+            print(url)
+            
+            self.saveInCoreDataWith(object: Message(
+                msg: "",
+                msgId: "1234",
+                msgType: kXMPP.TYPE_IMAGE,
+                msgACk: "0",
+                fromID: "7722007008",
+                toID: self.friendModel.userId,
+                fileUrl: url,
+                isUpload: "0",
+                isDownload: "0",
+                isStreaming: "0",
+                isMine: "1",
+                created: "",
+                status: "",
+                modified: ""))
         
+            self.imagePicker.dismiss(animated: true, completion: nil)
+        }
+        present(imagePicker, animated: true, completion: nil)
     }
     
     func openPdf(){
@@ -94,21 +141,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
         present(documentPicker, animated: true, completion: nil)
     }
     
-    //MARK:UIImagePickerControllerDelegate
-    
-    func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!) {
-        let selectedImage : UIImage = image
-        //var tempImage:UIImage = editingInfo[UIImagePickerControllerOriginalImage] as UIImage
-       // img.image=selectedImage
-        print(selectedImage.size)
-        dismiss(animated: true, completion: nil)
-    }
-   
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        
-        dismiss(animated: true, completion: nil)
-    }
-    
+
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         print(urls)
         
@@ -119,20 +152,39 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
     
     func oneStream(_ sender: XMPPStream, didReceiveMessage message: XMPPMessage, from user: XMPPUserCoreDataStorageObject) {
         
-        print(message)
+        print(message.attributeStringValue(forName: "id") ?? "")
+        let userData = (user.jidStr)!.components(separatedBy: "@")
+        let friendID = userData[0]
 
-        print(message.body ?? "")
+        print(friendID)
         
-        //  do{
+          do{
             
-       // let data = message.body!.data(using: .utf8)
-       // let jsonData = try JSONDecoder().decode(CustomMessageModel.self, from: data!)
-
+         let data = message.body?.data(using: .utf8)!
+            let json = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! NSDictionary
         
         
-        self.saveInCoreDataWith(object: Message(msg: message.body!, msgId: "a", msgType: kXMPP.TYPE_TEXT, msgACk: "0", fromID: "7774960386", toID: "7722007008", fileUrl: "", isUpload: "0", isDownload: "0", isStreaming: "0", isMine: "0", created: "", status: "", modified: ""))
+            self.saveInCoreDataWith(object: Message(
+                msg: json.value(forKey: "message") as! String,
+                msgId: message.attributeStringValue(forName: "id") ?? "",
+                msgType: json.value(forKey: "msgType") as! String,
+                msgACk: "0",
+                fromID: "7722007008",
+                toID: friendID,
+                fileUrl: json.value(forKey: "fileUrl") as! String,
+                isUpload: "0",
+                isDownload: "0",
+                isStreaming: "0",
+                isMine: "0",
+                created: "",
+                status: "",
+                modified: ""))
             
             self.tblView.reloadData()
+            
+          }catch{
+            
+          }
         
      
     }
@@ -151,7 +203,11 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
     
     lazy var fetchedhResultController: NSFetchedResultsController<NSFetchRequestResult> = {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Msg.self))
+        
+        fetchRequest.predicate = NSPredicate(format: "to_id %@", "\(friendModel.userId)")
+
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "msg_id", ascending: true)]
+        
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.sharedInstance.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         frc.delegate = self
         return frc
@@ -275,12 +331,26 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
             
             print(msg ?? "")
             
-            OneMessage.sendMessage(msg!, thread: "test", to: kXMPP.friendJID, completionHandler: { (stream, message) -> Void in
+            OneMessage.sendMessage(msg!, thread: "test", to: "\(friendModel.userId)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
                 
                 print(message)
                 print(stream)
                 
-                self.saveInCoreDataWith(object: Message(msg: text!, msgId: "1", msgType: kXMPP.TYPE_TEXT, msgACk: "0", fromID: "7722007008", toID: "7774960386", fileUrl: "", isUpload: "0", isDownload: "0", isStreaming: "0", isMine: "1", created: "", status: "", modified: ""))
+                self.saveInCoreDataWith(object: Message(
+                    msg: text!,
+                    msgId: "1",
+                    msgType: kXMPP.TYPE_TEXT,
+                    msgACk: "0",
+                    fromID: "7722007008",
+                    toID: self.friendModel.userId,
+                    fileUrl: "",
+                    isUpload: "0",
+                    isDownload: "0",
+                    isStreaming: "0",
+                    isMine: "1",
+                    created: "",
+                    status: "",
+                    modified: ""))
                 
                 
             })
@@ -360,7 +430,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! MsgCell
         
         if let item = fetchedhResultController.object(at: indexPath) as? Msg {
-            cell.authorLabel.text = item.msg
+            cell.setMsgCellWith(item: item)
         }
         return cell
     }
@@ -495,6 +565,35 @@ extension ChatVC: NSFetchedResultsControllerDelegate {
         print(idleSeconds)
 
         return idleSeconds;
+    }
+    
+    
+    /*** Files ****/
+    
+    private func savefiletoDirector(image : UIImage) -> String
+    {
+        
+        // get the documents directory url
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        // choose a name for your image
+        let fileName = "\(Int64(NSDate().timeIntervalSince1970 * 1000)).jpg"
+        // create the destination file url to save your image
+        let fileURL = documentsDirectory.appendingPathComponent(fileName)
+        // get your UIImage jpeg data representation and check if the destination file url already exists
+        if let data = UIImageJPEGRepresentation(image, 1.0),
+            !FileManager.default.fileExists(atPath: fileURL.path) {
+            do {
+                // writes the image data to disk
+                try data.write(to: fileURL)
+                print("file saved")
+                
+            } catch {
+                print("error saving file:", error)
+            }
+        }
+        
+        return fileURL.absoluteString
+        
     }
     
 }

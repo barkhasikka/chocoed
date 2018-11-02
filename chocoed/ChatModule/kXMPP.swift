@@ -20,6 +20,4 @@ public struct kXMPP {
     public static let TYPE_DELETE: String = "delete"
 
 
-
-
 }
