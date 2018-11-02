@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YUJ-mZ-bZY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TWi-rM-jqp">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -1982,7 +1982,6 @@ the beginning of every beautiful journey.</string>
                         <outlet property="imageViewMessage" destination="HVk-OC-uv8" id="1VJ-NL-VT8"/>
                         <outlet property="labelInstruct" destination="3Ks-yw-nIj" id="E2l-EJ-23k"/>
                         <outlet property="labelMobileNo" destination="gzw-Wp-7Zx" id="NRp-I9-Pd1"/>
-                        <outlet property="labelOTPReceived" destination="Wg6-UP-uko" id="d6h-gH-7A0"/>
                         <outlet property="mobileNumberTextFIeld" destination="0tE-fn-5Bu" id="nvX-rh-PXi"/>
                         <outlet property="otpDigitFifthTF" destination="uBm-jq-rf2" id="26b-2y-V5J"/>
                         <outlet property="otpDigitFirstTF" destination="xoc-LC-hHV" id="LLN-3I-bdq"/>
@@ -3322,7 +3321,7 @@ the beginning of every beautiful journey.</string>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Completed Tests" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P9E-Mi-4Ya">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Completed Tests" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P9E-Mi-4Ya">
                                                         <rect key="frame" x="135" y="65" width="104" height="21"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="104" id="9ma-RK-4j0"/>
@@ -3695,9 +3694,16 @@ the beginning of every beautiful journey.</string>
                     <size key="freeformSize" width="375" height="800"/>
                     <connections>
                         <outlet property="arcView" destination="ZPM-Xp-P3g" id="ZWD-1o-xj9"/>
+                        <outlet property="badgesEarnedLabel" destination="MfD-5I-Vm3" id="YrM-0L-6Io"/>
                         <outlet property="buttonLotus" destination="1Tt-Io-JV7" id="PNs-UB-XKU"/>
                         <outlet property="buttonMiddleProfile" destination="1OS-GJ-OEj" id="Ui7-cw-95g"/>
                         <outlet property="buttonMsg" destination="XOq-ms-y9T" id="Sim-SF-7Rx"/>
+                        <outlet property="choiceLabel1" destination="ge8-a6-9a5" id="cqk-0o-2Aj"/>
+                        <outlet property="choiceLabel2" destination="bHs-NG-pfe" id="liD-9F-dh1"/>
+                        <outlet property="compTestLabel" destination="P9E-Mi-4Ya" id="6eJ-gZ-l1r"/>
+                        <outlet property="completedTopicsLabel" destination="zLg-vT-3nE" id="NcJ-I0-LbM"/>
+                        <outlet property="contentLabel1" destination="Ta8-Eh-KP3" id="Gxo-EB-PAS"/>
+                        <outlet property="conversationLabel1" destination="xnH-9Y-e2A" id="xvh-tH-7vo"/>
                         <outlet property="heightMyThought" destination="ISa-cL-Vbz" id="BC3-98-wdE"/>
                         <outlet property="heightmychat" destination="3G7-y8-bLX" id="D5m-hK-6Gz"/>
                         <outlet property="heightprogrss" destination="UPw-kb-PNS" id="KM1-vi-OtH"/>
@@ -3714,6 +3720,9 @@ the beginning of every beautiful journey.</string>
                         <outlet property="myThoughtsHandUIView" destination="YaY-qk-7aA" id="X0j-HR-wmV"/>
                         <outlet property="mychatButton" destination="plK-mb-rWo" id="BUc-2A-MNQ"/>
                         <outlet property="myprogressConstraintOutlet" destination="wkt-lF-y2T" id="S1K-6H-34N"/>
+                        <outlet property="progressLabel" destination="f9i-WI-ipa" id="QsC-Pf-ytH"/>
+                        <outlet property="talkLabel" destination="SFO-Cf-toA" id="gdt-08-e99"/>
+                        <outlet property="thought" destination="qCt-hL-37k" id="5yE-fe-H2N"/>
                         <outlet property="topArcVIew" destination="WOZ-oU-LjF" id="ce1-bY-32G"/>
                         <outlet property="userProgressView" destination="GvJ-xK-LRd" id="1hD-uB-3bK"/>
                         <outlet property="viewButtonsCircle" destination="DU5-kb-2BZ" id="l6N-or-fuY"/>

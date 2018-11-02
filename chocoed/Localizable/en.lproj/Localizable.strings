@@ -5,10 +5,25 @@
   Created by Tejal on 30/10/18.
   Copyright © 2018 barkha sikka. All rights reserved.
 */
-
 "LabelLanguageStringKey" = "Please select your preferred language for learning with Chocoed";
 "LoginButtonKey" = "Login";
 "SignUpKey" = "Select Preferred Language";
 "ChoicContectKey" = "Choice,Content,Conversation";
 "RequestOfEnterMobileNoKey" = "Please enter the mobile number of the device on which you would be installing Chocoed";
 "InputChocoedTokenKey" = "Input Chocoed Token";
+"TestCompletedKey" = "Completed Test";
+"TopicCompletedKey" = "Completed Topic";
+"BadgesEarnedKey" = "Badges Earned";
+"TalkKey" = "Talk";
+"ThoughtKey" = "Thought";
+"ProgressKey" = "Progress";
+"ChoiceKey" = "Choice";
+"ConversationKey" = "Conversation";
+"ContentKey" = "Content";
+"LetsBeginKey" = "";
+"BehaviourialKey" = "Behavioural Test";
+"ContinueKey" = "CONTINUE";
+"PsycomatricKey" = "Psychometric Test";
+"PersonalityKey" = "Personality Test";
+"LasttestKey" = "";
+"HonestAnswerKey" = "";

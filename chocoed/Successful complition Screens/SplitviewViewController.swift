@@ -10,6 +10,16 @@ import UIKit
 
 class SplitviewViewController: UIViewController {
     
+    @IBOutlet weak var choiceLabel2: UILabel!
+    @IBOutlet weak var progressLabel: UILabel!
+    @IBOutlet weak var thought: UILabel!
+    @IBOutlet weak var talkLabel: UILabel!
+    @IBOutlet weak var conversationLabel1: UILabel!
+    @IBOutlet weak var contentLabel1: UILabel!
+    @IBOutlet weak var choiceLabel1: UIImageView!
+    @IBOutlet weak var badgesEarnedLabel: UILabel!
+    @IBOutlet weak var compTestLabel: UILabel!
+    @IBOutlet weak var completedTopicsLabel: UILabel!
     @IBOutlet weak var topArcVIew: NSLayoutConstraint!
     
     @IBOutlet weak var myProgressHandUIView: UIView!
@@ -58,7 +68,27 @@ class SplitviewViewController: UIViewController {
     @IBOutlet weak var widthMyThought: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+//        
+//        self.labelInstruct.text = "RequestOfEnterMobileNoKey".localizableString(loc: language!)
+//        //self.signUpButton.titleLabel?.text = "SignUpKey".localizableString(loc: StringLang)
+//        // self.loginButton.titleLabel?.text = "LoginButtonKey".localizableString(loc: StringLang)
+//        
+//        // self.signUpButton.setTitle("\("SignUpKey".localizableString(loc: StringLang))", for:.normal )
+//        self.registerButton.setTitle("\("LoginButtonKey".localizableString(loc: language!))", for:.normal)
+//        self.otpReceivedLabel.text = "InputChocoedTokenKey".localizableString(loc: language!)
         
+
+        self.compTestLabel.text = "TestCompletedKey".localizableString(loc: language!)
+        self.completedTopicsLabel.text = "TopicCompletedKey".localizableString(loc: language!)
+        self.badgesEarnedLabel.text = "BadgesEarnedKey".localizableString(loc: language!)
+        self.talkLabel.text = "TalkKey".localizableString(loc: language!)
+        self.thought.text = "ThoughtKey".localizableString(loc: language!)
+        self.progressLabel.text = "ProgressKey".localizableString(loc: language!)
+        self.choiceLabel2.text = "ChoiceKey".localizableString(loc: language!)
+        self.conversationLabel1.text = "ConversationKey".localizableString(loc: language!)
+        self.contentLabel1.text = "ContentKey".localizableString(loc: language!)
+
         let Gif = UIImage.gifImageWithName("chocoed_wave")
         print(Gif)
         self.imageViewLogo.image = Gif

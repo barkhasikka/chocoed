@@ -271,6 +271,7 @@
 /* Class = "UILabel"; text = "Question Progress"; ObjectID = "Yg4-6v-DiF"; */
 "Yg4-6v-DiF.text" = "Question Progress";
 
+
 /* Class = "UILabel"; text = "Label"; ObjectID = "You-PP-hUF"; */
 "You-PP-hUF.text" = "Label";
 
@@ -504,7 +505,7 @@
 "z1B-2p-1cT.placeholder" = "Enter Name of College";
 
 /* Class = "UILabel"; text = "Completed Topics"; ObjectID = "zLg-vT-3nE"; */
-"zLg-vT-3nE.text" = "पूरे किये विषय
+"zLg-vT-3nE.text" = "पूरे किये विषय";
 ";
 
 /* Class = "UILabel"; text = "Let's begin with"; ObjectID = "zZe-OM-nQF"; */
