@@ -16,7 +16,7 @@ class MsgCell: UITableViewCell {
         accessoryType = selected ? UITableViewCellAccessoryType.checkmark : UITableViewCellAccessoryType.none
     } */
 
-   /* let photoImageview: UIImageView = {
+    let photoImageview: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
         iv.translatesAutoresizingMaskIntoConstraints = false
@@ -24,7 +24,7 @@ class MsgCell: UITableViewCell {
         iv.layer.masksToBounds = true
         return iv
     }()
-   */
+   
     
     let authorLabel: UILabel = {
         let label = UILabel()
@@ -63,22 +63,20 @@ class MsgCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         isUserInteractionEnabled = false
         
-       // addSubview(photoImageview)
+        addSubview(photoImageview)
         addSubview(authorLabel)
        //  addSubview(tagsLabel)
        //  addSubview(dividerLineView)
         
-      /*
+      
         photoImageview.topAnchor.constraint(equalTo: topAnchor).isActive = true
         photoImageview.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        photoImageview.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-        photoImageview.heightAnchor.constraint(equalTo: widthAnchor).isActive = true
-         
-       */
+        photoImageview.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        photoImageview.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
-       /* authorLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        authorLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
         authorLabel.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        authorLabel.widthAnchor.constraint(equalTo: widthAnchor).isActive = true */
+        authorLabel.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         authorLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
 
         
@@ -103,15 +101,40 @@ class MsgCell: UITableViewCell {
     
     
     
-  /*  func setPhotoCellWith(photo: Msg) {
+     func setMsgCellWith(item: Msg) {
         
         DispatchQueue.main.async {
-            self.authorLabel.text = photo.author
-            self.tagsLabel.text = photo.tags
-            if let url = photo.mediaURL {
-                self.photoImageview.loadImageUsingCacheWithURLString(url, placeHolder: UIImage(named: "placeholder"))
+            
+            
+            if item.msg_type == kXMPP.TYPE_TEXT {
+
+                self.authorLabel.text = item.msg
+                self.authorLabel.isHidden = false
+                self.photoImageview.isHidden = true
+                
+                
+            }else if item.msg_type == kXMPP.TYPE_IMAGE {
+                
+                self.authorLabel.isHidden = false
+                self.photoImageview.isHidden = false
+                
+                self.authorLabel.text = item.file_url
+
+                
+              /*  let fileUrl = URL(string: item.file_url)
+                if fileUrl != nil {
+                    if let data = try? Data(contentsOf: fileUrl!) {
+                        if let image = UIImage(data: data) {
+                            self.photoImageview.image = image
+                        }
+                    }
+                    
+                } */
+                
             }
+            
+          
         }
-    } */
+    }
 }
 

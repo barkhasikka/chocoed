@@ -50,7 +50,7 @@ open class OneMessage: NSObject {
 	
 	open class func sendMessage(_ message: String, thread:String, to receiver: String, completionHandler completion:@escaping OneChatMessageCompletionHandler) {
 		let body = DDXMLElement.element(withName: "body") as! DDXMLElement
-		let messageID = CACurrentMediaTime().truncatingRemainder(dividingBy: 1)
+        let messageID = Int64(NSDate().timeIntervalSince1970 * 1000)
 		
         body.stringValue = message
         

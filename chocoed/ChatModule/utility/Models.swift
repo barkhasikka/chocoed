@@ -11,6 +11,7 @@ import Foundation
 struct FriendListChat {
     
     var name : String
+    var userId : String
     var image: String
     var last_msg_time : String
     var last_msg_type : String
@@ -18,6 +19,7 @@ struct FriendListChat {
     var count : String
     
     init(_ dictionary : NSDictionary) {
+        self.userId = dictionary["userId"] as? String ?? ""
         self.name = dictionary["name"] as? String ?? ""
         self.image = dictionary["image"] as? String ?? ""
         self.last_msg_time = dictionary["last_msg_time"] as? String ?? ""
