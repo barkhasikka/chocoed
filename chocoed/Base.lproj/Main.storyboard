@@ -399,6 +399,11 @@ now.</string>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7tE-0C-pgl"/>
                     </view>
+                    <connections>
+                        <outlet property="LetsBeginLabel" destination="kkE-WV-mjW" id="g16-gg-p3b"/>
+                        <outlet property="behavioralLabel" destination="DvQ-tr-Ime" id="tlG-00-Rd0"/>
+                        <outlet property="continueButtonLabel" destination="1xI-oH-kZ6" id="d8s-9J-hvN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qgt-8A-3NY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -463,6 +468,11 @@ now.</string>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="kO9-tu-eoi"/>
                     </view>
+                    <connections>
+                        <outlet property="continue1" destination="kCS-ST-7x1" id="hiv-vK-aQk"/>
+                        <outlet property="letsBeginLabel" destination="zZe-OM-nQF" id="vwS-HK-yf1"/>
+                        <outlet property="psychometricTestLabel" destination="6tH-VY-hiF" id="oMi-AK-7tA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cA2-Yr-feq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -539,6 +549,12 @@ now.</string>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Tr7-gh-g6D"/>
                     </view>
+                    <connections>
+                        <outlet property="continue2" destination="rFX-C6-Dp0" id="nmj-4E-JuK"/>
+                        <outlet property="honestAnswer" destination="pgv-xy-MjS" id="7Ly-AL-KkU"/>
+                        <outlet property="lastTest" destination="H5X-DI-vOy" id="WXh-Iu-arX"/>
+                        <outlet property="personalityLabel" destination="txc-4P-XGR" id="Hm6-5R-zyF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gZF-up-h5y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2709,6 +2725,7 @@ the beginning of every beautiful journey.</string>
                         <outlet property="savebutton" destination="u7n-kt-Jes" id="L72-lE-xjY"/>
                         <outlet property="textfieldBoardUniv" destination="Caq-iW-Zfg" id="UjN-vf-O7B"/>
                         <outlet property="textfieldClgName" destination="z1B-2p-1cT" id="5IT-hR-UA3"/>
+                        <outlet property="yearOfPassingLabel" destination="xCH-mF-6Tw" id="zPG-IQ-gOF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="knY-Of-BMy" userLabel="First Responder" sceneMemberID="firstResponder"/>

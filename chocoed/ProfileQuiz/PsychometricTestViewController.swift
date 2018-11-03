@@ -9,10 +9,26 @@
 import UIKit
 
 class PsychometricTestViewController: UIViewController {
+    
+    @IBOutlet weak var letsBeginLabel: UILabel!
+    
+    @IBOutlet weak var psychometricTestLabel: UILabel!
+    
+    
+    @IBOutlet weak var continue1: UIButton!
+    
+    
     var arrayBehaviouralQuestion = [Question]()
     var currentQuestion = 1
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        self.letsBeginLabel.text = "चलिए शुरू करते हैं".localizableString(loc: language!)
+        self.psychometricTestLabel.text = "साइकोमेट्रिक जांच".localizableString(loc: language!)
+        self.continue1.setTitle("जारी रखें".localizableString(loc: language!), for: .normal)
+        
+        
         self.navigationItem.setHidesBackButton(true, animated: true)
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(named: "ic_background_pattern")

@@ -36,9 +36,10 @@ class SignUpViewController: UIViewController,UITableViewDelegate,UITableViewData
         self.workLabel.text = "कार्य".localizableString(loc: language!)
         self.firstStepLabel.text = "आप पहले पायदान पर हो".localizableString(loc: language!)
         self.nextButtonLabel.setTitle("आगे".localizableString(loc: language!), for: .normal)
+        self.addeducationButton.setTitle("नई शिक्षा दर्ज करें".localizableString(loc: language!), for: .normal)
 
        // viewEdu.isHidden = false
-        addeducationButton.setTitle("Add New Education", for: .normal)
+        addeducationButton.setTitle("नई शिक्षा दर्ज करें", for: .normal)
         addeducationButton.backgroundColor = .clear
         addeducationButton.layer.cornerRadius = 10
         addeducationButton.layer.borderWidth = 1

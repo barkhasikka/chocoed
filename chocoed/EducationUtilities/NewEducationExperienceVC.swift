@@ -30,6 +30,8 @@ class NewEducationExperienceVC: UIViewController {
     @IBOutlet weak var labelBoard: UILabel!
     @IBOutlet weak var labelCollegeNAme: UILabel!
     @IBOutlet weak var labelQualification: UILabel!
+    
+    @IBOutlet weak var yearOfPassingLabel: UILabel!
     var currentSelectedButton: String!
     
     @IBOutlet weak var savebutton: imagetoButton!
@@ -47,6 +49,22 @@ class NewEducationExperienceVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        self.letUsKnowLabel.text = "हमें अपनी शिक्षा के बारे में बताएं!".localizableString(loc: language!)
+        self.labelQualification.text = "योग्यता".localizableString(loc: language!)
+        self.labelCollegeNAme.text = "कॉलेज का नाम".localizableString(loc: language!)
+       // self.textfieldClgName.value(forKey: "कॉलेज का नाम".localizableString(loc: language!))
+        self.labelBoard.text = "बोर्ड / विश्वविद्यालय".localizableString(loc: language!)
+        self.labelLocation.text = "लोकेशन".localizableString(loc: language!)
+        self.labelEducation.text = "शिक्षा माध्यम".localizableString(loc: language!)
+        self.labelSpecialization.text = "विशेषज्ञता".localizableString(loc: language!)
+        self.yearOfPassingLabel.text = "उत्तीर्ण होने का व".localizableString(loc: language!)
+        self.savebutton.setTitle("सुरक्षित करें".localizableString(loc: language!), for: .normal)
+        
+        
+       
+        
         
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)

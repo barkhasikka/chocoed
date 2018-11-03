@@ -9,7 +9,7 @@
 "18C-hl-YgU.text" = "3";
 
 /* Class = "UILabel"; text = "Education"; ObjectID = "1Ng-1W-W5j"; */
-"1Ng-1W-W5j.text" = "शिक्षा";
+"1Ng-1W-W5j.text" = "शिक्षा"; 
 
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "1OS-GJ-OEj"; */
 "1OS-GJ-OEj.normalTitle" = "Button";

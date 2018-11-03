@@ -20,7 +20,7 @@
 "ChoiceKey" = "विकल्प";
 "ConversationKey" = "वार्तालाप";
 "ContentKey" = "विषय सूची";
-"LetsBeginKey" = "";
+"LetsBeginKey" = "चलिए शुरू करते हैं";
 "BehaviourialKey" = "व्यवहारिक जांच";
 "ContinueKey" = "जारी रखें";
 "PsycomatricKey" = "साइकोमेट्रिक जांच";
@@ -33,13 +33,19 @@
 "PrevButtonKey" = "वापस";
 "FirstStepKey" = "आप पहले पायदान पर हो";
 "AddNewWorkKey" = " कार्य अनुभव डालें";
+
+"EducationTopMsgKey" = "हमें अपनी शिक्षा के बारे में बताएं";
 "QulificationKey" = "योग्यता";
 "NameofCollegeKey" = "कॉलेज का नाम";
 "NameofBoardUniversityKey" = "बोर्ड / विश्वविद्यालय";
 "LocationKey" = "लोकेशन";
-"EduactionMediumKey" = "";
-"SpecializationKey" = "";
+"EduactionMediumKey" = "शिक्षा माध्यम";
+"SpecializationKey" = "विशेषज्ञता";
 "YearofPassKey" = "उत्तीर्ण होने का वर्ष";
+"saveButtonKey" = "सुरक्षित करें"
+
+
+"WorkTopMsgLabel" = "हमें अपने काम के अनुभव के बारे में बताएं";
 "NameofCOmpanyKey" = "कंपनी का नाम";
 "FromKey" = "";
 "ToKey" = "";
@@ -61,4 +67,12 @@
 "SelectTeamHAndleKEy" = "";
 "SelectCurrentIndustryKey" = "";
 "SelectFunctionExp" = "";
+"AddEducationButtonKey" = "नई शिक्षा दर्ज करें";
+"WelcomeLableKey" = "स्वागत!";
+"GetStartedKey"= "शुरु करे ➔";
+"AppraisalMsgKey" = "अब आपकीव्यक्तिगत करें चॉकॉएड अनिवार्य समीक्षा करते हैं";
+"KnowUserUniqenessKey" = "अपनी विशिष्टता को पहचानें ➔";
+"ProfileImpressionKey" = "आपका प्रोफ़ाइल प्रभावशाली है!";
+
+
 

@@ -17,7 +17,14 @@ class ProfileSucessViewController: UIViewController {
     var activityUIView: ActivityIndicatorUIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-     //   self.view.backgroundColor = UIColor(patternImage: UIImage(named: "perfect")!)
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        self.impressiveProfileMessageLabel.text = "आपका प्रोफ़ाइल प्रभावशाली है!".localizableString(loc: language!)
+        
+        self.PersonalisedMessageLabel.text = "अब आपकीव्यक्तिगत करें चॉकॉएड अनिवार्य समीक्षा करते हैं".localizableString(loc: language!)
+        self.letBeginButton.setTitle("अपनी विशिष्टता को पहचानें ➔".localizableString(loc: language!), for: .normal)
+
+        
+     
 
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(named: "Group 4")

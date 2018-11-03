@@ -9,10 +9,28 @@
 import UIKit
 
 class BehavioralViewController: UIViewController {
+    
+    @IBOutlet weak var LetsBeginLabel: UILabel!
+    
+    @IBOutlet weak var behavioralLabel: UILabel!
+    
+    @IBOutlet weak var continueButtonLabel: UIButton!
+    
     var arrayBehaviouralQuestion = [Question]()
     var currentQuestion = 1
     override func viewDidLoad() {
+        
+        
         super.viewDidLoad()
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        
+        
+        
+        self.LetsBeginLabel.text = "चलिए शुरू करते हैं".localizableString(loc: language!)
+        self.behavioralLabel.text = "व्यवहारिक जांच".localizableString(loc: language!)
+        self.continueButtonLabel.setTitle("जारी रखें".localizableString(loc: language!), for: .normal)
+        
+        
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(named: "ic_background_pattern")
         backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
