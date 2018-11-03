@@ -42,7 +42,7 @@
 "YearofPassKey" = "Year of Passing";
 "NameofCOmpanyKey" = "Name of Company";
 "EducationTopMsgKey" = "Let us know about your education";
-"WorkTopMsgLabel" = "Let us know about your work experience"
+"WorkTopMsgLabel" = "Let us know about your work experience";
 "FromKey" = "From";
 "ToKey" = "To";
 "ManagementLevelKey" = "Management Level";
@@ -108,8 +108,7 @@
 //Pending Assesment
 "PendingAssementKey" = "Pending Assessment";
 //exam review
-"ExamReviewKey" = "Exam Review"
+"ExamReviewKey" = "Exam Review";
 //Chat module
-""
 
 
