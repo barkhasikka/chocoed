@@ -26,6 +26,17 @@ class SignUpViewController: UIViewController,UITableViewDelegate,UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        
+        self.educationLabel.text = "शिक्षा".localizableString(loc: language!)
+        //self.signUpButton.titleLabel?.text = "SignUpKey".localizableString(loc: StringLang)
+        // self.loginButton.titleLabel?.text = "LoginButtonKey".localizableString(loc: StringLang)
+        
+        // self.signUpButton.setTitle("\("SignUpKey".localizableString(loc: StringLang))", for:.normal )
+        self.workLabel.text = "कार्य".localizableString(loc: language!)
+        self.firstStepLabel.text = "आप पहले पायदान पर हो".localizableString(loc: language!)
+        self.nextButtonLabel.setTitle("आगे".localizableString(loc: language!), for: .normal)
+
        // viewEdu.isHidden = false
         addeducationButton.setTitle("Add New Education", for: .normal)
         addeducationButton.backgroundColor = .clear
