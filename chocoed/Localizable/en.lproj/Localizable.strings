@@ -29,7 +29,7 @@
 "HonestAnswerKey" = "Answer honestly, even if you don't like the answer";
 "Educationkey" = "Education";
 "WorkKey" = "Work";
-"NextButtonKey" = "NEXT";
+"NextButtonKey" = "NEXT ➔";
 "PrevButtonKey" = "PREV";
 "FirstStepKey" = "You are on the First Step";
 "AddNewWorkKey" = "Add New Work";
@@ -63,7 +63,53 @@
 "SelectTeamHAndleKEy" = "Select Teams Handled";
 "SelectCurrentIndustryKey" = "Select Current Industry";
 "SelectFunctionExp" = "Select Functional Industry";
-
-
+"WelcomeKey" = "Welcome!";
+"ProfileMsgForUserKey" = "There is only one You in this world. Let’s build your personal vitae";
+"GetStartedKey"= "GET STARTED  ➔";
+//Profile VC
+"ChooseImageKey" = "Choose  from gallery";
+"ChooseAvatar" = "Choose any Avatar";
+"ChooseImageLabelKey" = "Choose profile picture!";
+"FirstNameKey" = "First Name*";
+"LastNAmeKey" = "Last Name*";
+"MobileNoKey" = "Mobile No*";
+"EmailIDKey" = "Email-Id*";
+"GenderKey" = "Gender";
+"MaleKey" = "Male";
+"FemaleKey" = "Female";
+"BornOnKey" = "I am born on";
+"ProceedButtonKey" = "Proceed";
+"CreateProfileKey" = "Create Profile";
+//ProfileSucess View controller
+"ProfileImpressionKey" = "You have an impressive profile!";
+"AppraisalMsgKey" = "Let’s do the personalised Chocoed Essential Appraisals now.";
+"KnowUserUniqenessKey" = "Know your Uniqueness ➔";
+//Exam completion Screen
+"AwesomeToKnowMsgKey" = "Awesome! To know oneself is the beginning of every beautiful journey.";
+"LetsGetChocoedButtonKey" = "Let’s get Chocoed";
+//Profile/Behave/Personality Test scene
+"EndTestKey" = "END TEST";
+//MyChoice VC
+"MyChoiceKey" = "My Choice";
+"MySkillKey" = "My Skills";
+//SubViewPersonalityUpgradeViewController
+"TopicLabelKey" = "Topic";
+"SubTopicLAbelKey" = "Sub Topic";
+//LeaderShip Vc
+"CompletedTestKey" = "Completed Tests";
+"CompletedCourseKey" = "Courses Completed";
+"FriendsKey" = "Friends";
+"Add5Key" = "Add 5 of your contacts to see their progress as well.";
+// AddContactViewController
+"AddFriendLabelKey" = "Add Friend";
+"DoneKey" = "Done";
+//Content View controller
+"MyPlanKey" = "My Plan";
+//Pending Assesment
+"PendingAssementKey" = "Pending Assessment";
+//exam review
+"ExamReviewKey" = "Exam Review"
+//Chat module
+""
 
 
