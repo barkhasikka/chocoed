@@ -70,7 +70,7 @@
 "SelectYearPassingButtonKey" = "Select Year";
 
 
-
+"IncorrectId" = "Incorrect Chocoed Token entered.";
 
 
 
@@ -106,6 +106,7 @@
 
 "MyChoiceKey" = "My Choice";
 "MySkillKey" = "My Skills";
+"SoftSkills" = "Soft Skills";
 
 "TopicLabelKey" = "Topic";
 "SubTopicLAbelKey" = "Sub Topic";
@@ -114,7 +115,6 @@
 "CompletedCourseKey" = "Courses Completed";
 "FriendsKey" = "Friends";
 "Add5Key" = "Add 5 of your contacts to see their progress as well.";
-
 "AddFriendLabelKey" = "Add Friend";
 "DoneKey" = "Done";
 
