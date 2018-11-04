@@ -46,6 +46,17 @@ class NewWorkExperienceVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        self.letUsKnowLabel1.text = "हमें अपने काम के अनुभव के बारे में बताएं!".localizableString(loc: language!)
+        self.companyLabel.text = "कंपनी का नाम".localizableString(loc: language!)
+        self.textFieldCompany.text = "कंपनी का नाम डालें".localizableString(loc: language!)
+        
+        
+        
+
+        
+        
+        
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)
         activityUIView.isHidden = true

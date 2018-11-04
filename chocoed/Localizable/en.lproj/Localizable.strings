@@ -42,16 +42,25 @@
 "EduactionMediumKey" = "Education Medium";
 "SpecializationKey" = "Specification";
 "YearofPassKey" = "Year of Passing";
-"saveButtonKey" = "Save"
+"saveButtonKey" = "Save";
 
-"NameofCOmpanyKey" = "Name of Company";
 "WorkTopMsgLabel" = "Let us know about your work experience";
+"NameofCOmpanyKey" = "Name of Company";
+"EnterCompanyNameKey" = "Enter the Name of Company";
 "FromKey" = "From";
+"SelectYearFromKey" = "Select Year";
 "ToKey" = "To";
+"SelectYearToKEy" = "Select Year";
 "ManagementLevelKey" = "Management Level";
+"SelectManagementLevelKey" = "Select Management Level";
 "TeamHandelKey" = "Team Handled";
+"SelectTeamHAndleKEy" = "Select Teams Handled";
 "CurrrentInstKey" = "My Current Industry";
+"SelectCurrentIndustryKey" = "Select Current Industry";
 "FunctionalExpKey" = "My Functional Experience";
+"SelectFunctionExp" = "Select Functional Industry";
+
+
 "SelectQualificationButtonKey" = "Select Qualification";
 "EnterNameClgKey" = "Enter College Name";
 "EnterBoardKey" = "Enter Board University";
@@ -59,18 +68,19 @@
 "SelectEduMediumKey" = "Select Education Medium";
 "SelectSpecialixationKey" = "Select Specification";
 "SelectYearPassingButtonKey" = "Select Year";
-"EnterCompanyNameKey" = "Enter the Name of Company";
-"SelectYearFromKey" = "Select Year";
-"SelectYearToKEy" = "Select Year";
-"SelectManagementLevelKey" = "Select Management Level";
-"SelectTeamHAndleKEy" = "Select Teams Handled";
-"SelectCurrentIndustryKey" = "Select Current Industry";
-"SelectFunctionExp" = "Select Functional Industry";
+
+
+
+
+
+
+
 "WelcomeKey" = "Welcome!";
 "ProfileMsgForUserKey" = "There is only one You in this world. Let’s build your personal vitae";
 "GetStartedKey"= "GET STARTED  ➔";
 "AddEducationButtonKey" = "Add New Education";
 
+"CreateProfileKey" = "Create Profile";
 "ChooseImageKey" = "Choose  from gallery";
 "ChooseAvatar" = "Choose any Avatar";
 "ChooseImageLabelKey" = "Choose profile picture!";
@@ -83,7 +93,7 @@
 "FemaleKey" = "Female";
 "BornOnKey" = "I am born on";
 "ProceedButtonKey" = "Proceed";
-"CreateProfileKey" = "Create Profile";
+
 
 "ProfileImpressionKey" = "You have an impressive profile!";
 "AppraisalMsgKey" = "Let’s do the personalised Chocoed Essential Appraisals now.";

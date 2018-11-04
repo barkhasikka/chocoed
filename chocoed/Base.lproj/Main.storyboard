@@ -1505,6 +1505,11 @@ the beginning of every beautiful journey.</string>
                             <constraint firstItem="aze-uW-Bd0" firstAttribute="trailing" secondItem="13M-gj-u9C" secondAttribute="trailing" constant="16" id="yzi-by-ga6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aze-uW-Bd0"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="13M-gj-u9C"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Create Profile" id="wNe-Kx-CK6"/>
                     <connections>
@@ -1514,6 +1519,7 @@ the beginning of every beautiful journey.</string>
                         <outlet property="btnFemale" destination="oOT-Pb-yga" id="JFl-FE-hUp"/>
                         <outlet property="chooseAvatarLabel" destination="1xF-OX-0NN" id="yFQ-DO-zKj"/>
                         <outlet property="chooseGalleryLabel" destination="FvK-ij-fk0" id="I6h-sw-iBw"/>
+                        <outlet property="createProfileButtonLabel" destination="wNe-Kx-CK6" id="yWl-YK-aL8"/>
                         <outlet property="imageIcon" destination="Hkv-iK-cSK" id="xGp-qA-RP7"/>
                         <outlet property="imageView1" destination="KDe-lO-gfR" id="7af-fw-k9Y"/>
                         <outlet property="imageView2" destination="kOT-42-N4b" id="TLB-KI-rLk"/>

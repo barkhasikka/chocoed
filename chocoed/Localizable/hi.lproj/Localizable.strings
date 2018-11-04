@@ -42,17 +42,25 @@
 "EduactionMediumKey" = "शिक्षा माध्यम";
 "SpecializationKey" = "विशेषज्ञता";
 "YearofPassKey" = "उत्तीर्ण होने का वर्ष";
-"saveButtonKey" = "सुरक्षित करें"
+"saveButtonKey" = "सुरक्षित करें";
 
 
 "WorkTopMsgLabel" = "हमें अपने काम के अनुभव के बारे में बताएं";
 "NameofCOmpanyKey" = "कंपनी का नाम";
+"EnterCompanyNameKey" = "कंपनी का नाम डालें";
 "FromKey" = "";
+"SelectYearFromKey" = "Select Year";
 "ToKey" = "";
+"SelectYearToKEy" = "Select Year";
 "ManagementLevelKey" = "";
+"SelectManagementLevelKey" = "Select Management Level";
 "TeamHandelKey" = "";
+"SelectTeamHAndleKEy" = "Select Teams Handled";
 "CurrrentInstKey" = "";
+"SelectCurrentIndustryKey" = "Select Current Industry";
 "FunctionalExpKey" = "";
+"SelectFunctionExp" = "Select Functional Industry";
+
 "SelectQualificationButtonKey" = "";
 "EnterNameClgKey" = "कॉलेज का नाम दर्ज करें";
 "EnterBoardKey" = "बोर्ड / विश्वविद्यालय का नाम दर्ज करें";
@@ -73,6 +81,20 @@
 "AppraisalMsgKey" = "अब आपकीव्यक्तिगत करें चॉकॉएड अनिवार्य समीक्षा करते हैं";
 "KnowUserUniqenessKey" = "अपनी विशिष्टता को पहचानें ➔";
 "ProfileImpressionKey" = "आपका प्रोफ़ाइल प्रभावशाली है!";
+
+"CreateProfileKey" = "प्रोफाइल बनाएं";
+"ChooseImageKey" = "Choose  from gallery";
+"ChooseAvatar" = "कोई अवतार चुनें";
+"ChooseImageLabelKey" = "प्रोफ़ाइल चित्र चुनें!";
+"FirstNameKey" = "पहला नाम*";
+"LastNAmeKey" = "अंतिम नाम*";
+"MobileNoKey" = "मोबाइल नंबर*";
+"EmailIDKey" = "ईमेल आईडी*";
+"GenderKey" = "Gender";
+"MaleKey" = "पुरुष";
+"FemaleKey" = "महिला";
+"BornOnKey" = "I am born on";
+"ProceedButtonKey" = "आगे बढ़ें";
 
 
 
