@@ -5,8 +5,16 @@
   Created by Tejal on 30/10/18.
   Copyright © 2018 barkha sikka. All rights reserved.
 */
+
+"EnterValidMobileKey" = "कृप्या वैध मोबाइल मोबाइल नंबर दर्ज डालें";
+"AlertKey" = "अलर्ट !";
+
+"RecheckKey" = "फिर से जांचें !";
+"IncorrectIdKey" = "गलत चॉकोड टोकन दर्ज किया गया।";
+"OkKey" = "ठीक";
+
 "LabelLanguageStringKey" = "पसंदीदा भाषा चुनें";
-"IncorrectId" = "गलत चॉकोड टोकन दर्ज किया गया।";
+
 "LoginButtonKey" = "लॉगइन";
 "SignUpKey" = "पसंदीदा भाषा चुनें";
 "ChoicContectKey" = "विकल्प, सामग्री, वार्तालाप";

@@ -5,6 +5,9 @@
   Created by Tejal on 30/10/18.
   Copyright © 2018 barkha sikka. All rights reserved.
 */
+
+"EnterValidMobileKey" = "Please enter valid mobile number.";
+"AlertKey" = "alert!";
 "LabelLanguageStringKey" = "Please select your preferred language for learning with Chocoed";
 "LoginButtonKey" = "Login";
 "SignUpKey" = "Select Preferred Language";
@@ -70,8 +73,9 @@
 "SelectYearPassingButtonKey" = "Select Year";
 
 
-"IncorrectId" = "Incorrect Chocoed Token entered.";
-
+"IncorrectIdKey" = "Incorrect Chocoed Token entered.";
+"RecheckKey" = "Recheck !";
+"OkKey" = "OK";
 
 
 
