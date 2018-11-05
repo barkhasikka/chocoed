@@ -1,0 +1,112 @@
+/* 
+  Localizable.strings
+  chocoed
+
+  Created by Tejal on 30/10/18.
+  Copyright © 2018 barkha sikka. All rights reserved.
+*/
+"LabelLanguageStringKey" = "पसंदीदा भाषा चुनें";
+"IncorrectId" = "गलत चॉकोड टोकन दर्ज किया गया।";
+"LoginButtonKey" = "लॉगइन";
+"SignUpKey" = "पसंदीदा भाषा चुनें";
+"ChoicContectKey" = "विकल्प, सामग्री, वार्तालाप";
+"RequestOfEnterMobileNoKey" ="कृपया उस डिवाइस का मोबाइल नंबर दर्ज करें जिस पर आप चोकॉइड इंस्टॉल करेंगे।";
+"InputChocoedTokenKey" = "चोकोइड टोकन डालें";
+"TestCompletedKey" = "पूरे किये टेस्ट्";
+"TopicCompletedKey" = "पूरे किये विषय";
+"BadgesEarnedKey" = "अर्जित बैज";
+"TalkKey" = "वार्ता";
+"ThoughtKey" = "विचार";
+"ProgressKey" = "विकास";
+"ChoiceKey" = "विकल्प";
+"ConversationKey" = "वार्तालाप";
+"ContentKey" = "विषय सूची";
+"LetsBeginKey" = "चलिए शुरू करते हैं";
+"BehaviourialKey" = "व्यवहारिक जांच";
+"ContinueKey" = "जारी रखें";
+"PsycomatricKey" = "साइकोमेट्रिक जांच";
+"PersonalityKey" = "व्यक्तित्व जांच";
+"LasttestKey" = "यह रहा अंतिम टेस्ट्";
+"HonestAnswerKey" = "ईमानदारी से उत्तर दें, भले ही आपको जवाब पसंद न हो।";
+"Educationkey" = "शिक्षा";
+"WorkKey" = "कार्य";
+"NextButtonKey" = "आगे ";
+"PrevButtonKey" = "वापस";
+"FirstStepKey" = "आप पहले पायदान पर हो";
+"AddNewWorkKey" = " कार्य अनुभव डालें";
+
+"EducationTopMsgKey" = "हमें अपनी शिक्षा के बारे में बताएं";
+"QulificationKey" = "योग्यता";
+"NameofCollegeKey" = "कॉलेज का नाम";
+"NameofBoardUniversityKey" = "बोर्ड / विश्वविद्यालय";
+"LocationKey" = "लोकेशन";
+"EduactionMediumKey" = "शिक्षा माध्यम";
+"SpecializationKey" = "विशेषज्ञता";
+"YearofPassKey" = "उत्तीर्ण होने का वर्ष";
+"saveButtonKey" = "सुरक्षित करें";
+
+
+"WorkTopMsgLabel" = "हमें अपने काम के अनुभव के बारे में बताएं";
+"NameofCOmpanyKey" = "कंपनी का नाम";
+"EnterCompanyNameKey" = "कंपनी का नाम डालें";
+"FromKey" = "";
+"SelectYearFromKey" = "Select Year";
+"ToKey" = "";
+"SelectYearToKEy" = "Select Year";
+"ManagementLevelKey" = "";
+"SelectManagementLevelKey" = "Select Management Level";
+"TeamHandelKey" = "";
+"SelectTeamHAndleKEy" = "Select Teams Handled";
+"CurrrentInstKey" = "";
+"SelectCurrentIndustryKey" = "Select Current Industry";
+"FunctionalExpKey" = "";
+"SelectFunctionExp" = "Select Functional Industry";
+
+"SelectQualificationButtonKey" = "";
+"EnterNameClgKey" = "कॉलेज का नाम दर्ज करें";
+"EnterBoardKey" = "बोर्ड / विश्वविद्यालय का नाम दर्ज करें";
+"EnterLocationKey" = "लोकेशन डालें";
+"SelectEduMediumKey" = "";
+"SelectSpecialixationKey" = "";
+"SelectYearPassingButtonKey" = "";
+"EnterCompanyNameKey" = "";
+"SelectYearFromKey" = "";
+"SelectYearToKEy" = "";
+"SelectManagementLevelKey" = "";
+"SelectTeamHAndleKEy" = "";
+"SelectCurrentIndustryKey" = "";
+"SelectFunctionExp" = "";
+"AddEducationButtonKey" = "नई शिक्षा दर्ज करें";
+"WelcomeLableKey" = "स्वागत!";
+"GetStartedKey"= "शुरु करे ➔";
+"AppraisalMsgKey" = "अब आपकीव्यक्तिगत करें चॉकॉएड अनिवार्य समीक्षा करते हैं";
+"KnowUserUniqenessKey" = "अपनी विशिष्टता को पहचानें ➔";
+"ProfileImpressionKey" = "आपका प्रोफ़ाइल प्रभावशाली है!";
+
+"CreateProfileKey" = "प्रोफाइल बनाएं";
+"ChooseImageKey" = "Choose  from gallery";
+"ChooseAvatar" = "कोई अवतार चुनें";
+"ChooseImageLabelKey" = "प्रोफ़ाइल चित्र चुनें!";
+"FirstNameKey" = "पहला नाम*";
+"LastNAmeKey" = "अंतिम नाम*";
+"MobileNoKey" = "मोबाइल नंबर*";
+"EmailIDKey" = "ईमेल आईडी*";
+"GenderKey" = "Gender";
+"MaleKey" = "पुरुष";
+"FemaleKey" = "महिला";
+"BornOnKey" = "I am born on";
+"ProceedButtonKey" = "आगे बढ़ें";
+
+"MyChoiceKey" = "मेरा विकल्प";
+"MySkillKey" = "My Skills";
+"SoftSkills" = "व्यवहार कुशलता";
+
+"CompletedTestKey" = "पूरे किये टेस्ट";
+"CompletedCourseKey" = "Courses Completed";
+"FriendsKey" = "Friends";
+"Add5Key" = "Add 5 of your contacts to see their progress as well.";
+"AddFriendLabelKey" = "Add Friend";
+"DoneKey" = "Done";
+
+
+

@@ -11,6 +11,12 @@ import UIKit
 class SignUpViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     var tableViewData =  [ExistingEducationList]()
 
+    
+    @IBOutlet weak var firstStepLabel: UILabel!
+    
+    @IBOutlet weak var workLabel: UILabel!
+    @IBOutlet weak var educationLabel: UILabel!
+    @IBOutlet weak var nextButtonLabel: UIButton!
     @IBOutlet weak var educationDetailsTableView: UITableView!
     @IBOutlet weak var viewEdu: UIView!
     @IBOutlet weak var addeducationButton: UIButton!
@@ -20,8 +26,20 @@ class SignUpViewController: UIViewController,UITableViewDelegate,UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        
+        self.educationLabel.text = "शिक्षा".localizableString(loc: language!)
+        //self.signUpButton.titleLabel?.text = "SignUpKey".localizableString(loc: StringLang)
+        // self.loginButton.titleLabel?.text = "LoginButtonKey".localizableString(loc: StringLang)
+        
+        // self.signUpButton.setTitle("\("SignUpKey".localizableString(loc: StringLang))", for:.normal )
+        self.workLabel.text = "कार्य".localizableString(loc: language!)
+        self.firstStepLabel.text = "आप पहले पायदान पर हो".localizableString(loc: language!)
+        self.nextButtonLabel.setTitle("आगे".localizableString(loc: language!), for: .normal)
+        self.addeducationButton.setTitle("नई शिक्षा दर्ज करें".localizableString(loc: language!), for: .normal)
+
        // viewEdu.isHidden = false
-        addeducationButton.setTitle("Add New Education", for: .normal)
+        addeducationButton.setTitle("नई शिक्षा दर्ज करें", for: .normal)
         addeducationButton.backgroundColor = .clear
         addeducationButton.layer.cornerRadius = 10
         addeducationButton.layer.borderWidth = 1

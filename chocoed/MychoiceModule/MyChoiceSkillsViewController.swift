@@ -11,6 +11,8 @@ import UIKit
 class MyChoiceSkillsViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource {
     
     
+    @IBOutlet weak var mySkills: UILabel!
+    @IBOutlet weak var myChoiceLabel: UILabel!
     @IBOutlet weak var collectionViewSkills: UICollectionView!
    // let arrayTitle = ["Soft Skills","Sales Skills","Customer Skills","Life Skills","Retail Skills"]
    // let images = [UIImage(named: "soft_skills"),UIImage(named: "sales_skills"),UIImage(named: "customer_skills"), UIImage(named: "life_skills"),UIImage(named: "conversation_big")]
@@ -23,6 +25,11 @@ class MyChoiceSkillsViewController: UIViewController,UICollectionViewDelegate,UI
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        self.myChoiceLabel.text = "मेरा विकल्प".localizableString(loc: language!)
+        
+
         
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(named: "background_pattern")

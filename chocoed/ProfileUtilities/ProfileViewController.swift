@@ -13,6 +13,7 @@ import YPImagePicker
 class ProfileViewController: UIViewController,UITextFieldDelegate {
     
     
+    @IBOutlet weak var createProfileButtonLabel: UINavigationItem!
     
     @IBAction func female_clicked(_ sender: DLRadioButton) {
         
@@ -26,6 +27,10 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var birthDateTextField: UITextField!
     var gender = ""
     let datePicker = UIDatePicker()
+    
+    @IBOutlet weak var proceedLabel: imagetoButton!
+    @IBOutlet weak var chooseAvatarLabel: UILabel!
+    @IBOutlet weak var orLabel: UILabel!
     
     @IBOutlet weak var btn: DLRadioButton!
     @IBOutlet weak var submitButton: UIButton!
@@ -43,6 +48,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var ButtonChoose: UIButton!
     @IBOutlet weak var imageviewCircle: UIImageView!
     
+    @IBOutlet weak var chooseGalleryLabel: UILabel!
     @IBOutlet weak var textfieldMobileNo: UITextField!
     @IBOutlet weak var textfieldEmailId: UITextField!
     @IBOutlet weak var textfieldLastName: UITextField!
@@ -63,6 +69,22 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        
+        self.createProfileButtonLabel.title = "प्रोफाइल बनाएं".localizableString(loc: language!)
+        self.chooseGalleryLabel.text = "गैलरी से चुनें".localizableString(loc: language!)
+        self.chooseAvatarLabel.text = "कोई अवतार चुनें".localizableString(loc: language!)
+        self.proceedLabel.setTitle("आगे बढ़ें".localizableString(loc: language!), for: .normal)
+        self.labelFirstName.text = "पहला नाम*".localizableString(loc: language!)
+        self.labelLastName.text = "अंतिम नाम*".localizableString(loc: language!)
+        self.labelMobileno.text = "मोबाइल नंबर*".localizableString(loc: language!)
+        self.labelEmailId.text = "ईमेल आईडी*".localizableString(loc: language!)
+        self.proceedLabel.setTitle("आगे बढ़ें".localizableString(loc: language!), for: .normal)
+        self.btn.setTitle("पुरुष".localizableString(loc: language!), for: .normal)
+        self.btnFemale.setTitle("महिला".localizableString(loc: language!), for: .normal)
+        self.ButtonChoose.setTitle("प्रोफ़ाइल चित्र चुनें!", for: .normal)
+        
         submitButton.layer.cornerRadius = 20
         submitButton.clipsToBounds = true
         submitButton.layer.borderWidth = 1

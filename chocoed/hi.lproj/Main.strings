@@ -1,0 +1,515 @@
+
+/* Class = "UILabel"; text = "Management Level"; ObjectID = "0lz-ib-peu"; */
+"0lz-ib-peu.text" = "Management Level";
+
+/* Class = "UILabel"; text = "My Plan"; ObjectID = "12K-TI-es1"; */
+"12K-TI-es1.text" = "मेरी योजना";
+
+/* Class = "UILabel"; text = "3"; ObjectID = "18C-hl-YgU"; */
+"18C-hl-YgU.text" = "3";
+
+/* Class = "UILabel"; text = "Education"; ObjectID = "1Ng-1W-W5j"; */
+"1Ng-1W-W5j.text" = "शिक्षा"; 
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "1OS-GJ-OEj"; */
+"1OS-GJ-OEj.normalTitle" = "Button";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "1Tt-Io-JV7"; */
+"1Tt-Io-JV7.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Your rank : 2nd"; ObjectID = "1fe-fP-kp3"; */
+"1fe-fP-kp3.text" = "Your rank : 2nd";
+
+/* Class = "UILabel"; text = "Choose any Avatar"; ObjectID = "1xF-OX-0NN"; */
+"1xF-OX-0NN.text" = "Choose any Avatar";
+
+/* Class = "UIButton"; normalTitle = "CONTINUE  ➜"; ObjectID = "1xI-oH-kZ6"; */
+"1xI-oH-kZ6.normalTitle" = "CONTINUE  ➜";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "2SD-C7-UYf"; */
+"2SD-C7-UYf.text" = "Label";
+
+/* Class = "UILabel"; text = "Choice, Content, Conversation"; ObjectID = "36k-Iv-Vdf"; */
+"36k-Iv-Vdf.text" = "विकल्प, सामग्री, वार्तालाप";
+
+/* Class = "UILabel"; text = "Please enter the mobile number of the device on which you would be installing Chocoed"; ObjectID = "3Ks-yw-nIj"; */
+"3Ks-yw-nIj.text" = "कृपया उस डिवाइस का मोबाइल नंबर दर्ज करें जिस पर आप चोकॉइड इंस्टॉल करेंगे।";
+
+/* Class = "UIButton"; normalTitle = "Male"; ObjectID = "4Aa-Np-Uwp"; */
+"4Aa-Np-Uwp.normalTitle" = "Male";
+
+/* Class = "UIButton"; normalTitle = "Save"; ObjectID = "4Q9-B3-Sk2"; */
+"4Q9-B3-Sk2.normalTitle" = "Save";
+
+/* Class = "UIButton"; normalTitle = "╳"; ObjectID = "6hl-Fd-xAM"; */
+"6hl-Fd-xAM.normalTitle" = "╳";
+
+/* Class = "UILabel"; text = "Personality Upgrades"; ObjectID = "6n0-Yt-hb9"; */
+"6n0-Yt-hb9.text" = "व्यक्तित्व जांच";
+
+/* Class = "UILabel"; text = "Psychometric Test"; ObjectID = "6tH-VY-hiF"; */
+"6tH-VY-hiF.text" = "साइकोमेट्रिक जांच";
+
+/* Class = "UINavigationItem"; title = "My Radar"; ObjectID = "76L-Cc-eeo"; */
+"76L-Cc-eeo.title" = "मेरा रडार";
+/* Class = "UILabel"; text = "Leadership"; ObjectID = "7s6-Rt-8qp"; */
+"7s6-Rt-8qp.text" = "Leadership";
+
+/* Class = "UINavigationItem"; title = "Behavioural Test"; ObjectID = "7sX-eS-ANJ"; */
+"7sX-eS-ANJ.title" = "व्यवहारिक जांच";
+
+/* Class = "UIButton"; normalTitle = "Add New Work"; ObjectID = "8UL-in-FpL"; */
+"8UL-in-FpL.normalTitle" = "Add New Work";
+
+/* Class = "UILabel"; text = "23"; ObjectID = "8oT-TD-ppb"; */
+"8oT-TD-ppb.text" = "23";
+
+/* Class = "UILabel"; text = "You're behind by 16932 steps.Keep going to catch up to Keyur Shah!"; ObjectID = "8rR-yg-E9y"; */
+"8rR-yg-E9y.text" = "You're behind by 16932 steps.Keep going to catch up to Keyur Shah!";
+
+/* Class = "UILabel"; text = "Relax and Revise, there is nothing planned for you"; ObjectID = "97Y-cn-hrV"; */
+"97Y-cn-hrV.text" = "Relax and Revise, there is nothing planned for you";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "9BE-Gs-ToW"; */
+"9BE-Gs-ToW.text" = "Label";
+
+/* Class = "UILabel"; text = "_____________OR_____________"; ObjectID = "9GK-D6-NBo"; */
+"9GK-D6-NBo.text" = "_____________OR_____________";
+
+/* Class = "UILabel"; text = "Topic"; ObjectID = "9x5-y9-aBq"; */
+"9x5-y9-aBq.text" = "Topic";
+
+/* Class = "UILabel"; text = "Location"; ObjectID = "9xl-GW-8cr"; */
+"9xl-GW-8cr.text" = "Location";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "A42-u9-x2I"; */
+"A42-u9-x2I.text" = "Label";
+
+/* Class = "UILabel"; text = "You are on the First Step"; ObjectID = "AzI-r5-Ga3"; */
+"AzI-r5-Ga3.text" = "You are on the First Step";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "BKf-AH-whF"; */
+"BKf-AH-whF.normalTitle" = "Button";
+
+/* Class = "UITextField"; placeholder = "Enter the Name of Company"; ObjectID = "BX3-dN-D3L"; */
+"BX3-dN-D3L.placeholder" = "Enter the Name of Company";
+
+/* Class = "UILabel"; text = "Awesome! To know oneself is\nthe beginning of every beautiful journey."; ObjectID = "BYW-LA-ds7"; */
+"BYW-LA-ds7.text" = "Awesome! To know oneself is\nthe beginning of every beautiful journey.";
+
+/* Class = "UILabel"; text = "Teams Handled"; ObjectID = "BZi-h0-YOu"; */
+"BZi-h0-YOu.text" = "Teams Handled";
+
+/* Class = "UILabel"; text = "00:00"; ObjectID = "Bvy-Z3-GcF"; */
+"Bvy-Z3-GcF.text" = "00:00";
+
+/* Class = "UILabel"; text = "Education Medium"; ObjectID = "C2l-44-wfh"; */
+"C2l-44-wfh.text" = "Education Medium";
+
+/* Class = "UITextField"; placeholder = "Enter Board / University "; ObjectID = "Caq-iW-Zfg"; */
+"Caq-iW-Zfg.placeholder" = "Enter Board / University ";
+
+/* Class = "UILabel"; text = "Let us know about yout work experience"; ObjectID = "DOk-JS-l01"; */
+"DOk-JS-l01.text" = "Let us know about yout work experience";
+
+/* Class = "UILabel"; text = "Behavioral Test"; ObjectID = "DvQ-tr-Ime"; */
+"DvQ-tr-Ime.text" = "Behavioral Test";
+
+/* Class = "UILabel"; text = "Board/ University"; ObjectID = "E7R-M6-rD5"; */
+"E7R-M6-rD5.text" = "Board/ University";
+
+/* Class = "UIButton"; normalTitle = "NEXT  ➔"; ObjectID = "EEe-ve-Mzt"; */
+"EEe-ve-Mzt.normalTitle" = "NEXT  ➔";
+
+/* Class = "UILabel"; text = "Mobile No*"; ObjectID = "EbR-xd-Z5I"; */
+"EbR-xd-Z5I.text" = "मोबाइल नं*";
+
+/* Class = "UINavigationItem"; title = "Psychometric Test"; ObjectID = "Elc-fi-OP3"; */
+"Elc-fi-OP3.title" = "Psychometric Test";
+
+/* Class = "UILabel"; text = "Let us know about your education"; ObjectID = "EsR-w5-Smq"; */
+"EsR-w5-Smq.text" = "Let us know about your education";
+
+/* Class = "UITextField"; placeholder = "First Name*"; ObjectID = "Fes-RI-Gx5"; */
+"Fes-RI-Gx5.placeholder" = "पहला नाम*";
+
+/* Class = "UILabel"; text = "Work"; ObjectID = "Ffo-z2-Cwf"; */
+"Ffo-z2-Cwf.text" = "Work";
+
+/* Class = "UILabel"; text = "Choose  from gallery"; ObjectID = "FvK-ij-fk0"; */
+"FvK-ij-fk0.text" = "Choose from gallery";
+
+/* Class = "UILabel"; text = "Exam Review"; ObjectID = "GYr-5B-8kd"; */
+"GYr-5B-8kd.text" = "Exam Review";
+
+/* Class = "UILabel"; text = "My Choice"; ObjectID = "Gdx-Zs-8bF"; */
+"Gdx-Zs-8bF.text" = "My Choice";
+
+/* Class = "UILabel"; text = "Here is last test on"; ObjectID = "H5X-DI-vOy"; */
+"H5X-DI-vOy.text" = "Here is last test on";
+
+/* Class = "UILabel"; text = "First Name*"; ObjectID = "Hea-Rl-gNm"; */
+"Hea-Rl-gNm.text" = "पहला नाम*";
+
+/* Class = "UIButton"; normalTitle = "GET STARTED  ➔"; ObjectID = "HhS-qW-fVc"; */
+"HhS-qW-fVc.normalTitle" = "शुरू कर  ➔";
+
+/* Class = "UIButton"; normalTitle = "NEXT  ➔"; ObjectID = "IG9-1u-ckI"; */
+"IG9-1u-ckI.normalTitle" = "आगे  ➔";
+
+/* Class = "UILabel"; text = "Sanjay Patil"; ObjectID = "JDv-hH-qB8"; */
+"JDv-hH-qB8.text" = "Sanjay Patil";
+
+/* Class = "UILabel"; text = "I am born on"; ObjectID = "KJE-b9-HJk"; */
+"KJE-b9-HJk.text" = "I am born on";
+
+/* Class = "UILabel"; text = "00:00"; ObjectID = "KU7-ms-D7M"; */
+"KU7-ms-D7M.text" = "00:00";
+
+/* Class = "UIButton"; normalTitle = "Select Specification"; ObjectID = "Kok-is-sMh"; */
+"Kok-is-sMh.normalTitle" = "Select Specification";
+
+/* Class = "UILabel"; text = "Please select your preferred language for Chocoed app screens"; ObjectID = "L3Z-9s-MVM"; */
+"L3Z-9s-MVM.text" = "Please select your preferred language for Chocoed app screens";
+
+/* Class = "UIButton"; normalTitle = "NEXT  →"; ObjectID = "L5q-JD-7Ke"; */
+"L5q-JD-7Ke.normalTitle" = "NEXT  →";
+
+/* Class = "UILabel"; text = "To"; ObjectID = "LPI-ua-FEB"; */
+"LPI-ua-FEB.text" = "To";
+
+/* Class = "UILabel"; text = "Sub Topic"; ObjectID = "MMq-Vo-tF6"; */
+"MMq-Vo-tF6.text" = "Sub Topic";
+
+/* Class = "UIButton"; normalTitle = "NEXT    →"; ObjectID = "Ma3-7J-rqN"; */
+"Ma3-7J-rqN.normalTitle" = "आगे    →";
+
+/* Class = "UILabel"; text = "Badges Earned"; ObjectID = "MfD-5I-Vm3"; */
+"MfD-5I-Vm3.text" = "अर्जित बैज";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "NEI-2l-Lu3"; */
+"NEI-2l-Lu3.text" = "Label";
+
+/* Class = "UILabel"; text = "Education"; ObjectID = "NIZ-KH-kTN"; */
+"NIZ-KH-kTN.text" = "Education";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "OqI-Qu-xAG"; */
+"OqI-Qu-xAG.text" = "0";
+
+/* Class = "UINavigationItem"; title = "Personality Update"; ObjectID = "P2R-n1-8ne"; */
+"P2R-n1-8ne.title" = "Personality Update";
+
+/* Class = "UILabel"; text = "Completed Tests"; ObjectID = "P9E-Mi-4Ya"; */
+"P9E-Mi-4Ya.text" = "पूरे किये टेस्ट्";
+
+/* Class = "UILabel"; text = "09"; ObjectID = "Pfj-om-2as"; */
+"Pfj-om-2as.text" = "09";
+
+/* Class = "UITextField"; placeholder = "Last Name*"; ObjectID = "PkN-Aj-2pW"; */
+"PkN-Aj-2pW.placeholder" = "अंतिम नाम*";
+
+/* Class = "UIButton"; normalTitle = "Select Qualification"; ObjectID = "PlO-so-8eC"; */
+"PlO-so-8eC.normalTitle" = "Select Qualification";
+
+/* Class = "UILabel"; text = "Pending Assessment"; ObjectID = "Qzc-an-dau"; */
+"Qzc-an-dau.text" = "Pending Assessment";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "RFo-58-J3L"; */
+"RFo-58-J3L.text" = "Label";
+
+/* Class = "UILabel"; text = "Talks"; ObjectID = "SFO-Cf-toA"; */
+"SFO-Cf-toA.text" = "वार्ता";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "SSf-43-xgs"; */
+"SSf-43-xgs.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Proceed"; ObjectID = "Szk-Hf-Hyb"; */
+"Szk-Hf-Hyb.normalTitle" = "Proceed";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "T1a-Vj-iOh"; */
+"T1a-Vj-iOh.text" = "Label";
+
+/* Class = "UILabel"; text = "+91"; ObjectID = "TAC-Yx-Rse"; */
+"TAC-Yx-Rse.text" = "+91";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "TLg-AU-7eL"; */
+"TLg-AU-7eL.text" = "Label";
+
+/* Class = "UILabel"; text = "Content"; ObjectID = "Ta8-Eh-KP3"; */
+"Ta8-Eh-KP3.text" = "विषय सूची";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Tpq-V6-HG1"; */
+"Tpq-V6-HG1.normalTitle" = "Button";
+
+/* Class = "UIButton"; normalTitle = "←    PREV"; ObjectID = "U1a-O2-Fxv"; */
+"U1a-O2-Fxv.normalTitle" = "←    वापस";
+
+/* Class = "UILabel"; text = "Add 5 of your contacts to see their progress as well."; ObjectID = "UWe-LW-iKY"; */
+"UWe-LW-iKY.text" = "Add 5 of your contacts to see their progress as well.";
+
+/* Class = "UILabel"; text = "Gender"; ObjectID = "Ugr-Un-MXl"; */
+"Ugr-Un-MXl.text" = "Gender";
+
+/* Class = "UILabel"; text = "Label jjhjggfghfgfhgfhhgf jhggjh"; ObjectID = "VFs-oH-RVX"; */
+"VFs-oH-RVX.text" = "Label jjhjggfghfgfhgfhhgf jhggjh";
+
+/* Class = "UIButton"; normalTitle = "Select Year"; ObjectID = "W8r-xb-Dyl"; */
+"W8r-xb-Dyl.normalTitle" = "Select Year";
+
+/* Class = "UILabel"; text = "Input Chocoed Token"; ObjectID = "Wg6-UP-uko"; */
+"Wg6-UP-uko.text" = "चोकोइड टोकन डालें";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "XOq-ms-y9T"; */
+"XOq-ms-y9T.normalTitle" = "Button";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Xg5-B3-nKX"; */
+"Xg5-B3-nKX.normalTitle" = "Button";
+
+/* Class = "UIButton"; normalTitle = "Select Current Industry"; ObjectID = "Xix-eF-dve"; */
+"Xix-eF-dve.normalTitle" = "Select Current Industry";
+
+/* Class = "UILabel"; text = "Question Progress"; ObjectID = "Yg4-6v-DiF"; */
+"Yg4-6v-DiF.text" = "Question Progress";
+
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "You-PP-hUF"; */
+"You-PP-hUF.text" = "Label";
+
+/* Class = "UILabel"; text = "Email Id*"; ObjectID = "ZH3-0D-OnC"; */
+"ZH3-0D-OnC.text" = "ईमेल आईडी";
+
+/* Class = "UILabel"; text = "My Current Industry"; ObjectID = "apw-jG-CTM"; */
+"apw-jG-CTM.text" = "My Current Industry";
+
+/* Class = "UILabel"; text = "There is only one You in this\nworld. Let’s build your personal vitae"; ObjectID = "b4E-8h-UYf"; */
+"b4E-8h-UYf.text" = "There is only one You in this\nworld. Let’s build your personal vitae";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "b7D-n4-6Hm"; */
+"b7D-n4-6Hm.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "b95-ee-LJY"; */
+"b95-ee-LJY.text" = "Label";
+
+/* Class = "UILabel"; text = "Choice"; ObjectID = "bHs-NG-pfe"; */
+"bHs-NG-pfe.text" = "विकल्प";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "bV2-B8-5pB"; */
+"bV2-B8-5pB.text" = "Label";
+
+/* Class = "UINavigationItem"; title = "Personality Test"; ObjectID = "biH-VK-RfT"; */
+"biH-VK-RfT.title" = "Personality Test";
+
+/* Class = "UILabel"; text = "My Skills"; ObjectID = "cCo-9w-MzR"; */
+"cCo-9w-MzR.text" = "My Skills";
+
+/* Class = "UIButton"; normalTitle = "END TEST "; ObjectID = "cWo-QK-Lby"; */
+"cWo-QK-Lby.normalTitle" = "END TEST ";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "dBY-0P-KuK"; */
+"dBY-0P-KuK.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "⤬"; ObjectID = "eBh-E7-yAE"; */
+"eBh-E7-yAE.normalTitle" = "⤬";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "eC4-s0-Ryf"; */
+"eC4-s0-Ryf.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "NEXT "; ObjectID = "ePv-cg-QgP"; */
+"ePv-cg-QgP.normalTitle" = "वापस ";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "eag-QT-vQ1"; */
+"eag-QT-vQ1.text" = "Label";
+
+/* Class = "UITextField"; placeholder = "Mobile No*"; ObjectID = "f4X-OB-wbv"; */
+"f4X-OB-wbv.placeholder" = "मोबाइल नं*";
+
+/* Class = "UILabel"; text = "Progress"; ObjectID = "f9i-WI-ipa"; */
+"f9i-WI-ipa.text" = "Progress";
+
+/* Class = "UIButton"; normalTitle = "Login"; ObjectID = "fJE-Tr-yYw"; */
+"fJE-Tr-yYw.normalTitle" = "लॉग इन";
+
+/* Class = "UIButton"; normalTitle = "Select Year "; ObjectID = "fvu-mv-i73"; */
+"fvu-mv-i73.normalTitle" = "Select Year ";
+
+/* Class = "UIButton"; normalTitle = "Select Functional Expertise"; ObjectID = "ggM-u6-uAl"; */
+"ggM-u6-uAl.normalTitle" = "Select Functional Expertise";
+
+/* Class = "UIButton"; normalTitle = "Login"; ObjectID = "gu3-VX-EYo"; */
+"gu3-VX-EYo.normalTitle" = "लॉग इन";
+
+/* Class = "UILabel"; text = "Mobile Number"; ObjectID = "gzw-Wp-7Zx"; */
+"gzw-Wp-7Zx.text" = "मोबाइल नं";
+
+/* Class = "UILabel"; text = "You have an impressive profile!"; ObjectID = "h7A-9h-ZRo"; */
+"h7A-9h-ZRo.text" = "  आपका प्रोफ़ाइल प्रभावशाली है!";
+
+/* Class = "UILabel"; text = "Pending"; ObjectID = "hs2-5Q-9t8"; */
+"hs2-5Q-9t8.text" = "Pending";
+
+/* Class = "UILabel"; text = "Let’s do the personalised\nChocoed Essential Appraisals\nnow."; ObjectID = "iE0-4y-uKk"; */
+"iE0-4y-uKk.text" = "Let’s do the personalised\nChocoed Essential Appraisals\nnow.";
+
+/* Class = "UIButton"; normalTitle = "NEXT  ➔"; ObjectID = "iEl-W8-pnI"; */
+"iEl-W8-pnI.normalTitle" = "वापस  ➔";
+
+/* Class = "UILabel"; text = "Courses Completed"; ObjectID = "iXi-SW-biT"; */
+"iXi-SW-biT.text" = "Courses Completed";
+
+/* Class = "UIButton"; normalTitle = "Know your Uniqueness ➔"; ObjectID = "jIh-vr-NQt"; */
+"jIh-vr-NQt.normalTitle" = "Know your Uniqueness ➔";
+
+/* Class = "UILabel"; text = "Welcome!"; ObjectID = "jOg-pn-qWh"; */
+"jOg-pn-qWh.text" = "स्वागत!";
+
+/* Class = "UIButton"; normalTitle = "Select Management Level"; ObjectID = "jTB-Y2-wLf"; */
+"jTB-Y2-wLf.normalTitle" = "Select Management Level";
+
+/* Class = "UIButton"; normalTitle = "Choose profile picture!"; ObjectID = "jVt-9N-c10"; */
+"jVt-9N-c10.normalTitle" = "प्रोफाइल चित्र चुनें!
+";
+
+/* Class = "UITextField"; placeholder = "Email Id*"; ObjectID = "jco-AK-79d"; */
+"jco-AK-79d.placeholder" = "Email Id*";
+
+/* Class = "UIButton"; normalTitle = "Let’s get Chocoed"; ObjectID = "jlV-9F-3Sg"; */
+"jlV-9F-3Sg.normalTitle" = "Let’s get Chocoed";
+
+/* Class = "UIButton"; normalTitle = "CONTINUE  ➜"; ObjectID = "kCS-ST-7x1"; */
+"kCS-ST-7x1.normalTitle" = "CONTINUE  ➜";
+
+/* Class = "UITextField"; placeholder = "Enter Location"; ObjectID = "kOt-rX-Nex"; */
+"kOt-rX-Nex.placeholder" = "Enter Location";
+
+/* Class = "UILabel"; text = "From"; ObjectID = "kXu-RO-wuu"; */
+"kXu-RO-wuu.text" = "From";
+
+/* Class = "UILabel"; text = "Let's begin with"; ObjectID = "kkE-WV-mjW"; */
+"kkE-WV-mjW.text" = "Let's begin with";
+
+/* Class = "UILabel"; text = "Work"; ObjectID = "mKB-cT-U4T"; */
+"mKB-cT-U4T.text" = "Work";
+
+/* Class = "UIButton"; normalTitle = "Proceed"; ObjectID = "o6A-gR-Awk"; */
+"o6A-gR-Awk.normalTitle" = "Proceed";
+
+/* Class = "UIButton"; normalTitle = "Female"; ObjectID = "oOT-Pb-yga"; */
+"oOT-Pb-yga.normalTitle" = "Female";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "oX3-us-UCR"; */
+"oX3-us-UCR.text" = "0";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "okD-rR-XWK"; */
+"okD-rR-XWK.normalTitle" = "Button";
+
+/* Class = "UIButton"; normalTitle = "╳"; ObjectID = "p4H-nN-3hj"; */
+"p4H-nN-3hj.normalTitle" = "╳";
+
+/* Class = "UILabel"; text = "Name of College"; ObjectID = "pPF-eQ-YiV"; */
+"pPF-eQ-YiV.text" = "Name of College";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "pWC-Hv-laz"; */
+"pWC-Hv-laz.text" = "Label";
+
+/* Class = "UILabel"; text = "Answer honestly, even if you don't like the answer"; ObjectID = "pgv-xy-MjS"; */
+"pgv-xy-MjS.text" = "Answer honestly, even if you don't like the answer";
+
+/* Class = "UILabel"; text = "Thoughts"; ObjectID = "qCt-hL-37k"; */
+"qCt-hL-37k.text" = "विचार";
+
+/* Class = "UINavigationItem"; title = "Learderboard"; ObjectID = "qP9-Fi-DbU"; */
+"qP9-Fi-DbU.title" = "Learderboard";
+
+/* Class = "UIButton"; normalTitle = "+"; ObjectID = "qak-k8-UeQ"; */
+"qak-k8-UeQ.normalTitle" = "+";
+
+/* Class = "UIButton"; normalTitle = "⤬"; ObjectID = "qwc-Re-tUv"; */
+"qwc-Re-tUv.normalTitle" = "⤬";
+
+/* Class = "UIButton"; normalTitle = "Select Prefered Language "; ObjectID = "r8X-bD-qXe"; */
+"r8X-bD-qXe.normalTitle" = "पसंदीदा भाषा चुने";
+
+/* Class = "UIButton"; normalTitle = "CONTINUE  ➜"; ObjectID = "rFX-C6-Dp0"; */
+"rFX-C6-Dp0.normalTitle" = "CONTINUE  ➜";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "rGi-cj-Rec"; */
+"rGi-cj-Rec.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "s64-kB-NWd"; */
+"s64-kB-NWd.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "END TEST"; ObjectID = "tCl-4b-fiW"; */
+"tCl-4b-fiW.normalTitle" = "END TEST";
+
+/* Class = "UILabel"; text = "Qualification"; ObjectID = "tjh-DZ-Raj"; */
+"tjh-DZ-Raj.text" = "Qualification";
+
+/* Class = "UILabel"; text = "Last Name*"; ObjectID = "tmV-Bq-9EC"; */
+"tmV-Bq-9EC.text" = "अंतिम नाम*";
+
+/* Class = "UILabel"; text = "Personality Test"; ObjectID = "txc-4P-XGR"; */
+"txc-4P-XGR.text" = "Personality Test";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "u2O-Pw-eP5"; */
+"u2O-Pw-eP5.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Save"; ObjectID = "u7n-kt-Jes"; */
+"u7n-kt-Jes.normalTitle" = "Save";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "uJN-7d-44f"; */
+"uJN-7d-44f.text" = "Label";
+
+/* Class = "UILabel"; text = "You are just 1 day behind the schedule"; ObjectID = "umV-uv-S2R"; */
+"umV-uv-S2R.text" = "You are just 1 day behind the schedule";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "v3T-3z-wSY"; */
+"v3T-3z-wSY.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Select Teams Handled"; ObjectID = "vH4-z1-jbn"; */
+"vH4-z1-jbn.normalTitle" = "Select Teams Handled";
+
+/* Class = "UILabel"; text = "Completed Test"; ObjectID = "vWz-Dh-55L"; */
+"vWz-Dh-55L.text" = "Completed Test";
+
+/* Class = "UIButton"; normalTitle = "Select Year"; ObjectID = "veW-ck-xas"; */
+"veW-ck-xas.normalTitle" = "Select Year";
+
+/* Class = "UILabel"; text = "Friends"; ObjectID = "wEZ-so-H1e"; */
+"wEZ-so-H1e.text" = "Friends";
+
+/* Class = "UINavigationItem"; title = "Create Profile"; ObjectID = "wNe-Kx-CK6"; */
+"wNe-Kx-CK6.title" = "प्रोफ़ाइल बनाये";
+
+/* Class = "UILabel"; text = "Specialization"; ObjectID = "wlI-Eb-6xA"; */
+"wlI-Eb-6xA.text" = "Specialization";
+
+/* Class = "UILabel"; text = "Name of Company"; ObjectID = "wqH-RF-aY6"; */
+"wqH-RF-aY6.text" = "Name of Company";
+
+/* Class = "UILabel"; text = "Year of passing"; ObjectID = "xCH-mF-6Tw"; */
+"xCH-mF-6Tw.text" = "Year of passing";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "xlX-HV-21K"; */
+"xlX-HV-21K.text" = "Label";
+
+/* Class = "UILabel"; text = "Conversation"; ObjectID = "xnH-9Y-e2A"; */
+"xnH-9Y-e2A.text" = "वार्तालाप";
+
+/* Class = "UIButton"; normalTitle = "Select Educational Medium"; ObjectID = "xwH-f3-c5t"; */
+"xwH-f3-c5t.normalTitle" = "Select Educational Medium";
+
+/* Class = "UIButton"; normalTitle = "END TEST"; ObjectID = "y7y-P5-MDg"; */
+"y7y-P5-MDg.normalTitle" = "END TEST";
+
+/* Class = "UITextField"; placeholder = "Enter Name of College"; ObjectID = "z1B-2p-1cT"; */
+"z1B-2p-1cT.placeholder" = "Enter Name of College";
+
+/* Class = "UILabel"; text = "Completed Topics"; ObjectID = "zLg-vT-3nE"; */
+"zLg-vT-3nE.text" = "पूरे किये विषय";
+";
+
+/* Class = "UILabel"; text = "Let's begin with"; ObjectID = "zZe-OM-nQF"; */
+"zZe-OM-nQF.text" = "Let's begin with";
+
+/* Class = "UILabel"; text = "My Functional Expertise"; ObjectID = "zro-6m-gif"; */
+"zro-6m-gif.text" = "My Functional Expertise";

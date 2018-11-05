@@ -1,0 +1,128 @@
+/* 
+  Localizable.strings
+  chocoed
+
+  Created by Tejal on 30/10/18.
+  Copyright © 2018 barkha sikka. All rights reserved.
+*/
+"LabelLanguageStringKey" = "Please select your preferred language for learning with Chocoed";
+"LoginButtonKey" = "Login";
+"SignUpKey" = "Select Preferred Language";
+"ChoicContectKey" = "Choice,Content,Conversation";
+"RequestOfEnterMobileNoKey" = "Please enter the mobile number of the device on which you would be installing Chocoed";
+"InputChocoedTokenKey" = "Input Chocoed Token";
+"TestCompletedKey" = "Completed Test";
+"TopicCompletedKey" = "Completed Topic";
+"BadgesEarnedKey" = "Badges Earned";
+"TalkKey" = "Talk";
+"ThoughtKey" = "Thought";
+"ProgressKey" = "Progress";
+"ChoiceKey" = "Choice";
+"ConversationKey" = "Conversation";
+"ContentKey" = "Content";
+"LetsBeginKey" = "";
+"BehaviourialKey" = "Behavioural Test";
+"ContinueKey" = "CONTINUE";
+"PsycomatricKey" = "Psychometric Test";
+"PersonalityKey" = "Personality Test";
+"LasttestKey" = "Here is last test on";
+"HonestAnswerKey" = "Answer honestly, even if you don't like the answer";
+"Educationkey" = "Education";
+"WorkKey" = "Work";
+"NextButtonKey" = "NEXT ➔";
+"PrevButtonKey" = "PREV";
+"FirstStepKey" = "You are on the First Step";
+"AddNewWorkKey" = "Add New Work";
+
+"EducationTopMsgKey" = "Let us know about your education";
+"QulificationKey" = "Qualification";
+"NameofCollegeKey" = "Name of College";
+"NameofBoardUniversityKey" = "Board / University";
+"LocationKey" = "Location";
+"EduactionMediumKey" = "Education Medium";
+"SpecializationKey" = "Specification";
+"YearofPassKey" = "Year of Passing";
+"saveButtonKey" = "Save";
+
+"WorkTopMsgLabel" = "Let us know about your work experience";
+"NameofCOmpanyKey" = "Name of Company";
+"EnterCompanyNameKey" = "Enter the Name of Company";
+"FromKey" = "From";
+"SelectYearFromKey" = "Select Year";
+"ToKey" = "To";
+"SelectYearToKEy" = "Select Year";
+"ManagementLevelKey" = "Management Level";
+"SelectManagementLevelKey" = "Select Management Level";
+"TeamHandelKey" = "Team Handled";
+"SelectTeamHAndleKEy" = "Select Teams Handled";
+"CurrrentInstKey" = "My Current Industry";
+"SelectCurrentIndustryKey" = "Select Current Industry";
+"FunctionalExpKey" = "My Functional Experience";
+"SelectFunctionExp" = "Select Functional Industry";
+
+
+"SelectQualificationButtonKey" = "Select Qualification";
+"EnterNameClgKey" = "Enter College Name";
+"EnterBoardKey" = "Enter Board University";
+"EnterLocationKey" = "Enter Location";
+"SelectEduMediumKey" = "Select Education Medium";
+"SelectSpecialixationKey" = "Select Specification";
+"SelectYearPassingButtonKey" = "Select Year";
+
+
+"IncorrectId" = "Incorrect Chocoed Token entered.";
+
+
+
+
+"WelcomeKey" = "Welcome!";
+"ProfileMsgForUserKey" = "There is only one You in this world. Let’s build your personal vitae";
+"GetStartedKey"= "GET STARTED  ➔";
+"AddEducationButtonKey" = "Add New Education";
+
+"CreateProfileKey" = "Create Profile";
+"ChooseImageKey" = "Choose  from gallery";
+"ChooseAvatar" = "Choose any Avatar";
+"ChooseImageLabelKey" = "Choose profile picture!";
+"FirstNameKey" = "First Name*";
+"LastNAmeKey" = "Last Name*";
+"MobileNoKey" = "Mobile No*";
+"EmailIDKey" = "Email-Id*";
+"GenderKey" = "Gender";
+"MaleKey" = "Male";
+"FemaleKey" = "Female";
+"BornOnKey" = "I am born on";
+"ProceedButtonKey" = "Proceed";
+
+
+"ProfileImpressionKey" = "You have an impressive profile!";
+"AppraisalMsgKey" = "Let’s do the personalised Chocoed Essential Appraisals now.";
+"KnowUserUniqenessKey" = "Know your Uniqueness ➔";
+
+"AwesomeToKnowMsgKey" = "Awesome! To know oneself is the beginning of every beautiful journey.";
+"LetsGetChocoedButtonKey" = "Let’s get Chocoed";
+
+"EndTestKey" = "END TEST";
+
+"MyChoiceKey" = "My Choice";
+"MySkillKey" = "My Skills";
+"SoftSkills" = "Soft Skills";
+
+"TopicLabelKey" = "Topic";
+"SubTopicLAbelKey" = "Sub Topic";
+
+"CompletedTestKey" = "Completed Tests";
+"CompletedCourseKey" = "Courses Completed";
+"FriendsKey" = "Friends";
+"Add5Key" = "Add 5 of your contacts to see their progress as well.";
+"AddFriendLabelKey" = "Add Friend";
+"DoneKey" = "Done";
+
+"MyPlanKey" = "My Plan";
+
+"PendingAssementKey" = "Pending Assessment";
+
+"ExamReviewKey" = "Exam Review";
+
+
+

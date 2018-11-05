@@ -10,8 +10,24 @@ import UIKit
 
 class GettingStartedViewController: UIViewController {
 
+    @IBOutlet weak var getStartedButtonLabel: UIButton!
+    @IBOutlet weak var thereIsOnlyYouLabel: UILabel!
+    @IBOutlet weak var welcomeLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        
+        self.welcomeLabel.text = "स्वागत!".localizableString(loc: language!)
+        self.thereIsOnlyYouLabel.text = "इस दुनिया में एक ही आप है। चलिए आपका व्यक्तिगत बायोडाटा बनाएं".localizableString(loc: language!)
+        //self.signUpButton.titleLabel?.text = "SignUpKey".localizableString(loc: StringLang)
+        // self.loginButton.titleLabel?.text = "LoginButtonKey".localizableString(loc: StringLang)
+        
+         self.getStartedButtonLabel.setTitle("शुरु करे ➔".localizableString(loc: language!), for: .normal)
+        //self.registerButton.setTitle("\("LoginButtonKey".localizableString(loc: language!))", for:.normal)
+        //self.otpReceivedLabel.text = "InputChocoedTokenKey".localizableString(loc: language!)
+
+        
+        
 
         // Do any additional setup after loading the view.
     }

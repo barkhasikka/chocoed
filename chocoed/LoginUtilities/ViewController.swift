@@ -24,6 +24,9 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     override func viewDidLoad() {
         super.viewDidLoad()
 //        constraintsOFUI()
+        
+        
+        
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)
         activityUIView.isHidden = true
@@ -112,11 +115,17 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         return cell
     }
     
-    func LanguageChanged(StringLang : String) {
-        self.labelLangChange.text = "LabelLanguageStringKey".localizableString(loc: StringLang)
-        self.loginButton.titleLabel?.text = "LoginButtonKey".localizableString(loc: StringLang)
-        print(loginButton.titleLabel?.text)
-        
+    func LanguageChanged() {
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        self.labelLangChange.text = "LabelLanguageStringKey".localizableString(loc: language!)
+        //self.signUpButton.titleLabel?.text = "SignUpKey".localizableString(loc: StringLang)
+       // self.loginButton.titleLabel?.text = "LoginButtonKey".localizableString(loc: StringLang)
+    
+       // self.signUpButton.setTitle("\("SignUpKey".localizableString(loc: StringLang))", for:.normal )
+        print(loginButton.titleLabel?.text ?? "")
+        self.loginButton.setTitle("\("LoginButtonKey".localizableString(loc: language!))", for:.normal)
+        self.labelChoice.text = "ChoicContectKey".localizableString(loc: language!)
+
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let text = arrayLanguages[indexPath.row].dbname
@@ -124,10 +133,14 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         
         switch indexPath.row {
         case 2 :
-            self.LanguageChanged(StringLang: "en")
+            // print(LanguageChanged(StringLang: "en"))
+            UserDefaults.standard.set("en", forKey: "currentlanguage")
+            self.LanguageChanged()
+            
             break
         case 4 :
-            self.LanguageChanged(StringLang: "hi")
+            UserDefaults.standard.set("en", forKey: "currentlanguage")
+            self.LanguageChanged()
             break
         default:
             print("default value is selected")

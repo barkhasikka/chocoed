@@ -9,10 +9,31 @@
 import UIKit
 
 class PersonalityTestViewController: UIViewController {
+    
+    @IBOutlet weak var lastTest: UILabel!
+    
+    @IBOutlet weak var personalityLabel: UILabel!
+    
+    
+    @IBOutlet weak var honestAnswer: UILabel!
+    
+  
+    @IBOutlet weak var continue2: UIButton!
+    
     var arrayBehaviouralQuestion = [Question]()
     var currentQuestion = 1
     override func viewDidLoad() {
         super.viewDidLoad()
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        
+        
+        
+        self.lastTest.text = "यह रहा अंतिम टेस्ट्!".localizableString(loc: language!)
+        self.personalityLabel.text = "व्यक्तित्व जांच".localizableString(loc: language!)
+        self.honestAnswer.text = "ईमानदारी से उत्तर दें, भले ही आपको जवाब पसंद न हो।".localizableString(loc: language!)
+        self.continue2.setTitle("जारी रखें".localizableString(loc: language!), for: .normal)
+        
+
         self.navigationItem.setHidesBackButton(true, animated: true)
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(named: "ic_background_pattern")

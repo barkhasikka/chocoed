@@ -259,6 +259,11 @@ world. Let’s build your personal vitae</string>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ibX-FY-Vcj"/>
                     </view>
+                    <connections>
+                        <outlet property="getStartedButtonLabel" destination="HhS-qW-fVc" id="Ukq-mz-ghI"/>
+                        <outlet property="thereIsOnlyYouLabel" destination="b4E-8h-UYf" id="J3k-Hy-sjZ"/>
+                        <outlet property="welcomeLabel" destination="jOg-pn-qWh" id="FQ8-sw-mFN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DgF-Wg-fg5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -326,6 +331,8 @@ now.</string>
                         <viewLayoutGuide key="safeArea" id="868-V9-aeJ"/>
                     </view>
                     <connections>
+                        <outlet property="PersonalisedMessageLabel" destination="iE0-4y-uKk" id="6pj-Ug-6Wf"/>
+                        <outlet property="impressiveProfileMessageLabel" destination="h7A-9h-ZRo" id="COv-F0-VaE"/>
                         <outlet property="letBeginButton" destination="jIh-vr-NQt" id="Foy-Sm-qQU"/>
                     </connections>
                 </viewController>
@@ -392,6 +399,11 @@ now.</string>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7tE-0C-pgl"/>
                     </view>
+                    <connections>
+                        <outlet property="LetsBeginLabel" destination="kkE-WV-mjW" id="g16-gg-p3b"/>
+                        <outlet property="behavioralLabel" destination="DvQ-tr-Ime" id="tlG-00-Rd0"/>
+                        <outlet property="continueButtonLabel" destination="1xI-oH-kZ6" id="d8s-9J-hvN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qgt-8A-3NY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -456,6 +468,11 @@ now.</string>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="kO9-tu-eoi"/>
                     </view>
+                    <connections>
+                        <outlet property="continue1" destination="kCS-ST-7x1" id="hiv-vK-aQk"/>
+                        <outlet property="letsBeginLabel" destination="zZe-OM-nQF" id="vwS-HK-yf1"/>
+                        <outlet property="psychometricTestLabel" destination="6tH-VY-hiF" id="oMi-AK-7tA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cA2-Yr-feq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -532,6 +549,12 @@ now.</string>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Tr7-gh-g6D"/>
                     </view>
+                    <connections>
+                        <outlet property="continue2" destination="rFX-C6-Dp0" id="nmj-4E-JuK"/>
+                        <outlet property="honestAnswer" destination="pgv-xy-MjS" id="7Ly-AL-KkU"/>
+                        <outlet property="lastTest" destination="H5X-DI-vOy" id="WXh-Iu-arX"/>
+                        <outlet property="personalityLabel" destination="txc-4P-XGR" id="Hm6-5R-zyF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gZF-up-h5y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -590,6 +613,7 @@ the beginning of every beautiful journey.</string>
                         <viewLayoutGuide key="safeArea" id="LPh-OH-O8E"/>
                     </view>
                     <connections>
+                        <outlet property="awesomeMessageLabel" destination="BYW-LA-ds7" id="3RB-03-Xhf"/>
                         <outlet property="beginButton" destination="jlV-9F-3Sg" id="ZfH-uQ-Q7m"/>
                     </connections>
                 </viewController>
@@ -1481,6 +1505,11 @@ the beginning of every beautiful journey.</string>
                             <constraint firstItem="aze-uW-Bd0" firstAttribute="trailing" secondItem="13M-gj-u9C" secondAttribute="trailing" constant="16" id="yzi-by-ga6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aze-uW-Bd0"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="13M-gj-u9C"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Create Profile" id="wNe-Kx-CK6"/>
                     <connections>
@@ -1488,6 +1517,9 @@ the beginning of every beautiful journey.</string>
                         <outlet property="birthDateTextField" destination="usi-vq-eJG" id="gGn-S4-jO6"/>
                         <outlet property="btn" destination="4Aa-Np-Uwp" id="UEq-uH-g21"/>
                         <outlet property="btnFemale" destination="oOT-Pb-yga" id="JFl-FE-hUp"/>
+                        <outlet property="chooseAvatarLabel" destination="1xF-OX-0NN" id="yFQ-DO-zKj"/>
+                        <outlet property="chooseGalleryLabel" destination="FvK-ij-fk0" id="I6h-sw-iBw"/>
+                        <outlet property="createProfileButtonLabel" destination="wNe-Kx-CK6" id="yWl-YK-aL8"/>
                         <outlet property="imageIcon" destination="Hkv-iK-cSK" id="xGp-qA-RP7"/>
                         <outlet property="imageView1" destination="KDe-lO-gfR" id="7af-fw-k9Y"/>
                         <outlet property="imageView2" destination="kOT-42-N4b" id="TLB-KI-rLk"/>
@@ -1500,7 +1532,9 @@ the beginning of every beautiful journey.</string>
                         <outlet property="labelFirstName" destination="Hea-Rl-gNm" id="CtE-r4-fJB"/>
                         <outlet property="labelLastName" destination="tmV-Bq-9EC" id="5Gw-eT-jUy"/>
                         <outlet property="labelMobileno" destination="EbR-xd-Z5I" id="Vfd-JA-Wbf"/>
+                        <outlet property="orLabel" destination="9GK-D6-NBo" id="e0q-2T-lLG"/>
                         <outlet property="popUpView" destination="13M-gj-u9C" id="eYO-go-ofv"/>
+                        <outlet property="proceedLabel" destination="Szk-Hf-Hyb" id="wTo-py-5DP"/>
                         <outlet property="profileDataUIView" destination="Dem-Ge-dlw" id="lE4-Sk-Ypf"/>
                         <outlet property="profileDataUIViewHeightConstraint" destination="evJ-Fg-YO5" id="MOg-mk-vIu"/>
                         <outlet property="profileDataUIViewTopConstraint" destination="Vtb-qc-Kvs" id="pa4-Wa-ZCH"/>
@@ -1982,7 +2016,6 @@ the beginning of every beautiful journey.</string>
                         <outlet property="imageViewMessage" destination="HVk-OC-uv8" id="1VJ-NL-VT8"/>
                         <outlet property="labelInstruct" destination="3Ks-yw-nIj" id="E2l-EJ-23k"/>
                         <outlet property="labelMobileNo" destination="gzw-Wp-7Zx" id="NRp-I9-Pd1"/>
-                        <outlet property="labelOTPReceived" destination="Wg6-UP-uko" id="d6h-gH-7A0"/>
                         <outlet property="mobileNumberTextFIeld" destination="0tE-fn-5Bu" id="nvX-rh-PXi"/>
                         <outlet property="otpDigitFifthTF" destination="uBm-jq-rf2" id="26b-2y-V5J"/>
                         <outlet property="otpDigitFirstTF" destination="xoc-LC-hHV" id="LLN-3I-bdq"/>
@@ -2194,7 +2227,11 @@ the beginning of every beautiful journey.</string>
                     <connections>
                         <outlet property="addeducationButton" destination="b1f-c2-qyE" id="qBs-yU-zIf"/>
                         <outlet property="educationDetailsTableView" destination="rdh-EU-TiT" id="8ce-Wz-OOV"/>
+                        <outlet property="educationLabel" destination="1Ng-1W-W5j" id="ARo-eT-Pdp"/>
+                        <outlet property="firstStepLabel" destination="AzI-r5-Ga3" id="GAQ-r1-ymZ"/>
+                        <outlet property="nextButtonLabel" destination="L5q-JD-7Ke" id="SeX-TF-dVH"/>
                         <outlet property="viewEdu" destination="L8x-up-4o1" id="TMA-8V-UMA"/>
+                        <outlet property="workLabel" destination="Ffo-z2-Cwf" id="BaB-gS-3Sk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="akP-YC-y8O" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2437,6 +2474,10 @@ the beginning of every beautiful journey.</string>
                     </view>
                     <connections>
                         <outlet property="addnewWorkButton" destination="8UL-in-FpL" id="lNv-lR-IMT"/>
+                        <outlet property="educationLabel1" destination="NIZ-KH-kTN" id="e12-rv-ygO"/>
+                        <outlet property="nextButtonLabel1" destination="Ma3-7J-rqN" id="ouD-Vz-fb2"/>
+                        <outlet property="prevButtonLabel" destination="U1a-O2-Fxv" id="EiP-m7-wwy"/>
+                        <outlet property="workLabel1" destination="mKB-cT-U4T" id="ZkI-L3-HFE"/>
                         <outlet property="workListTableView" destination="38B-jU-kWR" id="9qY-O8-T5e"/>
                     </connections>
                 </viewController>
@@ -2684,11 +2725,13 @@ the beginning of every beautiful journey.</string>
                         <outlet property="labelPassing" destination="xCH-mF-6Tw" id="Bb8-y6-g9r"/>
                         <outlet property="labelQualification" destination="tjh-DZ-Raj" id="9wT-In-D0C"/>
                         <outlet property="labelSpecialization" destination="wlI-Eb-6xA" id="TNs-bI-abU"/>
+                        <outlet property="letUsKnowLabel" destination="EsR-w5-Smq" id="Kbp-Uy-rLJ"/>
                         <outlet property="locationTextField" destination="kOt-rX-Nex" id="7Rb-nR-jEs"/>
                         <outlet property="outletofConstraints" destination="NJk-EF-6KM" id="h9Z-O5-D84"/>
                         <outlet property="savebutton" destination="u7n-kt-Jes" id="L72-lE-xjY"/>
                         <outlet property="textfieldBoardUniv" destination="Caq-iW-Zfg" id="UjN-vf-O7B"/>
                         <outlet property="textfieldClgName" destination="z1B-2p-1cT" id="5IT-hR-UA3"/>
+                        <outlet property="yearOfPassingLabel" destination="xCH-mF-6Tw" id="zPG-IQ-gOF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="knY-Of-BMy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2930,14 +2973,22 @@ the beginning of every beautiful journey.</string>
                     </view>
                     <size key="freeformSize" width="375" height="825"/>
                     <connections>
+                        <outlet property="companyLabel" destination="wqH-RF-aY6" id="hoz-Gb-Sfg"/>
                         <outlet property="currentIndustryButton" destination="Xix-eF-dve" id="pvk-2z-3k0"/>
                         <outlet property="fromButton" destination="W8r-xb-Dyl" id="2pK-AZ-e10"/>
+                        <outlet property="fromLabel" destination="kXu-RO-wuu" id="0LG-cX-9U6"/>
                         <outlet property="funcExpButton" destination="ggM-u6-uAl" id="6h7-cF-NXI"/>
+                        <outlet property="functionalLabel" destination="zro-6m-gif" id="CbW-IX-n7W"/>
+                        <outlet property="industryLabel" destination="apw-jG-CTM" id="Qrw-hH-mW2"/>
+                        <outlet property="letUsKnowLabel1" destination="DOk-JS-l01" id="KTA-jq-ulz"/>
+                        <outlet property="managementLabel" destination="0lz-ib-peu" id="7ee-YV-Mak"/>
                         <outlet property="managementLevelButton" destination="jTB-Y2-wLf" id="ciP-6y-ef5"/>
                         <outlet property="saveButton" destination="4Q9-B3-Sk2" id="tdh-CB-nhw"/>
                         <outlet property="teamsHandeledButton" destination="vH4-z1-jbn" id="VDl-67-IQR"/>
+                        <outlet property="teamsHandledLabel" destination="BZi-h0-YOu" id="AkF-5n-0hT"/>
                         <outlet property="textFieldCompany" destination="BX3-dN-D3L" id="djc-Sw-4t6"/>
                         <outlet property="toButton" destination="veW-ck-xas" id="BN2-NH-Azm"/>
+                        <outlet property="tolabel" destination="LPI-ua-FEB" id="kqD-XU-5x6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7ko-J5-DcB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3322,7 +3373,7 @@ the beginning of every beautiful journey.</string>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Completed Tests" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P9E-Mi-4Ya">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Completed Tests" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P9E-Mi-4Ya">
                                                         <rect key="frame" x="135" y="65" width="104" height="21"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="104" id="9ma-RK-4j0"/>
@@ -3695,9 +3746,16 @@ the beginning of every beautiful journey.</string>
                     <size key="freeformSize" width="375" height="800"/>
                     <connections>
                         <outlet property="arcView" destination="ZPM-Xp-P3g" id="ZWD-1o-xj9"/>
+                        <outlet property="badgesEarnedLabel" destination="MfD-5I-Vm3" id="YrM-0L-6Io"/>
                         <outlet property="buttonLotus" destination="1Tt-Io-JV7" id="PNs-UB-XKU"/>
                         <outlet property="buttonMiddleProfile" destination="1OS-GJ-OEj" id="Ui7-cw-95g"/>
                         <outlet property="buttonMsg" destination="XOq-ms-y9T" id="Sim-SF-7Rx"/>
+                        <outlet property="choiceLabel1" destination="ge8-a6-9a5" id="cqk-0o-2Aj"/>
+                        <outlet property="choiceLabel2" destination="bHs-NG-pfe" id="liD-9F-dh1"/>
+                        <outlet property="compTestLabel" destination="P9E-Mi-4Ya" id="6eJ-gZ-l1r"/>
+                        <outlet property="completedTopicsLabel" destination="zLg-vT-3nE" id="NcJ-I0-LbM"/>
+                        <outlet property="contentLabel1" destination="Ta8-Eh-KP3" id="Gxo-EB-PAS"/>
+                        <outlet property="conversationLabel1" destination="xnH-9Y-e2A" id="xvh-tH-7vo"/>
                         <outlet property="heightMyThought" destination="ISa-cL-Vbz" id="BC3-98-wdE"/>
                         <outlet property="heightmychat" destination="3G7-y8-bLX" id="D5m-hK-6Gz"/>
                         <outlet property="heightprogrss" destination="UPw-kb-PNS" id="KM1-vi-OtH"/>
@@ -3714,6 +3772,9 @@ the beginning of every beautiful journey.</string>
                         <outlet property="myThoughtsHandUIView" destination="YaY-qk-7aA" id="X0j-HR-wmV"/>
                         <outlet property="mychatButton" destination="plK-mb-rWo" id="BUc-2A-MNQ"/>
                         <outlet property="myprogressConstraintOutlet" destination="wkt-lF-y2T" id="S1K-6H-34N"/>
+                        <outlet property="progressLabel" destination="f9i-WI-ipa" id="QsC-Pf-ytH"/>
+                        <outlet property="talkLabel" destination="SFO-Cf-toA" id="gdt-08-e99"/>
+                        <outlet property="thought" destination="qCt-hL-37k" id="5yE-fe-H2N"/>
                         <outlet property="topArcVIew" destination="WOZ-oU-LjF" id="ce1-bY-32G"/>
                         <outlet property="userProgressView" destination="GvJ-xK-LRd" id="1hD-uB-3bK"/>
                         <outlet property="viewButtonsCircle" destination="DU5-kb-2BZ" id="l6N-or-fuY"/>
@@ -3864,6 +3925,8 @@ the beginning of every beautiful journey.</string>
                     </view>
                     <connections>
                         <outlet property="collectionViewSkills" destination="vft-df-pAG" id="i7T-An-vO5"/>
+                        <outlet property="myChoiceLabel" destination="Gdx-Zs-8bF" id="RHn-P4-cXT"/>
+                        <outlet property="mySkills" destination="cCo-9w-MzR" id="ueW-Sn-1HX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tTa-Sf-IXu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4979,7 +5042,10 @@ the beginning of every beautiful journey.</string>
                         <outlet property="addContactView" destination="Rmo-CX-5mF" id="X0e-oK-bhM"/>
                         <outlet property="backgroundView" destination="wSN-sR-AGC" id="wv0-yU-WT9"/>
                         <outlet property="completedTestLabel" destination="Pfj-om-2as" id="0Fd-ef-cPa"/>
-                        <outlet property="courseCompletedLabel" destination="8oT-TD-ppb" id="MBt-ly-wRy"/>
+                        <outlet property="completedTestsLabel" destination="vWz-Dh-55L" id="xyY-61-UEf"/>
+                        <outlet property="courseCompletedLabel" destination="8oT-TD-ppb" id="3RY-sp-tIP"/>
+                        <outlet property="coursestoDisplaylable" destination="iXi-SW-biT" id="Szi-6k-bzH"/>
+                        <outlet property="friendsLabel" destination="wEZ-so-H1e" id="wd8-g5-bO4"/>
                         <outlet property="imageViewLabelImage" destination="rRH-BE-RKF" id="GlP-x3-fzO"/>
                         <outlet property="labelRank" destination="6Hj-7M-8Wv" id="fTC-Jx-YX0"/>
                         <outlet property="reportLabel" destination="umV-uv-S2R" id="BTh-Pa-1HJ"/>
