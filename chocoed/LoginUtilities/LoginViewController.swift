@@ -103,6 +103,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
     }
     
     @IBAction func registerButtonAction(_ sender: Any) {
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
         var userEnteredOTPText = otpDigitFirstTF.text! + otpDigitSecondTF.text! + otpDigitThirdTF.text! + otpDigitFourthTF.text! + otpDigitFifthTF.text! + otpDigitSixthTF.text!
         let userEnteredOTP = Int(userEnteredOTPText)
         if userEnteredOTP == otpFromServer {
@@ -116,6 +117,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
 //            let vcGetStarted = storyboard?.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
 //            self.present(vcGetStarted, animated: true, completion: nil)
         }else {
+            
             let alertcontrol = UIAlertController(title: "Recheck!", message: "Incorrect Chocoed Token entered.", preferredStyle: .alert)
             let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertcontrol.addAction(alertaction)
