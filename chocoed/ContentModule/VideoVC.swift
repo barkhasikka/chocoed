@@ -631,7 +631,7 @@ class VideoVC: UIViewController {
                 
                 if self.currentExamID != "" {
                     
-                    self.callEndTestAPI()
+                    self.callEndTestAPI(examId : self.currentExamID)
                 }
                 
                 
@@ -1158,7 +1158,7 @@ class VideoVC: UIViewController {
     }
     
     
-    func callEndTestAPI() {
+    func callEndTestAPI(examId : String) {
         
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
@@ -1168,7 +1168,7 @@ class VideoVC: UIViewController {
         let endTime = formatter.string(from: Date())
         
         
-        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(self.currentExamID)", "endTime": "\(endTime)"] as Dictionary<String, String>
+        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(examId)", "endTime": "\(endTime)"] as Dictionary<String, String>
         print(params, "<<<<-- end test api")
        
         MakeHttpPostRequest(url: endExamAPI, params: params, completion: {(success, response) -> Void in

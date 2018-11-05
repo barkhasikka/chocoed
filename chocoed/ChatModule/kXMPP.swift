@@ -19,5 +19,6 @@ public struct kXMPP {
     public static let TYPE_PDF: String = "pdf"
     public static let TYPE_DELETE: String = "delete"
 
+    public static let registerUSER : String  = "http://getsetrecharge.com/chocoed/api/register"
 
 }

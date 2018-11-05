@@ -21,13 +21,7 @@ class LaunchScreenViewController: UIViewController {
         imageLogoView.image = Gif
         // Do any additional setup after loading the view.
         
-        InstanceID.instanceID().instanceID { (result, error) in
-            if let error = error {
-                print("Error fetching remote instange ID: \(error)")
-            } else if let result = result {
-                print("Remote instance ID token: \(result.token)")
-            }
-        }
+       
     }
 
     override func didReceiveMemoryWarning() {

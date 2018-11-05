@@ -63,6 +63,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if userID != 0 {
             DispatchQueue.main.asyncAfter(deadline: .now() + 8) { // change 2 to desired number of seconds
                 self.GetUserInfo()
+                
+                
+                
+                
             }
                   } else {
            /* let quiztakenid = UserDefaults.standard.string(forKey: "quiztakenID")
@@ -75,6 +79,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.window!.rootViewController = navigationController
             }
             else{ */
+            
+            
+            
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
 
@@ -150,6 +157,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(remoteMessage.appData)
     }
     
+    public static func getFCMID() -> String {
+        InstanceID.instanceID().instanceID { (result, error) in
+                return result?.token
+        }
+        
+        return ""
+        
+    }
+    
   
     
     func GetUserInfo() {
@@ -173,7 +189,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
            // let fileUrl = URL(string: url)
             UserDefaults.standard.set(Int(clientId), forKey: "clientid")
             
-            USERDETAILS = UserDetails(email: temp.email, firstName: temp.firstName, lastname: temp.lastName, imageurl: url)
+            USERDETAILS = UserDetails(email: temp.email, firstName: temp.firstName, lastname: temp.lastName, imageurl: url, mobile: temp.mobile)
             
             if quizTaken == 1 {
                 print("1")

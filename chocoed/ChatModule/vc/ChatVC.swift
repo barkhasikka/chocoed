@@ -28,7 +28,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
     
     @IBOutlet var editMsg: UITextField!
     
-    var friendModel : FriendListChat!
+    var friendModel : Friends!
     
     var imagePicker =  YPImagePicker()
 
@@ -82,21 +82,24 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
             let url = self.savefiletoDirector(image: img)
             print(url)
             
+            
+        //   let isUploaded = self.uploadImage(selectedImage: img, msgID: "1234")
+            
             self.saveInCoreDataWith(object: Message(
                 msg: "",
-                msgId: "1234",
+                msgId: self.getCurrentTime(),
                 msgType: kXMPP.TYPE_IMAGE,
                 msgACk: "0",
-                fromID: "7722007008",
-                toID: self.friendModel.userId,
+                fromID: USERDETAILS.mobile,
+                toID: self.friendModel.contact_number,
                 fileUrl: url,
                 isUpload: "0",
                 isDownload: "0",
                 isStreaming: "0",
                 isMine: "1",
-                created: "",
+                created: self.getCurrentTime(),
                 status: "",
-                modified: ""))
+                modified: self.getCurrentTime()))
             self.imagePicker.dismiss(animated: true, completion: nil)
         }
         present(imagePicker, animated: true, completion: nil)
@@ -113,11 +116,11 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
             
             self.saveInCoreDataWith(object: Message(
                 msg: "",
-                msgId: "1234",
+                msgId: self.getCurrentTime(),
                 msgType: kXMPP.TYPE_IMAGE,
                 msgACk: "0",
-                fromID: "7722007008",
-                toID: self.friendModel.userId,
+                fromID: USERDETAILS.mobile,
+                toID: self.friendModel.contact_number,
                 fileUrl: url,
                 isUpload: "0",
                 isDownload: "0",
@@ -169,16 +172,16 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                 msgId: message.attributeStringValue(forName: "id") ?? "",
                 msgType: json.value(forKey: "msgType") as! String,
                 msgACk: "0",
-                fromID: "7722007008",
+                fromID: USERDETAILS.mobile,
                 toID: friendID,
                 fileUrl: json.value(forKey: "fileUrl") as! String,
                 isUpload: "0",
                 isDownload: "0",
                 isStreaming: "0",
                 isMine: "0",
-                created: "",
+                created: self.getCurrentTime(),
                 status: "",
-                modified: ""))
+                modified: self.getCurrentTime()))
             
             self.tblView.reloadData()
             
@@ -204,7 +207,9 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
     lazy var fetchedhResultController: NSFetchedResultsController<NSFetchRequestResult> = {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Msg.self))
         
-        fetchRequest.predicate = NSPredicate(format: "to_id %@", "\(friendModel.userId)")
+        print(friendModel.contact_number,"<<<  >>>")
+        
+      //  fetchRequest.predicate = NSPredicate(format: "to_id %@", friendModel.userId)
 
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "msg_id", ascending: true)]
         
@@ -225,6 +230,10 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
        // OneLastActivity.sharedInstance.add
         
         
+       
+        
+        
+        
          self.tblView.register(MsgCell.self, forCellReuseIdentifier: cellID)
         
         do {
@@ -241,6 +250,8 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
         longPressRec.minimumPressDuration = 1.0
         //longPressRec.delegate = self as! UIGestureRecognizerDelegate
         self.tblView.addGestureRecognizer(longPressRec)
+ 
+       
         
     }
     
@@ -287,8 +298,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
             UIAlertAction in
             //  self.openCamera(UIImagePickerController.SourceType.photoLibrary)
             
-            self.tblView.allowsMultipleSelection = true
-            self.tblView.allowsSelectionDuringEditing = true
+           
             
         }
         
@@ -331,26 +341,26 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
             
             print(msg ?? "")
             
-            OneMessage.sendMessage(msg!, thread: "test", to: "\(friendModel.userId)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
+            OneMessage.sendMessage(msg!, thread: "test", to: "\(friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
                 
                 print(message)
                 print(stream)
                 
                 self.saveInCoreDataWith(object: Message(
                     msg: text!,
-                    msgId: "1",
+                    msgId: self.getCurrentTime(),
                     msgType: kXMPP.TYPE_TEXT,
                     msgACk: "0",
-                    fromID: "7722007008",
-                    toID: self.friendModel.userId,
+                    fromID: USERDETAILS.mobile,
+                    toID: self.friendModel.contact_number,
                     fileUrl: "",
                     isUpload: "0",
                     isDownload: "0",
                     isStreaming: "0",
                     isMine: "1",
-                    created: "",
+                    created: self.getCurrentTime(),
                     status: "",
-                    modified: ""))
+                    modified: self.getCurrentTime()))
                 
                 
             })
@@ -368,56 +378,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
         dismiss(animated: false, completion: nil)
 
     }
-    
-    /** Table View Delegates **/
-  /*  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-       /* let message: JSQMessage = self.messages[indexPath.item] as! JSQMessage
-        let strMessage = message.text
-        
-        // let xcoordinateForGroupView = 15
-        // let xcoordinateForLable = 10
-        
-        let lblText = UILabel()
-        lblText.textColor = UIColor.black
-        lblText.text = strMessage
-        lblText.numberOfLines = 0
-        
-        /*let sizeReceived: CGSize = self.getSizeForText(strMessage, maxWidth: (CGFloat(0.63 * screenWidth)), font: "Optima", fontSize: 15)
-         
-         let style = NSParagraphStyle.default as? NSMutableParagraphStyle
-         style?.alignment = .justified
-         style?.firstLineHeadIndent = 5.0
-         style?.headIndent = 5.0
-         style?.tailIndent = -5.0
-         
-         var attrText: NSAttributedString? = nil
-         if let aStyle = style {
-         attrText = NSAttributedString(string: strMessage, attributes: [NSAttributedStringKey.paragraphStyle: aStyle])
-         }
-         
-         lblText.attributedText = attrText */
-        
-        let msgCell = UITableViewCell(style: .default, reuseIdentifier: "msgcell")
-        msgCell.addSubview(lblText)
- */
-        
-        return nil
-        
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        
-        
-    }
- 
- */
-    
+  
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let count = fetchedhResultController.sections?.first?.numberOfObjects {
             return count
@@ -431,9 +392,31 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
         
         if let item = fetchedhResultController.object(at: indexPath) as? Msg {
             cell.setMsgCellWith(item: item)
+            
+          /*  if item.msg_type == kXMPP.TYPE_IMAGE{
+                
+                if item.is_upload == "0" && item.is_streaming == "0"{
+                    
+                    let cell = tableView.cellForRow(at: indexPath)
+                    if self.uploadImage(selectedImage: (cell?.imageView)!, msgID: item.msg_id){
+                        
+                        print("imageUploaded")
+                        
+                    }else{
+                        print("fails")
+                    }
+                    
+                }
+                
+            }
+      */
+            
+            
+            
         }
         return cell
     }
+    
     
     
     
@@ -447,10 +430,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
     }
     
     private func createMsgEntityFrom(item: Message) {
-        
-   
-        
-        
+    
         let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
         if let msgObject = NSEntityDescription.insertNewObject(forEntityName: "Msg", into: context) as? Msg {
             
@@ -519,33 +499,6 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
         }
 
     }
-
-    
-   
-}
-
-
-extension ChatVC: NSFetchedResultsControllerDelegate {
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        
-        switch type {
-        case .insert:
-            self.tblView.insertRows(at: [newIndexPath!], with: .automatic)
-        case .delete:
-            self.tblView.deleteRows(at: [indexPath!], with: .automatic)
-        default:
-            break
-        }
-    }
-    
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        self.tblView.endUpdates()
-    }
-    
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tblView.beginUpdates()
-    }
     
     /**** Last Activity ****/
     
@@ -558,12 +511,12 @@ extension ChatVC: NSFetchedResultsControllerDelegate {
     func xmppLastActivity(_ sender: XMPPLastActivity!, didNotReceiveResponse queryID: String!, dueToTimeout timeout: TimeInterval) {
         
         print(timeout)
-
+        
     }
     
     func numberOfIdleTimeSeconds(for sender: XMPPLastActivity!, queryIQ iq: XMPPIQ!, currentIdleTimeSeconds idleSeconds: UInt) -> UInt {
         print(idleSeconds)
-
+        
         return idleSeconds;
     }
     
@@ -596,5 +549,53 @@ extension ChatVC: NSFetchedResultsControllerDelegate {
         
     }
     
+    private func uploadImage(selectedImage : UIImage,msgID : String) -> Bool {
+        
+        let imageData = UIImagePNGRepresentation(selectedImage)
+        
+        let imageUploadParams = ["msg_id": "\(msgID)"] as! Dictionary<String, String>
+        MakeHttpMIME2PostRequestChat(url: "http://getsetrecharge.com/chocoed/api/upload_image", imageData: imageData as! NSData, param: imageUploadParams, completion: {(success, response) -> Void in
+            print(response, "UPLOAD PROFILE PIC RESPONSE")
+            
+        })
+        
+        return true
+    }
+    
+    
+    
+    private func getCurrentTime() -> String {
+        
+        let messageID = Int64(NSDate().timeIntervalSince1970 * 1000)
+        return String(messageID)
+        
+    }
+    
+  
+   
+}
+
+
+extension ChatVC: NSFetchedResultsControllerDelegate {
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
+        switch type {
+        case .insert:
+            self.tblView.insertRows(at: [newIndexPath!], with: .automatic)
+        case .delete:
+            self.tblView.deleteRows(at: [indexPath!], with: .automatic)
+        default:
+            break
+        }
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        self.tblView.endUpdates()
+    }
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tblView.beginUpdates()
+    }
 }
 

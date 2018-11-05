@@ -59,6 +59,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     var activeField: UITextField!
     var keyboardHeight: CGFloat!
     var lastOffset: CGFloat!
+    var mobileNo = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -393,6 +394,8 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
             temp.gender = jsonobject?.object(forKey: "gender") as? String ?? ""
             temp.birthDate = jsonobject?.object(forKey: "birthDate") as? String ?? ""
 
+            self.mobileNo = temp.mobile
+            
             let clientId = jsonobject?.object(forKey: "clientId") as? String ?? ""
             let url = jsonobject?.object(forKey: "profileImageUrl") as? String ?? ""
             
@@ -406,6 +409,20 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
                 self.textfieldEmailId.text = temp.email
                 self.textfieldMobileNo.text = temp.mobile
                 self.birthDateTextField.text = temp.birthDate
+                
+                
+                USERDETAILS = UserDetails(
+                    email:self.textfieldEmailId.text!,
+                    firstName:self.textfieldLastName.text!,
+                    lastname: self.self.textfieldFirstName.text!,
+                    imageurl: url,
+                    mobile : self.mobileNo
+                )
+                
+                
+                
+                
+                
                 if temp.gender == "Male" {
                     
                     self.btn.isSelected =  true
@@ -493,12 +510,14 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
                 
                  let profileimg = response.object(forKey: "profileimg") as? String ?? ""
 
-                DispatchQueue.main.async {
-
-                USERDETAILS = UserDetails(email: self.textfieldEmailId.text!, firstName:self.textfieldLastName.text!, lastname: self.self.textfieldFirstName.text!, imageurl: profileimg)
-                    
-                }
-                
+                USERDETAILS = UserDetails(
+                    email:self.textfieldEmailId.text!,
+                    firstName:self.textfieldLastName.text!,
+                    lastname: self.self.textfieldFirstName.text!,
+                    imageurl: profileimg,
+                    mobile : self.mobileNo
+                )
+               
             })
         }
     }

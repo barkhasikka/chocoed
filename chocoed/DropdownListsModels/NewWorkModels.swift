@@ -250,6 +250,8 @@ struct UserDetails{
     var firstName : String
     var lastname : String
     var imageurl : String
+    var mobile : String
+
 }
 
 

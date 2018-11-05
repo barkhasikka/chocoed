@@ -235,3 +235,104 @@ func GetAlertWithOKAction(message: String) -> UIViewController {
     return alertcontrol
 }
 
+
+func MakeHttpMIME2PostRequestChat(url: String, imageData: NSData, param: Dictionary<String, String>, completion: @escaping ((_ success: Bool, _ response: NSDictionary) -> Void)) {
+    
+    var request = URLRequest(url: URL(string: url)!)
+    request.httpMethod = "POST"
+    let boundary = generateBoundaryString()
+    
+    let uuid = NSUUID().uuidString
+    
+    
+    
+    request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+    request.httpBody = createBodyWithParameters(parameters: param, filePathKey: "image", imageDataKey: imageData, boundary: boundary) as Data
+    let session = URLSession.shared
+    let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
+        guard error == nil else {
+            print("error in the request", error ?? "")
+            return
+        }
+        
+        if let httpResponse = response as? HTTPURLResponse {
+            let statusCode = httpResponse.statusCode
+            print("Status Code for url \(String(describing: url))", statusCode)
+        }
+        guard let data = data else {
+            print("something is wrong")
+            return
+        }
+        
+        do {
+            print(data)
+            if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject] {
+                let jsonobject = json as? NSDictionary
+                completion( true, jsonobject!)
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    task.resume()
+}
+
+func MakeHttpPostRequestChat(url: String, params: Dictionary<String, Any>, completion: @escaping ((_ success: Bool, _ response: NSDictionary) -> Void), errorHandler: @escaping ((_ message: String) -> Void))  {
+    
+    
+    if !ConnectionCheck.isConnectedToNetwork() {
+        errorHandler("Check your internet connection")
+    }
+    
+    let url = NSURL(string: url)
+    let request = NSMutableURLRequest(url: url! as URL)
+    request.httpMethod = "POST"
+    do {
+        let httpBody =  try JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions.prettyPrinted)
+        let httpBodyString = String(data: httpBody, encoding: String.Encoding.utf8)
+        request.httpBody = httpBodyString?.data(using: String.Encoding.utf8)
+        
+    } catch let error {
+        print("error in serialization==",error.localizedDescription)
+    }
+    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    request.addValue("application/json", forHTTPHeaderField: "Accept")
+    
+    let session = URLSession.shared
+    let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
+        guard error == nil else {
+            print("error in the request", error ?? "")
+            return
+        }
+        
+        if let httpResponse = response as? HTTPURLResponse {
+            let statusCode = httpResponse.statusCode
+            print("Status Code for url \(String(describing: url))", statusCode)
+        }
+        guard let data = data else {
+            print("something is wrong")
+            return
+        }
+        
+        do {
+            print(data)
+            if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject] {
+                let jsonobject = json as? NSDictionary
+                completion( true, jsonobject!)
+
+               /* if jsonobject?.value(forKey: "statusCode") as! Int == 0 {
+                    errorHandler(jsonobject?.value(forKey: "statusMessage") as! String)
+                }else {
+                    completion( true, jsonobject!)
+                } */
+            }
+        } catch let error {
+            print(error.localizedDescription)
+            errorHandler(error.localizedDescription)
+        }
+    }
+    task.resume()
+    return
+}
+
+

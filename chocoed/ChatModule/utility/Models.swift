@@ -53,6 +53,27 @@ struct CustomMessageModel : Codable {
     
 }
 
+struct Friend {
+    
+     var   created : String
+     var   contact_number: String
+     var   fcm_id : String
+     var   is_mine : String
+     var   is_typing : String
+     var   last_msg : String
+     var   last_msg_type : String
+     var   last_msg_time : String
+     var   modified : String
+     var   name : String
+     var   profile_image : String
+     var   read_count : String
+     var   status : String
+     var   user_id : String
+    
+}
+
+
+
 
 struct Message {
     

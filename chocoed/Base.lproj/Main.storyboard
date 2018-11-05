@@ -5143,7 +5143,6 @@ the beginning of every beautiful journey.</string>
             </objects>
             <point key="canvasLocation" x="1520.8" y="3033.7331334332835"/>
         </scene>
-        
         <!--Friend ListVC-->
         <scene sceneID="AtM-p3-d1l">
             <objects>
@@ -5250,6 +5249,7 @@ the beginning of every beautiful journey.</string>
                         <viewLayoutGuide key="safeArea" id="dQO-Bh-sIH"/>
                     </view>
                     <connections>
+                        <outlet property="searchBar" destination="QVc-g3-DOH" id="STR-Jj-ZlD"/>
                         <outlet property="tblView" destination="yXV-VD-M2f" id="7Cs-yL-gWw"/>
                     </connections>
                 </viewController>
@@ -5324,8 +5324,8 @@ the beginning of every beautiful journey.</string>
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="huZ-eF-4Tr">
-                                <rect key="frame" x="0.0" y="188" width="375" height="395"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="huZ-eF-4Tr">
+                                <rect key="frame" x="0.0" y="188" width="375" height="479"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
@@ -5348,9 +5348,6 @@ the beginning of every beautiful journey.</string>
             </objects>
             <point key="canvasLocation" x="5608.8000000000002" y="483.50824587706148"/>
         </scene>
-        
-        
-        
         <!--Chat View Controller-->
         <scene sceneID="TlQ-kX-dPr">
             <objects>

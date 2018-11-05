@@ -168,10 +168,9 @@ class SplitviewViewController: UIViewController {
         self.myProgressHandUIView.isHidden = true
         self.myProgressButton.isHidden = false
         
-        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "leader") as! LeaderBoardViewController
-        self.present(v1, animated: true, completion: nil)
-        
-        
+        let alert = GetAlertWithOKAction(message: "This Feature available Soon")
+        self.present(alert, animated: true, completion: nil)
+
       
     }
     
@@ -198,8 +197,10 @@ class SplitviewViewController: UIViewController {
         self.myChatHandUIView.isHidden = true
         self.mychatButton.isHidden = false
         
-        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "leader") as! LeaderBoardViewController
-        self.present(v1, animated: true, completion: nil)
+        
+        let alert = GetAlertWithOKAction(message: "This Feature available Soon")
+        self.present(alert, animated: true, completion: nil)
+        
         
      
        
@@ -378,6 +379,8 @@ class SplitviewViewController: UIViewController {
             // print(quizID)
             // let fileUrl = URL(string: url)
             
+            self.sendFcm()
+            
             let applang = jsonobject?.object(forKey: "appLanguage") as? String ?? ""
             let learningLang = jsonobject?.object(forKey: "learningLanguage") as? String ?? ""
 
@@ -388,7 +391,9 @@ class SplitviewViewController: UIViewController {
             
             
             UserDefaults.standard.set(Int(clientId), forKey: "clientid")
-            USERDETAILS = UserDetails(email: temp.email, firstName: temp.firstName, lastname: temp.lastName, imageurl: url)
+            
+            USERDETAILS = UserDetails(email: temp.email, firstName: temp.firstName, lastname: temp.lastName, imageurl: url, mobile: temp.mobile)
+            
             
             let badesEarned =  jsonobject?.object(forKey:"badesEarned") as? Int ?? 0
             let completedTestCout =  jsonobject?.object(forKey:"completedTestCout") as? Int ?? 0
@@ -407,6 +412,24 @@ class SplitviewViewController: UIViewController {
         }, errorHandler: {(message) -> Void in
             print("message", message)
         })
+    }
+    
+    func sendFcm() {
+        
+        var params =  Dictionary<String, String>()
+        
+        
+        params = ["access_token":"\(accessToken)","device_type":"","device":"","device_token":"\(AppDelegate.getFCMID())"] as Dictionary<String, String>
+        print(params)
+        
+        MakeHttpPostRequest(url: saveLanguageSelected, params: params, completion: {(success, response) -> Void in
+            print(response)
+            
+            
+        }, errorHandler: {(message) -> Void in
+            
+        })
+        
     }
     
 }

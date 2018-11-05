@@ -90,7 +90,6 @@ class MsgCell: UITableViewCell {
         authorLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -14).isActive = true
         authorLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 14).isActive = true
        // authorLabel.topAnchor.constraint(equalTo: photoImageview.bottomAnchor).isActive = true
- 
     */
         
     }

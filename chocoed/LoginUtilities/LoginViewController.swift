@@ -134,7 +134,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
             let fileUrl = URL(string: url)
             UserDefaults.standard.set(Int(clientId), forKey: "clientid")
             
-            USERDETAILS = UserDetails(email: temp.email, firstName: temp.firstName, lastname: temp.lastName, imageurl: url)
+            USERDETAILS = UserDetails(email: temp.email, firstName: temp.firstName, lastname: temp.lastName, imageurl: url, mobile : temp.mobile)
             
             let isFirstTimeUser =  jsonobject?.object(forKey:"isFirstTimeUser") as? String ?? "true"
             self.sendLanguagesSelected()
@@ -233,7 +233,6 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
                     self.topOutlet.constant = 55
                     self.view.layoutIfNeeded()
                 })
-
                 otpDigitSecondTF.becomeFirstResponder()
                 
             case otpDigitSecondTF:
@@ -333,20 +332,18 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
         
     }
     func sendLanguagesSelected() {
+        
+        self.sendFcm()
+        
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
         let language1 = UserDefaults.standard.string(forKey: "Language1")
         let language2 = UserDefaults.standard.string(forKey: "Language2")
+        
         var params =  Dictionary<String, String>()
         if language1 != nil && language2 != nil
         {
-            
-            /* UserDefaults.standard.set("English", forKey: "Language1")
-             UserDefaults.standard.set("English", forKey: "Language2")
-             
-             
-             params = ["access_token":"\(accessToken)","userId":"\(userid!)","clientId":"\(clientID)","appLanguage":"","learningLanguage":""] as Dictionary<String, String>
-             print(params) */
+          
        
             params = ["access_token":"\(accessToken)","userId":"\(userid!)","clientId":"\(clientID)","appLanguage":"\(language1!)","learningLanguage":"\(language2!)"] as Dictionary<String, String>
             print(params)
@@ -376,6 +373,23 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
         }
         
     }
+    
+    func sendFcm() {
+     
+        var params =  Dictionary<String, String>()
+    
+        params = ["access_token":"\(accessToken)","device_type":"","device":"","device_token":"\(AppDelegate.getFCMID())"] as Dictionary<String, String>
+        print(params)
+        
+            MakeHttpPostRequest(url: saveLanguageSelected, params: params, completion: {(success, response) -> Void in
+                print(response)
+                
+            
+            }, errorHandler: {(message) -> Void in
+
+            })
+      
+       }
 
 }
 

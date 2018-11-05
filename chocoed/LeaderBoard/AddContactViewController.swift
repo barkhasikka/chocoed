@@ -173,7 +173,7 @@ class AddContactViewController: UIViewController,UITableViewDelegate,UITableView
         
         //print(poststring.replaceSubrange("\n", with: ""))
         
-                let params = ["access_token":"\(accessToken)","userId":"\(userID)","clientId":"\(clientID)","list":"\(poststring)"] as Dictionary<String, Any>
+                let params = ["access_token":"\(accessToken)","userId":"\(userID)","clientId":"\(clientID)","list":poststring ] as Dictionary<String, Any>
                 print(params)
                 activityUIView.isHidden = false
                 activityUIView.startAnimation()
@@ -181,9 +181,10 @@ class AddContactViewController: UIViewController,UITableViewDelegate,UITableView
                     print(response)
                     
                     DispatchQueue.main.async {
-                        self.tableViewCOntacts.reloadData()
+                        //self.tableViewCOntacts.reloadData()
                         self.activityUIView.isHidden = true
                         self.activityUIView.stopAnimation()
+                        dismiss(animated: true, completion: nil)
                     }
                 }, errorHandler: {(message) -> Void in
                     let alert = GetAlertWithOKAction(message: message)
@@ -191,6 +192,7 @@ class AddContactViewController: UIViewController,UITableViewDelegate,UITableView
                         self.present(alert, animated: true, completion: nil)
                         self.activityUIView.isHidden = true
                         self.activityUIView.stopAnimation()
+                        
         
                     }
                 })
