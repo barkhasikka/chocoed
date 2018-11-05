@@ -35,6 +35,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
         
         var language = UserDefaults.standard.string(forKey: "currentlanguage")
         if language == nil {
+            UserDefaults.standard.set("en", forKey: "currentlanguage")
             language = "en"
         }
 
