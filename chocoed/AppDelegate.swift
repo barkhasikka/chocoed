@@ -59,6 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Override point for customization after application launch.
         let userID = UserDefaults.standard.integer(forKey: "userid")
+        UserDefaults.standard.set("en", forKey: "currentlanguage")
         print(userID)
         if userID != 0 {
             DispatchQueue.main.asyncAfter(deadline: .now() + 8) { // change 2 to desired number of seconds
