@@ -184,7 +184,7 @@ class AddContactViewController: UIViewController,UITableViewDelegate,UITableView
                         //self.tableViewCOntacts.reloadData()
                         self.activityUIView.isHidden = true
                         self.activityUIView.stopAnimation()
-                        dismiss(animated: true, completion: nil)
+                        self.dismiss(animated: true, completion: nil)
                     }
                 }, errorHandler: {(message) -> Void in
                     let alert = GetAlertWithOKAction(message: message)
