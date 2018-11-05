@@ -66,6 +66,38 @@ class SplitviewViewController: UIViewController {
     @IBOutlet weak var heightprogrss: NSLayoutConstraint!
     
     @IBOutlet weak var widthMyThought: NSLayoutConstraint!
+    
+    
+    @IBAction func arcThoughtd(_ sender: UIButton) {
+        
+        
+        let alert = GetAlertWithOKAction(message: "This Feature available Soon")
+        self.present(alert, animated: true, completion: nil)
+        
+        
+    }
+    
+    @IBAction func srcChat_Clicked(_ sender: Any) {
+        
+        
+        let alert = GetAlertWithOKAction(message: "This Feature available Soon")
+        self.present(alert, animated: true, completion: nil)
+        
+        
+    }
+    
+    @IBAction func arcTagu_clicked(_ sender: Any) {
+        
+        
+        let alert = GetAlertWithOKAction(message: "This Feature available Soon")
+        self.present(alert, animated: true, completion: nil)
+        
+        
+    }
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
@@ -340,13 +372,14 @@ class SplitviewViewController: UIViewController {
 
     @IBAction func MychoiceAction(_ sender: Any) {
         
-      /*  let v1 = self.storyboard?.instantiateViewController(withIdentifier: "mychoice") as! MyChoiceSkillsViewController
+       let v1 = self.storyboard?.instantiateViewController(withIdentifier: "mychoice") as! MyChoiceSkillsViewController
         self.present(v1, animated: true, completion: nil)
- */
+ 
  
         
-        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
-        self.present(v1, animated: true, completion: nil) 
+     /*   let v1 = self.storyboard?.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
+        self.present(v1, animated: true, completion: nil)
+ */
     
     }
     override func didReceiveMemoryWarning() {
