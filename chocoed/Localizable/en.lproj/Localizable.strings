@@ -6,8 +6,7 @@
   Copyright © 2018 barkha sikka. All rights reserved.
 */
 
-"EnterValidMobileKey" = "Please enter valid mobile number.";
-"AlertKey" = "alert!";
+
 "LabelLanguageStringKey" = "Please select your preferred language for learning with Chocoed";
 "LoginButtonKey" = "Login";
 "SignUpKey" = "Select Preferred Language";
@@ -76,6 +75,8 @@
 "IncorrectIdKey" = "Incorrect Chocoed Token entered.";
 "RecheckKey" = "Recheck !";
 "OkKey" = "OK";
+"EnterValidMobileKey" = "Please enter valid mobile number.";
+"AlertKey" = "alert!";
 
 
 

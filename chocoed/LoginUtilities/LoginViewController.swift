@@ -117,11 +117,14 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
 //            let vcGetStarted = storyboard?.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
 //            self.present(vcGetStarted, animated: true, completion: nil)
         }else {
-            
-            let alertcontrol = UIAlertController(title: "Recheck!", message: "Incorrect Chocoed Token entered.", preferredStyle: .alert)
-            let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertcontrol.addAction(alertaction)
+            let alertcontrol = UIAlertController(title: "RecheckKey".localizableString(loc: language!), message: "IncorrectIdKey".localizableString(loc: language!), preferredStyle: UIAlertControllerStyle.alert)
+           
+            alertcontrol.addAction(UIAlertAction(title: "OkKey".localizableString(loc: language!), style: UIAlertActionStyle.default,handler: nil))
+           
             self.present(alertcontrol, animated: true, completion: nil)
+            
+           
+            
         }
     }
     
@@ -279,10 +282,13 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
     func sendOTPAPI() {
         let startingLength = mobileNumberTextFIeld.text?.count ?? 0
         if startingLength != 10 {
-            let alertcontrol = UIAlertController(title: "alert!", message: "Please enter valid mobile number.", preferredStyle: .alert)
-            let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertcontrol.addAction(alertaction)
-            self.present(alertcontrol, animated: true, completion: nil)
+             let language = UserDefaults.standard.string(forKey: "currentlanguage")
+            let alertcontroller = UIAlertController(title: "AlertKey".localizableString(loc: language!), message: "EnterValidMobileKey".localizableString(loc: language!), preferredStyle: UIAlertControllerStyle.alert)
+           
+            alertcontroller.addAction(UIAlertAction(title: "OkKey".localizableString(loc: language!), style: UIAlertActionStyle.default,handler: nil))
+            
+            self.present(alertcontroller, animated: true, completion: nil)
+
         }else {
             let params = ["phone":"\(mobileNumberTextFIeld.text!)", "access_token":"\(accessToken)"] as Dictionary<String, String>
             print(params)
