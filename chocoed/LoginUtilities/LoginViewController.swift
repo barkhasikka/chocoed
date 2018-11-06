@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class LoginViewController: UIViewController ,UITextFieldDelegate{
     @IBOutlet weak var topOutlet: NSLayoutConstraint!
@@ -33,7 +34,6 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
         var language = UserDefaults.standard.string(forKey: "currentlanguage")
         if language == nil {
             UserDefaults.standard.set("en", forKey: "currentlanguage")
@@ -395,18 +395,25 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
     
     func sendFcm() {
      
+        
         var params =  Dictionary<String, String>()
-    
-        params = ["access_token":"\(accessToken)","device_type":"","device":"","device_token":"\(AppDelegate.getFCMID())"] as Dictionary<String, String>
+        
+
+        let userID = UserDefaults.standard.integer(forKey: "userid")
+        let fcm = UserDefaults.standard.string(forKey: "fcm")
+
+        
+        params = ["access_token":"\(accessToken)","device_id":"","device_type":"iPhone","device_info":"","device_token":"\(fcm)","userId":"\(userID)"] as Dictionary<String, String>
         print(params)
         
-            MakeHttpPostRequest(url: saveLanguageSelected, params: params, completion: {(success, response) -> Void in
-                print(response)
-                
+        MakeHttpPostRequest(url: saveDeviceToken, params: params, completion: {(success, response) -> Void in
+            print(response)
             
-            }, errorHandler: {(message) -> Void in
-
-            })
+            
+        }, errorHandler: {(message) -> Void in
+            
+        })
+        
       
        }
 

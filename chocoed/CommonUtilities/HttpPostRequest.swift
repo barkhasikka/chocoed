@@ -288,15 +288,15 @@ func MakeHttpPostRequestChat(url: String, params: Dictionary<String, Any>, compl
     let request = NSMutableURLRequest(url: url! as URL)
     request.httpMethod = "POST"
     do {
-        let httpBody =  try JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions.prettyPrinted)
-        let httpBodyString = String(data: httpBody, encoding: String.Encoding.utf8)
-        request.httpBody = httpBodyString?.data(using: String.Encoding.utf8)
+        let httpBody =  try JSONSerialization.data(withJSONObject: params, options:[])
+       // let httpBodyString = String(data: httpBody, encoding: nil)
+        request.httpBody = httpBody
         
     } catch let error {
         print("error in serialization==",error.localizedDescription)
     }
-    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-    request.addValue("application/json", forHTTPHeaderField: "Accept")
+  //  request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+  // request.addValue("application/json", forHTTPHeaderField: "Accept")
     
     let session = URLSession.shared
     let task = session.dataTask(with: request as URLRequest) { (data, response, error) in

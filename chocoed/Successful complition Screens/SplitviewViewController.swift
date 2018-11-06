@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SplitviewViewController: UIViewController {
     
@@ -68,10 +69,23 @@ class SplitviewViewController: UIViewController {
     @IBOutlet weak var widthMyThought: NSLayoutConstraint!
     
     
+    
+    @IBAction func conversation_btn_clicked(_ sender: Any) {
+        
+        
+      //  let alert = GetAlertWithOKAction(message: "This feature available soon")
+      //  self.present(alert, animated: true, completion: nil)
+        
+        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
+        self.present(v1, animated: true, completion: nil)
+        
+    }
+    
+    
     @IBAction func arcThoughtd(_ sender: UIButton) {
         
         
-        let alert = GetAlertWithOKAction(message: "This Feature available Soon")
+        let alert = GetAlertWithOKAction(message: "This feature available soon")
         self.present(alert, animated: true, completion: nil)
         
         
@@ -80,7 +94,7 @@ class SplitviewViewController: UIViewController {
     @IBAction func srcChat_Clicked(_ sender: Any) {
         
         
-        let alert = GetAlertWithOKAction(message: "This Feature available Soon")
+        let alert = GetAlertWithOKAction(message: "This feature available soon")
         self.present(alert, animated: true, completion: nil)
         
         
@@ -88,9 +102,9 @@ class SplitviewViewController: UIViewController {
     
     @IBAction func arcTagu_clicked(_ sender: Any) {
         
-        
-        let alert = GetAlertWithOKAction(message: "This Feature available Soon")
+        let alert = GetAlertWithOKAction(message: "This feature available soon")
         self.present(alert, animated: true, completion: nil)
+        
         
         
     }
@@ -230,9 +244,10 @@ class SplitviewViewController: UIViewController {
         self.myProgressHandUIView.isHidden = true
         self.myProgressButton.isHidden = false
         
-        let alert = GetAlertWithOKAction(message: "This Feature available Soon")
+        let alert = GetAlertWithOKAction(message: "This feature available soon")
         self.present(alert, animated: true, completion: nil)
-
+        
+        
       
     }
     
@@ -259,8 +274,7 @@ class SplitviewViewController: UIViewController {
         self.myChatHandUIView.isHidden = true
         self.mychatButton.isHidden = false
         
-        
-        let alert = GetAlertWithOKAction(message: "This Feature available Soon")
+        let alert = GetAlertWithOKAction(message: "This feature available soon")
         self.present(alert, animated: true, completion: nil)
         
         
@@ -376,11 +390,6 @@ class SplitviewViewController: UIViewController {
         self.present(v1, animated: true, completion: nil)
  
  
-        
-     /*   let v1 = self.storyboard?.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
-        self.present(v1, animated: true, completion: nil)
- */
-    
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -480,12 +489,15 @@ class SplitviewViewController: UIViewController {
     func sendFcm() {
         
         var params =  Dictionary<String, String>()
-        
-        
-        params = ["access_token":"\(accessToken)","device_type":"","device":"","device_token":"\(AppDelegate.getFCMID())"] as Dictionary<String, String>
+      
+        let userID = UserDefaults.standard.integer(forKey: "userid")
+        let fcm = UserDefaults.standard.string(forKey: "fcm")
+
+
+        params = ["access_token":"\(accessToken)","device_id":"","device_type":"iPhone","device_info":"","device_token":"\(fcm!)","userId":"\(userID)"] as Dictionary<String, String>
         print(params)
         
-        MakeHttpPostRequest(url: saveLanguageSelected, params: params, completion: {(success, response) -> Void in
+        MakeHttpPostRequest(url: saveDeviceToken, params: params, completion: {(success, response) -> Void in
             print(response)
             
             

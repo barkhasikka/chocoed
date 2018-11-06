@@ -69,37 +69,11 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
         
         labelRank.layer.cornerRadius = 10
         labelRank.clipsToBounds = true
-        loadGetMyProgress()
+       // loadGetMyProgress()
         
         
         
-        let fileUrl = URL(string: "\(USERDETAILS.imageurl)")
-        if fileUrl != nil {
-            if let data = try? Data(contentsOf: fileUrl!) {
-                if let image = UIImage(data: data) {
-                    self.imageViewLabelImage.image = image
-                }
-            }
-        }
-        NameLabel.text = USERDETAILS.firstName + " " + USERDETAILS.lastname
-        imageViewLabelImage.layer.borderWidth = 3
-        imageViewLabelImage.layer.cornerRadius = 35
-        imageViewLabelImage.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        imageViewLabelImage.clipsToBounds = true
-        
-        addContactView.isHidden = true
-        
-        if arrayProgress.count > 0 {
-            addContactView.isHidden = true
-            viewFortableView.isHidden = false
-        }else{
-            addContactView.isHidden = false
-            viewFortableView.isHidden = true
-            
-            let gesture = UITapGestureRecognizer(target: self, action: #selector(self.emptyAction))
-            self.addContactView.addGestureRecognizer(gesture)
-            
-        }
+       
         // Do any additional setup after loading the view.
         
         
@@ -188,12 +162,34 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
                 self.completedTestLabel.text = "\(progressofFriend.myTestCount)"
                 self.reportLabel.text = "\(progressofFriend.schduleMsg)"
                 
-                if self.arrayProgress.count > 0 {
-                    
-                }else{
-                    
-                    //self.addContactView.i
+                let fileUrl = URL(string: "\(USERDETAILS.imageurl)")
+                if fileUrl != nil {
+                    if let data = try? Data(contentsOf: fileUrl!) {
+                        if let image = UIImage(data: data) {
+                            self.imageViewLabelImage.image = image
+                        }
+                    }
                 }
+                  self.NameLabel.text = USERDETAILS.firstName + " " + USERDETAILS.lastname
+                  self.imageViewLabelImage.layer.borderWidth = 3
+                  self.imageViewLabelImage.layer.cornerRadius = 35
+                  self.imageViewLabelImage.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                  self.imageViewLabelImage.clipsToBounds = true
+                
+                  self.addContactView.isHidden = true
+                
+                if   self.arrayProgress.count > 0 {
+                     self.addContactView.isHidden = true
+                     self.viewFortableView.isHidden = false
+                }else{
+                     self.addContactView.isHidden = false
+                      self.viewFortableView.isHidden = true
+                    
+                    let gesture = UITapGestureRecognizer(target: self, action: #selector(self.emptyAction))
+                    self.addContactView.addGestureRecognizer(gesture)
+                    
+                }
+               
                 
             }
             DispatchQueue.main.async {

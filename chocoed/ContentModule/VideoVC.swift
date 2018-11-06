@@ -169,7 +169,8 @@ class VideoVC: UIViewController {
 
         currentData()
      
-        if self.currentPosition == 0 && self.arrayTopic[self.currentPosition].videoViewCount == 0  {
+        if self.currentPosition == 0 && self.arrayTopic[self.currentPosition].videoViewCount == 0
+        {
             autoPlayCount = 0
             isStartFromFirst = true
         }
@@ -1168,7 +1169,7 @@ class VideoVC: UIViewController {
         let endTime = formatter.string(from: Date())
         
         
-        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(examId)", "endTime": "\(endTime)"] as Dictionary<String, String>
+        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(examId)", "endTime": "\(endTime)","calendarId":"\(self.calenderId)"] as Dictionary<String, String>
         print(params, "<<<<-- end test api")
        
         MakeHttpPostRequest(url: endExamAPI, params: params, completion: {(success, response) -> Void in

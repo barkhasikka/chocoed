@@ -158,15 +158,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(remoteMessage.appData)
     }
     
-    public static func getFCMID() -> String {
-        InstanceID.instanceID().instanceID { (result, error) in
-                return result?.token
-        }
-        
-        return ""
-        
-    }
-    
+  
   
     
     func GetUserInfo() {

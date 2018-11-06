@@ -50,7 +50,7 @@ class AddContactViewController: UIViewController,UITableViewDelegate,UITableView
         MakeHttpPostRequest(url: friendList , params: params, completion: {(success, response) -> Void in
             print(response)
             let list = response.object(forKey: "list") as? NSArray ?? []
-          /*  for (index, addcontacts) in list.enumerated() {
+           /*  for (index, addcontacts) in list.enumerated() {
                 let friendObject = FriendList(addcontacts as! NSDictionary)
                
                 //if(friendObject.selected != 1) {
@@ -91,12 +91,13 @@ class AddContactViewController: UIViewController,UITableViewDelegate,UITableView
         print(arrayContactList[indexPath.row].selected)
         
         if arrayContactList[indexPath.row].selected == true {
-            
             cell.checkUncheckImageView.image = UIImage(named: "icons8-checked_filled-1")
         }
         else{
-            cell.checkUncheckImageView.image = UIImage(named: "icons8-checked")
+            cell.checkUncheckImageView.image = UIImage(named: "icons8-circle_filled_75")
         }
+        
+       
         let fileUrl = URL(string: url)
         if fileUrl != nil {
             if let data = try? Data(contentsOf: fileUrl!) {

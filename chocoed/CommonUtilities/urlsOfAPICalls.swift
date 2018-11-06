@@ -32,6 +32,8 @@ let getProgress = "https://dev.chocoed.com/api/user/getMyProgressData"
 let examKCDetails = "https://dev.chocoed.com/api/user/getKCExamDetail"
 let friendList = "https://dev.chocoed.com/api/user/getFriendList"
 let updateMyProgressFriend = "https://dev.chocoed.com/api/user/updateMyProgressFriends"
+let saveDeviceToken = "https://dev.chocoed.com/api/user/saveDeviceToken"
+
 
 var currentTopiceDate  = ""
 var currentCourseId  = ""

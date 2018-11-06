@@ -21,6 +21,17 @@ class LaunchScreenViewController: UIViewController {
         imageLogoView.image = Gif
         // Do any additional setup after loading the view.
         
+        InstanceID.instanceID().instanceID { (result, error) in
+            
+            if let error = error{
+                print("<<<<< Error in FCM >>>>>>")
+
+            }else if let result = result {
+                UserDefaults.standard.set(result.token, forKey: "fcm")
+                print(result.token , "<<<<< FCM >>>>>>")
+            }
+        }
+        
        
     }
 

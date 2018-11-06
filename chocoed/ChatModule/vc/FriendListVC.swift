@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import Firebase
 
 
 class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSource , UISearchBarDelegate {
@@ -124,9 +125,15 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
     
     private func registerToChat(){
         
+        var token = ""
+        
+        InstanceID.instanceID().instanceID { (result, error) in
+            token = (result?.token)!
+        }
+        
         let userID = UserDefaults.standard.integer(forKey: "userid")
         print(userID, "USER ID IS HERE")
-        let params = ["user_name": "\(USERDETAILS.firstName) \(USERDETAILS.lastname)",  "user_contact_no":"\(USERDETAILS.mobile)",  "fcm_id":"\(AppDelegate.getFCMID())","user_photo":"\(USERDETAILS.imageurl)","user_email":"\(USERDETAILS.email)","password":"\(USERDETAILS.mobile)"] as Dictionary<String, String>
+        let params = ["user_name": "\(USERDETAILS.firstName) \(USERDETAILS.lastname)",  "user_contact_no":"\(USERDETAILS.mobile)",  "fcm_id":"\(token)","user_photo":"\(USERDETAILS.imageurl)","user_email":"\(USERDETAILS.email)","password":"\(USERDETAILS.mobile)"] as Dictionary<String, String>
         print(params)
         MakeHttpPostRequestChat(url: kXMPP.registerUSER, params: params, completion: {(success, response) in
             
