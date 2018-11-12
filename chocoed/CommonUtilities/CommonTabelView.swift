@@ -29,7 +29,7 @@ class LanguageUIView : UIView, UITableViewDelegate ,UITableViewDataSource {
         tableViewLanguage.dataSource = self
         tableViewLanguage.register(CommonLanguageTableViewCell.self, forCellReuseIdentifier: "cell")
         
-        loadGetLanguageList()
+       // loadGetLanguageList()
         }
     func customElemetsOfview()
     {

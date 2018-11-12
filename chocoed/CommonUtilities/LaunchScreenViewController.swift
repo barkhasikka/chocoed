@@ -25,7 +25,6 @@ class LaunchScreenViewController: UIViewController {
             
             if let error = error{
                 print("<<<<< Error in FCM >>>>>>")
-
             }else if let result = result {
                 UserDefaults.standard.set(result.token, forKey: "fcm")
                 print(result.token , "<<<<< FCM >>>>>>")
@@ -37,9 +36,15 @@ class LaunchScreenViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        // Dispose of any resurces that can be recreated.
     }
     
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        imageLogoView.image = nil
+        self.player?.pause()
+        self.player = nil
+    }
 
    
     

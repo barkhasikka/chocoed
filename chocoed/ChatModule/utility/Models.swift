@@ -10,24 +10,20 @@ import Foundation
 
 struct FriendListChat {
     
-    var name : String
-    var userId : String
-    var image: String
-    var last_msg_time : String
-    var last_msg_type : String
-    var last_msg : String
-    var count : String
+    var user_name : String
+    var user_contact_no : String
+    var user_email: String
+    var user_photo : String
+    var user_id : String
+ 
     
     init(_ dictionary : NSDictionary) {
-        self.userId = dictionary["userId"] as? String ?? ""
-        self.name = dictionary["name"] as? String ?? ""
-        self.image = dictionary["image"] as? String ?? ""
-        self.last_msg_time = dictionary["last_msg_time"] as? String ?? ""
-        self.last_msg_type = dictionary["last_msg_type"] as? String ?? ""
-        self.last_msg = dictionary["last_msg"] as? String ?? ""
-        self.count = dictionary["count"] as? String ?? ""
+        self.user_name = dictionary["user_name"] as? String ?? ""
+        self.user_contact_no = dictionary["user_contact_no"] as? String ?? ""
+        self.user_email = dictionary["user_email"] as? String ?? ""
+        self.user_photo = dictionary["user_photo"] as? String ?? ""
+        self.user_id = dictionary["user_id"] as? String ?? ""
 
-        
     }
     
 }
@@ -69,6 +65,8 @@ struct Friend {
      var   read_count : String
      var   status : String
      var   user_id : String
+     var   last_msg_ack : String
+
     
 }
 
@@ -91,6 +89,7 @@ struct Message {
     var created : String
     var status : String
     var modified : String
+    var is_permission : String
     
 }
 

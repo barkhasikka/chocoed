@@ -9,16 +9,100 @@
 import UIKit
 import CoreData
 import Firebase
+import SDWebImage
+import XMPPFramework
 
 
-class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSource , UISearchBarDelegate {
 
+class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSource , UISearchBarDelegate , OneMessageDelegate {
+   
+    func oneStream(_ sender: XMPPStream, didReceiveMessage message: XMPPMessage, from user: XMPPUserCoreDataStorageObject) {
+        
+        
+        
+    }
+    
+    func oneStream(_ sender: XMPPStream, didReceiptReceive message: XMPPMessage, from user: XMPPUserCoreDataStorageObject) {
+        
+        
+        
+    }
+    
+    func oneStream(_ sender: XMPPStream, userIsComposing user: XMPPUserCoreDataStorageObject) {
+        
+        let userData = (user.jidStr)!.components(separatedBy: "@")
+        let friendID = userData[0]
+        print(friendID)
+        
+        self.updateFriendTyping(friendID: friendID,typing : "yes")
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+            self.updateFriendTyping(friendID: friendID,typing : "no")
+        })
+        
+        
+    }
+    
+    func updateFriendTyping(friendID : String, typing: String){
+        
+        // update friend profile
+        
+        print(friendID)
+        
+        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Friends")
+        fetchRequest.predicate = NSPredicate(format: "contact_number = %@", friendID)
+        
+        var results : [NSManagedObject] = []
+        
+        do{
+            results = try context.fetch(fetchRequest)
+            
+            if results.count != 0 {
+                
+                let updatObj = results[0]
+             
+                updatObj.setValue(typing, forKey: "is_typing")
+               
+                do{
+                    try context.save()
+                    
+                    self.tblView.reloadData()
+                    
+                }catch{
+                    print("Error in update")
+                }
+            }
+            
+        }catch{
+            print("error executing request")
+        }
+        
+        
+    }
+    
+    
+
+    private let cellID = "FriendCell"
+    
+    
+    
+    @IBOutlet var lblTitle: UILabel!
+    
+    
+    var selectedArray = [Msg]()
   
+    var type = ""
+    
+    
     @IBOutlet var tblView: UITableView!
     @IBOutlet var searchBar: UISearchBar!
     
     lazy var fetchedhResultController: NSFetchedResultsController<NSFetchRequestResult> = {
+        
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Friends.self))
+        
+     
     
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "last_msg_time", ascending: true)]
         
@@ -27,10 +111,59 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         return frc
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        if self.type == "" {
+            
+            self.lblTitle.text = "Chat"
+        }
+        
+        self.tblView.reloadData()
+    }
+    
+    
+    
+    
+    @IBAction func add_friend(_ sender: Any) {
+        
+        
+        if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "AddFriendVC") as? AddFriendVC{
+            self.present(vcNewSectionStarted, animated: true, completion: nil)
+        }
+    }
+    
+    
+    @IBAction func notification_clicked(_ sender: Any) {
+        
+        
+    }
+    
+    
+    @IBAction func destructive_mg_clicked(_ sender: Any) {
+       self.lblTitle.text = "Send To..."
+       self.type = "destructive"
+    }
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if self.type == "forward"{
+            
+            self.lblTitle.text = "Forward to..."
+            
+        }else if self.type == "destructive"{
+            
+            self.lblTitle.text = "Send to..."
+            
+        }else{
+            
+            self.lblTitle.text = "Chat"
+
+        }
+        
+        OneMessage.sharedInstance.delegate = self
 
        // let params = ["name":"Mahesh Nikam","last_msg_time":"Yesterday","last_msg":"Hello How are you","friendImage":"","lastMsgTypeImage":"","count":"","userId":"7774960386"] as Dictionary<String, String>
        // self.arrayFriends.append(FriendListChat(params as NSDictionary))
@@ -38,7 +171,7 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         self.checkChatConnection()
         self.searchBar.delegate = self
     
-        self.tblView.register(FriendCell.self, forCellReuseIdentifier: "FriendCell")
+      //  self.tblView.register(FriendCell.self, forCellReuseIdentifier: cellID)
         do {
             try self.fetchedhResultController.performFetch()
             self.tblView.reloadData()
@@ -48,7 +181,72 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         
         self.registerToChat()
         
+        let longPressRec = UILongPressGestureRecognizer(target: self, action: #selector(self.longPress))
+        longPressRec.minimumPressDuration = 1.0
+        self.tblView.addGestureRecognizer(longPressRec)
+        
+        
     }
+    
+    
+    @objc func longPress(longPressGesture : UILongPressGestureRecognizer) {
+        
+        if longPressGesture.state == UIGestureRecognizerState.began {
+            
+            let touchPoint = longPressGesture.location(in : self.tblView)
+            
+            if let indexPath = self.tblView.indexPathForRow(at: touchPoint){
+                
+                print(indexPath.row)
+                
+                self.openOptionForCell(row : indexPath)
+            }
+        }
+    }
+    
+    func openOptionForCell(row : IndexPath){
+        
+        let alert:UIAlertController=UIAlertController(title: "Choose Option", message: nil, preferredStyle:.actionSheet)
+      
+        let copyAction = UIAlertAction(title: "Profile", style: .default) {
+            UIAlertAction in
+          
+            if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "ProfileVC") as? ProfileVC {
+                
+                let item = self.fetchedhResultController.object(at: row) as? Friends
+                vcNewSectionStarted.name = (item?.name)!
+                vcNewSectionStarted.profileiMage = (item?.profile_image)!
+                vcNewSectionStarted.contactMobileNumber = (item?.contact_number)!
+                self.present(vcNewSectionStarted, animated: true, completion: nil)
+            }
+            
+            
+        }
+        
+        let deleteAction = UIAlertAction(title: "Delete Chat", style: .default) {
+            UIAlertAction in
+            //  self.openCamera(UIImagePickerController.SourceType.photoLibrary)
+            
+            
+            let item = self.fetchedhResultController.object(at: row) as? Friends
+            self.clearData(number: (item?.contact_number)!)
+            
+        }
+        
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {
+            UIAlertAction in
+        }
+        
+   
+        alert.addAction(copyAction)
+        alert.addAction(deleteAction)
+        
+        alert.addAction(cancelAction)
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
     
     func checkChatConnection(){
     
@@ -57,8 +255,9 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
     
     } else {
     
-    OneChat.sharedInstance.connect(username: kXMPP.myJID, password: kXMPP.myPassword) { (stream, error) -> Void in
+        OneChat.sharedInstance.connect(username: "\(USERDETAILS.mobile)@13.232.161.176", password: USERDETAILS.mobile) { (stream, error) -> Void in
             if let error = error {
+                
     
                     let alertController = UIAlertController(title: "Sorry", message: "An error occured: \(error)", preferredStyle: UIAlertControllerStyle.alert)
                     alertController.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default, handler: { (UIAlertAction) -> Void in
@@ -98,12 +297,91 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath) as! FriendCell
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! FriendCell
+       
         if let item = fetchedhResultController.object(at: indexPath) as? Friends {
         
-            cell.name.text=item.name
-            cell.last_msg.text=item.last_msg
+            print(item.last_msg_time)
+            cell.lblFriendName?.text = item.name
+            
+            
+            
+            
+           /* let imgAttachement = NSTextAttachment()
+            imgAttachement.image = UIImage(named: "ic_arrow_left")
+            let imageOffset : CGFloat = -5.0
+            imgAttachement.bounds = CGRect(x: 0, y: imageOffset, width: (imgAttachement.image?.size.width)!, height: (imgAttachement.image?.size.height)!)
+            let attachementString = NSAttributedString(attachment: imgAttachement)
+            let  completetext = NSMutableAttributedString(attributedString: attachementString)
+            
+            let textaftericon = NSMutableAttributedString(string: item.last_msg)
+            
+            completetext.append(textaftericon)
+            
+            //cell.last_msg?.textAlignment = .r
+            cell.last_msg?.attributedText = completetext */
+            
+            if item.last_msg_time != ""{
+                
+                cell.last_msg_time?.text = Utils.getDateFromString(date : item.last_msg_time)
+           
+            }else{
+                 cell.last_msg_time?.text = ""
+            }
+            
+            
+            cell.read_count?.text = item.read_count
+            cell.read_count?.layer.cornerRadius = 6
+
+
+            if item.read_count == "" || item.read_count == "0" {
+                cell.read_count?.isHidden = true
+            }else{
+                cell.read_count?.isHidden = false
+            }
+            
+            if item.is_typing == "" || item.is_typing == "no" {
+                
+                cell.last_msg?.text = item.last_msg
+                cell.last_msg?.textColor = UIColor.darkGray
+
+
+            }else{
+                
+                cell.last_msg?.text = "Typing..."
+                cell.last_msg?.textColor = UIColor.blue
+
+            }
+            
+        
+            if item.is_mine == "1"{
+                
+                cell.lastMsgImage.isHidden = false
+                
+                if item.last_msg_ack == ""{
+                    
+                    //no tick
+                }else if item.last_msg_ack == "0"{
+                    // send
+                }else if item.last_msg_ack == "1"{
+                    // sent
+                }else if item.last_msg_ack == "2"{
+                    // seen
+                }
+
+            }else{
+                
+                cell.lastMsgImage.isHidden = true
+            }
+            
+            
+
+
+            cell.friendImage?.sd_setImage(with : URL(string: item.profile_image))
+            cell.friendImage?.layer.cornerRadius = (cell.friendImage?.frame.width)! / 2
+            cell.friendImage?.clipsToBounds = true
+            cell.friendImage?.contentMode = .scaleToFill
+        
         }
         
         
@@ -115,45 +393,69 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "ChatVC") as? ChatVC {
             let item = fetchedhResultController.object(at: indexPath) as? Friends
             vcNewSectionStarted.friendModel = item
+            vcNewSectionStarted.type = self.type
+            vcNewSectionStarted.selectedArr = self.selectedArray
+            
+            self.type = ""
+            if self.selectedArray.count > 0 {
+                self.selectedArray.removeAll()
+            }
+            
             self.present(vcNewSectionStarted, animated: true, completion: nil)
         }
         
     }
+    
     
     /*** API CALLS ***/
     /* 1. Register User */
     
     private func registerToChat(){
         
-        var token = ""
         
-        InstanceID.instanceID().instanceID { (result, error) in
-            token = (result?.token)!
+        
+        var fcm = UserDefaults.standard.string(forKey: "fcm")
+        
+        if fcm == nil {
+            
+            fcm = "1234"
         }
+
+        
+      
         
         let userID = UserDefaults.standard.integer(forKey: "userid")
         print(userID, "USER ID IS HERE")
-        let params = ["user_name": "\(USERDETAILS.firstName) \(USERDETAILS.lastname)",  "user_contact_no":"\(USERDETAILS.mobile)",  "fcm_id":"\(token)","user_photo":"\(USERDETAILS.imageurl)","user_email":"\(USERDETAILS.email)","password":"\(USERDETAILS.mobile)"] as Dictionary<String, String>
+        let params = ["user_name": "\(USERDETAILS.firstName) \(USERDETAILS.lastname)",  "user_contact_no":"\(USERDETAILS.mobile)",  "fcm_id":"\(fcm!)","user_photo":"\(USERDETAILS.imageurl)","user_email":"\(USERDETAILS.email)","password":"\(USERDETAILS.mobile)"] as Dictionary<String, String>
         print(params)
         MakeHttpPostRequestChat(url: kXMPP.registerUSER, params: params, completion: {(success, response) in
             
             print(response)
-            /* let jsonobject = response["info"] as? NSDictionary;
-             let temp = ModelProfileClass()
-             temp.firstName = jsonobj ect?.object(forKey: "firstName") as? String ?? ""
-             temp.lastName = jsonobject?.object(forKey: "lastName") as? String ?? ""
-             temp.email = jsonobject?.object(forKey: "email") as? String ?? ""
-             temp.mobile = jsonobject?.object(forKey: "mobile") as? String ?? ""
-             let clientId = jsonobject?.object(forKey: "clientId") as? String ?? ""
-             let url = jsonobject?.object(forKey: "profileImageUrl") as? String ?? ""
-             let quizTaken =  jsonobject?.object(forKey:"quizTestGiven") as? Int ?? -1
-             UserDefaults.standard.set(quizTaken, forKey: "quiztakenID")
-             let quizID = UserDefaults.standard.string(forKey: "quiztakenID")
-             // print(quizID)
-             // let fileUrl = URL(string: url)
-             UserDefaults.standard.set(Int(clientId), forKey: "clientid")
-             */
             
+            let list = response.object(forKey: "friend_list") as? NSArray ?? []
+            for (index, friend) in list.enumerated() {
+                let item = FriendListChat(friend as! NSDictionary)
+                
+                self.createFriendEntityFrom(item: Friend(
+                    created: "",
+                    contact_number: item.user_contact_no,
+                    fcm_id: "",
+                    is_mine: "0",
+                    is_typing: "0",
+                    last_msg: "",
+                    last_msg_type: "",
+                    last_msg_time: "",
+                    modified: "",
+                    name: item.user_name,
+                    profile_image: item.user_photo,
+                    read_count: "0",
+                    status: "",
+                    user_id: item.user_id,
+                    last_msg_ack : ""
+                    ))
+                
+            }
+           
             
         }, errorHandler: {(message) -> Void in
             print("message", message)
@@ -163,24 +465,7 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
             
         })
                 
-             /*   self.createFriendEntityFrom(item: Friend(
-                    created: "",
-                    contact_number: "",
-                    fcm_id: "",
-                    is_mine: "0",
-                    is_typing: "0",
-                    last_msg: "Hello",
-                    last_msg_type: "text",
-                    last_msg_time: "10:13 PM",
-                    modified: "",
-                    name: "",
-                    profile_image: "",
-                    read_count: "0",
-                    status: "",
-                    user_id: ""))
-             */
-                
-       
+        
     }
     
     
@@ -196,11 +481,11 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         do{
             results = try context.fetch(fetchRequest)
             
-            if results.count == 1 {
+            if results.count != 0 {
                 
                 let updatObj = results[0]
-                updatObj.setValue("name", forKey: item.name)
-                updatObj.setValue("profile_image", forKey: item.profile_image)
+                updatObj.setValue(item.name, forKey: "name")
+                updatObj.setValue(item.profile_image, forKey:"profile_image")
               
                 do{
                     try context.save()
@@ -209,6 +494,8 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
                     print("Error in update")
                 }
             }
+           
+ 
             
         }catch{
             print("error executing request")
@@ -252,40 +539,113 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         
     }
     
-    private func clearData() {
+    private func clearData(number : String) {
         do {
-            
             let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Msg.self))
+            fetchRequest.predicate = NSPredicate(format: "to_id == %@",number)
             do {
                 let objects  = try context.fetch(fetchRequest) as? [NSManagedObject]
-                _ = objects.map{$0.map{context.delete($0)}}
-                CoreDataStack.sharedInstance.saveContext()
+                
+                for item in objects!{
+                    context.delete(item)
+                }
+                
+                self.updateFriendCell(friendID: number)
+          
             } catch let error {
                 print("ERROR DELETING : \(error)")
             }
         }
     }
     
-    
-    
-    
-    public static func getCurrentTime() -> String {
+    func updateFriendCell(friendID : String){
         
-        let messageID = Int64(NSDate().timeIntervalSince1970 * 1000)
-        return String(messageID)
+        // update friend profile
+        
+        print(friendID)
+        
+        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Friends")
+        fetchRequest.predicate = NSPredicate(format: "contact_number = %@", friendID)
+        
+        var results : [NSManagedObject] = []
+        
+        do{
+            results = try context.fetch(fetchRequest)
+            
+            if results.count != 0 {
+                
+                let updatObj = results[0]
+                
+                var count = updatObj.value(forKey: "read_count") as? Int ?? 0
+                count = count + 1
+                
+                updatObj.setValue("", forKey: "last_msg")
+                updatObj.setValue("", forKey:"last_msg_type")
+                updatObj.setValue("", forKey:"last_msg_time")
+                updatObj.setValue("1", forKey:"is_mine")
+                updatObj.setValue("0", forKey: "read_count")
+                
+                do{
+                    try context.save()
+                    
+                    self.tblView.reloadData()
+                    
+                }catch{
+                    print("Error in update")
+                }
+            }
+            
+        }catch{
+            print("error executing request")
+        }
+        
         
     }
     
+
+    
+    public static func getCurrentTime() -> String {
+        let messageID = Int64(NSDate().timeIntervalSince1970 * 1000)
+        return String(messageID)
+    }
+    
+    
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchBar.endEditing(true)
+        
+        
+        do {
+            
+           self.fetchedhResultController.fetchRequest.predicate =  nil
+            
+           // self.fetchedhResultController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "last_msg_time", ascending: true)]
+        
+            try self.fetchedhResultController.performFetch()
+            self.tblView.reloadData()
+        } catch let error  {
+            print("ERROR: \(error)")
+        }
+    }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print(searchText)
+        
+         do {
+            
+            self.fetchedhResultController.fetchRequest.predicate =  NSPredicate(format: "name CONTAINS %@", searchText)
+            
+             try self.fetchedhResultController.performFetch()
+            self.tblView.reloadData()
+        } catch let error  {
+            print("ERROR: \(error)")
+        }
     }
     
     /**** API Call *****/
-    
-    
-    
     
   
 }

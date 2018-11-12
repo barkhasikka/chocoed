@@ -51,6 +51,8 @@ class VideoVC: UIViewController {
     var startTime: String = ""
     var currentQuesId : String = ""
     var selectedAnsText = ""
+    
+    var selectedTopicId = ""
 
     @IBOutlet var btnPlayAction: UIButton!
     
@@ -151,6 +153,14 @@ class VideoVC: UIViewController {
             self.arrayTopic = array1
 
         }
+        
+        for (index,element) in self.arrayTopic.enumerated(){
+            
+            if element.topicId == self.selectedTopicId {
+                self.currentPosition = index
+            }
+        }
+       
       
         print("Sorted Array",self.arrayTopic)
         closed = false

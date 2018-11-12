@@ -349,6 +349,8 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                 
                 
                 let alertView = UIAlertController(title: "Assessments to be Completed", message: "Dear \(USERDETAILS.firstName), You have some assessments to be completed.Would you like to do them now ?", preferredStyle: .alert)
+                
+                
                 let action = UIAlertAction(title: "Not Now", style: .default, handler: { (alert) in
                     
                     //  if indexPath.row == 0{
@@ -454,6 +456,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                             vcNewSectionStarted.arrayTopic = self.arrayTopic
                             vcNewSectionStarted.currentPosition = 0
                             vcNewSectionStarted.courseId = self.courseId
+                            vcNewSectionStarted.selectedTopicId = self.arrayTopic[indexPath.row].topicId
                             
                             self.present(vcNewSectionStarted, animated: true, completion: nil)
                         }
@@ -508,6 +511,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                     vcNewSectionStarted.arrayTopic = self.arrayTopic
                     vcNewSectionStarted.currentPosition = 0
                     vcNewSectionStarted.courseId = self.courseId
+                    vcNewSectionStarted.selectedTopicId = self.arrayTopic[self.tableRowPosition].topicId
                     
                     self.present(vcNewSectionStarted, animated: true, completion: nil)
                 }
@@ -536,6 +540,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                 vcNewSectionStarted.arrayTopic = self.arrayTopic
                 vcNewSectionStarted.currentPosition = 0
                 vcNewSectionStarted.courseId = self.courseId
+                vcNewSectionStarted.selectedTopicId = self.arrayTopic[self.tableRowPosition].topicId
                 
                 self.present(vcNewSectionStarted, animated: true, completion: nil)
             }
@@ -558,6 +563,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                     vcNewSectionStarted.arrayTopic = self.arrayTopic
                     vcNewSectionStarted.currentPosition = 0
                     vcNewSectionStarted.courseId = self.courseId
+                     vcNewSectionStarted.selectedTopicId = self.arrayTopic[self.tableRowPosition].topicId
                     
                     self.present(vcNewSectionStarted, animated: true, completion: nil)
                 }
@@ -576,7 +582,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                     vcNewSectionStarted.arrayTopic = self.arrayTopic
                     vcNewSectionStarted.currentPosition = 0
                     vcNewSectionStarted.courseId = self.courseId
-                    
+                     vcNewSectionStarted.selectedTopicId = self.arrayTopic[self.tableRowPosition].topicId
                     self.present(vcNewSectionStarted, animated: true, completion: nil)
                 }
                 

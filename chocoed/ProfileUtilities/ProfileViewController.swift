@@ -72,7 +72,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
         
-        self.createProfileButtonLabel.title = "प्रोफाइल बनाएं".localizableString(loc: language!)
+      /*  self.createProfileButtonLabel.title = "प्रोफाइल बनाएं".localizableString(loc: language!)
         self.chooseGalleryLabel.text = "गैलरी से चुनें".localizableString(loc: language!)
         self.chooseAvatarLabel.text = "कोई अवतार चुनें".localizableString(loc: language!)
         self.proceedLabel.setTitle("आगे बढ़ें".localizableString(loc: language!), for: .normal)
@@ -84,6 +84,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         self.btn.setTitle("पुरुष".localizableString(loc: language!), for: .normal)
         self.btnFemale.setTitle("महिला".localizableString(loc: language!), for: .normal)
         self.ButtonChoose.setTitle("प्रोफ़ाइल चित्र चुनें!", for: .normal)
+        */
         
         submitButton.layer.cornerRadius = 20
         submitButton.clipsToBounds = true
@@ -529,7 +530,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
             let imageUploadParams = [ "access_token":"\(accessToken)", "userId": "\(userID)"] as! Dictionary<String, String>
             MakeHttpMIME2PostRequest(url: uploadProfilePicture, imageData: imageData as! NSData, param: imageUploadParams, completion: {(success, response) -> Void in
                 print(response, "UPLOAD PROFILE PIC RESPONSE")
-                
+                 DispatchQueue.main.async {
                  let profileimg = response.object(forKey: "profileimg") as? String ?? ""
 
                 USERDETAILS = UserDetails(
@@ -539,6 +540,8 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
                     imageurl: profileimg,
                     mobile : self.mobileNo
                 )
+                    
+                }
                
             })
         }

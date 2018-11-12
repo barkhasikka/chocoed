@@ -243,11 +243,13 @@ open class OneChat: NSObject {
             return
         }
         
-        if (username == "kXMPPmyJID" && UserDefaults.standard.string(forKey: kXMPP.myJID) == "kXMPPmyJID") || (username == "kXMPPmyJID" && UserDefaults.standard.string(forKey: kXMPP.myJID) == nil) {
+        if (username == "myJID" && UserDefaults.standard.string(forKey: kXMPP.myJID) == "myJID") || (username == "myJID" && UserDefaults.standard.string(forKey: kXMPP.myJID) == nil) {
             streamDidConnectCompletionBlock = completion
             streamDidConnectCompletionBlock!(self.xmppStream!, DDXMLElement(name: "Please set crendentials before trying to connect"))
             return
         }
+        
+    
         
         if username != "kXMPPmyJID" {
             setValue(username, forKey: kXMPP.myJID)

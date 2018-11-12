@@ -40,11 +40,11 @@ class CommonChatLabel : UIView{
             ProfileImagechat.widthAnchor.constraint(equalToConstant: 50).isActive = true
         
             labelChat = UILabel(frame: frame)
-            labelChat.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-            labelChat.text = "nhfhhgkj"
+            labelChat.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+           labelChat.font = UIFont(name: "Halvetica", size: 15)
             self.addSubview(labelChat)
             labelChat.translatesAutoresizingMaskIntoConstraints = false
-            labelChat.font = UIFont(name: "Halvetica", size: 15)
+        
             labelChat.topAnchor.constraint(equalTo: self.topAnchor,constant: 10).isActive = true
             labelChat.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
             labelChat.leadingAnchor.constraint(equalTo: ProfileImagechat.trailingAnchor).isActive = true
@@ -53,12 +53,12 @@ class CommonChatLabel : UIView{
             labelChat.lineBreakMode = .byWordWrapping
         
             labelTime = UILabel(frame: frame)
-            labelTime.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            labelTime.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            labelTime.font = UIFont(name: "Halvetica", size: 10)
             self.addSubview(labelTime)
             labelTime.translatesAutoresizingMaskIntoConstraints = false
         
-            labelTime.font = UIFont(name: "Halvetica", size: 15)
-            labelTime.text = "11:20"
+        
             labelTime.heightAnchor.constraint(equalToConstant: 20).isActive = false
             labelTime.widthAnchor.constraint(equalToConstant: 70).isActive = true
             labelTime.topAnchor.constraint(equalTo: labelChat.topAnchor, constant: 8).isActive = true

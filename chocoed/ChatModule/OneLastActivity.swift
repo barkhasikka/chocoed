@@ -96,7 +96,7 @@ open class OneLastActivity: NSObject {
         
         	switch timeInSeconds {
         		case 0:
-            			lastSeenInfo = "online"
+            			lastSeenInfo = "Online"
         		case _ where timeInSeconds > 0 && timeInSeconds < 60:
             			lastSeenInfo = "last seen \(timeInSeconds) seconds ago"
         		case _ where timeInSeconds > 59 && timeInSeconds < 3600:

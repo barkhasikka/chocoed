@@ -7,6 +7,7 @@
         <attribute name="is_mine" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="is_typing" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="last_msg" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="last_msg_ack" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="last_msg_time" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="last_msg_type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="modified" optional="YES" attributeType="String" syncable="YES"/>
@@ -22,6 +23,7 @@
         <attribute name="from_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="is_download" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="is_mine" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="is_permission" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="is_streaming" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="is_upload" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="modified" optional="YES" attributeType="String" syncable="YES"/>
@@ -33,7 +35,7 @@
         <attribute name="to_id" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Friends" positionX="-63" positionY="-18" width="128" height="255"/>
-        <element name="Msg" positionX="-63" positionY="90" width="128" height="255"/>
+        <element name="Friends" positionX="-63" positionY="-18" width="128" height="270"/>
+        <element name="Msg" positionX="-63" positionY="90" width="128" height="270"/>
     </elements>
 </model>

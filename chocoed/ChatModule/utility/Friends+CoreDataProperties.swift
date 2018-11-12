@@ -31,6 +31,8 @@ extension Friends {
     @NSManaged public var   read_count : String
     @NSManaged public var   status : String
     @NSManaged public var   user_id : String
+    @NSManaged public var   last_msg_ack : String
+
     
     
 }

@@ -28,6 +28,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
     @IBOutlet weak var otpDigitFourthTF: UITextField!
     @IBOutlet weak var labelOTPReceived: UILabel!
     var activityUIView: ActivityIndicatorUIView!
+    
     var button: UIButton!
     var otpFromServer = -1
     
@@ -113,6 +114,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
         let userEnteredOTP = Int(userEnteredOTPText)
         if userEnteredOTP == otpFromServer {
             
+        
             
             let storedUserMobileNo = self.mobileNumberTextFIeld.text
             UserDefaults.standard.set(storedUserMobileNo, forKey: "mobileno")
@@ -156,7 +158,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
             USERDETAILS = UserDetails(email: temp.email, firstName: temp.firstName, lastname: temp.lastName, imageurl: url, mobile : temp.mobile)
             
             let isFirstTimeUser =  jsonobject?.object(forKey:"isFirstTimeUser") as? String ?? "true"
-            self.sendLanguagesSelected()
+            //self.sendLanguagesSelected()
             print(isFirstTimeUser, "<<<<<<<---- first time user flag")
             if isFirstTimeUser == "true" {
                 let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -400,7 +402,12 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
         
 
         let userID = UserDefaults.standard.integer(forKey: "userid")
-        let fcm = UserDefaults.standard.string(forKey: "fcm")
+        var fcm = UserDefaults.standard.string(forKey: "fcm")
+        
+        if fcm == nil {
+            
+            fcm = ""
+        }
 
         
         params = ["access_token":"\(accessToken)","device_id":"","device_type":"iPhone","device_info":"","device_token":"\(fcm)","userId":"\(userID)"] as Dictionary<String, String>

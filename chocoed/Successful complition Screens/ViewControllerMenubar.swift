@@ -19,10 +19,13 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
     var userImageLoaded : UIImage? = nil
     var languageUIView: LanguageUIView!
     var count = 0
+    var availableString = "This feature will be available soon"
+
     
 //    @IBOutlet weak var tabelviewLanguage: UITableView!
 //    @IBOutlet weak var languageview: UIView!
-    var arraymenu = ["My Choice","My Plan","My Progress","My Profile","Select Preferred Language","Log out","Support"]
+    var arraymenu = ["My Talks","My Thoughts","My Progress","My Profile",//"Select Preferred Language",
+        "Log out","Support"]
     let cousesImages = [UIImage(named:"chat"),UIImage(named: "discussion_room"), UIImage(named: "myprocess_improvement"), UIImage(named: "icons_user"), UIImage(named: "icons_lang"), UIImage(named: "icon_logout"),UIImage(named: "chat")]
     
         override func viewDidLoad() {
@@ -82,13 +85,10 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
         closemethod()
      }
 
-    
-    
     @IBAction func emailDropDown(_ sender: Any) {
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     
@@ -122,6 +122,7 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                     self.count = 1
                     UserDefaults.standard.set(text, forKey: "Language1")
                     self.languageUIView.isHidden = true
+                    
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5 ) {
                         self.languageUIView.label.text = "Please select your preferred language for learning with Chocoed"
                         self.languageUIView.isHidden = false
@@ -131,10 +132,7 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                 let alertaction1 = UIAlertAction(title: "Yes", style: .default) { (action) in
                     self.languageUIView.isHidden = true
                     self.count = 0
-//                    self.signUpButton.setTitle("\(text)", for: .normal)
-//
                     UserDefaults.standard.set(text, forKey: "Language1")
-                    
                     UserDefaults.standard.set(text, forKey: "Language2")
                     
                     self.languageUIView.label.text = "Please select your preferred language for Chocoed app screens"
@@ -166,14 +164,20 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                 
             case 0:
                 
-                let v1 = self.storyboard?.instantiateViewController(withIdentifier: "mychoice") as! MyChoiceSkillsViewController
+                /*let v1 = self.storyboard?.instantiateViewController(withIdentifier: "mychoice") as! MyChoiceSkillsViewController
                 self.present(v1, animated: true, completion: nil)
+                */
+                
+                
+                let alert = GetAlertWithOKAction(message: availableString)
+                self.present(alert, animated: true, completion: nil)
+                
                 
                 break;
                 
             case 1:
                 
-                currentTopiceDate = ""
+              /*  currentTopiceDate = ""
                 currentCourseId = ""
                 
                 isLoadExamFromVideo = ""
@@ -183,6 +187,13 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                 
                 let v1 = self.storyboard?.instantiateViewController(withIdentifier: "ContentVC") as! ContentVC
                 self.present(v1, animated: true, completion: nil)
+ 
+                 */
+                
+                
+                let alert = GetAlertWithOKAction(message: availableString)
+                self.present(alert, animated: true, completion: nil)
+                
                 
                 
                 
@@ -205,7 +216,7 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                 
                 break;
                 
-            case 5 :
+            case 4:
                 textfieldMbNumber = UserDefaults.standard.string(forKey: "mobileno")!
                 let alertcontrol = UIAlertController(title: "Alert", message: "Are you sure you want to logout?",preferredStyle: .alert)
                 let alertaction = UIAlertAction(title: "No", style: .default) { (action) in
@@ -228,15 +239,16 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                 alertcontrol.addAction(alertaction1)
                 self.present(alertcontrol, animated: true, completion: nil)
                 break;
+             
                 
-            case 6 :
+            case 5 :
                 
                 let alert = GetAlertWithOKAction(message: "If you need help - just drop us an email at contact@skillcues.com")
                 self.present(alert, animated: true, completion: nil)
                 
                 break
                 
-            case 4:
+           /* case 4:
 //            let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.regular)
 //            let blurEffectView = UIVisualEffectView(effect: blurEffect)
 //            blurEffectView.frame = view.bounds
@@ -246,6 +258,7 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
             self.count = 0
 
             break;
+              */
         
                 
             default:
