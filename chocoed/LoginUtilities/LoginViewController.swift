@@ -34,12 +34,9 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
         super.viewDidLoad()
         
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
-
+       
+        self.labelMobileNo.text = "MobileNoKey".localizableString(loc: language!)
         self.labelInstruct.text = "RequestOfEnterMobileNoKey".localizableString(loc: language!)
-        //self.signUpButton.titleLabel?.text = "SignUpKey".localizableString(loc: StringLang)
-        // self.loginButton.titleLabel?.text = "LoginButtonKey".localizableString(loc: StringLang)
-        
-        // self.signUpButton.setTitle("\("SignUpKey".localizableString(loc: StringLang))", for:.normal )
         self.registerButton.setTitle("\("LoginButtonKey".localizableString(loc: language!))", for:.normal)
         self.otpReceivedLabel.text = "InputChocoedTokenKey".localizableString(loc: language!)
 
