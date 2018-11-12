@@ -26,9 +26,10 @@ class BehavioralViewController: UIViewController {
         
         
         
-        self.LetsBeginLabel.text = "चलिए शुरू करते हैं".localizableString(loc: language!)
+      /*  self.LetsBeginLabel.text = "चलिए शुरू करते हैं".localizableString(loc: language!)
         self.behavioralLabel.text = "व्यवहारिक जांच".localizableString(loc: language!)
         self.continueButtonLabel.setTitle("जारी रखें".localizableString(loc: language!), for: .normal)
+     */
         
         
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)

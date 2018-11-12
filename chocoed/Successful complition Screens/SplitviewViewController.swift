@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SplitviewViewController: UIViewController {
     
@@ -40,6 +41,9 @@ class SplitviewViewController: UIViewController {
     var buttonThought = false
     var buttonchat = false
     var drag = ""
+    
+    var availableString = "This feature will be available soon"
+    
     @IBOutlet weak var mainviewConstraintOutlet: NSLayoutConstraint!
     @IBOutlet weak var arcView: UIView!
     @IBOutlet weak var imageProfile: UIImageView!
@@ -66,6 +70,56 @@ class SplitviewViewController: UIViewController {
     @IBOutlet weak var heightprogrss: NSLayoutConstraint!
     
     @IBOutlet weak var widthMyThought: NSLayoutConstraint!
+    
+    
+    
+    @IBAction func conversation_btn_clicked(_ sender: Any) {
+        
+     
+        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
+        self.present(v1, animated: true, completion: nil)
+        
+      //  let alert = GetAlertWithOKAction(message: availableString)
+      //  self.present(alert, animated: true, completion: nil)
+        
+        
+    }
+    
+    
+    @IBAction func arcThoughtd(_ sender: UIButton) {
+        
+        
+        let alert = GetAlertWithOKAction(message: availableString)
+        self.present(alert, animated: true, completion: nil)
+        
+        
+    }
+    
+    @IBAction func srcChat_Clicked(_ sender: Any) {
+        
+        
+        let alert = GetAlertWithOKAction(message: availableString)
+        self.present(alert, animated: true, completion: nil)
+        
+        
+    }
+    
+    @IBAction func arcTagu_clicked(_ sender: Any) {
+        
+        let alert = GetAlertWithOKAction(message: availableString)
+        self.present(alert, animated: true, completion: nil)
+        
+        
+        
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.imageViewLogo.image = nil
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
@@ -89,9 +143,7 @@ class SplitviewViewController: UIViewController {
         self.conversationLabel1.text = "ConversationKey".localizableString(loc: language!)
         self.contentLabel1.text = "ContentKey".localizableString(loc: language!)
 
-        let Gif = UIImage.gifImageWithName("chocoed_wave")
-        print(Gif)
-        self.imageViewLogo.image = Gif
+      
         self.myThoughtsHandUIView.isHidden = true
         self.myProgressHandUIView.isHidden = true
         
@@ -198,8 +250,8 @@ class SplitviewViewController: UIViewController {
         self.myProgressHandUIView.isHidden = true
         self.myProgressButton.isHidden = false
         
-        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "leader") as! LeaderBoardViewController
-        self.present(v1, animated: true, completion: nil)
+        let alert = GetAlertWithOKAction(message: availableString)
+        self.present(alert, animated: true, completion: nil)
         
         
       
@@ -228,8 +280,9 @@ class SplitviewViewController: UIViewController {
         self.myChatHandUIView.isHidden = true
         self.mychatButton.isHidden = false
         
-        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "leader") as! LeaderBoardViewController
-        self.present(v1, animated: true, completion: nil)
+        let alert = GetAlertWithOKAction(message: availableString)
+        self.present(alert, animated: true, completion: nil)
+        
         
      
        
@@ -339,14 +392,10 @@ class SplitviewViewController: UIViewController {
 
     @IBAction func MychoiceAction(_ sender: Any) {
         
-      /*  let v1 = self.storyboard?.instantiateViewController(withIdentifier: "mychoice") as! MyChoiceSkillsViewController
+       let v1 = self.storyboard?.instantiateViewController(withIdentifier: "mychoice") as! MyChoiceSkillsViewController
         self.present(v1, animated: true, completion: nil)
- */
  
-        
-        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
-        self.present(v1, animated: true, completion: nil) 
-    
+ 
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -383,6 +432,9 @@ class SplitviewViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        let Gif = UIImage.gifImageWithName("chocoed_wave")
+        self.imageViewLogo.image = Gif
+        
         self.GetUserInfo()
         
     }
@@ -408,6 +460,8 @@ class SplitviewViewController: UIViewController {
             // print(quizID)
             // let fileUrl = URL(string: url)
             
+            self.sendFcm()
+            
             let applang = jsonobject?.object(forKey: "appLanguage") as? String ?? ""
             let learningLang = jsonobject?.object(forKey: "learningLanguage") as? String ?? ""
 
@@ -418,7 +472,9 @@ class SplitviewViewController: UIViewController {
             
             
             UserDefaults.standard.set(Int(clientId), forKey: "clientid")
-            USERDETAILS = UserDetails(email: temp.email, firstName: temp.firstName, lastname: temp.lastName, imageurl: url)
+            
+            USERDETAILS = UserDetails(email: temp.email, firstName: temp.firstName, lastname: temp.lastName, imageurl: url, mobile: temp.mobile)
+            
             
             let badesEarned =  jsonobject?.object(forKey:"badesEarned") as? Int ?? 0
             let completedTestCout =  jsonobject?.object(forKey:"completedTestCout") as? Int ?? 0
@@ -437,6 +493,51 @@ class SplitviewViewController: UIViewController {
         }, errorHandler: {(message) -> Void in
             print("message", message)
         })
+    }
+    
+    func sendFcm() {
+        
+        self.checkChatConnection()
+        
+        var params =  Dictionary<String, String>()
+      
+        let userID = UserDefaults.standard.integer(forKey: "userid")
+        var fcm = UserDefaults.standard.string(forKey: "fcm")
+
+        if fcm == nil {
+            
+            fcm = ""
+        }
+
+        params = ["access_token":"\(accessToken)","device_id":"","device_type":"iPhone","device_info":"","device_token":"\(fcm!)","userId":"\(userID)"] as Dictionary<String, String>
+        print(params)
+        
+        MakeHttpPostRequest(url: saveDeviceToken, params: params, completion: {(success, response) -> Void in
+            print(response)
+            
+            
+        }, errorHandler: {(message) -> Void in
+            
+        })
+        
+    }
+    
+    func checkChatConnection(){
+        
+        if OneChat.sharedInstance.isConnected() {
+        } else {
+            
+            OneChat.sharedInstance.connect(username: "\(USERDETAILS.mobile)@13.232.161.176", password: USERDETAILS.mobile) { (stream, error) -> Void in
+                if let error = error {
+                    
+                    print("not connected to chat",error)
+                   
+                } else {
+                    
+                    print("You are online")
+                }
+            }
+        }
     }
     
 }

@@ -27,7 +27,7 @@ class MyChoiceSkillsViewController: UIViewController,UICollectionViewDelegate,UI
         super.viewDidLoad()
         
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
-        self.myChoiceLabel.text = "मेरा विकल्प".localizableString(loc: language!)
+       // self.myChoiceLabel.text = "मेरा विकल्प".localizableString(loc: language!)
         
 
         

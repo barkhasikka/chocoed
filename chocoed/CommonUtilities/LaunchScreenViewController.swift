@@ -22,19 +22,29 @@ class LaunchScreenViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         InstanceID.instanceID().instanceID { (result, error) in
-            if let error = error {
-                print("Error fetching remote instange ID: \(error)")
-            } else if let result = result {
-                print("Remote instance ID token: \(result.token)")
+            
+            if let error = error{
+                print("<<<<< Error in FCM >>>>>>")
+            }else if let result = result {
+                UserDefaults.standard.set(result.token, forKey: "fcm")
+                print(result.token , "<<<<< FCM >>>>>>")
             }
         }
+        
+       
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        // Dispose of any resurces that can be recreated.
     }
     
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        imageLogoView.image = nil
+        self.player?.pause()
+        self.player = nil
+    }
 
    
     

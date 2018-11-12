@@ -69,6 +69,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     var activeField: UITextField!
     var keyboardHeight: CGFloat!
     var lastOffset: CGFloat!
+    var mobileNo = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,6 +80,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         self.iAmBornOnLabel.text = "BornOnKey".localizableString(loc: language!)
         self.genderLabel.text = "GenderKey".localizableString(loc: language!)
         self.createProfileButtonLabel.title = "प्रोफाइल बनाएं".localizableString(loc: language!)
+      /*  self.createProfileButtonLabel.title = "प्रोफाइल बनाएं".localizableString(loc: language!)
         self.chooseGalleryLabel.text = "गैलरी से चुनें".localizableString(loc: language!)
         self.chooseAvatarLabel.text = "कोई अवतार चुनें".localizableString(loc: language!)
         self.proceedLabel.setTitle("आगे बढ़ें".localizableString(loc: language!), for: .normal)
@@ -90,6 +92,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         self.btn.setTitle("पुरुष".localizableString(loc: language!), for: .normal)
         self.btnFemale.setTitle("महिला".localizableString(loc: language!), for: .normal)
         self.ButtonChoose.setTitle("प्रोफ़ाइल चित्र चुनें!", for: .normal)
+        */
         
         submitButton.layer.cornerRadius = 20
         submitButton.clipsToBounds = true
@@ -422,6 +425,8 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
             temp.gender = jsonobject?.object(forKey: "gender") as? String ?? ""
             temp.birthDate = jsonobject?.object(forKey: "birthDate") as? String ?? ""
 
+            self.mobileNo = temp.mobile
+            
             let clientId = jsonobject?.object(forKey: "clientId") as? String ?? ""
             let url = jsonobject?.object(forKey: "profileImageUrl") as? String ?? ""
             
@@ -435,6 +440,20 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
                 self.textfieldEmailId.text = temp.email
                 self.textfieldMobileNo.text = temp.mobile
                 self.birthDateTextField.text = temp.birthDate
+                
+                
+                USERDETAILS = UserDetails(
+                    email:self.textfieldEmailId.text!,
+                    firstName:self.textfieldLastName.text!,
+                    lastname: self.self.textfieldFirstName.text!,
+                    imageurl: url,
+                    mobile : self.mobileNo
+                )
+                
+                
+                
+                
+                
                 if temp.gender == "Male" {
                     
                     self.btn.isSelected =  true
@@ -519,15 +538,19 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
             let imageUploadParams = [ "access_token":"\(accessToken)", "userId": "\(userID)"] as! Dictionary<String, String>
             MakeHttpMIME2PostRequest(url: uploadProfilePicture, imageData: imageData as! NSData, param: imageUploadParams, completion: {(success, response) -> Void in
                 print(response, "UPLOAD PROFILE PIC RESPONSE")
-                
+                 DispatchQueue.main.async {
                  let profileimg = response.object(forKey: "profileimg") as? String ?? ""
 
-                DispatchQueue.main.async {
-
-                USERDETAILS = UserDetails(email: self.textfieldEmailId.text!, firstName:self.textfieldLastName.text!, lastname: self.self.textfieldFirstName.text!, imageurl: profileimg)
+                USERDETAILS = UserDetails(
+                    email:self.textfieldEmailId.text!,
+                    firstName:self.textfieldLastName.text!,
+                    lastname: self.self.textfieldFirstName.text!,
+                    imageurl: profileimg,
+                    mobile : self.mobileNo
+                )
                     
                 }
-                
+               
             })
         }
     }

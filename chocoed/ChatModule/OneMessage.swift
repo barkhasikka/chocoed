@@ -14,8 +14,12 @@ public typealias OneChatMessageCompletionHandler = (_ stream: XMPPStream, _ mess
 // MARK: Protocols
 
 public protocol OneMessageDelegate : NSObjectProtocol {
+    
 	func oneStream(_ sender: XMPPStream, didReceiveMessage message: XMPPMessage, from user: XMPPUserCoreDataStorageObject)
 	func oneStream(_ sender: XMPPStream, userIsComposing user: XMPPUserCoreDataStorageObject)
+    
+    func oneStream(_ sender: XMPPStream, didReceiptReceive message: XMPPMessage, from user: XMPPUserCoreDataStorageObject)
+   
 }
 
 open class OneMessage: NSObject {
@@ -65,8 +69,6 @@ open class OneMessage: NSObject {
 		completeMessage.addChild(body)
         completeMessage.addChild(threadElement)
         
-        print(completeMessage,"<<<< MSG >>>>>>")
-		
 		sharedInstance.didSendMessageCompletionBlock = completion
 		OneChat.sharedInstance.xmppStream?.send(completeMessage)
 	}
@@ -192,7 +194,7 @@ extension OneMessage: XMPPStreamDelegate {
 		if let completion = OneMessage.sharedInstance.didSendMessageCompletionBlock {
 			completion(sender, message)
 		}
-		//OneMessage.sharedInstance.didSendMessageCompletionBlock!(stream: sender, message: message)
+        //OneMessage.sharedInstance.didSendMessageCompletionBlock!(sender, message)
 	}
 	
 	public func xmppStream(_ sender: XMPPStream, didReceive message: XMPPMessage) {
@@ -202,12 +204,16 @@ extension OneMessage: XMPPStreamDelegate {
        // if OneChats.knownUserForJid(jidStr: (user?.jidStr)!) {
        //     OneChats.addUserToChatList(jidStr: (user?.jidStr)!)
        // }
+        
 		
         if message.isChatMessageWithBody {
 			OneMessage.sharedInstance.delegate?.oneStream(sender, didReceiveMessage: message, from: user!)
 		} else {
             
-            print(message)
+            if let _ = message.forName("received"){
+                OneMessage.sharedInstance.delegate?.oneStream(sender, didReceiptReceive: message, from: user!)
+            }
+            
 			//was composing
 			if let _ = message.forName("composing") {
 				OneMessage.sharedInstance.delegate?.oneStream(sender, userIsComposing: user!)

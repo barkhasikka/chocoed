@@ -28,10 +28,11 @@ class PersonalityTestViewController: UIViewController {
         
         
         
-        self.lastTest.text = "यह रहा अंतिम टेस्ट्!".localizableString(loc: language!)
+      /*  self.lastTest.text = "यह रहा अंतिम टेस्ट्!".localizableString(loc: language!)
         self.personalityLabel.text = "व्यक्तित्व जांच".localizableString(loc: language!)
         self.honestAnswer.text = "ईमानदारी से उत्तर दें, भले ही आपको जवाब पसंद न हो।".localizableString(loc: language!)
         self.continue2.setTitle("जारी रखें".localizableString(loc: language!), for: .normal)
+       */
         
 
         self.navigationItem.setHidesBackButton(true, animated: true)

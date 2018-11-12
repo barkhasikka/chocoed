@@ -52,7 +52,7 @@ class NewEducationExperienceVC: UIViewController {
         
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
         
-        self.letUsKnowLabel.text = "हमें अपनी शिक्षा के बारे में बताएं!".localizableString(loc: language!)
+      /*  self.letUsKnowLabel.text = "हमें अपनी शिक्षा के बारे में बताएं!".localizableString(loc: language!)
         self.labelQualification.text = "योग्यता".localizableString(loc: language!)
         self.labelCollegeNAme.text = "कॉलेज का नाम".localizableString(loc: language!)
         self.labelBoard.text = "बोर्ड / विश्वविद्यालय".localizableString(loc: language!)
@@ -64,6 +64,8 @@ class NewEducationExperienceVC: UIViewController {
         self.textfieldClgName.text = "कॉलेज का नाम दर्ज करें".localizableString(loc: language!)
         self.textfieldBoardUniv.text = "बोर्ड / विश्वविद्यालय का नाम दर्ज करें".localizableString(loc: language!)
         self.locationTextField.text = "लोकेशन डालें".localizableString(loc: language!)
+ 
+      */
         
         
        
