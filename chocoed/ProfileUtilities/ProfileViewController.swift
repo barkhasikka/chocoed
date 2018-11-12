@@ -13,6 +13,10 @@ import YPImagePicker
 class ProfileViewController: UIViewController,UITextFieldDelegate {
     
     
+    @IBOutlet weak var genderLabel: UILabel!
+    
+    @IBOutlet weak var iAmBornOnLabel: UILabel!
+    
     @IBOutlet weak var createProfileButtonLabel: UINavigationItem!
     
     @IBAction func female_clicked(_ sender: DLRadioButton) {
@@ -71,6 +75,9 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
         
+        
+        self.iAmBornOnLabel.text = "BornOnKey".localizableString(loc: language!)
+        self.genderLabel.text = "GenderKey".localizableString(loc: language!)
         self.createProfileButtonLabel.title = "प्रोफाइल बनाएं".localizableString(loc: language!)
         self.chooseGalleryLabel.text = "गैलरी से चुनें".localizableString(loc: language!)
         self.chooseAvatarLabel.text = "कोई अवतार चुनें".localizableString(loc: language!)
