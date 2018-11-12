@@ -99,10 +99,10 @@
 "LastNAmeKey" = "अंतिम नाम*";
 "MobileNoKey" = "मोबाइल नंबर*";
 "EmailIDKey" = "ईमेल आईडी*";
-"GenderKey" = "Gender";
+"GenderKey" = "लिंग";
 "MaleKey" = "पुरुष";
 "FemaleKey" = "महिला";
-"BornOnKey" = "I am born on";
+"BornOnKey" = "जन्म तारीख";
 "ProceedButtonKey" = "आगे बढ़ें";
 
 "MyChoiceKey" = "मेरा विकल्प";
