@@ -14,6 +14,12 @@ class ExamComplitionScreenViewController: UIViewController {
     @IBOutlet weak var beginButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        self.awesomeMessageLabel.text = "AwesomeToKnowMsgKey".localizableString(loc: language!)
+        self.beginButton.setTitle("LetsBeginKey".localizableString(loc: language!), for: .normal)
+        
+        
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(named: "Group 4")
         backgroundImage.contentMode = UIViewContentMode.scaleAspectFill

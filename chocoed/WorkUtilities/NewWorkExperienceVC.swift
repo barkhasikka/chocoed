@@ -47,14 +47,23 @@ class NewWorkExperienceVC: UIViewController {
         super.viewDidLoad()
         
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
-        self.letUsKnowLabel1.text = "हमें अपने काम के अनुभव के बारे में बताएं!".localizableString(loc: language!)
-        self.companyLabel.text = "कंपनी का नाम".localizableString(loc: language!)
-        self.textFieldCompany.text = "कंपनी का नाम डालें".localizableString(loc: language!)
         
-        
-        
-
-        
+        self.letUsKnowLabel1.text = "WorkTopMsgLabel".localizableString(loc: language!)
+        self.companyLabel.text = "NameofCOmpanyKey".localizableString(loc: language!)
+        self.textFieldCompany.placeholder = "EnterCompanyNameKey".localizableString(loc: language!)
+        self.fromLabel.text = "FromKey".localizableString(loc: language!)
+        self.fromButton.setTitle("SelectYearFromKey".localizableString(loc: language!), for: .normal)
+        self.tolabel.text = "ToKey".localizableString(loc: language!)
+        self.toButton.setTitle("SelectYearFromKey".localizableString(loc: language!), for: .normal)
+        self.managementLabel.text = "ManagementLevelKey".localizableString(loc: language!)
+        self.managementLevelButton.setTitle("SelectManagementLevelKey".localizableString(loc: language!), for: .normal)
+        self.teamsHandledLabel.text = "TeamHandelKey".localizableString(loc: language!)
+        self.teamsHandeledButton.setTitle("SelectTeamHAndleKEy".localizableString(loc: language!), for: .normal)
+        self.industryLabel.text = "CurrrentInstKey".localizableString(loc: language!)
+        self.currentIndustryButton.setTitle("SelectCurrentIndustryKey".localizableString(loc: language!), for: .normal)
+        self.functionalLabel.text = "FunctionalExpKey".localizableString(loc: language!)
+        self.funcExpButton.setTitle("SelectFunctionExp".localizableString(loc: language!), for: .normal)
+        self.saveButton.setTitle("saveButtonKey".localizableString(loc: language!), for: .normal)
         
         
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
@@ -244,9 +253,11 @@ class NewWorkExperienceVC: UIViewController {
         
         if companyName == "" || self.toButton.titleLabel?.text == "Select Year" || self.fromButton.titleLabel?.text == "Select From" || self.managementLevelButton.titleLabel?.text == "Select Management Level" || self.teamsHandeledButton.titleLabel?.text == "Select Tearms Handled" || self.currentIndustryButton.titleLabel?.text == "Select Current Industry" || self.funcExpButton.titleLabel?.text == "Select Functional Experitise"{
 //            || self.selectedWorkExperience.industrySector == "" || companyName == "" || self.selectedWorkExperience.fromYear == "" ||  self.selectedWorkExperience.functionalDepartment == "" || self.selectedWorkExperience.levelOfManagement == "" || self.selectedWorkExperience.teamSize == "" ||  self.selectedWorkExperience.id == "" ) {
-        
-            let alertcontrol = UIAlertController(title: "Alert", message: "Please check all fields are filled.", preferredStyle: .alert)
-            let alertaction = UIAlertAction(title: "OK", style: .default) { (action) in
+            let language = UserDefaults.standard.string(forKey: "currentlanguage")
+            
+
+            let alertcontrol = UIAlertController(title: "AlertKey".localizableString(loc: language!), message: "alertFieldsFilled".localizableString(loc: language!), preferredStyle: .alert)
+            let alertaction = UIAlertAction(title: "OkKey".localizableString(loc: language!), style: .default) { (action) in
                 print("default")
               
                 self.activityUIView.isHidden = true
