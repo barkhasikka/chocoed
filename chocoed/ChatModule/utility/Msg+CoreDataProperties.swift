@@ -31,6 +31,8 @@ extension Msg {
     @NSManaged public var   msg_type : String
     @NSManaged public var   status : String
     @NSManaged public var   to_id : String
+    @NSManaged public var   is_permission : String
+
 
     
 }

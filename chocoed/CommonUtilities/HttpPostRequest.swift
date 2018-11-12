@@ -235,3 +235,117 @@ func GetAlertWithOKAction(message: String) -> UIViewController {
     return alertcontrol
 }
 
+
+func MakeHttpMIME2PostRequestChat(url: String, imageData: NSData, param: Dictionary<String, String>, completion: @escaping ((_ success: Bool, _ response: NSDictionary) -> Void)) {
+    
+    let url = URL(string: url)
+    let config = URLSessionConfiguration.default
+    config.httpAdditionalHeaders = [
+        "Accept" : "application/json",
+        "Content-Type" : "application/x-www-form-urlencoded"
+    ]
+    
+    let session = URLSession(configuration: config)
+    let boundary = generateBoundaryString()
+    
+    
+    var request = URLRequest(url: url!)
+    request.encodeParameters(parameters: param )
+    
+    request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+    request.httpBody = createBodyWithParameters(parameters: param, filePathKey: "image", imageDataKey: imageData, boundary: boundary) as Data
+    
+    print(request,"<<<<<< REQUEST >>>>>")
+    
+    let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
+        guard error == nil else {
+            print("error in the request", error ?? "")
+            return
+        }
+        
+        if let httpResponse = response as? HTTPURLResponse {
+            let statusCode = httpResponse.statusCode
+            print("Status Code for url \(String(describing: url))", statusCode)
+        }
+        guard let data = data else {
+            print("something is wrong")
+            return
+        }
+        
+        do {
+            print(data)
+            if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject] {
+                let jsonobject = json as? NSDictionary
+                completion( true, jsonobject!)
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    task.resume()
+}
+
+
+func MakeHttpPostRequestChat(url: String, params: Dictionary<String, Any>, completion: @escaping ((_ success: Bool, _ response: NSDictionary) -> Void), errorHandler: @escaping ((_ message: String) -> Void))  {
+    
+    
+    if !ConnectionCheck.isConnectedToNetwork() {
+        errorHandler("Check your internet connection")
+    }
+    
+    let url = URL(string: url)
+    let config = URLSessionConfiguration.default
+    config.httpAdditionalHeaders = [
+        "Accept" : "application/json",
+        "Content-Type" : "application/x-www-form-urlencoded"
+    ]
+    
+    let session = URLSession(configuration: config)
+    
+    var request = URLRequest(url: url!)
+    request.encodeParameters(parameters: params as! [String : String])
+    
+    let task = session.dataTask(with: request) { data, response, error in
+       
+        do {
+            print(data ?? "")
+           // print(response ?? "")
+
+            if let json = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: AnyObject] {
+                let jsonobject = json as? NSDictionary
+                completion( true, jsonobject!)
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    task.resume()
+    return
+}
+
+extension URLRequest {
+    
+    private func percentEscapeString(_ string: String) -> String {
+        var characterSet = CharacterSet.alphanumerics
+        characterSet.insert(charactersIn: "-._* ")
+        
+        return string
+            .addingPercentEncoding(withAllowedCharacters: characterSet)!
+            .replacingOccurrences(of: " ", with: "+")
+            .replacingOccurrences(of: " ", with: "+", options: [], range: nil)
+    }
+    
+    mutating func encodeParameters(parameters: [String : String]) {
+        httpMethod = "POST"
+        
+        let parameterArray = parameters.map { (arg) -> String in
+            let (key, value) = arg
+            return "\(key)=\(self.percentEscapeString(value))"
+        }
+        
+        httpBody = parameterArray.joined(separator: "&").data(using: String.Encoding.utf8)
+    }
+}
+
+
+

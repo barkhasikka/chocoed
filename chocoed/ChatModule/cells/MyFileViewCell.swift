@@ -1,30 +1,21 @@
 //
-//  FriendCell.swift
+//  MyFileViewCell.swift
 //  chocoed
 //
-//  Created by Mahesh Bhople on 31/10/18.
+//  Created by Mahesh Bhople on 09/11/18.
 //  Copyright © 2018 barkha sikka. All rights reserved.
 //
 
 import UIKit
 
-class FriendCell: UITableViewCell {
-    
-    @IBOutlet var friendImage: UIImageView!
+class MyFileViewCell: UITableViewCell {
     
     
-    @IBOutlet var last_msg: UILabel!
+    @IBOutlet var profileImage: UIImageView!
     
-    @IBOutlet var lastMsgImage: UIImageView!
+    @IBOutlet var lblTime: UILabel!
     
-    
-    @IBOutlet var read_count: UILabel!
-    
-    @IBOutlet var last_msg_time: UILabel!
-    
-    
-    @IBOutlet var lblFriendName: UILabel!
-    
+    @IBOutlet var fileview: UIImageView!
     
     
     override func awakeFromNib() {

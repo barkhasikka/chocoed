@@ -59,10 +59,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Override point for customization after application launch.
         let userID = UserDefaults.standard.integer(forKey: "userid")
+        UserDefaults.standard.set("en", forKey: "currentlanguage")
         print(userID)
         if userID != 0 {
             DispatchQueue.main.asyncAfter(deadline: .now() + 8) { // change 2 to desired number of seconds
                 self.GetUserInfo()
+                
+                
+                
+                
             }
                   } else {
            /* let quiztakenid = UserDefaults.standard.string(forKey: "quiztakenID")
@@ -75,6 +80,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.window!.rootViewController = navigationController
             }
             else{ */
+            
+            
+            
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
 
@@ -151,6 +159,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
   
+  
     
     func GetUserInfo() {
         let userID = UserDefaults.standard.integer(forKey: "userid")
@@ -173,18 +182,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
            // let fileUrl = URL(string: url)
             UserDefaults.standard.set(Int(clientId), forKey: "clientid")
             
-            USERDETAILS = UserDetails(email: temp.email, firstName: temp.firstName, lastname: temp.lastName, imageurl: url)
+            USERDETAILS = UserDetails(email: temp.email, firstName: temp.firstName, lastname: temp.lastName, imageurl: url, mobile: temp.mobile)
             
             if quizTaken == 1 {
                 print("1")
                 DispatchQueue.main.async {
                   
                    // self.window = UIWindow(frame: UIScreen.main.bounds)
-                    let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                  /*  let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                     let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
                     let aObjNavi = UINavigationController(rootViewController: startVC)
                     aObjNavi.navigationBar.barTintColor = UIColor.blue
                     self.window!.rootViewController = aObjNavi
+                    self.window!.makeKeyAndVisible()
+                  */
+                    
+                    let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
+                    self.window!.rootViewController = startVC
                     self.window!.makeKeyAndVisible()
                 }
                 

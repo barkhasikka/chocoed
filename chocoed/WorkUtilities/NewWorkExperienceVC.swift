@@ -47,7 +47,7 @@ class NewWorkExperienceVC: UIViewController {
         super.viewDidLoad()
         
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
-        
+  
         self.letUsKnowLabel1.text = "WorkTopMsgLabel".localizableString(loc: language!)
         self.companyLabel.text = "NameofCOmpanyKey".localizableString(loc: language!)
         self.textFieldCompany.placeholder = "EnterCompanyNameKey".localizableString(loc: language!)
@@ -64,7 +64,7 @@ class NewWorkExperienceVC: UIViewController {
         self.functionalLabel.text = "FunctionalExpKey".localizableString(loc: language!)
         self.funcExpButton.setTitle("SelectFunctionExp".localizableString(loc: language!), for: .normal)
         self.saveButton.setTitle("saveButtonKey".localizableString(loc: language!), for: .normal)
-        
+
         
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)

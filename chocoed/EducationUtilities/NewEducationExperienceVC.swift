@@ -52,6 +52,7 @@ class NewEducationExperienceVC: UIViewController {
         
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
         
+
         self.letUsKnowLabel.text = "EducationTopMsgKey".localizableString(loc: language!)
         self.labelQualification.text = "QulificationKey".localizableString(loc: language!)
         self.labelCollegeNAme.text = "NameofCollegeKey".localizableString(loc: language!)
@@ -72,6 +73,7 @@ class NewEducationExperienceVC: UIViewController {
         self.buttonSpecification.setTitle("SelectSpecialixationKey".localizableString(loc: language!), for: .normal)
         self.buttonYearofpassing.setTitle("SelectYearPassingButtonKey".localizableString(loc: language!), for: .normal)
         
+
         
         
        

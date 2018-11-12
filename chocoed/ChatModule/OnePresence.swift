@@ -48,6 +48,6 @@ open class OnePresence: NSObject {
 extension OnePresence: XMPPStreamDelegate {
 	
 	public func xmppStream(_ sender: XMPPStream, didReceive presence: XMPPPresence) {
-		print("did received presence : \(presence)")
+		//print("did received presence : \(presence)")
 	}
 }

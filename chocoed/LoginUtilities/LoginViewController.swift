@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class LoginViewController: UIViewController ,UITextFieldDelegate{
     @IBOutlet weak var topOutlet: NSLayoutConstraint!
@@ -27,15 +28,21 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
     @IBOutlet weak var otpDigitFourthTF: UITextField!
     @IBOutlet weak var labelOTPReceived: UILabel!
     var activityUIView: ActivityIndicatorUIView!
+    
     var button: UIButton!
     var otpFromServer = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let language = UserDefaults.standard.string(forKey: "currentlanguage")
-       
+        var language = UserDefaults.standard.string(forKey: "currentlanguage")
+        
         self.labelMobileNo.text = "MobileNoKey".localizableString(loc: language!)
+
+         if language == nil {
+            UserDefaults.standard.set("en", forKey: "currentlanguage")
+            language = "en"
+        }
         self.labelInstruct.text = "RequestOfEnterMobileNoKey".localizableString(loc: language!)
         self.registerButton.setTitle("\("LoginButtonKey".localizableString(loc: language!))", for:.normal)
         self.otpReceivedLabel.text = "InputChocoedTokenKey".localizableString(loc: language!)
@@ -105,6 +112,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
         let userEnteredOTP = Int(userEnteredOTPText)
         if userEnteredOTP == otpFromServer {
             
+        
             
             let storedUserMobileNo = self.mobileNumberTextFIeld.text
             UserDefaults.standard.set(storedUserMobileNo, forKey: "mobileno")
@@ -148,10 +156,10 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
             let fileUrl = URL(string: url)
             UserDefaults.standard.set(Int(clientId), forKey: "clientid")
             
-            USERDETAILS = UserDetails(email: temp.email, firstName: temp.firstName, lastname: temp.lastName, imageurl: url)
+            USERDETAILS = UserDetails(email: temp.email, firstName: temp.firstName, lastname: temp.lastName, imageurl: url, mobile : temp.mobile)
             
             let isFirstTimeUser =  jsonobject?.object(forKey:"isFirstTimeUser") as? String ?? "true"
-            self.sendLanguagesSelected()
+            //self.sendLanguagesSelected()
             print(isFirstTimeUser, "<<<<<<<---- first time user flag")
             if isFirstTimeUser == "true" {
                 let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -247,7 +255,6 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
                     self.topOutlet.constant = 55
                     self.view.layoutIfNeeded()
                 })
-
                 otpDigitSecondTF.becomeFirstResponder()
                 
             case otpDigitSecondTF:
@@ -350,20 +357,18 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
         
     }
     func sendLanguagesSelected() {
+        
+        self.sendFcm()
+        
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
         let language1 = UserDefaults.standard.string(forKey: "Language1")
         let language2 = UserDefaults.standard.string(forKey: "Language2")
+        
         var params =  Dictionary<String, String>()
         if language1 != nil && language2 != nil
         {
-            
-            /* UserDefaults.standard.set("English", forKey: "Language1")
-             UserDefaults.standard.set("English", forKey: "Language2")
-             
-             
-             params = ["access_token":"\(accessToken)","userId":"\(userid!)","clientId":"\(clientID)","appLanguage":"","learningLanguage":""] as Dictionary<String, String>
-             print(params) */
+          
        
             params = ["access_token":"\(accessToken)","userId":"\(userid!)","clientId":"\(clientID)","appLanguage":"\(language1!)","learningLanguage":"\(language2!)"] as Dictionary<String, String>
             print(params)
@@ -393,6 +398,35 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
         }
         
     }
+    
+    func sendFcm() {
+     
+        
+        var params =  Dictionary<String, String>()
+        
+
+        let userID = UserDefaults.standard.integer(forKey: "userid")
+        var fcm = UserDefaults.standard.string(forKey: "fcm")
+        
+        if fcm == nil {
+            
+            fcm = ""
+        }
+
+        
+        params = ["access_token":"\(accessToken)","device_id":"","device_type":"iPhone","device_info":"","device_token":"\(fcm)","userId":"\(userID)"] as Dictionary<String, String>
+        print(params)
+        
+        MakeHttpPostRequest(url: saveDeviceToken, params: params, completion: {(success, response) -> Void in
+            print(response)
+            
+            
+        }, errorHandler: {(message) -> Void in
+            
+        })
+        
+      
+       }
 
 }
 

@@ -51,6 +51,8 @@ class VideoVC: UIViewController {
     var startTime: String = ""
     var currentQuesId : String = ""
     var selectedAnsText = ""
+    
+    var selectedTopicId = ""
 
     @IBOutlet var btnPlayAction: UIButton!
     
@@ -151,6 +153,14 @@ class VideoVC: UIViewController {
             self.arrayTopic = array1
 
         }
+        
+        for (index,element) in self.arrayTopic.enumerated(){
+            
+            if element.topicId == self.selectedTopicId {
+                self.currentPosition = index
+            }
+        }
+       
       
         print("Sorted Array",self.arrayTopic)
         closed = false
@@ -169,7 +179,8 @@ class VideoVC: UIViewController {
 
         currentData()
      
-        if self.currentPosition == 0 && self.arrayTopic[self.currentPosition].videoViewCount == 0  {
+        if self.currentPosition == 0 && self.arrayTopic[self.currentPosition].videoViewCount == 0
+        {
             autoPlayCount = 0
             isStartFromFirst = true
         }
@@ -631,7 +642,7 @@ class VideoVC: UIViewController {
                 
                 if self.currentExamID != "" {
                     
-                    self.callEndTestAPI()
+                    self.callEndTestAPI(examId : self.currentExamID)
                 }
                 
                 
@@ -1158,7 +1169,7 @@ class VideoVC: UIViewController {
     }
     
     
-    func callEndTestAPI() {
+    func callEndTestAPI(examId : String) {
         
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
@@ -1168,7 +1179,7 @@ class VideoVC: UIViewController {
         let endTime = formatter.string(from: Date())
         
         
-        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(self.currentExamID)", "endTime": "\(endTime)"] as Dictionary<String, String>
+        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(examId)", "endTime": "\(endTime)","calendarId":"\(self.calenderId)"] as Dictionary<String, String>
         print(params, "<<<<-- end test api")
        
         MakeHttpPostRequest(url: endExamAPI, params: params, completion: {(success, response) -> Void in
