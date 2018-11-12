@@ -35,11 +35,11 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
+        var language = UserDefaults.standard.string(forKey: "currentlanguage")
+        
         self.labelMobileNo.text = "MobileNoKey".localizableString(loc: language!)
 
-        var language = UserDefaults.standard.string(forKey: "currentlanguage")
-        if language == nil {
+         if language == nil {
             UserDefaults.standard.set("en", forKey: "currentlanguage")
             language = "en"
         }
