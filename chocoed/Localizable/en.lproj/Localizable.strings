@@ -5,8 +5,6 @@
   Created by Tejal on 30/10/18.
   Copyright © 2018 barkha sikka. All rights reserved.
 */
-
-
 "LabelLanguageStringKey" = "Please select your preferred language for learning with Chocoed";
 "LoginButtonKey" = "Login";
 "SignUpKey" = "Select Preferred Language";
@@ -35,7 +33,6 @@
 "PrevButtonKey" = "PREV";
 "FirstStepKey" = "You are on the First Step";
 "AddNewWorkKey" = "Add New Work";
-
 "EducationTopMsgKey" = "Let us know about your education";
 "QulificationKey" = "Qualification";
 "NameofCollegeKey" = "Name of College";
@@ -45,7 +42,6 @@
 "SpecializationKey" = "Specification";
 "YearofPassKey" = "Year of Passing";
 "saveButtonKey" = "Save";
-
 "WorkTopMsgLabel" = "Let us know about your work experience";
 "NameofCOmpanyKey" = "Name of Company";
 "EnterCompanyNameKey" = "Enter the Name of Company";
@@ -61,8 +57,6 @@
 "SelectCurrentIndustryKey" = "Select Current Industry";
 "FunctionalExpKey" = "My Functional Experience";
 "SelectFunctionExp" = "Select Functional Industry";
-
-
 "SelectQualificationButtonKey" = "Select Qualification";
 "EnterNameClgKey" = "Enter College Name";
 "EnterBoardKey" = "Enter Board University";
@@ -70,21 +64,18 @@
 "SelectEduMediumKey" = "Select Education Medium";
 "SelectSpecialixationKey" = "Select Specification";
 "SelectYearPassingButtonKey" = "Select Year";
-
-
 "IncorrectIdKey" = "Incorrect Chocoed Token entered.";
 "RecheckKey" = "Recheck !";
 "OkKey" = "OK";
 "EnterValidMobileKey" = "Please enter valid mobile number.";
 "AlertKey" = "alert!";
-
-
-
 "WelcomeKey" = "Welcome!";
 "ProfileMsgForUserKey" = "There is only one You in this world. Let’s build your personal vitae";
 "GetStartedKey"= "GET STARTED  ➔";
+"AppraisalMsgKey" = "Let’s do the personalised Chocoed Essential Appraisals now.";
+"KnowUserUniqenessKey" = "Know your Uniqueness ➔";
+"ProfileImpressionKey" = "You have an impressive profile!";
 "AddEducationButtonKey" = "Add New Education";
-
 "CreateProfileKey" = "Create Profile";
 "ChooseImageKey" = "Choose  from gallery";
 "ChooseAvatar" = "Choose any Avatar";
@@ -98,36 +89,24 @@
 "FemaleKey" = "Female";
 "BornOnKey" = "I am born on";
 "ProceedButtonKey" = "Proceed";
-
-
-"ProfileImpressionKey" = "You have an impressive profile!";
-"AppraisalMsgKey" = "Let’s do the personalised Chocoed Essential Appraisals now.";
-"KnowUserUniqenessKey" = "Know your Uniqueness ➔";
-
-"AwesomeToKnowMsgKey" = "Awesome! To know oneself is the beginning of every beautiful journey.";
-"LetsGetChocoedButtonKey" = "Let’s get Chocoed";
-
-"EndTestKey" = "END TEST";
-
 "MyChoiceKey" = "My Choice";
 "MySkillKey" = "My Skills";
 "SoftSkills" = "Soft Skills";
-
-"TopicLabelKey" = "Topic";
-"SubTopicLAbelKey" = "Sub Topic";
-
 "CompletedTestKey" = "Completed Tests";
 "CompletedCourseKey" = "Courses Completed";
 "FriendsKey" = "Friends";
 "Add5Key" = "Add 5 of your contacts to see their progress as well.";
 "AddFriendLabelKey" = "Add Friend";
 "DoneKey" = "Done";
-
+"MyRadarKey" = "My Radar";
 "MyPlanKey" = "My Plan";
-
 "PendingAssementKey" = "Pending Assessment";
-
 "ExamReviewKey" = "Exam Review";
+"AwesomeToKnowMsgKey" = "Awesome! To know oneself is the beginning of every beautiful journey.";
+"LetsGetChocoedButtonKey" = "Let’s get Chocoed";
+"EndTestKey" = "END TEST";
+"TopicLabelKey" = "Topic";
+"SubTopicLAbelKey" = "Sub Topic";
 
 
 
