@@ -602,7 +602,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
         do{
             
             
-        if self.lblCurrentStatus.text != "Online"  {
+        if self.lblCurrentStatus.text == "Online"  {
            
             
             let text = self.editMsg.text
@@ -679,7 +679,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
             
             let msgId = self.getCurrentTime()
             
-            let body = CustomMessageModel(msgId: msgId, msgType: kXMPP.TYPE_TEXT, message: text!, fileUrl: "", desctructiveTime: desrc)
+            let body = CustomMessageModel(msgId: "", msgType: kXMPP.TYPE_TEXT, message: text!, fileUrl: "", desctructiveTime: desrc)
             
             let jsonData = try JSONEncoder().encode(body)
             let msg = String(data: jsonData, encoding: .utf8)
@@ -688,12 +688,14 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
             self.editMsg.text = ""
             
             
-            let params = ["mobile_no": "\(self.friendModel.contact_number)","mobile":"\(USERDETAILS.mobile)", "data":"\(msg!)"]
+            let params = ["friend_no": "\(self.friendModel.contact_number)","my_no":"\(USERDETAILS.mobile)", "data":"\(msg!)", "message_id":"\(msgId)"]
             print(params)
             MakeHttpPostRequestChat(url: kXMPP.sendNotification, params: params, completion: {(success, response) in
                 print(response)
                 
                 
+                DispatchQueue.main.async {
+             
                 self.createMsgEntityFrom(item: Message(
                     msg: text!,
                     msgId: msgId,
@@ -714,8 +716,14 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                 self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: text!, msg_type: kXMPP.TYPE_TEXT, isMine: "1", friendID: self.friendModel.contact_number)
                 
                 
+                
+                
                 self.tblView.reloadData()
                 self.tblView.scrollToBottom()
+                    
+                    
+                }
+                
                 
             }, errorHandler: {(message) -> Void in
                 print("message", message)
@@ -1613,6 +1621,8 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
             self.selectedArr.removeAll()
         }
         
+        self.tblView.reloadData()
+        self.tblView.scrollToBottom()
     }
     
     @IBAction func actionForwardClicked(_ sender: Any) {
