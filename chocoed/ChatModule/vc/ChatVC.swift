@@ -1045,7 +1045,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
             
             if item.msg_type == kXMPP.TYPE_IMAGE    {
                 
-                return CGFloat(130)
+                return CGFloat(180)
 
             }
         }
