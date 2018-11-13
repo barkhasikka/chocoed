@@ -201,6 +201,8 @@ extension OneMessage: XMPPStreamDelegate {
                 
         let user = OneChat.sharedInstance.xmppRosterStorage.user(for: message.from, xmppStream: OneChat.sharedInstance.xmppStream, managedObjectContext: OneRoster.sharedInstance.managedObjectContext_roster())
         
+        if user != nil {
+        
        // if OneChats.knownUserForJid(jidStr: (user?.jidStr)!) {
        //     OneChats.addUserToChatList(jidStr: (user?.jidStr)!)
        // }
@@ -219,5 +221,6 @@ extension OneMessage: XMPPStreamDelegate {
 				OneMessage.sharedInstance.delegate?.oneStream(sender, userIsComposing: user!)
 			}
 		}
+      }
 	}
 }
