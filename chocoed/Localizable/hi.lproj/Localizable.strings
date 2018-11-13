@@ -108,4 +108,11 @@
 "TopicLabelKey" = "विषय";
 "SubTopicLAbelKey" = "उप विषय";
 "alertFieldsFilled" = "कृपया जांचें कि क्या सभी फ़ील्ड भर गए हैं या नहीं";
-
+"alertAssessment" = "आज के विषयों पर हमारे त्वरित मूल्यांकन के साथ अपनी समझ की जांच करें";
+"alertNotNow" = "अभी नहीं";
+"alertYes" = "हाँ";
+"alertInterestingVideos" = "दिलचस्प वीडियो";
+"alertDear" = "प्रिय";
+"alertVideos" = "आपके द्वारा देखे जाने वाले वीडियोस अभी बाकि है";
+"alertCompletedAssessments" = " कुछ आकलन पूरा किए जाने हैं";
+"alertcompletedAssessmentMsg" = " आपको अभी कुछ आकलन पूरे करने है.क्या आप उन्हें अभी करना चाहते हैं?";

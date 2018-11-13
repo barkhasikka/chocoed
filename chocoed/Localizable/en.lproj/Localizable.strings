@@ -108,5 +108,11 @@
 "TopicLabelKey" = "Topic";
 "SubTopicLAbelKey" = "Sub Topic";
 "alertFieldsFilled" = "please check if all fields are filled";
-
-
+"alertAssessment" = "Check your understanding with our quick assessment on todays topics";
+"alertNotNow" = "Not Now";
+"alertYes" = "Yes";
+"alertInterestingVideos" = "Interesting Video";
+"alertDear" = "Dear";
+"alertVideos" = "there are videos yet to be seen by you. Please watch them first.";
+"alertCompletedAssessments" = "Assessments to be Completed";
+"alertcompletedAssessmentMsg" = "You have some assessments to be completed.Would you like to do them now ?";
