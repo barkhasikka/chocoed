@@ -139,7 +139,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             
             break
         case 4 :
-            UserDefaults.standard.set("en", forKey: "currentlanguage")
+            UserDefaults.standard.set("hi", forKey: "currentlanguage")
             self.LanguageChanged()
             break
         default:
