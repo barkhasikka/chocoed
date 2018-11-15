@@ -34,8 +34,8 @@ struct CustomMessageModel : Codable {
     var msgType : String = ""
     var message : String = ""
     var fileUrl : String = ""
-    var desctructiveTime : String = ""
-    
+    var destructiveTime : String = ""
+    var fileType : String = ""
    /* init(msgID : String,msgType : String , message : String , fileURL : String ,time : String) {
         
         self.msgId = msgID
@@ -90,6 +90,11 @@ struct Message {
     var status : String
     var modified : String
     var is_permission : String
+    var replyTitle : String
+    var replyMsgType : String
+    var replyMsgId : String
+    var replyMsgFile : String
+    var replyMsg : String
     
 }
 
