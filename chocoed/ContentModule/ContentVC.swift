@@ -120,11 +120,13 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
         
         if isLoadExamFromVideo == "1"
         {
+            let language = UserDefaults.standard.string(forKey: "currentlanguage")
             
+
             
-            let alertView = UIAlertController(title: "Alert", message: "Check your understanding with our quick assessment on todays topics", preferredStyle: .alert)
+            let alertView = UIAlertController(title: "AlertKey".localizableString(loc: language!), message: "alertAssessment".localizableString(loc: language!), preferredStyle: .alert)
             
-            let action = UIAlertAction(title: "Not Now", style: .default, handler: { (alert) in
+            let action = UIAlertAction(title: "alertNotNow".localizableString(loc: language!), style: .default, handler: { (alert) in
                 
                 // closed player
                 
@@ -138,7 +140,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
             })
             alertView.addAction(action)
             
-            let actionSure = UIAlertAction(title: "Yes", style: .default, handler: { (alert) in
+            let actionSure = UIAlertAction(title: "alertYes".localizableString(loc: language!), style: .default, handler: { (alert) in
                 
                 self.courseId = currentCourseId
                 self.selectedDate = currentTopiceDate
@@ -329,9 +331,12 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
         
         if arrayTopic[indexPath.row].isBlock == true{
             
+            let language = UserDefaults.standard.string(forKey: "currentlanguage")
             
-            let alertcontrol = UIAlertController(title: "Interesting Videos", message: "Dear \(USERDETAILS.firstName),there are videos yet to be seen by you. Please watch them first.", preferredStyle: .alert)
-            let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
+
+         
+            let alertcontrol = UIAlertController(title: "alertInterestingVideos".localizableString(loc: language!), message: "\("alertDear".localizableString(loc: language!)) \(USERDETAILS.firstName) \("alertVideos".localizableString(loc: language!))", preferredStyle: .alert)
+            let alertaction = UIAlertAction(title: "OkKey".localizableString(loc: language!), style: .default, handler: nil)
             alertcontrol.addAction(alertaction)
             
             self.present(alertcontrol, animated: true, completion: nil)
@@ -347,11 +352,11 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
             
             if self.previousDayStatus == 2 {
                 
+                 let language = UserDefaults.standard.string(forKey: "currentlanguage")
+                let alertView = UIAlertController(title: "alertCompletedAssessments".localizableString(loc: language!), message: "\("alertDear".localizableString(loc: language!)) \(USERDETAILS.firstName), \("alertcompletedAssessmentMsg").localizableString(loc: language!))", preferredStyle: .alert)
                 
-                let alertView = UIAlertController(title: "Assessments to be Completed", message: "Dear \(USERDETAILS.firstName), You have some assessments to be completed.Would you like to do them now ?", preferredStyle: .alert)
                 
-                
-                let action = UIAlertAction(title: "Not Now", style: .default, handler: { (alert) in
+                let action = UIAlertAction(title: "alertNotNow".localizableString(loc: language!), style: .default, handler: { (alert) in
                     
                     //  if indexPath.row == 0{
                     
@@ -367,7 +372,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                 })
                 alertView.addAction(action)
                 
-                let actionSure = UIAlertAction(title: "Yes", style: .default, handler: { (alert) in
+                let actionSure = UIAlertAction(title: "alertYes".localizableString(loc: language!), style: .default, handler: { (alert) in
                     // go to pending list view
                     
                     

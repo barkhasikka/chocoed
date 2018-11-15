@@ -52,20 +52,28 @@ class NewEducationExperienceVC: UIViewController {
         
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
         
-      /*  self.letUsKnowLabel.text = "हमें अपनी शिक्षा के बारे में बताएं!".localizableString(loc: language!)
-        self.labelQualification.text = "योग्यता".localizableString(loc: language!)
-        self.labelCollegeNAme.text = "कॉलेज का नाम".localizableString(loc: language!)
-        self.labelBoard.text = "बोर्ड / विश्वविद्यालय".localizableString(loc: language!)
-        self.labelLocation.text = "लोकेशन".localizableString(loc: language!)
-        self.labelEducation.text = "शिक्षा माध्यम".localizableString(loc: language!)
-        self.labelSpecialization.text = "विशेषज्ञता".localizableString(loc: language!)
-        self.yearOfPassingLabel.text = "उत्तीर्ण होने का व".localizableString(loc: language!)
-        self.savebutton.setTitle("सुरक्षित करें".localizableString(loc: language!), for: .normal)
-        self.textfieldClgName.text = "कॉलेज का नाम दर्ज करें".localizableString(loc: language!)
-        self.textfieldBoardUniv.text = "बोर्ड / विश्वविद्यालय का नाम दर्ज करें".localizableString(loc: language!)
-        self.locationTextField.text = "लोकेशन डालें".localizableString(loc: language!)
- 
-      */
+
+        self.letUsKnowLabel.text = "EducationTopMsgKey".localizableString(loc: language!)
+        self.labelQualification.text = "QulificationKey".localizableString(loc: language!)
+        self.labelCollegeNAme.text = "NameofCollegeKey".localizableString(loc: language!)
+        self.labelBoard.text = "NameofBoardUniversityKey".localizableString(loc: language!)
+        self.labelLocation.text = "LocationKey".localizableString(loc: language!)
+        self.labelEducation.text = "EduactionMediumKey".localizableString(loc: language!)
+        self.labelSpecialization.text = "SpecializationKey".localizableString(loc: language!)
+        self.yearOfPassingLabel.text = "YearofPassKey".localizableString(loc: language!)
+        self.savebutton.setTitle("saveButtonKey".localizableString(loc: language!), for: .normal)
+        self.textfieldClgName.placeholder = "EnterNameClgKey".localizableString(loc: language!)
+        self.textfieldBoardUniv.placeholder = "EnterBoardKey".localizableString(loc: language!)
+        self.locationTextField.placeholder = "EnterLocationKey".localizableString(loc: language!)
+        self.buttonQualification.setTitle("SelectQualificationButtonKey".localizableString(loc: language!), for: .normal)
+      //  self.textfieldClgName.text = "EnterNameClgKey".localizableString(loc: language!)
+        //self.textfieldBoardUniv.text = "EnterBoardKey".localizableString(loc: language!)
+        //self.locationTextField.text = "EnterLocationKey".localizableString(loc: language!)
+        self.eduMediumButton.setTitle("SelectEduMediumKey".localizableString(loc: language!), for: .normal)
+        self.buttonSpecification.setTitle("SelectSpecialixationKey".localizableString(loc: language!), for: .normal)
+        self.buttonYearofpassing.setTitle("SelectYearPassingButtonKey".localizableString(loc: language!), for: .normal)
+        
+
         
         
        
@@ -272,10 +280,12 @@ class NewEducationExperienceVC: UIViewController {
         if self.selectedEducation.educationLevel == "" || nameofBoardUniv == "" || location == "" || self.selectedEducation.mediumOfEducation == "" || nameOfInstitute == ""  || self.selectedEducation.yearOfCompletion == "" {
             
             
+            let language = UserDefaults.standard.string(forKey: "currentlanguage")
             
+
             
-            let alertcontrol = UIAlertController(title: "Alert", message: "Please check all fields are filled.", preferredStyle: .alert)
-            let alertaction = UIAlertAction(title: "OK", style: .default) { (action) in
+            let alertcontrol = UIAlertController(title: "AlertKey".localizableString(loc: language!), message: "alertFieldsFilled".localizableString(loc: language!), preferredStyle: .alert)
+            let alertaction = UIAlertAction(title: "OkKey".localizableString(loc: language!), style: .default) { (action) in
                 print("default")
                 self.activityUIView.isHidden = true
                 self.activityUIView.stopAnimation()

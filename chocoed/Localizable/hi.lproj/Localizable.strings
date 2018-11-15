@@ -5,8 +5,7 @@
   Created by Tejal on 30/10/18.
   Copyright © 2018 barkha sikka. All rights reserved.
 */
-"LabelLanguageStringKey" = "पसंदीदा भाषा चुनें";
-"IncorrectId" = "गलत चॉकोड टोकन दर्ज किया गया।";
+"LabelLanguageStringKey" = "चोकॉइड के साथ सीखने के लिए कृपया अपनी पसंदीदा भाषा का चयन करें";
 "LoginButtonKey" = "लॉगइन";
 "SignUpKey" = "पसंदीदा भाषा चुनें";
 "ChoicContectKey" = "विकल्प, सामग्री, वार्तालाप";
@@ -34,7 +33,6 @@
 "PrevButtonKey" = "वापस";
 "FirstStepKey" = "आप पहले पायदान पर हो";
 "AddNewWorkKey" = " कार्य अनुभव डालें";
-
 "EducationTopMsgKey" = "हमें अपनी शिक्षा के बारे में बताएं";
 "QulificationKey" = "योग्यता";
 "NameofCollegeKey" = "कॉलेज का नाम";
@@ -44,69 +42,77 @@
 "SpecializationKey" = "विशेषज्ञता";
 "YearofPassKey" = "उत्तीर्ण होने का वर्ष";
 "saveButtonKey" = "सुरक्षित करें";
-
-
 "WorkTopMsgLabel" = "हमें अपने काम के अनुभव के बारे में बताएं";
 "NameofCOmpanyKey" = "कंपनी का नाम";
 "EnterCompanyNameKey" = "कंपनी का नाम डालें";
-"FromKey" = "";
+"FromKey" = "कब तक";
 "SelectYearFromKey" = "Select Year";
-"ToKey" = "";
+"ToKey" = "कब से";
 "SelectYearToKEy" = "Select Year";
-"ManagementLevelKey" = "";
-"SelectManagementLevelKey" = "Select Management Level";
-"TeamHandelKey" = "";
-"SelectTeamHAndleKEy" = "Select Teams Handled";
-"CurrrentInstKey" = "";
-"SelectCurrentIndustryKey" = "Select Current Industry";
-"FunctionalExpKey" = "";
-"SelectFunctionExp" = "Select Functional Industry";
-
-"SelectQualificationButtonKey" = "";
+"ManagementLevelKey" = "प्रबंधन स्तर";
+"SelectManagementLevelKey" = "प्रबंधन स्तर चुनें";
+"TeamHandelKey" = "टीम संभाली";
+"SelectTeamHAndleKEy" = "कितने टीम संभाली";
+"CurrrentInstKey" = "वर्तमान उद्योग";
+"SelectCurrentIndustryKey" = "वर्तमान उद्योग चुनें";
+"FunctionalExpKey" = "मेरा कार्यात्मक अनुभव";
+"SelectFunctionExp" = "कार्यात्मक उद्योग का चयन करें";
+"SelectQualificationButtonKey" = "योग्यता चुनें";
 "EnterNameClgKey" = "कॉलेज का नाम दर्ज करें";
 "EnterBoardKey" = "बोर्ड / विश्वविद्यालय का नाम दर्ज करें";
 "EnterLocationKey" = "लोकेशन डालें";
-"SelectEduMediumKey" = "";
-"SelectSpecialixationKey" = "";
-"SelectYearPassingButtonKey" = "";
-"EnterCompanyNameKey" = "";
-"SelectYearFromKey" = "";
-"SelectYearToKEy" = "";
-"SelectManagementLevelKey" = "";
-"SelectTeamHAndleKEy" = "";
-"SelectCurrentIndustryKey" = "";
-"SelectFunctionExp" = "";
-"AddEducationButtonKey" = "नई शिक्षा दर्ज करें";
-"WelcomeLableKey" = "स्वागत!";
+"SelectEduMediumKey" = "शिक्षा माध्यम चुनें";
+"SelectSpecialixationKey" = "विशेषज्ञता चुनें";
+"SelectYearPassingButtonKey" = "उत्तीर्ण होने का वर्ष चुनें";
+"RecheckKey" = "फिर से जांचें !";
+"IncorrectIdKey" = "गलत चॉकोड टोकन दर्ज किया गया।";
+"EnterValidMobileKey" = "कृप्या वैध मोबाइल नंबर दर्ज डालें";
+"AlertKey" = "अलर्ट !";
+"OkKey" = "ठीक";
+"WelcomeKey" = "स्वागत!";
+"ProfileMsgForUserKey" = "There is only one You in this world. Let’s build your personal vitae";
 "GetStartedKey"= "शुरु करे ➔";
 "AppraisalMsgKey" = "अब आपकीव्यक्तिगत करें चॉकॉएड अनिवार्य समीक्षा करते हैं";
 "KnowUserUniqenessKey" = "अपनी विशिष्टता को पहचानें ➔";
 "ProfileImpressionKey" = "आपका प्रोफ़ाइल प्रभावशाली है!";
-
+"AddEducationButtonKey" = "नई शिक्षा दर्ज करें";
 "CreateProfileKey" = "प्रोफाइल बनाएं";
-"ChooseImageKey" = "Choose  from gallery";
+"ChooseImageKey" = "गैलरी से चयन करें";
 "ChooseAvatar" = "कोई अवतार चुनें";
 "ChooseImageLabelKey" = "प्रोफ़ाइल चित्र चुनें!";
 "FirstNameKey" = "पहला नाम*";
 "LastNAmeKey" = "अंतिम नाम*";
 "MobileNoKey" = "मोबाइल नंबर*";
 "EmailIDKey" = "ईमेल आईडी*";
-"GenderKey" = "Gender";
+"GenderKey" = "लिंग";
 "MaleKey" = "पुरुष";
 "FemaleKey" = "महिला";
-"BornOnKey" = "I am born on";
+"BornOnKey" = "जन्म तारीख";
 "ProceedButtonKey" = "आगे बढ़ें";
-
 "MyChoiceKey" = "मेरा विकल्प";
-"MySkillKey" = "My Skills";
+"MySkillKey" = "मेरे कौशल";
 "SoftSkills" = "व्यवहार कुशलता";
-
 "CompletedTestKey" = "पूरे किये टेस्ट";
-"CompletedCourseKey" = "Courses Completed";
-"FriendsKey" = "Friends";
-"Add5Key" = "Add 5 of your contacts to see their progress as well.";
-"AddFriendLabelKey" = "Add Friend";
-"DoneKey" = "Done";
-
-
-
+"CompletedCourseKey" = "पुरे किये विषय";
+"FriendsKey" = "दोस्त";
+"Add5Key" = "अपनी प्रगति को देखने के लिए अपने 5 संपर्क जोड़ें.";
+"AddFriendLabelKey" = "दोस्त जोड़ें";
+"DoneKey" = "ठीक";
+"MyRadarKey" = "मेरा राडार";
+"MyPlanKey" = "मेरी योजना";
+"PendingAssessmentKey" = "लंबित मूल्यांकन";
+"ExamReviewkey" = "परीक्षा समीक्षण";
+"AwesomeToKnowMsgKey" = "बहुत बढ़िया! खुद को जानना हर खूबसूरत यात्रा की शुरुआत है।";
+"LetsGetChocoedButtonKey" = "Let’s get Chocoed";
+"EndTestKey" = "टेस्ट् समाप्त";
+"TopicLabelKey" = "विषय";
+"SubTopicLAbelKey" = "उप विषय";
+"alertFieldsFilled" = "कृपया जांचें कि क्या सभी फ़ील्ड भर गए हैं या नहीं";
+"alertAssessment" = "आज के विषयों पर हमारे त्वरित मूल्यांकन के साथ अपनी समझ की जांच करें";
+"alertNotNow" = "अभी नहीं";
+"alertYes" = "हाँ";
+"alertInterestingVideos" = "दिलचस्प वीडियो";
+"alertDear" = "प्रिय";
+"alertVideos" = "आपके द्वारा देखे जाने वाले वीडियोस अभी बाकि है";
+"alertCompletedAssessments" = " कुछ आकलन पूरा किए जाने हैं";
+"alertcompletedAssessmentMsg" = " आपको अभी कुछ आकलन पूरे करने है.क्या आप उन्हें अभी करना चाहते हैं?";
