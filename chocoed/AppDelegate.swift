@@ -12,9 +12,27 @@ import CoreData
 import UserNotifications
 import Firebase
 import FirebaseMessaging
+import XMPPFramework
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+  /*  func oneStream(_ sender: XMPPStream, didReceiveMessage message: XMPPMessage, from user: XMPPUserCoreDataStorageObject) {
+        print("<<<<<< AT DELEGATE didReceiveMessage")
+    }
+    
+    func oneStream(_ sender: XMPPStream, userIsComposing user: XMPPUserCoreDataStorageObject) {
+        
+        print("<<<<<< AT DELEGATE userIsComposing")
+
+    }
+    
+    func oneStream(_ sender: XMPPStream, didReceiptReceive message: XMPPMessage, from user: XMPPUserCoreDataStorageObject) {
+        
+        print("<<<<<< AT DELEGATE didReceiptReceive")
+
+    } */
+    
 
     var window: UIWindow?
     var shouldRotate = false
@@ -44,6 +62,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        // FirebaseApp.configure()
         
         CoreDataStack.sharedInstance.applicationDocumentsDirectory()
+       // OneMessage.sharedInstance.delegate = self
+
         
         OneChat.start(true, delegate: nil) { (stream, error) -> Void in
             if let _ = error {
@@ -52,6 +72,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else {
                 print("Yayyyy")
                 //Activate online UI
+                
+                
+                
             }
         }
         

@@ -32,6 +32,13 @@ extension Msg {
     @NSManaged public var   status : String
     @NSManaged public var   to_id : String
     @NSManaged public var   is_permission : String
+    
+    @NSManaged public var   replyTitle : String
+    @NSManaged public var   replyMsgType : String
+    @NSManaged public var   replyMsgId : String
+    @NSManaged public var   replyMsgFile : String
+    @NSManaged public var   replyMsg : String
+
 
 
     

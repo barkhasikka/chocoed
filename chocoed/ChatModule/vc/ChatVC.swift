@@ -53,6 +53,29 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
     @IBOutlet var btnDelete: UIButton!
     
     
+    @IBOutlet var replyView: UIView!
+    
+    @IBOutlet var lblReplyTitle: UILabel!
+    
+    
+    @IBOutlet var lblReplyMsg: UILabel!
+    
+    @IBOutlet var imgReplyType: UIImageView!
+    
+    
+    
+    @IBOutlet var imgReplyFile: UIImageView!
+    
+    var replyeMessageID = ""
+    
+    
+    @IBAction func reply_cancel_clicked(_ sender: Any) {
+        
+        self.replyView.isHidden = true
+        self.replyeMessageID = ""
+    }
+    
+    
     
     @IBAction func optionBtn_clicked(_ sender: UIButton) {
         
@@ -118,7 +141,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                 created: self.getCurrentTime(),
                 status: "",
                 modified: self.getCurrentTime(),
-                is_permission: "0"))
+                is_permission: "0", replyTitle: "", replyMsgType: "", replyMsgId: "", replyMsgFile: "", replyMsg: ""))
             
             self.tblView.reloadData()
             self.tblView.scrollToBottom()
@@ -155,7 +178,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                 created: self.getCurrentTime(),
                 status: "",
                 modified: self.getCurrentTime(),
-                is_permission: "0"))
+                 is_permission: "0", replyTitle: "", replyMsgType: "", replyMsgId: "", replyMsgFile: "", replyMsg: ""))
             
             self.tblView.reloadData()
             self.tblView.scrollToBottom()
@@ -186,11 +209,11 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
         
         
         
-        print(message.attributeStringValue(forName: "id") ?? "")
+      //  print(message.attributeStringValue(forName: "id") ?? "")
         let userData = (user.jidStr)!.components(separatedBy: "@")
         let friendID = userData[0]
 
-        print(friendID)
+       // print(friendID)
         
           do{
             
@@ -198,11 +221,51 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
             let json = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! NSDictionary
         
             print(json)
+            
+           
+            
+            if json.value(forKey: "msgType") as! String == kXMPP.TYPE_DELETE {
+                
+                // update msg by msgID
+                
+                self.updateMsg(msg_id: json.value(forKey: "msgId") as! String, type: "delete_type", value: kXMPP.DELETE_TEXT_FRIEND)
+
+                
+            }else{
+                
+                var replyMsgType = ""
+                var replyMsgFile = ""
+                var replyMsg = ""
+                var replyTitle = ""
+                var replyMsgId = ""
+                
+                let msgType = json.value(forKey: "msgType") as! String
+                
+                if msgType == kXMPP.TYPE_REPLY {
+                    
+                    replyMsgId = json.value(forKey: "msgId") as! String
+                    
+                    let msgItem = self.getMsg(msgId: replyMsgId)
+                    
+                    replyMsg = msgItem.msg
+                    replyMsgFile = msgItem.file_url
+                    
+                    if msgItem.is_mine == "1" {
+                        replyTitle = "You"
+                    }else{
+                        replyTitle = self.friendModel.name
+                    }
+                    
+                    replyMsgType = msgItem.msg_type
+                    
+                }
+                
+                
         
             self.createMsgEntityFrom(item: Message(
                 msg: json.value(forKey: "message") as! String,
                 msgId: message.attributeStringValue(forName: "id") ?? "",
-                msgType: json.value(forKey: "msgType") as! String,
+                msgType: msgType,
                 msgACk: "0",
                 fromID: USERDETAILS.mobile,
                 toID: friendID,
@@ -214,13 +277,33 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                 created: self.getCurrentTime(),
                 status: "",
                 modified: self.getCurrentTime(),
-                is_permission: "1"))
+                is_permission: "0",replyTitle: replyTitle, replyMsgType: replyMsgType, replyMsgId: replyMsgId, replyMsgFile: replyMsgFile, replyMsg: replyMsg))
             
             
-            self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: json.value(forKey: "message") as! String, msg_type: json.value(forKey: "msgType") as! String, isMine: "0" , friendID: friendID)
+                self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: json.value(forKey: "message") as! String, msg_type: json.value(forKey: "msgType") as! String, isMine: "0" , friendID: friendID)
             
             self.tblView.reloadData()
             self.tblView.scrollToBottom()
+                
+                let dsmsg =  json.value(forKey: "destructiveTime") as! String
+            
+                if dsmsg.count > 0 {
+                    
+                   // var timeVal = Float(json.value(forKey: "destructiveTime") as! String)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+                        
+                        // updated msg by msg id
+                        
+                        self.updateMsg(msg_id: message.attributeStringValue(forName: "id") ?? "", type:"delete_type", value: kXMPP.DELETE_TEXT_FRIEND)
+                        
+                    })
+                    
+                    
+                    
+                }
+                
+            }
             
           }catch{
             
@@ -231,17 +314,22 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
     
     
     func oneStream(_ sender: XMPPStream, didReceiptReceive message: XMPPMessage, from user: XMPPUserCoreDataStorageObject) {
-        
-        print(message.attributeStringValue(forName: "id") ?? "")
+  
+        self.updateMsg(msg_id: message.forName("received")?.attributeStringValue(forName: "id") ?? "", type: "msg_ack", value: kXMPP.msgSent)
         let userData = (user.jidStr)!.components(separatedBy: "@")
-        let friendID = userData[0]
+        self.updateFriendLastMsg(friendID: userData[0], value: kXMPP.msgSent)
         
-        print(friendID)
     }
     
     func oneStream(_ sender: XMPPStream, userIsComposing user: XMPPUserCoreDataStorageObject) {
         
         self.lblCurrentStatus.text = "Typing..."
+        
+        let userData = (user.jidStr)!.components(separatedBy: "@")
+        self.updateMsgAck(friendID: userData[0])
+        self.updateFriendLastMsg(friendID: userData[0], value: kXMPP.msgSeen)
+
+
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
             self.lblCurrentStatus.text = "Online"
@@ -278,6 +366,10 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
         OneMessage.sharedInstance.delegate = self
         self.editMsg.delegate = self
         
+        self.replyView.isHidden = true
+        self.replyView.layer.borderColor = UIColor.gray.cgColor
+        self.replyView.layer.borderWidth = 1.0
+        
         
         
         self.toolbar.isHidden = false
@@ -307,7 +399,10 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
         let friendFileNib = UINib(nibName: "FriendFileView", bundle: Bundle.main)
         self.tblView.register(friendFileNib, forCellReuseIdentifier: "FriendFileView")
         
-    
+        let myReplyView = UINib(nibName: "myTextReplyCell", bundle: Bundle.main)
+        self.tblView.register(myReplyView, forCellReuseIdentifier: "myTextReplyCell")
+        
+        
        
        // self.tblView.register(MyTextMsgCell.self, forCellReuseIdentifier: cellID)
        // self.tblView.register(FriendTextMsgCell.self, forCellReuseIdentifier: "FriendTextMsgCell")
@@ -360,7 +455,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     
                  
                         
-                        let body = CustomMessageModel(msgId: "", msgType: kXMPP.TYPE_TEXT, message: text, fileUrl: "", desctructiveTime: "")
+                    let body = CustomMessageModel(msgId: "", msgType: kXMPP.TYPE_TEXT, message: text, fileUrl: "", destructiveTime : "",fileType : "")
                         
                 
             
@@ -369,10 +464,11 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                 
                 print(msg ?? "")
                     
+                    let msgID = self.getCurrentTime()
                     
                     self.createMsgEntityFrom(item: Message(
                         msg: text,
-                        msgId: self.getCurrentTime(),
+                        msgId: msgID,
                         msgType: kXMPP.TYPE_TEXT,
                         msgACk: "0",
                         fromID: USERDETAILS.mobile,
@@ -385,14 +481,14 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                         created: self.getCurrentTime(),
                         status: "",
                         modified: self.getCurrentTime(),
-                        is_permission: "0"))
+                        is_permission: "0",replyTitle: "", replyMsgType: "", replyMsgId: "", replyMsgFile: "", replyMsg: ""))
                     
                     self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: text, msg_type: kXMPP.TYPE_TEXT, isMine: "1", friendID: self.friendModel.contact_number)
                     
                     self.tblView.reloadData()
                     self.tblView.scrollToBottom()
                 
-                OneMessage.sendMessage(msg!, thread: "test", to:"\(friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
+                    OneMessage.sendMessage(msg!,msgId: msgID,thread: "test", to:"\(friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
                 })
                     
                     
@@ -428,7 +524,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     created: self.getCurrentTime(),
                     status: "",
                     modified: self.getCurrentTime(),
-                    is_permission: "0"))
+                     is_permission: "0",replyTitle: "", replyMsgType: "", replyMsgId: "", replyMsgFile: "", replyMsg: ""))
                 
                 self.tblView.reloadData()
                 self.tblView.scrollToBottom()
@@ -478,6 +574,45 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
         let replyAction = UIAlertAction(title: "Reply", style: .default) {
             UIAlertAction in
             // self.openCamera(UIImagePickerController.SourceType.camera)
+            let item = self.fetchedhResultController.object(at: row) as? Msg
+
+            self.replyView.isHidden = false
+            
+            self.replyeMessageID = (item?.msg_id)!
+
+            
+            if item?.is_mine == "1" {
+                self.lblReplyTitle.text = "You"
+            }else{
+                self.lblReplyTitle.text = self.friendModel.name
+            }
+            
+            if item?.msg_type == kXMPP.TYPE_TEXT {
+                
+                self.imgReplyFile.isHidden = true
+                self.imgReplyType.isHidden = true
+                self.lblReplyMsg.text = item?.msg
+                
+            }else  if item?.msg_type == kXMPP.TYPE_IMAGE {
+                
+                self.imgReplyFile.isHidden = false
+                self.imgReplyType.isHidden = false
+                self.lblReplyMsg.text = "Photo"
+                
+                self.imgReplyType.image = UIImage(named: "image_gray_icon")
+                self.imgReplyFile.sd_setImage(with: URL(string: (item?.file_url)!))
+                
+            }else  if item?.msg_type == kXMPP.TYPE_PDF {
+                
+                self.imgReplyFile.isHidden = false
+                self.imgReplyType.isHidden = false
+                self.lblReplyMsg.text = "Pdf"
+                
+                self.imgReplyType.image = UIImage(named: "pdf_gray_icon")
+                self.imgReplyFile.image = UIImage(named: "pdf_placeholder")
+
+            }
+            
             
             // No multi Select
         }
@@ -599,108 +734,77 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
     }
     @IBAction func send_msg_clicked(_ sender: UIButton) {
         
+        if self.editMsg.text?.count == 0 {
+            return
+        }
+        self.sendTextMsg(text: self.editMsg.text!)
+        
+    }
+    
+    func sendTextMsg(text : String){
+    
         do{
             
             
-        if self.lblCurrentStatus.text == "Online"  {
-           
-            
-            let text = self.editMsg.text
-            
-            var desrc = ""
-            
-            if self.type == "destructive" {
+            if self.lblCurrentStatus.text == "Online"  {
+               
+                var desrc = ""
                 
-                self.type = ""
-                desrc = "2"
+                if self.type == "destructive" {
+                    
+                    self.type = ""
+                    desrc = "2"
+                }else{
+                    
+                    desrc = ""
+                }
                 
-            }else{
+                var replyMsgId = ""
+                var msgType = kXMPP.TYPE_TEXT
                 
-                desrc = ""
+                var replyMsgType = ""
+                var replyMsgFile = ""
+                var replyMsg = ""
+                var replyTitle = ""
                 
-            }
-            
-            
-            let body = CustomMessageModel(msgId: "", msgType: kXMPP.TYPE_TEXT, message: text!, fileUrl: "", desctructiveTime: desrc)
-            
-            let jsonData = try JSONEncoder().encode(body)
-            let msg = String(data: jsonData, encoding: .utf8)
-            
-            print(msg ?? "")
-            
-            self.editMsg.resignFirstResponder()
-            self.editMsg.text = ""
-            
-            
-            self.createMsgEntityFrom(item: Message(
-                msg: text!,
-                msgId: self.getCurrentTime(),
-                msgType: kXMPP.TYPE_TEXT,
-                msgACk: "0",
-                fromID: USERDETAILS.mobile,
-                toID: self.friendModel.contact_number,
-                fileUrl: "",
-                isUpload: "0",
-                isDownload: "0",
-                isStreaming: "0",
-                isMine: "1",
-                created: self.getCurrentTime(),
-                status: "",
-                modified: self.getCurrentTime(),
-                is_permission: "0"))
-            
-            self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: text!, msg_type: kXMPP.TYPE_TEXT, isMine: "1", friendID: self.friendModel.contact_number)
-            
-            
-            self.tblView.reloadData()
-            self.tblView.scrollToBottom()
-            
-            OneMessage.sendMessage(msg!, thread: "test", to:"\(friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
-            })
+                if self.replyeMessageID != "" {
+                    
+                    replyMsgId = self.replyeMessageID
+                    msgType = kXMPP.TYPE_REPLY
+                    
+                    let msgItem = self.getMsg(msgId: replyMsgId)
+                    
+                    replyMsg = self.lblReplyMsg.text!
+                    replyMsgFile = msgItem.file_url
                 
-        }else{
-                
-                // offline send msg
-            
-            let text = self.editMsg.text
-            
-            var desrc = ""
-            
-            if self.type == "destructive" {
-                
-                self.type = ""
-                desrc = "2"
-                
-            }else{
-                
-                desrc = ""
-                
-            }
-            
-            let msgId = self.getCurrentTime()
-            
-            let body = CustomMessageModel(msgId: "", msgType: kXMPP.TYPE_TEXT, message: text!, fileUrl: "", desctructiveTime: desrc)
-            
-            let jsonData = try JSONEncoder().encode(body)
-            let msg = String(data: jsonData, encoding: .utf8)
-            
-            self.editMsg.resignFirstResponder()
-            self.editMsg.text = ""
-            
-            
-            let params = ["friend_no": "\(self.friendModel.contact_number)","my_no":"\(USERDETAILS.mobile)", "data":"\(msg!)", "message_id":"\(msgId)"]
-            print(params)
-            MakeHttpPostRequestChat(url: kXMPP.sendNotification, params: params, completion: {(success, response) in
-                print(response)
+                    if msgItem.is_mine == "1" {
+                        replyTitle = "You"
+                    }else{
+                        replyTitle = self.friendModel.name
+                    }
+                    
+                    replyMsgType = msgItem.msg_type
+                    
+                }
                 
                 
-                DispatchQueue.main.async {
-             
+                let body = CustomMessageModel(msgId: replyMsgId, msgType: msgType, message: text, fileUrl: "", destructiveTime: desrc,fileType : "")
+                
+                let jsonData = try JSONEncoder().encode(body)
+                let msg = String(data: jsonData, encoding: .utf8)
+                
+                print(msg ?? "")
+                
+                self.editMsg.resignFirstResponder()
+                self.editMsg.text = ""
+                
+                let msgID = self.getCurrentTime()
+                
                 self.createMsgEntityFrom(item: Message(
-                    msg: text!,
-                    msgId: msgId,
-                    msgType: kXMPP.TYPE_TEXT,
-                    msgACk: "0",
+                    msg: text,
+                    msgId: msgID,
+                    msgType: msgType,
+                    msgACk: kXMPP.msgSend,
                     fromID: USERDETAILS.mobile,
                     toID: self.friendModel.contact_number,
                     fileUrl: "",
@@ -711,31 +815,103 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     created: self.getCurrentTime(),
                     status: "",
                     modified: self.getCurrentTime(),
-                    is_permission: "0"))
+                    is_permission: "0", replyTitle: replyTitle, replyMsgType: replyMsgType, replyMsgId: self.replyeMessageID, replyMsgFile: replyMsgFile, replyMsg : replyMsg))
                 
-                self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: text!, msg_type: kXMPP.TYPE_TEXT, isMine: "1", friendID: self.friendModel.contact_number)
-                
-                
+                self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: text, msg_type: kXMPP.TYPE_TEXT, isMine: "1", friendID: self.friendModel.contact_number)
                 
                 
                 self.tblView.reloadData()
                 self.tblView.scrollToBottom()
+                
+                OneMessage.sendMessage(msg!, msgId:msgID,  thread: "test", to:"\(friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
+                })
+                
+            }else{
+                
+                // offline send msg
+                
+                
+                var desrc = ""
+                
+                if self.type == "destructive" {
                     
+                    self.type = ""
+                    desrc = "2"
+                    
+                }else{
+                    
+                    desrc = ""
                     
                 }
                 
+                let msgId = self.getCurrentTime()
                 
-            }, errorHandler: {(message) -> Void in
-                print("message", message)
-            })
-            
+                var replyMsgId = ""
+                var msgType = kXMPP.TYPE_TEXT
+                if self.replyeMessageID != "" {
+                    
+                    replyMsgId = self.replyeMessageID
+                    msgType = kXMPP.TYPE_REPLY
+                    
+                }
                 
-        }
+
+                let body = CustomMessageModel(msgId: replyMsgId, msgType: msgType, message: text, fileUrl: "", destructiveTime: desrc,fileType : "")
+                
+                let jsonData = try JSONEncoder().encode(body)
+                let msg = String(data: jsonData, encoding: .utf8)
+                
+                self.editMsg.resignFirstResponder()
+                self.editMsg.text = ""
+                
+                
+                let params = ["friend_no": "\(self.friendModel.contact_number)","my_no":"\(USERDETAILS.mobile)", "data":"\(msg!)", "message_id":"\(msgId)"]
+                print(params)
+                MakeHttpPostRequestChat(url: kXMPP.sendNotification, params: params, completion: {(success, response) in
+                    print(response)
+                    
+                    
+                    DispatchQueue.main.async {
+                        
+                        self.createMsgEntityFrom(item: Message(
+                            msg: text,
+                            msgId: msgId,
+                            msgType: kXMPP.TYPE_TEXT,
+                            msgACk: kXMPP.msgSend,
+                            fromID: USERDETAILS.mobile,
+                            toID: self.friendModel.contact_number,
+                            fileUrl: "",
+                            isUpload: "0",
+                            isDownload: "0",
+                            isStreaming: "0",
+                            isMine: "1",
+                            created: self.getCurrentTime(),
+                            status: "",
+                            modified: self.getCurrentTime(),
+                             is_permission: "0", replyTitle: "",replyMsgType: "", replyMsgId: "", replyMsgFile: "", replyMsg: ""))
+                        
+                        self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: text, msg_type: kXMPP.TYPE_TEXT, isMine: "1", friendID: self.friendModel.contact_number)
+                        
+                        
+                        self.tblView.reloadData()
+                        self.tblView.scrollToBottom()
+                        
+                        
+                    }
+                    
+                    
+                }, errorHandler: {(message) -> Void in
+                    print("message", message)
+                })
+                
+                
+            }
             
             
         }
         catch {print(error)}
-       
+        
+        
         
     }
     
@@ -764,6 +940,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
     
        // let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! MsgCell
         
@@ -773,13 +950,81 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
             
             if item.is_mine == "1" {
                 
+                if item.msg_type == kXMPP.TYPE_REPLY {
+                    
+                    
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "myTextReplyCell", for: indexPath) as! myTextReplyCell
+                    // cell.item = item
+                    cell.lblMsg?.numberOfLines = 0
+                    cell.lblMsg?.text = item.msg
+                    cell.lblMsg?.frame.size = (cell.lblMsg?.intrinsicContentSize)!
+                    
+                    cell.replyTitle?.text = item.replyTitle
+                    
+                    cell.replyTitle?.text = item.replyTitle
+                    
+                    if item.replyMsgType == kXMPP.TYPE_TEXT {
+                        cell.lblreplyMsg?.text = item.replyMsg
+                    }else if item.replyMsgType == kXMPP.TYPE_IMAGE {
+                        cell.lblreplyMsg?.text = "Photo"
+                        cell.replyFile.sd_setImage(with: URL(string: item.replyMsgFile))
+                    }
+                    else if item.replyMsgType == kXMPP.TYPE_PDF {
+                        cell.lblreplyMsg?.text = "Pdf"
+                    }
+                    
+                    
+                    
+                    cell.lbltime?.text  = Utils.getTimeFromString(date: item.created!)
+                    cell.lbltime?.frame.size = (cell.lbltime?.intrinsicContentSize)!
+                    
+                    if item.msg_ack == kXMPP.msgSend{
+                        
+                        cell.imgAck.image = UIImage(named: "send_gray_icon")
+                        
+                    }else  if item.msg_ack == kXMPP.msgSent{
+                        
+                        cell.imgAck.image = UIImage(named: "receive_gray_icon")
+                        
+                        
+                    }else  if item.msg_ack == kXMPP.msgSeen{
+                        
+                        cell.imgAck.image = UIImage(named: "read_blue_icon")
+                        
+                    }
+                    
+                    
+                    
+                    cell.imgProfile?.sd_setImage(with : URL(string: USERDETAILS.imageurl))
+                    cell.imgProfile?.layer.cornerRadius = (cell.imgProfile?.frame.width)! / 2
+                    cell.imgProfile?.clipsToBounds = true
+                    cell.imgProfile?.contentMode = .scaleToFill
+                    
+                    cell.mainView?.layer.cornerRadius = 6
+                    cell.mainView?.layer.borderColor = UIColor.gray.cgColor
+                    cell.mainView?.layer.borderWidth = 1
+                    
+                    
+                    if self.selectedArr.contains(item){
+                        
+                        cell.accessoryType = UITableViewCellAccessoryType.checkmark
+                        
+                    }else{
+                        cell.accessoryType = UITableViewCellAccessoryType.none
+                        
+                    }
+                    
+                    return cell
+                    
+                }else
+                
                 
                 if item.msg_type == kXMPP.TYPE_TEXT {
                     
                     
                     let cell = tableView.dequeueReusableCell(withIdentifier: "MyTextMsgCell", for: indexPath) as! MyTextMsgCell
                     // cell.item = item
-                    
+                    cell.lblMsg?.numberOfLines = 0
                     cell.lblMsg?.text = item.msg
                     cell.lblMsg?.frame.size = (cell.lblMsg?.intrinsicContentSize)!
                     
@@ -787,6 +1032,20 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     cell.lblTime?.text  = Utils.getTimeFromString(date: item.created!)
                     cell.lblTime?.frame.size = (cell.lblTime?.intrinsicContentSize)!
                     
+                    if item.msg_ack == kXMPP.msgSend{
+                        
+                        cell.imgAck.image = UIImage(named: "send_gray_icon")
+                        
+                    }else  if item.msg_ack == kXMPP.msgSent{
+                        
+                        cell.imgAck.image = UIImage(named: "receive_gray_icon")
+
+                        
+                    }else  if item.msg_ack == kXMPP.msgSeen{
+                        
+                        cell.imgAck.image = UIImage(named: "read_blue_icon")
+
+                    }
                     
                     
                     
@@ -794,6 +1053,11 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     cell.profileImga?.layer.cornerRadius = (cell.profileImga?.frame.width)! / 2
                     cell.profileImga?.clipsToBounds = true
                     cell.profileImga?.contentMode = .scaleToFill
+                    
+                    cell.mainView?.layer.cornerRadius = 6
+                    cell.mainView?.layer.borderColor = UIColor.gray.cgColor
+                    cell.mainView?.layer.borderWidth = 1
+                    
                     
                     if self.selectedArr.contains(item){
                       
@@ -814,6 +1078,22 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     cell.lblTime?.text  = Utils.getTimeFromString(date: item.created!)
                     cell.lblTime?.frame.size = (cell.lblTime?.intrinsicContentSize)!
                     
+                    if item.msg_ack == kXMPP.msgSend{
+                        
+                        cell.msgAck.image = UIImage(named: "send_gray_icon")
+                        
+                    }else  if item.msg_ack == kXMPP.msgSent{
+                        
+                        cell.msgAck.image = UIImage(named: "receive_gray_icon")
+                        
+                        
+                    }else  if item.msg_ack == kXMPP.msgSeen{
+                        
+                        cell.msgAck.image = UIImage(named: "read_blue_icon")
+                        
+                    }
+                    
+                    
                     cell.profileImage?.sd_setImage(with : URL(string: USERDETAILS.imageurl))
                     cell.profileImage?.layer.cornerRadius = (cell.profileImage?.frame.width)! / 2
                     cell.profileImage?.clipsToBounds = true
@@ -821,6 +1101,10 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     
                     cell.fileview?.sd_setImage(with : URL(string: item.file_url))
                     cell.fileview?.contentMode = .scaleToFill
+                    
+                    cell.mainView?.layer.cornerRadius = 6
+                    cell.mainView?.layer.borderColor = UIColor.gray.cgColor
+                    cell.mainView?.layer.borderWidth = 1
                     
                     if self.selectedArr.contains(item){
                         
@@ -840,6 +1124,22 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     
                     cell.lblTime?.text  = Utils.getTimeFromString(date: item.created!)
                     cell.lblTime?.frame.size = (cell.lblTime?.intrinsicContentSize)!
+                    
+                    
+                    if item.msg_ack == kXMPP.msgSend{
+                        
+                        cell.msgAck.image = UIImage(named: "send_gray_icon")
+                        
+                    }else  if item.msg_ack == kXMPP.msgSent{
+                        
+                        cell.msgAck.image = UIImage(named: "receive_gray_icon")
+                        
+                        
+                    }else  if item.msg_ack == kXMPP.msgSeen{
+                        
+                        cell.msgAck.image = UIImage(named: "read_blue_icon")
+                        
+                    }
                     
                     cell.profileImage?.sd_setImage(with : URL(string: USERDETAILS.imageurl))
                     cell.profileImage?.layer.cornerRadius = (cell.profileImage?.frame.width)! / 2
@@ -867,7 +1167,69 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                 
             }else {
                 
-                if item.msg_type == kXMPP.TYPE_TEXT {
+                if item.msg_type == kXMPP.TYPE_REPLY {
+                    
+                    
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "myTextReplyCell", for: indexPath) as! myTextReplyCell
+                    // cell.item = item
+                    cell.lblMsg?.numberOfLines = 0
+                    cell.lblMsg?.text = item.msg
+                    cell.lblMsg?.frame.size = (cell.lblMsg?.intrinsicContentSize)!
+                    
+                    cell.replyTitle?.text = item.replyTitle
+                    
+                    if item.replyMsgType == kXMPP.TYPE_TEXT {
+                        cell.lblreplyMsg?.text = item.replyMsg
+                    }else if item.replyMsgType == kXMPP.TYPE_IMAGE {
+                        cell.lblreplyMsg?.text = "Photo"
+                        cell.replyFile.sd_setImage(with: URL(string: item.replyMsgFile))
+                    }
+                    else if item.replyMsgType == kXMPP.TYPE_PDF {
+                        cell.lblreplyMsg?.text = "Pdf"
+                    }
+                    
+                    cell.lbltime?.text  = Utils.getTimeFromString(date: item.created!)
+                    cell.lbltime?.frame.size = (cell.lbltime?.intrinsicContentSize)!
+                    
+                    if item.msg_ack == kXMPP.msgSend{
+                        
+                        cell.imgAck.image = UIImage(named: "send_gray_icon")
+                        
+                    }else  if item.msg_ack == kXMPP.msgSent{
+                        
+                        cell.imgAck.image = UIImage(named: "receive_gray_icon")
+                        
+                        
+                    }else  if item.msg_ack == kXMPP.msgSeen{
+                        
+                        cell.imgAck.image = UIImage(named: "read_blue_icon")
+                        
+                    }
+                    
+                    
+                    
+                    cell.imgProfile?.sd_setImage(with : URL(string: USERDETAILS.imageurl))
+                    cell.imgProfile?.layer.cornerRadius = (cell.imgProfile?.frame.width)! / 2
+                    cell.imgProfile?.clipsToBounds = true
+                    cell.imgProfile?.contentMode = .scaleToFill
+                    
+                    cell.mainView?.layer.cornerRadius = 6
+                    cell.mainView?.layer.borderColor = UIColor.gray.cgColor
+                    cell.mainView?.layer.borderWidth = 1
+                    
+                    
+                    if self.selectedArr.contains(item){
+                        
+                        cell.accessoryType = UITableViewCellAccessoryType.checkmark
+                        
+                    }else{
+                        cell.accessoryType = UITableViewCellAccessoryType.none
+                        
+                    }
+                    
+                    return cell
+                    
+                }else if item.msg_type == kXMPP.TYPE_TEXT {
 
                 
                   let cell = tableView.dequeueReusableCell(withIdentifier: "FriendTextMsgCell", for: indexPath) as! FriendTextMsgCell
@@ -879,6 +1241,11 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                 cell.profileImage?.layer.cornerRadius = (cell.profileImage?.frame.width)! / 2
                 cell.profileImage?.clipsToBounds = true
                 cell.profileImage?.contentMode = .scaleToFill
+                    
+                    cell.mainView?.layer.cornerRadius = 6
+                    cell.mainView?.layer.borderColor = UIColor.gray.cgColor
+                    cell.mainView?.layer.borderWidth = 1
+                    
                     
                     if self.selectedArr.contains(item){
                         
@@ -907,13 +1274,24 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     cell.fileView?.sd_setImage(with : URL(string: item.file_url))
                     cell.fileView?.contentMode = .scaleToFill
                     
-                    if item.is_permission == "1" {
+                    cell.mainView?.layer.cornerRadius = 6
+                    cell.mainView?.layer.borderColor = UIColor.gray.cgColor
+                    cell.mainView?.layer.borderWidth = 1
+                    
+                    
+                 //  if item.is_permission == "1" {
                         
-                        cell.fileView.alpha = 0.8
-                        cell.fileView?.sd_setImage(with : URL(string: item.file_url))
+                        cell.fileView?.sd_setImage(with: URL(string: item.file_url), placeholderImage: UIImage(named: "image_placeholder"), options: .continueInBackground, progress: nil, completed: nil)
                         cell.fileView?.contentMode = .scaleToFill
+                    
+                        let blureffect = UIBlurEffect(style: UIBlurEffectStyle
+                    .regular)
+                       let blueeffectView = UIVisualEffectView(effect: blureffect)
+                    blueeffectView.frame = (cell.fileView?.bounds)!
+                    blueeffectView.autoresizingMask = [.flexibleWidth , .flexibleHeight]
+                    cell.fileView?.addSubview(blueeffectView)
                         
-                    }else {
+                 /*   }else {
                     
                     if item.is_download == "0" {
                         
@@ -945,8 +1323,8 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                         }
                         
                       }
-                    }
-                    
+                    } */
+ 
                     if self.selectedArr.contains(item){
                         
                         cell.accessoryType = UITableViewCellAccessoryType.checkmark
@@ -971,15 +1349,19 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     cell.profileImage?.clipsToBounds = true
                     cell.profileImage?.contentMode = .scaleToFill
                     
+                    cell.mainView?.layer.cornerRadius = 6
+                    cell.mainView?.layer.borderColor = UIColor.gray.cgColor
+                    cell.mainView?.layer.borderWidth = 1
                     
                     
-                    if item.is_permission == "1" {
+                    
+                    
+                   // if item.is_permission == "1" {
                         
-                        cell.fileView.alpha = 0.8
-                        cell.fileView?.sd_setImage(with : URL(string: item.file_url))
+                        cell.fileView?.sd_setImage(with: URL(string: item.file_url), placeholderImage: UIImage(named: "pdf_placeholder"), options: .continueInBackground, progress: nil, completed: nil)
                         cell.fileView?.contentMode = .scaleToFill
                         
-                    }else {
+                  /*   }else {
                         
                         cell.fileView?.sd_setImage(with : URL(string: item.file_url))
                         cell.fileView?.contentMode = .scaleToFill
@@ -1007,14 +1389,12 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                                     
                                 }
                                 
-                                
-                                
                             })
                             
                         }
                         
                     }
-                }
+                } */
                     
                     if self.selectedArr.contains(item){
                         
@@ -1045,8 +1425,11 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
             
             if item.msg_type == kXMPP.TYPE_IMAGE    {
                 
-                return CGFloat(180)
-
+                return CGFloat(190)
+                
+            }else if item.msg_type == kXMPP.TYPE_REPLY    {
+                
+                return CGFloat(120)
             }
         }
 
@@ -1057,6 +1440,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = fetchedhResultController.object(at: indexPath) as? Msg
         
+        print(item!)
 
         if self.isMuliselectActionChecked == true{
             
@@ -1076,6 +1460,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     
                     let action = UIAlertAction(title: "Not Now", style: .default, handler: { (alert) in
                         
+                        
                        
                         
                     })
@@ -1084,7 +1469,18 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     let actionSure = UIAlertAction(title: "Yes", style: .default, handler: { (alert) in
                         // go to pending list view
                         
+                        
+                        
                         print("Yes")
+                        
+                        
+                        if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "FileViewerVC") as? FileViewerVC {
+                            vcNewSectionStarted.fileURL = (item?.file_url)!
+                            vcNewSectionStarted.type = (item?.msg_type)!
+                            self.present(vcNewSectionStarted, animated: true, completion: nil)
+                        }
+                        
+                        
                         
                     })
                     alertView.addAction(actionSure)
@@ -1096,6 +1492,11 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     
                 }else{
                     
+                    if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "FileViewerVC") as? FileViewerVC {
+                        vcNewSectionStarted.fileURL = (item?.file_url)!
+                        vcNewSectionStarted.type = (item?.msg_type)!
+                        self.present(vcNewSectionStarted, animated: true, completion: nil)
+                    }
                     
                 }
                 
@@ -1122,12 +1523,52 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                 self.actionView.isHidden = true
             }
       }
+            
+        
     
     }
 
     
     
     /**** CORE DATA ****/
+    
+    private func updateMsgAck(friendID : String){
+        
+        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Msg")
+        fetchRequest.predicate = NSPredicate(format: "to_id = %@ AND msg_ack != %@", friendID,"2")
+        
+        var results : [NSManagedObject] = []
+        
+        do{
+            results = try context.fetch(fetchRequest)
+            
+            if results.count != 0 {
+                
+                for item in results {
+                    
+                    item.setValue("2", forKey: "msg_ack")
+                    
+                    do{
+                        
+                        try context.save()
+                   
+                        
+                    }catch{
+                        print("Error in update")
+                    }
+
+                }
+                
+                self.tblView.reloadData()
+                self.tblView.scrollToBottom()
+            }
+            
+        }catch{
+            print("error executing request")
+        }
+        
+    }
     
     
     private func updateMsg(msg_id : String , type : String , value : String){
@@ -1157,10 +1598,23 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
             if type == "file"{
                 updatObj.setValue(value, forKey: "is_download")
             }
+            if type == "delete_type"{
+                
+                updatObj.setValue(value, forKey: "msg")
+            }
+            
+            if type == "msg_ack"{
+                
+                updatObj.setValue(value, forKey: "msg_ack")
+            }
             
         do{
             
         try context.save()
+            
+            self.tblView.reloadData()
+            self.tblView.scrollToBottom()
+            
     
           }catch{
            print("Error in update")
@@ -1172,6 +1626,32 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
         }
 
     }
+    
+    private func getMsg(msgId : String) -> Msg {
+        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Msg")
+        fetchRequest.predicate = NSPredicate(format: "msg_id = %@", msgId)
+        
+        var results : [NSManagedObject] = []
+        
+        do{
+            results = try context.fetch(fetchRequest)
+            
+             if results.count != 0 {
+                
+                return results[0] as! Msg
+             
+             }
+            
+            
+            
+        }catch{
+            print("error executing request")
+        }
+        
+        return results[0] as! Msg
+    }
+    
     
     private func isMSgPrsent(item : Message) -> Bool {
         let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
@@ -1232,6 +1712,14 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
              msgObject?.msg_type = item.msgType
              msgObject?.status = item.status
              msgObject?.to_id = item.toID
+             msgObject?.is_permission = item.is_permission
+             msgObject?.replyTitle = item.replyTitle
+             msgObject?.replyMsgType =  item.replyMsgType
+             msgObject?.replyMsgId = item.replyMsgId
+             msgObject?.replyMsgFile = item.replyMsgFile
+             msgObject?.replyMsg =  item.replyMsg
+            
+             
             
             do {
                 try CoreDataStack.sharedInstance.persistentContainer.viewContext.save()
@@ -1260,9 +1748,6 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
             }
         }
     }
-    
-    
-    
     
     
     private func deleteMsg( id: String ){
@@ -1404,13 +1889,54 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
         
     }
     
+ 
+    
+    
+    
+    func updateFriendLastMsg(friendID : String ,value : String){
+        
+        // update friend profile
+        
+        
+        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Friends")
+        fetchRequest.predicate = NSPredicate(format: "contact_number = %@", friendID)
+        
+        var results : [NSManagedObject] = []
+        
+        do{
+            results = try context.fetch(fetchRequest)
+            
+            if results.count != 0 {
+                
+                let updatObj = results[0]
+            
+                updatObj.setValue(value, forKey: "last_msg_ack")
+             
+                
+                do{
+                    try context.save()
+                    
+                }catch{
+                    print("Error in update")
+                }
+            }
+            
+        }catch{
+            print("error executing request")
+        }
+        
+        
+        
+        
+    }
+    
     
     
     func updateFriendCell(last_msg_time : String , msg : String , msg_type :String , isMine : String, friendID : String){
         
         // update friend profile
         
-        print(friendID)
     
         let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Friends")
@@ -1430,9 +1956,11 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                
                 updatObj.setValue(msg, forKey: "last_msg")
                 updatObj.setValue(msg_type, forKey:"last_msg_type")
+                updatObj.setValue("0", forKey: "last_msg_ack")
                 updatObj.setValue(last_msg_time, forKey:"last_msg_time")
                 updatObj.setValue(isMine, forKey:"is_mine")
                 updatObj.setValue(String(count), forKey: "read_count")
+
                 
                 do{
                     try context.save()
@@ -1547,16 +2075,16 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     
                   
                         
-                        let body = CustomMessageModel(msgId: "", msgType: kXMPP.TYPE_IMAGE, message: "", fileUrl: json?.object(forKey: "data") as! String, desctructiveTime: "")
+                        let body = CustomMessageModel(msgId: "", msgType: kXMPP.TYPE_IMAGE, message: "", fileUrl: json?.object(forKey: "data") as! String, destructiveTime: "" ,fileType : "")
                         
                         let jsonData = try JSONEncoder().encode(body)
                         let msg = String(data: jsonData, encoding: .utf8)
                         
                         print(msg ?? "")
                         
-                        OneMessage.sendMessage(msg!, thread: "test", to:"\(self.friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
+                      //  OneMessage.sendMessage(msg!,msgId:  thread: "test", to:"\(self.friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
                         
-                        })
+                      //  })
                         
                     }
                         
@@ -1658,11 +2186,10 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
         do{
             let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
             
-            
-            
             for item in self.selectedArr{
                 
                 context.delete(item)
+                //print(item.created)
             }
             
             self.isMuliselectActionChecked = false
@@ -1680,6 +2207,36 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
       
     }
     
+    /**** Send image    ***/
+    
+    
+    func sendNotify(item: Msg,type:String){
+        
+        do{
+    
+        let msgId = self.getCurrentTime()
+        
+        let body = CustomMessageModel(msgId: item.msg_id, msgType: kXMPP.TYPE_PER_ASK, message: "", fileUrl: "", destructiveTime: "",fileType:type)
+        
+        let jsonData = try JSONEncoder().encode(body)
+        let msg = String(data: jsonData, encoding: .utf8)
+      
+    
+    let params = ["friend_no": "\(self.friendModel.contact_number)","my_no":"\(USERDETAILS.mobile)", "data":"\(msg!)", "message_id":"\(msgId)"]
+    print(params)
+        MakeHttpPostRequestChat(url: kXMPP.sendNotification, params: params, completion: {(success, response) in
+            print(response)
+        
+        }, errorHandler: {(message) -> Void in
+            print("message", message)
+        })
+    
+   
+    }
+    catch {print(error)
+    
+    }
+    }
   
    
 }
@@ -1743,6 +2300,8 @@ extension UITableView {
             let indexPath = IndexPath(row: self.numberOfRows(inSection: self.numberOfSections - 1 ) - 1, section : self.numberOfSections - 1)
             
                 self.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            
+             // send seen ack
             
         }
     }

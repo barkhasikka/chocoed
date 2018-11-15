@@ -11,6 +11,10 @@ import UIKit
 class MyFileViewCell: UITableViewCell {
     
     
+    @IBOutlet var msgAck: UIImageView!
+    
+    @IBOutlet var mainView: UIView!
+    
     @IBOutlet var profileImage: UIImageView!
     
     @IBOutlet var lblTime: UILabel!

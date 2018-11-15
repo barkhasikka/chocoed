@@ -30,7 +30,7 @@ class Utils: NSObject {
         }else{
             
             let dateformat = DateFormatter()
-            dateformat.dateFormat = "dd-MMM hh:mm a"
+            dateformat.dateFormat = "dd-MMM"
             print(dateformat.string(from: Date(milliseconds: Int(date)!)))
             return  dateformat.string(from: Date(milliseconds: Int(date)!))
          

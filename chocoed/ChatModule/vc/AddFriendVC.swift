@@ -29,7 +29,7 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
     {
         let userID = UserDefaults.standard.integer(forKey: "userid")
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
-        let params = ["access_token":"\(accessToken)","deviceType":"Android","userId":"\(userID)","clientId":"\(clientID)"] as Dictionary<String, String>
+        let params = ["access_token":"\(accessToken)","userId":"\(userID)","clientId":"\(clientID)"] as Dictionary<String, String>
         activityUIView.isHidden = false
         activityUIView.startAnimation()
         MakeHttpPostRequest(url: friendList , params: params, completion: {(success, response) -> Void in

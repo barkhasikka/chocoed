@@ -1,22 +1,38 @@
 //
-//  FriendTextMsgCell.swift
+//  myTextReplyCell.swift
 //  chocoed
 //
-//  Created by Mahesh Bhople on 08/11/18.
+//  Created by Mahesh Bhople on 14/11/18.
 //  Copyright © 2018 barkha sikka. All rights reserved.
 //
 
 import UIKit
 
-class FriendTextMsgCell: UITableViewCell {
+class myTextReplyCell: UITableViewCell {
+    
     
     
     @IBOutlet var mainView: UIView!
     
     
-    @IBOutlet var profileImage: UIImageView!
+    @IBOutlet var replyTitle: UILabel!
+    
+    @IBOutlet var imgReplyType: UIImageView!
+    
+    @IBOutlet var replyFile: UIImageView!
+    
+    @IBOutlet var lblreplyMsg: UILabel!
+    
+    
     @IBOutlet var lblMsg: UILabel!
-    @IBOutlet var lblTime: UILabel!
+    
+    @IBOutlet var lbltime: UILabel!
+    
+    
+    @IBOutlet var imgAck: UIImageView!
+    
+    
+    @IBOutlet var imgProfile: UIImageView!
     
     
     override func awakeFromNib() {
@@ -29,17 +45,5 @@ class FriendTextMsgCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
-    var item: Msg? {
-        didSet {
-            guard  let item = item else {
-                return
-            }
-            
-            lblMsg?.text = item.msg
-            lblTime?.text = item.created
-        }
-    }
-    
     
 }

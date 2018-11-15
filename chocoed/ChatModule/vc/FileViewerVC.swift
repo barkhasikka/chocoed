@@ -34,10 +34,10 @@ class FileViewerVC: UIViewController {
             let pdfview = PDFView()
             pdfview.translatesAutoresizingMaskIntoConstraints = false
             
-            self.mainview.addSubview(pdfview)
-            
             if let document = PDFDocument(url: URL(string: fileURL)!){
                 pdfview.document = document
+                
+                self.mainview.insertSubview(pdfview, at: 0)
             }
             
         }

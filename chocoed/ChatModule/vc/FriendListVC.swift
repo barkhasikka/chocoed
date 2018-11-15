@@ -18,13 +18,15 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
    
     func oneStream(_ sender: XMPPStream, didReceiveMessage message: XMPPMessage, from user: XMPPUserCoreDataStorageObject) {
         
+        //self.tblView.reloadData()
         
         
     }
     
     func oneStream(_ sender: XMPPStream, didReceiptReceive message: XMPPMessage, from user: XMPPUserCoreDataStorageObject) {
         
-        
+       // self.tblView.reloadData()
+
         
     }
     
@@ -36,10 +38,6 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         
         self.updateFriendTyping(friendID: friendID,typing : "yes")
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-            self.updateFriendTyping(friendID: friendID,typing : "no")
-        })
-        
         
     }
     
@@ -104,7 +102,7 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         
      
     
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "last_msg_time", ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "last_msg_time", ascending: false)]
         
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.sharedInstance.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         frc.delegate = self
@@ -350,6 +348,12 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
                 
                 cell.last_msg?.text = "Typing..."
                 cell.last_msg?.textColor = UIColor.blue
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                    
+                    self.updateFriendTyping(friendID: item.contact_number,typing : "no")
+                    
+                })
 
             }
             
@@ -358,16 +362,22 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
                 
                 cell.lastMsgImage.isHidden = false
                 
-                if item.last_msg_ack == ""{
+                
+                if item.last_msg_ack == kXMPP.msgSend{
                     
-                    //no tick
-                }else if item.last_msg_ack == "0"{
-                    // send
-                }else if item.last_msg_ack == "1"{
-                    // sent
-                }else if item.last_msg_ack == "2"{
-                    // seen
+                    cell.lastMsgImage.image = UIImage(named: "send_gray_icon")
+                    
+                }else  if item.last_msg_ack == kXMPP.msgSent{
+                    
+                    cell.lastMsgImage.image = UIImage(named: "receive_gray_icon")
+                    
+                    
+                }else  if item.last_msg_ack == kXMPP.msgSeen{
+                    
+                    cell.lastMsgImage.image = UIImage(named: "read_blue_icon")
+                    
                 }
+                
 
             }else{
                 
@@ -426,7 +436,7 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         
         let userID = UserDefaults.standard.integer(forKey: "userid")
         print(userID, "USER ID IS HERE")
-        let params = ["user_name": "\(USERDETAILS.firstName) \(USERDETAILS.lastname)",  "user_contact_no":"\(USERDETAILS.mobile)",  "fcm_id":"\(fcm!)","user_photo":"\(USERDETAILS.imageurl)","user_email":"\(USERDETAILS.email)","password":"\(USERDETAILS.mobile)"] as Dictionary<String, String>
+        let params = ["user_name": "\(USERDETAILS.firstName) \(USERDETAILS.lastname)",  "user_contact_no":"\(USERDETAILS.mobile)",  "fcm_id":"\(fcm!)","user_photo":"\(USERDETAILS.imageurl)","user_email":"\(USERDETAILS.email)","password":"\(USERDETAILS.mobile)","device":"Ios"] as Dictionary<String, String>
         print(params)
         MakeHttpPostRequestChat(url: kXMPP.registerUSER, params: params, completion: {(success, response) in
             

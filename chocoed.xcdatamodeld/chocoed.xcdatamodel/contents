@@ -31,11 +31,16 @@
         <attribute name="msg_ack" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="msg_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="msg_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="replyMsg" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="replyMsgFile" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="replyMsgId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="replyMsgType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="replyTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="to_id" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="Friends" positionX="-63" positionY="-18" width="128" height="270"/>
-        <element name="Msg" positionX="-63" positionY="90" width="128" height="270"/>
+        <element name="Msg" positionX="-63" positionY="90" width="128" height="345"/>
     </elements>
 </model>

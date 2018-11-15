@@ -52,9 +52,9 @@ open class OneMessage: NSObject {
 	
 	// MARK: public methods
 	
-	open class func sendMessage(_ message: String, thread:String, to receiver: String, completionHandler completion:@escaping OneChatMessageCompletionHandler) {
+    open class func sendMessage(_ message: String, msgId :String, thread:String, to receiver: String, completionHandler completion:@escaping OneChatMessageCompletionHandler) {
 		let body = DDXMLElement.element(withName: "body") as! DDXMLElement
-        let messageID = Int64(NSDate().timeIntervalSince1970 * 1000)
+       // let messageID = Int64(NSDate().timeIntervalSince1970 * 1000)
 		
         body.stringValue = message
         
@@ -63,11 +63,13 @@ open class OneMessage: NSObject {
 		
 		let completeMessage = DDXMLElement.element(withName: "message") as! DDXMLElement
 		
-        completeMessage.addAttribute(withName: "id", stringValue: String(messageID))
+        completeMessage.addAttribute(withName: "id", stringValue: msgId)
 		completeMessage.addAttribute(withName: "type", stringValue: "chat")
 		completeMessage.addAttribute(withName: "to", stringValue: receiver)
 		completeMessage.addChild(body)
         completeMessage.addChild(threadElement)
+        
+        print(msgId,"<<<<< MSG ID >>>>>")
         
 		sharedInstance.didSendMessageCompletionBlock = completion
 		OneChat.sharedInstance.xmppStream?.send(completeMessage)
