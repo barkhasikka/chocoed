@@ -402,3 +402,22 @@ struct FriendListUpdate{
     
 }
 
+struct getNotificationListStruct{
+    var aboutNotification : String
+    var isRead : Int
+    var notificationDate : Int
+    var notificationId : Int
+    var notificationImageUrl : String
+    var notificationTitle : String
+    var notificationType: Int
+    
+    init(_ dictionary : NSDictionary) {
+        self.aboutNotification = dictionary["aboutNotification"] as? String ?? ""
+        self.isRead = dictionary["isRead"] as? Int ?? 0
+        self.notificationDate = dictionary["notificationDate"] as? Int ?? 0
+        self.notificationId = dictionary["notificationId"] as? Int ?? 0
+        self.notificationImageUrl = dictionary["notificationImageUrl"] as? String ?? ""
+        self.notificationTitle = dictionary["notificationTitle"] as? String ?? ""
+        self.notificationType = dictionary["notificationType"] as? Int ?? 0
+}
+}

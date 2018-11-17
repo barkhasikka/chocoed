@@ -11,6 +11,8 @@ import Firebase
 
 class SplitviewViewController: UIViewController {
     
+    @IBOutlet weak var textcoinsEarned: UILabel!
+    @IBOutlet weak var textbadgesEarned: UILabel!
     @IBOutlet weak var choiceLabel2: UILabel!
     @IBOutlet weak var progressLabel: UILabel!
     @IBOutlet weak var thought: UILabel!
@@ -44,6 +46,7 @@ class SplitviewViewController: UIViewController {
     
     var availableString = "This feature will be available soon"
     
+    @IBOutlet weak var popUpViewforBadges: UIView!
     @IBOutlet weak var mainviewConstraintOutlet: NSLayoutConstraint!
     @IBOutlet weak var arcView: UIView!
     @IBOutlet weak var imageProfile: UIImageView!
@@ -74,18 +77,14 @@ class SplitviewViewController: UIViewController {
     
     
     @IBAction func conversation_btn_clicked(_ sender: Any) {
-        
-     
         let v1 = self.storyboard?.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
         self.present(v1, animated: true, completion: nil)
         
       //  let alert = GetAlertWithOKAction(message: availableString)
       //  self.present(alert, animated: true, completion: nil)
-        
-        
     }
     
-    
+   
     @IBAction func arcThoughtd(_ sender: UIButton) {
         
         
@@ -106,11 +105,12 @@ class SplitviewViewController: UIViewController {
     
     @IBAction func arcTagu_clicked(_ sender: Any) {
         
-        let alert = GetAlertWithOKAction(message: availableString)
-        self.present(alert, animated: true, completion: nil)
+//        let alert = GetAlertWithOKAction(message: availableString)
+//        self.present(alert, animated: true, completion: nil)
         
+        let vc = storyboard?.instantiateViewController(withIdentifier: "notification") as? NotificationViewController
         
-        
+        self.present(vc!, animated: true, completion: nil)
     }
     
     
@@ -119,11 +119,18 @@ class SplitviewViewController: UIViewController {
     }
     
     
+    @IBAction func colsebuttonInPopUp(_ sender: Any) {
+        self.popUpViewforBadges.isHidden = true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
-//        
+
+        let backgroundImage = UIImageView(frame: self.popUpViewforBadges.bounds)
+        backgroundImage.image = UIImage(named: "gradient_pattern_oval")
+        backgroundImage.contentMode = UIViewContentMode.scaleToFill
+        self.popUpViewforBadges.insertSubview(backgroundImage, at: 0)
 //        self.labelInstruct.text = "RequestOfEnterMobileNoKey".localizableString(loc: language!)
 //        //self.signUpButton.titleLabel?.text = "SignUpKey".localizableString(loc: StringLang)
 //        // self.loginButton.titleLabel?.text = "LoginButtonKey".localizableString(loc: StringLang)
@@ -199,8 +206,6 @@ class SplitviewViewController: UIViewController {
     
     @IBAction func MyProgressActionButton(_ sender: Any) {
         buttonProgrss = !buttonProgrss
-        
-
         if buttonProgrss == true{
             self.view.layoutIfNeeded()
             self.myProgressHandUIView.removeBackground()
@@ -223,9 +228,6 @@ class SplitviewViewController: UIViewController {
         
         let v1 = self.storyboard?.instantiateViewController(withIdentifier: "leader") as! LeaderBoardViewController
         self.present(v1, animated: true, completion: nil)
-        
-        
-      
     }
     
     @IBAction func MyChatActionButton(_ sender: Any) {
@@ -252,9 +254,6 @@ class SplitviewViewController: UIViewController {
         
         let alert = GetAlertWithOKAction(message: availableString)
         self.present(alert, animated: true, completion: nil)
-        
-        
-      
     }
     
     @IBAction func MyThoughtsActionButton(_ sender: Any) {
@@ -282,10 +281,6 @@ class SplitviewViewController: UIViewController {
         
         let alert = GetAlertWithOKAction(message: availableString)
         self.present(alert, animated: true, completion: nil)
-        
-        
-     
-       
     }
     override var shouldAutorotate: Bool{
         return false
@@ -475,7 +470,7 @@ class SplitviewViewController: UIViewController {
             
             USERDETAILS = UserDetails(email: temp.email, firstName: temp.firstName, lastname: temp.lastName, imageurl: url, mobile: temp.mobile)
             
-            
+            let coinsearned = jsonobject?.object(forKey: "coinsEarned") as? Int ?? 0
             let badesEarned =  jsonobject?.object(forKey:"badesEarned") as? Int ?? 0
             let completedTestCout =  jsonobject?.object(forKey:"completedTestCout") as? Int ?? 0
             let completedTopicCout =  jsonobject?.object(forKey:"completedTopicCout") as? Int ?? 0
@@ -485,6 +480,8 @@ class SplitviewViewController: UIViewController {
                 self.lblBadgesCount.text = String(badesEarned)
                 self.lblTestCount.text = String(completedTestCout)
                 self.lblTopicCount.text = String(completedTopicCout)
+                self.textcoinsEarned.text = String(coinsearned)
+                self.textbadgesEarned.text = String(badesEarned)
             }
 
             

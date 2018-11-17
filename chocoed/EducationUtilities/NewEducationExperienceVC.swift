@@ -73,12 +73,6 @@ class NewEducationExperienceVC: UIViewController {
         self.buttonSpecification.setTitle("SelectSpecialixationKey".localizableString(loc: language!), for: .normal)
         self.buttonYearofpassing.setTitle("SelectYearPassingButtonKey".localizableString(loc: language!), for: .normal)
         
-
-        
-        
-       
-        
-        
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)
         activityUIView.isHidden = true
@@ -210,7 +204,6 @@ class NewEducationExperienceVC: UIViewController {
 
             }
         })
-
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

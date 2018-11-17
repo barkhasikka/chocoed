@@ -23,7 +23,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         //["English","Hindi हिंदी","Gujarati ગુજરાતી","Marathi मराठी ","Tamil  தமிழ்","Telugu తెలుగు","Kannada ಕನ್ನಡ","Konkani","Malayalam മലയാളം","Bengali বাঙালি","Oriya ଓଡ଼ିଆ"]
     override func viewDidLoad() {
         super.viewDidLoad()
-//        constraintsOFUI()
+        constraintsOFUI()
         
         
         

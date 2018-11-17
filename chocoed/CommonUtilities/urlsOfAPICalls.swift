@@ -33,7 +33,7 @@ let examKCDetails = "https://dev.chocoed.com/api/user/getKCExamDetail"
 let friendList = "https://dev.chocoed.com/api/user/getFriendList"
 let updateMyProgressFriend = "https://dev.chocoed.com/api/user/updateMyProgressFriends"
 let saveDeviceToken = "https://dev.chocoed.com/api/user/saveDeviceToken"
-
+let getNotificationList = "https://dev.chocoed.com/api/user/getNotificationList"
 
 var currentTopiceDate  = ""
 var currentCourseId  = ""
