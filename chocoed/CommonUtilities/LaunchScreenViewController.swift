@@ -24,7 +24,7 @@ class LaunchScreenViewController: UIViewController {
         InstanceID.instanceID().instanceID { (result, error) in
             
             if let error = error{
-                print("<<<<< Error in FCM >>>>>>")
+                print("<<<<< Error in FCM >>>>>>",error)
             }else if let result = result {
                 UserDefaults.standard.set(result.token, forKey: "fcm")
                 print(result.token , "<<<<< FCM >>>>>>")

@@ -78,7 +78,7 @@ open class OneChats: NSObject, NSFetchedResultsControllerDelegate {
                     
 //                    if element.attributeStringValueForName("to") == NSUserDefaults.standardUserDefaults().stringForKey("kXMPPmyJID")! || (element.attributeStringValueForName("to") as NSString).containsString(NSUserDefaults.standardUserDefaults().stringForKey("kXMPPmyJID")!) {
                         sender = (message as AnyObject).bareJidStr;
-                        thread = (message as AnyObject).thread
+                       thread = (message as AnyObject).thread ?? ""
                     
                         print(sender, "----", thread);
                         

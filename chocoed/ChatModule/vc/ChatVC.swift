@@ -130,7 +130,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                 msg: "",
                 msgId: msgId,
                 msgType: kXMPP.TYPE_IMAGE,
-                msgACk: "0",
+                msgACk: "3",
                 fromID: USERDETAILS.mobile,
                 toID: self.friendModel.contact_number,
                 fileUrl: url,
@@ -142,6 +142,8 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                 status: "",
                 modified: self.getCurrentTime(),
                 is_permission: "0", replyTitle: "", replyMsgType: "", replyMsgId: "", replyMsgFile: "", replyMsg: ""))
+            
+            self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: "Photo", msg_type: kXMPP.TYPE_IMAGE, isMine: "1" , friendID: self.friendModel.contact_number)
             
             self.tblView.reloadData()
             self.tblView.scrollToBottom()
@@ -986,7 +988,6 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                         
                         cell.imgAck.image = UIImage(named: "receive_gray_icon")
                         
-                        
                     }else  if item.msg_ack == kXMPP.msgSeen{
                         
                         cell.imgAck.image = UIImage(named: "read_blue_icon")
@@ -1016,10 +1017,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     
                     return cell
                     
-                }else
-                
-                
-                if item.msg_type == kXMPP.TYPE_TEXT {
+                }else if item.msg_type == kXMPP.TYPE_TEXT {
                     
                     
                     let cell = tableView.dequeueReusableCell(withIdentifier: "MyTextMsgCell", for: indexPath) as! MyTextMsgCell
@@ -1081,16 +1079,21 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     if item.msg_ack == kXMPP.msgSend{
                         
                         cell.msgAck.image = UIImage(named: "send_gray_icon")
+                        cell.msgAck.isHidden = false
                         
                     }else  if item.msg_ack == kXMPP.msgSent{
                         
                         cell.msgAck.image = UIImage(named: "receive_gray_icon")
-                        
-                        
+                        cell.msgAck.isHidden = false
+
                     }else  if item.msg_ack == kXMPP.msgSeen{
                         
                         cell.msgAck.image = UIImage(named: "read_blue_icon")
+                        cell.msgAck.isHidden = false
                         
+                    }else {
+                        
+                        cell.msgAck.isHidden = true
                     }
                     
                     
@@ -1106,6 +1109,53 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     cell.mainView?.layer.borderColor = UIColor.gray.cgColor
                     cell.mainView?.layer.borderWidth = 1
                     
+                    
+                    
+                    if item.is_download == "0" {
+                        
+                        cell.progressView.isHidden = false
+
+                        
+                        if item.is_streaming == "0" {
+                            
+                            cell.btnUpload.isHidden = true
+                            
+                            
+                            SDWebImageManager.shared().imageDownloader?.downloadImage(with:  URL(string: item.file_url), options: .continueInBackground, progress: nil, completed: {(image : UIImage?,data:Data?,error:Error?,finished:Bool)
+                                in
+                                
+                                if image != nil {
+                                    
+                                self.updateMsg(msg_id: item.msg_id, type : "streaming" ,value: "1")
+
+                                  self.uploadImageToServer(image: image!, msgId: item.msg_id)
+                            
+                                }
+                                
+                            })
+                           
+                            
+                        }else{
+                            
+                            
+                            if item.msg_ack == kXMPP.msgFail {
+                                
+                                
+                            }else{
+                                
+                                //  cell.btnUpload.isHidden = false
+                                //  cell.progressView.isHidden = true
+                            }
+                            
+                         
+
+                        }
+                        
+                    }else{
+                        cell.btnUpload.isHidden = true
+                        cell.progressView.isHidden = true
+                    }
+                    
                     if self.selectedArr.contains(item){
                         
                         cell.accessoryType = UITableViewCellAccessoryType.checkmark
@@ -1113,6 +1163,9 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                         cell.accessoryType = UITableViewCellAccessoryType.none
                         
                     }
+                    
+                    
+                    
                     
                     return cell
                     
@@ -1278,8 +1331,11 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     cell.mainView?.layer.borderColor = UIColor.gray.cgColor
                     cell.mainView?.layer.borderWidth = 1
                     
+                    cell.fileView?.sd_setImage(with: URL(string: item.file_url), placeholderImage: UIImage(named: "image_placeholder"), options: .continueInBackground, progress: nil, completed: nil)
+                    cell.fileView?.contentMode = .scaleToFill
                     
-                 //  if item.is_permission == "1" {
+                    
+                 /*  if item.is_permission == "1" {
                         
                         cell.fileView?.sd_setImage(with: URL(string: item.file_url), placeholderImage: UIImage(named: "image_placeholder"), options: .continueInBackground, progress: nil, completed: nil)
                         cell.fileView?.contentMode = .scaleToFill
@@ -1291,11 +1347,18 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     blueeffectView.autoresizingMask = [.flexibleWidth , .flexibleHeight]
                     cell.fileView?.addSubview(blueeffectView)
                         
-                 /*   }else {
+                    }else {  */
+                    
+                    cell.progressView.isHidden = true
+
                     
                     if item.is_download == "0" {
                         
+                        
                         if item.is_streaming == "0"{
+                            
+                            cell.progressView.isHidden = false
+
                             
                             self.updateMsg(msg_id: item.msg_id, type : "streaming" ,value: "1")
                         
@@ -1304,10 +1367,11 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                             
                             if image != nil {
                                 
+                                cell.progressView.isHidden = true
+                                
+                                
+
                                 let localURL  = self.savefiletoDirector(image: image!)
-                                
-                                print(localURL,"<<<< File URL >>>>>")
-                                
                                 UIImageWriteToSavedPhotosAlbum(image!, self, nil, nil)
                                 
                                 self.updateMsg(msg_id: item.msg_id, type : "download" ,value: "1")
@@ -1321,9 +1385,8 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                         })
                             
                         }
-                        
                       }
-                    } */
+                  //  }
  
                     if self.selectedArr.contains(item){
                         
@@ -1589,6 +1652,11 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
             
             if type == "streaming"{
                 updatObj.setValue(value, forKey: "is_streaming")
+            }
+            
+            if type == "upload"{
+                updatObj.setValue(value, forKey: "is_download")
+                updatObj.setValue("0", forKey: "msg_ack")
             }
             
             if type == "download"{
@@ -2023,6 +2091,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
   
     func uploadImageToServer(image : UIImage, msgId : String)
     {
+        print(msgId,"<<< UPLOAF MSG ID >>>>")
         
         let myUrl = URL(string: kXMPP.uploadImage);
         
@@ -2038,14 +2107,14 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
         
         
-        let imageData = UIImageJPEGRepresentation(image, 1)
+        let imageData = UIImageJPEGRepresentation(image, 0.0)
         
-        print(imageData)
         
         if(imageData==nil)  { return; }
         
         request.httpBody = self.createBodyWithParameters(parameters: param, filePathKey: "image", imageDataKey: imageData! as NSData, boundary: boundary) as Data
-        
+    
+        print(request.httpBody!)
         
         let task = URLSession.shared.dataTask(with: request as URLRequest) {
             data, response, error in
@@ -2074,18 +2143,22 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     if json?.object(forKey: "responce") as! Int == 1 {
                     
                   
-                        
-                        let body = CustomMessageModel(msgId: "", msgType: kXMPP.TYPE_IMAGE, message: "", fileUrl: json?.object(forKey: "data") as! String, destructiveTime: "" ,fileType : "")
+                        let body = CustomMessageModel(msgId: json?.object(forKey: "msg_id") as! String , msgType: kXMPP.TYPE_IMAGE, message: "", fileUrl: json?.object(forKey: "data") as! String, destructiveTime: "" ,fileType : "image")
                         
                         let jsonData = try JSONEncoder().encode(body)
                         let msg = String(data: jsonData, encoding: .utf8)
                         
                         print(msg ?? "")
                         
-                      //  OneMessage.sendMessage(msg!,msgId:  thread: "test", to:"\(self.friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
+                        OneMessage.sendMessage(msg!,msgId: json?.object(forKey: "msg_id") as! String  ,thread: "test", to:"\(self.friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
                         
-                      //  })
+                             self.updateMsg(msg_id: json?.object(forKey: "msg_id") as! String , type : "upload" ,value: "1")
+                        })
                         
+                        
+                    }else{
+                        
+                           self.updateMsg(msg_id: msgId, type : "streaming" ,value: "0")
                     }
                         
                     }catch{
@@ -2117,11 +2190,11 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
             }
         }
         
-        let filename = "\(self.getCurrentTime()).png"
-        let mimetype = "image/png"
+        let filename = "\(self.getCurrentTime()).jpg"
+        let mimetype = "image/jpg"
         
         body.appendString(string: "--\(boundary)\r\n")
-        body.appendString(string: "Content-Disposition: form-data; name=\"\(filePathKey!)\"; filename=\"\(filename)\"\r\n")
+        body.appendString(string: "Content-Disposition: form-data; name= image; filename=\"\(filename)\"\r\n")
         body.appendString(string: "Content-Type: \(mimetype)\r\n\r\n")
         body.append(imageDataKey as Data)
         body.appendString(string: "\r\n")

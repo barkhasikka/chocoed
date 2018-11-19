@@ -11,6 +11,7 @@ import UIKit
 class FriendFileView: UITableViewCell {
     
     
+    @IBOutlet var progressView: UIActivityIndicatorView!
     
     @IBOutlet var mainView: UIView!
     

@@ -38,6 +38,16 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="0oL-Zp-PQO">
+                                <rect key="frame" x="82" y="72" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <color key="color" red="0.1215686275" green="0.42352941179999998" blue="0.72549019609999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y6b-7l-e9i">
+                                <rect key="frame" x="80" y="70" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="icons8-delete"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -72,13 +82,18 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="btnUpload" destination="y6b-7l-e9i" id="yKB-5I-Ruk"/>
                 <outlet property="fileview" destination="UWY-XP-uUe" id="fYd-Es-ENa"/>
                 <outlet property="lblTime" destination="MSW-YU-U5o" id="d3d-pe-l7B"/>
                 <outlet property="mainView" destination="fXt-tm-EYc" id="0tp-ZT-AgS"/>
                 <outlet property="msgAck" destination="qxE-uu-Zap" id="tiO-pM-Hqo"/>
                 <outlet property="profileImage" destination="Ypp-L2-hRy" id="m9O-EE-ENx"/>
+                <outlet property="progressView" destination="0oL-Zp-PQO" id="JYz-zY-VPz"/>
             </connections>
             <point key="canvasLocation" x="72" y="108"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icons8-delete" width="100" height="100"/>
+    </resources>
 </document>

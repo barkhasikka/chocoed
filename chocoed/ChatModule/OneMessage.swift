@@ -125,11 +125,11 @@ open class OneMessage: NSObject {
 				
 				date = (message as AnyObject).timestamp
 				
-				if (message as AnyObject).body != nil {
-					body = (message as AnyObject).body
-				} else {
+				//if (message as AnyObject).body != nil {
+				//	body = (message as AnyObject).body
+				//} else {
 					body = ""
-				}
+				//}
 				
 				if element.attributeStringValue(forName: "to") == jid {
 					let displayName = OneChat.sharedInstance.xmppStream?.myJID

@@ -26,7 +26,7 @@ class FileViewerVC: UIViewController {
             
             let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
             backgroundImage.sd_setImage(with: URL(string: fileURL))
-            backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
+            backgroundImage.contentMode = UIViewContentMode.scaleAspectFit
             self.mainview.insertSubview(backgroundImage, at: 0)
             
         }else if type == kXMPP.TYPE_PDF {

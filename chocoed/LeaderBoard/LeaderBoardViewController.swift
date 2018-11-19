@@ -16,9 +16,7 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
     
    
     @IBOutlet weak var labelRank: UILabel!
-    @IBOutlet weak var backgroundView
-    
-    : UIView!
+    @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var courseCompletedLabel: UILabel!
     @IBOutlet weak var completedTestLabel: UILabel!
     @IBOutlet weak var addContactView: UIView!

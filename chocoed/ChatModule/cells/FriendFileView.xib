@@ -32,6 +32,11 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="ES5-Od-l60">
+                                <rect key="frame" x="82" y="72" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" red="0.1215686275" green="0.42352941179999998" blue="0.72549019609999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -68,6 +73,7 @@
                 <outlet property="lblTime" destination="RaG-t0-bpB" id="vGe-Yk-zOc"/>
                 <outlet property="mainView" destination="aHN-Yu-pBf" id="xhu-2O-d8e"/>
                 <outlet property="profileImage" destination="uCr-Yg-NJB" id="MsM-E6-cR3"/>
+                <outlet property="progressView" destination="ES5-Od-l60" id="ny2-fJ-5Mu"/>
             </connections>
             <point key="canvasLocation" x="34" y="67"/>
         </tableViewCell>
