@@ -10,12 +10,6 @@ import UIKit
 import Firebase
 
 class SplitviewViewController: UIViewController {
-    
-    
-    
-    
-    
-    
     @IBOutlet weak var textcoinsEarned: UILabel!
     @IBOutlet weak var textbadgesEarned: UILabel!
     @IBOutlet weak var choiceLabel2: UILabel!
@@ -30,6 +24,7 @@ class SplitviewViewController: UIViewController {
     @IBOutlet weak var completedTopicsLabel: UILabel!
     @IBOutlet weak var topArcVIew: NSLayoutConstraint!
     
+    @IBOutlet weak var notificatonImage: UIImageView!
     @IBOutlet weak var myProgressHandUIView: UIView!
     @IBOutlet weak var myThoughtsHandUIView: UIView!
     @IBOutlet weak var myChatHandUIView: UIView!
@@ -39,6 +34,7 @@ class SplitviewViewController: UIViewController {
     @IBOutlet var lblBadgesCount: UILabel!
     @IBOutlet var lblTopicCount: UILabel!
     
+    @IBOutlet weak var notificationLabel: UILabel!
     @IBOutlet weak var viewChoice: UIView!
     @IBOutlet weak var viewvonversation: UIView!
     @IBOutlet weak var viewContent: UIView!
@@ -93,8 +89,11 @@ class SplitviewViewController: UIViewController {
     @IBAction func arcThoughtd(_ sender: UIButton) {
         
         
-        let alert = GetAlertWithOKAction(message: availableString)
-        self.present(alert, animated: true, completion: nil)
+//        let alert = GetAlertWithOKAction(message: availableString)
+//        self.present(alert, animated: true, completion: nil)
+        let vc = storyboard?.instantiateViewController(withIdentifier: "notification") as? NotificationViewController
+        
+        self.present(vc!, animated: true, completion: nil)
         
         
     }
@@ -108,14 +107,16 @@ class SplitviewViewController: UIViewController {
         
     }
     
+//    @IBAction func notificationCheckClick(_ sender: UIBarButtonItem) {
+//       
+//        
+//    }
     @IBAction func arcTagu_clicked(_ sender: Any) {
         
-//        let alert = GetAlertWithOKAction(message: availableString)
-//        self.present(alert, animated: true, completion: nil)
+        let alert = GetAlertWithOKAction(message: availableString)
+        self.present(alert, animated: true, completion: nil)
         
-        let vc = storyboard?.instantiateViewController(withIdentifier: "notification") as? NotificationViewController
-        
-        self.present(vc!, animated: true, completion: nil)
+       
     }
     
     
@@ -130,12 +131,18 @@ class SplitviewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.notificationLabel.layer.cornerRadius = 10
+        self.notificationLabel.clipsToBounds =  true
+        NotificationImageTapped()
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
 
         let backgroundImage = UIImageView(frame: self.popUpViewforBadges.bounds)
         backgroundImage.image = UIImage(named: "gradient_pattern_oval")
         backgroundImage.contentMode = UIViewContentMode.scaleToFill
         self.popUpViewforBadges.insertSubview(backgroundImage, at: 0)
+        
+        
 //        self.labelInstruct.text = "RequestOfEnterMobileNoKey".localizableString(loc: language!)
 //        //self.signUpButton.titleLabel?.text = "SignUpKey".localizableString(loc: StringLang)
 //        // self.loginButton.titleLabel?.text = "LoginButtonKey".localizableString(loc: StringLang)
@@ -209,6 +216,17 @@ class SplitviewViewController: UIViewController {
         }
     }
     
+    func NotificationImageTapped(){
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(notificatonImageAction(tapGestureRecognizer:)))
+        notificatonImage.isUserInteractionEnabled = true
+    notificatonImage.addGestureRecognizer(tapGestureRecognizer)
+    }
+    @objc func notificatonImageAction(tapGestureRecognizer: UITapGestureRecognizer){
+        let vc = storyboard?.instantiateViewController(withIdentifier: "notification") as? NotificationViewController
+        
+        self.present(vc!, animated: true, completion: nil)
+        
+    }
     @IBAction func MyProgressActionButton(_ sender: Any) {
         buttonProgrss = !buttonProgrss
         if buttonProgrss == true{
