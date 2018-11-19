@@ -3855,7 +3855,7 @@ the beginning of every beautiful journey.</string>
                                         <rect key="frame" x="0.0" y="441" width="375" height="180"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="transparent" translatesAutoresizingMaskIntoConstraints="NO" id="Trz-qU-99p">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="180"/>
+                                                <rect key="frame" x="0.0" y="-2" width="375" height="180"/>
                                             </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k41-l4-kZb">
                                                 <rect key="frame" x="230" y="26" width="100" height="100"/>
@@ -3943,14 +3943,14 @@ the beginning of every beautiful journey.</string>
                                             <constraint firstItem="Trz-qU-99p" firstAttribute="leading" secondItem="BTC-Vg-IaD" secondAttribute="leading" id="B80-wc-VSW"/>
                                             <constraint firstItem="pvV-EB-amJ" firstAttribute="centerX" secondItem="BTC-Vg-IaD" secondAttribute="centerX" id="Dma-Tr-5Wa"/>
                                             <constraint firstItem="ZGI-Yq-M1H" firstAttribute="leading" secondItem="BTC-Vg-IaD" secondAttribute="leading" constant="45" id="GOC-Lp-gqP"/>
-                                            <constraint firstItem="Trz-qU-99p" firstAttribute="top" secondItem="BTC-Vg-IaD" secondAttribute="top" id="IsJ-19-tvg"/>
+                                            <constraint firstItem="Trz-qU-99p" firstAttribute="top" secondItem="BTC-Vg-IaD" secondAttribute="top" constant="-2" id="IsJ-19-tvg"/>
                                             <constraint firstItem="Y46-dw-efD" firstAttribute="top" secondItem="BTC-Vg-IaD" secondAttribute="top" constant="8" id="Jps-ir-cA8"/>
                                             <constraint firstItem="k41-l4-kZb" firstAttribute="top" secondItem="BTC-Vg-IaD" secondAttribute="top" constant="26" id="Syo-L2-813"/>
                                             <constraint firstAttribute="height" constant="180" id="YRP-RF-OOr"/>
                                             <constraint firstAttribute="trailing" secondItem="Y46-dw-efD" secondAttribute="trailing" constant="10" id="bYc-Qb-R5I"/>
                                             <constraint firstItem="ZGI-Yq-M1H" firstAttribute="top" secondItem="BTC-Vg-IaD" secondAttribute="top" constant="26" id="ggT-Ie-q67"/>
                                             <constraint firstAttribute="trailing" secondItem="Trz-qU-99p" secondAttribute="trailing" id="jL2-Lf-dI2"/>
-                                            <constraint firstAttribute="bottom" secondItem="Trz-qU-99p" secondAttribute="bottom" id="ye4-ZT-y3i"/>
+                                            <constraint firstAttribute="bottom" secondItem="Trz-qU-99p" secondAttribute="bottom" constant="2" id="ye4-ZT-y3i"/>
                                         </constraints>
                                     </view>
                                 </subviews>
