@@ -13,6 +13,7 @@ class SplitviewViewController: UIViewController {
     
     
     
+    @IBOutlet var badgesImageView: UIImageView!
     
     
     

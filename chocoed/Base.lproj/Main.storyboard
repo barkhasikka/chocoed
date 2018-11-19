@@ -3988,7 +3988,7 @@ the beginning of every beautiful journey.</string>
                     <connections>
                         <outlet property="arcView" destination="ZPM-Xp-P3g" id="ZWD-1o-xj9"/>
                         <outlet property="badgesEarnedLabel" destination="MfD-5I-Vm3" id="YrM-0L-6Io"/>
-                        <outlet property="badges_clicked" destination="pIq-na-onU" id="OTf-SP-7z3"/>
+                        <outlet property="badgesImageView" destination="pIq-na-onU" id="O9J-pu-blU"/>
                         <outlet property="buttonLotus" destination="1Tt-Io-JV7" id="PNs-UB-XKU"/>
                         <outlet property="buttonMiddleProfile" destination="1OS-GJ-OEj" id="Ui7-cw-95g"/>
                         <outlet property="buttonMsg" destination="XOq-ms-y9T" id="Sim-SF-7Rx"/>
