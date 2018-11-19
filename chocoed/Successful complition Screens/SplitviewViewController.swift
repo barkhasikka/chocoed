@@ -10,6 +10,8 @@ import UIKit
 import Firebase
 
 class SplitviewViewController: UIViewController {
+
+  
     @IBOutlet weak var textcoinsEarned: UILabel!
     @IBOutlet weak var textbadgesEarned: UILabel!
     @IBOutlet weak var choiceLabel2: UILabel!

@@ -22,24 +22,17 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
     
     @IBOutlet var lblCurrentStatus: UILabel!
     @IBOutlet var tblView: UITableView!
-    
     @IBOutlet var editMsg: UITextField!
     
     var friendModel : Friends!
-    
     var imagePicker =  YPImagePicker()
     
     @IBOutlet var myProfileImage: UIImageView!
-    
-
     @IBOutlet var bottomView: UIView!
     
     var selectedArr = [Msg]()
-    
     var selectionType : String = ""
-    
     var type = ""
-    
     var isMuliselectActionChecked = false
     
     
