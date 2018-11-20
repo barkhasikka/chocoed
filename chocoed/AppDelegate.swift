@@ -212,29 +212,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 DispatchQueue.main.async {
                   
                    // self.window = UIWindow(frame: UIScreen.main.bounds)
-                    let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                  /*  let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                     let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
                     let aObjNavi = UINavigationController(rootViewController: startVC)
                     aObjNavi.navigationBar.barTintColor = UIColor.blue
                     self.window!.rootViewController = aObjNavi
-                    self.window!.makeKeyAndVisible()
+                    self.window!.makeKeyAndVisible() */
  
                     
-                   /* let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                     let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
                     self.window!.rootViewController = startVC
                     self.window!.makeKeyAndVisible()
-                    */
+                    
                 }
                 
             } else {
                 DispatchQueue.main.async {
                     
                    // self.window = UIWindow(frame: UIScreen.main.bounds)
-                    let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                  /*  let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                     let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "profileSuccess") as! ProfileSucessViewController
                     self.window!.rootViewController = startVC
+                    self.window!.makeKeyAndVisible() */
+                    
+                    let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
+                    self.window!.rootViewController = startVC
                     self.window!.makeKeyAndVisible()
+                    
+                    
+                    
+                    
                 }
                 
             }

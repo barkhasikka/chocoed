@@ -10,6 +10,24 @@ import UIKit
 
 class FriendTextReplyCell: UITableViewCell {
 
+    
+    
+    @IBOutlet var profileImage: UIImageView!
+    
+    @IBOutlet var replyTitle: UILabel!
+    
+    
+    @IBOutlet var msgTime: UILabel!
+    @IBOutlet var msg: UILabel!
+    @IBOutlet var replyFile: UIImageView!
+    
+    @IBOutlet var replyType: UIImageView!
+    @IBOutlet var replyMsg: UILabel!
+    
+    @IBOutlet var replyView: UIView!
+    
+    @IBOutlet var mainView: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

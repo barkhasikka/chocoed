@@ -18,6 +18,8 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
     
     private let cellID = "cellID"
     
+    @IBOutlet var lblReplyColor: UILabel!
+    
     @IBOutlet var userTitle: UILabel!
     
     @IBOutlet var lblCurrentStatus: UILabel!
@@ -202,8 +204,6 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
     
     func oneStream(_ sender: XMPPStream, didReceiveMessage message: XMPPMessage, from user: XMPPUserCoreDataStorageObject) {
         
-        
-        
       //  print(message.attributeStringValue(forName: "id") ?? "")
         let userData = (user.jidStr)!.components(separatedBy: "@")
         let friendID = userData[0]
@@ -224,7 +224,13 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                 // update msg by msgID
                 
                 self.updateMsg(msg_id: json.value(forKey: "msgId") as! String, type: "delete_type", value: kXMPP.DELETE_TEXT_FRIEND)
-
+            
+                
+            }else if json.value(forKey: "msgType") as! String == kXMPP.TYPE_SEEN {
+                
+                // update msg by msgID
+                
+                self.updateMsgAck(friendID: friendID)
                 
             }else{
                 
@@ -236,10 +242,11 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                 
                 let msgType = json.value(forKey: "msgType") as! String
                 
-                if msgType == kXMPP.TYPE_REPLY {
+            if msgType == kXMPP.TYPE_REPLY {
                     
-                    replyMsgId = json.value(forKey: "msgId") as! String
+                replyMsgId = json.value(forKey: "msgId") as! String
                     
+                
                     let msgItem = self.getMsg(msgId: replyMsgId)
                     
                     replyMsg = msgItem.msg
@@ -277,8 +284,11 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
             
                 self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: json.value(forKey: "message") as! String, msg_type: json.value(forKey: "msgType") as! String, isMine: "0" , friendID: friendID)
             
-            self.tblView.reloadData()
-            self.tblView.scrollToBottom()
+                self.tblView.reloadData()
+                self.tblView.scrollToBottom()
+                
+                self.sendSeenMsgAck()
+
                 
                 let dsmsg =  json.value(forKey: "destructiveTime") as! String
             
@@ -286,7 +296,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     
                    // var timeVal = Float(json.value(forKey: "destructiveTime") as! String)
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 120.0, execute: {
                         
                         // updated msg by msg id
                         
@@ -294,8 +304,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                         
                     })
                     
-                    
-                    
+                
                 }
                 
             }
@@ -321,17 +330,14 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
         self.lblCurrentStatus.text = "Typing..."
         
         let userData = (user.jidStr)!.components(separatedBy: "@")
-        self.updateMsgAck(friendID: userData[0])
+        //self.updateMsgAck(friendID: userData[0])
         self.updateFriendLastMsg(friendID: userData[0], value: kXMPP.msgSeen)
 
-
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
             self.lblCurrentStatus.text = "Online"
         })
         
     
-        
     }
     
     lazy var fetchedhResultController: NSFetchedResultsController<NSFetchRequestResult> = {
@@ -377,6 +383,8 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
         
        // OneLastActivity.sharedInstance.add
         
+        self.sendSeenMsgAck()
+        
         
         self.tblView.estimatedRowHeight = 120.0
         self.tblView.rowHeight = UITableViewAutomaticDimension
@@ -397,6 +405,10 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
         let myReplyView = UINib(nibName: "myTextReplyCell", bundle: Bundle.main)
         self.tblView.register(myReplyView, forCellReuseIdentifier: "myTextReplyCell")
         
+        let friendReplyView = UINib(nibName: "FriendTextReplyCell", bundle: Bundle.main)
+        self.tblView.register(friendReplyView, forCellReuseIdentifier: "FriendTextReplyCell")
+        
+    
         
        
        // self.tblView.register(MyTextMsgCell.self, forCellReuseIdentifier: cellID)
@@ -407,8 +419,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
         
         do {
             try self.fetchedhResultController.performFetch()
-            print("COUNT FETCHED FIRST: \(self.fetchedhResultController.sections?[0].numberOfObjects)")
-            
+            ///print("COUNT FETCHED FIRST: \(self.fetchedhResultController.sections?[0].numberOfObjects)")
             
             self.tblView.reloadData()
             if self.fetchedhResultController.sections?[0].numberOfObjects != 0{
@@ -597,8 +608,12 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
             
             if item?.is_mine == "1" {
                 self.lblReplyTitle.text = "You"
+                self.lblReplyTitle.textColor = #colorLiteral(red: 0.1215686275, green: 0.4235294118, blue: 0.7254901961, alpha: 1)
+                self.lblReplyColor.backgroundColor = #colorLiteral(red: 0.1215686275, green: 0.4235294118, blue: 0.7254901961, alpha: 1)
             }else{
                 self.lblReplyTitle.text = self.friendModel.name
+                self.lblReplyTitle.textColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+                self.lblReplyColor.backgroundColor =  #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
             }
             
             if item?.msg_type == kXMPP.TYPE_TEXT {
@@ -625,7 +640,14 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                 self.imgReplyType.image = UIImage(named: "pdf_gray_icon")
                 self.imgReplyFile.image = UIImage(named: "pdf_placeholder")
 
+            }else if item?.msg_type == kXMPP.TYPE_REPLY {
+                
+                self.imgReplyFile.isHidden = true
+                self.imgReplyType.isHidden = true
+                self.lblReplyMsg.text = item?.msg
+                
             }
+
             
             
             // No multi Select
@@ -755,6 +777,23 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
         
     }
     
+    func sendSeenMsgAck(){
+        
+        do{
+            
+            let body = CustomMessageModel(msgId: "", msgType: kXMPP.TYPE_SEEN, message: "", fileUrl: "", destructiveTime: "",fileType : "")
+            
+            let jsonData = try JSONEncoder().encode(body)
+            let msg = String(data: jsonData, encoding: .utf8)
+            
+            OneMessage.sendMessage(msg!, msgId:self.getCurrentTime(),  thread: "test", to:"\(friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
+            })
+            
+            
+        }catch {print(error)}
+
+    }
+    
     func sendTextMsg(text : String){
     
         do{
@@ -879,7 +918,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                 self.editMsg.text = ""
                 
                 
-                let params = ["friend_no": "\(self.friendModel.contact_number)","my_no":"\(USERDETAILS.mobile)", "data":"\(msg!)", "message_id":"\(msgId)"]
+                let params = ["friend_no": "\(self.friendModel.contact_number)","my_no":"\(USERDETAILS.mobile)", "data":"\(msg!)", "message_id":"\(msgId)","body":"\(text)"]
                 print(params)
                 MakeHttpPostRequestChat(url: kXMPP.sendNotification, params: params, completion: {(success, response) in
                     print(response)
@@ -966,6 +1005,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                 
                 if item.msg_type == kXMPP.TYPE_REPLY {
                     
+                    print(item)
                     
                     let cell = tableView.dequeueReusableCell(withIdentifier: "myTextReplyCell", for: indexPath) as! myTextReplyCell
                     // cell.item = item
@@ -973,9 +1013,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     cell.lblMsg?.text = item.msg
                     cell.lblMsg?.frame.size = (cell.lblMsg?.intrinsicContentSize)!
                     
-                    cell.replyTitle?.text = item.replyTitle
-                    
-                    cell.replyTitle?.text = item.replyTitle
+                    cell.replyTitle?.text = "You"
                     
                     if item.replyMsgType == kXMPP.TYPE_TEXT {
                         cell.lblreplyMsg?.text = item.replyMsg
@@ -985,6 +1023,8 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     }
                     else if item.replyMsgType == kXMPP.TYPE_PDF {
                         cell.lblreplyMsg?.text = "Pdf"
+                    }else  if item.replyMsgType == kXMPP.TYPE_REPLY {
+                        cell.lblreplyMsg?.text = item.replyMsg
                     }
                     
                     
@@ -1016,6 +1056,10 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     cell.mainView?.layer.cornerRadius = 6
                     cell.mainView?.layer.borderColor = UIColor.gray.cgColor
                     cell.mainView?.layer.borderWidth = 1
+                    
+                    cell.replyView?.layer.cornerRadius = 6
+                    cell.replyView?.layer.borderColor = UIColor.gray.cgColor
+                    cell.replyView?.layer.borderWidth = 1
                     
                     
                     if self.selectedArr.contains(item){
@@ -1235,53 +1279,40 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                 if item.msg_type == kXMPP.TYPE_REPLY {
                     
                     
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "myTextReplyCell", for: indexPath) as! myTextReplyCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "FriendTextReplyCell", for: indexPath) as! FriendTextReplyCell
                     // cell.item = item
-                    cell.lblMsg?.numberOfLines = 0
-                    cell.lblMsg?.text = item.msg
-                    cell.lblMsg?.frame.size = (cell.lblMsg?.intrinsicContentSize)!
+                    cell.msg?.numberOfLines = 0
+                    cell.msg?.text = item.msg
+                    cell.msg?.frame.size = (cell.msg?.intrinsicContentSize)!
                     
-                    cell.replyTitle?.text = item.replyTitle
+                    cell.replyTitle?.text = self.friendModel.name
                     
                     if item.replyMsgType == kXMPP.TYPE_TEXT {
-                        cell.lblreplyMsg?.text = item.replyMsg
+                        cell.replyMsg?.text = item.replyMsg
                     }else if item.replyMsgType == kXMPP.TYPE_IMAGE {
-                        cell.lblreplyMsg?.text = "Photo"
+                        cell.replyMsg?.text = "Photo"
                         cell.replyFile.sd_setImage(with: URL(string: item.replyMsgFile))
                     }
                     else if item.replyMsgType == kXMPP.TYPE_PDF {
-                        cell.lblreplyMsg?.text = "Pdf"
+                        cell.replyMsg?.text = "Pdf"
                     }
                     
-                    cell.lbltime?.text  = Utils.getTimeFromString(date: item.created!)
-                    cell.lbltime?.frame.size = (cell.lbltime?.intrinsicContentSize)!
+                    cell.msgTime?.text  = Utils.getTimeFromString(date: item.created!)
+                    cell.msgTime?.frame.size = (cell.msgTime?.intrinsicContentSize)!
+                  
                     
-                    if item.msg_ack == kXMPP.msgSend{
-                        
-                        cell.imgAck.image = UIImage(named: "send_gray_icon")
-                        
-                    }else  if item.msg_ack == kXMPP.msgSent{
-                        
-                        cell.imgAck.image = UIImage(named: "receive_gray_icon")
-                        
-                        
-                    }else  if item.msg_ack == kXMPP.msgSeen{
-                        
-                        cell.imgAck.image = UIImage(named: "read_blue_icon")
-                        
-                    }
-                    
-                    
-                    
-                    cell.imgProfile?.sd_setImage(with : URL(string: USERDETAILS.imageurl))
-                    cell.imgProfile?.layer.cornerRadius = (cell.imgProfile?.frame.width)! / 2
-                    cell.imgProfile?.clipsToBounds = true
-                    cell.imgProfile?.contentMode = .scaleToFill
+                    cell.profileImage?.sd_setImage(with : URL(string: self.friendModel.profile_image))
+                    cell.profileImage?.layer.cornerRadius = (cell.profileImage?.frame.width)! / 2
+                    cell.profileImage?.clipsToBounds = true
+                    cell.profileImage?.contentMode = .scaleToFill
                     
                     cell.mainView?.layer.cornerRadius = 6
                     cell.mainView?.layer.borderColor = UIColor.gray.cgColor
                     cell.mainView?.layer.borderWidth = 1
                     
+                    cell.replyView?.layer.cornerRadius = 6
+                    cell.replyView?.layer.borderColor = UIColor.gray.cgColor
+                    cell.replyView?.layer.borderWidth = 1
                     
                     if self.selectedArr.contains(item){
                         
@@ -1502,6 +1533,10 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                 
                 return CGFloat(190)
                 
+            }else if item.msg_type == kXMPP.TYPE_PDF   {
+                
+                return CGFloat(190)
+                
             }else if item.msg_type == kXMPP.TYPE_REPLY    {
                 
                 return CGFloat(120)
@@ -1567,11 +1602,14 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     
                 }else{
                     
+                    if item?.msg_type != kXMPP.TYPE_REPLY  {
+                    
                     if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "FileViewerVC") as? FileViewerVC {
                         vcNewSectionStarted.fileURL = (item?.file_url)!
                         vcNewSectionStarted.type = (item?.msg_type)!
                         self.present(vcNewSectionStarted, animated: true, completion: nil)
                     }
+                 }
                     
                 }
                 

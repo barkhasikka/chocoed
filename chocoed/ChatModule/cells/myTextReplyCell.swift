@@ -12,6 +12,9 @@ class myTextReplyCell: UITableViewCell {
     
     
     
+    @IBOutlet var replyView: UIView!
+    
+    
     @IBOutlet var mainView: UIView!
     
     

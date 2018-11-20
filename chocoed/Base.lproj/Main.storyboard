@@ -5793,6 +5793,14 @@ the beginning of every beautiful journey.</string>
                                 <rect key="frame" x="0.0" y="562" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KNr-MR-bX5">
+                                        <rect key="frame" x="0.0" y="0.0" width="5" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" red="0.1215686275" green="0.42352941179999998" blue="0.72549019609999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S9U-xd-m8W">
                                         <rect key="frame" x="8" y="0.0" width="269" height="21"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -5841,6 +5849,7 @@ the beginning of every beautiful journey.</string>
                         <outlet property="imgReplyFile" destination="0Vk-dt-NQ6" id="qX1-bJ-BFb"/>
                         <outlet property="imgReplyType" destination="zpW-Km-Iu0" id="4fI-5W-k88"/>
                         <outlet property="lblCurrentStatus" destination="dBM-mR-281" id="d7h-Z3-3gL"/>
+                        <outlet property="lblReplyColor" destination="KNr-MR-bX5" id="LLW-Ty-dKF"/>
                         <outlet property="lblReplyMsg" destination="PqQ-Dw-f1O" id="SBB-Nx-xG0"/>
                         <outlet property="lblReplyTitle" destination="S9U-xd-m8W" id="IBS-ph-VpD"/>
                         <outlet property="myProfileImage" destination="Znf-8m-bKW" id="Pmf-OP-bWr"/>

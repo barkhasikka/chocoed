@@ -29,6 +29,8 @@ public struct kXMPP {
     public static let DELETE_TEXT_MY : String = "You deleted this message"
 
     public static let TYPE_DELETE: String = "delete"
+    public static let TYPE_SEEN: String = "seen_msg"
+
 
     public static let registerUSER : String  = "http://13.232.161.176/index.php/Api_openfire/register"
     public static let uploadImage : String  = "http://13.232.161.176/index.php/Api_openfire/upload_image"
