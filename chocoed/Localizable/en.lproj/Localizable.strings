@@ -116,3 +116,5 @@
 "alertVideos" = "there are videos yet to be seen by you. Please watch them first.";
 "alertCompletedAssessments" = "Assessments to be Completed";
 "alertcompletedAssessmentMsg" = "You have some assessments to be completed.Would you like to do them now ?";
+"BadgesEKey" = "Badges Earned";
+"TopicCompletedProgressKey" = "Topic Completed";

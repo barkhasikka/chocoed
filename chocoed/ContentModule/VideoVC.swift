@@ -578,7 +578,6 @@ class VideoVC: UIViewController {
             sender.setImage(UIImage(named: "icons_pause"), for: UIControlState.normal)
             self.addTopicAudit(videopostion: self.getMillisecond(),status: "start")
             
-            
         }
         
         // playNext()

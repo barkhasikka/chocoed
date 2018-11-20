@@ -29,10 +29,10 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
     {
         let userID = UserDefaults.standard.integer(forKey: "userid")
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
-        let params = ["access_token":"\(accessToken)","userId":"\(userID)","clientId":"\(clientID)"] as Dictionary<String, String>
+        let params = ["access_token":"\(accessToken)","userId":"\(userID)","clientId":"1"] as Dictionary<String, String>
         activityUIView.isHidden = false
         activityUIView.startAnimation()
-        MakeHttpPostRequest(url: friendList , params: params, completion: {(success, response) -> Void in
+        MakeHttpPostRequest(url: empList , params: params, completion: {(success, response) -> Void in
             print(response)
             let list = response.object(forKey: "list") as? NSArray ?? []
            
@@ -99,6 +99,12 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
                 user_id: item.friendId,
                 last_msg_ack : ""))
             
+        }else{
+            
+            let alert = GetAlertWithOKAction(message: "Invalid Mobile Number")
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+            }
         }
      
         
@@ -115,39 +121,72 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
     
        private func createFriendEntityFrom(item: Friend) {
         
-     let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+       let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
         
         if isFriendPrsent(item: item) == false {
             
-            if let msgObject = NSEntityDescription.insertNewObject(forEntityName: "Friends", into: context) as? Friends {
+            
+            // call api
+            
+          let userID =  UserDefaults.standard.string(forKey: "chat_user_id")
+
+            let params = ["user_id": "\(userID!)",  "friend_contact_no":"\(item.contact_number)",  "img_link":"\(item.profile_image)","friend_name":"\(item.name)"] as Dictionary<String, String>
+            print(params)
+            MakeHttpPostRequestChat(url: kXMPP.addFriend, params: params, completion: {(success, response) in
                 
-                msgObject.contact_number = item.contact_number
-                msgObject.created = item.created
-                msgObject.fcm_id = item.fcm_id
-                msgObject.is_mine = item.is_mine
-                msgObject.is_typing = item.is_typing
-                msgObject.last_msg = item.last_msg
-                msgObject.last_msg_type = item.last_msg_type
-                msgObject.last_msg_time = item.last_msg_time
-                msgObject.modified = item.modified
-                msgObject.name = item.name
-                msgObject.profile_image = item.profile_image
-                msgObject.read_count = item.read_count
-                msgObject.status = item.status
-                msgObject.user_id = item.user_id
-                msgObject.last_msg_ack = item.last_msg_ack
+                print(response)
                 
-            }
-            do {
-                try CoreDataStack.sharedInstance.persistentContainer.viewContext.save()
+              //  let jsonobject = response["responce"] as? Int ?? 0;
+
+              //  if jsonobject == 1 {
                 
-                dismiss(animated: true, completion: nil)
+                if let msgObject = NSEntityDescription.insertNewObject(forEntityName: "Friends", into: context) as? Friends {
+                    
+                    msgObject.contact_number = item.contact_number
+                    msgObject.created = item.created
+                    msgObject.fcm_id = item.fcm_id
+                    msgObject.is_mine = item.is_mine
+                    msgObject.is_typing = item.is_typing
+                    msgObject.last_msg = item.last_msg
+                    msgObject.last_msg_type = item.last_msg_type
+                    msgObject.last_msg_time = item.last_msg_time
+                    msgObject.modified = item.modified
+                    msgObject.name = item.name
+                    msgObject.profile_image = item.profile_image
+                    msgObject.read_count = item.read_count
+                    msgObject.status = item.status
+                    msgObject.user_id = item.user_id
+                    msgObject.last_msg_ack = item.last_msg_ack
+                    
+                }
+                do {
+                    try CoreDataStack.sharedInstance.persistentContainer.viewContext.save()
+                    
+                    self.dismiss(animated: true, completion: nil)
+
+                    
+                } catch let error {
+                    print(error)
+                }
+                    
+               /* }else{
+                    
+                    let alert = GetAlertWithOKAction(message: "Failed to add Friend")
+                    DispatchQueue.main.async {
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                    
+                }
+              */
                 
                 
-            } catch let error {
-                print(error)
-            }
-        
+                
+            }, errorHandler: {(message) -> Void in
+                print("message", message)
+              
+                
+            })
+            
         }else{
             
             dismiss(animated: true, completion: nil)
@@ -176,7 +215,7 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
                 updatObj.setValue(item.profile_image, forKey:"profile_image")
                 
                 do{
-                    try context.save()
+                  //  try context.save()
                 }catch{
                     print("Error in update")
                 }

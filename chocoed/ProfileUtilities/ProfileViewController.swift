@@ -79,7 +79,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         
         self.iAmBornOnLabel.text = "BornOnKey".localizableString(loc: language!)
         self.genderLabel.text = "GenderKey".localizableString(loc: language!)
-        self.createProfileButtonLabel.title = "प्रोफाइल बनाएं".localizableString(loc: language!)
+      //  self.createProfileButtonLabel.title = "प्रोफाइल बनाएं".localizableString(loc: language!)
       /*  self.createProfileButtonLabel.title = "प्रोफाइल बनाएं".localizableString(loc: language!)
         self.chooseGalleryLabel.text = "गैलरी से चुनें".localizableString(loc: language!)
         self.chooseAvatarLabel.text = "कोई अवतार चुनें".localizableString(loc: language!)

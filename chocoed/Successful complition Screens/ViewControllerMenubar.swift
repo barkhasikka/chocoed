@@ -40,9 +40,10 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
         labelUserNAme.text = USERDETAILS.firstName + " " + USERDETAILS.lastname
         buttonEmail.setTitle(USERDETAILS.email, for: .normal)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
+       // DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
     
-            self.imageProfile.image = self.userImageLoaded
+            let fileUrl = URL(string: USERDETAILS.imageurl)
+            self.imageProfile.sd_setImage(with: fileUrl)
             self.imageProfile.layer.borderWidth = 1.0
             self.imageProfile.layer.masksToBounds = false
             self.imageProfile.layer.borderColor = UIColor.darkGray.cgColor
@@ -50,7 +51,7 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
             self.imageProfile.clipsToBounds = true
             self.imageProfile.contentMode = .scaleAspectFit
             
-        })
+      //  })
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
         tabGestureView.isUserInteractionEnabled = true

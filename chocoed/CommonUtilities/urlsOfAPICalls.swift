@@ -35,6 +35,14 @@ let updateMyProgressFriend = "https://dev.chocoed.com/api/user/updateMyProgressF
 let saveDeviceToken = "https://dev.chocoed.com/api/user/saveDeviceToken"
 let getNotificationList = "https://dev.chocoed.com/api/user/getNotificationList"
 
+let updateNotificationRead = "https://dev.chocoed.com/api/user/updateNotificationRead"
+let sendWelcomeNotification = "https://dev.chocoed.com/api/user/sendWelcomeNotification"
+
+
+
+let empList = "https://dev.chocoed.com/api/user/getEmployeeList"
+
+
 var currentTopiceDate  = ""
 var currentCourseId  = ""
 var currentTopicPosition = -1

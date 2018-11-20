@@ -432,6 +432,25 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
             self.type = ""
             self.sendForwardedMsg()
         }
+        
+        self.updateTableContentInset()
+    }
+    
+    func updateTableContentInset(){
+        
+        let numRows = tableView(self.tblView, numberOfRowsInSection: 0)
+        var contentInsetTop = self.tblView.bounds.size.height
+        
+        for i in 0..<numRows{
+            
+            let rowRect = self.tblView.rectForRow(at: IndexPath(item: i, section: 0))
+            contentInsetTop -= rowRect.size.height
+            if contentInsetTop <= 0 {
+                contentInsetTop = 0
+            }
+            
+            self.tblView.contentInset = UIEdgeInsetsMake(contentInsetTop, 0, 0, 0)
+        }
     }
     
     func sendForwardedMsg(){
@@ -1016,12 +1035,12 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     let cell = tableView.dequeueReusableCell(withIdentifier: "MyTextMsgCell", for: indexPath) as! MyTextMsgCell
                     // cell.item = item
                     cell.lblMsg?.numberOfLines = 0
-                    cell.lblMsg?.text = item.msg
-                    cell.lblMsg?.frame.size = (cell.lblMsg?.intrinsicContentSize)!
+                    cell.lblMsg?.text = " "+item.msg+" "
+                  //  cell.lblMsg?.frame.size = (cell.lblMsg?.intrinsicContentSize)!
                     
                     
                     cell.lblTime?.text  = Utils.getTimeFromString(date: item.created!)
-                    cell.lblTime?.frame.size = (cell.lblTime?.intrinsicContentSize)!
+                   // cell.lblTime?.frame.size = (cell.lblTime?.intrinsicContentSize)!
                     
                     if item.msg_ack == kXMPP.msgSend{
                         
@@ -2034,10 +2053,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
         }catch{
             print("error executing request")
         }
-        
-        
-        
-        
+     
     }
     
     

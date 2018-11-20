@@ -116,3 +116,5 @@
 "alertVideos" = "आपके द्वारा देखे जाने वाले वीडियोस अभी बाकि है";
 "alertCompletedAssessments" = " कुछ आकलन पूरा किए जाने हैं";
 "alertcompletedAssessmentMsg" = " आपको अभी कुछ आकलन पूरे करने है.क्या आप उन्हें अभी करना चाहते हैं?";
+"BadgesEKey" = "Badges Earned";
+"TopicCompletedProgressKey" = "Topic Completed";

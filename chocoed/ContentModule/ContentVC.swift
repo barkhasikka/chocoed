@@ -353,7 +353,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
             if self.previousDayStatus == 2 {
                 
                  let language = UserDefaults.standard.string(forKey: "currentlanguage")
-                let alertView = UIAlertController(title: "alertCompletedAssessments".localizableString(loc: language!), message: "\("alertDear".localizableString(loc: language!)) \(USERDETAILS.firstName), \("alertcompletedAssessmentMsg").localizableString(loc: language!))", preferredStyle: .alert)
+                let alertView = UIAlertController(title: "alertCompletedAssessments".localizableString(loc: language!), message: "\("alertDear".localizableString(loc: language!)) \(USERDETAILS.firstName),\"You have some assessments to be completed.Would you like to do them now ?", preferredStyle: .alert)
                 
                 
                 let action = UIAlertAction(title: "alertNotNow".localizableString(loc: language!), style: .default, handler: { (alert) in

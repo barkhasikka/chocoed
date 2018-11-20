@@ -15,7 +15,13 @@ import XMPPFramework
 
 
 class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSource , UISearchBarDelegate , OneMessageDelegate {
-   
+    
+    
+    
+    @IBOutlet var btnDestructive: UIButton!
+    
+    @IBOutlet var lblNoFriendFound: UILabel!
+    
     func oneStream(_ sender: XMPPStream, didReceiveMessage message: XMPPMessage, from user: XMPPUserCoreDataStorageObject) {
         
         //self.tblView.reloadData()
@@ -168,6 +174,8 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         
         self.checkChatConnection()
         self.searchBar.delegate = self
+        self.lblNoFriendFound.isHidden = true
+
     
       //  self.tblView.register(FriendCell.self, forCellReuseIdentifier: cellID)
         do {
@@ -183,7 +191,15 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         longPressRec.minimumPressDuration = 1.0
         self.tblView.addGestureRecognizer(longPressRec)
         
-        
+        InstanceID.instanceID().instanceID { (result, error) in
+            if let error = error{
+                print("<<<<< Error in FCM >>>>>>",error)
+            }else if let result = result {
+                UserDefaults.standard.set(result.token, forKey: "fcm")
+                print(result.token , "<<<<< FCM >>>>>>")
+            }
+        }
+     
     }
     
     
@@ -289,8 +305,27 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let count = fetchedhResultController.sections?.first?.numberOfObjects {
+            if count == 0{
+                self.lblNoFriendFound.isHidden = false
+                self.tblView.isHidden = true
+                self.searchBar.isHidden = true
+                self.btnDestructive.isHidden = true
+            }else{
+                self.lblNoFriendFound.isHidden = true
+                self.tblView.isHidden = false
+                self.searchBar.isHidden = false
+                self.btnDestructive.isHidden = false
+
+            }
             return count
         }
+        
+        self.lblNoFriendFound.isHidden = false
+        self.tblView.isHidden = true
+        self.searchBar.isHidden = true
+        self.btnDestructive.isHidden = true
+
+        
         return 0
     }
     
@@ -376,6 +411,10 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
                     
                     cell.lastMsgImage.image = UIImage(named: "read_blue_icon")
                     
+                }else{
+                    
+                    cell.lastMsgImage.isHidden = true
+
                 }
                 
 
@@ -442,7 +481,16 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
             
             print(response)
             
+            let jsonobject = response["data"] as? NSDictionary;
+            let chatUserID = jsonobject?.object(forKey: "user_id") as? String ?? ""
+            print(chatUserID,"<<<<< CHAT USER ID>>>>")
+            
+            UserDefaults.standard.set(chatUserID, forKey: "chat_user_id")
+
+            
+            
             let list = response.object(forKey: "friend_list") as? NSArray ?? []
+            
             for (index, friend) in list.enumerated() {
                 let item = FriendListChat(friend as! NSDictionary)
                 
@@ -465,6 +513,7 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
                     ))
                 
             }
+            
            
             
         }, errorHandler: {(message) -> Void in
@@ -594,6 +643,7 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
                 updatObj.setValue("", forKey: "last_msg")
                 updatObj.setValue("", forKey:"last_msg_type")
                 updatObj.setValue("", forKey:"last_msg_time")
+                updatObj.setValue("", forKey:"last_msg_ack")
                 updatObj.setValue("1", forKey:"is_mine")
                 updatObj.setValue("0", forKey: "read_count")
                 

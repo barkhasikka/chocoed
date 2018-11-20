@@ -10,6 +10,9 @@ import UIKit
 
 class LeaderBoardTableViewCell: UITableViewCell {
 
+    
+    @IBOutlet var friendICon: UIImageView!
+    
     @IBOutlet weak var rank: UILabel!
     @IBOutlet weak var noofTest: UILabel!
     @IBOutlet weak var testImage: UIImageView!

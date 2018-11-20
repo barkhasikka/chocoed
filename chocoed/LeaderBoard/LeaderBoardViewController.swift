@@ -12,6 +12,10 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
     var activityUIView: ActivityIndicatorUIView!
     var arrayProgress = [FriendProgress]()
     
+    
+    @IBOutlet var myIcon: UIImageView!
+    
+    
     @IBOutlet weak var completedTestsLabel: UILabel!
     
    
@@ -71,7 +75,9 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
         labelRank.clipsToBounds = true
        // loadGetMyProgress()
         
-        
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        self.completedTestsLabel.text = "BadgesEKey".localizableString(loc: language!)
+        self.courseCompletedLabel.text = "TopicCompletedProgressKey".localizableString(loc: language!)
         
        
         // Do any additional setup after loading the view.
@@ -110,15 +116,18 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "leadercell", for: indexPath) as! LeaderBoardTableViewCell
         
-        var url = arrayProgress[indexPath.row].friendImageUrl
-        var fileUrl = URL(string: url)
-        if fileUrl != nil{
+        let url = arrayProgress[indexPath.row].friendImageUrl
+        let fileUrl = URL(string: url)
+        
+        cell.imageViewLeader.sd_setImage(with : fileUrl)
+
+       /* if fileUrl != nil{
             if let data = try? Data(contentsOf: fileUrl!) {
                 if let image = UIImage(data: data) {
-                    cell.imageViewLeader.image = image
                 }
             }
         }
+        */
         
         cell.CoursesImage.image = UIImage(named: "computerImage")
         cell.NameLeader.text = arrayProgress[indexPath.row].friendName
@@ -129,6 +138,12 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
         cell.weekImage.image = UIImage(named: "fileImage")
         cell.testImage.image = UIImage(named: "questionImage")
         cell.rank.text = "\(arrayProgress[indexPath.row].rankNumber)"
+        
+        if cell.rank.text == "1" {
+            cell.friendICon.image = UIImage(named: "group")
+        }else{
+            cell.friendICon.image = UIImage(named: "Icon-App-76x76")
+        }
         
         return cell
     }
@@ -158,18 +173,30 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
             
             DispatchQueue.main.async {
                 self.labelRank.text = "\(progressofFriend.myRankNumber)"
-                self.courseCompletedLabel.text = "\(progressofFriend.myCoursesCount)"
-                self.completedTestLabel.text = "\(progressofFriend.myTestCount)"
+                
+                if self.labelRank.text == "1" {
+                    
+                    self.myIcon.image = UIImage(named: "group")
+                }else{
+                    self.myIcon.image = UIImage(named: "Icon-App-76x76")
+
+                }
+                
+                self.courseCompletedLabel.text = "\(progressofFriend.myTopicCount)"
+                self.completedTestLabel.text = "\(progressofFriend.myBadgeCount)"
                 self.reportLabel.text = "\(progressofFriend.schduleMsg)"
                 
                 let fileUrl = URL(string: "\(USERDETAILS.imageurl)")
-                if fileUrl != nil {
+                
+                self.imageViewLabelImage.sd_setImage(with: fileUrl)
+
+                
+             /*   if fileUrl != nil {
                     if let data = try? Data(contentsOf: fileUrl!) {
                         if let image = UIImage(data: data) {
-                            self.imageViewLabelImage.image = image
                         }
                     }
-                }
+                } */
                   self.NameLabel.text = USERDETAILS.firstName + " " + USERDETAILS.lastname
                   self.imageViewLabelImage.layer.borderWidth = 3
                   self.imageViewLabelImage.layer.cornerRadius = 35

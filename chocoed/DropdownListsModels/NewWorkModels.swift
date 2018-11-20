@@ -327,8 +327,13 @@ struct getMyProgressStruct{
     var schduleMsg : String
     var friendList : NSArray
     var myCoursesCount: Int
+    var myBadgeCount : Int
+
+    
 
     init(_ dictionary : NSDictionary) {
+        
+        self.myBadgeCount = dictionary["myBadgeCount"] as? Int ?? 0
         self.myTopicCount = dictionary["myTopicCount"] as? Int ?? 0
         self.myWeekNumber = dictionary["myWeekNumber"] as? Int ?? 0
         self.myTestCount = dictionary["myTestCount"] as? Int ?? 0
@@ -404,20 +409,20 @@ struct FriendListUpdate{
 
 struct getNotificationListStruct{
     var aboutNotification : String
-    var isRead : Int
+    var isRead : Bool
     var notificationDate : Int
-    var notificationId : Int
+    var notificationId : String
     var notificationImageUrl : String
     var notificationTitle : String
-    var notificationType: Int
+    var notificationType: String
     
     init(_ dictionary : NSDictionary) {
         self.aboutNotification = dictionary["aboutNotification"] as? String ?? ""
-        self.isRead = dictionary["isRead"] as? Int ?? 0
+        self.isRead = dictionary["isRead"] as? Bool ?? false
         self.notificationDate = dictionary["notificationDate"] as? Int ?? 0
-        self.notificationId = dictionary["notificationId"] as? Int ?? 0
+        self.notificationId = dictionary["notificationId"] as? String ?? ""
         self.notificationImageUrl = dictionary["notificationImageUrl"] as? String ?? ""
         self.notificationTitle = dictionary["notificationTitle"] as? String ?? ""
-        self.notificationType = dictionary["notificationType"] as? Int ?? 0
+        self.notificationType = dictionary["notificationType"] as? String ?? ""
 }
 }

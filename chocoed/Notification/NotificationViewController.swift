@@ -10,6 +10,26 @@ import UIKit
 
 class NotificationViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
   
+    
+    
+    @IBOutlet var badgesView: UIView!
+    
+    @IBOutlet var lblBadges: UILabel!
+    @IBOutlet var lblCoins: UILabel!
+    
+    var badgesCount : String = "0"
+    var coinsCount : String = "0"
+    
+    var pageNo = 1
+    var shouldLoad = true
+    
+    @IBAction func closeBottiomView(_ sender: Any) {
+        
+        self.badgesView.isHidden = true
+
+    }
+    
+    
     var arrayList = [getNotificationListStruct]()
     var activityUIView: ActivityIndicatorUIView!
 
@@ -17,10 +37,26 @@ class NotificationViewController: UIViewController,UITableViewDataSource,UITable
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        pageNo = 1
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)
         activityUIView.isHidden = true
         loadNotificationList()
+        
+        self.tableBiewNotification.estimatedRowHeight = 80.0
+        self.tableBiewNotification.rowHeight = UITableViewAutomaticDimension
+        
+        self.badgesView.isHidden = true
+        
+        self.lblCoins.text = self.coinsCount
+        self.lblBadges.text = self.badgesCount
+        
+        let backgroundImage = UIImageView(frame: self.badgesView.bounds)
+        backgroundImage.image = UIImage(named: "gradient_pattern_oval")
+        backgroundImage.contentMode = UIViewContentMode.scaleToFill
+        self.badgesView.insertSubview(backgroundImage, at: 0)
+        
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,18 +74,29 @@ class NotificationViewController: UIViewController,UITableViewDataSource,UITable
     func loadNotificationList(){
         let userID = UserDefaults.standard.integer(forKey: "userid")
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
-        let params = [ "access_token":"\(accessToken)", "userId": "\(userID)","clientId":"\(clientID)"] as Dictionary<String, String>
+        let params = [ "access_token":"\(accessToken)", "userId": "\(userID)","clientId":"\(clientID)","pageSize":"20","pageNo":"\(String(self.pageNo))"] as Dictionary<String, String>
+       
+        print(params)
+        
         activityUIView.isHidden = false
         activityUIView.startAnimation()
         MakeHttpPostRequest(url: getNotificationList, params: params, completion: {(success, response) -> Void in
             DispatchQueue.main.async {
                print(response)
                 let notify = response.object(forKey: "list") as? NSArray ?? []
+                
+                if notify.count == 0 {
+                    self.shouldLoad = false
+                }
+                
                 for notification in notify {
                     self.arrayList.append(getNotificationListStruct( notification as! NSDictionary))
                     print(self.arrayList)
                 }
                 DispatchQueue.main.async {
+                    
+                    
+                    
                     self.tableBiewNotification.reloadData()
                     self.activityUIView.isHidden = true
                     self.activityUIView.stopAnimation()
@@ -74,18 +121,150 @@ class NotificationViewController: UIViewController,UITableViewDataSource,UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "notificationcell", for: indexPath) as! NotificationTableViewCell
         cell.labelNotification.text = arrayList[indexPath.row].notificationTitle
-        cell.labelTime.text = "\(arrayList[indexPath.row].notificationDate)"
-        cell.imageViewIcon.image = UIImage(named: "questionImage")
+        cell.labelTime.text = arrayList[indexPath.row].aboutNotification
+        
+        cell.labelTime.numberOfLines = 0
+        
         let url = arrayList[indexPath.row].notificationImageUrl
-        let fileUrl = URL(string: url)
-        if fileUrl != nil{
-            if let data = try? Data(contentsOf: fileUrl!) {
-                if let image = UIImage(data: data) {
-                    cell.imageViewIcon.image = image
-                }
+        cell.imageViewIcon.sd_setImage(with: URL(string: url), placeholderImage: UIImage(named: "AppIcon"), options: .continueInBackground, progress: nil, completed: nil)
+       // let fileUrl = URL(string: url)
+        
+        if  arrayList[indexPath.row].isRead == true {
+            
+            //read
+            
+            cell.labelNotification.textColor = UIColor.lightGray
+            cell.labelTime.textColor = UIColor.lightGray
+
+            cell.labelNotification.font = UIFont.boldSystemFont(ofSize: 17.0)
+            cell.labelNotification.font = UIFont.boldSystemFont(ofSize: 12.0)
+            
+            
+        }else{
+            
+            //unread
+            
+            cell.labelNotification.textColor = UIColor.black
+            cell.labelTime.textColor = UIColor.black
+            
+            cell.labelNotification.font = UIFont.boldSystemFont(ofSize: 25.0)
+            cell.labelNotification.font = UIFont.boldSystemFont(ofSize: 17.0)
+
+        }
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    
+        if indexPath.row == self.arrayList.count - 1 {
+            
+            if self.shouldLoad == true {
+                self.pageNo = self.pageNo + 1
+                loadNotificationList()
             }
         }
-
-        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if arrayList[indexPath.row].isRead == false {
+            self.readNotification(id: String(arrayList[indexPath.row].notificationId))
+        }
+        
+        
+        let alertView = UIAlertController(title: arrayList[indexPath.row].notificationTitle, message: arrayList[indexPath.row].aboutNotification, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Back", style: .default, handler: { (alert) in
+            
+            
+        })
+        alertView.addAction(action)
+        let actionSure = UIAlertAction(title: "Ok", style: .default, handler: { (alert) in
+        
+            // CALENDER GET ASSIGNED - load my plan page -done  2
+            // Todays topic - load my plan page --done 3
+            //delayed or behind - load my progress -done 4
+            // friend added - load my progress --done 5
+            // badges and coin earned - show badges -done
+            
+            if self.arrayList[indexPath.row].notificationType == "4" || self.arrayList[indexPath.row].notificationType == "5"  {
+                
+                // open my progress
+                
+                let v1 = self.storyboard?.instantiateViewController(withIdentifier: "leader") as! LeaderBoardViewController
+                self.present(v1, animated: true, completion: nil)
+                
+                
+            }else   if self.arrayList[indexPath.row].notificationType == "7" {
+                
+                // show chocoins and badges
+                
+                self.badgesView.isHidden = false
+                
+                
+                
+            }else   if self.arrayList[indexPath.row].notificationType == "2" ||
+                self.arrayList[indexPath.row].notificationType == "3" {
+                
+                // load my plan
+                
+                currentTopiceDate = ""
+                currentCourseId = ""
+                
+                isLoadExamFromVideo = ""
+                isLoadExamId = ""
+                isLoadCalendarId = ""
+                isLoadExamName = ""
+                
+                let v1 = self.storyboard?.instantiateViewController(withIdentifier: "ContentVC") as! ContentVC
+                self.present(v1, animated: true, completion: nil)
+                
+            }
+            
+            
+        })
+        alertView.addAction(actionSure)
+        self.present(alertView, animated: true, completion: nil)
+        
+        
+    }
+    
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    
+    func readNotification(id : String){
+        
+        let list = "[{\"notificationId\":\"\(id)\"}]"
+        
+        let userID = UserDefaults.standard.integer(forKey: "userid")
+        let clientID = UserDefaults.standard.integer(forKey: "clientid")
+        let params = [ "access_token":"\(accessToken)", "userId": "\(userID)","clientId":"\(clientID)","list":"\(list)",] as Dictionary<String, String>
+        
+        print(params)
+        
+        activityUIView.isHidden = false
+        activityUIView.startAnimation()
+        MakeHttpPostRequest(url: updateNotificationRead, params: params, completion: {(success, response) -> Void in
+            DispatchQueue.main.async {
+                print(response)
+              
+                DispatchQueue.main.async {
+                    self.tableBiewNotification.reloadData()
+                    self.activityUIView.isHidden = true
+                    self.activityUIView.stopAnimation()
+                }
+            }
+            
+        }, errorHandler: {(message) -> Void in
+            let alert = GetAlertWithOKAction(message: message)
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+                self.activityUIView.isHidden = true
+                self.activityUIView.stopAnimation()
+                
+            }
+        })
     }
 }

@@ -11,7 +11,8 @@ import Firebase
 
 class SplitviewViewController: UIViewController {
 
-  
+    @IBOutlet var badgeImage: UIImageView!
+    
     @IBOutlet weak var textcoinsEarned: UILabel!
     @IBOutlet weak var textbadgesEarned: UILabel!
     @IBOutlet weak var choiceLabel2: UILabel!
@@ -26,7 +27,7 @@ class SplitviewViewController: UIViewController {
     @IBOutlet weak var completedTopicsLabel: UILabel!
     @IBOutlet weak var topArcVIew: NSLayoutConstraint!
     
-    @IBOutlet weak var notificatonImage: UIImageView!
+   
     @IBOutlet weak var myProgressHandUIView: UIView!
     @IBOutlet weak var myThoughtsHandUIView: UIView!
     @IBOutlet weak var myChatHandUIView: UIView!
@@ -36,7 +37,15 @@ class SplitviewViewController: UIViewController {
     @IBOutlet var lblBadgesCount: UILabel!
     @IBOutlet var lblTopicCount: UILabel!
     
-    @IBOutlet weak var notificationLabel: UILabel!
+    @IBOutlet var lblnotificationCount: UILabel!
+    
+    
+    @IBOutlet var notificationimgae: UIImageView!
+    
+    
+    
+    
+    
     @IBOutlet weak var viewChoice: UIView!
     @IBOutlet weak var viewvonversation: UIView!
     @IBOutlet weak var viewContent: UIView!
@@ -46,6 +55,9 @@ class SplitviewViewController: UIViewController {
     var buttonThought = false
     var buttonchat = false
     var drag = ""
+    
+    var coinsearned : Int  = 0
+    var badesEarned : Int = 0
     
     var availableString = "This feature will be available soon"
     
@@ -91,12 +103,9 @@ class SplitviewViewController: UIViewController {
     @IBAction func arcThoughtd(_ sender: UIButton) {
         
         
-//        let alert = GetAlertWithOKAction(message: availableString)
-//        self.present(alert, animated: true, completion: nil)
-        let vc = storyboard?.instantiateViewController(withIdentifier: "notification") as? NotificationViewController
-        
-        self.present(vc!, animated: true, completion: nil)
-        
+       let alert = GetAlertWithOKAction(message: availableString)
+       self.present(alert, animated: true, completion: nil)
+       
         
     }
     
@@ -134,8 +143,8 @@ class SplitviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.notificationLabel.layer.cornerRadius = 10
-        self.notificationLabel.clipsToBounds =  true
+       self.lblnotificationCount.layer.cornerRadius = 10
+       self.lblnotificationCount.clipsToBounds =  true
         NotificationImageTapped()
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
 
@@ -143,6 +152,8 @@ class SplitviewViewController: UIViewController {
         backgroundImage.image = UIImage(named: "gradient_pattern_oval")
         backgroundImage.contentMode = UIViewContentMode.scaleToFill
         self.popUpViewforBadges.insertSubview(backgroundImage, at: 0)
+        
+        self.popUpViewforBadges.isHidden = true
         
         
 //        self.labelInstruct.text = "RequestOfEnterMobileNoKey".localizableString(loc: language!)
@@ -171,19 +182,24 @@ class SplitviewViewController: UIViewController {
         self.myChatHandUIView.applyBackground()
         self.arcView.isHidden = true
         let fileUrl = URL(string: USERDETAILS.imageurl)
-        if fileUrl != nil {
+        self.imageProfile.sd_setImage(with: fileUrl)
+
+       /* if fileUrl != nil {
             if let data = try? Data(contentsOf: fileUrl!) {
                 if let image = UIImage(data: data) {
                     self.imageProfile.image = image
                 }
             }
+        */
+            
+            
             imageProfile.layer.borderWidth = 1.0
             imageProfile.layer.masksToBounds = false
             imageProfile.layer.borderColor = UIColor.darkGray.cgColor
             imageProfile.layer.cornerRadius = imageProfile.frame.width / 2
             imageProfile.clipsToBounds = true
             imageProfile.contentMode = .scaleAspectFit
-        }
+       // }
 
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         imageViewLogo.isUserInteractionEnabled = true
@@ -216,17 +232,30 @@ class SplitviewViewController: UIViewController {
         if self.imageProfile.image != nil {
             menuvc.userImageLoaded = self.imageProfile.image!
         }
+        
+        
+        let tapGestureRecognizer1 = UITapGestureRecognizer(target: self, action: #selector(badgeImageAction(tapGestureRecognizer:)))
+        self.badgeImage.isUserInteractionEnabled = true
+        self.badgeImage.addGestureRecognizer(tapGestureRecognizer1)
+    }
+    
+    @objc func badgeImageAction(tapGestureRecognizer: UITapGestureRecognizer){
+        
+        self.popUpViewforBadges.isHidden = false
     }
     
     func NotificationImageTapped(){
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(notificatonImageAction(tapGestureRecognizer:)))
-        notificatonImage.isUserInteractionEnabled = true
-    notificatonImage.addGestureRecognizer(tapGestureRecognizer)
+        notificationimgae.isUserInteractionEnabled = true
+        notificationimgae.addGestureRecognizer(tapGestureRecognizer)
     }
     @objc func notificatonImageAction(tapGestureRecognizer: UITapGestureRecognizer){
-        let vc = storyboard?.instantiateViewController(withIdentifier: "notification") as? NotificationViewController
         
+        let vc = storyboard?.instantiateViewController(withIdentifier: "notification") as? NotificationViewController
+        vc?.badgesCount = String(self.badesEarned)
+        vc?.coinsCount = String(self.coinsearned)
         self.present(vc!, animated: true, completion: nil)
+        
         
     }
     @IBAction func MyProgressActionButton(_ sender: Any) {
@@ -480,6 +509,9 @@ class SplitviewViewController: UIViewController {
             // print(quizID)
             // let fileUrl = URL(string: url)
             
+            let notificationCount = jsonobject?.object(forKey: "notificationCount") as? Int ?? 0
+
+            
             self.sendFcm()
             
             let applang = jsonobject?.object(forKey: "appLanguage") as? String ?? ""
@@ -495,18 +527,27 @@ class SplitviewViewController: UIViewController {
             
             USERDETAILS = UserDetails(email: temp.email, firstName: temp.firstName, lastname: temp.lastName, imageurl: url, mobile: temp.mobile)
             
-            let coinsearned = jsonobject?.object(forKey: "coinsEarned") as? Int ?? 0
-            let badesEarned =  jsonobject?.object(forKey:"badesEarned") as? Int ?? 0
+            self.coinsearned = jsonobject?.object(forKey: "coinsEarned") as? Int ?? 0
+            self.badesEarned =  jsonobject?.object(forKey:"badesEarned") as? Int ?? 0
             let completedTestCout =  jsonobject?.object(forKey:"completedTestCout") as? Int ?? 0
             let completedTopicCout =  jsonobject?.object(forKey:"completedTopicCout") as? Int ?? 0
 
             
             DispatchQueue.main.async {
-                self.lblBadgesCount.text = String(badesEarned)
+                self.lblBadgesCount.text = String(self.badesEarned)
                 self.lblTestCount.text = String(completedTestCout)
                 self.lblTopicCount.text = String(completedTopicCout)
-                self.textcoinsEarned.text = String(coinsearned)
-                self.textbadgesEarned.text = String(badesEarned)
+                self.textcoinsEarned.text = String(self.coinsearned)
+                self.textbadgesEarned.text = String(self.badesEarned)
+                
+                if notificationCount != 0 {
+                    self.lblnotificationCount.isHidden = false
+                    self.lblnotificationCount.text = String(notificationCount)
+                }else{
+                    self.lblnotificationCount.isHidden = true
+                }
+                
+                
             }
 
             
@@ -531,7 +572,7 @@ class SplitviewViewController: UIViewController {
             fcm = ""
         }
 
-        params = ["access_token":"\(accessToken)","device_id":"","device_type":"iPhone","device_info":"","device_token":"\(fcm!)","userId":"\(userID)"] as Dictionary<String, String>
+        params = ["access_token":"\(accessToken)","deviceId":"","deviceType":"iPhone","deviceInfo":"","deviceToken":"\(fcm!)","userId":"\(userID)"] as Dictionary<String, String>
         print(params)
         
         MakeHttpPostRequest(url: saveDeviceToken, params: params, completion: {(success, response) -> Void in

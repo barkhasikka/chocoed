@@ -201,7 +201,7 @@
 "P2R-n1-8ne.title" = "Personality Update";
 
 /* Class = "UILabel"; text = "Completed Tests"; ObjectID = "P9E-Mi-4Ya"; */
-"P9E-Mi-4Ya.text" = "Completed Tests";
+"P9E-Mi-4Ya.text" = "Badges Earned";
 
 /* Class = "UILabel"; text = "09"; ObjectID = "Pfj-om-2as"; */
 "Pfj-om-2as.text" = "09";
@@ -354,7 +354,7 @@
 "iEl-W8-pnI.normalTitle" = "NEXT  ➔";
 
 /* Class = "UILabel"; text = "Courses Completed"; ObjectID = "iXi-SW-biT"; */
-"iXi-SW-biT.text" = "Courses Completed";
+"iXi-SW-biT.text" = "Topic Completed";
 
 /* Class = "UIButton"; normalTitle = "Know your Uniqueness ➔"; ObjectID = "jIh-vr-NQt"; */
 "jIh-vr-NQt.normalTitle" = "Know your Uniqueness ➔";

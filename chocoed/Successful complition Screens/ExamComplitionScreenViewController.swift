@@ -17,7 +17,8 @@ class ExamComplitionScreenViewController: UIViewController {
         
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
         self.awesomeMessageLabel.text = "AwesomeToKnowMsgKey".localizableString(loc: language!)
-        self.beginButton.setTitle("LetsBeginKey".localizableString(loc: language!), for: .normal)
+        
+        self.beginButton.setTitle("LetsGetChocoedButtonKey".localizableString(loc: language!), for: .normal)
         
         
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
@@ -46,11 +47,36 @@ class ExamComplitionScreenViewController: UIViewController {
     }
 
     @IBAction func letsBeginAction(_ sender: Any) {
+        
+        self.examComplete()
+        
         let startVC = self.storyboard?.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
         let aObjNavi = UINavigationController(rootViewController: startVC)
         aObjNavi.navigationBar.barTintColor = UIColor.blue
         self.present(aObjNavi, animated: true, completion: nil)
+        
+        
+        
     }
+    
+    
+    func examComplete(){
+        let userID = UserDefaults.standard.integer(forKey: "userid")
+        let clientID = UserDefaults.standard.integer(forKey: "clientid")
+        let params = [ "access_token":"\(accessToken)", "userId": "\(userID)","clientId":"\(clientID)"] as Dictionary<String, String>
+        
+        print(params)
+        
+        MakeHttpPostRequest(url: sendWelcomeNotification, params: params, completion: {(success, response) -> Void in
+            DispatchQueue.main.async {
+                print(response)
+            }
+            
+        }, errorHandler: {(message) -> Void in
+        })
+    }
+    
+    
     /*
     // MARK: - Navigation
 
