@@ -25,7 +25,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         super.viewDidLoad()
         constraintsOFUI()
         
-        
+        backgroundImageToView()
         
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)
@@ -103,7 +103,13 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         signUpButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 30).isActive = true
         signUpButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
-    
+    func backgroundImageToView(){
+        
+        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.image = UIImage(named: "background_pattern")
+        backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
+        self.view.insertSubview(backgroundImage, at: 0)
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       return arrayLanguages.count
     }

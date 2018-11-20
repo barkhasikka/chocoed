@@ -36,6 +36,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        backgroundImage()
         
         isLoadExamFromVideo = ""
         
@@ -67,6 +68,12 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
       
     }
     
+    func backgroundImage(){
+        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.image = UIImage(named: "background_pattern")
+        backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
+        self.view.insertSubview(backgroundImage, at: 0)
+    }
     override var shouldAutorotate: Bool{
         return false
     }
