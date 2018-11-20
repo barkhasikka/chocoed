@@ -16,6 +16,13 @@ class LaunchScreenViewController: UIViewController {
     @IBOutlet weak var imageLogoView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        
+//        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+//        backgroundImage.image = UIImage(named: "background_blue")
+//        backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
+//        self.view.insertSubview(backgroundImage, at: 0)
+        
         playSound()
         let Gif = UIImage.gifImageWithName("logo_1")
         imageLogoView.image = Gif
@@ -34,6 +41,7 @@ class LaunchScreenViewController: UIViewController {
        
     }
 
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resurces that can be recreated.
