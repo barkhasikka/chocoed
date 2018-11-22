@@ -82,7 +82,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Override point for customization after application launch.
         let userID = UserDefaults.standard.integer(forKey: "userid")
-        UserDefaults.standard.set("en", forKey: "currentlanguage")
+       // UserDefaults.standard.set("en", forKey: "currentlanguage")
+        UserDefaults.standard.string(forKey: "currentlanguage")
         print(userID)
         if userID != 0 {
             DispatchQueue.main.asyncAfter(deadline: .now() + 8) { // change 2 to desired number of seconds
@@ -92,7 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 
             }
-                  } else {
+        } else {
            /* let quiztakenid = UserDefaults.standard.string(forKey: "quiztakenID")
             print(quiztakenid)
             if quiztakenid == "1"{
@@ -104,9 +105,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             else{ */
             
-            
-            
-
             DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
 
                 self.window = UIWindow(frame: UIScreen.main.bounds)

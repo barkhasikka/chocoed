@@ -18,12 +18,12 @@ class ProfileSucessViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
-     
-        /*self.impressiveProfileMessageLabel.text = "आपका प्रोफ़ाइल प्रभावशाली है!".localizableString(loc: language!)
+        print(language)
+        self.impressiveProfileMessageLabel.text = "ProfileImpressionKey".localizableString(loc: language!)
         
-        self.PersonalisedMessageLabel.text = "अब आपकीव्यक्तिगत करें चॉकॉएड अनिवार्य समीक्षा करते हैं".localizableString(loc: language!)
-        self.letBeginButton.setTitle("अपनी विशिष्टता को पहचानें ➔".localizableString(loc: language!), for: .normal)
-       */
+        self.PersonalisedMessageLabel.text = "AppraisalMsgKey".localizableString(loc: language!)
+        self.letBeginButton.setTitle("KnowUserUniqenessKey".localizableString(loc: language!), for: .normal)
+ 
 
         
      

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TWi-rM-jqp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TWi-rM-jqp">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -40,7 +41,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NbG-ZM-B8X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-538.39999999999998" y="131.78410794602701"/>
+            <point key="canvasLocation" x="-1671" y="133"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -198,7 +199,100 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="136.80000000000001" y="132.68365817091455"/>
+            <point key="canvasLocation" x="-887" y="133"/>
+        </scene>
+        <!--Language Selection View Controller-->
+        <scene sceneID="f9g-uS-Oo7">
+            <objects>
+                <viewController storyboardIdentifier="language" id="tEj-5t-P92" customClass="LanguageSelectionViewController" customModule="chocoed" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="n7C-mC-Qao">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lB3-VP-1yG" customClass="ButtonWithImage" customModule="chocoed" customModuleProvider="target">
+                                <rect key="frame" x="8" y="89" width="359" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="Application Language" image="ic_drop_down">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="apllLangAction:" destination="tEj-5t-P92" eventType="touchUpInside" id="Uoz-M4-DIb"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IGO-fT-l55" customClass="ButtonWithImage" customModule="chocoed" customModuleProvider="target">
+                                <rect key="frame" x="8" y="138" width="359" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="Primary Learning Language" image="ic_drop_down">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="PrimaryLernLangAction:" destination="tEj-5t-P92" eventType="touchUpInside" id="4aP-Mf-M0d"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bv5-f8-1AK" customClass="ButtonWithImage" customModule="chocoed" customModuleProvider="target">
+                                <rect key="frame" x="8" y="187" width="359" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="Secondary Learning Language" image="ic_drop_down">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="SecondaryLernLangAction:" destination="tEj-5t-P92" eventType="touchUpInside" id="8vp-0C-GZ6"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XVi-Kq-Sjq">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Language" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3OP-9a-hZe">
+                                        <rect key="frame" x="123" y="12" width="128.5" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.1529411765" green="0.54901960780000003" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="0bf-j2-kIN"/>
+                                    <constraint firstItem="3OP-9a-hZe" firstAttribute="centerY" secondItem="XVi-Kq-Sjq" secondAttribute="centerY" id="Qym-FW-ocK"/>
+                                    <constraint firstItem="3OP-9a-hZe" firstAttribute="centerX" secondItem="XVi-Kq-Sjq" secondAttribute="centerX" id="dbh-XE-Y1D"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wh8-x9-zEy" customClass="imagetoButton" customModule="chocoed" customModuleProvider="target">
+                                <rect key="frame" x="16" y="608" width="343" height="34"/>
+                                <state key="normal" title="Done"/>
+                                <connections>
+                                    <action selector="DoneButtonaction:" destination="tEj-5t-P92" eventType="touchUpInside" id="w5V-69-gaI"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="XVi-Kq-Sjq" firstAttribute="top" secondItem="INr-2r-tWl" secondAttribute="top" id="2sy-ce-sAA"/>
+                            <constraint firstItem="INr-2r-tWl" firstAttribute="bottom" secondItem="Wh8-x9-zEy" secondAttribute="bottom" constant="25" id="6Ex-5v-GM2"/>
+                            <constraint firstItem="Wh8-x9-zEy" firstAttribute="leading" secondItem="INr-2r-tWl" secondAttribute="leading" constant="16" id="G1K-ic-sDX"/>
+                            <constraint firstItem="INr-2r-tWl" firstAttribute="trailing" secondItem="IGO-fT-l55" secondAttribute="trailing" constant="8" id="KfP-WD-Xbq"/>
+                            <constraint firstItem="XVi-Kq-Sjq" firstAttribute="trailing" secondItem="INr-2r-tWl" secondAttribute="trailing" id="Kvp-aB-qOy"/>
+                            <constraint firstItem="INr-2r-tWl" firstAttribute="trailing" secondItem="Wh8-x9-zEy" secondAttribute="trailing" constant="16" id="LUT-Ut-G6c"/>
+                            <constraint firstItem="lB3-VP-1yG" firstAttribute="leading" secondItem="INr-2r-tWl" secondAttribute="leading" constant="8" id="MF8-SW-5GX"/>
+                            <constraint firstItem="lB3-VP-1yG" firstAttribute="top" secondItem="XVi-Kq-Sjq" secondAttribute="bottom" constant="25" id="POk-ki-o1d"/>
+                            <constraint firstItem="bv5-f8-1AK" firstAttribute="top" secondItem="IGO-fT-l55" secondAttribute="bottom" constant="25" id="aJd-7E-S9P"/>
+                            <constraint firstItem="XVi-Kq-Sjq" firstAttribute="leading" secondItem="INr-2r-tWl" secondAttribute="leading" id="eI5-BZ-wAy"/>
+                            <constraint firstItem="IGO-fT-l55" firstAttribute="top" secondItem="lB3-VP-1yG" secondAttribute="bottom" constant="25" id="hq3-Gd-ftf"/>
+                            <constraint firstItem="IGO-fT-l55" firstAttribute="leading" secondItem="INr-2r-tWl" secondAttribute="leading" constant="8" id="ojA-04-Opa"/>
+                            <constraint firstItem="bv5-f8-1AK" firstAttribute="leading" secondItem="INr-2r-tWl" secondAttribute="leading" constant="8" id="pel-Td-oFD"/>
+                            <constraint firstItem="INr-2r-tWl" firstAttribute="trailing" secondItem="bv5-f8-1AK" secondAttribute="trailing" constant="8" id="t2M-TN-oCk"/>
+                            <constraint firstItem="INr-2r-tWl" firstAttribute="trailing" secondItem="lB3-VP-1yG" secondAttribute="trailing" constant="8" id="z6I-Ld-rIG"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="INr-2r-tWl"/>
+                    </view>
+                    <connections>
+                        <outlet property="ApplicationLangButton" destination="lB3-VP-1yG" id="mm8-gj-U6L"/>
+                        <outlet property="SecondaryLangButton" destination="bv5-f8-1AK" id="cok-kN-aET"/>
+                        <outlet property="primaryLangButton" destination="IGO-fT-l55" id="U7Q-Rn-UYU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IpV-d7-GU4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-87.200000000000003" y="111.99400299850076"/>
         </scene>
         <!--Getting Started View Controller-->
         <scene sceneID="50q-T7-3aU">
@@ -3260,7 +3354,7 @@ the beginning of every beautiful journey.</string>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="menucell" rowHeight="66" id="WUN-rv-H5r" customClass="MenuBarTableViewCell" customModule="chocoed" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="315" height="66"/>
                                                 <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WUN-rv-H5r" id="WIP-fj-cH1">
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WUN-rv-H5r" id="WIP-fj-cH1">
                                                     <rect key="frame" x="0.0" y="0.0" width="315" height="66"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
@@ -3924,7 +4018,7 @@ the beginning of every beautiful journey.</string>
                                                 <rect key="frame" x="88" y="397" width="200" height="150"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PS1-UI-Wo0">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PS1-UI-Wo0">
                                                         <rect key="frame" x="0.0" y="0.0" width="200" height="150"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="200" id="BQK-8w-Ryc"/>
