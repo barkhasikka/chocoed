@@ -8,8 +8,11 @@
 
 import UIKit
 import Firebase
+import XMPPFramework
+import UserNotifications
 
-class SplitviewViewController: UIViewController {
+
+class SplitviewViewController: UIViewController , UNUserNotificationCenterDelegate {
 
     @IBOutlet var badgeImage: UIImageView!
     
@@ -59,7 +62,7 @@ class SplitviewViewController: UIViewController {
     var coinsearned : Int  = 0
     var badesEarned : Int = 0
     
-    var availableString = "This feature will be available soon"
+    var availableString = ""
     
     @IBOutlet weak var popUpViewforBadges: UIView!
     @IBOutlet weak var mainviewConstraintOutlet: NSLayoutConstraint!
@@ -88,6 +91,57 @@ class SplitviewViewController: UIViewController {
     @IBOutlet weak var heightprogrss: NSLayoutConstraint!
     
     @IBOutlet weak var widthMyThought: NSLayoutConstraint!
+    
+    
+    public func showNotification(friendname: String,msg:String){
+        
+        
+        //creating the notification content
+        let content = UNMutableNotificationContent()
+        
+        //adding title, subtitle, body and badge
+        content.title = friendname
+        content.body = msg
+        content.badge = 1
+        
+        //getting the notification trigger
+        //it will be called after 5 seconds
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.5, repeats: false)
+        
+        //getting the notification request
+        let request = UNNotificationRequest(identifier: "SimplifiedIOSNotification", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().delegate = self
+        
+        //adding the notification to notification center
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        //displaying the ios local notification when app is in foreground
+        completionHandler([.alert, .badge, .sound])
+    }
+    
+   /* func oneStream(_ sender: XMPPStream, didReceiveMessage message: XMPPMessage, from user: XMPPUserCoreDataStorageObject) {
+        print("<<<<<< AT DELEGATE didReceiveMessage")
+        
+        
+    }
+    
+    func oneStream(_ sender: XMPPStream, userIsComposing user: XMPPUserCoreDataStorageObject) {
+        
+        print("<<<<<< AT DELEGATE userIsComposing")
+        
+    }
+    
+    func oneStream(_ sender: XMPPStream, didReceiptReceive message: XMPPMessage, from user: XMPPUserCoreDataStorageObject) {
+        
+        print("<<<<<< AT DELEGATE didReceiptReceive")
+        
+    }
+   */
     
     
     
@@ -143,6 +197,7 @@ class SplitviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
        self.lblnotificationCount.layer.cornerRadius = 10
        self.lblnotificationCount.clipsToBounds =  true
         NotificationImageTapped()
@@ -154,6 +209,8 @@ class SplitviewViewController: UIViewController {
         self.popUpViewforBadges.insertSubview(backgroundImage, at: 0)
         
         self.popUpViewforBadges.isHidden = true
+        
+        self.availableString = "Dear \(USERDETAILS.firstName), this feature will be available to you soon. Please proceed with your learning journey."
         
         
 //        self.labelInstruct.text = "RequestOfEnterMobileNoKey".localizableString(loc: language!)
@@ -481,10 +538,14 @@ class SplitviewViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+      //  OneMessage.sharedInstance.delegate = self
+
+        
         let Gif = UIImage.gifImageWithName("chocoed_wave")
         self.imageViewLogo.image = Gif
         
         self.GetUserInfo()
+        
         
     }
     
@@ -560,7 +621,7 @@ class SplitviewViewController: UIViewController {
     
     func sendFcm() {
         
-        self.checkChatConnection()
+       // self.checkChatConnection()
         
         var params =  Dictionary<String, String>()
       

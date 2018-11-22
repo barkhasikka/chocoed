@@ -260,10 +260,14 @@ struct ExamList {
     var examId: String
     var examName: String
     var examStatus: String
+    var calenderId: String
+
     init(_ dictionary : NSDictionary) {
         self.examId = dictionary["examId"] as? String ?? ""
         self.examName = dictionary["examName"] as? String ?? ""
         self.examStatus = dictionary["examStatus"] as? String ?? ""
+        self.calenderId = dictionary["calenderId"] as? String ?? ""
+
     }
 }
 
@@ -352,6 +356,8 @@ struct FriendProgress{
     var testCount : Int
     var topicCount : Int
     var weekNumber: Int
+    var badgesCount: Int
+
     
     init(_ dictionary : NSDictionary) {
         self.friendId = dictionary["friendId"] as? Int ?? 0
@@ -361,6 +367,8 @@ struct FriendProgress{
         self.testCount = dictionary["testCount"] as? Int ?? 0
         self.topicCount = dictionary["topicCount"] as? Int ?? 0
         self.weekNumber = dictionary["weekNumber"] as? Int ?? 0
+        self.badgesCount = dictionary["badgeCount"] as? Int ?? 0
+
         
     }
     
@@ -373,6 +381,10 @@ struct FriendList{
     var friendName : String
     var mobile : String
     var selected : Bool
+    var fcmToken : String
+    var deviceType : String
+
+
     
     init(_ dictionary : NSDictionary) {
         self.friendId = dictionary["friendId"] as? String ?? ""
@@ -380,6 +392,10 @@ struct FriendList{
         self.friendName = dictionary["friendName"] as? String ?? ""
         self.selected = dictionary["selected"] as? Bool ?? false
         self.mobile = dictionary["mobile"] as? String ?? ""
+        self.fcmToken = dictionary["fcmToken"] as? String ?? ""
+        self.deviceType = dictionary["deviceType"] as? String ?? ""
+
+
     }
     
 }

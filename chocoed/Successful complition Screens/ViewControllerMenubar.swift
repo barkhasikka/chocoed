@@ -19,14 +19,14 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
     var userImageLoaded : UIImage? = nil
     var languageUIView: LanguageUIView!
     var count = 0
-    var availableString = "This feature will be available soon"
+    var availableString = ""
 
     
 //    @IBOutlet weak var tabelviewLanguage: UITableView!
 //    @IBOutlet weak var languageview: UIView!
     var arraymenu = ["My Talks","My Thoughts","My Progress","My Profile",//"Select Preferred Language",
-        "Log out","Support"]
-    let cousesImages = [UIImage(named:"chat"),UIImage(named: "discussion_room"), UIImage(named: "myprocess_improvement"), UIImage(named: "icons_user"), UIImage(named: "icons_lang"), UIImage(named: "icon_logout"),UIImage(named: "chat")]
+        "Log out"]
+    let cousesImages = [UIImage(named:"chat"),UIImage(named: "discussion_room"), UIImage(named: "myprocess_improvement"), UIImage(named: "icons_user"), UIImage(named: "icon_logout")]
     
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -36,9 +36,13 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
             backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
             self.profileGradiantView.insertSubview(backgroundImage, at: 0 )
 
+            
+            
         
         labelUserNAme.text = USERDETAILS.firstName + " " + USERDETAILS.lastname
         buttonEmail.setTitle(USERDETAILS.email, for: .normal)
+            
+        self.availableString = "Dear \(USERDETAILS.firstName), this feature will be available to you soon. Please proceed with your learning journey."
         
        // DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
     

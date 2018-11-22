@@ -14,9 +14,13 @@ import SDWebImage
 import YPImagePicker
 
 
-class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITableViewDataSource ,UIImagePickerControllerDelegate,UINavigationControllerDelegate , UIDocumentPickerDelegate , UITextFieldDelegate, XMPPLastActivityDelegate {
+class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,UIImagePickerControllerDelegate,UINavigationControllerDelegate , UIDocumentPickerDelegate , UITextFieldDelegate, XMPPLastActivityDelegate  , OneMessageDelegate {
     
     private let cellID = "cellID"
+    
+    
+    
+    
     
     @IBOutlet var lblReplyColor: UILabel!
     
@@ -37,8 +41,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
     var type = ""
     var isMuliselectActionChecked = false
     
-    
-    
+
     @IBOutlet var toolbar: UIView!
     
     @IBOutlet var actionView: UIView!
@@ -140,8 +143,8 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
             
             self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: "Photo", msg_type: kXMPP.TYPE_IMAGE, isMine: "1" , friendID: self.friendModel.contact_number)
             
-            self.tblView.reloadData()
-            self.tblView.scrollToBottom()
+           // self.tblView.reloadData()
+           // self.scrollToBottom()
             
             
         }
@@ -177,8 +180,8 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                 modified: self.getCurrentTime(),
                  is_permission: "0", replyTitle: "", replyMsgType: "", replyMsgId: "", replyMsgFile: "", replyMsg: ""))
             
-            self.tblView.reloadData()
-            self.tblView.scrollToBottom()
+            //self.tblView.reloadData()
+            //self.scrollToBottom()
         }
         present(imagePicker, animated: true, completion: nil)
     }
@@ -200,7 +203,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
     
     //MARK : UIDocument Picker
   
-    
+    /*
     
     func oneStream(_ sender: XMPPStream, didReceiveMessage message: XMPPMessage, from user: XMPPUserCoreDataStorageObject) {
         
@@ -285,7 +288,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                 self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: json.value(forKey: "message") as! String, msg_type: json.value(forKey: "msgType") as! String, isMine: "0" , friendID: friendID)
             
                 self.tblView.reloadData()
-                self.tblView.scrollToBottom()
+                self.scrollToBottom()
                 
                 self.sendSeenMsgAck()
 
@@ -324,21 +327,20 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
         self.updateFriendLastMsg(friendID: userData[0], value: kXMPP.msgSent)
         
     }
+     */
     
     func oneStream(_ sender: XMPPStream, userIsComposing user: XMPPUserCoreDataStorageObject) {
         
         self.lblCurrentStatus.text = "Typing..."
-        
-        let userData = (user.jidStr)!.components(separatedBy: "@")
-        //self.updateMsgAck(friendID: userData[0])
-        self.updateFriendLastMsg(friendID: userData[0], value: kXMPP.msgSeen)
-
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
             self.lblCurrentStatus.text = "Online"
         })
         
     
     }
+    
+    
+ 
     
     lazy var fetchedhResultController: NSFetchedResultsController<NSFetchRequestResult> = {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Msg.self))
@@ -357,27 +359,34 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        UserDefaults.standard.set("", forKey: "chatNo")
         self.updateReadCount()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        UIApplication.shared.cancelAllLocalNotifications()
+        UIApplication.shared.applicationIconBadgeNumber = 0
 
         self.userTitle.text = self.friendModel.name
         OneMessage.sharedInstance.delegate = self
         self.editMsg.delegate = self
+      //  self.editField.delegate = self
         
         self.replyView.isHidden = true
         self.replyView.layer.borderColor = UIColor.gray.cgColor
         self.replyView.layer.borderWidth = 1.0
         
-        
-        
+        UserDefaults.standard.set(self.friendModel.contact_number, forKey: "chatNo")
+
+
         self.toolbar.isHidden = false
         self.actionView.isHidden = true
         
         
-        self.bottomView.bindToKeyboard()
+        //self.bottomView.bindToKeyboard()
         
         imagePicker.delegate = self
         
@@ -421,10 +430,12 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
             try self.fetchedhResultController.performFetch()
             ///print("COUNT FETCHED FIRST: \(self.fetchedhResultController.sections?[0].numberOfObjects)")
             
-            self.tblView.reloadData()
-            if self.fetchedhResultController.sections?[0].numberOfObjects != 0{
-                self.tblView.scrollToBottom()
-            }
+            self.scrollToBottom()
+            
+           // self.tblView.reloadData()
+           // if self.fetchedhResultController.sections?[0].numberOfObjects != 0{
+               // self.scrollToBottom()
+            //}
         } catch let error  {
             print("ERROR: \(error)")
         }
@@ -445,6 +456,12 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
         }
         
         self.updateTableContentInset()
+        
+
+    
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
+
     }
     
     func updateTableContentInset(){
@@ -462,6 +479,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
             
             self.tblView.contentInset = UIEdgeInsetsMake(contentInsetTop, 0, 0, 0)
         }
+       
     }
     
     func sendForwardedMsg(){
@@ -487,7 +505,6 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                 let jsonData = try JSONEncoder().encode(body)
                 let msg = String(data: jsonData, encoding: .utf8)
                 
-                print(msg ?? "")
                     
                     let msgID = self.getCurrentTime()
                     
@@ -510,8 +527,8 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     
                     self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: text, msg_type: kXMPP.TYPE_TEXT, isMine: "1", friendID: self.friendModel.contact_number)
                     
-                    self.tblView.reloadData()
-                    self.tblView.scrollToBottom()
+                    //self.tblView.reloadData()
+                    //self.scrollToBottom()
                 
                     OneMessage.sendMessage(msg!,msgId: msgID,thread: "test", to:"\(friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
                 })
@@ -522,7 +539,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                 }
                 
             }
-            else if item.msg_type == kXMPP.TYPE_TEXT || item.msg_type == kXMPP.TYPE_PDF {
+            else if item.msg_type == kXMPP.TYPE_IMAGE || item.msg_type == kXMPP.TYPE_PDF {
                 
                 
                 var msgtype = ""
@@ -551,8 +568,8 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     modified: self.getCurrentTime(),
                      is_permission: "0",replyTitle: "", replyMsgType: "", replyMsgId: "", replyMsgFile: "", replyMsg: ""))
                 
-                self.tblView.reloadData()
-                self.tblView.scrollToBottom()
+               // self.tblView.reloadData()
+               // self.scrollToBottom()
                 
             }
         }
@@ -733,6 +750,10 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
     
     func getFriendStatus(){
         
+        if self.getFriend(id: self.friendModel.contact_number) == "yes" {
+            self.lblCurrentStatus.text = "Typing..."
+        }
+
         
         OneLastActivity.sendLastActivityQueryToJID(("\(self.friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal"), sender: OneChat.sharedInstance.xmppLastActivity) { (response, forJID, error) -> Void in
             
@@ -742,10 +763,13 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
             
             
             self.lblCurrentStatus.text = lastActivityResponse
-                
-            }
+               
+                if self.lblCurrentStatus.text == "last seen on"{
+                    self.lblCurrentStatus.text = "last seen never been online"
+                  }
             
         }
+      }
     }
     
     
@@ -773,7 +797,9 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
         if self.editMsg.text?.count == 0 {
             return
         }
+        self.replyView.isHidden = true
         self.sendTextMsg(text: self.editMsg.text!)
+        
         
     }
     
@@ -873,8 +899,8 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                 self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: text, msg_type: kXMPP.TYPE_TEXT, isMine: "1", friendID: self.friendModel.contact_number)
                 
                 
-                self.tblView.reloadData()
-                self.tblView.scrollToBottom()
+               // self.tblView.reloadData()
+              //  self.scrollToBottom()
                 
                 OneMessage.sendMessage(msg!, msgId:msgID,  thread: "test", to:"\(friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
                 })
@@ -946,8 +972,8 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                         self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: text, msg_type: kXMPP.TYPE_TEXT, isMine: "1", friendID: self.friendModel.contact_number)
                         
                         
-                        self.tblView.reloadData()
-                        self.tblView.scrollToBottom()
+                      //  self.tblView.reloadData()
+                      //  self.scrollToBottom()
                         
                         
                     }
@@ -977,8 +1003,11 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
         if self.selectedArr.count > 0 {
             self.selectedArr.removeAll()
         }
-        
+        UserDefaults.standard.set("", forKey: "chatNo")
+
         self.updateReadCount()
+        //OneMessage.sharedInstance.delegate = nil
+
         
         dismiss(animated: false, completion: nil)
 
@@ -986,7 +1015,6 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
   
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let count = fetchedhResultController.sections?.first?.numberOfObjects {
-            print(count)
             return count
         }
         return 0
@@ -1054,11 +1082,11 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     cell.imgProfile?.contentMode = .scaleToFill
                     
                     cell.mainView?.layer.cornerRadius = 6
-                    cell.mainView?.layer.borderColor = UIColor.gray.cgColor
+                    cell.mainView?.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
                     cell.mainView?.layer.borderWidth = 1
                     
                     cell.replyView?.layer.cornerRadius = 6
-                    cell.replyView?.layer.borderColor = UIColor.gray.cgColor
+                    cell.replyView?.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
                     cell.replyView?.layer.borderWidth = 1
                     
                     
@@ -1109,7 +1137,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     cell.profileImga?.contentMode = .scaleToFill
                     
                     cell.mainView?.layer.cornerRadius = 6
-                    cell.mainView?.layer.borderColor = UIColor.gray.cgColor
+                    cell.mainView?.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
                     cell.mainView?.layer.borderWidth = 1
                     
                     
@@ -1162,7 +1190,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     cell.fileview?.contentMode = .scaleToFill
                     
                     cell.mainView?.layer.cornerRadius = 6
-                    cell.mainView?.layer.borderColor = UIColor.gray.cgColor
+                    cell.mainView?.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
                     cell.mainView?.layer.borderWidth = 1
                     
                     
@@ -1235,6 +1263,8 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     cell.lblTime?.frame.size = (cell.lblTime?.intrinsicContentSize)!
                     
                     
+                    
+                    
                     if item.msg_ack == kXMPP.msgSend{
                         
                         cell.msgAck.image = UIImage(named: "send_gray_icon")
@@ -1249,6 +1279,10 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                         cell.msgAck.image = UIImage(named: "read_blue_icon")
                         
                     }
+                    
+                    cell.mainView?.layer.cornerRadius = 6
+                    cell.mainView?.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+                    cell.mainView?.layer.borderWidth = 1
                     
                     cell.profileImage?.sd_setImage(with : URL(string: USERDETAILS.imageurl))
                     cell.profileImage?.layer.cornerRadius = (cell.profileImage?.frame.width)! / 2
@@ -1307,11 +1341,11 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     cell.profileImage?.contentMode = .scaleToFill
                     
                     cell.mainView?.layer.cornerRadius = 6
-                    cell.mainView?.layer.borderColor = UIColor.gray.cgColor
+                    cell.mainView?.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
                     cell.mainView?.layer.borderWidth = 1
                     
                     cell.replyView?.layer.cornerRadius = 6
-                    cell.replyView?.layer.borderColor = UIColor.gray.cgColor
+                    cell.replyView?.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
                     cell.replyView?.layer.borderWidth = 1
                     
                     if self.selectedArr.contains(item){
@@ -1338,9 +1372,9 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                 cell.profileImage?.clipsToBounds = true
                 cell.profileImage?.contentMode = .scaleToFill
                     
-                    cell.mainView?.layer.cornerRadius = 6
-                    cell.mainView?.layer.borderColor = UIColor.gray.cgColor
-                    cell.mainView?.layer.borderWidth = 1
+                     cell.mainView?.layer.cornerRadius = 6
+                     cell.mainView?.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+                     cell.mainView?.layer.borderWidth = 1
                     
                     
                     if self.selectedArr.contains(item){
@@ -1371,7 +1405,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     cell.fileView?.contentMode = .scaleToFill
                     
                     cell.mainView?.layer.cornerRadius = 6
-                    cell.mainView?.layer.borderColor = UIColor.gray.cgColor
+                    cell.mainView?.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
                     cell.mainView?.layer.borderWidth = 1
                     
                     cell.fileView?.sd_setImage(with: URL(string: item.file_url), placeholderImage: UIImage(named: "image_placeholder"), options: .continueInBackground, progress: nil, completed: nil)
@@ -1456,51 +1490,54 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
                     cell.profileImage?.contentMode = .scaleToFill
                     
                     cell.mainView?.layer.cornerRadius = 6
-                    cell.mainView?.layer.borderColor = UIColor.gray.cgColor
+                    cell.mainView?.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
                     cell.mainView?.layer.borderWidth = 1
                     
                     
                     
                     
-                   // if item.is_permission == "1" {
+                   /* if item.is_permission == "1" {
                         
                         cell.fileView?.sd_setImage(with: URL(string: item.file_url), placeholderImage: UIImage(named: "pdf_placeholder"), options: .continueInBackground, progress: nil, completed: nil)
                         cell.fileView?.contentMode = .scaleToFill
                         
-                  /*   }else {
+                     }else { */
                         
-                        cell.fileView?.sd_setImage(with : URL(string: item.file_url))
-                        cell.fileView?.contentMode = .scaleToFill
+                    cell.fileView?.sd_setImage(with: URL(string: item.file_url), placeholderImage: UIImage(named: "pdf_placeholder"), options: .continueInBackground, progress: nil, completed: nil)
+                    cell.fileView?.contentMode = .scaleToFill
+                    
+                    cell.progressView.isHidden = true
+
                     
                     if item.is_download == "0" {
                         
                         if item.is_streaming == "0"{
                             
+                            cell.progressView.isHidden = false
+
+                            
                             self.updateMsg(msg_id: item.msg_id, type : "streaming" ,value: "1")
                             
-                            SDWebImageManager.shared().imageDownloader?.downloadImage(with:  URL(string: item.file_url), options: .continueInBackground, progress: nil, completed: {(image : UIImage?,data:Data?,error:Error?,finished:Bool)
-                                in
-                                
-                                if image != nil {
+                            DispatchQueue.global(qos : .background).async {
+                               
+                                    DispatchQueue.main.async {
+                                        
+                                        cell.progressView.isHidden = true
+                                        self.loadPDFAsync(url: item.file_url, msgid: item.msg_id)
+
                                     
-                                    let localURL  = self.savefiletoDirector(image: image!)
-                                    
-                                    print(localURL,"<<<< File URL >>>>>")
-                                    
-                                    UIImageWriteToSavedPhotosAlbum(image!, self, nil, nil)
-                                    
-                                    self.updateMsg(msg_id: item.msg_id, type : "download" ,value: "1")
-                                    self.updateMsg(msg_id: item.msg_id, type : "file" ,value: localURL)
-                                    
-                                    
-                                }
-                                
-                            })
+
+                                        
+                                    }
+                              
+                            }
+                            
+                            
                             
                         }
                         
                     }
-                } */
+                
                     
                     if self.selectedArr.contains(item){
                         
@@ -1523,6 +1560,9 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
         }
         return UITableViewCell()
     }
+    
+    
+    
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -1673,8 +1713,8 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
 
                 }
                 
-                self.tblView.reloadData()
-                self.tblView.scrollToBottom()
+               // self.tblView.reloadData()
+               // self.scrollToBottom()
             }
             
         }catch{
@@ -1730,8 +1770,8 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
             
         try context.save()
             
-            self.tblView.reloadData()
-            self.tblView.scrollToBottom()
+           // self.tblView.reloadData()
+           // self.scrollToBottom()
             
     
           }catch{
@@ -1910,6 +1950,45 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
     
     /*** Files ****/
     
+    func loadPDFAsync(url : String,msgid: String){
+        
+        
+        let session = URLSession.shared
+        var request = URLRequest(url: URL(string: url)!)
+
+        let task = session.dataTask(with: request) { (data, response, error) in
+            guard error == nil else {
+                print(error!)
+                return
+            }
+            // Success
+            if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+                print("Success: \(statusCode)")
+            }
+            
+            do {
+                let fileName = "\(Int64(NSDate().timeIntervalSince1970 * 1000)).jpg"
+
+                let documentFolderURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+                let fileURL = documentFolderURL.appendingPathComponent(fileName)
+                try data!.write(to: fileURL)
+                
+                DispatchQueue.main.async {
+                    
+                    print(fileURL)
+                    self.updateMsg(msg_id: msgid, type : "download" ,value: "1")
+                    self.updateMsg(msg_id: msgid, type : "file" ,value: fileName)
+
+                }
+                
+            } catch  {
+                print("error writing file  : \(error)")
+            }
+        }
+        task.resume()
+       
+    }
+   
     private func savefiletoDirector(image : UIImage) -> String
     {
         
@@ -2095,37 +2174,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
     }
     
     
-    /* Edit Box Delegate */
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.editMsg.resignFirstResponder()
-       // self.bottomView.unbindToKeyboard()
-        return true
-    }
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        return true
-    }
-    
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        if textField.text?.count == 0 {
-            
-        } else {
-            
-            if (textField.text?.count )! % 2 != 0 {
-
-            
-            OneMessage.sendIsComposingMessage(("\(self.friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal"), thread: "test", completionHandler: { (stream, message) -> Void in
-                
-            })
-                
-          }
-        }
-        
-        return true
-    }
     
     
     
@@ -2138,7 +2187,6 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
   
     func uploadImageToServer(image : UIImage, msgId : String)
     {
-        print(msgId,"<<< UPLOAF MSG ID >>>>")
         
         let myUrl = URL(string: kXMPP.uploadImage);
         
@@ -2270,7 +2318,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
         }
         
         self.tblView.reloadData()
-        self.tblView.scrollToBottom()
+        self.scrollToBottom()
     }
     
     @IBAction func actionForwardClicked(_ sender: Any) {
@@ -2318,7 +2366,7 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
             if self.selectedArr.count > 0 {
                 self.selectedArr.removeAll()
             }
-            self.tblView.reloadData()
+          //  self.tblView.reloadData()
          
         }catch let error {
             print("ERROR DELETING : \(error)")
@@ -2357,10 +2405,148 @@ class ChatVC: UIViewController , OneMessageDelegate , UITableViewDelegate , UITa
     
     }
     }
-  
+    
+    
+    /******* SCroll View ****** */
+    
+    /* Edit Box Delegate */
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.editMsg.resignFirstResponder()
+        self.replyView.isHidden = true
+
+        // self.bottomView.unbindToKeyboard()
+        return true
+    }
+    
+   /* func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        var rect = textView.frame
+        rect.size.height = textView.contentSize.height
+        textView.frame = rect
+        return true
+    }
+
+
+    func textViewDidChange(_ textView: UITextView) {
+        
+        if textView.contentSize.height >= 90
+        {
+            textView.isScrollEnabled = true
+        }else{
+            
+            textView.frame.size.height = textView.contentSize.height
+            textView.isScrollEnabled = false
+        }
+    } */
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if textField.text?.count == 0 {
+            
+        } else {
+            
+            if (textField.text?.count )! % 2 != 0 {
+                
+                
+                OneMessage.sendIsComposingMessage(("\(self.friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal"), thread: "test", completionHandler: { (stream, message) -> Void in
+                    
+                })
+                
+            }
+        }
+        
+        return true
+    }
+ 
+ 
+    @objc func keyboardWillShow(notification: NSNotification) {
+    
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            print("notification: Keyboard will show")
+           // if self.tblView.frame.origin.y == 0{
+               // self.tblView.frame.origin.y -= keyboardSize.height
+          //  }
+            let count = fetchedhResultController.sections?.first?.numberOfObjects ?? 0
+
+            if count != 0 {
+            
+            let contentInset = UIEdgeInsetsMake(0.0, 0.0, keyboardSize.height, 0.0)
+            self.tblView.contentInset = contentInset
+            let indexPath = IndexPath(row: count - 1, section: 0)
+            self.tblView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.bottom, animated: true)
+            self.tblView.scrollIndicatorInsets = self.tblView.contentInset
+            
+            }
+            
+            
+            self.bottomView.frame.origin.y -= keyboardSize.height
+            self.replyView.frame.origin.y -= keyboardSize.height
+            
+        }
+    }
+ 
+    @objc func keyboardWillHide(notification: NSNotification) {
+        
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            
+           // if self.tblView.frame.origin.y != 0 {
+            //    self.tblView.frame.origin.y += keyboardSize.height
+           // }
+            
+            let contentInset = UIEdgeInsetsMake(0.0, 0.0, 40, 0.0)
+            self.tblView.contentInset = contentInset
+            self.tblView.scrollIndicatorInsets = self.tblView.contentInset
+            
+            self.bottomView.frame.origin.y += keyboardSize.height
+            self.replyView.frame.origin.y += keyboardSize.height
+            
+        
+        }
+    }
+    
+
+    
+    func scrollToBottom(){
+        
+        let count = fetchedhResultController.sections?.first?.numberOfObjects ?? 0
+        
+        if count != 0 {
+            let indexPath = IndexPath(row: count - 1, section: 0)
+            self.tblView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.bottom, animated: true)
+            self.tblView.scrollIndicatorInsets = self.tblView.contentInset
+        }
+       
+        
+    }
+    /// Get Friend is Typing or not
+    private func getFriend(id : String) -> String {
+        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Friends")
+        fetchRequest.predicate = NSPredicate(format: "contact_number = %@", id)
+        
+        var results : [NSManagedObject] = []
+        
+        do{
+            results = try context.fetch(fetchRequest)
+            
+            if results.count != 0 {
+                let f = results[0] as! Friends
+                return f.is_typing
+            }
+        }catch{
+            print("error executing request")
+        }
+        
+        return ""
+    }
+    
+ 
+
    
 }
 
+/*
 extension UIView{
     
     
@@ -2382,12 +2568,11 @@ extension UIView{
         UIView.animateKeyframes(withDuration: duration, delay: 0.0, options: UIViewKeyframeAnimationOptions(rawValue: curve), animations: {
             self.frame.origin.y+=deltaY
             
-            
-            
         },completion: nil)
         
     }
 }
+ */
 
 
 extension ChatVC: NSFetchedResultsControllerDelegate {
@@ -2399,6 +2584,8 @@ extension ChatVC: NSFetchedResultsControllerDelegate {
             self.tblView.insertRows(at: [newIndexPath!], with: .automatic)
         case .delete:
             self.tblView.deleteRows(at: [indexPath!], with: .automatic)
+        case .update:
+                self.tblView.reloadData()
         default:
             break
         }
@@ -2406,6 +2593,9 @@ extension ChatVC: NSFetchedResultsControllerDelegate {
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         self.tblView.endUpdates()
+       // self.tblView.reloadData()
+        self.scrollToBottom()
+        self.updateTableContentInset()
     }
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
@@ -2413,19 +2603,23 @@ extension ChatVC: NSFetchedResultsControllerDelegate {
     }
 }
 
+/*
 extension UITableView {
     
     func scrollToBottom(){
         DispatchQueue.main.async {
-            let indexPath = IndexPath(row: self.numberOfRows(inSection: self.numberOfSections - 1 ) - 1, section : self.numberOfSections - 1)
+            let indexPath = IndexPath(row: se, section : self.numberOfSections - 1)
             
-                self.scrollToRow(at: indexPath, at: .bottom, animated: true)
+               self.scrollToRow(at: indexPath, at: .bottom, animated: true)
             
              // send seen ack
+           
             
         }
     }
 }
+ */
+
 
 
 

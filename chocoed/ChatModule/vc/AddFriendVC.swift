@@ -85,9 +85,9 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
             self.createFriendEntityFrom(item: Friend(
                 created: self.getCurrentTime(),
                 contact_number: item.mobile,
-                fcm_id: "",
+                fcm_id: item.fcmToken,
                 is_mine: "0",
-                is_typing: "0",
+                is_typing: "",
                 last_msg: "",
                 last_msg_type: "",
                 last_msg_time: "",
@@ -97,7 +97,7 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
                 read_count: "0",
                 status: "",
                 user_id: item.friendId,
-                last_msg_ack : ""))
+                last_msg_ack : ""),type: item.deviceType)
             
         }else{
             
@@ -119,7 +119,7 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
     }
     
     
-       private func createFriendEntityFrom(item: Friend) {
+    private func createFriendEntityFrom(item: Friend,type: String) {
         
        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
         
@@ -130,15 +130,15 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
             
           let userID =  UserDefaults.standard.string(forKey: "chat_user_id")
 
-            let params = ["user_id": "\(userID!)",  "friend_contact_no":"\(item.contact_number)",  "img_link":"\(item.profile_image)","friend_name":"\(item.name)"] as Dictionary<String, String>
+            let params = ["user_id": "\(userID!)",  "friend_contact_no":"\(item.contact_number)",  "img_link":"\(item.profile_image)","friend_name":"\(item.name)","fcm_id":"\(item.fcm_id)","device_type":"\(type)"] as Dictionary<String, String>
             print(params)
             MakeHttpPostRequestChat(url: kXMPP.addFriend, params: params, completion: {(success, response) in
                 
                 print(response)
                 
-              //  let jsonobject = response["responce"] as? Int ?? 0;
+                let res = response.object(forKey: "responce") as? Int ?? 0
 
-              //  if jsonobject == 1 {
+                if res == 1 {
                 
                 if let msgObject = NSEntityDescription.insertNewObject(forEntityName: "Friends", into: context) as? Friends {
                     
@@ -169,18 +169,14 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
                     print(error)
                 }
                     
-               /* }else{
+               }else{
+                    let error = response.object(forKey: "error") as? String ?? ""
                     
-                    let alert = GetAlertWithOKAction(message: "Failed to add Friend")
+                    let alert = GetAlertWithOKAction(message: error)
                     DispatchQueue.main.async {
                         self.present(alert, animated: true, completion: nil)
                     }
-                    
                 }
-              */
-                
-                
-                
             }, errorHandler: {(message) -> Void in
                 print("message", message)
               
@@ -215,7 +211,7 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
                 updatObj.setValue(item.profile_image, forKey:"profile_image")
                 
                 do{
-                  //  try context.save()
+                    try context.save()
                 }catch{
                     print("Error in update")
                 }

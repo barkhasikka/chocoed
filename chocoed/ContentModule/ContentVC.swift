@@ -353,7 +353,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
             if self.previousDayStatus == 2 {
                 
                  let language = UserDefaults.standard.string(forKey: "currentlanguage")
-                let alertView = UIAlertController(title: "alertCompletedAssessments".localizableString(loc: language!), message: "\("alertDear".localizableString(loc: language!)) \(USERDETAILS.firstName),\"You have some assessments to be completed.Would you like to do them now ?", preferredStyle: .alert)
+                let alertView = UIAlertController(title: "alertCompletedAssessments".localizableString(loc: language!), message: "\("alertDear".localizableString(loc: language!)) \(USERDETAILS.firstName), You have some assessments to be completed.Would you like to do them now ?", preferredStyle: .alert)
                 
                 
                 let action = UIAlertAction(title: "alertNotNow".localizableString(loc: language!), style: .default, handler: { (alert) in
@@ -380,6 +380,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                         currentTopiceDate = self.selectedDate
                         
                         if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "PendingAssessment") as? PendingAssessment {
+                            vcNewSectionStarted.calenderId = self.arrayTopic[indexPath.row].calenderId
                             self.present(vcNewSectionStarted, animated: true, completion: nil)
                        
                     }
@@ -395,7 +396,6 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
             }else
                 
                 if topicid == "0"{
-                    print("exam")
                     
                     if arrayTopic[indexPath.row].examStatus == "Completed"{
                         
@@ -425,7 +425,6 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                     
                     
                 }else{
-                    print("video")
                     
                     
                     if arrayTopic[indexPath.row].videoViewCount >=  arrayTopic[indexPath.row].videoViewLimit{
@@ -664,7 +663,6 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
             
             self.datesBetweenArray = self.generateDatesArrayBetweenTwoDates(startDate:finalFromDate , endDate: finalToDate)
             
-            print(self.datesBetweenArray)
             
             
             

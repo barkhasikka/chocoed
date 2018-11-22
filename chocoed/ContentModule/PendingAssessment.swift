@@ -21,6 +21,11 @@ class PendingAssessment:UIViewController ,UITableViewDelegate,UITableViewDataSou
     var arrayPendingExamList = [ExamList]()
     
     
+    var calenderId = ""
+    
+    
+    
+    
     var arrayBehaviouralQuestion = [Question]()
     @IBOutlet var tblView: UITableView!
     override func viewDidLoad() {
@@ -67,17 +72,17 @@ class PendingAssessment:UIViewController ,UITableViewDelegate,UITableViewDataSou
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        self.loadExam(examID: arrayPendingExamList[indexPath.row].examId, examName: arrayPendingExamList[indexPath.row].examName)
+        self.loadExam(calID :arrayPendingExamList[indexPath.row].calenderId, examID: arrayPendingExamList[indexPath.row].examId, examName: arrayPendingExamList[indexPath.row].examName)
     }
     
-    func loadExam(examID : String, examName : String){
+    func loadExam(calID : String,examID : String, examName : String){
         
         
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
         
         var currentQuestionID: Int =  -1
-        let params = ["access_token":"\(accessToken)","deviceId":"","deviceToken":"","deviceInfo":"","deviceType":"Andriod","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(examID)"] as Dictionary<String, String>
+        let params = ["access_token":"\(accessToken)","deviceId":"","deviceToken":"","deviceInfo":"","deviceType":"Andriod","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(examID)","calendarId":"\(calID)"] as Dictionary<String, String>
         
         print(params)
         
@@ -97,24 +102,26 @@ class PendingAssessment:UIViewController ,UITableViewDelegate,UITableViewDataSou
             
             DispatchQueue.main.async {
                 
-                //currentCourseId = self.courseId
-                //currentTopiceDate = self.selectedDate
                 
+                print(self.calenderId,"<<<< Calender ID >>>>>")
+            
                 
                 if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "quizb") as? QuizBahaviouralViewController {
+                   
                     vcNewSectionStarted.arrayBehaviouralQuestion = self.arrayBehaviouralQuestion
                     vcNewSectionStarted.currentExamID = Int(examID)!
                     vcNewSectionStarted.currentQuestion = currentQuestionID
                     vcNewSectionStarted.examName = examName
                     vcNewSectionStarted.fromType = "pending"
+                    vcNewSectionStarted.calenderId = calID
                     let aObjNavi = UINavigationController(rootViewController: vcNewSectionStarted)
                     aObjNavi.navigationBar.barTintColor = UIColor.blue
                     self.present(aObjNavi, animated: true, completion: nil)
+                    
                 }
                 
             }
-            
-            
+           
         }, errorHandler: {(message) -> Void in
             let alert = GetAlertWithOKAction(message: message)
             DispatchQueue.main.async {
@@ -155,17 +162,16 @@ class PendingAssessment:UIViewController ,UITableViewDelegate,UITableViewDataSou
             
             DispatchQueue.main.async {
                 self.tblView.reloadData()
-                //  self.activityUIView.isHidden = true
-                //  self.activityUIView.stopAnimation()
-            }
-            
-            if(self.arrayPendingExamList.count == 0){
+               
+                if(self.arrayPendingExamList.count == 0){
+                    
+                    let v1 = self.storyboard?.instantiateViewController(withIdentifier: "ContentVC") as! ContentVC
+                    self.present(v1, animated: true, completion: nil)
+                }
                 
-                let v1 = self.storyboard?.instantiateViewController(withIdentifier: "ContentVC") as! ContentVC
-                self.present(v1, animated: true, completion: nil)
             }
             
-            //print(self.arrayPendingExamList)
+           
             
             
         }, errorHandler: {(message) -> Void in

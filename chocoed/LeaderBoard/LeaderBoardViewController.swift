@@ -43,6 +43,9 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+    
     
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)
@@ -133,9 +136,9 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
         cell.NameLeader.text = arrayProgress[indexPath.row].friendName
         cell.noofCOurses.text = "\(arrayProgress[indexPath.row].topicCount)"
         cell.noofTest.text = "\(arrayProgress[indexPath.row].testCount)"
-        cell.noOfWeek.text = "\(arrayProgress[indexPath.row].weekNumber) Wk"
+        cell.noOfWeek.text = "\(arrayProgress[indexPath.row].badgesCount)"
         
-        cell.weekImage.image = UIImage(named: "fileImage")
+        cell.weekImage.image = UIImage(named: "Badges_earned")
         cell.testImage.image = UIImage(named: "questionImage")
         cell.rank.text = "\(arrayProgress[indexPath.row].rankNumber)"
         

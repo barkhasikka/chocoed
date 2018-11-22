@@ -25,6 +25,14 @@ class NotificationViewController: UIViewController,UITableViewDataSource,UITable
     
     @IBAction func closeBottiomView(_ sender: Any) {
         
+        if self.arrayList.count > 0 {
+            self.arrayList.removeAll()
+        }
+        
+        self.shouldLoad = true
+        self.pageNo = 1
+        self.loadNotificationList()
+        
         self.badgesView.isHidden = true
 
     }
@@ -126,29 +134,36 @@ class NotificationViewController: UIViewController,UITableViewDataSource,UITable
         cell.labelTime.numberOfLines = 0
         
         let url = arrayList[indexPath.row].notificationImageUrl
-        cell.imageViewIcon.sd_setImage(with: URL(string: url), placeholderImage: UIImage(named: "AppIcon"), options: .continueInBackground, progress: nil, completed: nil)
+        cell.imageViewIcon.sd_setImage(with: URL(string: url), placeholderImage: UIImage(named: "skillCues_design"), options: .continueInBackground, progress: nil, completed: nil)
        // let fileUrl = URL(string: url)
         
         if  arrayList[indexPath.row].isRead == true {
             
             //read
-            
-            cell.labelNotification.textColor = UIColor.lightGray
-            cell.labelTime.textColor = UIColor.lightGray
+            cell.labelNotification.textColor = UIColor.black
+            cell.labelTime.textColor = UIColor.black
 
+            cell.labelNotification.font = UIFont.boldSystemFont(ofSize: 25.0)
             cell.labelNotification.font = UIFont.boldSystemFont(ofSize: 17.0)
-            cell.labelNotification.font = UIFont.boldSystemFont(ofSize: 12.0)
+            
+            cell.backgroundColor = UIColor.white
             
             
         }else{
             
             //unread
             
+           // cell.labelNotification.textColor = UIColor.lightGray
+           // cell.labelTime.textColor = UIColor.lightGray
+            
             cell.labelNotification.textColor = UIColor.black
             cell.labelTime.textColor = UIColor.black
             
             cell.labelNotification.font = UIFont.boldSystemFont(ofSize: 25.0)
             cell.labelNotification.font = UIFont.boldSystemFont(ofSize: 17.0)
+            
+            cell.backgroundColor = UIColor.lightGray
+
 
         }
         
@@ -176,6 +191,14 @@ class NotificationViewController: UIViewController,UITableViewDataSource,UITable
         let alertView = UIAlertController(title: arrayList[indexPath.row].notificationTitle, message: arrayList[indexPath.row].aboutNotification, preferredStyle: .alert)
         let action = UIAlertAction(title: "Back", style: .default, handler: { (alert) in
             
+            if self.arrayList.count > 0 {
+                
+                self.arrayList.removeAll()
+            }
+            
+            self.shouldLoad = true
+            self.pageNo = 1
+            self.loadNotificationList()
             
         })
         alertView.addAction(action)
@@ -219,6 +242,19 @@ class NotificationViewController: UIViewController,UITableViewDataSource,UITable
                 let v1 = self.storyboard?.instantiateViewController(withIdentifier: "ContentVC") as! ContentVC
                 self.present(v1, animated: true, completion: nil)
                 
+            }else if self.arrayList[indexPath.row].notificationType == "999" {
+                
+                self.dismiss(animated: true, completion: nil)
+                
+            }else{
+                
+                if self.arrayList.count > 0 {
+                    self.arrayList.removeAll()
+                }
+                
+                self.shouldLoad = true
+                self.pageNo = 1
+                self.loadNotificationList()
             }
             
             

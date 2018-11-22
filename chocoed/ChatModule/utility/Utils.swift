@@ -14,7 +14,7 @@ class Utils: NSObject {
     
     public static func getDateFromString(date : String) -> String {
         
-        print(date)
+       // print(date)
     
         
         if getCurrentData() == getDate(date: date){
@@ -23,7 +23,7 @@ class Utils: NSObject {
             
             let dateformat = DateFormatter()
             dateformat.dateFormat = "hh:mm a"
-            print(dateformat.string(from: Date(milliseconds: Int(date)!)))
+            //print(dateformat.string(from: Date(milliseconds: Int(date)!)))
             return  dateformat.string(from: Date(milliseconds: Int(date)!))
             
             
@@ -31,7 +31,7 @@ class Utils: NSObject {
             
             let dateformat = DateFormatter()
             dateformat.dateFormat = "dd-MMM"
-            print(dateformat.string(from: Date(milliseconds: Int(date)!)))
+            //print(dateformat.string(from: Date(milliseconds: Int(date)!)))
             return  dateformat.string(from: Date(milliseconds: Int(date)!))
          
         }

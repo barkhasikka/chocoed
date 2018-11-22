@@ -11,8 +11,8 @@
 "ChoicContectKey" = "Choice,Content,Conversation";
 "RequestOfEnterMobileNoKey" = "Please enter the mobile number of the device on which you would be installing Chocoed";
 "InputChocoedTokenKey" = "Input Chocoed Token";
-"TestCompletedKey" = "Completed Test";
-"TopicCompletedKey" = "Completed Topic";
+"TestCompletedKey" = "Completed Tests";
+"TopicCompletedKey" = "Completed Topics";
 "BadgesEarnedKey" = "Badges Earned";
 "TalkKey" = "Talk";
 "ThoughtKey" = "Thought";

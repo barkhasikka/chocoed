@@ -237,9 +237,9 @@ class VideoVC: UIViewController {
         
         if player != nil {
 
-       // player.pause()
-       // self.btnPlayAction.setTitle("Play", for: .normal)
-      //  self.btnPlayAction.setImage(UIImage(named: "icons_play"), for: UIControlState.normal)
+        player.pause()
+        self.btnPlayAction.setTitle("Play", for: .normal)
+        self.btnPlayAction.setImage(UIImage(named: "icons_play"), for: UIControlState.normal)
         self.addTopicAudit(videopostion: Double(self.getMillisecond()),status: "pause")
         isVideoPlaying = !isVideoPlaying
        }
@@ -251,8 +251,8 @@ class VideoVC: UIViewController {
         if player != nil {
             
             player.play()
-            // self.btnPlayAction.setTitle("Pause", for: .normal)
-            // self.btnPlayAction.setImage(UIImage(named: "icons_pause"), for: UIControlState.normal)
+             self.btnPlayAction.setTitle("Pause", for: .normal)
+             self.btnPlayAction.setImage(UIImage(named: "icons_pause"), for: UIControlState.normal)
             self.addTopicAudit(videopostion: self.getMillisecond(),status: "start")
             isVideoPlaying = !isVideoPlaying
         }

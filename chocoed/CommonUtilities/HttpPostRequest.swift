@@ -57,7 +57,7 @@ func MakeHttpPostRequest(url: String, params: Dictionary<String, Any>, completio
             }
         } catch let error {
             print(error.localizedDescription)
-            errorHandler(error.localizedDescription)
+            errorHandler("Oh! It's not you, it's Us, we are fixing the problem, don't worry")
         }
     }
     task.resume()

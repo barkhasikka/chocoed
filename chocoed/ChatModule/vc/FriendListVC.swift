@@ -10,103 +10,29 @@ import UIKit
 import CoreData
 import Firebase
 import SDWebImage
-import XMPPFramework
 
 
 
-class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSource , UISearchBarDelegate , OneMessageDelegate {
+class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSource , UISearchBarDelegate  {
     
     
     
     @IBOutlet var btnDestructive: UIButton!
-    
     @IBOutlet var lblNoFriendFound: UILabel!
-    
-    func oneStream(_ sender: XMPPStream, didReceiveMessage message: XMPPMessage, from user: XMPPUserCoreDataStorageObject) {
-        
-        //self.tblView.reloadData()
-        
-        
-    }
-    
-    func oneStream(_ sender: XMPPStream, didReceiptReceive message: XMPPMessage, from user: XMPPUserCoreDataStorageObject) {
-        
-       // self.tblView.reloadData()
-
-        
-    }
-    
-    func oneStream(_ sender: XMPPStream, userIsComposing user: XMPPUserCoreDataStorageObject) {
-        
-        let userData = (user.jidStr)!.components(separatedBy: "@")
-        let friendID = userData[0]
-        print(friendID)
-        
-        self.updateFriendTyping(friendID: friendID,typing : "yes")
-
-        
-    }
-    
-    func updateFriendTyping(friendID : String, typing: String){
-        
-        // update friend profile
-        
-        print(friendID)
-        
-        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Friends")
-        fetchRequest.predicate = NSPredicate(format: "contact_number = %@", friendID)
-        
-        var results : [NSManagedObject] = []
-        
-        do{
-            results = try context.fetch(fetchRequest)
-            
-            if results.count != 0 {
-                
-                let updatObj = results[0]
-             
-                updatObj.setValue(typing, forKey: "is_typing")
-               
-                do{
-                    try context.save()
-                    
-                    self.tblView.reloadData()
-                    
-                }catch{
-                    print("Error in update")
-                }
-            }
-            
-        }catch{
-            print("error executing request")
-        }
-        
-        
-    }
-    
-    
-
     private let cellID = "FriendCell"
-    
-    
-    
     @IBOutlet var lblTitle: UILabel!
-    
-    
+
     var selectedArray = [Msg]()
-  
     var type = ""
     
-    
+    var isSearching = false
+
     @IBOutlet var tblView: UITableView!
     @IBOutlet var searchBar: UISearchBar!
     
     lazy var fetchedhResultController: NSFetchedResultsController<NSFetchRequestResult> = {
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Friends.self))
-        
-     
     
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "last_msg_time", ascending: false)]
         
@@ -118,15 +44,12 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
     override func viewWillAppear(_ animated: Bool) {
         
         if self.type == "" {
-            
             self.lblTitle.text = "Chat"
         }
-        
-        self.tblView.reloadData()
+
     }
     
-    
-    
+  
     
     @IBAction func add_friend(_ sender: Any) {
         
@@ -138,8 +61,7 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
     
     
     @IBAction func notification_clicked(_ sender: Any) {
-        
-        
+    
     }
     
     
@@ -152,6 +74,11 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        UserDefaults.standard.set("", forKey: "chatNo")
+        
+        UIApplication.shared.cancelAllLocalNotifications()
+        UIApplication.shared.applicationIconBadgeNumber = 0
         
         if self.type == "forward"{
             
@@ -167,7 +94,10 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
 
         }
         
-        OneMessage.sharedInstance.delegate = self
+        
+       
+        
+        
 
        // let params = ["name":"Mahesh Nikam","last_msg_time":"Yesterday","last_msg":"Hello How are you","friendImage":"","lastMsgTypeImage":"","count":"","userId":"7774960386"] as Dictionary<String, String>
        // self.arrayFriends.append(FriendListChat(params as NSDictionary))
@@ -180,7 +110,7 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
       //  self.tblView.register(FriendCell.self, forCellReuseIdentifier: cellID)
         do {
             try self.fetchedhResultController.performFetch()
-            self.tblView.reloadData()
+           // self.tblView.reloadData()
         } catch let error  {
             print("ERROR: \(error)")
         }
@@ -199,6 +129,11 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
                 print(result.token , "<<<<< FCM >>>>>>")
             }
         }
+        
+        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.image = UIImage(named: "background_pattern")
+        backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
+        self.view.insertSubview(backgroundImage, at: 0)
      
     }
     
@@ -306,10 +241,16 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let count = fetchedhResultController.sections?.first?.numberOfObjects {
             if count == 0{
+                
+                if self.isSearching == false {
+                
                 self.lblNoFriendFound.isHidden = false
                 self.tblView.isHidden = true
                 self.searchBar.isHidden = true
                 self.btnDestructive.isHidden = true
+                    
+                }
+                
             }else{
                 self.lblNoFriendFound.isHidden = true
                 self.tblView.isHidden = false
@@ -320,10 +261,15 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
             return count
         }
         
+        if self.isSearching == false {
+
+        
         self.lblNoFriendFound.isHidden = false
         self.tblView.isHidden = true
         self.searchBar.isHidden = true
         self.btnDestructive.isHidden = true
+        
+        }
 
         
         return 0
@@ -332,105 +278,105 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! FriendCell
        
-        if let item = fetchedhResultController.object(at: indexPath) as? Friends {
+        if let item1 = fetchedhResultController.object(at: indexPath) as? Friends {
         
-            print(item.last_msg_time)
-            cell.lblFriendName?.text = item.name
+            cell.lblFriendName?.text = item1.name
+            
+            cell.read_count?.text = item1.read_count
+            cell.read_count?.layer.cornerRadius = 10
+            cell.read_count?.clipsToBounds =  true
             
             
             
             
-           /* let imgAttachement = NSTextAttachment()
-            imgAttachement.image = UIImage(named: "ic_arrow_left")
-            let imageOffset : CGFloat = -5.0
-            imgAttachement.bounds = CGRect(x: 0, y: imageOffset, width: (imgAttachement.image?.size.width)!, height: (imgAttachement.image?.size.height)!)
-            let attachementString = NSAttributedString(attachment: imgAttachement)
-            let  completetext = NSMutableAttributedString(attributedString: attachementString)
-            
-            let textaftericon = NSMutableAttributedString(string: item.last_msg)
-            
-            completetext.append(textaftericon)
-            
-            //cell.last_msg?.textAlignment = .r
-            cell.last_msg?.attributedText = completetext */
-            
-            if item.last_msg_time != ""{
-                
-                cell.last_msg_time?.text = Utils.getDateFromString(date : item.last_msg_time)
-           
-            }else{
-                 cell.last_msg_time?.text = ""
-            }
+            cell.friendImage?.sd_setImage(with : URL(string: item1.profile_image))
+            cell.friendImage?.layer.cornerRadius = (cell.friendImage?.frame.width)! / 2
+            cell.friendImage?.clipsToBounds = true
+            cell.friendImage?.contentMode = .scaleToFill
             
             
-            cell.read_count?.text = item.read_count
-            cell.read_count?.layer.cornerRadius = 6
-
-
-            if item.read_count == "" || item.read_count == "0" {
+            
+            if item1.read_count == "" || item1.read_count == "0" {
                 cell.read_count?.isHidden = true
             }else{
                 cell.read_count?.isHidden = false
             }
             
-            if item.is_typing == "" || item.is_typing == "no" {
-                
-                cell.last_msg?.text = item.last_msg
-                cell.last_msg?.textColor = UIColor.darkGray
-
-
-            }else{
-                
-                cell.last_msg?.text = "Typing..."
-                cell.last_msg?.textColor = UIColor.blue
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                    
-                    self.updateFriendTyping(friendID: item.contact_number,typing : "no")
-                    
-                })
-
-            }
+            let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Msg")
+            fetchRequest.predicate = NSPredicate(format: "to_id = %@", item1.contact_number)
+            var results : [NSManagedObject] = []
             
-        
-            if item.is_mine == "1"{
+            do{
+                results = try context.fetch(fetchRequest)
                 
-                cell.lastMsgImage.isHidden = false
+                if results.count != 0 {
+                    
+                    let item = results[results.count - 1] as! Msg
+                    
+                    if item.created != ""{
+                        cell.last_msg_time?.text = Utils.getDateFromString(date : item.created!)
+                    }else{
+                        cell.last_msg_time?.text = ""
+                    }
+                    
+                    
                 
+                    
+                    if item1.is_typing == "" || item1.is_typing == "no" {
+                        
+                        cell.last_msg?.text = item.msg
+                        cell.last_msg?.textColor = UIColor.darkGray
+                        
+                        
+                    }else{
+                        
+                        cell.last_msg?.text = "Typing..."
+                        cell.last_msg?.textColor = UIColor.blue
+                        
+                    }
+                    
+                    
+                    if item.is_mine == "1"{
+                        
+                        cell.lastMsgImage.isHidden = false
+                        
+                        
+                        if item.msg_ack == kXMPP.msgSend{
+                            
+                            cell.lastMsgImage.image = UIImage(named: "send_gray_icon")
+                            
+                        }else  if item.msg_ack == kXMPP.msgSent{
+                            
+                            cell.lastMsgImage.image = UIImage(named: "receive_gray_icon")
+                            
+                            
+                        }else  if item.msg_ack == kXMPP.msgSeen{
+                            
+                            cell.lastMsgImage.image = UIImage(named: "read_blue_icon")
+                            
+                        }else{
+                            
+                            cell.lastMsgImage.isHidden = true
+                            
+                        }
+                        
+                        
+                    }else{
+                        
+                        cell.lastMsgImage.isHidden = true
+                    }
+                    
+                    
                 
-                if item.last_msg_ack == kXMPP.msgSend{
-                    
-                    cell.lastMsgImage.image = UIImage(named: "send_gray_icon")
-                    
-                }else  if item.last_msg_ack == kXMPP.msgSent{
-                    
-                    cell.lastMsgImage.image = UIImage(named: "receive_gray_icon")
-                    
-                    
-                }else  if item.last_msg_ack == kXMPP.msgSeen{
-                    
-                    cell.lastMsgImage.image = UIImage(named: "read_blue_icon")
-                    
-                }else{
-                    
-                    cell.lastMsgImage.isHidden = true
-
                 }
                 
-
-            }else{
-                
-                cell.lastMsgImage.isHidden = true
+            }catch{
+                print("error executing request")
             }
             
             
-
-
-            cell.friendImage?.sd_setImage(with : URL(string: item.profile_image))
-            cell.friendImage?.layer.cornerRadius = (cell.friendImage?.frame.width)! / 2
-            cell.friendImage?.clipsToBounds = true
-            cell.friendImage?.contentMode = .scaleToFill
-        
+            
         }
         
         
@@ -439,6 +385,7 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+
         if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "ChatVC") as? ChatVC {
             let item = fetchedhResultController.object(at: indexPath) as? Friends
             vcNewSectionStarted.friendModel = item
@@ -455,8 +402,7 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         
     }
     
-    
-    /*** API CALLS ***/
+   /*** API CALLS ***/
     /* 1. Register User */
     
     private func registerToChat(){
@@ -475,7 +421,7 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         
         let userID = UserDefaults.standard.integer(forKey: "userid")
         print(userID, "USER ID IS HERE")
-        let params = ["user_name": "\(USERDETAILS.firstName) \(USERDETAILS.lastname)",  "user_contact_no":"\(USERDETAILS.mobile)",  "fcm_id":"\(fcm!)","user_photo":"\(USERDETAILS.imageurl)","user_email":"\(USERDETAILS.email)","password":"\(USERDETAILS.mobile)","device":"Ios"] as Dictionary<String, String>
+        let params = ["user_name": "\(USERDETAILS.firstName) \(USERDETAILS.lastname)",  "user_contact_no":"\(USERDETAILS.mobile)",  "fcm_id":"\(fcm!)","user_photo":"\(USERDETAILS.imageurl)","user_email":"\(USERDETAILS.email)","password":"\(USERDETAILS.mobile)","device":"iPhone"] as Dictionary<String, String>
         print(params)
         MakeHttpPostRequestChat(url: kXMPP.registerUSER, params: params, completion: {(success, response) in
             
@@ -499,7 +445,7 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
                     contact_number: item.user_contact_no,
                     fcm_id: "",
                     is_mine: "0",
-                    is_typing: "0",
+                    is_typing: "",
                     last_msg: "",
                     last_msg_type: "",
                     last_msg_time: "",
@@ -563,6 +509,8 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         return results.count > 0
     }
     
+
+    
    
     private func createFriendEntityFrom(item: Friend) {
         
@@ -622,8 +570,6 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         
         // update friend profile
         
-        print(friendID)
-        
         let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Friends")
         fetchRequest.predicate = NSPredicate(format: "contact_number = %@", friendID)
@@ -650,7 +596,7 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
                 do{
                     try context.save()
                     
-                    self.tblView.reloadData()
+                   // self.tblView.reloadData()
                     
                 }catch{
                     print("Error in update")
@@ -677,6 +623,8 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         searchBar.text = ""
         searchBar.endEditing(true)
         
+        self.isSearching = false
+        
         
         do {
             
@@ -696,17 +644,29 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         
          do {
             
-            self.fetchedhResultController.fetchRequest.predicate =  NSPredicate(format: "name CONTAINS %@", searchText)
+            self.isSearching = true
             
-             try self.fetchedhResultController.performFetch()
-            self.tblView.reloadData()
+            if searchText.count != 0 {
+                
+                self.fetchedhResultController.fetchRequest.predicate =  NSPredicate(format: "name CONTAINS %@", searchText)
+                
+                try self.fetchedhResultController.performFetch()
+                self.tblView.reloadData()
+                
+            }else{
+                
+                self.fetchedhResultController.fetchRequest.predicate =  nil
+                try self.fetchedhResultController.performFetch()
+                self.tblView.reloadData()
+            }
+
+         
         } catch let error  {
             print("ERROR: \(error)")
         }
     }
     
-    /**** API Call *****/
-    
+
   
 }
 
@@ -714,7 +674,7 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
 extension FriendListVC: NSFetchedResultsControllerDelegate {
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        
+
         switch type {
         case .insert:
             self.tblView.insertRows(at: [newIndexPath!], with: .automatic)
@@ -727,6 +687,8 @@ extension FriendListVC: NSFetchedResultsControllerDelegate {
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         self.tblView.endUpdates()
+        self.tblView.reloadData()
+        
     }
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
