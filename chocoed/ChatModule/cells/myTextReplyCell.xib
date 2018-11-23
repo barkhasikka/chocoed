@@ -38,7 +38,6 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Mf-jv-ixq">
                                         <rect key="frame" x="8" y="42" width="56" height="10"/>
-                                        <color key="backgroundColor" red="0.33333333329999998" green="0.1176470588" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="56" id="TiS-G0-m1o"/>
                                             <constraint firstAttribute="height" constant="10" id="fJB-hj-oyP"/>
@@ -68,7 +67,7 @@
                                         <rect key="frame" x="145" y="5" width="41" height="40"/>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="191" id="6Kj-HX-N0H"/>
                                     <constraint firstItem="4hn-9x-RBA" firstAttribute="top" secondItem="7aK-aD-k0q" secondAttribute="top" id="9Az-pU-2a6"/>
@@ -92,7 +91,6 @@
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CYx-5g-OnQ">
                                 <rect key="frame" x="5" y="67" width="191" height="20.5"/>
-                                <color key="backgroundColor" red="0.8553497779" green="0.8352974286" blue="0.20380744000000001" alpha="0.95205479449999997" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="191" id="HN4-Y2-5lE"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" id="gnD-5r-8Ca"/>
@@ -110,7 +108,6 @@
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6fO-sU-qGX">
                                 <rect key="frame" x="101" y="134" width="79" height="10"/>
-                                <color key="backgroundColor" red="0.15261782879999999" green="0.54715570979999995" blue="0.93766191710000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="10" id="5vX-Hj-N9f"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="79" id="jXM-ii-b4U"/>
@@ -120,7 +117,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.91118734140000002" green="0.0" blue="0.0084973191279999992" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="CeL-e9-uJu" firstAttribute="leading" secondItem="6fO-sU-qGX" secondAttribute="trailing" constant="3" id="1Eq-Vi-pp4"/>
                             <constraint firstItem="7aK-aD-k0q" firstAttribute="leading" secondItem="sCr-vg-IYJ" secondAttribute="leading" constant="5" id="4jw-bx-fwV"/>
