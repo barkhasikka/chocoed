@@ -11,6 +11,9 @@ import UIKit
 class MyFileViewCell: UITableViewCell {
     
     
+    
+    @IBOutlet var lblDate: UILabel!
+    
     @IBOutlet var progressView: UIActivityIndicatorView!
     
     

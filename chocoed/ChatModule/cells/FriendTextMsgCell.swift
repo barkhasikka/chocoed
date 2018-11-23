@@ -19,6 +19,8 @@ class FriendTextMsgCell: UITableViewCell {
     @IBOutlet var lblTime: UILabel!
     
     
+    @IBOutlet var lblDate: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

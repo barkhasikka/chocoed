@@ -11,12 +11,18 @@ import UIKit
 class MyTextMsgCell: UITableViewCell {
     
     
+    
+    
+    
     @IBOutlet var imgAck: UIImageView!
     @IBOutlet var profileImga: UIImageView!
     @IBOutlet var lblMsg: UILabel!
     @IBOutlet var lblTime: UILabel!
     
     @IBOutlet var mainView: UIView!
+    
+    
+    @IBOutlet var lblDate: UILabel!
     
     
     override func awakeFromNib() {

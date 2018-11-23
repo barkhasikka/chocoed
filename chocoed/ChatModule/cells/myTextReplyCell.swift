@@ -11,6 +11,7 @@ import UIKit
 class myTextReplyCell: UITableViewCell {
     
     
+    @IBOutlet var lbDat: UILabel!
     
     @IBOutlet var replyView: UIView!
     

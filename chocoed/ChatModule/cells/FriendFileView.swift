@@ -11,6 +11,14 @@ import UIKit
 class FriendFileView: UITableViewCell {
     
     
+    
+    
+    @IBOutlet var lblDate: UILabel!
+    
+    
+    @IBOutlet var btnDownload: UIButton!
+    
+    
     @IBOutlet var progressView: UIActivityIndicatorView!
     
     @IBOutlet var mainView: UIView!

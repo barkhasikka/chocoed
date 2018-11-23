@@ -45,24 +45,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         
+        if let userInfo = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] {
+
+            
+             NSLog("[RemoteNotification] applicationState: \(applicationStateString) didFinishLaunchingWithOptions for iOS9: \(userInfo)")
+          
+             // self.openVC()
+
+            
+        }
+        
+        
        
         FirebaseApp.configure()
         application.registerForRemoteNotifications()
         Messaging.messaging().delegate = self
-    
-        
-        requestNotificationAuthorization(application: application)
-        if let userInfo = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] {
-            NSLog("[RemoteNotification] applicationState: \(applicationStateString) didFinishLaunchingWithOptions for iOS9: \(userInfo)")
-            //TODO: Handle background notification
-            
-            
-        }
-        
-       // FirebaseApp.configure()
         
         CoreDataStack.sharedInstance.applicationDocumentsDirectory()
-       // OneMessage.sharedInstance.delegate = self
 
         
         OneChat.start(true, delegate: nil) { (stream, error) -> Void in
@@ -71,64 +70,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("errors from appdelegate")
             } else {
                 print("Yayyyy")
-                //Activate online UI
-                
-                
-                
-            }
-        }
-        
-        
-        
-        // Override point for customization after application launch.
-        let userID = UserDefaults.standard.integer(forKey: "userid")
-        UserDefaults.standard.set("en", forKey: "currentlanguage")
-        print(userID)
-        if userID != 0 {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 8) { // change 2 to desired number of seconds
-                self.GetUserInfo()
-                
-                
-                
-                
-            }
-                  } else {
-           /* let quiztakenid = UserDefaults.standard.string(forKey: "quiztakenID")
-            print(quiztakenid)
-            if quiztakenid == "1"{
-                self.window = UIWindow(frame: UIScreen.main.bounds)
-                let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
-                let navigationController = UINavigationController(rootViewController: startVC)
-                self.window!.rootViewController = navigationController
-            }
-            else{ */
-            
-            
-            
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
-
-                self.window = UIWindow(frame: UIScreen.main.bounds)
-                let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "firstview") as! ViewController
-                self.window!.rootViewController = startVC
-                self.window!.makeKeyAndVisible()
-
-            }
-
-
-           // }
-
-        }
-        
     
-    
-        //window!.makeKeyAndVisible()
+            }
+          }
 
+        requestNotificationAuthorization(application: application)
+            
+            self.openVC()
+        
+       // }
+        
         return true
     }
 
+        
+        func openVC(){
+            
+            let userID = UserDefaults.standard.integer(forKey: "userid")
+            UserDefaults.standard.set("en", forKey: "currentlanguage")
+            if userID != 0 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 8) { // change 2 to desired number of seconds
+                    self.GetUserInfo()
+                    
+                }
+            }
+                else {
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
+                        
+                       // self.window = UIWindow(frame: UIScreen.main.bounds)
+                        let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                        let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "firstview") as! ViewController
+                        self.window!.rootViewController = startVC
+                        self.window!.makeKeyAndVisible()
+                        
+                    }
+                }
+                
+            
+        }
     
     var applicationStateString: String {
         if UIApplication.shared.applicationState == .active {
@@ -212,19 +192,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 DispatchQueue.main.async {
                   
                    // self.window = UIWindow(frame: UIScreen.main.bounds)
-                    let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                     let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
                     let aObjNavi = UINavigationController(rootViewController: startVC)
                     aObjNavi.navigationBar.barTintColor = UIColor.blue
                     self.window!.rootViewController = aObjNavi
                     self.window!.makeKeyAndVisible()
+                 
  
                     
                    /* let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                     let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
                     self.window!.rootViewController = startVC
                     self.window!.makeKeyAndVisible()
-                    */
+                   */
+                    
                 }
                 
             } else {
@@ -234,13 +216,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                     let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "profileSuccess") as! ProfileSucessViewController
                     self.window!.rootViewController = startVC
-                    self.window!.makeKeyAndVisible() 
+                    self.window!.makeKeyAndVisible()
                     
-                 /*   let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    
+                  /*   let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                     let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
                     self.window!.rootViewController = startVC
                     self.window!.makeKeyAndVisible()
                    */
+                   
                     
                     
                     
@@ -690,7 +674,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         let userInfo = response.notification.request.content.userInfo
         NSLog("[UserNotificationCenter] applicationState: \(applicationStateString) didReceiveResponse: \(userInfo)")
         
-        if let msg = userInfo["gcm.notification.type"] as? String {
+       /* if let msg = userInfo["gcm.notification.type"] as? String {
             print(msg,"<<<<<< NOTIFICATION TYPE333 >>>>>>")
             if  msg == "chat" {
                 print(msg,"<<<<<< Chat Msg>>>>>>")
@@ -700,7 +684,13 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
                 self.saveMsg(friendID: friid, msg: msg, msgID: msgid)
             }
         }
-       
+        
+        /*let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "firstview") as! ViewController
+        self.window!.rootViewController = startVC */
+        
+        
+         self.openVC() */
         //TODO: Handle background notification
         completionHandler()
     }

@@ -114,74 +114,49 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         
     }
     
+    private func saveImage(fileurl:String) {
+        
+        let msgId = self.getCurrentTime()
+        self.createMsgEntityFrom(item: Message(
+            msg: "",
+            msgId: msgId,
+            msgType: kXMPP.TYPE_IMAGE,
+            msgACk: "3",
+            fromID: USERDETAILS.mobile,
+            toID: self.friendModel.contact_number,
+            fileUrl: fileurl,
+            isUpload: "0",
+            isDownload: "0",
+            isStreaming: "0",
+            isMine: "1",
+            created: self.getCurrentTime(),
+            status: "",
+            modified: self.getCurrentTime(),
+            is_permission: "0", replyTitle: "", replyMsgType: "", replyMsgId: "", replyMsgFile: "", replyMsg: ""))
+        self.tblView.reloadData()
+        self.scrollToBottom()
+        
+       /// self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: "Photo", msg_type: kXMPP.TYPE_IMAGE, isMine: "1" , friendID: self.friendModel.contact_number)
+        
+        
+        
+    }
+    
     func openGallary(){
-        
-        
         imagePicker.didSelectImage = { [unowned imagePicker] img in
-            // image picked
-            //print(img.size)
-            
-            let url = self.savefiletoDirector(image: img)
             self.imagePicker.dismiss(animated: true, completion: nil)
-            let msgId = self.getCurrentTime()
-            self.createMsgEntityFrom(item: Message(
-                msg: "",
-                msgId: msgId,
-                msgType: kXMPP.TYPE_IMAGE,
-                msgACk: "3",
-                fromID: USERDETAILS.mobile,
-                toID: self.friendModel.contact_number,
-                fileUrl: url,
-                isUpload: "0",
-                isDownload: "0",
-                isStreaming: "0",
-                isMine: "1",
-                created: self.getCurrentTime(),
-                status: "",
-                modified: self.getCurrentTime(),
-                is_permission: "0", replyTitle: "", replyMsgType: "", replyMsgId: "", replyMsgFile: "", replyMsg: ""))
-            
-            self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: "Photo", msg_type: kXMPP.TYPE_IMAGE, isMine: "1" , friendID: self.friendModel.contact_number)
-            
-           // self.tblView.reloadData()
-           // self.scrollToBottom()
-            
-            
+            let url = self.savefiletoDirector(image: img)
+            self.saveImage(fileurl: url)
         }
-        
         present(imagePicker, animated: true, completion: nil)
-        
-
-
     }
     
     func openCamera(){
         
         imagePicker.didSelectImage = { [unowned imagePicker] img in
-            // image picked
-           
-            let url = self.savefiletoDirector(image: img)
             self.imagePicker.dismiss(animated: true, completion: nil)
-            let msgId = self.getCurrentTime()
-            self.createMsgEntityFrom(item: Message(
-                msg: "",
-                msgId: msgId,
-                msgType: kXMPP.TYPE_IMAGE,
-                msgACk: "0",
-                fromID: USERDETAILS.mobile,
-                toID: self.friendModel.contact_number,
-                fileUrl: url,
-                isUpload: "0",
-                isDownload: "0",
-                isStreaming: "0",
-                isMine: "1",
-                created: self.getCurrentTime(),
-                status: "",
-                modified: self.getCurrentTime(),
-                 is_permission: "0", replyTitle: "", replyMsgType: "", replyMsgId: "", replyMsgFile: "", replyMsg: ""))
-            
-            //self.tblView.reloadData()
-            //self.scrollToBottom()
+            let url = self.savefiletoDirector(image: img)
+            self.saveImage(fileurl: url)
         }
         present(imagePicker, animated: true, completion: nil)
     }
@@ -331,10 +306,14 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     
     func oneStream(_ sender: XMPPStream, userIsComposing user: XMPPUserCoreDataStorageObject) {
         
-        self.lblCurrentStatus.text = "Typing..."
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-            self.lblCurrentStatus.text = "Online"
-        })
+        let userData = (user.jidStr)!.components(separatedBy: "@")
+        if userData[0] == self.friendModel.contact_number {
+            self.lblCurrentStatus.text = "Typing..."
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                self.lblCurrentStatus.text = "Online"
+            })
+        }
+        
         
     
     }
@@ -360,7 +339,12 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         UserDefaults.standard.set("", forKey: "chatNo")
-        self.updateReadCount()
+        //self.updateReadCount()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.scrollToBottom()
+        self.updateTableContentInset()
     }
     
     override func viewDidLoad() {
@@ -397,6 +381,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         
         self.tblView.estimatedRowHeight = 120.0
         self.tblView.rowHeight = UITableViewAutomaticDimension
+        self.tblView.estimatedSectionHeaderHeight = 60.0
         
         let myTextNib = UINib(nibName: "MyTextMsgCell", bundle: Bundle.main)
         self.tblView.register(myTextNib, forCellReuseIdentifier: "MyTextMsgCell")
@@ -428,14 +413,10 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         
         do {
             try self.fetchedhResultController.performFetch()
-            ///print("COUNT FETCHED FIRST: \(self.fetchedhResultController.sections?[0].numberOfObjects)")
-            
-            self.scrollToBottom()
-            
-           // self.tblView.reloadData()
-           // if self.fetchedhResultController.sections?[0].numberOfObjects != 0{
-               // self.scrollToBottom()
-            //}
+            //if self.fetchedhResultController.sections?[0].numberOfObjects != 0{
+                //self.tblView.reloadData()
+                //self.scrollToBottom()
+           // }
         } catch let error  {
             print("ERROR: \(error)")
         }
@@ -455,12 +436,13 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             self.sendForwardedMsg()
         }
         
-        self.updateTableContentInset()
         
 
     
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
+    
+        self.getMsgDates(friendID: self.friendModel.contact_number)
 
     }
     
@@ -750,11 +732,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     
     func getFriendStatus(){
         
-        if self.getFriend(id: self.friendModel.contact_number) == "yes" {
-            self.lblCurrentStatus.text = "Typing..."
-        }
-
-        
+     
         OneLastActivity.sendLastActivityQueryToJID(("\(self.friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal"), sender: OneChat.sharedInstance.xmppLastActivity) { (response, forJID, error) -> Void in
             
             if response != nil {
@@ -764,7 +742,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             
             self.lblCurrentStatus.text = lastActivityResponse
                
-                if self.lblCurrentStatus.text == "last seen on"{
+                if self.lblCurrentStatus.text == "last seen on "{
                     self.lblCurrentStatus.text = "last seen never been online"
                   }
             
@@ -997,6 +975,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
  
     @IBAction func back_btn_clicked(_ sender: Any) {
         
+        self.type = ""
         self.isMuliselectActionChecked = false
         self.toolbar.isHidden = false
         self.actionView.isHidden = true
@@ -1022,11 +1001,51 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+       
+        
+        
     
        // let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! MsgCell
         
         if let item = fetchedhResultController.object(at: indexPath) as? Msg {
             //cell.setMsgCellWith(item: item)
+            
+            var isMyProfileShow = true
+            var isDateShow = true
+            var showDate = ""
+            
+            if indexPath.row  - 1 >= 0 {
+            
+            let prevPath = IndexPath(row: indexPath.row - 1, section: 0)
+            
+                if let prevItem = fetchedhResultController.object(at: prevPath) as? Msg {
+                if item.is_mine == prevItem.is_mine {
+                    isMyProfileShow = false
+                }else{
+                    isMyProfileShow = true
+                }
+                    
+              }
+                
+                
+               // let prevPath = IndexPath(row: indexPath.row - 1, section: 0)
+                if let prevItem = fetchedhResultController.object(at: prevPath) as? Msg {
+                    
+                    if Utils.getMsgDate(date: item.created!) == Utils.getMsgDate(date: prevItem.created!) {
+                       
+                        isDateShow = false
+                        
+                    }else{
+                        isDateShow = true
+                    }
+                }
+                
+                
+                
+            }
+            
+           
+        
             
             
             if item.is_mine == "1" {
@@ -1075,6 +1094,14 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     }
                     
                     
+                    if isMyProfileShow == true {
+                        
+                        cell.imgProfile?.isHidden = false
+                        
+                    }else{
+                        cell.imgProfile?.isHidden = true
+
+                    }
                     
                     cell.imgProfile?.sd_setImage(with : URL(string: USERDETAILS.imageurl))
                     cell.imgProfile?.layer.cornerRadius = (cell.imgProfile?.frame.width)! / 2
@@ -1105,6 +1132,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     
                     
                     let cell = tableView.dequeueReusableCell(withIdentifier: "MyTextMsgCell", for: indexPath) as! MyTextMsgCell
+                    
+                   
                     // cell.item = item
                     cell.lblMsg?.numberOfLines = 0
                     cell.lblMsg?.text = " "+item.msg+" "
@@ -1130,6 +1159,28 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     }
                     
                     
+                    if isMyProfileShow == true {
+                        
+                        cell.profileImga?.isHidden = false
+                        
+                    }else{
+                        cell.profileImga?.isHidden = true
+                        
+                    }
+                    
+                    if isDateShow == true {
+                      cell.lblDate?.isHidden = false
+                     //cell.lblDate.frame.size.height = 30
+                     //cell.lblDate.layer.cornerRadius = 10
+                       
+                        
+                        cell.lblDate?.text = Utils.getMsgDate(date: item.created!)
+
+                    }else{
+                       cell.lblDate?.isHidden = true
+                       // cell.lblDate.frame.size.height = 0
+
+                    }
                     
                     cell.profileImga?.sd_setImage(with : URL(string: USERDETAILS.imageurl))
                     cell.profileImga?.layer.cornerRadius = (cell.profileImga?.frame.width)! / 2
@@ -1139,6 +1190,9 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     cell.mainView?.layer.cornerRadius = 6
                     cell.mainView?.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
                     cell.mainView?.layer.borderWidth = 1
+                    
+                    
+                    
                     
                     
                     if self.selectedArr.contains(item){
@@ -1180,6 +1234,14 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         cell.msgAck.isHidden = true
                     }
                     
+                    if isMyProfileShow == true {
+                        
+                        cell.profileImage?.isHidden = false
+                        
+                    }else{
+                        cell.profileImage?.isHidden = true
+                        
+                    }
                     
                     cell.profileImage?.sd_setImage(with : URL(string: USERDETAILS.imageurl))
                     cell.profileImage?.layer.cornerRadius = (cell.profileImage?.frame.width)! / 2
@@ -1198,19 +1260,21 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     if item.is_download == "0" {
                         
                         cell.progressView.isHidden = false
+                        cell.progressView.startAnimating()
 
                         
                         if item.is_streaming == "0" {
                             
                             cell.btnUpload.isHidden = true
+                            cell.progressView.stopAnimating()
+
                             
                             
                             SDWebImageManager.shared().imageDownloader?.downloadImage(with:  URL(string: item.file_url), options: .continueInBackground, progress: nil, completed: {(image : UIImage?,data:Data?,error:Error?,finished:Bool)
                                 in
                                 
                                 if image != nil {
-                                    
-                                self.updateMsg(msg_id: item.msg_id, type : "streaming" ,value: "1")
+                                     self.updateMsg(msg_id: item.msg_id, type : "streaming" ,value: "1")
 
                                   self.uploadImageToServer(image: image!, msgId: item.msg_id)
                             
@@ -1238,6 +1302,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     }else{
                         cell.btnUpload.isHidden = true
                         cell.progressView.isHidden = true
+                        cell.progressView.stopAnimating()
+
                     }
                     
                     if self.selectedArr.contains(item){
@@ -1283,6 +1349,15 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     cell.mainView?.layer.cornerRadius = 6
                     cell.mainView?.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
                     cell.mainView?.layer.borderWidth = 1
+                    
+                    if isMyProfileShow == true {
+                        
+                        cell.profileImage?.isHidden = false
+                        
+                    }else{
+                        cell.profileImage?.isHidden = true
+                        
+                    }
                     
                     cell.profileImage?.sd_setImage(with : URL(string: USERDETAILS.imageurl))
                     cell.profileImage?.layer.cornerRadius = (cell.profileImage?.frame.width)! / 2
@@ -1334,6 +1409,14 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     cell.msgTime?.text  = Utils.getTimeFromString(date: item.created!)
                     cell.msgTime?.frame.size = (cell.msgTime?.intrinsicContentSize)!
                   
+                    if isMyProfileShow == true {
+                        
+                        cell.profileImage?.isHidden = false
+                        
+                    }else{
+                        cell.profileImage?.isHidden = true
+                        
+                    }
                     
                     cell.profileImage?.sd_setImage(with : URL(string: self.friendModel.profile_image))
                     cell.profileImage?.layer.cornerRadius = (cell.profileImage?.frame.width)! / 2
@@ -1367,6 +1450,37 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                 
                 cell.lblMsg?.text = item.msg
                 cell.lblTime?.text  = Utils.getTimeFromString(date: item.created!)
+                    
+                    if isMyProfileShow == true {
+                        
+                        cell.profileImage?.isHidden = false
+                        
+                    }else{
+                        cell.profileImage?.isHidden = true
+                        
+                    }
+                    
+                  /*  if isDateShow == true {
+                       // cell.lblDate?.isHidden = false
+                        cell.lblDate.frame.size.height = 30
+                        cell.lblDate.layer.cornerRadius = 10
+                        cell.lblDate?.text = Utils.getMsgDate(date: item.created!)
+                        
+                    }else{
+                       // cell.lblDate?.isHidden = true
+                        cell.lblDate.frame.size.height = 0
+                        
+                    } */
+                    
+                    
+                    if isDateShow == true {
+                        cell.lblDate?.isHidden = false
+                        cell.lblDate?.text = Utils.getMsgDate(date: item.created!)
+                    }else{
+                        cell.lblDate?.isHidden = true
+
+                    }
+                    
                 cell.profileImage?.sd_setImage(with : URL(string: self.friendModel.profile_image))
                 cell.profileImage?.layer.cornerRadius = (cell.profileImage?.frame.width)! / 2
                 cell.profileImage?.clipsToBounds = true
@@ -1395,6 +1509,12 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     cell.lblTime?.text  = Utils.getTimeFromString(date: item.created!)
                     cell.lblTime?.frame.size = (cell.lblTime?.intrinsicContentSize)!
                     
+                    if isMyProfileShow == true {
+                        cell.profileImage.isHidden = false
+                    }else{
+                        cell.profileImage.isHidden = true
+                    }
+                    
                     cell.profileImage?.sd_setImage(with : URL(string: self.friendModel.profile_image))
                     cell.profileImage?.layer.cornerRadius = (cell.profileImage?.frame.width)! / 2
                     cell.profileImage?.clipsToBounds = true
@@ -1408,8 +1528,15 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     cell.mainView?.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
                     cell.mainView?.layer.borderWidth = 1
                     
-                    cell.fileView?.sd_setImage(with: URL(string: item.file_url), placeholderImage: UIImage(named: "image_placeholder"), options: .continueInBackground, progress: nil, completed: nil)
+                   /* cell.fileView?.sd_setImage(with: URL(string: item.file_url), placeholderImage: UIImage(named: "image_placeholder"), options: .continueInBackground, progress: nil, completed: nil)
                     cell.fileView?.contentMode = .scaleToFill
+                    
+                    let blureffect = UIBlurEffect(style: UIBlurEffectStyle
+                        .regular)
+                    let blueeffectView = UIVisualEffectView(effect: blureffect)
+                    blueeffectView.frame = (cell.fileView?.bounds)!
+                    blueeffectView.autoresizingMask = [.flexibleWidth , .flexibleHeight]
+                    cell.fileView?.addSubview(blueeffectView) */
                     
                     
                  /*  if item.is_permission == "1" {
@@ -1426,17 +1553,46 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         
                     }else {  */
                     
-                    cell.progressView.isHidden = true
+                   // cell.progressView.isHidden = true
+                    
+                    
 
                     
                     if item.is_download == "0" {
                         
                         
-                        if item.is_streaming == "0"{
+                        if item.is_streaming == "1" {
                             
+                            cell.btnDownload.isHidden = true
                             cell.progressView.isHidden = false
 
+                        }else{
+                        
+                            cell.btnDownload.isHidden = false
+                            cell.progressView.isHidden = true
+                          
+                        }
+                        
+                        
+                        cell.fileView?.sd_setImage(with: URL(string: item.file_url), placeholderImage: UIImage(named: "image_placeholder"), options: .continueInBackground, progress: nil, completed: nil)
+                        cell.fileView?.contentMode = .scaleToFill
+                        
+                        let blureffect = UIBlurEffect(style: UIBlurEffectStyle
+                            .regular)
+                        let blueeffectView = UIVisualEffectView(effect: blureffect)
+                        blueeffectView.frame = (cell.fileView?.bounds)!
+                        blueeffectView.autoresizingMask = [.flexibleWidth , .flexibleHeight]
+                        cell.fileView?.addSubview(blueeffectView)
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                     /*  if item.is_streaming == "0"{
                             
+                            cell.progressView.isHidden = false
                             self.updateMsg(msg_id: item.msg_id, type : "streaming" ,value: "1")
                         
                         SDWebImageManager.shared().imageDownloader?.downloadImage(with:  URL(string: item.file_url), options: .continueInBackground, progress: nil, completed: {(image : UIImage?,data:Data?,error:Error?,finished:Bool)
@@ -1446,8 +1602,6 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                                 
                                 cell.progressView.isHidden = true
                                 
-                                
-
                                 let localURL  = self.savefiletoDirector(image: image!)
                                 UIImageWriteToSavedPhotosAlbum(image!, self, nil, nil)
                                 
@@ -1461,9 +1615,17 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                             
                         })
                             
-                        }
-                      }
-                  //  }
+                        } */
+                    }else{
+                        cell.btnDownload.isHidden = true
+                        cell.progressView.isHidden = true
+
+                        
+                        cell.fileView?.sd_setImage(with: URL(string: item.file_url), placeholderImage: UIImage(named: "image_placeholder"), options: .continueInBackground, progress: nil, completed: nil)
+                        cell.fileView?.contentMode = .scaleToFill
+                        
+                    }
+                 
  
                     if self.selectedArr.contains(item){
                         
@@ -1483,6 +1645,12 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     
                     cell.lblTime?.text  = Utils.getTimeFromString(date: item.created!)
                     cell.lblTime?.frame.size = (cell.lblTime?.intrinsicContentSize)!
+                    
+                    if isMyProfileShow == true {
+                        cell.profileImage?.isHidden = false
+                    }else{
+                        cell.profileImage?.isHidden = true
+                    }
                     
                     cell.profileImage?.sd_setImage(with : URL(string: self.friendModel.profile_image))
                     cell.profileImage?.layer.cornerRadius = (cell.profileImage?.frame.width)! / 2
@@ -1562,6 +1730,59 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     }
     
     
+  /*  func numberOfSections(in tableView: UITableView) -> Int {
+        
+        if let sections = fetchedhResultController.sections {
+            return sections.count
+        }
+        
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = UIColor.black
+    }
+    
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    
+        if let numberOfObjects = fetchedhResultController.sections?[section].indexTitle {
+            
+            let df = DateFormatter()
+            df.dateFormat = "yyyy-MM-DD" // Date format for exerciseDate
+            let exerciseDate = df.date(from: numberOfObjects)
+            let currentDate = NSDate()
+            let result = currentDate.compare(exerciseDate!)
+            let TommorrowDate = currentDate.addingTimeInterval(60 * 60 * 24)
+            let result1 = TommorrowDate.compare(exerciseDate!)
+            
+            if result == ComparisonResult.orderedSame
+            {
+                
+                return "TODAY"
+                
+            }
+            if result1 == ComparisonResult.orderedSame
+            {
+                
+                return "TOMMORROW"
+                
+                
+            }
+            
+            let df1 = DateFormatter()
+            df1.dateFormat = "dd MMMM, yyyy"
+            
+            
+            return df1.string(from: exerciseDate!)
+            
+        }
+        
+        return nil
+    }
+  */
     
     
     
@@ -1643,12 +1864,38 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                 }else{
                     
                     if item?.msg_type != kXMPP.TYPE_REPLY  {
+                        
+                        if item?.is_download == "0" {
+                            
+                            self.updateMsg(msg_id: (item?.msg_id)!, type: "streaming", value: "1")
+                            
+                            
+                            SDWebImageManager.shared().imageDownloader?.downloadImage(with:  URL(string: (item?.file_url)!), options: .continueInBackground, progress: nil, completed: {(image : UIImage?,data:Data?,error:Error?,finished:Bool)
+                                in
+                                
+                                if image != nil {
+                                    
+                                    
+                                    let localURL  = self.savefiletoDirector(image: image!)
+                                    UIImageWriteToSavedPhotosAlbum(image!, self, nil, nil)
+                                    
+                                    self.updateMsg(msg_id: (item?.msg_id)!, type : "download" ,value: "1")
+                                    self.updateMsg(msg_id: (item?.msg_id)!, type : "file" ,value: localURL)
+                                    
+                                }
+                                
+                                
+                                
+                            })
+                            
+                        }else{
                     
                     if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "FileViewerVC") as? FileViewerVC {
                         vcNewSectionStarted.fileURL = (item?.file_url)!
                         vcNewSectionStarted.type = (item?.msg_type)!
                         self.present(vcNewSectionStarted, animated: true, completion: nil)
                     }
+                        }
                  }
                     
                 }
@@ -1684,6 +1931,39 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     
     
     /**** CORE DATA ****/
+    
+    private func getMsgDates(friendID : String){
+        
+        var data = [String]()
+        
+        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Msg")
+        fetchRequest.predicate = NSPredicate(format: "to_id = %@", friendID)
+        fetchRequest.propertiesToFetch = ["created"]
+       // fetchRequest.resultType = NSFetchRequestResultType.dictionaryResultType
+        fetchRequest.returnsDistinctResults = true
+        
+        var results : [NSManagedObject] = []
+        
+        do{
+            results = try context.fetch(fetchRequest)
+            
+                if results.count != 0 {
+                
+                   for r  in results {
+                    let item = r as? Msg
+                    data.append((item?.created)!)
+                   }
+
+                print(data,"<<<Data>>")
+                
+            }
+            
+        }catch{
+            print("error executing request")
+        }
+        
+    }
     
     private func updateMsgAck(friendID : String){
         
@@ -1770,8 +2050,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             
         try context.save()
             
-           // self.tblView.reloadData()
-           // self.scrollToBottom()
+            self.tblView.reloadData()
+            self.scrollToBottom()
             
     
           }catch{
@@ -2174,12 +2454,6 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     }
     
     
-    
-    
-    
-    
-    
-    
 
     /* ***********8 FILE UPLAD API *********/
     
@@ -2248,6 +2522,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         OneMessage.sendMessage(msg!,msgId: json?.object(forKey: "msg_id") as! String  ,thread: "test", to:"\(self.friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
                         
                              self.updateMsg(msg_id: json?.object(forKey: "msg_id") as! String , type : "upload" ,value: "1")
+                            // self.updateMsg(msg_id: json?.object(forKey: "msg_id") as! String , type : "msg_ack" ,value: "1")
                         })
                         
                         
@@ -2473,15 +2748,21 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             
             let contentInset = UIEdgeInsetsMake(0.0, 0.0, keyboardSize.height, 0.0)
             self.tblView.contentInset = contentInset
-            let indexPath = IndexPath(row: count - 1, section: 0)
+                
+                self.scrollToBottom()
+          /*  let indexPath = IndexPath(row: count - 1, section: 0)
             self.tblView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.bottom, animated: true)
-            self.tblView.scrollIndicatorInsets = self.tblView.contentInset
+            self.tblView.scrollIndicatorInsets = self.tblView.contentInset */
+
             
             }
             
             
             self.bottomView.frame.origin.y -= keyboardSize.height
             self.replyView.frame.origin.y -= keyboardSize.height
+            
+           // self.updateTableContentInset()
+
             
         }
     }
@@ -2494,12 +2775,17 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             //    self.tblView.frame.origin.y += keyboardSize.height
            // }
             
-            let contentInset = UIEdgeInsetsMake(0.0, 0.0, 40, 0.0)
+            let contentInset = UIEdgeInsetsMake(0.0, 0.0, 60, 0.0)
             self.tblView.contentInset = contentInset
             self.tblView.scrollIndicatorInsets = self.tblView.contentInset
             
             self.bottomView.frame.origin.y += keyboardSize.height
             self.replyView.frame.origin.y += keyboardSize.height
+            
+            //self.tblView.reloadData()
+            self.updateTableContentInset()
+            //self.scrollToBottom()
+
             
         
         }
@@ -2513,7 +2799,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         
         if count != 0 {
             let indexPath = IndexPath(row: count - 1, section: 0)
-            self.tblView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.bottom, animated: true)
+            self.tblView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.bottom, animated: false)
             self.tblView.scrollIndicatorInsets = self.tblView.contentInset
         }
        
@@ -2539,6 +2825,19 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         }
         
         return ""
+    }
+    
+    
+   public  func reloadData(){
+    if self.tblView != nil {
+        self.tblView.reloadData()
+        self.updateTableContentInset()
+       /* let contentInset = UIEdgeInsetsMake(0.0, 0.0, 20, 0.0)
+        self.tblView.contentInset = contentInset
+        self.tblView.scrollIndicatorInsets = self.tblView.contentInset */
+       // self.scrollToBottom()
+      }
+    
     }
     
  
@@ -2584,8 +2883,10 @@ extension ChatVC: NSFetchedResultsControllerDelegate {
             self.tblView.insertRows(at: [newIndexPath!], with: .automatic)
         case .delete:
             self.tblView.deleteRows(at: [indexPath!], with: .automatic)
-        case .update:
-                self.tblView.reloadData()
+       // case .update:
+           //self.tblView.reloadData()
+           // self.scrollToBottom()
+           // self.updateTableContentInset()
         default:
             break
         }
@@ -2603,22 +2904,6 @@ extension ChatVC: NSFetchedResultsControllerDelegate {
     }
 }
 
-/*
-extension UITableView {
-    
-    func scrollToBottom(){
-        DispatchQueue.main.async {
-            let indexPath = IndexPath(row: se, section : self.numberOfSections - 1)
-            
-               self.scrollToRow(at: indexPath, at: .bottom, animated: true)
-            
-             // send seen ack
-           
-            
-        }
-    }
-}
- */
 
 
 

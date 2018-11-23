@@ -10,6 +10,7 @@ import UIKit
 
 class FriendTextReplyCell: UITableViewCell {
 
+    @IBOutlet var lblDate: UILabel!
     
     
     @IBOutlet var profileImage: UIImageView!

@@ -325,7 +325,22 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
                     
                     if item1.is_typing == "" || item1.is_typing == "no" {
                         
-                        cell.last_msg?.text = item.msg
+                        
+                        if item.msg_type == kXMPP.TYPE_TEXT ||  item.msg_type == kXMPP.TYPE_REPLY {
+                            
+                            cell.last_msg?.text = item.msg
+
+                        }else if item.msg_type == kXMPP.TYPE_IMAGE {
+                            
+                            cell.last_msg?.text = "Image"
+                            
+                        }else if item.msg_type == kXMPP.TYPE_PDF {
+                            
+                            cell.last_msg?.text = "Pdf"
+                            
+                        }
+                        
+                        
                         cell.last_msg?.textColor = UIColor.darkGray
                         
                         
@@ -387,6 +402,7 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         
 
         if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "ChatVC") as? ChatVC {
+           
             let item = fetchedhResultController.object(at: indexPath) as? Friends
             vcNewSectionStarted.friendModel = item
             vcNewSectionStarted.type = self.type

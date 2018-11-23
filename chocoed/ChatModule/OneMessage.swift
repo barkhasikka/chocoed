@@ -670,10 +670,17 @@ extension OneMessage: XMPPStreamDelegate {
                             
                             self.updateMsg(msg_id: message.attributeStringValue(forName: "id") ?? "", type:"delete_type", value: kXMPP.DELETE_TEXT_FRIEND)
                             
+                            if friendNo == friendID {
+                                let mainvc = ChatVC()
+                                mainvc.reloadData()
+                            }
+                            
                         })
                         
                         
                     }
+                    
+                    
                     
                 }
                 
@@ -689,9 +696,17 @@ extension OneMessage: XMPPStreamDelegate {
             if let _ = message.forName("received"){
                 
                 self.updateMsg(msg_id: message.forName("received")?.attributeStringValue(forName: "id") ?? "", type: "msg_ack", value: kXMPP.msgSent)
+                
+                
                 let userData = (user!.jidStr)!.components(separatedBy: "@")
                 self.updateFriendLastMsg(friendID: userData[0], value: kXMPP.msgSent)
 
+                
+                let friendNo = UserDefaults.standard.string(forKey: "chatNo")
+                if friendNo == userData[0] {
+                    let mainvc = ChatVC()
+                    mainvc.reloadData()
+                }
                 
               //  OneMessage.sharedInstance.delegate?.oneStream(sender, didReceiptReceive: message, from: user!)
             }

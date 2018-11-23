@@ -10,6 +10,31 @@ import UIKit
 
 class Utils: NSObject {
     
+    public static func getMsgDate(date : String) -> String {
+        
+        print(date)
+        
+        
+        if getCurrentData() == getDate(date: date){
+            
+            // print("Today")
+            
+            //let dateformat = DateFormatter()
+            //dateformat.dateFormat = "hh:mm a"
+            //print(dateformat.string(from: Date(milliseconds: Int(date)!)))
+            return  "Today"
+            
+            
+        }else{
+            
+            let dateformat = DateFormatter()
+            dateformat.dateFormat = "dd-MMM"
+            //print(dateformat.string(from: Date(milliseconds: Int(date)!)))
+            return  dateformat.string(from: Date(milliseconds: Int(date)!))
+            
+        }
+        
+    }
     
     
     public static func getDateFromString(date : String) -> String {
@@ -19,7 +44,7 @@ class Utils: NSObject {
         
         if getCurrentData() == getDate(date: date){
             
-            print("Today")
+           // print("Today")
             
             let dateformat = DateFormatter()
             dateformat.dateFormat = "hh:mm a"
