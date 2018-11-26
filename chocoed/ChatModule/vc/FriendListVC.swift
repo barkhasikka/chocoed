@@ -75,7 +75,14 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         
+         let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        
+        lblTitle.text = "ChatKey".localizableString(loc: language!)
+        lblNoFriendFound.text = "NoFriendFoundKey".localizableString(loc: language!)
+        
+        
         UserDefaults.standard.set("", forKey: "chatNo")
+        
         
         UIApplication.shared.cancelAllLocalNotifications()
         UIApplication.shared.applicationIconBadgeNumber = 0

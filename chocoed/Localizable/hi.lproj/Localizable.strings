@@ -118,3 +118,10 @@
 "alertcompletedAssessmentMsg" = " आपको अभी कुछ आकलन पूरे करने है.क्या आप उन्हें अभी करना चाहते हैं?";
 "BadgesEKey" = "Badges Earned";
 "TopicCompletedProgressKey" = "Topic Completed";
+"ChatKey" = "चैट";
+"NoFriendFoundKey" = "कोई दोस्त नहीं मिला, दोस्त जोड़ने के लिए + बटन पर टैप करें";
+"SearchFriendKey" = "दोस्तों को खोजें";
+
+
+
+

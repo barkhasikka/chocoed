@@ -118,3 +118,7 @@
 "alertcompletedAssessmentMsg" = "You have some assessments to be completed.Would you like to do them now ?";
 "BadgesEKey" = "Badges Earned";
 "TopicCompletedProgressKey" = "Topic Completed";
+"ChatKey" = "Chat";
+"NoFriendFoundKey" = "No Friend Found , Tap on + button to add friend";
+"SearchFriendKey" = "Search Friend";
+
