@@ -31,9 +31,11 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
         override func viewDidLoad() {
             super.viewDidLoad()
         
-            let backgroundImage = UIImageView(frame: CGRect(x: 0, y: 0, width: self.profileGradiantView.bounds.width, height: self.profileGradiantView.bounds.height))
+          //  let backgroundImage = UIImageView(frame: CGRect(x: 0, y: 0, width: self.profileGradiantView.bounds.width, height: self.profileGradiantView.bounds.height))
+//            profileGradiantView.backgroundColor = #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1)
+        let backgroundImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 315, height: 166))
             backgroundImage.image = UIImage(named: "Profile_page Gradient")
-            backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
+            backgroundImage.contentMode = UIViewContentMode.scaleToFill
             self.profileGradiantView.insertSubview(backgroundImage, at: 0 )
 
             
