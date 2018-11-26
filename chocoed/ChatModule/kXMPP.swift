@@ -12,6 +12,8 @@ public struct kXMPP {
 	public static let myJID: String = "myJID"
 	public static let myPassword: String = "myPass"
     
+
+    
     public static let msgSend: String = "0"
     public static let msgSent: String = "1"
     public static let msgSeen: String = "2"
@@ -23,6 +25,9 @@ public struct kXMPP {
     public static let TYPE_REPLY: String = "reply"
     public static let TYPE_PER_ASK: String = "per_ask"
     public static let TYPE_PER_GRANT: String = "per_grant"
+    
+    public static let SEEN_MSG : String = "..."
+
     
 
     public static let DELETE_TEXT_FRIEND : String = "This message has been deleted"

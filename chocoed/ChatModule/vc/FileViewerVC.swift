@@ -31,15 +31,28 @@ class FileViewerVC: UIViewController {
             
         }else if type == kXMPP.TYPE_PDF {
             
-            let pdfview = PDFView()
+          /*
+            let webView = UIWebView(frame: self.view.bounds)
+            print(pdf!)
+            let req = URLRequest(url: pdf!)
+            webView.loadRequest(req)
+            self.mainview.addSubview(webView)*/
+
+            let fileManager = FileManager.default
+            let documentsUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0] as NSURL
+            print(documentsUrl)
+            
+            let url = URL(string:self.fileURL)?.lastPathComponent
+            let pdf = documentsUrl.appendingPathComponent(url!)
+  
+            let pdfview = PDFView(frame: self.view.bounds)
             pdfview.translatesAutoresizingMaskIntoConstraints = false
             
-            if let document = PDFDocument(url: URL(string: fileURL)!){
+            if let document = PDFDocument(url: pdf!){
                 pdfview.document = document
-                
-                self.mainview.insertSubview(pdfview, at: 0)
+                self.mainview.addSubview(pdfview)
             }
-            
+        
         }
     }
 

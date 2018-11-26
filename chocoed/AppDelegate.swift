@@ -455,6 +455,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             msgObject?.replyMsgFile = item.replyMsgFile
             msgObject?.replyMsg =  item.replyMsg
             
+            msgObject?.sent_time =  item.sentTime
+            msgObject?.seen_time =  item.seenTime
+            msgObject?.distructive_time = item.destructiveTime
+            
             
             
             do {
@@ -587,7 +591,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     msgId: msgID,
                     msgType: msgType,
                     msgACk: "0",
-                    fromID: USERDETAILS.mobile,
+                    fromID: UserDefaults.standard.string(forKey: "mobileno")!,
                     toID: friendID,
                     fileUrl: json.value(forKey: "fileUrl") as! String,
                     isUpload: "0",
@@ -597,7 +601,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     created: self.getCurrentTime(),
                     status: "",
                     modified: self.getCurrentTime(),
-                    is_permission: "0",replyTitle: replyTitle, replyMsgType: replyMsgType, replyMsgId: replyMsgId, replyMsgFile: replyMsgFile, replyMsg: replyMsg))
+                    is_permission: "0",replyTitle: replyTitle, replyMsgType: replyMsgType, replyMsgId: replyMsgId, replyMsgFile: replyMsgFile, replyMsg: replyMsg, sentTime: kXMPP.SEEN_MSG, seenTime: kXMPP.SEEN_MSG, destructiveTime: ""))
                 
                 
                 self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: json.value(forKey: "message") as! String, msg_type: json.value(forKey: "msgType") as! String, isMine: "0" , friendID: friendID)
@@ -674,7 +678,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         let userInfo = response.notification.request.content.userInfo
         NSLog("[UserNotificationCenter] applicationState: \(applicationStateString) didReceiveResponse: \(userInfo)")
         
-       /* if let msg = userInfo["gcm.notification.type"] as? String {
+        if let msg = userInfo["gcm.notification.type"] as? String {
             print(msg,"<<<<<< NOTIFICATION TYPE333 >>>>>>")
             if  msg == "chat" {
                 print(msg,"<<<<<< Chat Msg>>>>>>")
@@ -690,7 +694,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         self.window!.rootViewController = startVC */
         
         
-         self.openVC() */
+         //self.openVC()
         //TODO: Handle background notification
         completionHandler()
     }

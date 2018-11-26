@@ -20,6 +20,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     
     
     
+    private var isTyping : Bool = false
     
     
     @IBOutlet var lblReplyColor: UILabel!
@@ -114,13 +115,13 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         
     }
     
-    private func saveImage(fileurl:String) {
+    private func saveImage(fileurl:String,type:String) {
         
         let msgId = self.getCurrentTime()
         self.createMsgEntityFrom(item: Message(
             msg: "",
             msgId: msgId,
-            msgType: kXMPP.TYPE_IMAGE,
+            msgType: type,
             msgACk: "3",
             fromID: USERDETAILS.mobile,
             toID: self.friendModel.contact_number,
@@ -132,7 +133,12 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             created: self.getCurrentTime(),
             status: "",
             modified: self.getCurrentTime(),
-            is_permission: "0", replyTitle: "", replyMsgType: "", replyMsgId: "", replyMsgFile: "", replyMsg: ""))
+            is_permission: "0", replyTitle: "", replyMsgType: "", replyMsgId: "", replyMsgFile: "", replyMsg: "",
+            sentTime: kXMPP.SEEN_MSG,
+            seenTime: kXMPP.SEEN_MSG,
+            destructiveTime: ""))
+        
+        
         self.tblView.reloadData()
         self.scrollToBottom()
         
@@ -146,7 +152,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         imagePicker.didSelectImage = { [unowned imagePicker] img in
             self.imagePicker.dismiss(animated: true, completion: nil)
             let url = self.savefiletoDirector(image: img)
-            self.saveImage(fileurl: url)
+            self.saveImage(fileurl: url,type: kXMPP.TYPE_IMAGE)
         }
         present(imagePicker, animated: true, completion: nil)
     }
@@ -156,7 +162,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         imagePicker.didSelectImage = { [unowned imagePicker] img in
             self.imagePicker.dismiss(animated: true, completion: nil)
             let url = self.savefiletoDirector(image: img)
-            self.saveImage(fileurl: url)
+            self.saveImage(fileurl: url,type: kXMPP.TYPE_IMAGE)
         }
         present(imagePicker, animated: true, completion: nil)
     }
@@ -172,145 +178,33 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     
 
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        print(urls)
+        
+        //let url = self.savefiletoDirector(image: urls[0].absoluteString)
+       self.saveImage(fileurl: urls[0].absoluteString,type: kXMPP.TYPE_PDF)
         
     }
-    
-    //MARK : UIDocument Picker
-  
-    /*
-    
-    func oneStream(_ sender: XMPPStream, didReceiveMessage message: XMPPMessage, from user: XMPPUserCoreDataStorageObject) {
-        
-      //  print(message.attributeStringValue(forName: "id") ?? "")
-        let userData = (user.jidStr)!.components(separatedBy: "@")
-        let friendID = userData[0]
-
-       // print(friendID)
-        
-          do{
-            
-         let data = message.body?.data(using: .utf8)!
-            let json = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! NSDictionary
-        
-            print(json)
-            
-           
-            
-            if json.value(forKey: "msgType") as! String == kXMPP.TYPE_DELETE {
-                
-                // update msg by msgID
-                
-                self.updateMsg(msg_id: json.value(forKey: "msgId") as! String, type: "delete_type", value: kXMPP.DELETE_TEXT_FRIEND)
-            
-                
-            }else if json.value(forKey: "msgType") as! String == kXMPP.TYPE_SEEN {
-                
-                // update msg by msgID
-                
-                self.updateMsgAck(friendID: friendID)
-                
-            }else{
-                
-                var replyMsgType = ""
-                var replyMsgFile = ""
-                var replyMsg = ""
-                var replyTitle = ""
-                var replyMsgId = ""
-                
-                let msgType = json.value(forKey: "msgType") as! String
-                
-            if msgType == kXMPP.TYPE_REPLY {
-                    
-                replyMsgId = json.value(forKey: "msgId") as! String
-                    
-                
-                    let msgItem = self.getMsg(msgId: replyMsgId)
-                    
-                    replyMsg = msgItem.msg
-                    replyMsgFile = msgItem.file_url
-                    
-                    if msgItem.is_mine == "1" {
-                        replyTitle = "You"
-                    }else{
-                        replyTitle = self.friendModel.name
-                    }
-                    
-                    replyMsgType = msgItem.msg_type
-                    
-                }
-                
-                
-        
-            self.createMsgEntityFrom(item: Message(
-                msg: json.value(forKey: "message") as! String,
-                msgId: message.attributeStringValue(forName: "id") ?? "",
-                msgType: msgType,
-                msgACk: "0",
-                fromID: USERDETAILS.mobile,
-                toID: friendID,
-                fileUrl: json.value(forKey: "fileUrl") as! String,
-                isUpload: "0",
-                isDownload: "0",
-                isStreaming: "0",
-                isMine: "0",
-                created: self.getCurrentTime(),
-                status: "",
-                modified: self.getCurrentTime(),
-                is_permission: "0",replyTitle: replyTitle, replyMsgType: replyMsgType, replyMsgId: replyMsgId, replyMsgFile: replyMsgFile, replyMsg: replyMsg))
-            
-            
-                self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: json.value(forKey: "message") as! String, msg_type: json.value(forKey: "msgType") as! String, isMine: "0" , friendID: friendID)
-            
-                self.tblView.reloadData()
-                self.scrollToBottom()
-                
-                self.sendSeenMsgAck()
-
-                
-                let dsmsg =  json.value(forKey: "destructiveTime") as! String
-            
-                if dsmsg.count > 0 {
-                    
-                   // var timeVal = Float(json.value(forKey: "destructiveTime") as! String)
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 120.0, execute: {
-                        
-                        // updated msg by msg id
-                        
-                        self.updateMsg(msg_id: message.attributeStringValue(forName: "id") ?? "", type:"delete_type", value: kXMPP.DELETE_TEXT_FRIEND)
-                        
-                    })
-                    
-                
-                }
-                
-            }
-            
-          }catch{
-            
-          }
-        
-     
-    }
-    
-    
-    func oneStream(_ sender: XMPPStream, didReceiptReceive message: XMPPMessage, from user: XMPPUserCoreDataStorageObject) {
-  
-        self.updateMsg(msg_id: message.forName("received")?.attributeStringValue(forName: "id") ?? "", type: "msg_ack", value: kXMPP.msgSent)
-        let userData = (user.jidStr)!.components(separatedBy: "@")
-        self.updateFriendLastMsg(friendID: userData[0], value: kXMPP.msgSent)
-        
-    }
-     */
     
     func oneStream(_ sender: XMPPStream, userIsComposing user: XMPPUserCoreDataStorageObject) {
         
         let userData = (user.jidStr)!.components(separatedBy: "@")
+        
+        
         if userData[0] == self.friendModel.contact_number {
             self.lblCurrentStatus.text = "Typing..."
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                self.lblCurrentStatus.text = "Online"
+            self.isTyping = true
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: {
+                
+                if self.isTyping == true {
+                  self.isTyping = false
+                }else{
+                    
+                    self.lblCurrentStatus.text = "Online"
+
+                }
+                
+
+                
             })
         }
         
@@ -350,31 +244,23 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        UserDefaults.standard.set(self.friendModel.contact_number, forKey: "chatNo")
+
         UIApplication.shared.cancelAllLocalNotifications()
         UIApplication.shared.applicationIconBadgeNumber = 0
 
         self.userTitle.text = self.friendModel.name
         OneMessage.sharedInstance.delegate = self
         self.editMsg.delegate = self
-      //  self.editField.delegate = self
-        
+    
         self.replyView.isHidden = true
         self.replyView.layer.borderColor = UIColor.gray.cgColor
         self.replyView.layer.borderWidth = 1.0
-        
-        UserDefaults.standard.set(self.friendModel.contact_number, forKey: "chatNo")
-
-
+    
         self.toolbar.isHidden = false
         self.actionView.isHidden = true
-        
-        
-        //self.bottomView.bindToKeyboard()
-        
+    
         imagePicker.delegate = self
-        
-       // OneLastActivity.sharedInstance.add
         
         self.sendSeenMsgAck()
         
@@ -402,28 +288,16 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         let friendReplyView = UINib(nibName: "FriendTextReplyCell", bundle: Bundle.main)
         self.tblView.register(friendReplyView, forCellReuseIdentifier: "FriendTextReplyCell")
         
-    
-        
-       
-       // self.tblView.register(MyTextMsgCell.self, forCellReuseIdentifier: cellID)
-       // self.tblView.register(FriendTextMsgCell.self, forCellReuseIdentifier: "FriendTextMsgCell")
 
-        
-        
         
         do {
             try self.fetchedhResultController.performFetch()
-            //if self.fetchedhResultController.sections?[0].numberOfObjects != 0{
-                //self.tblView.reloadData()
-                //self.scrollToBottom()
-           // }
         } catch let error  {
             print("ERROR: \(error)")
         }
         
         let longPressRec = UILongPressGestureRecognizer(target: self, action: #selector(self.longPress))
         longPressRec.minimumPressDuration = 1.0
-        //longPressRec.delegate = self as! UIGestureRecognizerDelegate
         self.tblView.addGestureRecognizer(longPressRec)
  
         
@@ -437,13 +311,34 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         }
         
         
-
-    
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
     
-        self.getMsgDates(friendID: self.friendModel.contact_number)
+        
+           // let bottooffset = CGPoint(x: 0, y: self.tblView.contentSize.height - self.tblView.frame.size.height)
+           // self.tblView.setContentOffset(bottooffset, animated: false)
+        
+            self.scrollToBottom()
+            self.updateTableContentInset()
+        
 
+    }
+    
+    func scrollToBottom(){
+        
+        DispatchQueue.main.async {
+            
+        let count = self.fetchedhResultController.sections?.first?.numberOfObjects ?? 0
+         
+         if count != 0 {
+         let indexPath = IndexPath(row: count - 1, section: 0)
+         self.tblView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.bottom, animated: false)
+         //self.tblView.scrollIndicatorInsets = self.tblView.contentInset
+         }
+        }
+        
+        
+        
     }
     
     func updateTableContentInset(){
@@ -461,6 +356,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             
             self.tblView.contentInset = UIEdgeInsetsMake(contentInsetTop, 0, 0, 0)
         }
+        
        
     }
     
@@ -505,7 +401,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         created: self.getCurrentTime(),
                         status: "",
                         modified: self.getCurrentTime(),
-                        is_permission: "0",replyTitle: "", replyMsgType: "", replyMsgId: "", replyMsgFile: "", replyMsg: ""))
+                        is_permission: "0",replyTitle: "", replyMsgType: "", replyMsgId: "", replyMsgFile: "", replyMsg: "", sentTime: kXMPP.SEEN_MSG, seenTime: kXMPP.SEEN_MSG, destructiveTime: ""))
                     
                     self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: text, msg_type: kXMPP.TYPE_TEXT, isMine: "1", friendID: self.friendModel.contact_number)
                     
@@ -548,7 +444,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     created: self.getCurrentTime(),
                     status: "",
                     modified: self.getCurrentTime(),
-                     is_permission: "0",replyTitle: "", replyMsgType: "", replyMsgId: "", replyMsgFile: "", replyMsg: ""))
+                     is_permission: "0",replyTitle: "", replyMsgType: "", replyMsgId: "", replyMsgFile: "", replyMsg: "", sentTime: kXMPP.SEEN_MSG, seenTime: kXMPP.SEEN_MSG, destructiveTime: ""))
                 
                // self.tblView.reloadData()
                // self.scrollToBottom()
@@ -687,7 +583,6 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         
         let deleteAction = UIAlertAction(title: "Delete", style: .default) {
             UIAlertAction in
-            //  self.openCamera(UIImagePickerController.SourceType.photoLibrary)
             
             let item = self.fetchedhResultController.object(at: row) as? Msg
             self.selectedArr.append(item!)
@@ -703,9 +598,22 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             self.btnDelete.isHidden = false
             self.btnForward.isHidden = true
 
+        }
+        
+        let item = self.fetchedhResultController.object(at: row) as? Msg
+        
+        if item?.is_mine == "1" {
 
+        let infoAction = UIAlertAction(title: "Info", style: .default) {
+            UIAlertAction in
+            
+            self.infoDisplay(row: row)
+        }
+        alert.addAction(infoAction)
+            
             
         }
+
         
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {
@@ -724,9 +632,53 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         alert.addAction(forwardAction)
         alert.addAction(copyAction)
         alert.addAction(deleteAction)
+
+        alert.addAction(cancelAction)
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
+     private func infoDisplay(row : IndexPath){
+        let item = self.fetchedhResultController.object(at: row) as? Msg
+        
+        var sentTime = ""
+        var seenTime = ""
+
+        
+        if item?.sent_time == kXMPP.SEEN_MSG {
+            sentTime = kXMPP.SEEN_MSG
+        }else{
+            sentTime = Utils.getDateTimeFromString(date :(item?.sent_time)!)
+        }
+        
+        if item?.seen_time == kXMPP.SEEN_MSG {
+            seenTime = kXMPP.SEEN_MSG
+        }else{
+            seenTime =  Utils.getDateTimeFromString(date :(item?.seen_time)!)
+        }
+
+
+        let alert:UIAlertController=UIAlertController(title: "Message Details", message: nil, preferredStyle:.actionSheet)
+       
+        let forwardAction = UIAlertAction(title: "Delivered (\(sentTime))", style: .default) {
+            UIAlertAction in
+        }
+        
+        let copyAction = UIAlertAction(title: "Read (\(seenTime))", style: .default) {
+            UIAlertAction in
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {
+            UIAlertAction in
+        }
+        
+        alert.addAction(forwardAction)
+        alert.addAction(copyAction)
+      
         
         alert.addAction(cancelAction)
         self.present(alert, animated: true, completion: nil)
+        
         
     }
     
@@ -803,7 +755,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         do{
             
             
-            if self.lblCurrentStatus.text == "Online"  {
+           // if self.lblCurrentStatus.text == "Online"  {
                
                 var desrc = ""
                 
@@ -842,6 +794,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     
                     replyMsgType = msgItem.msg_type
                     
+                    
                 }
                 
                 
@@ -872,7 +825,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     created: self.getCurrentTime(),
                     status: "",
                     modified: self.getCurrentTime(),
-                    is_permission: "0", replyTitle: replyTitle, replyMsgType: replyMsgType, replyMsgId: self.replyeMessageID, replyMsgFile: replyMsgFile, replyMsg : replyMsg))
+                    is_permission: "0", replyTitle: replyTitle, replyMsgType: replyMsgType, replyMsgId: self.replyeMessageID, replyMsgFile: replyMsgFile, replyMsg : replyMsg, sentTime: kXMPP.SEEN_MSG, seenTime: kXMPP.SEEN_MSG, destructiveTime: ""))
                 
                 self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: text, msg_type: kXMPP.TYPE_TEXT, isMine: "1", friendID: self.friendModel.contact_number)
                 
@@ -880,10 +833,12 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                // self.tblView.reloadData()
               //  self.scrollToBottom()
                 
+                self.replyeMessageID = ""
+                
                 OneMessage.sendMessage(msg!, msgId:msgID,  thread: "test", to:"\(friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
                 })
                 
-            }else{
+         /*   }else{
                 
                 // offline send msg
                 
@@ -950,6 +905,9 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: text, msg_type: kXMPP.TYPE_TEXT, isMine: "1", friendID: self.friendModel.contact_number)
                         
                         
+                        self.replyeMessageID = ""
+
+                        
                       //  self.tblView.reloadData()
                       //  self.scrollToBottom()
                         
@@ -962,7 +920,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                 })
                 
                 
-            }
+            } */
             
             
         }
@@ -1012,7 +970,6 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             
             var isMyProfileShow = true
             var isDateShow = true
-            var showDate = ""
             
             if indexPath.row  - 1 >= 0 {
             
@@ -1109,11 +1066,11 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     cell.imgProfile?.contentMode = .scaleToFill
                     
                     cell.mainView?.layer.cornerRadius = 6
-                    cell.mainView?.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+                    cell.mainView?.layer.borderColor = #colorLiteral(red: 0.1333333333, green: 0.4941176471, blue: 0.8156862745, alpha: 1)
                     cell.mainView?.layer.borderWidth = 1
                     
                     cell.replyView?.layer.cornerRadius = 6
-                    cell.replyView?.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+                    cell.mainView?.layer.borderColor = #colorLiteral(red: 0.1333333333, green: 0.4941176471, blue: 0.8156862745, alpha: 1)
                     cell.replyView?.layer.borderWidth = 1
                     
                     
@@ -1169,7 +1126,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     }
                     
                     if isDateShow == true {
-                      cell.lblDate?.isHidden = false
+                     // cell.lblDate?.isHidden = false
                      //cell.lblDate.frame.size.height = 30
                      //cell.lblDate.layer.cornerRadius = 10
                        
@@ -1177,8 +1134,9 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         cell.lblDate?.text = Utils.getMsgDate(date: item.created!)
 
                     }else{
-                       cell.lblDate?.isHidden = true
+                      // cell.lblDate?.isHidden = true
                        // cell.lblDate.frame.size.height = 0
+                        cell.lblDate?.text = ""
 
                     }
                     
@@ -1188,7 +1146,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     cell.profileImga?.contentMode = .scaleToFill
                     
                     cell.mainView?.layer.cornerRadius = 6
-                    cell.mainView?.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+                    cell.mainView?.layer.borderColor = #colorLiteral(red: 0.1333333333, green: 0.4941176471, blue: 0.8156862745, alpha: 1)
                     cell.mainView?.layer.borderWidth = 1
                     
                     
@@ -1252,7 +1210,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     cell.fileview?.contentMode = .scaleToFill
                     
                     cell.mainView?.layer.cornerRadius = 6
-                    cell.mainView?.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+                    cell.mainView?.layer.borderColor = #colorLiteral(red: 0.1333333333, green: 0.4941176471, blue: 0.8156862745, alpha: 1)
                     cell.mainView?.layer.borderWidth = 1
                     
                     
@@ -1347,7 +1305,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     }
                     
                     cell.mainView?.layer.cornerRadius = 6
-                    cell.mainView?.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+                    cell.mainView?.layer.borderColor = #colorLiteral(red: 0.1333333333, green: 0.4941176471, blue: 0.8156862745, alpha: 1)
                     cell.mainView?.layer.borderWidth = 1
                     
                     if isMyProfileShow == true {
@@ -1364,8 +1322,51 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     cell.profileImage?.clipsToBounds = true
                     cell.profileImage?.contentMode = .scaleToFill
                     
-                  //  cell.fileview?.sd_setImage(with : URL(string: item.file_url))
-                  //  cell.fileview?.contentMode = .scaleToFill
+                    cell.fileview?.image = UIImage(named: "pdf_place")
+                    cell.fileview?.contentMode = .scaleAspectFit
+                    
+                    
+                 /*   if item.is_download == "0" {
+                        
+                        cell.progressView.isHidden = false
+                        cell.progressView.startAnimating()
+                        
+                        
+                        if item.is_streaming == "0" {
+                            
+                            cell.btnUpload.isHidden = true
+                            cell.progressView.stopAnimating()
+                            
+                            
+                            
+                            SDWebImageManager.shared().imageDownloader?.downloadImage(with:  URL(string: item.file_url), options: .continueInBackground, progress: nil, completed: {(image : UIImage?,data:Data?,error:Error?,finished:Bool)
+                                in
+                                
+                                if image != nil {
+                                    self.updateMsg(msg_id: item.msg_id, type : "streaming" ,value: "1")
+                                    
+                                    self.uploadImageToServer(image: image!, msgId: item.msg_id)
+                                    
+                                }
+                                
+                            })
+                            
+                            
+                        }else{
+                            
+                            
+                            if item.msg_ack == kXMPP.msgFail {
+                                
+                                
+                            }else{
+                                
+                                //  cell.btnUpload.isHidden = false
+                                //  cell.progressView.isHidden = true
+                            }
+                            
+                            
+                            
+                        } */
                     
                     if self.selectedArr.contains(item){
                         
@@ -1474,11 +1475,11 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     
                     
                     if isDateShow == true {
-                        cell.lblDate?.isHidden = false
+                       // cell.lblDate?.isHidden = false
                         cell.lblDate?.text = Utils.getMsgDate(date: item.created!)
                     }else{
-                        cell.lblDate?.isHidden = true
-
+                        //cell.lblDate?.isHidden = true
+                        cell.lblDate?.text = ""
                     }
                     
                 cell.profileImage?.sd_setImage(with : URL(string: self.friendModel.profile_image))
@@ -1792,15 +1793,15 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             
             if item.msg_type == kXMPP.TYPE_IMAGE    {
                 
-                return CGFloat(190)
+                return CGFloat(230)
                 
             }else if item.msg_type == kXMPP.TYPE_PDF   {
                 
-                return CGFloat(190)
+                return CGFloat(230)
                 
             }else if item.msg_type == kXMPP.TYPE_REPLY    {
                 
-                return CGFloat(120)
+                return CGFloat(160)
             }
         }
 
@@ -1831,8 +1832,6 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     
                     let action = UIAlertAction(title: "Not Now", style: .default, handler: { (alert) in
                         
-                        
-                       
                         
                     })
                     alertView.addAction(action)
@@ -1867,6 +1866,18 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         
                         if item?.is_download == "0" {
                             
+                            
+                            if item?.msg_type == kXMPP.TYPE_PDF {
+                                
+                                if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "FileViewerVC") as? FileViewerVC {
+                                    vcNewSectionStarted.fileURL = (item?.file_url)!
+                                    vcNewSectionStarted.type = (item?.msg_type)!
+                                    self.present(vcNewSectionStarted, animated: true, completion: nil)
+                                }
+                                
+                                
+                            }else{
+                            
                             self.updateMsg(msg_id: (item?.msg_id)!, type: "streaming", value: "1")
                             
                             
@@ -1887,6 +1898,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                                 
                                 
                             })
+                                
+                            }
                             
                         }else{
                     
@@ -1932,38 +1945,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     
     /**** CORE DATA ****/
     
-    private func getMsgDates(friendID : String){
-        
-        var data = [String]()
-        
-        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Msg")
-        fetchRequest.predicate = NSPredicate(format: "to_id = %@", friendID)
-        fetchRequest.propertiesToFetch = ["created"]
-       // fetchRequest.resultType = NSFetchRequestResultType.dictionaryResultType
-        fetchRequest.returnsDistinctResults = true
-        
-        var results : [NSManagedObject] = []
-        
-        do{
-            results = try context.fetch(fetchRequest)
-            
-                if results.count != 0 {
-                
-                   for r  in results {
-                    let item = r as? Msg
-                    data.append((item?.created)!)
-                   }
-
-                print(data,"<<<Data>>")
-                
-            }
-            
-        }catch{
-            print("error executing request")
-        }
-        
-    }
+    
     
     private func updateMsgAck(friendID : String){
         
@@ -2100,24 +2082,6 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         
         do{
             results = try context.fetch(fetchRequest)
-            
-           /* if results.count != 0 {
-                
-                let updatObj = results[0]
-                updatObj.setValue(item.name, forKey: "name")
-                updatObj.setValue(item.profile_image, forKey:"profile_image")
-                
-                do{
-                    try context.save()
-                    
-                }catch{
-                    print("Error in update")
-                }
-            }
-          */
-            
-            
-            
         }catch{
             print("error executing request")
         }
@@ -2133,7 +2097,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         
          let msgObject = NSEntityDescription.insertNewObject(forEntityName: "Msg", into: context) as? Msg //{
         
-              print(item.msgId)
+             // print(item.msgId)
             
              msgObject?.msg = item.msg
              msgObject?.created = item.created
@@ -2156,8 +2120,10 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
              msgObject?.replyMsgId = item.replyMsgId
              msgObject?.replyMsgFile = item.replyMsgFile
              msgObject?.replyMsg =  item.replyMsg
+             msgObject?.sent_time =  item.sentTime
+             msgObject?.seen_time =  item.seenTime
+             msgObject?.distructive_time = item.destructiveTime
             
-             
             
             do {
                 try CoreDataStack.sharedInstance.persistentContainer.viewContext.save()
@@ -2172,40 +2138,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
 
     }
     
-    private func clearData() {
-        do {
-            
-            let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Msg.self))
-            do {
-                let objects  = try context.fetch(fetchRequest) as? [NSManagedObject]
-                _ = objects.map{$0.map{context.delete($0)}}
-                CoreDataStack.sharedInstance.saveContext()
-            } catch let error {
-                print("ERROR DELETING : \(error)")
-            }
-        }
-    }
-    
-    
-    private func deleteMsg( id: String ){
-        
-        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Msg.self))
-        fetchRequest.predicate = NSPredicate(format: "msg_id %@", "\(id)")
-        do {
-            let fetchedresults  = try context.execute(fetchRequest) as? [NSManagedObject]
-            
-            for entity in fetchedresults! {
-                
-                context.delete(entity)
-            }
-            
-        } catch let error {
-            print("ERROR DELETING : \(error)")
-        }
 
-    }
     
     /**** Last Activity ****/
     
@@ -2625,28 +2558,135 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     }
     @IBAction func actionDeleteClicked(_ sender: Any) {
         
-        print("delete")
-        do{
+        
             let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
             
-            for item in self.selectedArr{
+            
+            if self.selectedArr.count == 1 {
                 
-                context.delete(item)
-                //print(item.created)
+                
+                if selectedArr[0].is_mine == "1" {
+                
+                
+                let alert:UIAlertController=UIAlertController(title: "Choose Option", message: nil, preferredStyle:.actionSheet)
+                let cameraAction = UIAlertAction(title: "Delete for me", style: .default) {
+                    UIAlertAction in
+                    
+                    
+                    
+                    for item in self.selectedArr{
+                        
+                        context.delete(item)
+                        //print(item.created)
+                    }
+                    
+                    
+                    self.isMuliselectActionChecked = false
+                    self.toolbar.isHidden = false
+                    self.actionView.isHidden = true
+                    if self.selectedArr.count > 0 {
+                        self.selectedArr.removeAll()
+                    }
+                    
+                }
+                let gallaryAction = UIAlertAction(title: "Delete for everyone", style: .default) {
+                    UIAlertAction in
+                    
+                    do{
+                    
+                    let text = kXMPP.DELETE_TEXT_FRIEND
+                    let body = CustomMessageModel(msgId: self.selectedArr[0].msg_id, msgType: kXMPP.TYPE_DELETE, message: text, fileUrl:self.selectedArr[0].file_url , destructiveTime : "",fileType : self.selectedArr[0].msg_type)
+                    
+                    let jsonData = try JSONEncoder().encode(body)
+                    let msg = String(data: jsonData, encoding: .utf8)
+                    
+                    
+                    let msgID = self.getCurrentTime()
+                    
+                    
+                 
+                    //self.tblView.reloadData()
+                    //self.scrollToBottom()
+                    
+                    OneMessage.sendMessage(msg!,msgId: msgID,thread: "test", to:"\(self.friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
+                        
+                        
+                     
+                            self.updateMsg(msg_id: self.selectedArr[0].msg_id, type: "delete_type", value: kXMPP.DELETE_TEXT_MY)
+                            //print(item.created)
+                        
+                        self.isMuliselectActionChecked = false
+                        self.toolbar.isHidden = false
+                        self.actionView.isHidden = true
+                        if self.selectedArr.count > 0 {
+                            self.selectedArr.removeAll()
+                        }
+                    })
+                        
+                        
+                        
+                    }catch{
+                        
+                    }
+                    
+                    
+                  
+                    
+                    
+                }
+                
+                
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {
+                    UIAlertAction in
+                }
+                
+                alert.addAction(cameraAction)
+                alert.addAction(gallaryAction)
+               
+                alert.addAction(cancelAction)
+                self.present(alert, animated: true, completion: nil)
+                    
+                }else{
+                    
+                    for item in self.selectedArr{
+                        
+                        context.delete(item)
+                        //print(item.created)
+                    }
+                    
+                    
+                    self.isMuliselectActionChecked = false
+                    self.toolbar.isHidden = false
+                    self.actionView.isHidden = true
+                    if self.selectedArr.count > 0 {
+                        self.selectedArr.removeAll()
+                    }
+                    
+                }
+                
+                
+            }else{
+                
+                for item in self.selectedArr{
+                    
+                    context.delete(item)
+                    //print(item.created)
+                }
+                
+                
+                self.isMuliselectActionChecked = false
+                self.toolbar.isHidden = false
+                self.actionView.isHidden = true
+                if self.selectedArr.count > 0 {
+                    self.selectedArr.removeAll()
+                }
+                
             }
             
-            self.isMuliselectActionChecked = false
-            self.toolbar.isHidden = false
-            self.actionView.isHidden = true
-            if self.selectedArr.count > 0 {
-                self.selectedArr.removeAll()
-            }
+           
           //  self.tblView.reloadData()
-         
-        }catch let error {
-            print("ERROR DELETING : \(error)")
-        }
-        
+       
       
     }
     
@@ -2694,6 +2734,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         return true
     }
     
+   
    /* func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
         var rect = textView.frame
@@ -2737,30 +2778,40 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
  
     @objc func keyboardWillShow(notification: NSNotification) {
     
+
+        
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             print("notification: Keyboard will show")
            // if self.tblView.frame.origin.y == 0{
                // self.tblView.frame.origin.y -= keyboardSize.height
           //  }
+            
+            
+            
             let count = fetchedhResultController.sections?.first?.numberOfObjects ?? 0
 
             if count != 0 {
-            
-            let contentInset = UIEdgeInsetsMake(0.0, 0.0, keyboardSize.height, 0.0)
+               
+                let contentInset = UIEdgeInsetsMake(0.0, 0.0, keyboardSize.height , 0.0)
             self.tblView.contentInset = contentInset
-                
                 self.scrollToBottom()
-          /*  let indexPath = IndexPath(row: count - 1, section: 0)
-            self.tblView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.bottom, animated: true)
-            self.tblView.scrollIndicatorInsets = self.tblView.contentInset */
+                
+               // self.scrollToBottom()
+            //let indexPath = IndexPath(row: count - 1, section: 0)
+           // self.tblView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.bottom, animated: true)
+              //  self.scrollToBottom()
+            //self.tblView.scrollIndicatorInsets = self.tblView.contentInset
 
+            //  self.updateTableContentInset()
             
             }
-            
             
             self.bottomView.frame.origin.y -= keyboardSize.height
             self.replyView.frame.origin.y -= keyboardSize.height
             
+            
+            
+           
            // self.updateTableContentInset()
 
             
@@ -2775,9 +2826,9 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             //    self.tblView.frame.origin.y += keyboardSize.height
            // }
             
-            let contentInset = UIEdgeInsetsMake(0.0, 0.0, 60, 0.0)
+            let contentInset = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
             self.tblView.contentInset = contentInset
-            self.tblView.scrollIndicatorInsets = self.tblView.contentInset
+           // self.tblView.scrollIndicatorInsets = self.tblView.contentInset
             
             self.bottomView.frame.origin.y += keyboardSize.height
             self.replyView.frame.origin.y += keyboardSize.height
@@ -2793,18 +2844,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     
 
     
-    func scrollToBottom(){
-        
-        let count = fetchedhResultController.sections?.first?.numberOfObjects ?? 0
-        
-        if count != 0 {
-            let indexPath = IndexPath(row: count - 1, section: 0)
-            self.tblView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.bottom, animated: false)
-            self.tblView.scrollIndicatorInsets = self.tblView.contentInset
-        }
-       
-        
-    }
+ 
     /// Get Friend is Typing or not
     private func getFriend(id : String) -> String {
         let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
@@ -2830,8 +2870,12 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     
    public  func reloadData(){
     if self.tblView != nil {
+        
         self.tblView.reloadData()
-        self.updateTableContentInset()
+        self.scrollToBottom()
+        
+        
+       // self.updateTableContentInset()
        /* let contentInset = UIEdgeInsetsMake(0.0, 0.0, 20, 0.0)
         self.tblView.contentInset = contentInset
         self.tblView.scrollIndicatorInsets = self.tblView.contentInset */
@@ -2881,12 +2925,13 @@ extension ChatVC: NSFetchedResultsControllerDelegate {
         switch type {
         case .insert:
             self.tblView.insertRows(at: [newIndexPath!], with: .automatic)
+            
         case .delete:
             self.tblView.deleteRows(at: [indexPath!], with: .automatic)
-       // case .update:
-           //self.tblView.reloadData()
-           // self.scrollToBottom()
-           // self.updateTableContentInset()
+        case .update:
+           self.tblView.reloadData()
+            self.scrollToBottom()
+           //self.updateTableContentInset()
         default:
             break
         }
@@ -2894,9 +2939,14 @@ extension ChatVC: NSFetchedResultsControllerDelegate {
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         self.tblView.endUpdates()
-       // self.tblView.reloadData()
         self.scrollToBottom()
-        self.updateTableContentInset()
+
+       // self.tblView.reloadData()
+        
+       //     self.reloadData()
+        
+       
+       // self.updateTableContentInset()
     }
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {

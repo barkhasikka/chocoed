@@ -38,8 +38,10 @@ extension Msg {
     @NSManaged public var   replyMsgId : String
     @NSManaged public var   replyMsgFile : String
     @NSManaged public var   replyMsg : String
-
-
+    
+    @NSManaged public var   sent_time : String
+    @NSManaged public var   seen_time : String
+    @NSManaged public var   distructive_time : String
 
     
 }

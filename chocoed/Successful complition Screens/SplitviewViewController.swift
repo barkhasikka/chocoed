@@ -166,8 +166,12 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
     @IBAction func srcChat_Clicked(_ sender: Any) {
         
         
-        let alert = GetAlertWithOKAction(message: availableString)
-        self.present(alert, animated: true, completion: nil)
+      //  let alert = GetAlertWithOKAction(message: availableString)
+      //  self.present(alert, animated: true, completion: nil)
+        
+        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
+        self.present(v1, animated: true, completion: nil)
+        
         
         
     }
@@ -570,6 +574,8 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
             // print(quizID)
             // let fileUrl = URL(string: url)
             
+            UserDefaults.standard.set(temp.mobile, forKey: "mobileno")
+            
             let notificationCount = jsonobject?.object(forKey: "notificationCount") as? Int ?? 0
 
             
@@ -621,7 +627,7 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
     
     func sendFcm() {
         
-       // self.checkChatConnection()
+        self.checkChatConnection()
         
         var params =  Dictionary<String, String>()
       

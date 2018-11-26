@@ -54,8 +54,22 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
     @IBAction func add_friend(_ sender: Any) {
         
         
+        if type != "" {
+            
+            if self.type == "" {
+                self.lblTitle.text = "Chat"
+                self.searchBar.isHidden = false
+                self.btnDestructive.isHidden = false
+            }
+            
+            
+
+        }else{
+        
+        
         if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "AddFriendVC") as? AddFriendVC{
             self.present(vcNewSectionStarted, animated: true, completion: nil)
+        }
         }
     }
     
@@ -68,6 +82,8 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
     @IBAction func destructive_mg_clicked(_ sender: Any) {
        self.lblTitle.text = "Send To..."
        self.type = "destructive"
+        self.searchBar.isHidden = true
+        self.btnDestructive.isHidden = true
     }
     
     
@@ -134,6 +150,7 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         backgroundImage.image = UIImage(named: "background_pattern")
         backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
         self.view.insertSubview(backgroundImage, at: 0)
+     
      
     }
     

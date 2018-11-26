@@ -12,7 +12,6 @@ class Utils: NSObject {
     
     public static func getMsgDate(date : String) -> String {
         
-        print(date)
         
         
         if getCurrentData() == getDate(date: date){
@@ -36,6 +35,31 @@ class Utils: NSObject {
         
     }
     
+    public static func getDateTimeFromString(date : String) -> String {
+        
+        // print(date)
+        
+        
+        if getCurrentData() == getDate(date: date){
+            
+            // print("Today")
+            
+            let dateformat = DateFormatter()
+            dateformat.dateFormat = "hh:mm a"
+            let time = dateformat.string(from: Date(milliseconds: Int(date)!))
+            return  "Today \(time)"
+            
+            
+        }else{
+            
+            let dateformat = DateFormatter()
+            dateformat.dateFormat = "dd-MMM hh:mm a"
+            let time = dateformat.string(from: Date(milliseconds: Int(date)!))
+            return  time
+            
+        }
+        
+    }
     
     public static func getDateFromString(date : String) -> String {
         
@@ -61,6 +85,15 @@ class Utils: NSObject {
          
         }
       
+    }
+    
+    
+    public static func getDateTime(date : String) -> String {
+        // print(date)
+        let dateformat = DateFormatter()
+        dateformat.dateFormat = "dd.MM.yyyy hh:mm a"
+        // print(dateformat.string(from: Date(milliseconds: Int(date)!)))
+        return  dateformat.string(from: Date(milliseconds: Int(date)!))
     }
     
     

@@ -174,8 +174,12 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                 */
                 
                 
-                let alert = GetAlertWithOKAction(message: availableString)
-                self.present(alert, animated: true, completion: nil)
+               // let alert = GetAlertWithOKAction(message: availableString)
+               // self.present(alert, animated: true, completion: nil)
+                
+                let v1 = self.storyboard?.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
+                self.present(v1, animated: true, completion: nil)
+                
                 
                 
                 break;

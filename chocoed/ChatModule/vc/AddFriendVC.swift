@@ -128,9 +128,11 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
             
             // call api
             
-          let userID =  UserDefaults.standard.string(forKey: "chat_user_id")
+            let userID =  UserDefaults.standard.string(forKey: "chat_user_id")
+            let mobileNo = UserDefaults.standard.string(forKey: "mobileno")
 
-            let params = ["user_id": "\(userID!)",  "friend_contact_no":"\(item.contact_number)",  "img_link":"\(item.profile_image)","friend_name":"\(item.name)","fcm_id":"\(item.fcm_id)","device_type":"\(type)"] as Dictionary<String, String>
+
+            let params = ["user_id": "\(USERDETAILS.mobile)",  "friend_contact_no":"\(item.contact_number)",  "img_link":"\(item.profile_image)","friend_name":"\(item.name)","fcm_id":"\(item.fcm_id)","device_type":"\(type)"] as Dictionary<String, String>
             print(params)
             MakeHttpPostRequestChat(url: kXMPP.addFriend, params: params, completion: {(success, response) in
                 

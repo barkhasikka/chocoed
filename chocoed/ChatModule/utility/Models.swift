@@ -67,7 +67,6 @@ struct Friend {
      var   user_id : String
      var   last_msg_ack : String
 
-    
 }
 
 
@@ -95,6 +94,10 @@ struct Message {
     var replyMsgId : String
     var replyMsgFile : String
     var replyMsg : String
+    var sentTime : String
+    var seenTime : String
+    var destructiveTime : String
+
     
 }
 
