@@ -12,12 +12,12 @@ class FriendFileView: UITableViewCell {
     
     
     
+    @IBOutlet var btnDownload: UIImageView!
     
     @IBOutlet var lblDate: UILabel!
     
     
-    @IBOutlet var btnDownload: UIButton!
-    
+   
     
     @IBOutlet var progressView: UIActivityIndicatorView!
     

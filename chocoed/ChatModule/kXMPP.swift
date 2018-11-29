@@ -43,4 +43,15 @@ public struct kXMPP {
     
      public static let addFriend : String  = "http://13.232.161.176/index.php/Api_openfire/add_friend"
     
+     public static let sendFileNotification : String  = "http://13.232.161.176/index.php/Api_openfire/send_file_notification"
+    
+     public static let getFileNotification : String  = "http://13.232.161.176/index.php/Api_openfire/get_image_notification"
+    
+    public static let deleteFriend : String  = "http://13.232.161.176/index.php/Api_openfire/delete_friend"
+    
+     public static let deleteNotification : String  = "http://13.232.161.176/index.php/Api_openfire/delete_file_notification"
+    
+    public static let notificationCount : String  = "http://13.232.161.176/index.php/Api_openfire/notification_count"
+    
+    
 }

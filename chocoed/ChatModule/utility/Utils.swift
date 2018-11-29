@@ -96,6 +96,10 @@ class Utils: NSObject {
         return  dateformat.string(from: Date(milliseconds: Int(date)!))
     }
     
+    public static func getDateTimeToDate(date : String) -> Date {
+        return  Date(milliseconds: Int(date)!)
+    }
+    
     
     public static func getTimeFromString(date : String) -> String {
        // print(date)

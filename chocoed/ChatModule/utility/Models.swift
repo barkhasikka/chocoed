@@ -28,6 +28,28 @@ struct FriendListChat {
     
 }
 
+struct PhotoCellMsg  {
+    
+    var msgId : String = ""
+    var msgType : String = ""
+    var friend_no : String
+    var desc : String
+    var userId : String
+    var notification_id : String
+
+    
+    init(_ dictionary : NSDictionary) {
+        self.msgId = dictionary["msg_id"] as? String ?? ""
+        self.msgType = dictionary["type"] as? String ?? ""
+        self.friend_no = dictionary["user_id"] as? String ?? ""
+        self.userId = dictionary["friend_id"] as? String ?? ""
+        self.desc = dictionary["body"] as? String ?? ""
+        self.notification_id = dictionary["notification_id"] as? String ?? ""
+
+
+    }
+}
+
 struct CustomMessageModel : Codable {
     
     var msgId : String = ""
@@ -36,6 +58,8 @@ struct CustomMessageModel : Codable {
     var fileUrl : String = ""
     var destructiveTime : String = ""
     var fileType : String = ""
+    var filePermission : String = ""
+
    /* init(msgID : String,msgType : String , message : String , fileURL : String ,time : String) {
         
         self.msgId = msgID

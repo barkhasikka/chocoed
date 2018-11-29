@@ -328,7 +328,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
                 
                 if type == "file"{
-                    updatObj.setValue(value, forKey: "is_download")
+                    updatObj.setValue(value, forKey: "file_url")
                 }
                 if type == "delete_type"{
                     
@@ -662,7 +662,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
             let friid = userInfo["gcm.notification.friend"] as! String
             let msg = userInfo["gcm.notification.message"] as! String
             let msgid = userInfo["gcm.notification.message_id"] as! String
-            self.saveMsg(friendID: friid, msg: msg, msgID: msgid)
+           // self.saveMsg(friendID: friid, msg: msg, msgID: msgid)
          }
      }
         
@@ -685,7 +685,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
                 let friid = userInfo["gcm.notification.friend"] as! String
                 let msg = userInfo["gcm.notification.message"] as! String
                 let msgid = userInfo["gcm.notification.message_id"] as! String
-                self.saveMsg(friendID: friid, msg: msg, msgID: msgid)
+               // self.saveMsg(friendID: friid, msg: msg, msgID: msgid)
             }
         }
         
@@ -716,7 +716,7 @@ extension AppDelegate : MessagingDelegate {
                 let friid = userInfo["gcm.notification.friend"] as! String
                 let msg = userInfo["gcm.notification.message"] as! String
                 let msgid = userInfo["gcm.notification.message_id"] as! String
-                self.saveMsg(friendID: friid, msg: msg, msgID: msgid)
+               // self.saveMsg(friendID: friid, msg: msg, msgID: msgid)
             }
         }
       

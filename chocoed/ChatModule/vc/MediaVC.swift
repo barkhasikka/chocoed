@@ -105,10 +105,20 @@ class MediaVC: UIViewController ,UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MediaCell", for: indexPath) as! MediaCell
         
         let msg = self.images[indexPath.row]
-        cell.imageview.sd_setImage(with: URL(string: msg.file_url))
+       
+        if msg.msg_type == kXMPP.TYPE_IMAGE {
+            
+            cell.imageView!.sd_setImage(with: URL(string: msg.file_url))
+
+        }else{
+            
+            cell.imageView!.image = UIImage(named: "pdf_place")
+
+        }
+        
         
         return cell
     }

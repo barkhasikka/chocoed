@@ -8,6 +8,8 @@
 
 import UIKit
 import SDWebImage
+import CoreData
+
 
 class ProfileVC: UIViewController {
     
@@ -46,6 +48,93 @@ class ProfileVC: UIViewController {
         }
     }
     @IBAction func block_btn_clicked(_ sender: Any) {
+        
+        let alertView = UIAlertController(title: "Delete", message: "Are you sure you want to delete \(self.name) from your friend list?", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Not Now", style: .default, handler: { (alert) in
+          
+        })
+        alertView.addAction(action)
+        
+        let actionSure = UIAlertAction(title: "Yes", style: .default, handler: { (alert) in
+          
+            self.deleteAPI()
+            
+        })
+        alertView.addAction(actionSure)
+        self.present(alertView, animated: true, completion: nil)
+        
+        
+        
     }
+    
+    func deleteAPI(){
+        
+        
+        let params = ["my_no": "\(USERDETAILS.mobile)","friend_no": "\(self.contactMobileNumber)"]
+        print(params)
+        MakeHttpPostRequestChat(url: kXMPP.deleteFriend, params: params, completion: {(success, response) in
+            print(response)
+            
+            
+            let res = response.object(forKey: "responce") as? Int ?? 0
+            
+            if res == 1 {
+                
+                //
+                
+                self.clearData()
+                
+            }
+            
+           
+        }, errorHandler: {(message) -> Void in
+            print("message", message)
+        })
+        
+    }
+    
+    private func clearData() {
+        do {
+            let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Msg.self))
+            fetchRequest.predicate = NSPredicate(format: "to_id == %@",self.contactMobileNumber)
+            do {
+                let objects  = try context.fetch(fetchRequest) as? [NSManagedObject]
+                
+                for item in objects!{
+                    context.delete(item)
+                }
+                
+                self.clearFriend()
+                
+            } catch let error {
+                print("ERROR DELETING : \(error)")
+            }
+        }
+    }
+    
+    private func clearFriend() {
+        do {
+            let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Friends.self))
+            fetchRequest.predicate = NSPredicate(format: "contact_number == %@",self.contactMobileNumber)
+            do {
+                let objects  = try context.fetch(fetchRequest) as? [NSManagedObject]
+                
+                for item in objects!{
+                    context.delete(item)
+                }
+                
+                if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "FriendListVC") as? FriendListVC{
+                    self.present(vcNewSectionStarted, animated: true, completion: nil)
+                }
+                
+            } catch let error {
+                print("ERROR DELETING : \(error)")
+            }
+        }
+    }
+    
     
 }

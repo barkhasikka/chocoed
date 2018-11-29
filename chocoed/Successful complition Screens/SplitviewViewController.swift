@@ -625,9 +625,36 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         })
     }
     
+    
+    private func getUnreadChatCount(){
+        
+        var count = 0
+        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Friends")
+        fetchRequest.predicate = NSPredicate(format: "read_count != %@", "0")
+        var results : [NSManagedObject] = []
+        
+        do{
+            results = try context.fetch(fetchRequest)
+            
+            if results.count != 0 {
+                for item in results{
+                let updatObj = item as! Friends
+                let c = Int(updatObj.value(forKey: "read_count") as? String ?? "0")!
+                count = count + c
+                }
+                print(count,"<<<< UNREAD MSG COUNT>>>>")
+            }
+        }catch{
+            print("error executing request")
+        }
+        
+    }
+    
     func sendFcm() {
         
         self.checkChatConnection()
+        self.getUnreadChatCount()
         
         var params =  Dictionary<String, String>()
       
@@ -668,6 +695,6 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
                 }
             }
         }
-    }
+  }
     
 }

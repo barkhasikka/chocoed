@@ -8,9 +8,14 @@
 
 import UIKit
 
-class PhotoCell: UICollectionViewCell {
+class PhotoCell: UITableViewCell {
+    
+    @IBOutlet var profileImage: UIImageView!
+    @IBOutlet var lblName: UILabel!
     
     
-    @IBOutlet var imageview: UIImageView!
+    @IBOutlet var lblDesc: UILabel!
+    
+    @IBOutlet var fileView: UIImageView!
     
 }

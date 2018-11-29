@@ -197,7 +197,7 @@ extension OneMessage: XMPPStreamDelegate {
         
         do{
             
-            let body = CustomMessageModel(msgId: "", msgType: kXMPP.TYPE_SEEN, message: "", fileUrl: "", destructiveTime: "",fileType : "")
+            let body = CustomMessageModel(msgId: "", msgType: kXMPP.TYPE_SEEN, message: "", fileUrl: "", destructiveTime: "",fileType : "",filePermission:"")
             
             let jsonData = try JSONEncoder().encode(body)
             let msg = String(data: jsonData, encoding: .utf8)
@@ -283,11 +283,11 @@ extension OneMessage: XMPPStreamDelegate {
                 }
                 
                 if type == "file"{
-                    updatObj.setValue(value, forKey: "is_download")
+                    updatObj.setValue(value, forKey: "file_url")
                 }
                 if type == "delete_type"{
-                    
                     updatObj.setValue(value, forKey: "msg")
+                    updatObj.setValue(kXMPP.TYPE_TEXT, forKey: "msg_type")
                 }
                 
                 if type == "msg_ack"{
@@ -595,11 +595,11 @@ extension OneMessage: XMPPStreamDelegate {
                     self.updateMsg(msg_id: json.value(forKey: "msgId") as! String, type: "delete_type", value: kXMPP.DELETE_TEXT_FRIEND)
                     
                     
-                    let friendNo = UserDefaults.standard.string(forKey: "chatNo")
+                   /* let friendNo = UserDefaults.standard.string(forKey: "chatNo")
                     if friendNo == friendID {
                         let mainvc = ChatVC()
                         mainvc.reloadData()
-                    }
+                    } */
                     
                     
                     
@@ -610,11 +610,11 @@ extension OneMessage: XMPPStreamDelegate {
                     self.updateMsgAck(friendID: friendID)
                     
                     
-                    let friendNo = UserDefaults.standard.string(forKey: "chatNo")
+                   /* let friendNo = UserDefaults.standard.string(forKey: "chatNo")
                     if friendNo == friendID {
                         let mainvc = ChatVC()
                         mainvc.reloadData()
-                    }
+                    } */
                     
                     
                     
@@ -648,8 +648,9 @@ extension OneMessage: XMPPStreamDelegate {
                         
                     }
                     
+                    let filePermission = json.value(forKey: "filePermission") as? String ?? "0"
                     
-                    
+               
                      self.createMsgEntityFrom(item: Message(
                         msg: json.value(forKey: "message") as! String,
                         msgId: message.attributeStringValue(forName: "id") ?? "",
@@ -665,28 +666,24 @@ extension OneMessage: XMPPStreamDelegate {
                         created: self.getCurrentTime(),
                         status: "",
                         modified: self.getCurrentTime(),
-                        is_permission: "0",replyTitle: replyTitle, replyMsgType: replyMsgType, replyMsgId: replyMsgId, replyMsgFile: replyMsgFile, replyMsg: replyMsg, sentTime: kXMPP.SEEN_MSG, seenTime: kXMPP.SEEN_MSG, destructiveTime: ""))
+                        is_permission: filePermission,replyTitle: replyTitle, replyMsgType: replyMsgType, replyMsgId: replyMsgId, replyMsgFile: replyMsgFile, replyMsg: replyMsg, sentTime: kXMPP.SEEN_MSG, seenTime: kXMPP.SEEN_MSG, destructiveTime: json.value(forKey: "destructiveTime") as! String))
  
                     
                     self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: json.value(forKey: "message") as! String, msg_type: json.value(forKey: "msgType") as! String, isMine: "0" , friendID: friendID)
                     
                     
-                 
-                    
                     let friendNo = UserDefaults.standard.string(forKey: "chatNo")
                     if friendNo == nil || friendNo != friendID {
                         
-                        let mainvc = SplitviewViewController()
-                        mainvc.showNotification(friendname: self.getFriend(id: friendID) , msg: json.value(forKey: "message") as! String)
+                       // let mainvc = SplitviewViewController()
+                       // mainvc.showNotification(friendname: self.getFriend(id: friendID) , msg: json.value(forKey: "message") as! String)
                     }else{
                         
                         self.sendSeenMsgAck(friendID: friendID)
 
                     }
-                    
-                    let dsmsg =  json.value(forKey: "destructiveTime") as! String
-                    
-                    if dsmsg.count > 0 {
+                 
+                    /*if dsmsg.count > 0 {
                         
                         // var timeVal = Float(json.value(forKey: "destructiveTime") as! String)
                         
@@ -695,21 +692,17 @@ extension OneMessage: XMPPStreamDelegate {
                             // updated msg by msg id
                             
                             self.updateMsg(msg_id: message.attributeStringValue(forName: "id") ?? "", type:"delete_type", value: kXMPP.DELETE_TEXT_FRIEND)
-                            
-                            
+                     
                             let friendNo = UserDefaults.standard.string(forKey: "chatNo")
                             if friendNo == friendID {
                                 let mainvc = ChatVC()
                                 mainvc.reloadData()
                             }
-                            
-                            
-                            
-                            
+                     
                         })
                         
                         
-                    }
+                    } */
                     
                     
                     
@@ -733,11 +726,11 @@ extension OneMessage: XMPPStreamDelegate {
                 self.updateFriendLastMsg(friendID: userData[0], value: kXMPP.msgSent)
                 
                 
-                let friendNo = UserDefaults.standard.string(forKey: "chatNo")
+              /*  let friendNo = UserDefaults.standard.string(forKey: "chatNo")
                 if friendNo == userData[0] {
                     let mainvc = ChatVC()
                     mainvc.reloadData()
-                }
+                } */
                 
 
                 
@@ -755,11 +748,11 @@ extension OneMessage: XMPPStreamDelegate {
                 let friendID = userData[0]
                 //self.updateFriendLastMsg(friendID: userData[0], value: kXMPP.msgSeen)
                 
-                let friendNo = UserDefaults.standard.string(forKey: "chatNo")
+               /* let friendNo = UserDefaults.standard.string(forKey: "chatNo")
                 if friendNo == userData[0] {
                     let mainvc = ChatVC()
                     mainvc.reloadData()
-                }
+                } */
                 
                 self.updateFriendTyping(friendID: friendID,typing : "yes")
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {

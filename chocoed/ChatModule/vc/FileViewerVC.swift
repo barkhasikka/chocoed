@@ -14,6 +14,9 @@ class FileViewerVC: UIViewController {
     var fileURL : String = ""
     var type : String = ""
     
+    
+    @IBOutlet var pdfView: UIView!
+    
     @IBOutlet var mainview: UIView!
     
 
@@ -24,6 +27,9 @@ class FileViewerVC: UIViewController {
         
         if type == kXMPP.TYPE_IMAGE {
             
+            self.pdfView.isHidden = true
+            self.mainview.isHidden = false
+            
             let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
             backgroundImage.sd_setImage(with: URL(string: fileURL))
             backgroundImage.contentMode = UIViewContentMode.scaleAspectFit
@@ -31,27 +37,16 @@ class FileViewerVC: UIViewController {
             
         }else if type == kXMPP.TYPE_PDF {
             
-          /*
-            let webView = UIWebView(frame: self.view.bounds)
-            print(pdf!)
-            let req = URLRequest(url: pdf!)
-            webView.loadRequest(req)
-            self.mainview.addSubview(webView)*/
-
-            let fileManager = FileManager.default
-            let documentsUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0] as NSURL
-            print(documentsUrl)
+          
+            self.pdfView.isHidden = false
+            self.mainview.isHidden = true
             
-            let url = URL(string:self.fileURL)?.lastPathComponent
-            let pdf = documentsUrl.appendingPathComponent(url!)
-  
-            let pdfview = PDFView(frame: self.view.bounds)
+            let url = URL(string: self.fileURL)
+            print(url!)
+            let pdfview = UIWebView(frame: self.view.bounds)
             pdfview.translatesAutoresizingMaskIntoConstraints = false
-            
-            if let document = PDFDocument(url: pdf!){
-                pdfview.document = document
-                self.mainview.addSubview(pdfview)
-            }
+            pdfview.loadRequest(URLRequest(url:url!))
+            self.pdfView.addSubview(pdfview)
         
         }
     }

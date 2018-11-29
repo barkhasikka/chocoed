@@ -16,6 +16,8 @@ import SDWebImage
 class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSource , UISearchBarDelegate  {
     
     
+    @IBOutlet var lblNotificationCount: UILabel!
+    
     
     @IBOutlet var btnDestructive: UIButton!
     @IBOutlet var lblNoFriendFound: UILabel!
@@ -44,8 +46,11 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
     override func viewWillAppear(_ animated: Bool) {
         
         if self.type == "" {
-            self.lblTitle.text = "Chat"
+            self.lblTitle.text = "My Talks"
         }
+        
+        self.registerToChat()
+        
 
     }
     
@@ -53,37 +58,32 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
     
     @IBAction func add_friend(_ sender: Any) {
         
-        
-        if type != "" {
-            
-            if self.type == "" {
-                self.lblTitle.text = "Chat"
-                self.searchBar.isHidden = false
-                self.btnDestructive.isHidden = false
-            }
-            
-            
-
-        }else{
-        
-        
+    
         if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "AddFriendVC") as? AddFriendVC{
             self.present(vcNewSectionStarted, animated: true, completion: nil)
         }
-        }
+        
+        
     }
     
     
     @IBAction func notification_clicked(_ sender: Any) {
     
+        
+        if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "PhotoNotificationVC") as? PhotoNotificationVC{
+            self.present(vcNewSectionStarted, animated: true, completion: nil)
+        }
+        
     }
     
     
     @IBAction func destructive_mg_clicked(_ sender: Any) {
        self.lblTitle.text = "Send To..."
-       self.type = "destructive"
+        self.type = "destructive"
         self.searchBar.isHidden = true
         self.btnDestructive.isHidden = true
+        
+        
     }
     
     
@@ -92,6 +92,10 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         super.viewDidLoad()
         
         UserDefaults.standard.set("", forKey: "chatNo")
+        self.lblNotificationCount.isHidden = true
+        self.lblNotificationCount.layer.cornerRadius = 10
+        self.lblNotificationCount.clipsToBounds =  true
+
         
         UIApplication.shared.cancelAllLocalNotifications()
         UIApplication.shared.applicationIconBadgeNumber = 0
@@ -103,36 +107,22 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         }else if self.type == "destructive"{
             
             self.lblTitle.text = "Send to..."
-            
         }else{
-            
-            self.lblTitle.text = "Chat"
-
+            self.lblTitle.text = "My Talks"
         }
-        
-        
-       
-        
-        
-
-       // let params = ["name":"Mahesh Nikam","last_msg_time":"Yesterday","last_msg":"Hello How are you","friendImage":"","lastMsgTypeImage":"","count":"","userId":"7774960386"] as Dictionary<String, String>
-       // self.arrayFriends.append(FriendListChat(params as NSDictionary))
         
         self.checkChatConnection()
         self.searchBar.delegate = self
         self.lblNoFriendFound.isHidden = true
 
     
-      //  self.tblView.register(FriendCell.self, forCellReuseIdentifier: cellID)
         do {
             try self.fetchedhResultController.performFetch()
-           // self.tblView.reloadData()
         } catch let error  {
             print("ERROR: \(error)")
         }
         
-        self.registerToChat()
-        
+       
         let longPressRec = UILongPressGestureRecognizer(target: self, action: #selector(self.longPress))
         longPressRec.minimumPressDuration = 1.0
         self.tblView.addGestureRecognizer(longPressRec)
@@ -150,8 +140,6 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         backgroundImage.image = UIImage(named: "background_pattern")
         backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
         self.view.insertSubview(backgroundImage, at: 0)
-     
-     
     }
     
     
@@ -247,8 +235,23 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
     }
     
     @IBAction func back_btn_clicked(_ sender: UIButton) {
-
-        dismiss(animated: false, completion: nil)
+        
+        if self.type != "" {
+            
+            
+                self.type = ""
+                self.lblTitle.text = "My Talks"
+                self.searchBar.isHidden = false
+                self.btnDestructive.isHidden = false
+           
+        }else{
+            
+            let startVC = self.storyboard?.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
+            let aObjNavi = UINavigationController(rootViewController: startVC)
+            aObjNavi.navigationBar.barTintColor = UIColor.blue
+            self.present(aObjNavi, animated: true, completion: nil)
+            
+        }
     }
     
     
@@ -303,9 +306,6 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
             cell.read_count?.layer.cornerRadius = 10
             cell.read_count?.clipsToBounds =  true
             
-            
-            
-            
             cell.friendImage?.sd_setImage(with : URL(string: item1.profile_image))
             cell.friendImage?.layer.cornerRadius = (cell.friendImage?.frame.width)! / 2
             cell.friendImage?.clipsToBounds = true
@@ -337,16 +337,13 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
                         cell.last_msg_time?.text = ""
                     }
                     
-                    
-                
-                    
                     if item1.is_typing == "" || item1.is_typing == "no" {
                         
                         
                         if item.msg_type == kXMPP.TYPE_TEXT ||  item.msg_type == kXMPP.TYPE_REPLY {
                             
                             cell.last_msg?.text = item.msg
-
+                            
                         }else if item.msg_type == kXMPP.TYPE_IMAGE {
                             
                             cell.last_msg?.text = "Image"
@@ -367,6 +364,9 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
                         cell.last_msg?.textColor = UIColor.blue
                         
                     }
+                    
+                    
+                  
                     
                     
                     if item.is_mine == "1"{
@@ -393,14 +393,29 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
                             
                         }
                         
+                        if item.msg == kXMPP.DELETE_TEXT_MY ||
+                            item.msg == kXMPP.DELETE_TEXT_FRIEND {
+                            
+                            cell.lastMsgImage?.isHidden = true
+                            
+                        }else{
+                            
+                            cell.lastMsgImage?.isHidden = false
+                            
+                        }
+                        
+                        
+                        
+                        
                         
                     }else{
                         
-                        cell.lastMsgImage.isHidden = true
+                        
+                       // cell.last_msg?.text = ""
+                       // cell.last_msg_time?.text = ""
+                       // cell.lastMsgImage.isHidden = true
                     }
                     
-                    
-                
                 }
                 
             }catch{
@@ -460,6 +475,8 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
             
             print(response)
             
+            self.getNotificationCount()
+            
             let jsonobject = response["data"] as? NSDictionary;
             let chatUserID = jsonobject?.object(forKey: "user_id") as? String ?? ""
             print(chatUserID,"<<<<< CHAT USER ID>>>>")
@@ -498,8 +515,7 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         }, errorHandler: {(message) -> Void in
             print("message", message)
             
-            DispatchQueue.main.async {
-            }
+           
             
         })
                 
@@ -592,6 +608,8 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
                 }
                 
                 self.updateFriendCell(friendID: number)
+                
+                self.tblView.reloadData()
           
             } catch let error {
                 print("ERROR DELETING : \(error)")
@@ -699,6 +717,50 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         }
     }
     
+    
+    func getNotificationCount(){
+        
+        
+        
+        let params = ["contact_no": "\(USERDETAILS.mobile)"]
+        print(params)
+        MakeHttpPostRequestChat(url: kXMPP.notificationCount, params: params, completion: {(success, response) in
+            print(response)
+            
+            let res = response.object(forKey: "responce") as? Int ?? 0
+            
+            if res == 1 {
+                
+                let jsonobject = response["notification_count"] as? NSDictionary;
+                let count = jsonobject?.object(forKey: "notification_count") as? String ?? ""
+                
+                DispatchQueue.main.async {
+                    
+                    
+                    if count == "0"{
+                        
+                        self.lblNotificationCount.isHidden = true
+                    }else{
+                        self.lblNotificationCount.isHidden = false
+                        self.lblNotificationCount.text = count
+                    }
+                }
+                
+              
+                
+            }else{
+                
+                
+            }
+
+            
+          
+           
+        }, errorHandler: {(message) -> Void in
+            print("message", message)
+        })
+        
+    }
 
   
 }
