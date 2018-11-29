@@ -215,7 +215,12 @@ class VideoVC: UIViewController {
             player.seek(to: CMTimeMake(position!, 1000))
         }
         
-    
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+        }
+        catch {
+                print("error")
+        }
          player.play()
         isVideoPlaying = !isVideoPlaying
         addTimeObserver()
