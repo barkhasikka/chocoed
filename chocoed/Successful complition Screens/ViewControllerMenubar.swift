@@ -10,27 +10,37 @@ import UIKit
 
 class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
+    @IBOutlet weak var tabelViewMenu: UITableView!
+    @IBOutlet weak var tableviewLanguage: UITableView!
+    @IBOutlet weak var viewLanguage: UIView!
     @IBOutlet weak var profileGradiantView: UIView!
     @IBOutlet weak var buttonEmail: UIButton!
     @IBOutlet weak var tabGestureView: UIView!
     @IBOutlet weak var labelUserNAme: UILabel!
     @IBOutlet weak var imageProfile: UIImageView!
-    
+    let lang = ViewController()
     var userImageLoaded : UIImage? = nil
     var languageUIView: LanguageUIView!
     var count = 0
     var availableString = ""
-
+    var arrayLanguages = [LanguageList]()
+    var activityUIView: ActivityIndicatorUIView!
+    
     
 //    @IBOutlet weak var tabelviewLanguage: UITableView!
 //    @IBOutlet weak var languageview: UIView!
-    var arraymenu = ["My Talks","My Thoughts","My Progress","My Profile",//"Select Preferred Language",
-        "Log out"]
-    let cousesImages = [UIImage(named:"chat"),UIImage(named: "discussion_room"), UIImage(named: "myprocess_improvement"), UIImage(named: "icons_user"), UIImage(named: "icon_logout")]
+    var arraymenu = ["My Talks","My Thoughts","My Progress","My Profile","Application Language","Learning Language","Log out"]
+    let cousesImages = [UIImage(named:"chat"),UIImage(named: "discussion_room"), UIImage(named: "myprocess_improvement"), UIImage(named: "icons_user"),UIImage(named: "discussion_room"), UIImage(named: "myprocess_improvement"), UIImage(named: "icon_logout")]
     
         override func viewDidLoad() {
             super.viewDidLoad()
         
+            viewLanguage.isHidden = true
+            
+            activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
+            self.view.addSubview(activityUIView)
+            activityUIView.isHidden = true
+
             let backgroundImage = UIImageView(frame: CGRect(x: 0, y: 0, width: self.profileGradiantView.bounds.width, height: self.profileGradiantView.bounds.height))
             backgroundImage.image = UIImage(named: "Profile_page Gradient")
             backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
@@ -101,69 +111,87 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arraymenu.count
-        
+        var count1 = Int()
+        if tableView == tabelViewMenu {
+        count1 = arraymenu.count
+        }else if tableView == tableviewLanguage{
+            count1 = arrayLanguages.count
+        }
+        return count1
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        if tableView == tabelViewMenu{
         let cell = tableView.dequeueReusableCell(withIdentifier: "menucell") as! MenuBarTableViewCell
         
-        let images = cousesImages[indexPath .row]
+        let images = cousesImages[indexPath.row]
         
         cell.labelName.text = arraymenu[indexPath.row]
         
         cell.labelimages.image = images
         
         return cell
+        }else if tableView == tableviewLanguage{
+        let cell = tableView.dequeueReusableCell(withIdentifier: "langcell") as! LanguageView1TableViewCell
+        
+        cell.labelLanguageName.text = arrayLanguages[indexPath.row].langDispalyName
+        
+        return cell
+        }
+        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView == languageUIView.tableViewLanguage {
-            let text = languageUIView.arrayLanguages[indexPath.row].dbname
-            print(text)
-            if count == 0 {
-                let alertcontrol = UIAlertController(title: "My Choice!", message: "Would you like \(text) as preferred language for learning with Chocoed ?", preferredStyle: .alert)
-                let alertaction = UIAlertAction(title: "No", style: .default) { (action) in
-                    self.count = 1
-                    UserDefaults.standard.set(text, forKey: "Language1")
-                    self.languageUIView.isHidden = true
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5 ) {
-                        self.languageUIView.label.text = "Please select your preferred language for learning with Chocoed"
-                        self.languageUIView.isHidden = false
-                    }
-                    
-                }
-                let alertaction1 = UIAlertAction(title: "Yes", style: .default) { (action) in
-                    self.languageUIView.isHidden = true
-                    self.count = 0
-                    UserDefaults.standard.set(text, forKey: "Language1")
-                    UserDefaults.standard.set(text, forKey: "Language2")
-                    
-                    self.languageUIView.label.text = "Please select your preferred language for Chocoed app screens"
-                    
-                    self.sendLanguagesSelected()
-
-                }
-                alertcontrol.addAction(alertaction)
-                alertcontrol.addAction(alertaction1)
-                self.present(alertcontrol, animated: true, completion: nil)
-                languageUIView.tableViewLanguage.deselectRow(at: indexPath, animated: false)
-            } else {
-                self.languageUIView.isHidden = true
-                //let userLearningLang = UserDefaults.standard.string(forKey: "Language2")
-                //let userAppLang = UserDefaults.standard.string(forKey: "Language1")
-                
-                UserDefaults.standard.set(text, forKey: "Language2")
-                self.languageUIView.label.text = "Please select your preferred language for Chocoed app screens"
-                languageUIView.tableViewLanguage.deselectRow(at: indexPath, animated: false)
-                self.sendLanguagesSelected()
-
-            }
+        if tableView == tableviewLanguage {
+//            let text = languageUIView.arrayLanguages[indexPath.row].dbname
+//            print(text)
+//            if count == 0 {
+//                let alertcontrol = UIAlertController(title: "My Choice!", message: "Would you like \(text) as preferred language for learning with Chocoed ?", preferredStyle: .alert)
+//                let alertaction = UIAlertAction(title: "No", style: .default) { (action) in
+//                    self.count = 1
+//                    UserDefaults.standard.set(text, forKey: "Language1")
+//                    self.languageUIView.isHidden = true
+//
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5 ) {
+//                        self.languageUIView.label.text = "Please select your preferred language for learning with Chocoed"
+//                        self.languageUIView.isHidden = false
+//                    }
+//
+//                }
+//                let alertaction1 = UIAlertAction(title: "Yes", style: .default) { (action) in
+//                    self.languageUIView.isHidden = true
+//                    self.count = 0
+//                    UserDefaults.standard.set(text, forKey: "Language1")
+//                    UserDefaults.standard.set(text, forKey: "Language2")
+//
+//                    self.languageUIView.label.text = "Please select your preferred language for Chocoed app screens"
+//
+//                    self.sendLanguagesSelected()
+//
+//                }
+//                alertcontrol.addAction(alertaction)
+//                alertcontrol.addAction(alertaction1)
+//                self.present(alertcontrol, animated: true, completion: nil)
+//                languageUIView.tableViewLanguage.deselectRow(at: indexPath, animated: false)
+                print("tabelViewMenu is selected")
+                viewLanguage.isHidden = true
+                tabelViewMenu.isHidden = false
             
             
-        }else {
+        }
+//            else {
+//                self.languageUIView.isHidden = true
+//                //let userLearningLang = UserDefaults.standard.string(forKey: "Language2")
+//                //let userAppLang = UserDefaults.standard.string(forKey: "Language1")
+//
+//                UserDefaults.standard.set(text, forKey: "Language2")
+//                self.languageUIView.label.text = "Please select your preferred language for Chocoed app screens"
+//                languageUIView.tableViewLanguage.deselectRow(at: indexPath, animated: false)
+//                self.sendLanguagesSelected()
+//
+//            }
             
+            else if tableView == tabelViewMenu {
             
             switch(indexPath.row) {
                 
@@ -211,9 +239,7 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                 self.present(v1, animated: true, completion: nil)
                 
                 break;
-
-           
-                
+         
             case 3:
                 
                 let v1 = self.storyboard?.instantiateViewController(withIdentifier: "profile") as! ProfileViewController
@@ -221,7 +247,7 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                 
                 break;
                 
-            case 4:
+            case 6:
                 textfieldMbNumber = UserDefaults.standard.string(forKey: "mobileno")!
                 let alertcontrol = UIAlertController(title: "Alert", message: "Are you sure you want to logout?",preferredStyle: .alert)
                 let alertaction = UIAlertAction(title: "No", style: .default) { (action) in
@@ -246,13 +272,20 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                 break;
              
                 
+            case 4 :
+                arrayLanguages.removeAll()
+                viewLanguage.isHidden = false
+                loadGetLanguageList()
+                tabelViewMenu.isHidden = true
+                break
+                
             case 5 :
                 
                 let alert = GetAlertWithOKAction(message: "If you need help - just drop us an email at contact@skillcues.com")
                 self.present(alert, animated: true, completion: nil)
                 
                 break
-                
+
            /* case 4:
 //            let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.regular)
 //            let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -267,13 +300,44 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
         
                 
             default:
-                
-
-                break
+                  break
                 
             }
         }
         
+        
+    }
+    func loadGetLanguageList() {
+        let clientid = UserDefaults.standard.string(forKey: "clientid")
+        let userid = UserDefaults.standard.string(forKey: "userid")
+        
+        let params = ["access_token":"\(accessToken)","userId":"\(userid)","clientId":"\(clientid)"] as Dictionary<String, String>
+        activityUIView.isHidden = false
+        activityUIView.startAnimation()
+        MakeHttpPostRequest(url: getLanguageListCall, params: params, completion: {(success, response) -> Void in
+            print(response)
+            let language = response.object(forKey: "appList") as? NSArray ?? []
+            
+            for languages in language {
+                self.arrayLanguages.append(LanguageList( languages as! NSDictionary))
+                
+            }
+            DispatchQueue.main.async {
+                self.tableviewLanguage.reloadData()
+                self.activityUIView.isHidden = true
+                self.activityUIView.stopAnimation()
+            }
+            print(self.arrayLanguages)
+            
+        }, errorHandler: {(message) -> Void in
+            let alert = GetAlertWithOKAction(message: message)
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+                self.activityUIView.isHidden = true
+                self.activityUIView.stopAnimation()
+                
+            }
+        })
         
     }
 
