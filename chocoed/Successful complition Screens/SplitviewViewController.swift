@@ -39,16 +39,8 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
     @IBOutlet weak var myprogressConstraintOutlet: NSLayoutConstraint!
     @IBOutlet var lblBadgesCount: UILabel!
     @IBOutlet var lblTopicCount: UILabel!
-    
     @IBOutlet var lblnotificationCount: UILabel!
-    
-    
     @IBOutlet var notificationimgae: UIImageView!
-    
-    
-    
-    
-    
     @IBOutlet weak var viewChoice: UIView!
     @IBOutlet weak var viewvonversation: UIView!
     @IBOutlet weak var viewContent: UIView!

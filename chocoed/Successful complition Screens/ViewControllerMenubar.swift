@@ -10,6 +10,12 @@ import UIKit
 
 class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
+    @IBOutlet weak var slidingMenuView: UIView!
+    @IBOutlet weak var tabelviewSeclearning: UITableView!
+    @IBOutlet weak var labelAlertChoice: UILabel!
+    @IBOutlet weak var labelchoice: UILabel!
+    @IBOutlet weak var alertviewSecLanguage: UIView!
+    @IBOutlet weak var viewAlertchoice: UIView!
     @IBOutlet weak var tabelViewMenu: UITableView!
     @IBOutlet weak var tableviewLanguage: UITableView!
     @IBOutlet weak var viewLanguage: UIView!
@@ -24,8 +30,11 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
     var count = 0
     var availableString = ""
     var arrayLanguages = [LanguageList]()
+    var arraysecLang = [LanguageList]()
     var activityUIView: ActivityIndicatorUIView!
     
+    @IBOutlet weak var buttonCloseView: UIButton!
+    @IBOutlet weak var labelSelectPrefLang: UILabel!
     
 //    @IBOutlet weak var tabelviewLanguage: UITableView!
 //    @IBOutlet weak var languageview: UIView!
@@ -36,7 +45,7 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
             super.viewDidLoad()
         
             viewLanguage.isHidden = true
-            
+            viewAlertchoice.isHidden = true
             activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
             self.view.addSubview(activityUIView)
             activityUIView.isHidden = true
@@ -95,7 +104,11 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
         return UIInterfaceOrientationMask.portrait
     }
     
-
+    
+    @IBAction func buttonCloseLangView(_ sender: Any) {
+        viewLanguage.isHidden =  true
+        tabelViewMenu.isHidden = false
+    }
     @objc func handleTap(sender: UITapGestureRecognizer? = nil) {
         closemethod()
      }
@@ -115,6 +128,8 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
         if tableView == tabelViewMenu {
         count1 = arraymenu.count
         }else if tableView == tableviewLanguage{
+            count1 = arrayLanguages.count
+        }else if tableView == tabelviewSeclearning{
             count1 = arrayLanguages.count
         }
         return count1
@@ -137,10 +152,33 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
         cell.labelLanguageName.text = arrayLanguages[indexPath.row].langDispalyName
         
         return cell
+        }else if tableView == tabelviewSeclearning{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "secCell") as! SecondaryLangTableViewCell
+            
+            cell.dbNameLabel.text = arraysecLang[indexPath.row].dbname
+            cell.labelSecLanguage.text = arraysecLang[indexPath.row].langDispalyName
+             return cell
         }
         return UITableViewCell()
     }
     
+    func presentMainDashboard(){
+        
+        let alertcontrol = UIAlertController(title: "Alert!", message: "Are you sure you want to change the Application Language", preferredStyle: .alert)
+        let alertaction1 = UIAlertAction(title: "Yes", style: .default) { (action) in
+            let startVC = self.storyboard?.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
+            let aObjNavi = UINavigationController(rootViewController: startVC)
+            aObjNavi.navigationBar.barTintColor = UIColor.blue
+            self.present(aObjNavi, animated: true, completion: nil)
+
+        }
+        let alertAction2 = UIAlertAction(title: "No", style: .cancel, handler: nil)
+        
+        alertcontrol.addAction(alertaction1)
+        alertcontrol.addAction(alertAction2)
+        self.present(alertcontrol, animated: true, completion: nil)
+        
+    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == tableviewLanguage {
 //            let text = languageUIView.arrayLanguages[indexPath.row].dbname
@@ -173,6 +211,21 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
 //                alertcontrol.addAction(alertaction1)
 //                self.present(alertcontrol, animated: true, completion: nil)
 //                languageUIView.tableViewLanguage.deselectRow(at: indexPath, animated: false)
+            
+                switch indexPath.row {
+                case 2 :
+                    UserDefaults.standard.set("en", forKey: "currentlanguage")
+                    presentMainDashboard()
+                    break
+                case 4 :
+                    UserDefaults.standard.set("hi", forKey: "currentlanguage")
+                    presentMainDashboard()
+                    break
+                default:
+                    print("default value is selected")
+                    break
+                }
+            
                 print("tabelViewMenu is selected")
                 viewLanguage.isHidden = true
                 tabelViewMenu.isHidden = false
@@ -274,6 +327,7 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                 
             case 4 :
                 arrayLanguages.removeAll()
+                
                 viewLanguage.isHidden = false
                 loadGetLanguageList()
                 tabelViewMenu.isHidden = true
@@ -281,9 +335,12 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                 
             case 5 :
                 
-                let alert = GetAlertWithOKAction(message: "If you need help - just drop us an email at contact@skillcues.com")
-                self.present(alert, animated: true, completion: nil)
-                
+                self.alertviewSecLanguage.layer.cornerRadius = 5
+                self.alertviewSecLanguage.clipsToBounds = true
+                self.viewAlertchoice.isHidden = false
+                arraysecLang.removeAll()
+                loadGetLanguageList()
+                self.slidingMenuView.isHidden = true
                 break
 
            /* case 4:
@@ -303,10 +360,13 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                   break
                 
             }
+        }else if tableView == tabelviewSeclearning{
+            viewAlertchoice.isHidden = true
+            slidingMenuView.isHidden = false
+            
         }
-        
-        
     }
+    
     func loadGetLanguageList() {
         let clientid = UserDefaults.standard.string(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
@@ -319,11 +379,19 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
             let language = response.object(forKey: "appList") as? NSArray ?? []
             
             for languages in language {
-                self.arrayLanguages.append(LanguageList( languages as! NSDictionary))
+                self.arrayLanguages.append(LanguageList( languages as? NSDictionary))
                 
             }
+            let languagelearn = response.object(forKey: "learningList") as? NSArray ?? []
+            
+            for learninglanguage in languagelearn{
+                self.arraysecLang.append(LanguageList( learninglanguage as? NSDictionary))
+            }
+            print(self.arraysecLang.count)
             DispatchQueue.main.async {
                 self.tableviewLanguage.reloadData()
+                self.tabelviewSeclearning.reloadData()
+                
                 self.activityUIView.isHidden = true
                 self.activityUIView.stopAnimation()
             }
