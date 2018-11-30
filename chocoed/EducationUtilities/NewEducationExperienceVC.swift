@@ -44,15 +44,12 @@ class NewEducationExperienceVC: UIViewController {
     var stateList = [FieldsOfEducation]()
     var mediumOfEduList = [FieldsOfEducation]()
     var PassingYears: [String] = []
-    
     var selectedEducation = EducationFields()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
-        
-
         self.letUsKnowLabel.text = "EducationTopMsgKey".localizableString(loc: language!)
         self.labelQualification.text = "QulificationKey".localizableString(loc: language!)
         self.labelCollegeNAme.text = "NameofCollegeKey".localizableString(loc: language!)

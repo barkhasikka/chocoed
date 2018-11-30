@@ -43,27 +43,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions:
         
         [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
-        
         if let userInfo = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] {
-
-            
              NSLog("[RemoteNotification] applicationState: \(applicationStateString) didFinishLaunchingWithOptions for iOS9: \(userInfo)")
-          
-             // self.openVC()
-
-            
         }
-        
-        
-       
         FirebaseApp.configure()
         application.registerForRemoteNotifications()
         Messaging.messaging().delegate = self
-        
         CoreDataStack.sharedInstance.applicationDocumentsDirectory()
-
-        
         OneChat.start(true, delegate: nil) { (stream, error) -> Void in
             if let _ = error {
                 //handle start errors here
@@ -75,15 +61,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           }
 
         requestNotificationAuthorization(application: application)
-            
-            self.openVC()
-        
-       // }
-        
+        self.openVC()
         return true
     }
 
-        
         func openVC(){
             
             let userID = UserDefaults.standard.integer(forKey: "userid")
@@ -93,8 +74,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     self.GetUserInfo()
                     
                 }
+        // Override point for customization after application launch.
+        let userID = UserDefaults.standard.integer(forKey: "userid")
+       // UserDefaults.standard.set("en", forKey: "currentlanguage")
+        UserDefaults.standard.string(forKey: "currentlanguage")
+        print(userID)
+        if userID != 0 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 8) { // change 2 to desired number of seconds
+                self.GetUserInfo()
             }
-                else {
+        }else {
+           /* let quiztakenid = UserDefaults.standard.string(forKey: "quiztakenID")
+            print(quiztakenid)
+            if quiztakenid == "1"{
+                self.window = UIWindow(frame: UIScreen.main.bounds)
+                let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
+                let navigationController = UINavigationController(rootViewController: startVC)
+                self.window!.rootViewController = navigationController
+            }
+            else{ */
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
+
+                self.window = UIWindow(frame: UIScreen.main.bounds)
+                let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "firstview") as! ViewController
+                self.window!.rootViewController = startVC
+                self.window!.makeKeyAndVisible()
+                    }
+                }
+            }else {
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
                         
@@ -106,10 +116,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         
                     }
                 }
-                
-            
-        }
-    
+    }
     var applicationStateString: String {
         if UIApplication.shared.applicationState == .active {
             return "active"
@@ -119,7 +126,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return "inactive"
         }
     }
-    
     func requestNotificationAuthorization(application: UIApplication) {
         if #available(iOS 10.0, *) {
             UNUserNotificationCenter.current().delegate = self
@@ -160,9 +166,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationReceivedRemoteMessage(_ remoteMessage: MessagingRemoteMessage) {
         print(remoteMessage.appData)
     }
-    
-  
-  
     
     func GetUserInfo() {
         let userID = UserDefaults.standard.integer(forKey: "userid")
@@ -646,6 +649,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
 }
+    
 
 @available(iOS 10, *)
 extension AppDelegate : UNUserNotificationCenterDelegate {

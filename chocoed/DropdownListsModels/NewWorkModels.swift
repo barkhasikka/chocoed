@@ -128,10 +128,10 @@ struct LanguageList {
     var dbname: String
     var id: Int
     var langDispalyName: String
-    init(_ dictionary : NSDictionary) {
-        self.dbname = dictionary["dbName"] as? String ?? ""
-        self.langDispalyName = dictionary["displayName"] as? String ?? ""
-        self.id = dictionary["id"] as? Int ?? -1
+    init(_ dictionary : NSDictionary? = nil) {
+        self.dbname = dictionary!["dbName"] as? String ?? ""
+        self.langDispalyName = dictionary!["displayName"] as? String ?? ""
+        self.id = dictionary!["id"] as? Int ?? -1
         
     }
 }

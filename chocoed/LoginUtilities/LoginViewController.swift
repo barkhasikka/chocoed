@@ -187,7 +187,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
                     
                 } else {
                     let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                    let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "profileSuccess") as! ProfileSucessViewController
+                    let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "language") as! LanguageSelectionViewController
                     DispatchQueue.main.async {
                         self.present(startVC, animated: true, completion: nil)
                     }
