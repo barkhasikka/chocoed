@@ -843,6 +843,7 @@ extension FriendListVC: NSFetchedResultsControllerDelegate {
             self.tblView.insertRows(at: [newIndexPath!], with: .automatic)
         case .delete:
             self.tblView.deleteRows(at: [indexPath!], with: .automatic)
+            
         default:
             break
         }

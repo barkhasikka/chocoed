@@ -63,8 +63,6 @@ class MediaVC: UIViewController ,UICollectionViewDataSource, UICollectionViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        
         getData(type: kXMPP.TYPE_IMAGE)
     }
     

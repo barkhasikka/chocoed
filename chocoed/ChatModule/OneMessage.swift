@@ -8,6 +8,7 @@
 
 import Foundation
 import XMPPFramework
+import SDWebImage
 
 public typealias OneChatMessageCompletionHandler = (_ stream: XMPPStream, _ message: XMPPMessage) -> Void
 
@@ -280,6 +281,8 @@ extension OneMessage: XMPPStreamDelegate {
                 
                 if type == "download"{
                     updatObj.setValue(value, forKey: "is_download")
+                    updatObj.setValue("0", forKey: "is_permission")
+
                 }
                 
                 if type == "file"{
@@ -335,31 +338,7 @@ extension OneMessage: XMPPStreamDelegate {
     }
     
     
-    private func getMsg(msgId : String) -> Msg {
-        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Msg")
-        fetchRequest.predicate = NSPredicate(format: "msg_id = %@", msgId)
-        
-        var results : [NSManagedObject] = []
-        
-        do{
-            results = try context.fetch(fetchRequest)
-            
-            if results.count != 0 {
-                
-                return results[0] as! Msg
-                
-            }
-            
-            
-            
-        }catch{
-            print("error executing request")
-        }
-        
-        return results[0] as! Msg
-    }
-    
+   
     
     private func isMSgPrsent(item : Message) -> Bool {
         let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
@@ -482,6 +461,56 @@ extension OneMessage: XMPPStreamDelegate {
         
     }
     
+    private func isMsg(msgId : String) -> Bool {
+        
+        
+        
+        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Msg")
+        fetchRequest.predicate = NSPredicate(format: "msg_id = %@", msgId)
+        
+        var results : [NSManagedObject] = []
+        
+        do{
+            results = try context.fetch(fetchRequest)
+            
+            if results.count != 0 {
+                
+                return true
+                
+            }
+            
+        }catch{
+            print("error executing request")
+        }
+        
+        return false
+    }
+    
+    private func getMsg(msgId : String) -> Msg {
+        
+        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Msg")
+        fetchRequest.predicate = NSPredicate(format: "msg_id = %@", msgId)
+        
+        var results : [NSManagedObject] = []
+        
+        do{
+            results = try context.fetch(fetchRequest)
+            
+            if results.count != 0 {
+                
+                return results[0] as! Msg
+                
+            }
+        }catch{
+            
+        }
+        
+        return results[0] as! Msg
+    }
+    
+    
     
 
    private func updateFriendTyping(friendID : String, typing: String){
@@ -550,6 +579,74 @@ extension OneMessage: XMPPStreamDelegate {
         
     }
     
+    func loadPDFAsync(url : String,msgid: String){
+        
+        let sessionConfig = URLSessionConfiguration.default
+        let session = URLSession(configuration: sessionConfig)
+        let request = URLRequest(url: URL(string: url)!)
+        
+        
+        let task = session.downloadTask(with: request) { (data, response, error) in
+            guard error == nil else {
+                print(error!)
+                return
+            }
+            // Success
+            if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+                print("Success: \(statusCode)")
+            }
+            
+            do {
+                
+                let fileName = "\(Int64(NSDate().timeIntervalSince1970 * 1000)).pdf"
+                let documentFolderURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+                let fileURL = documentFolderURL.appendingPathComponent(fileName)
+                
+                try FileManager.default.moveItem(at: data!, to: fileURL)
+                
+                DispatchQueue.main.async {
+                    
+                    
+                    self.updateMsg(msg_id: msgid, type : "download" ,value: "1")
+                    self.updateMsg(msg_id: msgid, type : "file" ,value:fileURL.absoluteString)
+                    
+                }
+                
+            } catch  {
+                print("error writing file  : \(error)")
+            }
+        }
+        task.resume()
+        
+    }
+    
+    
+    private func savefiletoDirector(image : UIImage) -> String
+    {
+        
+        // get the documents directory url
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        // choose a name for your image
+        let fileName = "\(Int64(NSDate().timeIntervalSince1970 * 1000)).jpg"
+        // create the destination file url to save your image
+        let fileURL = documentsDirectory.appendingPathComponent(fileName)
+        // get your UIImage jpeg data representation and check if the destination file url already exists
+        if let data = UIImageJPEGRepresentation(image, 1.0),
+            !FileManager.default.fileExists(atPath: fileURL.path) {
+            do {
+                // writes the image data to disk
+                try data.write(to: fileURL)
+                print("file saved")
+                
+            } catch {
+                print("error saving file:", error)
+            }
+        }
+        
+        return fileURL.absoluteString
+        
+    }
+    
     
 	
 	public func xmppStream(_ sender: XMPPStream, didSend message: XMPPMessage) {
@@ -600,6 +697,45 @@ extension OneMessage: XMPPStreamDelegate {
                         let mainvc = ChatVC()
                         mainvc.reloadData()
                     } */
+                    
+                    
+                    
+                }else if json.value(forKey: "msgType") as! String == kXMPP.TYPE_PER_GRANT {
+                    
+                   // download file working
+                    
+                    if self.isMsg(msgId: json.value(forKey: "msgId") as! String){
+                        
+                        let msgData = self.getMsg(msgId: json.value(forKey: "msgId") as! String)
+                        
+                       // if msgData.is_download == "1" {
+                            
+                            if msgData.msg_type == kXMPP.TYPE_IMAGE {
+                                
+                                SDWebImageManager.shared().imageDownloader?.downloadImage(with:  URL(string: msgData.file_url), options: .continueInBackground, progress: nil, completed: {(image : UIImage?,data:Data?,error:Error?,finished:Bool)
+                                    in
+                                    
+                                    if image != nil {
+                                        
+                                        let localURL  = self.savefiletoDirector(image: image!)
+                                        UIImageWriteToSavedPhotosAlbum(image!, self, nil, nil)
+                                     
+                                        self.updateMsg(msg_id: msgData.msg_id, type : "download" ,value: "1")
+                                        self.updateMsg(msg_id: msgData.msg_id, type : "file" ,value: localURL)
+                                        
+                                    }
+                                    
+                                })
+                                
+                            }else if msgData.msg_type == kXMPP.TYPE_PDF {
+                                
+                                self.loadPDFAsync(url: msgData.file_url, msgid: msgData.msg_id)
+                                
+                            }
+                            
+                      //  }
+                        
+                    }
                     
                     
                     

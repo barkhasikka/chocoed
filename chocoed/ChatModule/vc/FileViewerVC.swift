@@ -8,6 +8,8 @@
 
 import UIKit
 import PDFKit
+import WebKit
+
 
 class FileViewerVC: UIViewController {
     
@@ -41,11 +43,11 @@ class FileViewerVC: UIViewController {
             self.pdfView.isHidden = false
             self.mainview.isHidden = true
             
-            let url = URL(string: self.fileURL)
-            print(url!)
-            let pdfview = UIWebView(frame: self.view.bounds)
-            pdfview.translatesAutoresizingMaskIntoConstraints = false
-            pdfview.loadRequest(URLRequest(url:url!))
+            let url = URL(fileURLWithPath: self.fileURL)
+            print(url)
+            let pdfview = WKWebView(frame: self.view.bounds)
+            pdfview.loadFileURL(url, allowingReadAccessTo: url)
+            //pdfview.load(URLRequest(url:url!))
             self.pdfView.addSubview(pdfview)
         
         }
@@ -57,7 +59,6 @@ class FileViewerVC: UIViewController {
     }
     
     @IBAction func back_btn_clicked(_ sender: Any) {
-        
         dismiss(animated: true, completion: nil)
     }
     

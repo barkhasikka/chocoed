@@ -14,7 +14,7 @@ import SDWebImage
 import YPImagePicker
 
 
-class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,UIImagePickerControllerDelegate,UINavigationControllerDelegate , UIDocumentPickerDelegate , UITextFieldDelegate, XMPPLastActivityDelegate  , OneMessageDelegate {
+class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,UIImagePickerControllerDelegate,UINavigationControllerDelegate , UIDocumentPickerDelegate , UITextFieldDelegate, XMPPLastActivityDelegate  , OneMessageDelegate , UIDocumentInteractionControllerDelegate {
     
     private let cellID = "cellID"
     
@@ -81,6 +81,13 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         self.replyeMessageID = ""
     }
     
+    func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
+        return self
+    }
+    
+    /*func documentInteractionControllerViewForPreview(_ controller: UIDocumentInteractionController) -> UIView? {
+        return self
+    } */
     
     
     @IBAction func optionBtn_clicked(_ sender: UIButton) {
@@ -212,12 +219,19 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
 
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         
-        //let url = self.savefiletoDirector(image: urls[0].absoluteString)
-       //  print(urls[0].absoluteURL.absoluteString)
-      //
+        do{
         
-        let urlstring = urls[0].absoluteString
+        let fileName = "\(Int64(NSDate().timeIntervalSince1970 * 1000)).pdf"
+        let documentFolderURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+        let fileURL = documentFolderURL.appendingPathComponent(fileName)
+        try FileManager.default.moveItem(at: urls[0], to: fileURL)
+        
+        let urlstring = fileURL.absoluteString
         self.saveImage(fileurl: urlstring,type: kXMPP.TYPE_PDF)
+            
+        }catch{
+            
+        }
         
     }
     
@@ -1251,11 +1265,25 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     cell.profileImga?.clipsToBounds = true
                     cell.profileImga?.contentMode = .scaleToFill
                     
-                    cell.mainView?.layer.cornerRadius = 6
-                    cell.mainView?.layer.borderColor = #colorLiteral(red: 0.1333333333, green: 0.4941176471, blue: 0.8156862745, alpha: 1)
-                    cell.mainView?.layer.borderWidth = 1
+                   
                     
                     
+                    
+                    if item.distructive_time == "2"{
+                        
+                        cell.mainView?.layer.cornerRadius = 6
+                        cell.mainView?.layer.borderColor = #colorLiteral(red: 0.9176470588, green: 0.07450980392, blue: 0.07450980392, alpha: 1)
+                        cell.mainView?.layer.borderWidth = 1
+                        cell.mainView?.backgroundColor = #colorLiteral(red: 0.9647058824, green: 0.862745098, blue: 0.8705882353, alpha: 1)
+                        
+                    }else{
+                        
+                        cell.mainView?.layer.cornerRadius = 6
+                        cell.mainView?.layer.borderColor = #colorLiteral(red: 0.1333333333, green: 0.4941176471, blue: 0.8156862745, alpha: 1)
+                        cell.mainView?.layer.borderWidth = 1
+                        cell.mainView?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                        
+                    }
                     
                     
                     
@@ -1595,9 +1623,24 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                 cell.profileImage?.clipsToBounds = true
                 cell.profileImage?.contentMode = .scaleToFill
                     
-                     cell.mainView?.layer.cornerRadius = 6
-                     cell.mainView?.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-                     cell.mainView?.layer.borderWidth = 1
+                    
+                    
+                    
+                    if item.distructive_time == "2"{
+                        
+                        cell.mainView?.layer.cornerRadius = 6
+                        cell.mainView?.layer.borderColor = #colorLiteral(red: 0.9176470588, green: 0.07450980392, blue: 0.07450980392, alpha: 1)
+                        cell.mainView?.layer.borderWidth = 1
+                        cell.mainView?.backgroundColor = #colorLiteral(red: 0.9647058824, green: 0.862745098, blue: 0.8705882353, alpha: 1)
+                        
+                    }else{
+                        
+                        cell.mainView?.layer.cornerRadius = 6
+                        cell.mainView?.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+                        cell.mainView?.layer.borderWidth = 1
+                        cell.mainView?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                        
+                    }
                     
                     
                     if self.selectedArr.contains(item){
@@ -1873,16 +1916,16 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         return UITableViewAutomaticDimension
     }
     
-    private func permissionPopup(item: Msg){
+    private func permissionPopup(item: Msg,type:String,msg:String){
      
-        let alertView = UIAlertController(title: "Permission", message: "Take permission from \(self.friendModel.name) to download file", preferredStyle: .alert)
+        let alertView = UIAlertController(title: "Permission", message: msg, preferredStyle: .alert)
         let action = UIAlertAction(title: "Not Now", style: .default, handler: { (alert) in
         })
         alertView.addAction(action)
         
         let actionSure = UIAlertAction(title: "Yes", style: .default, handler: { (alert) in
            
-         self.sendNotify(item: item)
+            self.sendNotify(item: item,type:type)
             
         })
         alertView.addAction(actionSure)
@@ -1901,6 +1944,13 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.checkmark
         }else{
             
+            
+            if item?.msg_type == kXMPP.TYPE_REPLY && item?.is_permission == "1" {
+                
+                self.permissionPopup(item: item!,type:kXMPP.TYPE_PER_GRANT,msg: "Grant permission")
+                tableView.deselectRow(at: indexPath, animated: false)
+                
+            }
             
             
             if item?.msg_type == kXMPP.TYPE_IMAGE || item?.msg_type == kXMPP.TYPE_PDF {
@@ -1921,11 +1971,17 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                      
                         //view file
                         
-                        if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "FileViewerVC") as? FileViewerVC {
+                      /*  if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "FileViewerVC") as? FileViewerVC {
                             vcNewSectionStarted.fileURL = (item?.file_url)!
                             vcNewSectionStarted.type = (item?.msg_type)!
                             self.present(vcNewSectionStarted, animated: true, completion: nil)
-                        }
+                        } */
+                        
+                        
+                        let dc = UIDocumentInteractionController(url: URL(string: (item?.file_url)!)!)
+                        dc.delegate = self
+                        dc.presentPreview(animated: true)
+                        
                         
                         tableView.deselectRow(at: indexPath, animated: false)
                         
@@ -1938,7 +1994,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     
                     if item?.is_permission == "1"{
                         
-                        self.permissionPopup(item: item!)
+                        self.permissionPopup(item: item!,type:kXMPP.TYPE_PER_ASK,msg: "Ask for permission")
                         tableView.deselectRow(at: indexPath, animated: false)
 
                       
@@ -2002,12 +2058,28 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                          
                             // view file
                             
-                            if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "FileViewerVC") as? FileViewerVC {
-                                vcNewSectionStarted.fileURL = (item?.file_url)!
-                                vcNewSectionStarted.type = (item?.msg_type)!
-                                self.present(vcNewSectionStarted, animated: true, completion: nil)
-                            }
                             
+                            // if item?.msg_type == kXMPP.TYPE_PDF {
+                                
+                                
+                                let dc = UIDocumentInteractionController(url: URL(string: (item?.file_url)!)!)
+                                dc.delegate = self
+                                dc.presentPreview(animated: true)
+                                
+                                
+                                
+                           /*  }else{
+                                
+                                
+                                if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "FileViewerVC") as? FileViewerVC {
+                                    vcNewSectionStarted.fileURL = (item?.file_url)!
+                                    vcNewSectionStarted.type = (item?.msg_type)!
+                                    self.present(vcNewSectionStarted, animated: true, completion: nil)
+                                }
+                                
+                                
+                            } */
+                         
                             tableView.deselectRow(at: indexPath, animated: false)
                             
                         }
@@ -2353,6 +2425,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         let request = URLRequest(url: URL(string: url)!)
         
         
+        
+        
         let task = session.downloadTask(with: request) { (data, response, error) in
             guard error == nil else {
                 print(error!)
@@ -2364,18 +2438,17 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             }
             
             do {
-               // let fileName = "\(Int64(NSDate().timeIntervalSince1970 * 1000)).pdf"
-
-               // let documentFolderURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-               // let fileURL = documentFolderURL.appendingPathComponent(fileName)
-                //let d = data as NSData
-                //try d!.write(to: fileURL, atomically:true)
                 
-                DispatchQueue.main.async {
-                    
-                    print((data?.absoluteString)!)
+              
+                
+                let fileName = "\(Int64(NSDate().timeIntervalSince1970 * 1000)).pdf"
+                let documentFolderURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+                let fileURL = documentFolderURL.appendingPathComponent(fileName)
+                
+                try FileManager.default.moveItem(at: data!, to: fileURL)
+                                DispatchQueue.main.async {
                     self.updateMsg(msg_id: msgid, type : "download" ,value: "1")
-                    self.updateMsg(msg_id: msgid, type : "file" ,value: (data?.absoluteString)!)
+                    self.updateMsg(msg_id: msgid, type : "file" ,value:fileURL.absoluteString)
                 }
                 
             } catch  {
@@ -2941,11 +3014,73 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     /**** Send image    ***/
     
     
-    func sendNotify(item: Msg){
+        func sendNotify(item: Msg,type:String){
         
         do{
-    
-        let msgId = self.getCurrentTime()
+            
+        
+            if type == kXMPP.TYPE_PER_ASK {
+            
+            self.replyeMessageID = item.msg_id
+      
+            do{
+                
+                var replyMsgId = ""
+                var msgType = kXMPP.TYPE_TEXT
+        
+                if self.replyeMessageID != "" {
+                    replyMsgId = self.replyeMessageID
+                    msgType = kXMPP.TYPE_REPLY
+                }
+                
+                
+                let body = CustomMessageModel(msgId: replyMsgId, msgType: msgType, message: "Click here to grant permission to \(USERDETAILS.firstName) \(USERDETAILS.lastname)", fileUrl: "", destructiveTime: "",fileType : "",filePermission:"1")
+                
+                let jsonData = try JSONEncoder().encode(body)
+                let msg = String(data: jsonData, encoding: .utf8)
+                
+                print(msg ?? "")
+                
+                self.editMsg.resignFirstResponder()
+                self.editMsg.text = ""
+                
+                let msgID = self.getCurrentTime()
+                
+               
+                
+                self.replyeMessageID = ""
+                
+                OneMessage.sendMessage(msg!, msgId:msgID,  thread: "test", to:"\(friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
+                })
+                
+            }
+            catch {print(error)}
+                
+            } else{
+                
+                
+                let body = CustomMessageModel(msgId: item.replyMsgId, msgType: kXMPP.TYPE_PER_GRANT, message: "", fileUrl: "", destructiveTime: "",fileType : "",filePermission:"1")
+                
+                //1543567377997
+                
+                let jsonData = try JSONEncoder().encode(body)
+                let msg = String(data: jsonData, encoding: .utf8)
+                
+                print(msg ?? "")
+                
+                self.editMsg.resignFirstResponder()
+                self.editMsg.text = ""
+                
+                let msgID = self.getCurrentTime()
+                
+               
+                OneMessage.sendMessage(msg!, msgId:msgID,  thread: "test", to:"\(friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
+                })
+                
+                
+            }
+            
+            
         
         let body = CustomMessageModel(msgId: item.msg_id, msgType: kXMPP.TYPE_PER_ASK, message: "", fileUrl: "", destructiveTime: "",fileType:"",filePermission:"0")
         

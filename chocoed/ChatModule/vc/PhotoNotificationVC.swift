@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import SDWebImage
 
-class PhotoNotificationVC: UIViewController , UITableViewDelegate , UITableViewDataSource{
+class PhotoNotificationVC: UIViewController , UITableViewDelegate , UITableViewDataSource , UIDocumentInteractionControllerDelegate{
     
 
     @IBOutlet var tblView: UITableView!
@@ -19,6 +19,11 @@ class PhotoNotificationVC: UIViewController , UITableViewDelegate , UITableViewD
     
     @IBAction func back_btn_clicked(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    
+    func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
+        return self
     }
     
 
@@ -449,18 +454,23 @@ class PhotoNotificationVC: UIViewController , UITableViewDelegate , UITableViewD
             
             do {
                 
+                let fileName = "\(Int64(NSDate().timeIntervalSince1970 * 1000)).pdf"
+                let documentFolderURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+                let fileURL = documentFolderURL.appendingPathComponent(fileName)
+                
+                try FileManager.default.moveItem(at: data!, to: fileURL)
+                
                 DispatchQueue.main.async {
                     
-                    print((data?.absoluteString)!)
+                   
                     self.updateMsg(msg_id: msgid, type : "download" ,value: "1")
-                    self.updateMsg(msg_id: msgid, type : "file" ,value: (data?.absoluteString)!)
+                    self.updateMsg(msg_id: msgid, type : "file" ,value:fileURL.absoluteString)
                     
+                    let dc = UIDocumentInteractionController(url: URL(string: fileURL.absoluteString)!)
+                    dc.delegate = self
+                    dc.presentPreview(animated: true)
+                        
                     
-                    if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "FileViewerVC") as? FileViewerVC {
-                        vcNewSectionStarted.fileURL = (data?.absoluteString)!
-                        vcNewSectionStarted.type = kXMPP.TYPE_PDF
-                        self.present(vcNewSectionStarted, animated: true, completion: nil)
-                    }
                 }
                 
             } catch  {
