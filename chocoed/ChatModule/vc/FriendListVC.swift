@@ -488,6 +488,8 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
             let list = response.object(forKey: "friend_list") as? NSArray ?? []
             
             for (index, friend) in list.enumerated() {
+                
+                
                 let item = FriendListChat(friend as! NSDictionary)
                 
                 self.createFriendEntityFrom(item: Friend(
@@ -510,6 +512,32 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
                 
             }
             
+            
+            let friends = self.getFriends()
+            
+            for f in friends {
+                
+                let fri = f as! Friends
+                
+                var isPresent =  false
+                
+                for (index, friend) in list.enumerated() {
+                    let item = FriendListChat(friend as! NSDictionary)
+                    if fri.contact_number == item.user_contact_no{
+                        isPresent = true
+                        break
+                    }
+                }
+                
+                if isPresent == false {
+                    
+                    // friend delte
+                    self.clearFriend(friendId: fri.contact_number)
+                }
+            }
+            
+            
+            
            
             
         }, errorHandler: {(message) -> Void in
@@ -524,6 +552,46 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
     
     
     /**** CORE DATA ****/
+    
+    
+    private func clearFriend(friendId:String) {
+        do {
+            let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+            let fetchRequest = NSFetchRequest    <NSFetchRequestResult>(entityName: String(describing: Friends.self))
+            fetchRequest.predicate = NSPredicate(format: "contact_number == %@",friendId)
+            do {
+                let objects  = try context.fetch(fetchRequest) as? [NSManagedObject]
+                
+                for item in objects!{
+                    context.delete(item)
+                }
+                DispatchQueue.main.async {
+                self.tblView.reloadData()
+                }
+            } catch let error {
+                print("ERROR DELETING : \(error)")
+            }
+        }
+    }
+    
+    
+    private func getFriends() -> [NSManagedObject] {
+        
+        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Friends")
+       // fetchRequest.predicate = NSPredicate(format: "contact_number = %@", item.contact_number)
+        
+        var results : [NSManagedObject] = []
+        
+        do{
+            results = try context.fetch(fetchRequest)
+            
+        }catch{
+            print("error executing request")
+        }
+        
+        return results
+    }
     
     private func isFriendPrsent(item : Friend) -> Bool {
         let context = CoreDataStack.sharedInstance.persistentContainer.viewContext

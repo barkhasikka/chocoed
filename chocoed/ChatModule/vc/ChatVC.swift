@@ -270,6 +270,9 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         UserDefaults.standard.set("", forKey: "chatNo")
+        OneMessage.sharedInstance.delegate = nil
+        imagePicker.delegate = nil
+        self.editMsg.delegate = nil
         //self.updateReadCount()
     }
     
@@ -287,8 +290,6 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         UIApplication.shared.applicationIconBadgeNumber = 0
 
         self.userTitle.text = self.friendModel.name
-        OneMessage.sharedInstance.delegate = self
-        self.editMsg.delegate = self
         self.editMsg.borderStyle = .roundedRect
     
         self.replyView.isHidden = true
@@ -298,7 +299,10 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         self.toolbar.isHidden = false
         self.actionView.isHidden = true
     
+        OneMessage.sharedInstance.delegate = self
         imagePicker.delegate = self
+        self.editMsg.delegate = self
+
         
         self.sendSeenMsgAck()
         
@@ -352,16 +356,6 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             self.sendForwardedMsg()
         }
         
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
-        
-        
-         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardType), name: Notification.Name.UIKeyboardWillChangeFrame, object: nil)
-    
-        
-           // let bottooffset = CGPoint(x: 0, y: self.tblView.contentSize.height - self.tblView.frame.size.height)
-           // self.tblView.setContentOffset(bottooffset, animated: false)
         
             self.scrollToBottom()
             self.updateTableContentInset()
@@ -881,6 +875,15 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         
         self.viewHeight = self.bottomView.frame.origin.y
         self.replyHeight = self.replyView.frame.origin.y
+        
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardType), name: Notification.Name.UIKeyboardWillChangeFrame, object: nil)
+        
         
     
     }
