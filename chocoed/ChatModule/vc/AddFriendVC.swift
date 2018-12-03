@@ -16,14 +16,51 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
     
     var activityUIView: ActivityIndicatorUIView!
     var arrayContactList = [FriendList]()
+    var arrayFriendList =  [Friends]()
+
+    
+    var type = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)
         activityUIView.isHidden = true
-        LoadContacts()
+        
+        if type == "destructive" {
+            LoadFriends()
+        }else{
+            LoadContacts()
+        }
+        
     }
+    
+    func LoadFriends(){
+        
+        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Friends")
+        
+        var results : [NSManagedObject] = []
+        
+        do{
+            results = try context.fetch(fetchRequest)
+            
+            for res in results {
+                self.arrayFriendList.append(res as! Friends)
+            }
+            
+            DispatchQueue.main.async {
+                self.tblView.reloadData()
+                self.activityUIView.isHidden = true
+                self.activityUIView.stopAnimation()
+            }
+            
+        }catch{
+            print("error executing request")
+        }
+        
+    }
+
     
     func LoadContacts()
     {
@@ -58,23 +95,59 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if type == "destructive" {
+            return arrayFriendList.count
+
+        }else{
+        
         return arrayContactList.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AddFriendCell", for: indexPath) as! AddFriendCell
+        
+        if type == "destructive" {
+
+       
         cell.lblName.text = arrayContactList[indexPath.row].friendName
         let url = arrayContactList[indexPath.row].friendImageUrl
-        
         cell.profileImage?.sd_setImage(with : URL(string: url))
         cell.profileImage?.layer.cornerRadius = (cell.profileImage?.frame.width)! / 2
         cell.profileImage?.clipsToBounds = true
         cell.profileImage?.contentMode = .scaleToFill
+            
+        }else{
+            
+            
+            cell.lblName.text = arrayFriendList[indexPath.row].name
+            let url = arrayFriendList[indexPath.row].profile_image
+            cell.profileImage?.sd_setImage(with : URL(string: url))
+            cell.profileImage?.layer.cornerRadius = (cell.profileImage?.frame.width)! / 2
+            cell.profileImage?.clipsToBounds = true
+            cell.profileImage?.contentMode = .scaleToFill
+            
+        }
+        
+        
 
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if type == "destructive" {
+
+            if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "ChatVC") as? ChatVC {
+                
+                let item = self.arrayFriendList[indexPath.row]
+                vcNewSectionStarted.friendModel = item
+                vcNewSectionStarted.type = "destructive"
+                self.present(vcNewSectionStarted, animated: true, completion: nil)
+            }
+            
+            
+        }else{
         
         let item = arrayContactList[indexPath.row]
         if item.mobile != "" {
@@ -107,7 +180,7 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
             }
         }
      
-        
+        }
         
     }
     
@@ -164,7 +237,13 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
                 do {
                     try CoreDataStack.sharedInstance.persistentContainer.viewContext.save()
                     
-                    self.dismiss(animated: true, completion: nil)
+                    
+                    if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "ChatVC") as? ChatVC {
+                        
+                        vcNewSectionStarted.friendModel = self.getFriend(item: item.contact_number)
+                        vcNewSectionStarted.type = ""
+                        self.present(vcNewSectionStarted, animated: true, completion: nil)
+                    }
 
                     
                 } catch let error {
@@ -194,6 +273,28 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
     }
     
     
+    private func getFriend(item : String) -> Friends {
+        
+        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Friends")
+        fetchRequest.predicate = NSPredicate(format: "contact_number = %@", item)
+        
+        var results : [NSManagedObject] = []
+        
+        do{
+            results = try context.fetch(fetchRequest)
+            
+            if results.count != 0 {
+                
+                let updatObj = results[0] as? Friends
+                return updatObj!
+            }
+        }catch{
+            print("error executing request")
+        }
+        
+        return (results[0] as? Friends)!
+    }
     
     private func isFriendPrsent(item : Friend) -> Bool {
         

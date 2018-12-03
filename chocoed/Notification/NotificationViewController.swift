@@ -218,14 +218,6 @@ class NotificationViewController: UIViewController,UITableViewDataSource,UITable
                 self.present(v1, animated: true, completion: nil)
                 
                 
-            }else   if self.arrayList[indexPath.row].notificationType == "7" {
-                
-                // show chocoins and badges
-                
-                self.badgesView.isHidden = false
-                
-                
-                
             }else   if self.arrayList[indexPath.row].notificationType == "2" ||
                 self.arrayList[indexPath.row].notificationType == "3" {
                 

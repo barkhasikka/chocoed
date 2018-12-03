@@ -16,73 +16,73 @@ public typealias OneChatMessageCompletionHandler = (_ stream: XMPPStream, _ mess
 
 public protocol OneMessageDelegate : NSObjectProtocol {
     
-//	func oneStream(_ sender: XMPPStream, didReceiveMessage message: XMPPMessage, from user: XMPPUserCoreDataStorageObject)
-	func oneStream(_ sender: XMPPStream, userIsComposing user: XMPPUserCoreDataStorageObject)
+    //    func oneStream(_ sender: XMPPStream, didReceiveMessage message: XMPPMessage, from user: XMPPUserCoreDataStorageObject)
+    func oneStream(_ sender: XMPPStream, userIsComposing user: XMPPUserCoreDataStorageObject)
     
-  //  func oneStream(_ sender: XMPPStream, didReceiptReceive message: XMPPMessage, from user: XMPPUserCoreDataStorageObject)
-   
+    //  func oneStream(_ sender: XMPPStream, didReceiptReceive message: XMPPMessage, from user: XMPPUserCoreDataStorageObject)
+    
 }
 
 open class OneMessage: NSObject {
-	open weak var delegate: OneMessageDelegate?
-	
-	open var xmppMessageStorage: XMPPMessageArchivingCoreDataStorage?
-	var xmppMessageArchiving: XMPPMessageArchiving?
-	var didSendMessageCompletionBlock: OneChatMessageCompletionHandler?
-	
-	// MARK: Singleton
-	
-	open class var sharedInstance : OneMessage {
-		struct OneMessageSingleton {
-			static let instance = OneMessage()
-		}
-		
-		return OneMessageSingleton.instance
-	}
-	
-	// MARK: private methods
-	
-	func setupArchiving() {
-		xmppMessageStorage = XMPPMessageArchivingCoreDataStorage.sharedInstance()
-		xmppMessageArchiving = XMPPMessageArchiving(messageArchivingStorage: xmppMessageStorage)
-		
-		xmppMessageArchiving?.clientSideMessageArchivingOnly = true
+    open weak var delegate: OneMessageDelegate?
+    
+    open var xmppMessageStorage: XMPPMessageArchivingCoreDataStorage?
+    var xmppMessageArchiving: XMPPMessageArchiving?
+    var didSendMessageCompletionBlock: OneChatMessageCompletionHandler?
+    
+    // MARK: Singleton
+    
+    open class var sharedInstance : OneMessage {
+        struct OneMessageSingleton {
+            static let instance = OneMessage()
+        }
+        
+        return OneMessageSingleton.instance
+    }
+    
+    // MARK: private methods
+    
+    func setupArchiving() {
+        xmppMessageStorage = XMPPMessageArchivingCoreDataStorage.sharedInstance()
+        xmppMessageArchiving = XMPPMessageArchiving(messageArchivingStorage: xmppMessageStorage)
+        
+        xmppMessageArchiving?.clientSideMessageArchivingOnly = true
         xmppMessageArchiving?.activate(OneChat.sharedInstance.xmppStream!)
-		xmppMessageArchiving?.addDelegate(self, delegateQueue: DispatchQueue.main)
-	}
-	
-	// MARK: public methods
-	
+        xmppMessageArchiving?.addDelegate(self, delegateQueue: DispatchQueue.main)
+    }
+    
+    // MARK: public methods
+    
     open class func sendMessage(_ message: String, msgId :String, thread:String, to receiver: String, completionHandler completion:@escaping OneChatMessageCompletionHandler) {
-		let body = DDXMLElement.element(withName: "body") as! DDXMLElement
-       // let messageID = Int64(NSDate().timeIntervalSince1970 * 1000)
-		
+        let body = DDXMLElement.element(withName: "body") as! DDXMLElement
+        // let messageID = Int64(NSDate().timeIntervalSince1970 * 1000)
+        
         body.stringValue = message
         
         let threadElement = DDXMLElement.element(withName: "thread") as! DDXMLElement
         threadElement.stringValue = thread
-		
-		let completeMessage = DDXMLElement.element(withName: "message") as! DDXMLElement
-		
+        
+        let completeMessage = DDXMLElement.element(withName: "message") as! DDXMLElement
+        
         completeMessage.addAttribute(withName: "id", stringValue: msgId)
-		completeMessage.addAttribute(withName: "type", stringValue: "chat")
-		completeMessage.addAttribute(withName: "to", stringValue: receiver)
-		completeMessage.addChild(body)
+        completeMessage.addAttribute(withName: "type", stringValue: "chat")
+        completeMessage.addAttribute(withName: "to", stringValue: receiver)
+        completeMessage.addChild(body)
         completeMessage.addChild(threadElement)
         
         print(msgId,"<<<<< MSG ID >>>>>")
         
-		sharedInstance.didSendMessageCompletionBlock = completion
-		OneChat.sharedInstance.xmppStream?.send(completeMessage)
-	}
-	
-	open class func sendIsComposingMessage(_ recipient: String, thread: String,completionHandler completion:@escaping OneChatMessageCompletionHandler) {
-		if recipient.count > 0 {
-			let message = DDXMLElement.element(withName: "message") as! DDXMLElement
-			message.addAttribute(withName: "type", stringValue: "chat")
-			message.addAttribute(withName: "to", stringValue: recipient)
-			
-			let composing = DDXMLElement.element(withName: "composing", stringValue: "http://jabber.org/protocol/chatstates") as! DDXMLElement
+        sharedInstance.didSendMessageCompletionBlock = completion
+        OneChat.sharedInstance.xmppStream?.send(completeMessage)
+    }
+    
+    open class func sendIsComposingMessage(_ recipient: String, thread: String,completionHandler completion:@escaping OneChatMessageCompletionHandler) {
+        if recipient.count > 0 {
+            let message = DDXMLElement.element(withName: "message") as! DDXMLElement
+            message.addAttribute(withName: "type", stringValue: "chat")
+            message.addAttribute(withName: "to", stringValue: recipient)
+            
+            let composing = DDXMLElement.element(withName: "composing", stringValue: "http://jabber.org/protocol/chatstates") as! DDXMLElement
             composing.namespaces = [DDXMLElement.namespace(withName: "" , stringValue: "http://jabber.org/protocol/chatstates") as! DDXMLNode];
             message.addChild(composing)
             
@@ -91,54 +91,54 @@ open class OneMessage: NSObject {
             message.addChild(threadElement)
             
             print(message)
-			
-			sharedInstance.didSendMessageCompletionBlock = completion
-			OneChat.sharedInstance.xmppStream?.send(message)
-		}
-	}
-	
+            
+            sharedInstance.didSendMessageCompletionBlock = completion
+            OneChat.sharedInstance.xmppStream?.send(message)
+        }
+    }
+    
     open func loadArchivedMessagesFrom(jid: String, thread: String) -> NSMutableArray {
-		let moc = xmppMessageStorage?.mainThreadManagedObjectContext
-		let entityDescription = NSEntityDescription.entity(forEntityName: "XMPPMessageArchiving_Message_CoreDataObject", in: moc!)
-		let request = NSFetchRequest<NSFetchRequestResult>()
-		let predicateFormat = "bareJidStr like %@ ANd thread like %@"
-		let predicate = NSPredicate(format: predicateFormat, jid, thread)
-		let retrievedMessages = NSMutableArray()
+        let moc = xmppMessageStorage?.mainThreadManagedObjectContext
+        let entityDescription = NSEntityDescription.entity(forEntityName: "XMPPMessageArchiving_Message_CoreDataObject", in: moc!)
+        let request = NSFetchRequest<NSFetchRequestResult>()
+        let predicateFormat = "bareJidStr like %@ ANd thread like %@"
+        let predicate = NSPredicate(format: predicateFormat, jid, thread)
+        let retrievedMessages = NSMutableArray()
         var sortedRetrievedMessages = Array<Any>()
-		
-		request.predicate = predicate
-		request.entity = entityDescription
-		
-		do {
-			let results = try moc?.fetch(request)
-			
-			for message in results! {
-				var element: DDXMLElement!
-				do {
-					element = try DDXMLElement(xmlString: (message as AnyObject).messageStr)
-				} catch _ {
-					element = nil
-				}
-				
-				let body: String
-				let sender: String
-				let date: Date
-				
-				date = (message as AnyObject).timestamp
-				
-				//if (message as AnyObject).body != nil {
-				//	body = (message as AnyObject).body
-				//} else {
-					body = ""
-				//}
-				
-				if element.attributeStringValue(forName: "to") == jid {
-					let displayName = OneChat.sharedInstance.xmppStream?.myJID
+        
+        request.predicate = predicate
+        request.entity = entityDescription
+        
+        do {
+            let results = try moc?.fetch(request)
+            
+            for message in results! {
+                var element: DDXMLElement!
+                do {
+                    element = try DDXMLElement(xmlString: (message as AnyObject).messageStr)
+                } catch _ {
+                    element = nil
+                }
+                
+                let body: String
+                let sender: String
+                let date: Date
+                
+                date = (message as AnyObject).timestamp
+                
+                //if (message as AnyObject).body != nil {
+                //    body = (message as AnyObject).body
+                //} else {
+                body = ""
+                //}
+                
+                if element.attributeStringValue(forName: "to") == jid {
+                    let displayName = OneChat.sharedInstance.xmppStream?.myJID
                     sender = displayName!.bare
-				} else {
-					sender = jid
-				}
-				
+                } else {
+                    sender = jid
+                }
+                
                 let fullMessage = "" //JSQMessage(senderId: sender, senderDisplayName: sender, date: date, text: body)!
                 
                 retrievedMessages.add(fullMessage)
@@ -147,14 +147,14 @@ open class OneMessage: NSObject {
                 let descriptor:NSSortDescriptor = NSSortDescriptor(key: "date", ascending: true);
                 
                 sortedRetrievedMessages = retrievedMessages.sortedArray(using: [descriptor]);
- 
-			}
-		} catch _ {
-			//catch fetch error here
-		}
-		return NSMutableArray(array: sortedRetrievedMessages)
-	}
-	
+                
+            }
+        } catch _ {
+            //catch fetch error here
+        }
+        return NSMutableArray(array: sortedRetrievedMessages)
+    }
+    
     open func deleteMessagesFrom(jid: String, messages: NSArray) {
         messages.enumerateObjects({ (message, idx, stop) -> Void in
             let moc = self.xmppMessageStorage?.mainThreadManagedObjectContext
@@ -229,7 +229,7 @@ extension OneMessage: XMPPStreamDelegate {
                     
                     item.setValue("2", forKey: "msg_ack")
                     item.setValue(self.getCurrentTime(), forKey: "seen_time")
-
+                    
                     
                     do{
                         
@@ -244,7 +244,7 @@ extension OneMessage: XMPPStreamDelegate {
                     }
                     
                 }
-            
+                
             }
             
         }catch{
@@ -282,7 +282,7 @@ extension OneMessage: XMPPStreamDelegate {
                 if type == "download"{
                     updatObj.setValue(value, forKey: "is_download")
                     updatObj.setValue("0", forKey: "is_permission")
-
+                    
                 }
                 
                 if type == "file"{
@@ -297,13 +297,13 @@ extension OneMessage: XMPPStreamDelegate {
                     
                     updatObj.setValue(value, forKey: "msg_ack")
                     updatObj.setValue(self.getCurrentTime(), forKey: "sent_time")
-
+                    
                 }
                 
                 do{
                     
                     try context.save()
-                   
+                    
                     
                 }catch{
                     print("Error in update")
@@ -338,7 +338,7 @@ extension OneMessage: XMPPStreamDelegate {
     }
     
     
-   
+    
     
     private func isMSgPrsent(item : Message) -> Bool {
         let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
@@ -350,7 +350,7 @@ extension OneMessage: XMPPStreamDelegate {
         do{
             results = try context.fetch(fetchRequest)
             
-           
+            
             
         }catch{
             print("error executing request")
@@ -418,9 +418,9 @@ extension OneMessage: XMPPStreamDelegate {
     }
     
     
-   private func updateFriendCell(last_msg_time : String , msg : String , msg_type :String , isMine : String, friendID : String){
+    private func updateFriendCell(last_msg_time : String , msg : String , msg_type :String , isMine : String, friendID : String){
         
-    
+        
         let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Friends")
         fetchRequest.predicate = NSPredicate(format: "contact_number = %@", friendID)
@@ -512,9 +512,9 @@ extension OneMessage: XMPPStreamDelegate {
     
     
     
-
-   private func updateFriendTyping(friendID : String, typing: String){
     
+    private func updateFriendTyping(friendID : String, typing: String){
+        
         let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Friends")
         fetchRequest.predicate = NSPredicate(format: "contact_number = %@", friendID)
@@ -648,67 +648,70 @@ extension OneMessage: XMPPStreamDelegate {
     }
     
     
-	
-	public func xmppStream(_ sender: XMPPStream, didSend message: XMPPMessage) {
-		if let completion = OneMessage.sharedInstance.didSendMessageCompletionBlock {
-			completion(sender, message)
-		}
+    
+    public func xmppStream(_ sender: XMPPStream, didSend message: XMPPMessage) {
+        if let completion = OneMessage.sharedInstance.didSendMessageCompletionBlock {
+            completion(sender, message)
+        }
         //OneMessage.sharedInstance.didSendMessageCompletionBlock!(sender, message)
-	}
-	
-	public func xmppStream(_ sender: XMPPStream, didReceive message: XMPPMessage) {
+    }
+    
+    public func xmppStream(_ sender: XMPPStream, didReceive message: XMPPMessage) {
         
         
         let user = OneChat.sharedInstance.xmppRosterStorage.user(for: message.from, xmppStream: OneChat.sharedInstance.xmppStream, managedObjectContext: OneRoster.sharedInstance.managedObjectContext_roster())
         
         if user != nil {
-        
-       // if OneChats.knownUserForJid(jidStr: (user?.jidStr)!) {
-       //     OneChats.addUserToChatList(jidStr: (user?.jidStr)!)
-       // }
-        
-		
-        if message.isChatMessageWithBody {
             
-		//	OneMessage.sharedInstance.delegate?.oneStream(sender, didReceiveMessage: message, from: user!)
-            
-            let userData = (user!.jidStr)!.components(separatedBy: "@")
-            let friendID = userData[0]
+            // if OneChats.knownUserForJid(jidStr: (user?.jidStr)!) {
+            //     OneChats.addUserToChatList(jidStr: (user?.jidStr)!)
+            // }
             
             
-            do{
+            if message.isChatMessageWithBody {
                 
-                let data = message.body?.data(using: .utf8)!
-                let json = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! NSDictionary
+                //    OneMessage.sharedInstance.delegate?.oneStream(sender, didReceiveMessage: message, from: user!)
                 
-                print(json)
+                let userData = (user!.jidStr)!.components(separatedBy: "@")
+                let friendID = userData[0]
                 
                 
-                
-                if json.value(forKey: "msgType") as! String == kXMPP.TYPE_DELETE {
+                do{
                     
-                    // update msg by msgID
+                    let data = message.body?.data(using: .utf8)!
+                    let json = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! NSDictionary
                     
-                    self.updateMsg(msg_id: json.value(forKey: "msgId") as! String, type: "delete_type", value: kXMPP.DELETE_TEXT_FRIEND)
-                    
-                    
-                   /* let friendNo = UserDefaults.standard.string(forKey: "chatNo")
-                    if friendNo == friendID {
-                        let mainvc = ChatVC()
-                        mainvc.reloadData()
-                    } */
+                    print(json)
                     
                     
                     
-                }else if json.value(forKey: "msgType") as! String == kXMPP.TYPE_PER_GRANT {
-                    
-                   // download file working
-                    
-                    if self.isMsg(msgId: json.value(forKey: "msgId") as! String){
+                    if json.value(forKey: "msgType") as! String == kXMPP.TYPE_DELETE {
                         
-                        let msgData = self.getMsg(msgId: json.value(forKey: "msgId") as! String)
+                        // update msg by msgID
                         
-                       // if msgData.is_download == "1" {
+                        self.updateMsg(msg_id: json.value(forKey: "msgId") as! String, type: "delete_type", value: kXMPP.DELETE_TEXT_FRIEND)
+                        
+                        
+                        /* let friendNo = UserDefaults.standard.string(forKey: "chatNo")
+                         if friendNo == friendID {
+                         let mainvc = ChatVC()
+                         mainvc.reloadData()
+                         } */
+                        
+                        
+                        
+                    }else if json.value(forKey: "msgType") as! String == kXMPP.TYPE_PER_GRANT {
+                        
+                        // download file working
+                        
+                        let msgID = json.value(forKey: "msgId") as? String ?? ""
+                        
+                        
+                        if self.isMsg(msgId: msgID){
+                            
+                            let msgData = self.getMsg(msgId: json.value(forKey: "msgId") as! String)
+                            
+                            // if msgData.is_download == "1" {
                             
                             if msgData.msg_type == kXMPP.TYPE_IMAGE {
                                 
@@ -719,7 +722,7 @@ extension OneMessage: XMPPStreamDelegate {
                                         
                                         let localURL  = self.savefiletoDirector(image: image!)
                                         UIImageWriteToSavedPhotosAlbum(image!, self, nil, nil)
-                                     
+                                        
                                         self.updateMsg(msg_id: msgData.msg_id, type : "download" ,value: "1")
                                         self.updateMsg(msg_id: msgData.msg_id, type : "file" ,value: localURL)
                                         
@@ -733,172 +736,172 @@ extension OneMessage: XMPPStreamDelegate {
                                 
                             }
                             
-                      //  }
-                        
-                    }
-                    
-                    
-                    
-                }else if json.value(forKey: "msgType") as! String == kXMPP.TYPE_SEEN {
-                    
-                    // update msg by msgID
-                    
-                    self.updateMsgAck(friendID: friendID)
-                    
-                    
-                   /* let friendNo = UserDefaults.standard.string(forKey: "chatNo")
-                    if friendNo == friendID {
-                        let mainvc = ChatVC()
-                        mainvc.reloadData()
-                    } */
-                    
-                    
-                    
-                }else{
-                    
-                    var replyMsgType = ""
-                    var replyMsgFile = ""
-                    var replyMsg = ""
-                    var replyTitle = ""
-                    var replyMsgId = ""
-                    
-                    let msgType = json.value(forKey: "msgType") as! String
-                    
-                    if msgType == kXMPP.TYPE_REPLY {
-                        
-                        replyMsgId = json.value(forKey: "msgId") as! String
-                        
-                        
-                        let msgItem = self.getMsg(msgId: replyMsgId)
-                        
-                        replyMsg = msgItem.msg
-                        replyMsgFile = msgItem.file_url
-                        
-                        if msgItem.is_mine == "1" {
-                            replyTitle = "You"
-                        }else{
-                            replyTitle = self.getFriend(id: friendID)
+                            //  }
+                            
                         }
                         
-                        replyMsgType = msgItem.msg_type
                         
-                    }
-                    
-                    let filePermission = json.value(forKey: "filePermission") as? String ?? "0"
-                    
-               
-                     self.createMsgEntityFrom(item: Message(
-                        msg: json.value(forKey: "message") as! String,
-                        msgId: message.attributeStringValue(forName: "id") ?? "",
-                        msgType: msgType,
-                        msgACk: "0",
-                        fromID: USERDETAILS.mobile,
-                        toID: friendID,
-                        fileUrl: json.value(forKey: "fileUrl") as! String,
-                        isUpload: "0",
-                        isDownload: "0",
-                        isStreaming: "0",
-                        isMine: "0",
-                        created: self.getCurrentTime(),
-                        status: "",
-                        modified: self.getCurrentTime(),
-                        is_permission: filePermission,replyTitle: replyTitle, replyMsgType: replyMsgType, replyMsgId: replyMsgId, replyMsgFile: replyMsgFile, replyMsg: replyMsg, sentTime: kXMPP.SEEN_MSG, seenTime: kXMPP.SEEN_MSG, destructiveTime: json.value(forKey: "destructiveTime") as! String))
- 
-                    
-                    self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: json.value(forKey: "message") as! String, msg_type: json.value(forKey: "msgType") as! String, isMine: "0" , friendID: friendID)
-                    
-                    
-                    let friendNo = UserDefaults.standard.string(forKey: "chatNo")
-                    if friendNo == nil || friendNo != friendID {
                         
-                       // let mainvc = SplitviewViewController()
-                       // mainvc.showNotification(friendname: self.getFriend(id: friendID) , msg: json.value(forKey: "message") as! String)
+                    }else if json.value(forKey: "msgType") as! String == kXMPP.TYPE_SEEN {
+                        
+                        // update msg by msgID
+                        
+                        self.updateMsgAck(friendID: friendID)
+                        
+                        
+                        /* let friendNo = UserDefaults.standard.string(forKey: "chatNo")
+                         if friendNo == friendID {
+                         let mainvc = ChatVC()
+                         mainvc.reloadData()
+                         } */
+                        
+                        
+                        
                     }else{
                         
-                        self.sendSeenMsgAck(friendID: friendID)
-
-                    }
-                 
-                    /*if dsmsg.count > 0 {
+                        var replyMsgType = ""
+                        var replyMsgFile = ""
+                        var replyMsg = ""
+                        var replyTitle = ""
+                        var replyMsgId = ""
                         
-                        // var timeVal = Float(json.value(forKey: "destructiveTime") as! String)
+                        let msgType = json.value(forKey: "msgType") as! String
                         
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 120.0, execute: {
+                        if msgType == kXMPP.TYPE_REPLY {
                             
-                            // updated msg by msg id
+                            replyMsgId = json.value(forKey: "msgId") as! String
                             
-                            self.updateMsg(msg_id: message.attributeStringValue(forName: "id") ?? "", type:"delete_type", value: kXMPP.DELETE_TEXT_FRIEND)
-                     
-                            let friendNo = UserDefaults.standard.string(forKey: "chatNo")
-                            if friendNo == friendID {
-                                let mainvc = ChatVC()
-                                mainvc.reloadData()
+                            
+                            let msgItem = self.getMsg(msgId: replyMsgId)
+                            
+                            replyMsg = msgItem.msg
+                            replyMsgFile = msgItem.file_url
+                            
+                            if msgItem.is_mine == "1" {
+                                replyTitle = "You"
+                            }else{
+                                replyTitle = self.getFriend(id: friendID)
                             }
-                     
-                        })
+                            
+                            replyMsgType = msgItem.msg_type
+                            
+                        }
+                        
+                        let filePermission = json.value(forKey: "filePermission") as? String ?? "0"
                         
                         
-                    } */
+                        self.createMsgEntityFrom(item: Message(
+                            msg: json.value(forKey: "message") as! String,
+                            msgId: message.attributeStringValue(forName: "id") ?? "",
+                            msgType: msgType,
+                            msgACk: "0",
+                            fromID: USERDETAILS.mobile,
+                            toID: friendID,
+                            fileUrl: json.value(forKey: "fileUrl") as! String,
+                            isUpload: "0",
+                            isDownload: "0",
+                            isStreaming: "0",
+                            isMine: "0",
+                            created: self.getCurrentTime(),
+                            status: "",
+                            modified: self.getCurrentTime(),
+                            is_permission: filePermission,replyTitle: replyTitle, replyMsgType: replyMsgType, replyMsgId: replyMsgId, replyMsgFile: replyMsgFile, replyMsg: replyMsg, sentTime: kXMPP.SEEN_MSG, seenTime: kXMPP.SEEN_MSG, destructiveTime: json.value(forKey: "destructiveTime") as! String))
+                        
+                        
+                        self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: json.value(forKey: "message") as! String, msg_type: json.value(forKey: "msgType") as! String, isMine: "0" , friendID: friendID)
+                        
+                        
+                        let friendNo = UserDefaults.standard.string(forKey: "chatNo")
+                        if friendNo == nil || friendNo != friendID {
+                            
+                            // let mainvc = SplitviewViewController()
+                            // mainvc.showNotification(friendname: self.getFriend(id: friendID) , msg: json.value(forKey: "message") as! String)
+                        }else{
+                            
+                            self.sendSeenMsgAck(friendID: friendID)
+                            
+                        }
+                        
+                        /*if dsmsg.count > 0 {
+                         
+                         // var timeVal = Float(json.value(forKey: "destructiveTime") as! String)
+                         
+                         DispatchQueue.main.asyncAfter(deadline: .now() + 120.0, execute: {
+                         
+                         // updated msg by msg id
+                         
+                         self.updateMsg(msg_id: message.attributeStringValue(forName: "id") ?? "", type:"delete_type", value: kXMPP.DELETE_TEXT_FRIEND)
+                         
+                         let friendNo = UserDefaults.standard.string(forKey: "chatNo")
+                         if friendNo == friendID {
+                         let mainvc = ChatVC()
+                         mainvc.reloadData()
+                         }
+                         
+                         })
+                         
+                         
+                         } */
+                        
+                        
+                        
+                    }
                     
-                    
+                }catch{
                     
                 }
                 
-            }catch{
                 
+                
+                
+            } else {
+                
+                if let _ = message.forName("received"){
+                    
+                    self.updateMsg(msg_id: message.forName("received")?.attributeStringValue(forName: "id") ?? "", type: "msg_ack", value: kXMPP.msgSent)
+                    
+                    
+                    let userData = (user!.jidStr)!.components(separatedBy: "@")
+                    self.updateFriendLastMsg(friendID: userData[0], value: kXMPP.msgSent)
+                    
+                    
+                    /*  let friendNo = UserDefaults.standard.string(forKey: "chatNo")
+                     if friendNo == userData[0] {
+                     let mainvc = ChatVC()
+                     mainvc.reloadData()
+                     } */
+                    
+                    
+                    
+                    
+                    
+                    //  OneMessage.sharedInstance.delegate?.oneStream(sender, didReceiptReceive: message, from: user!)
+                }
+                
+                //was composing
+                if let _ = message.forName("composing") {
+                    print("<<<<< MESSAGE TYPING>>>>>>")
+                    
+                    
+                    let userData = (user?.jidStr)!.components(separatedBy: "@")
+                    let friendID = userData[0]
+                    //self.updateFriendLastMsg(friendID: userData[0], value: kXMPP.msgSeen)
+                    
+                    /* let friendNo = UserDefaults.standard.string(forKey: "chatNo")
+                     if friendNo == userData[0] {
+                     let mainvc = ChatVC()
+                     mainvc.reloadData()
+                     } */
+                    
+                    self.updateFriendTyping(friendID: friendID,typing : "yes")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                        self.updateFriendTyping(friendID: friendID,typing : "no")
+                    })
+                    
+                    
+                    OneMessage.sharedInstance.delegate?.oneStream(sender, userIsComposing: user!)
+                }
             }
-            
-            
-          
-            
-		} else {
-            
-            if let _ = message.forName("received"){
-                
-                self.updateMsg(msg_id: message.forName("received")?.attributeStringValue(forName: "id") ?? "", type: "msg_ack", value: kXMPP.msgSent)
-                
-                
-                let userData = (user!.jidStr)!.components(separatedBy: "@")
-                self.updateFriendLastMsg(friendID: userData[0], value: kXMPP.msgSent)
-                
-                
-              /*  let friendNo = UserDefaults.standard.string(forKey: "chatNo")
-                if friendNo == userData[0] {
-                    let mainvc = ChatVC()
-                    mainvc.reloadData()
-                } */
-                
-
-                
-                
-                
-              //  OneMessage.sharedInstance.delegate?.oneStream(sender, didReceiptReceive: message, from: user!)
-            }
-            
-			//was composing
-			if let _ = message.forName("composing") {
-                print("<<<<< MESSAGE TYPING>>>>>>")
-                
-        
-                let userData = (user?.jidStr)!.components(separatedBy: "@")
-                let friendID = userData[0]
-                //self.updateFriendLastMsg(friendID: userData[0], value: kXMPP.msgSeen)
-                
-               /* let friendNo = UserDefaults.standard.string(forKey: "chatNo")
-                if friendNo == userData[0] {
-                    let mainvc = ChatVC()
-                    mainvc.reloadData()
-                } */
-                
-                self.updateFriendTyping(friendID: friendID,typing : "yes")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                    self.updateFriendTyping(friendID: friendID,typing : "no")
-                })
-                
-
-				OneMessage.sharedInstance.delegate?.oneStream(sender, userIsComposing: user!)
-			}
-		}
-      }
-	}
+        }
+    }
 }

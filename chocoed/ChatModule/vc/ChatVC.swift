@@ -42,7 +42,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     var type = ""
     var isMuliselectActionChecked = false
     
-
+    
     @IBOutlet var toolbar: UIView!
     
     @IBOutlet var actionView: UIView!
@@ -70,7 +70,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     
     var viewHeight : CGFloat!
     var replyHeight : CGFloat!
-
+    
     var count = 0
     
     
@@ -86,8 +86,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     }
     
     /*func documentInteractionControllerViewForPreview(_ controller: UIDocumentInteractionController) -> UIView? {
-        return self
-    } */
+     return self
+     } */
     
     
     @IBAction func optionBtn_clicked(_ sender: UIButton) {
@@ -95,13 +95,13 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         let alert:UIAlertController=UIAlertController(title: "Choose Option", message: nil, preferredStyle:.actionSheet)
         let cameraAction = UIAlertAction(title: "Camera", style: .default) {
             UIAlertAction in
-           // self.openCamera(UIImagePickerController.SourceType.camera)
+            // self.openCamera(UIImagePickerController.SourceType.camera)
             
             self.openCamera()
         }
         let gallaryAction = UIAlertAction(title: "Gallary", style: .default) {
             UIAlertAction in
-          //  self.openCamera(UIImagePickerController.SourceType.photoLibrary)
+            //  self.openCamera(UIImagePickerController.SourceType.photoLibrary)
             
             self.openGallary()
             
@@ -123,14 +123,20 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         alert.addAction(cameraAction)
         alert.addAction(gallaryAction)
         alert.addAction(pdfAction)
-
+        
         alert.addAction(cancelAction)
         self.present(alert, animated: true, completion: nil)
         
     }
     
     private func saveImageWithPer(fileurl:String,type:String,permission:String) {
-     
+        
+        var desrc = ""
+        
+        if self.type == "destructive" {
+            desrc = "2"
+        }
+        
         let msgId = self.getCurrentTime()
         self.createMsgEntityFrom(item: Message(
             msg: "",
@@ -150,7 +156,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             is_permission: permission, replyTitle: "", replyMsgType: "", replyMsgId: "", replyMsgFile: "", replyMsg: "",
             sentTime: kXMPP.SEEN_MSG,
             seenTime: kXMPP.SEEN_MSG,
-            destructiveTime: ""))
+            destructiveTime: desrc))
         
         
         //self.tblView.reloadData()
@@ -161,10 +167,10 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     private func saveImage(fileurl:String,type:String) {
         
         
-        let alert:UIAlertController=UIAlertController(title: "Add file permission to view", message: nil, preferredStyle:.actionSheet)
-        let cameraAction = UIAlertAction(title: "With Permisson", style: .default) {
+        let alert:UIAlertController=UIAlertController(title: "Secure it", message: nil, preferredStyle:.actionSheet)
+        let cameraAction = UIAlertAction(title: "With Permission", style: .default) {
             UIAlertAction in
-
+            
             self.saveImageWithPer(fileurl: fileurl, type: type, permission: "1")
             
         }
@@ -173,9 +179,9 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             //  self.openCamera(UIImagePickerController.SourceType.photoLibrary)
             
             self.saveImageWithPer(fileurl: fileurl, type: type, permission: "0")
-
+            
         }
-   
+        
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {
             UIAlertAction in
@@ -185,7 +191,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         alert.addAction(gallaryAction)
         alert.addAction(cancelAction)
         self.present(alert, animated: true, completion: nil)
-       
+        
     }
     
     func openGallary(){
@@ -216,18 +222,18 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         present(documentPicker, animated: true, completion: nil)
     }
     
-
+    
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         
         do{
-        
-        let fileName = "\(Int64(NSDate().timeIntervalSince1970 * 1000)).pdf"
-        let documentFolderURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-        let fileURL = documentFolderURL.appendingPathComponent(fileName)
-        try FileManager.default.moveItem(at: urls[0], to: fileURL)
-        
-        let urlstring = fileURL.absoluteString
-        self.saveImage(fileurl: urlstring,type: kXMPP.TYPE_PDF)
+            
+            let fileName = "\(Int64(NSDate().timeIntervalSince1970 * 1000)).pdf"
+            let documentFolderURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            let fileURL = documentFolderURL.appendingPathComponent(fileName)
+            try FileManager.default.moveItem(at: urls[0], to: fileURL)
+            
+            let urlstring = fileURL.absoluteString
+            self.saveImage(fileurl: urlstring,type: kXMPP.TYPE_PDF)
             
         }catch{
             
@@ -243,36 +249,36 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         if userData[0] == self.friendModel.contact_number {
             self.lblCurrentStatus.text = "Typing..."
             self.isTyping = true
-
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: {
                 
                 if self.isTyping == true {
-                  self.isTyping = false
+                    self.isTyping = false
                 }else{
                     
                     self.lblCurrentStatus.text = "Online"
-
+                    
                 }
                 
-
+                
                 
             })
         }
         
         
-    
+        
     }
     
     
- 
+    
     
     lazy var fetchedhResultController: NSFetchedResultsController<NSFetchRequestResult> = {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Msg.self))
         
         print(friendModel.contact_number,"<<<  >>>")
         
-    fetchRequest.predicate = NSPredicate(format: "to_id == %@",self.friendModel.contact_number)
-
+        fetchRequest.predicate = NSPredicate(format: "to_id == %@",self.friendModel.contact_number)
+        
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "msg_id", ascending: true)]
         
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.sharedInstance.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
@@ -299,24 +305,24 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         super.viewDidLoad()
         
         UserDefaults.standard.set(self.friendModel.contact_number, forKey: "chatNo")
-
+        
         UIApplication.shared.cancelAllLocalNotifications()
         UIApplication.shared.applicationIconBadgeNumber = 0
-
+        
         self.userTitle.text = self.friendModel.name
         self.editMsg.borderStyle = .roundedRect
-    
+        
         self.replyView.isHidden = true
         self.replyView.layer.borderColor = UIColor.gray.cgColor
         self.replyView.layer.borderWidth = 1.0
-    
+        
         self.toolbar.isHidden = false
         self.actionView.isHidden = true
-    
+        
         OneMessage.sharedInstance.delegate = self
         imagePicker.delegate = self
         self.editMsg.delegate = self
-
+        
         
         self.sendSeenMsgAck()
         
@@ -344,7 +350,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         let friendReplyView = UINib(nibName: "FriendTextReplyCell", bundle: Bundle.main)
         self.tblView.register(friendReplyView, forCellReuseIdentifier: "FriendTextReplyCell")
         
-
+        
         
         do {
             try self.fetchedhResultController.performFetch()
@@ -359,7 +365,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.swipeGesture))
         swipeGesture.direction = .right
         self.tblView.addGestureRecognizer(swipeGesture)
- 
+        
         
         let taggesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         self.myProfileImage.isUserInteractionEnabled = true
@@ -371,23 +377,23 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         }
         
         
-            self.scrollToBottom()
-            self.updateTableContentInset()
+        self.scrollToBottom()
+        self.updateTableContentInset()
         
-
+        
     }
     
     func scrollToBottom(){
         
         DispatchQueue.main.async {
             
-        let count = self.fetchedhResultController.sections?.first?.numberOfObjects ?? 0
-         
-         if count != 0 {
-         let indexPath = IndexPath(row: count - 1, section: 0)
-         self.tblView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.bottom, animated: false)
-         //self.tblView.scrollIndicatorInsets = self.tblView.contentInset
-         }
+            let count = self.fetchedhResultController.sections?.first?.numberOfObjects ?? 0
+            
+            if count != 0 {
+                let indexPath = IndexPath(row: count - 1, section: 0)
+                self.tblView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.bottom, animated: false)
+                //self.tblView.scrollIndicatorInsets = self.tblView.contentInset
+            }
         }
         
         
@@ -410,32 +416,32 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             self.tblView.contentInset = UIEdgeInsetsMake(contentInsetTop, 0, 0, 0)
         }
         
-       
+        
     }
     
     func sendForwardedMsg(){
         
         print(self.selectedArr)
         
-    
+        
         
         for item in self.selectedArr {
             
             if item.msg_type == kXMPP.TYPE_TEXT {
                 
                 do{
-                
-                let text = item.msg
                     
-                 
-                        
+                    let text = item.msg
+                    
+                    
+                    
                     let body = CustomMessageModel(msgId: "", msgType: kXMPP.TYPE_TEXT, message: text, fileUrl: "", destructiveTime : "",fileType : "",filePermission:"")
-                        
-                
-            
-                let jsonData = try JSONEncoder().encode(body)
-                let msg = String(data: jsonData, encoding: .utf8)
-                
+                    
+                    
+                    
+                    let jsonData = try JSONEncoder().encode(body)
+                    let msg = String(data: jsonData, encoding: .utf8)
+                    
                     
                     let msgID = self.getCurrentTime()
                     
@@ -460,9 +466,9 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     
                     //self.tblView.reloadData()
                     //self.scrollToBottom()
-                
+                    
                     OneMessage.sendMessage(msg!,msgId: msgID,thread: "test", to:"\(friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
-                })
+                    })
                     
                     
                 }catch{
@@ -497,10 +503,10 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     created: self.getCurrentTime(),
                     status: "",
                     modified: self.getCurrentTime(),
-                     is_permission: "0",replyTitle: "", replyMsgType: "", replyMsgId: "", replyMsgFile: "", replyMsg: "", sentTime: kXMPP.SEEN_MSG, seenTime: kXMPP.SEEN_MSG, destructiveTime: ""))
+                    is_permission: "0",replyTitle: "", replyMsgType: "", replyMsgId: "", replyMsgFile: "", replyMsg: "", sentTime: kXMPP.SEEN_MSG, seenTime: kXMPP.SEEN_MSG, destructiveTime: ""))
                 
-               // self.tblView.reloadData()
-               // self.scrollToBottom()
+                // self.tblView.reloadData()
+                // self.scrollToBottom()
                 
             }
         }
@@ -514,76 +520,76 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     }
     
     @objc func imageTapped(tapGestureRecognizer : UITapGestureRecognizer ){
-    
+        
         if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "ProfileVC") as? ProfileVC {
             vcNewSectionStarted.name = self.friendModel.name
             vcNewSectionStarted.profileiMage = self.friendModel.profile_image
             vcNewSectionStarted.contactMobileNumber = self.friendModel.contact_number
             self.present(vcNewSectionStarted, animated: true, completion: nil)
         }
- 
-      
-    
+        
+        
+        
     }
     
     @objc func swipeGesture(swipeGesture : UISwipeGestureRecognizer) {
         
-            let touchPoint = swipeGesture.location(in : self.tblView)
+        let touchPoint = swipeGesture.location(in : self.tblView)
+        
+        if let indexPath = self.tblView.indexPathForRow(at: touchPoint){
             
-            if let indexPath = self.tblView.indexPathForRow(at: touchPoint){
-                
             
-                let item = self.fetchedhResultController.object(at: indexPath) as? Msg
+            let item = self.fetchedhResultController.object(at: indexPath) as? Msg
+            
+            self.replyView.isHidden = false
+            
+            self.replyeMessageID = (item?.msg_id)!
+            
+            
+            if item?.is_mine == "1" {
+                self.lblReplyTitle.text = "You"
+                self.lblReplyTitle.textColor = #colorLiteral(red: 0.1215686275, green: 0.4235294118, blue: 0.7254901961, alpha: 1)
+                self.lblReplyColor.backgroundColor = #colorLiteral(red: 0.1215686275, green: 0.4235294118, blue: 0.7254901961, alpha: 1)
+            }else{
+                self.lblReplyTitle.text = self.friendModel.name
+                self.lblReplyTitle.textColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+                self.lblReplyColor.backgroundColor =  #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+            }
+            
+            if item?.msg_type == kXMPP.TYPE_TEXT {
                 
-                self.replyView.isHidden = false
+                self.imgReplyFile.isHidden = true
+                self.imgReplyType.isHidden = true
+                self.lblReplyMsg.text = item?.msg
                 
-                self.replyeMessageID = (item?.msg_id)!
+            }else  if item?.msg_type == kXMPP.TYPE_IMAGE {
                 
+                self.imgReplyFile.isHidden = false
+                self.imgReplyType.isHidden = false
+                self.lblReplyMsg.text = "Photo"
                 
-                if item?.is_mine == "1" {
-                    self.lblReplyTitle.text = "You"
-                    self.lblReplyTitle.textColor = #colorLiteral(red: 0.1215686275, green: 0.4235294118, blue: 0.7254901961, alpha: 1)
-                    self.lblReplyColor.backgroundColor = #colorLiteral(red: 0.1215686275, green: 0.4235294118, blue: 0.7254901961, alpha: 1)
-                }else{
-                    self.lblReplyTitle.text = self.friendModel.name
-                    self.lblReplyTitle.textColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
-                    self.lblReplyColor.backgroundColor =  #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
-                }
+                self.imgReplyType.image = UIImage(named: "image_gray_icon")
+                self.imgReplyFile.sd_setImage(with: URL(string: (item?.file_url)!))
                 
-                if item?.msg_type == kXMPP.TYPE_TEXT {
-                    
-                    self.imgReplyFile.isHidden = true
-                    self.imgReplyType.isHidden = true
-                    self.lblReplyMsg.text = item?.msg
-                    
-                }else  if item?.msg_type == kXMPP.TYPE_IMAGE {
-                    
-                    self.imgReplyFile.isHidden = false
-                    self.imgReplyType.isHidden = false
-                    self.lblReplyMsg.text = "Photo"
-                    
-                    self.imgReplyType.image = UIImage(named: "image_gray_icon")
-                    self.imgReplyFile.sd_setImage(with: URL(string: (item?.file_url)!))
-                    
-                }else  if item?.msg_type == kXMPP.TYPE_PDF {
-                    
-                    self.imgReplyFile.isHidden = false
-                    self.imgReplyType.isHidden = false
-                    self.lblReplyMsg.text = "Pdf"
-                    
-                    self.imgReplyType.image = UIImage(named: "pdf_gray_icon")
-                    self.imgReplyFile.image = UIImage(named: "pdf_place")
-                    
-                }else if item?.msg_type == kXMPP.TYPE_REPLY {
-                    
-                    self.imgReplyFile.isHidden = true
-                    self.imgReplyType.isHidden = true
-                    self.lblReplyMsg.text = item?.msg
-                    
-                }
+            }else  if item?.msg_type == kXMPP.TYPE_PDF {
+                
+                self.imgReplyFile.isHidden = false
+                self.imgReplyType.isHidden = false
+                self.lblReplyMsg.text = "Pdf"
+                
+                self.imgReplyType.image = UIImage(named: "pdf_gray_icon")
+                self.imgReplyFile.image = UIImage(named: "pdf_place")
+                
+            }else if item?.msg_type == kXMPP.TYPE_REPLY {
+                
+                self.imgReplyFile.isHidden = true
+                self.imgReplyType.isHidden = true
+                self.lblReplyMsg.text = item?.msg
                 
             }
+            
         }
+    }
     
     
     @objc func longPress(longPressGesture : UILongPressGestureRecognizer) {
@@ -632,7 +638,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                 self.btnForward.isHidden = true
                 
             }
-        
+            
             
             
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {
@@ -646,170 +652,170 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                 }
                 
             }
-     
+            
             alert.addAction(deleteAction)
             alert.addAction(cancelAction)
             self.present(alert, animated: true, completion: nil)
             
         }else{
-
-        
-        let alert:UIAlertController=UIAlertController(title: "Choose Option", message: nil, preferredStyle:.actionSheet)
-        let replyAction = UIAlertAction(title: "Reply", style: .default) {
-            UIAlertAction in
-            // self.openCamera(UIImagePickerController.SourceType.camera)
-            let item = self.fetchedhResultController.object(at: row) as? Msg
-
-            self.replyView.isHidden = false
             
-            self.replyeMessageID = (item?.msg_id)!
-
+            
+            let alert:UIAlertController=UIAlertController(title: "Choose Option", message: nil, preferredStyle:.actionSheet)
+            let replyAction = UIAlertAction(title: "Reply", style: .default) {
+                UIAlertAction in
+                // self.openCamera(UIImagePickerController.SourceType.camera)
+                let item = self.fetchedhResultController.object(at: row) as? Msg
+                
+                self.replyView.isHidden = false
+                
+                self.replyeMessageID = (item?.msg_id)!
+                
+                
+                if item?.is_mine == "1" {
+                    self.lblReplyTitle.text = "You"
+                    self.lblReplyTitle.textColor = #colorLiteral(red: 0.1215686275, green: 0.4235294118, blue: 0.7254901961, alpha: 1)
+                    self.lblReplyColor.backgroundColor = #colorLiteral(red: 0.1215686275, green: 0.4235294118, blue: 0.7254901961, alpha: 1)
+                }else{
+                    self.lblReplyTitle.text = self.friendModel.name
+                    self.lblReplyTitle.textColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+                    self.lblReplyColor.backgroundColor =  #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+                }
+                
+                if item?.msg_type == kXMPP.TYPE_TEXT {
+                    
+                    self.imgReplyFile.isHidden = true
+                    self.imgReplyType.isHidden = true
+                    self.lblReplyMsg.text = item?.msg
+                    
+                }else  if item?.msg_type == kXMPP.TYPE_IMAGE {
+                    
+                    self.imgReplyFile.isHidden = false
+                    self.imgReplyType.isHidden = false
+                    self.lblReplyMsg.text = "Photo"
+                    
+                    self.imgReplyType.image = UIImage(named: "image_gray_icon")
+                    self.imgReplyFile.sd_setImage(with: URL(string: (item?.file_url)!))
+                    
+                }else  if item?.msg_type == kXMPP.TYPE_PDF {
+                    
+                    self.imgReplyFile.isHidden = false
+                    self.imgReplyType.isHidden = false
+                    self.lblReplyMsg.text = "Pdf"
+                    
+                    self.imgReplyType.image = UIImage(named: "pdf_gray_icon")
+                    self.imgReplyFile.image = UIImage(named: "pdf_place")
+                    
+                }else if item?.msg_type == kXMPP.TYPE_REPLY {
+                    
+                    self.imgReplyFile.isHidden = true
+                    self.imgReplyType.isHidden = true
+                    self.lblReplyMsg.text = item?.msg
+                    
+                }
+                
+                
+                
+                // No multi Select
+            }
+            let forwardAction = UIAlertAction(title: "Forward", style: .default) {
+                UIAlertAction in
+                //  self.openCamera(UIImagePickerController.SourceType.photoLibrary)
+                
+                let item = self.fetchedhResultController.object(at: row) as? Msg
+                self.selectedArr.append(item!)
+                self.tblView.cellForRow(at: row)?.accessoryType = UITableViewCellAccessoryType.checkmark
+                
+                self.selectionType = "forward"
+                
+                self.toolbar.isHidden = true
+                self.actionView.isHidden = false
+                
+                self.isMuliselectActionChecked = true
+                
+                self.btnDelete.isHidden = true
+                self.btnForward.isHidden = false
+            }
+            
+            let copyAction = UIAlertAction(title: "Copy", style: .default) {
+                UIAlertAction in
+                //  self.openCamera(UIImagePickerController.SourceType.photoLibrary)
+                
+                // NO multiselect
+                
+                let item = self.fetchedhResultController.object(at: row) as? Msg
+                if item?.msg_type == kXMPP.TYPE_TEXT {
+                    UIPasteboard.general.string = item?.msg
+                }
+                
+                
+                
+            }
+            
+            let deleteAction = UIAlertAction(title: "Delete", style: .default) {
+                UIAlertAction in
+                
+                let item = self.fetchedhResultController.object(at: row) as? Msg
+                self.selectedArr.append(item!)
+                self.tblView.cellForRow(at: row)?.accessoryType = UITableViewCellAccessoryType.checkmark
+                
+                self.selectionType = "delete"
+                
+                self.toolbar.isHidden = true
+                self.actionView.isHidden = false
+                
+                self.isMuliselectActionChecked = true
+                
+                self.btnDelete.isHidden = false
+                self.btnForward.isHidden = true
+                
+            }
+            
+            let item = self.fetchedhResultController.object(at: row) as? Msg
             
             if item?.is_mine == "1" {
-                self.lblReplyTitle.text = "You"
-                self.lblReplyTitle.textColor = #colorLiteral(red: 0.1215686275, green: 0.4235294118, blue: 0.7254901961, alpha: 1)
-                self.lblReplyColor.backgroundColor = #colorLiteral(red: 0.1215686275, green: 0.4235294118, blue: 0.7254901961, alpha: 1)
-            }else{
-                self.lblReplyTitle.text = self.friendModel.name
-                self.lblReplyTitle.textColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
-                self.lblReplyColor.backgroundColor =  #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
-            }
-            
-            if item?.msg_type == kXMPP.TYPE_TEXT {
                 
-                self.imgReplyFile.isHidden = true
-                self.imgReplyType.isHidden = true
-                self.lblReplyMsg.text = item?.msg
+                let infoAction = UIAlertAction(title: "Info", style: .default) {
+                    UIAlertAction in
+                    
+                    self.infoDisplay(row: row)
+                }
+                alert.addAction(infoAction)
                 
-            }else  if item?.msg_type == kXMPP.TYPE_IMAGE {
-                
-                self.imgReplyFile.isHidden = false
-                self.imgReplyType.isHidden = false
-                self.lblReplyMsg.text = "Photo"
-                
-                self.imgReplyType.image = UIImage(named: "image_gray_icon")
-                self.imgReplyFile.sd_setImage(with: URL(string: (item?.file_url)!))
-                
-            }else  if item?.msg_type == kXMPP.TYPE_PDF {
-                
-                self.imgReplyFile.isHidden = false
-                self.imgReplyType.isHidden = false
-                self.lblReplyMsg.text = "Pdf"
-                
-                self.imgReplyType.image = UIImage(named: "pdf_gray_icon")
-                self.imgReplyFile.image = UIImage(named: "pdf_place")
-
-            }else if item?.msg_type == kXMPP.TYPE_REPLY {
-                
-                self.imgReplyFile.isHidden = true
-                self.imgReplyType.isHidden = true
-                self.lblReplyMsg.text = item?.msg
                 
             }
-
             
             
-            // No multi Select
-        }
-        let forwardAction = UIAlertAction(title: "Forward", style: .default) {
-            UIAlertAction in
-            //  self.openCamera(UIImagePickerController.SourceType.photoLibrary)
             
-            let item = self.fetchedhResultController.object(at: row) as? Msg
-            self.selectedArr.append(item!)
-            self.tblView.cellForRow(at: row)?.accessoryType = UITableViewCellAccessoryType.checkmark
-            
-            self.selectionType = "forward"
-            
-            self.toolbar.isHidden = true
-            self.actionView.isHidden = false
-            
-            self.isMuliselectActionChecked = true
-            
-            self.btnDelete.isHidden = true
-            self.btnForward.isHidden = false
-        }
-        
-        let copyAction = UIAlertAction(title: "Copy", style: .default) {
-            UIAlertAction in
-            //  self.openCamera(UIImagePickerController.SourceType.photoLibrary)
-            
-            // NO multiselect
-            
-            let item = self.fetchedhResultController.object(at: row) as? Msg
-            if item?.msg_type == kXMPP.TYPE_TEXT {
-                UIPasteboard.general.string = item?.msg
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {
+                UIAlertAction in
+                
+                self.isMuliselectActionChecked = false
+                self.toolbar.isHidden = false
+                self.actionView.isHidden = true
+                if self.selectedArr.count > 0 {
+                    self.selectedArr.removeAll()
+                }
+                
             }
-
             
+            alert.addAction(replyAction)
+            alert.addAction(forwardAction)
+            alert.addAction(copyAction)
+            alert.addAction(deleteAction)
             
-        }
-        
-        let deleteAction = UIAlertAction(title: "Delete", style: .default) {
-            UIAlertAction in
-            
-            let item = self.fetchedhResultController.object(at: row) as? Msg
-            self.selectedArr.append(item!)
-            self.tblView.cellForRow(at: row)?.accessoryType = UITableViewCellAccessoryType.checkmark
-            
-            self.selectionType = "delete"
-            
-            self.toolbar.isHidden = true
-            self.actionView.isHidden = false
-            
-            self.isMuliselectActionChecked = true
-            
-            self.btnDelete.isHidden = false
-            self.btnForward.isHidden = true
-
-        }
-        
-        let item = self.fetchedhResultController.object(at: row) as? Msg
-        
-        if item?.is_mine == "1" {
-
-        let infoAction = UIAlertAction(title: "Info", style: .default) {
-            UIAlertAction in
-            
-            self.infoDisplay(row: row)
-        }
-        alert.addAction(infoAction)
-            
-            
-        }
-
-        
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {
-            UIAlertAction in
-            
-            self.isMuliselectActionChecked = false
-            self.toolbar.isHidden = false
-            self.actionView.isHidden = true
-            if self.selectedArr.count > 0 {
-                self.selectedArr.removeAll()
-            }
-
-        }
-        
-        alert.addAction(replyAction)
-        alert.addAction(forwardAction)
-        alert.addAction(copyAction)
-        alert.addAction(deleteAction)
-
-        alert.addAction(cancelAction)
-        self.present(alert, animated: true, completion: nil)
+            alert.addAction(cancelAction)
+            self.present(alert, animated: true, completion: nil)
             
         }
         
     }
     
-     private func infoDisplay(row : IndexPath){
+    private func infoDisplay(row : IndexPath){
         let item = self.fetchedhResultController.object(at: row) as? Msg
         
         var sentTime = ""
         var seenTime = ""
-
+        
         
         if item?.sent_time == kXMPP.SEEN_MSG {
             sentTime = kXMPP.SEEN_MSG
@@ -822,10 +828,10 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         }else{
             seenTime =  Utils.getDateTimeFromString(date :(item?.seen_time)!)
         }
-
-
+        
+        
         let alert:UIAlertController=UIAlertController(title: "Message Details", message: nil, preferredStyle:.actionSheet)
-       
+        
         let forwardAction = UIAlertAction(title: "Delivered (\(sentTime))", style: .default) {
             UIAlertAction in
         }
@@ -840,7 +846,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         
         alert.addAction(forwardAction)
         alert.addAction(copyAction)
-      
+        
         
         alert.addAction(cancelAction)
         self.present(alert, animated: true, completion: nil)
@@ -853,16 +859,16 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         OneLastActivity.sendLastActivityQueryToJID(("\(self.friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal"), sender: OneChat.sharedInstance.xmppLastActivity) { (response, forJID, error) -> Void in
             
             if response != nil {
-            
-            let lastActivityResponse = OneLastActivity.sharedInstance.getLastActivityFrom((response?.lastActivitySeconds())!)
-            
-            self.lblCurrentStatus.text = lastActivityResponse
-               
+                
+                let lastActivityResponse = OneLastActivity.sharedInstance.getLastActivityFrom((response?.lastActivitySeconds())!)
+                
+                self.lblCurrentStatus.text = lastActivityResponse
+                
                 if self.lblCurrentStatus.text == "last seen on "{
                     self.lblCurrentStatus.text = "last seen never been online"
-             }
-          }
-       }
+                }
+            }
+        }
     }
     
     
@@ -899,10 +905,10 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardType), name: Notification.Name.UIKeyboardWillChangeFrame, object: nil)
         
         
-    
+        
     }
     
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -934,93 +940,93 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             
             
         }catch {print(error)}
-
+        
     }
     
     func sendTextMsg(text : String){
-    
+        
         do{
             
             
             
-                var desrc = ""
-                
-                if self.type == "destructive" {
-                    
-                    self.type = ""
-                    desrc = "2"
-                }else{
-                    
-                    desrc = ""
-                }
-                
-                var replyMsgId = ""
-                var msgType = kXMPP.TYPE_TEXT
-                
-                var replyMsgType = ""
-                var replyMsgFile = ""
-                var replyMsg = ""
-                var replyTitle = ""
-                
-                if self.replyeMessageID != "" {
-                    
-                    replyMsgId = self.replyeMessageID
-                    msgType = kXMPP.TYPE_REPLY
-                    
-                    let msgItem = self.getMsg(msgId: replyMsgId)
-                    
-                    replyMsg = self.lblReplyMsg.text!
-                    replyMsgFile = msgItem.file_url
-                
-                    if msgItem.is_mine == "1" {
-                        replyTitle = "You"
-                    }else{
-                        replyTitle = self.friendModel.name
-                    }
-                    
-                    replyMsgType = msgItem.msg_type
-                    
-                    
-                }
-                
-                
-            let body = CustomMessageModel(msgId: replyMsgId, msgType: msgType, message: text, fileUrl: "", destructiveTime: desrc,fileType : "",filePermission:"")
-                
-                let jsonData = try JSONEncoder().encode(body)
-                let msg = String(data: jsonData, encoding: .utf8)
-                
-                print(msg ?? "")
-                
-                self.editMsg.resignFirstResponder()
-                self.editMsg.text = ""
-                
-                let msgID = self.getCurrentTime()
-                
-                self.createMsgEntityFrom(item: Message(
-                    msg: text,
-                    msgId: msgID,
-                    msgType: msgType,
-                    msgACk: kXMPP.msgSend,
-                    fromID: USERDETAILS.mobile,
-                    toID: self.friendModel.contact_number,
-                    fileUrl: "",
-                    isUpload: "0",
-                    isDownload: "0",
-                    isStreaming: "0",
-                    isMine: "1",
-                    created: self.getCurrentTime(),
-                    status: "",
-                    modified: self.getCurrentTime(),
-                    is_permission: "0", replyTitle: replyTitle, replyMsgType: replyMsgType, replyMsgId: self.replyeMessageID, replyMsgFile: replyMsgFile, replyMsg : replyMsg, sentTime: kXMPP.SEEN_MSG, seenTime: kXMPP.SEEN_MSG, destructiveTime: ""))
-                
-                self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: text, msg_type: kXMPP.TYPE_TEXT, isMine: "1", friendID: self.friendModel.contact_number)
-                
+            var desrc = ""
             
+            if self.type == "destructive" {
                 
-                self.replyeMessageID = ""
+                self.type = ""
+                desrc = "2"
+            }else{
                 
-                OneMessage.sendMessage(msg!, msgId:msgID,  thread: "test", to:"\(friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
-                })
+                desrc = ""
+            }
+            
+            var replyMsgId = ""
+            var msgType = kXMPP.TYPE_TEXT
+            
+            var replyMsgType = ""
+            var replyMsgFile = ""
+            var replyMsg = ""
+            var replyTitle = ""
+            
+            if self.replyeMessageID != "" {
+                
+                replyMsgId = self.replyeMessageID
+                msgType = kXMPP.TYPE_REPLY
+                
+                let msgItem = self.getMsg(msgId: replyMsgId)
+                
+                replyMsg = self.lblReplyMsg.text!
+                replyMsgFile = msgItem.file_url
+                
+                if msgItem.is_mine == "1" {
+                    replyTitle = "You"
+                }else{
+                    replyTitle = self.friendModel.name
+                }
+                
+                replyMsgType = msgItem.msg_type
+                
+                
+            }
+            
+            
+            let body = CustomMessageModel(msgId: replyMsgId, msgType: msgType, message: text, fileUrl: "", destructiveTime: desrc,fileType : "",filePermission:"")
+            
+            let jsonData = try JSONEncoder().encode(body)
+            let msg = String(data: jsonData, encoding: .utf8)
+            
+            print(msg ?? "")
+            
+            self.editMsg.resignFirstResponder()
+            self.editMsg.text = ""
+            
+            let msgID = self.getCurrentTime()
+            
+            self.createMsgEntityFrom(item: Message(
+                msg: text,
+                msgId: msgID,
+                msgType: msgType,
+                msgACk: kXMPP.msgSend,
+                fromID: USERDETAILS.mobile,
+                toID: self.friendModel.contact_number,
+                fileUrl: "",
+                isUpload: "0",
+                isDownload: "0",
+                isStreaming: "0",
+                isMine: "1",
+                created: self.getCurrentTime(),
+                status: "",
+                modified: self.getCurrentTime(),
+                is_permission: "0", replyTitle: replyTitle, replyMsgType: replyMsgType, replyMsgId: self.replyeMessageID, replyMsgFile: replyMsgFile, replyMsg : replyMsg, sentTime: kXMPP.SEEN_MSG, seenTime: kXMPP.SEEN_MSG, destructiveTime: desrc))
+            
+            self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: text, msg_type: kXMPP.TYPE_TEXT, isMine: "1", friendID: self.friendModel.contact_number)
+            
+            
+            
+            self.replyeMessageID = ""
+            
+            OneMessage.sendMessage(msg!, msgId:msgID,  thread: "test", to:"\(friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
+            })
             
             
             if self.lblCurrentStatus.text != "Online"  {
@@ -1029,11 +1035,11 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                 print(params)
                 MakeHttpPostRequestChat(url: kXMPP.sendNotification, params: params, completion: {(success, response) in
                     print(response)
-                 
+                    
                 }, errorHandler: {(message) -> Void in
                     print("message", message)
                 })
-        
+                
             }
             
         }
@@ -1043,7 +1049,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         
     }
     
- 
+    
     @IBAction func back_btn_clicked(_ sender: Any) {
         
         self.type = ""
@@ -1054,27 +1060,31 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             self.selectedArr.removeAll()
         }
         UserDefaults.standard.set("", forKey: "chatNo")
-
+        
         self.updateReadCount()
         //OneMessage.sharedInstance.delegate = nil
-
         
-        dismiss(animated: false, completion: nil)
-
+        
+        let startVC = self.storyboard?.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
+        self.present(startVC, animated: true, completion: nil)
+        
+        
+       // dismiss(animated: false, completion: nil)
+        
     }
     
-   /* func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        
-        
-        let replyAction = UITableViewRowAction(style: .default, title: "") { (action, indexpath) in
-            
-        }
-        
-        replyAction.backgroundColor = UIColor(patternImage: UIImage(named: "icon_logout")!)
-        return [replyAction]
-    } */
+    /* func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+     
+     
+     let replyAction = UITableViewRowAction(style: .default, title: "") { (action, indexpath) in
+     
+     }
+     
+     replyAction.backgroundColor = UIColor(patternImage: UIImage(named: "icon_logout")!)
+     return [replyAction]
+     } */
     
-  
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let count = fetchedhResultController.sections?.first?.numberOfObjects {
             return count
@@ -1084,11 +1094,11 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-       
         
         
-    
-       // let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! MsgCell
+        
+        
+        // let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! MsgCell
         
         if let item = fetchedhResultController.object(at: indexPath) as? Msg {
             //cell.setMsgCellWith(item: item)
@@ -1097,24 +1107,24 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             var isDateShow = true
             
             if indexPath.row  - 1 >= 0 {
-            
-            let prevPath = IndexPath(row: indexPath.row - 1, section: 0)
-            
+                
+                let prevPath = IndexPath(row: indexPath.row - 1, section: 0)
+                
                 if let prevItem = fetchedhResultController.object(at: prevPath) as? Msg {
-                if item.is_mine == prevItem.is_mine {
-                    isMyProfileShow = false
-                }else{
-                    isMyProfileShow = true
-                }
+                    if item.is_mine == prevItem.is_mine {
+                        isMyProfileShow = false
+                    }else{
+                        isMyProfileShow = true
+                    }
                     
-              }
+                }
                 
                 
-               // let prevPath = IndexPath(row: indexPath.row - 1, section: 0)
+                // let prevPath = IndexPath(row: indexPath.row - 1, section: 0)
                 if let prevItem = fetchedhResultController.object(at: prevPath) as? Msg {
                     
                     if Utils.getMsgDate(date: item.created!) == Utils.getMsgDate(date: prevItem.created!) {
-                       
+                        
                         isDateShow = false
                         
                     }else{
@@ -1178,7 +1188,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         
                     }else{
                         cell.imgProfile?.isHidden = true
-
+                        
                     }
                     
                     cell.imgProfile?.sd_setImage(with : URL(string: USERDETAILS.imageurl))
@@ -1186,13 +1196,29 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     cell.imgProfile?.clipsToBounds = true
                     cell.imgProfile?.contentMode = .scaleToFill
                     
-                    cell.mainView?.layer.cornerRadius = 6
-                    cell.mainView?.layer.borderColor = #colorLiteral(red: 0.1333333333, green: 0.4941176471, blue: 0.8156862745, alpha: 1)
-                    cell.mainView?.layer.borderWidth = 1
+                    
                     
                     cell.replyView?.layer.cornerRadius = 6
                     cell.replyView?.layer.borderColor = #colorLiteral(red: 0.1333333333, green: 0.4941176471, blue: 0.8156862745, alpha: 1)
                     cell.replyView?.layer.borderWidth = 1
+                    
+                    
+                    if item.distructive_time == "2" || item.msg == kXMPP.SELF_DESTRUCT_MSG {
+                        
+                        cell.mainView?.layer.cornerRadius = 6
+                        cell.mainView?.layer.borderColor = #colorLiteral(red: 0.9176470588, green: 0.07450980392, blue: 0.07450980392, alpha: 1)
+                        cell.mainView?.layer.borderWidth = 1
+                        cell.mainView?.backgroundColor = #colorLiteral(red: 0.9647058824, green: 0.862745098, blue: 0.8705882353, alpha: 1)
+                        
+                    }else{
+                        
+                        cell.mainView?.layer.cornerRadius = 6
+                        cell.mainView?.layer.borderColor = #colorLiteral(red: 0.1333333333, green: 0.4941176471, blue: 0.8156862745, alpha: 1)
+                        cell.mainView?.layer.borderWidth = 1
+                        cell.mainView?.backgroundColor = #colorLiteral(red: 0.8980392157, green: 0.9568627451, blue: 0.9882352941, alpha: 1)
+                        
+                    }
+                    
                     
                     
                     if self.selectedArr.contains(item){
@@ -1213,7 +1239,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     
                     cell.lblMsg?.numberOfLines = 0
                     cell.lblMsg?.text = " "+item.msg+" "
-                   
+                    
                     if item.msg == kXMPP.DELETE_TEXT_MY ||
                         item.msg == kXMPP.DELETE_TEXT_FRIEND {
                         
@@ -1222,10 +1248,10 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     }else{
                         
                         cell.imgAck?.isHidden = false
-
+                        
                     }
                     
-              
+                    
                     cell.lblTime?.text  = Utils.getTimeFromString(date: item.created!)
                     if item.msg_ack == kXMPP.msgSend{
                         cell.imgAck.image = UIImage(named: "send_gray_icon")
@@ -1246,18 +1272,18 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     }
                     
                     if isDateShow == true {
-                     // cell.lblDate?.isHidden = false
-                     //cell.lblDate.frame.size.height = 30
-                     //cell.lblDate.layer.cornerRadius = 10
-                       
+                        // cell.lblDate?.isHidden = false
+                        //cell.lblDate.frame.size.height = 30
+                        //cell.lblDate.layer.cornerRadius = 10
+                        
                         
                         cell.lblDate?.text = Utils.getMsgDate(date: item.created!)
-
+                        
                     }else{
-                      // cell.lblDate?.isHidden = true
-                       // cell.lblDate.frame.size.height = 0
+                        // cell.lblDate?.isHidden = true
+                        // cell.lblDate.frame.size.height = 0
                         cell.lblDate?.text = ""
-
+                        
                     }
                     
                     cell.profileImga?.sd_setImage(with : URL(string: USERDETAILS.imageurl))
@@ -1265,11 +1291,9 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     cell.profileImga?.clipsToBounds = true
                     cell.profileImga?.contentMode = .scaleToFill
                     
-                   
                     
                     
-                    
-                    if item.distructive_time == "2"{
+                    if item.distructive_time == "2" || item.msg == kXMPP.SELF_DESTRUCT_MSG {
                         
                         cell.mainView?.layer.cornerRadius = 6
                         cell.mainView?.layer.borderColor = #colorLiteral(red: 0.9176470588, green: 0.07450980392, blue: 0.07450980392, alpha: 1)
@@ -1281,19 +1305,19 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         cell.mainView?.layer.cornerRadius = 6
                         cell.mainView?.layer.borderColor = #colorLiteral(red: 0.1333333333, green: 0.4941176471, blue: 0.8156862745, alpha: 1)
                         cell.mainView?.layer.borderWidth = 1
-                        cell.mainView?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                        cell.mainView?.backgroundColor = #colorLiteral(red: 0.8980392157, green: 0.9568627451, blue: 0.9882352941, alpha: 1)
                         
                     }
                     
                     
                     
                     if self.selectedArr.contains(item){
-                      
-                    cell.accessoryType = UITableViewCellAccessoryType.checkmark
+                        
+                        cell.accessoryType = UITableViewCellAccessoryType.checkmark
                         
                     }else{
                         cell.accessoryType = UITableViewCellAccessoryType.none
-
+                        
                     }
                     
                     return cell
@@ -1302,7 +1326,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     
                     
                     let cell = tableView.dequeueReusableCell(withIdentifier: "MyFileViewCell", for: indexPath) as! MyFileViewCell
-                   
+                    
                     cell.lblTime?.text  = Utils.getTimeFromString(date: item.created!)
                     cell.lblTime?.frame.size = (cell.lblTime?.intrinsicContentSize)!
                     
@@ -1315,7 +1339,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         
                         cell.msgAck.image = UIImage(named: "receive_gray_icon")
                         cell.msgAck.isHidden = false
-
+                        
                     }else  if item.msg_ack == kXMPP.msgSeen{
                         
                         cell.msgAck.image = UIImage(named: "read_blue_icon")
@@ -1343,9 +1367,23 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     cell.fileview?.sd_setImage(with : URL(string: item.file_url))
                     cell.fileview?.contentMode = .scaleToFill
                     
-                    cell.mainView?.layer.cornerRadius = 6
-                    cell.mainView?.layer.borderColor = #colorLiteral(red: 0.1333333333, green: 0.4941176471, blue: 0.8156862745, alpha: 1)
-                    cell.mainView?.layer.borderWidth = 1
+                    
+                    if item.distructive_time == "2" || item.msg == kXMPP.SELF_DESTRUCT_MSG {
+                        
+                        cell.mainView?.layer.cornerRadius = 6
+                        cell.mainView?.layer.borderColor = #colorLiteral(red: 0.9176470588, green: 0.07450980392, blue: 0.07450980392, alpha: 1)
+                        cell.mainView?.layer.borderWidth = 1
+                        cell.mainView?.backgroundColor = #colorLiteral(red: 0.9647058824, green: 0.862745098, blue: 0.8705882353, alpha: 1)
+                        
+                    }else{
+                        
+                        cell.mainView?.layer.cornerRadius = 6
+                        cell.mainView?.layer.borderColor = #colorLiteral(red: 0.1333333333, green: 0.4941176471, blue: 0.8156862745, alpha: 1)
+                        cell.mainView?.layer.borderWidth = 1
+                        cell.mainView?.backgroundColor = #colorLiteral(red: 0.8980392157, green: 0.9568627451, blue: 0.9882352941, alpha: 1)
+                        
+                    }
+                    
                     
                     
                     
@@ -1353,27 +1391,27 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         
                         cell.progressView.isHidden = false
                         cell.progressView.startAnimating()
-
+                        
                         
                         if item.is_streaming == "0" {
                             
                             cell.btnUpload.isHidden = true
                             cell.progressView.stopAnimating()
-
+                            
                             
                             
                             SDWebImageManager.shared().imageDownloader?.downloadImage(with:  URL(string: item.file_url), options: .continueInBackground, progress: nil, completed: {(image : UIImage?,data:Data?,error:Error?,finished:Bool)
                                 in
                                 
                                 if image != nil {
-                                     self.updateMsg(msg_id: item.msg_id, type : "streaming" ,value: "1")
-
+                                    self.updateMsg(msg_id: item.msg_id, type : "streaming" ,value: "1")
+                                    
                                     self.uploadImageToServer(image: image!, msgId: item.msg_id, type: item.msg_type, fileURL: "", permission: item.is_permission)
-                            
+                                    
                                 }
                                 
                             })
-                           
+                            
                             
                         }else if item.is_streaming == "3" {
                             
@@ -1385,11 +1423,27 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         }
                         
                     }else{
-                        cell.btnUpload.isHidden = true
                         cell.progressView.isHidden = true
                         cell.progressView.stopAnimating()
+                        
+                        if item.is_permission == "1" {
+                            
+                            cell.btnUpload.isHidden = false
+                            // show lock
+                            
+                          //  cell.btnUpload.image = UIImage(named: "ic_play_gray")
 
+                        }else{
+                            
+                            cell.btnUpload.isHidden = true
+
+                        }
+                        
+                        
                     }
+                    
+                    
+                  
                     
                     if self.selectedArr.contains(item){
                         
@@ -1398,6 +1452,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         cell.accessoryType = UITableViewCellAccessoryType.none
                         
                     }
+                    
+                    
                     
                     
                     
@@ -1429,9 +1485,23 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         
                     }
                     
-                    cell.mainView?.layer.cornerRadius = 6
-                    cell.mainView?.layer.borderColor = #colorLiteral(red: 0.1333333333, green: 0.4941176471, blue: 0.8156862745, alpha: 1)
-                    cell.mainView?.layer.borderWidth = 1
+                    
+                    if item.distructive_time == "2" || item.msg == kXMPP.SELF_DESTRUCT_MSG {
+                        
+                        cell.mainView?.layer.cornerRadius = 6
+                        cell.mainView?.layer.borderColor = #colorLiteral(red: 0.9176470588, green: 0.07450980392, blue: 0.07450980392, alpha: 1)
+                        cell.mainView?.layer.borderWidth = 1
+                        cell.mainView?.backgroundColor = #colorLiteral(red: 0.9647058824, green: 0.862745098, blue: 0.8705882353, alpha: 1)
+                        
+                    }else{
+                        
+                        cell.mainView?.layer.cornerRadius = 6
+                        cell.mainView?.layer.borderColor = #colorLiteral(red: 0.1333333333, green: 0.4941176471, blue: 0.8156862745, alpha: 1)
+                        cell.mainView?.layer.borderWidth = 1
+                        cell.mainView?.backgroundColor = #colorLiteral(red: 0.8980392157, green: 0.9568627451, blue: 0.9882352941, alpha: 1)
+                        
+                    }
+                    
                     
                     if isMyProfileShow == true {
                         
@@ -1463,17 +1533,17 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                             
                             DispatchQueue.global(qos : .background).async {
                                 
-                                    DispatchQueue.main.async {
-                                        
+                                DispatchQueue.main.async {
                                     
-                                        self.updateMsg(msg_id: item.msg_id, type : "streaming" ,value: "1")
-                                        
-                                        self.uploadImageToServer(image: UIImage(), msgId: item.msg_id, type: item.msg_type, fileURL: item.file_url, permission: item.is_permission)
-                                        
-                                        
-                                        
-                                    }
-                               
+                                    
+                                    self.updateMsg(msg_id: item.msg_id, type : "streaming" ,value: "1")
+                                    
+                                    self.uploadImageToServer(image: UIImage(), msgId: item.msg_id, type: item.msg_type, fileURL: item.file_url, permission: item.is_permission)
+                                    
+                                    
+                                    
+                                }
+                                
                             }
                             
                             
@@ -1500,14 +1570,26 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         }
                         
                     }else{
-                        cell.btnUpload.isHidden = true
                         cell.progressView.isHidden = true
                         cell.progressView.stopAnimating()
+                        
+                        if item.is_permission == "1" {
+                            
+                            cell.btnUpload.isHidden = false
+                            // show lock
+                            
+                           // cell.btnUpload.image = UIImage(named: "ic_play_gray")
+                            
+                        }else{
+                            
+                            cell.btnUpload.isHidden = true
+                            
+                        }
                         
                     }
                     
                     
-                   
+                    
                     if self.selectedArr.contains(item){
                         
                         cell.accessoryType = UITableViewCellAccessoryType.checkmark
@@ -1521,7 +1603,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     
                 }
                 
-              
+                
                 
                 
             }else {
@@ -1549,7 +1631,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     
                     cell.msgTime?.text  = Utils.getTimeFromString(date: item.created!)
                     cell.msgTime?.frame.size = (cell.msgTime?.intrinsicContentSize)!
-                  
+                    
                     if isMyProfileShow == true {
                         
                         cell.profileImage?.isHidden = false
@@ -1564,69 +1646,15 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     cell.profileImage?.clipsToBounds = true
                     cell.profileImage?.contentMode = .scaleToFill
                     
-                    cell.mainView?.layer.cornerRadius = 6
-                    cell.mainView?.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-                    cell.mainView?.layer.borderWidth = 1
+                    
                     
                     cell.replyView?.layer.cornerRadius = 2
                     cell.replyView?.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
                     cell.replyView?.layer.borderWidth = 1
                     
-                    if self.selectedArr.contains(item){
-              
-                        cell.accessoryType = UITableViewCellAccessoryType.checkmark
-                        
-                    }else{
-                        cell.accessoryType = UITableViewCellAccessoryType.none
-                        
-                    }
-                    
-                    return cell
-                    
-                }else if item.msg_type == kXMPP.TYPE_TEXT {
-
-                
-                  let cell = tableView.dequeueReusableCell(withIdentifier: "FriendTextMsgCell", for: indexPath) as! FriendTextMsgCell
-                  //cell.item = item
-                
-                cell.lblMsg?.text = item.msg
-                cell.lblTime?.text  = Utils.getTimeFromString(date: item.created!)
-                    
-                    if item.msg == kXMPP.DELETE_TEXT_MY ||
-                        item.msg == kXMPP.DELETE_TEXT_FRIEND {
-                        cell.lblTime?.isHidden = true
-                    }else{
-                        cell.lblTime?.isHidden = false
-                    }
                     
                     
-                    if isMyProfileShow == true {
-                        
-                        cell.profileImage?.isHidden = false
-                        
-                    }else{
-                        cell.profileImage?.isHidden = true
-                        
-                    }
-                  
-                    
-                    if isDateShow == true {
-                       // cell.lblDate?.isHidden = false
-                        cell.lblDate?.text = Utils.getMsgDate(date: item.created!)
-                    }else{
-                        //cell.lblDate?.isHidden = true
-                        cell.lblDate?.text = ""
-                    }
-                    
-                cell.profileImage?.sd_setImage(with : URL(string: self.friendModel.profile_image))
-                cell.profileImage?.layer.cornerRadius = (cell.profileImage?.frame.width)! / 2
-                cell.profileImage?.clipsToBounds = true
-                cell.profileImage?.contentMode = .scaleToFill
-                    
-                    
-                    
-                    
-                    if item.distructive_time == "2"{
+                    if item.distructive_time == "2" || item.msg == kXMPP.SELF_DESTRUCT_MSG {
                         
                         cell.mainView?.layer.cornerRadius = 6
                         cell.mainView?.layer.borderColor = #colorLiteral(red: 0.9176470588, green: 0.07450980392, blue: 0.07450980392, alpha: 1)
@@ -1646,13 +1674,86 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     if self.selectedArr.contains(item){
                         
                         cell.accessoryType = UITableViewCellAccessoryType.checkmark
+                        
                     }else{
                         cell.accessoryType = UITableViewCellAccessoryType.none
                         
                     }
                     
-                   return cell
-                
+                    return cell
+                    
+                }else if item.msg_type == kXMPP.TYPE_TEXT {
+                    
+                    
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "FriendTextMsgCell", for: indexPath) as! FriendTextMsgCell
+                    //cell.item = item
+                    
+                    cell.lblMsg?.text = item.msg
+                    cell.lblTime?.text  = Utils.getTimeFromString(date: item.created!)
+                    
+                    if item.msg == kXMPP.DELETE_TEXT_MY ||
+                        item.msg == kXMPP.DELETE_TEXT_FRIEND {
+                        cell.lblTime?.isHidden = true
+                    }else{
+                        cell.lblTime?.isHidden = false
+                    }
+                    
+                    
+                    if isMyProfileShow == true {
+                        
+                        cell.profileImage?.isHidden = false
+                        
+                    }else{
+                        cell.profileImage?.isHidden = true
+                        
+                    }
+                    
+                    
+                    if isDateShow == true {
+                        // cell.lblDate?.isHidden = false
+                        cell.lblDate?.text = Utils.getMsgDate(date: item.created!)
+                    }else{
+                        //cell.lblDate?.isHidden = true
+                        cell.lblDate?.text = ""
+                    }
+                    
+                    cell.profileImage?.sd_setImage(with : URL(string: self.friendModel.profile_image))
+                    cell.profileImage?.layer.cornerRadius = (cell.profileImage?.frame.width)! / 2
+                    cell.profileImage?.clipsToBounds = true
+                    cell.profileImage?.contentMode = .scaleToFill
+                    
+                    
+                    
+                    
+                    if item.distructive_time == "2" || item.msg == kXMPP.SELF_DESTRUCT_MSG {
+                        
+                        
+                        cell.mainView?.layer.cornerRadius = 6
+                        cell.mainView?.layer.borderColor = #colorLiteral(red: 0.9176470588, green: 0.07450980392, blue: 0.07450980392, alpha: 1)
+                        cell.mainView?.layer.borderWidth = 1
+                        cell.mainView?.backgroundColor = #colorLiteral(red: 0.9647058824, green: 0.862745098, blue: 0.8705882353, alpha: 1)
+                        
+                    }else{
+                        
+                        cell.mainView?.layer.cornerRadius = 6
+                        cell.mainView?.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+                        cell.mainView?.layer.borderWidth = 1
+                        cell.mainView?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                        
+                    }
+                    
+                    
+                    
+                    if self.selectedArr.contains(item){
+                        
+                        cell.accessoryType = UITableViewCellAccessoryType.checkmark
+                    }else{
+                        cell.accessoryType = UITableViewCellAccessoryType.none
+                        
+                    }
+                    
+                    return cell
+                    
                 }else if item.msg_type == kXMPP.TYPE_IMAGE {
                     
                     
@@ -1676,48 +1777,29 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     cell.fileView?.sd_setImage(with : URL(string: item.file_url))
                     cell.fileView?.contentMode = .scaleToFill
                     
-                    cell.mainView?.layer.cornerRadius = 6
-                    cell.mainView?.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-                    cell.mainView?.layer.borderWidth = 1
-                 
-                    
-                   if item.is_permission == "1" {
-                    
-                    cell.btnDownload.isHidden = false
-                    cell.progressView.isHidden = true
-                    
-                    cell.fileView?.sd_setImage(with: URL(string: item.file_url), placeholderImage: UIImage(named: "image_placeholder"), options: .continueInBackground, progress: nil, completed: nil)
-                    cell.fileView?.contentMode = .scaleToFill
-                    
-                    let blureffect = UIBlurEffect(style: UIBlurEffectStyle
-                        .regular)
-                    let blueeffectView = UIVisualEffectView(effect: blureffect)
-                    blueeffectView.frame = (cell.fileView?.bounds)!
-                    blueeffectView.autoresizingMask = [.flexibleWidth , .flexibleHeight]
-                    cell.fileView?.addSubview(blueeffectView)
-                        
-                    }else {
-                    
-                   // cell.progressView.isHidden = true
-                    
-                    
-
-                    
-                    if item.is_download == "0" {
+                    if item.distructive_time == "2" || item.msg == kXMPP.SELF_DESTRUCT_MSG {
                         
                         
-                        if item.is_streaming == "1" {
-                            
-                            cell.btnDownload.isHidden = true
-                            cell.progressView.isHidden = false
-
-                        }else{
+                        cell.mainView?.layer.cornerRadius = 6
+                        cell.mainView?.layer.borderColor = #colorLiteral(red: 0.9176470588, green: 0.07450980392, blue: 0.07450980392, alpha: 1)
+                        cell.mainView?.layer.borderWidth = 1
+                        cell.mainView?.backgroundColor = #colorLiteral(red: 0.9647058824, green: 0.862745098, blue: 0.8705882353, alpha: 1)
                         
-                            cell.btnDownload.isHidden = false
-                            cell.progressView.isHidden = true
-                          
-                        }
+                    }else{
                         
+                        cell.mainView?.layer.cornerRadius = 6
+                        cell.mainView?.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+                        cell.mainView?.layer.borderWidth = 1
+                        cell.mainView?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                        
+                    }
+                    
+                    
+                    
+                    if item.is_permission == "1" {
+                        
+                        cell.btnDownload.isHidden = false
+                        cell.progressView.isHidden = true
                         
                         cell.fileView?.sd_setImage(with: URL(string: item.file_url), placeholderImage: UIImage(named: "image_placeholder"), options: .continueInBackground, progress: nil, completed: nil)
                         cell.fileView?.contentMode = .scaleToFill
@@ -1728,20 +1810,56 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         blueeffectView.frame = (cell.fileView?.bounds)!
                         blueeffectView.autoresizingMask = [.flexibleWidth , .flexibleHeight]
                         cell.fileView?.addSubview(blueeffectView)
-                      
-                    }else{
-                        cell.btnDownload.isHidden = true
-                        cell.progressView.isHidden = true
-
                         
-                        cell.fileView?.sd_setImage(with: URL(string: item.file_url), placeholderImage: UIImage(named: "image_placeholder"), options: .continueInBackground, progress: nil, completed: nil)
-                        cell.fileView?.contentMode = .scaleToFill
+                    }else {
                         
+                        // cell.progressView.isHidden = true
+                        
+                        if item.distructive_time == "2" {
+                            
+                            cell.fileView?.sd_setImage(with: URL(string: item.file_url), placeholderImage: UIImage(named: "image_placeholder"), options: .continueInBackground, progress: nil, completed: nil)
+                            cell.fileView?.contentMode = .scaleToFill
+                        
+                        
+                        }else if item.is_download == "0" {
+                            
+                            
+                            if item.is_streaming == "1" {
+                                
+                                cell.btnDownload.isHidden = true
+                                cell.progressView.isHidden = false
+                                
+                            }else{
+                                
+                                cell.btnDownload.isHidden = false
+                                cell.progressView.isHidden = true
+                                
+                            }
+                            
+                            
+                            cell.fileView?.sd_setImage(with: URL(string: item.file_url), placeholderImage: UIImage(named: "image_placeholder"), options: .continueInBackground, progress: nil, completed: nil)
+                            cell.fileView?.contentMode = .scaleToFill
+                            
+                            let blureffect = UIBlurEffect(style: UIBlurEffectStyle
+                                .regular)
+                            let blueeffectView = UIVisualEffectView(effect: blureffect)
+                            blueeffectView.frame = (cell.fileView?.bounds)!
+                            blueeffectView.autoresizingMask = [.flexibleWidth , .flexibleHeight]
+                            cell.fileView?.addSubview(blueeffectView)
+                            
+                        }else{
+                            cell.btnDownload.isHidden = true
+                            cell.progressView.isHidden = true
+                            
+                            
+                            cell.fileView?.sd_setImage(with: URL(string: item.file_url), placeholderImage: UIImage(named: "image_placeholder"), options: .continueInBackground, progress: nil, completed: nil)
+                            cell.fileView?.contentMode = .scaleToFill
+                            
                         }
-                    
+                        
                     }
-                 
- 
+                    
+                    
                     if self.selectedArr.contains(item){
                         
                         cell.accessoryType = UITableViewCellAccessoryType.checkmark
@@ -1772,9 +1890,23 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     cell.profileImage?.clipsToBounds = true
                     cell.profileImage?.contentMode = .scaleToFill
                     
-                    cell.mainView?.layer.cornerRadius = 6
-                    cell.mainView?.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-                    cell.mainView?.layer.borderWidth = 1
+                    if item.distructive_time == "2" || item.msg == kXMPP.SELF_DESTRUCT_MSG {
+                        
+                        
+                        cell.mainView?.layer.cornerRadius = 6
+                        cell.mainView?.layer.borderColor = #colorLiteral(red: 0.9176470588, green: 0.07450980392, blue: 0.07450980392, alpha: 1)
+                        cell.mainView?.layer.borderWidth = 1
+                        cell.mainView?.backgroundColor = #colorLiteral(red: 0.9647058824, green: 0.862745098, blue: 0.8705882353, alpha: 1)
+                        
+                    }else{
+                        
+                        cell.mainView?.layer.cornerRadius = 6
+                        cell.mainView?.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+                        cell.mainView?.layer.borderWidth = 1
+                        cell.mainView?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                        
+                    }
+                    
                     
                     
                     
@@ -1785,35 +1917,35 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         cell.fileView?.contentMode = .scaleToFill
                         cell.progressView.isHidden = true
                         
-                     }else {
+                    }else {
                         
-                    if item.is_download == "0" {
-                        
-                        
-                        if item.is_streaming == "1" {
-                            cell.btnDownload.isHidden = true
-                            cell.progressView.isHidden = false
-                        }else{
-                            cell.btnDownload.isHidden = false
+                        if item.is_download == "0" {
+                            
+                            
+                            if item.is_streaming == "1" {
+                                cell.btnDownload.isHidden = true
+                                cell.progressView.isHidden = false
+                            }else{
+                                cell.btnDownload.isHidden = false
+                                cell.progressView.isHidden = true
+                            }
+                            
+                            cell.fileView?.image = UIImage(named: "pdf_place")
+                            cell.fileView?.contentMode = .scaleToFill
                             cell.progressView.isHidden = true
+                            
+                        }else{
+                            
+                            
+                            cell.btnDownload.isHidden = true
+                            cell.progressView.isHidden = true
+                            
+                            
+                            cell.fileView?.image = UIImage(named: "pdf_place")
+                            cell.fileView?.contentMode = .scaleToFill
+                            
                         }
                         
-                        cell.fileView?.image = UIImage(named: "pdf_place")
-                        cell.fileView?.contentMode = .scaleToFill
-                        cell.progressView.isHidden = true
-                        
-                    }else{
-                        
-                        
-                        cell.btnDownload.isHidden = true
-                        cell.progressView.isHidden = true
-                        
-                        
-                        cell.fileView?.image = UIImage(named: "pdf_place")
-                        cell.fileView?.contentMode = .scaleToFill
-            
-                     }
-
                     }
                     
                     if self.selectedArr.contains(item){
@@ -1827,75 +1959,73 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     return cell
                     
                 }
-            
-
+                
+                
             }
-            
-        
             
         }
         return UITableViewCell()
     }
     
     
-  /*  func numberOfSections(in tableView: UITableView) -> Int {
-        
-        if let sections = fetchedhResultController.sections {
-            return sections.count
-        }
-        
-        return 0
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        
-        let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.textColor = UIColor.black
-    }
-    
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    
-        if let numberOfObjects = fetchedhResultController.sections?[section].indexTitle {
-            
-            let df = DateFormatter()
-            df.dateFormat = "yyyy-MM-DD" // Date format for exerciseDate
-            let exerciseDate = df.date(from: numberOfObjects)
-            let currentDate = NSDate()
-            let result = currentDate.compare(exerciseDate!)
-            let TommorrowDate = currentDate.addingTimeInterval(60 * 60 * 24)
-            let result1 = TommorrowDate.compare(exerciseDate!)
-            
-            if result == ComparisonResult.orderedSame
-            {
-                
-                return "TODAY"
-                
-            }
-            if result1 == ComparisonResult.orderedSame
-            {
-                
-                return "TOMMORROW"
-                
-                
-            }
-            
-            let df1 = DateFormatter()
-            df1.dateFormat = "dd MMMM, yyyy"
-            
-            
-            return df1.string(from: exerciseDate!)
-            
-        }
-        
-        return nil
-    }
-  */
+    /*  func numberOfSections(in tableView: UITableView) -> Int {
+     
+     if let sections = fetchedhResultController.sections {
+     return sections.count
+     }
+     
+     return 0
+     }
+     
+     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+     
+     let header = view as! UITableViewHeaderFooterView
+     header.textLabel?.textColor = UIColor.black
+     }
+     
+     
+     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+     
+     if let numberOfObjects = fetchedhResultController.sections?[section].indexTitle {
+     
+     let df = DateFormatter()
+     df.dateFormat = "yyyy-MM-DD" // Date format for exerciseDate
+     let exerciseDate = df.date(from: numberOfObjects)
+     let currentDate = NSDate()
+     let result = currentDate.compare(exerciseDate!)
+     let TommorrowDate = currentDate.addingTimeInterval(60 * 60 * 24)
+     let result1 = TommorrowDate.compare(exerciseDate!)
+     
+     if result == ComparisonResult.orderedSame
+     {
+     
+     return "TODAY"
+     
+     }
+     if result1 == ComparisonResult.orderedSame
+     {
+     
+     return "TOMMORROW"
+     
+     
+     }
+     
+     let df1 = DateFormatter()
+     df1.dateFormat = "dd MMMM, yyyy"
+     
+     
+     return df1.string(from: exerciseDate!)
+     
+     }
+     
+     return nil
+     }
+     */
     
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-       
+        
         if let item = fetchedhResultController.object(at: indexPath) as? Msg {
             
             if item.msg_type == kXMPP.TYPE_IMAGE    {
@@ -1911,20 +2041,29 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                 return CGFloat(160)
             }
         }
-
+        
         
         return UITableViewAutomaticDimension
     }
     
     private func permissionPopup(item: Msg,type:String,msg:String){
-     
-        let alertView = UIAlertController(title: "Permission", message: msg, preferredStyle: .alert)
+        var msg1 = ""
+        var title = ""
+        if type == kXMPP.TYPE_PER_GRANT {
+            msg1 = ""
+            title = "Grant Permission"
+        }else{
+            msg1 = msg
+            title = "Request Permission"
+        }
+        
+        let alertView = UIAlertController(title: "Secured Message", message: msg1, preferredStyle: .alert)
         let action = UIAlertAction(title: "Not Now", style: .default, handler: { (alert) in
         })
         alertView.addAction(action)
         
-        let actionSure = UIAlertAction(title: "Yes", style: .default, handler: { (alert) in
-           
+        let actionSure = UIAlertAction(title: title, style: .default, handler: { (alert) in
+            
             self.sendNotify(item: item,type:type)
             
         })
@@ -1932,12 +2071,12 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         self.present(alertView, animated: true, completion: nil)
         
     }
- 
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = fetchedhResultController.object(at: indexPath) as? Msg
         
         print(item!)
-
+        
         if self.isMuliselectActionChecked == true{
             
             self.selectedArr.append(item!)
@@ -1959,7 +2098,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                 if item?.is_mine == "1"{
                     
                     if item?.is_download == "0" {
-                     
+                        
                         // upload file
                         
                     }else if item?.is_streaming == "3"{
@@ -1968,36 +2107,19 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         
                     }else{
                         
-                     
-                        //view file
-                        
-                      /*  if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "FileViewerVC") as? FileViewerVC {
-                            vcNewSectionStarted.fileURL = (item?.file_url)!
-                            vcNewSectionStarted.type = (item?.msg_type)!
-                            self.present(vcNewSectionStarted, animated: true, completion: nil)
-                        } */
-                        
-                        
-                        let dc = UIDocumentInteractionController(url: URL(string: (item?.file_url)!)!)
-                        dc.delegate = self
-                        dc.presentPreview(animated: true)
-                        
-                        
+                        self.showFile(fileURL: (item?.file_url)!)
                         tableView.deselectRow(at: indexPath, animated: false)
                         
                     }
-                    
-                    
                     
                 }else{
                     
                     
                     if item?.is_permission == "1"{
                         
-                        self.permissionPopup(item: item!,type:kXMPP.TYPE_PER_ASK,msg: "Ask for permission")
+                        self.permissionPopup(item: item!,type:kXMPP.TYPE_PER_ASK,msg: "This message requires permission from \(self.friendModel.name)")
                         tableView.deselectRow(at: indexPath, animated: false)
-
-                      
+                        
                         
                     }else if item?.is_streaming == "3"{
                         
@@ -2005,6 +2127,14 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         
                         
                         if item?.msg_type == kXMPP.TYPE_IMAGE {
+                            
+                            
+                            if item?.distructive_time == "2" {
+                                
+                                self.showFile(fileURL: (item?.file_url)!)
+
+                            }else{
+
                             
                             SDWebImageManager.shared().imageDownloader?.downloadImage(with:  URL(string: (item?.file_url)!), options: .continueInBackground, progress: nil, completed: {(image : UIImage?,data:Data?,error:Error?,finished:Bool)
                                 in
@@ -2019,19 +2149,39 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                                 }
                                 
                             })
+                                
+                            }
+                            
+                            
                             
                         }else if item?.msg_type == kXMPP.TYPE_PDF {
                             
                             
+                            if item?.distructive_time == "2" {
+                                self.showFile(fileURL: (item?.file_url)!)
+
+                                
+                            }else{
+
                             self.loadPDFAsync(url: (item?.file_url)!, msgid: (item?.msg_id)!)
-                        }
+                            }
+                            
+                            }
                         
                     }else{
                         
                         if item?.is_download == "0"{
-                            
-                            
+                           
+
                             if item?.msg_type == kXMPP.TYPE_IMAGE {
+                                
+                                if item?.distructive_time == "2" {
+                                    
+                                    self.showFile(fileURL: (item?.file_url)!)
+                                    
+                                    
+                                }else{
+
                                 
                                 SDWebImageManager.shared().imageDownloader?.downloadImage(with:  URL(string: (item?.file_url)!), options: .continueInBackground, progress: nil, completed: {(image : UIImage?,data:Data?,error:Error?,finished:Bool)
                                     in
@@ -2046,40 +2196,28 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                                     }
                                     
                                 })
+                                    
+                                }
+                            
+                          }else if item?.msg_type == kXMPP.TYPE_PDF {
                                 
-                            }else if item?.msg_type == kXMPP.TYPE_PDF {
                                 
-                                
+                                if item?.distructive_time == "2" {
+                                    
+                                    self.showFile(fileURL: (item?.file_url)!)
+
+                                    
+                                }else{
+
                                 self.loadPDFAsync(url: (item?.file_url)!, msgid: (item?.msg_id)!)
+                                    
+                                }
                             }
-                         
+                            
                             
                         }else{
-                         
-                            // view file
                             
-                            
-                            // if item?.msg_type == kXMPP.TYPE_PDF {
-                                
-                                
-                                let dc = UIDocumentInteractionController(url: URL(string: (item?.file_url)!)!)
-                                dc.delegate = self
-                                dc.presentPreview(animated: true)
-                                
-                                
-                                
-                           /*  }else{
-                                
-                                
-                                if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "FileViewerVC") as? FileViewerVC {
-                                    vcNewSectionStarted.fileURL = (item?.file_url)!
-                                    vcNewSectionStarted.type = (item?.msg_type)!
-                                    self.present(vcNewSectionStarted, animated: true, completion: nil)
-                                }
-                                
-                                
-                            } */
-                         
+                            self.showFile(fileURL: (item?.file_url)!)
                             tableView.deselectRow(at: indexPath, animated: false)
                             
                         }
@@ -2090,36 +2228,57 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     
                 }
                 
-              
+                
                 
             }
             
         }
+        
+    }
     
+    
+    private func showFile(fileURL:String){
+        
+        /*  }else{
+         
+         
+         if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "FileViewerVC") as? FileViewerVC {
+         vcNewSectionStarted.fileURL = (item?.file_url)!
+         vcNewSectionStarted.type = (item?.msg_type)!
+         self.present(vcNewSectionStarted, animated: true, completion: nil)
+         }
+         
+         
+         } */
+    
+        let dc = UIDocumentInteractionController(url: URL(string: fileURL)!)
+        dc.delegate = self
+        dc.presentPreview(animated: true)
+        
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         
-       
+        
         
         
         
         if self.isMuliselectActionChecked == true{
-
-        self.selectedArr.remove(at: indexPath.row)
-         tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.none
-   
+            
+            self.selectedArr.remove(at: indexPath.row)
+            tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.none
+            
             if self.selectedArr.count == 0 {
                 
                 self.toolbar.isHidden = false
                 self.actionView.isHidden = true
             }
-      }
-            
+        }
         
-    
+        
+        
     }
-
+    
     
     
     /**** CORE DATA ****/
@@ -2146,16 +2305,16 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     do{
                         
                         try context.save()
-                   
+                        
                         
                     }catch{
                         print("Error in update")
                     }
-
+                    
                 }
                 
-               // self.tblView.reloadData()
-               // self.scrollToBottom()
+                // self.tblView.reloadData()
+                // self.scrollToBottom()
             }
             
         }catch{
@@ -2166,65 +2325,65 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     
     
     private func updateMsg(msg_id : String , type : String , value : String){
-    
+        
         let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Msg")
         fetchRequest.predicate = NSPredicate(format: "msg_id = %@", msg_id)
-    
+        
         var results : [NSManagedObject] = []
-    
+        
         do{
-        results = try context.fetch(fetchRequest)
-    
-        if results.count != 0 {
-    
-            let updatObj = results[0]
+            results = try context.fetch(fetchRequest)
             
-            
-            if type == "streaming"{
-                updatObj.setValue(value, forKey: "is_streaming")
-            }
-            
-            if type == "upload"{
-                updatObj.setValue(value, forKey: "is_download")
-                updatObj.setValue("0", forKey: "msg_ack")
-            }
-            
-            if type == "download"{
-                updatObj.setValue(value, forKey: "is_download")
-            }
-            
-            if type == "file"{
-                updatObj.setValue(value, forKey: "file_url")
-            }
-            if type == "delete_type"{
+            if results.count != 0 {
                 
-                updatObj.setValue(value, forKey: "msg")
-                updatObj.setValue(kXMPP.TYPE_TEXT, forKey: "msg_type")
-
-            }
-            
-            if type == "msg_ack"{
+                let updatObj = results[0]
                 
-                updatObj.setValue(value, forKey: "msg_ack")
+                
+                if type == "streaming"{
+                    updatObj.setValue(value, forKey: "is_streaming")
+                }
+                
+                if type == "upload"{
+                    updatObj.setValue(value, forKey: "is_download")
+                    updatObj.setValue("0", forKey: "msg_ack")
+                }
+                
+                if type == "download"{
+                    updatObj.setValue(value, forKey: "is_download")
+                }
+                
+                if type == "file"{
+                    updatObj.setValue(value, forKey: "file_url")
+                }
+                if type == "delete_type"{
+                    
+                    updatObj.setValue(value, forKey: "msg")
+                    updatObj.setValue(kXMPP.TYPE_TEXT, forKey: "msg_type")
+                    
+                }
+                
+                if type == "msg_ack"{
+                    
+                    updatObj.setValue(value, forKey: "msg_ack")
+                }
+                
+                do{
+                    
+                    try context.save()
+                    
+                    // self.tblView.reloadData()
+                    // self.scrollToBottom()
+                    
+                }catch{
+                    print("Error in update")
+                }
             }
             
-        do{
-            
-        try context.save()
-            
-           // self.tblView.reloadData()
-           // self.scrollToBottom()
-            
-          }catch{
-           print("Error in update")
-          }
-        }
-    
         }catch{
-          print("error executing request")
+            print("error executing request")
         }
-
+        
     }
     
     
@@ -2270,26 +2429,26 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     
                     if upatedData < Date() {
                         
-                        item.setValue(kXMPP.DELETE_TEXT_FRIEND, forKey: "msg")
+                        item.setValue(kXMPP.SELF_DESTRUCT_MSG, forKey: "msg")
                         item.setValue("", forKey: "distructive_time")
                         item.setValue(kXMPP.TYPE_TEXT, forKey: "msg_type")
-
+                        
                     }
                     
-                  
+                    
                 }
                 
                 do{
                     
                     try context.save()
-                   // self.reloadData()
+                    // self.reloadData()
                     
                     
                 }catch{
                     print("Error in update")
                 }
                 
-               
+                
                 
             }
             
@@ -2312,11 +2471,11 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         do{
             results = try context.fetch(fetchRequest)
             
-             if results.count != 0 {
+            if results.count != 0 {
                 
                 return results[0] as! Msg
-             
-             }
+                
+            }
             
             
             
@@ -2345,39 +2504,39 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     }
     
     private func createMsgEntityFrom(item: Message) {
-    
+        
         let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
         
         if isMSgPrsent(item: item) == false {
-        
-         let msgObject = NSEntityDescription.insertNewObject(forEntityName: "Msg", into: context) as? Msg //{
-        
-             // print(item.msgId)
             
-             msgObject?.msg = item.msg
-             msgObject?.created = item.created
-             msgObject?.file_url = item.fileUrl
-             msgObject?.from_id = item.fromID
-             msgObject?.is_download = item.isDownload
-             msgObject?.is_mine = item.isMine
-             msgObject?.is_streaming = item.isStreaming
-             msgObject?.is_upload = item.isUpload
-             msgObject?.modified = item.modified
-             msgObject?.msg = item.msg
-             msgObject?.msg_ack = item.msgACk
-             msgObject?.msg_id = item.msgId
-             msgObject?.msg_type = item.msgType
-             msgObject?.status = item.status
-             msgObject?.to_id = item.toID
-             msgObject?.is_permission = item.is_permission
-             msgObject?.replyTitle = item.replyTitle
-             msgObject?.replyMsgType =  item.replyMsgType
-             msgObject?.replyMsgId = item.replyMsgId
-             msgObject?.replyMsgFile = item.replyMsgFile
-             msgObject?.replyMsg =  item.replyMsg
-             msgObject?.sent_time =  item.sentTime
-             msgObject?.seen_time =  item.seenTime
-             msgObject?.distructive_time = item.destructiveTime
+            let msgObject = NSEntityDescription.insertNewObject(forEntityName: "Msg", into: context) as? Msg //{
+            
+            // print(item.msgId)
+            
+            msgObject?.msg = item.msg
+            msgObject?.created = item.created
+            msgObject?.file_url = item.fileUrl
+            msgObject?.from_id = item.fromID
+            msgObject?.is_download = item.isDownload
+            msgObject?.is_mine = item.isMine
+            msgObject?.is_streaming = item.isStreaming
+            msgObject?.is_upload = item.isUpload
+            msgObject?.modified = item.modified
+            msgObject?.msg = item.msg
+            msgObject?.msg_ack = item.msgACk
+            msgObject?.msg_id = item.msgId
+            msgObject?.msg_type = item.msgType
+            msgObject?.status = item.status
+            msgObject?.to_id = item.toID
+            msgObject?.is_permission = item.is_permission
+            msgObject?.replyTitle = item.replyTitle
+            msgObject?.replyMsgType =  item.replyMsgType
+            msgObject?.replyMsgId = item.replyMsgId
+            msgObject?.replyMsgFile = item.replyMsgFile
+            msgObject?.replyMsg =  item.replyMsg
+            msgObject?.sent_time =  item.sentTime
+            msgObject?.seen_time =  item.seenTime
+            msgObject?.distructive_time = item.destructiveTime
             
             
             do {
@@ -2385,15 +2544,15 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             } catch let error {
                 print(error)
             }
-      //  }
+            //  }
         }else{
             print("present")
         }
         
-
+        
     }
     
-
+    
     
     /**** Last Activity ****/
     
@@ -2439,14 +2598,14 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             
             do {
                 
-              
+                
                 
                 let fileName = "\(Int64(NSDate().timeIntervalSince1970 * 1000)).pdf"
                 let documentFolderURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
                 let fileURL = documentFolderURL.appendingPathComponent(fileName)
                 
                 try FileManager.default.moveItem(at: data!, to: fileURL)
-                                DispatchQueue.main.async {
+                DispatchQueue.main.async {
                     self.updateMsg(msg_id: msgid, type : "download" ,value: "1")
                     self.updateMsg(msg_id: msgid, type : "file" ,value:fileURL.absoluteString)
                 }
@@ -2456,9 +2615,9 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             }
         }
         task.resume()
-       
+        
     }
-   
+    
     private func savefiletoDirector(image : UIImage) -> String
     {
         
@@ -2485,34 +2644,34 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         
     }
     
-  /*  private func uploadImage(url : String,msgID : String) {
-        
-        DispatchQueue.global(qos : .background).async {
-            
-            do{
-                let data = try Data.init(contentsOf: URL.init(string: url)!)
-                DispatchQueue.main.async {
-                    
-                        let image : UIImage = UIImage(data:data)!
-                    
-                    
-                       // let imageData = UIImagePNGRepresentation(image)
-                    
-                        //self.uploadImageToServer(image: image, msgId: msgID)
-                    
-                    
-                    
-                    
-                    
-                }
-                
-            }catch{
-                
-            }
-        }
-        
-    }
-  */
+    /*  private func uploadImage(url : String,msgID : String) {
+     
+     DispatchQueue.global(qos : .background).async {
+     
+     do{
+     let data = try Data.init(contentsOf: URL.init(string: url)!)
+     DispatchQueue.main.async {
+     
+     let image : UIImage = UIImage(data:data)!
+     
+     
+     // let imageData = UIImagePNGRepresentation(image)
+     
+     //self.uploadImageToServer(image: image, msgId: msgID)
+     
+     
+     
+     
+     
+     }
+     
+     }catch{
+     
+     }
+     }
+     
+     }
+     */
     
     
     
@@ -2525,39 +2684,39 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     
     
     func updateReadCount(){
-     
         
-            let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
-            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Friends")
-            fetchRequest.predicate = NSPredicate(format: "contact_number = %@", self.friendModel.contact_number)
+        
+        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Friends")
+        fetchRequest.predicate = NSPredicate(format: "contact_number = %@", self.friendModel.contact_number)
+        
+        var results : [NSManagedObject] = []
+        
+        do{
+            results = try context.fetch(fetchRequest)
             
-            var results : [NSManagedObject] = []
-            
-            do{
-                results = try context.fetch(fetchRequest)
+            if results.count != 0 {
                 
-                if results.count != 0 {
+                let updatObj = results[0]
+                
+                updatObj.setValue("0", forKey: "read_count")
+                
+                do{
+                    try context.save()
                     
-                    let updatObj = results[0]
-                   
-                    updatObj.setValue("0", forKey: "read_count")
-                    
-                    do{
-                        try context.save()
-                        
-                    }catch{
-                        print("Error in update")
-                    }
+                }catch{
+                    print("Error in update")
                 }
-                
-            }catch{
-                print("error executing request")
             }
-    
+            
+        }catch{
+            print("error executing request")
+        }
+        
         
     }
     
- 
+    
     
     
     
@@ -2578,9 +2737,9 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             if results.count != 0 {
                 
                 let updatObj = results[0]
-            
+                
                 updatObj.setValue(value, forKey: "last_msg_ack")
-             
+                
                 
                 do{
                     try context.save()
@@ -2605,7 +2764,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         
         // update friend profile
         
-    
+        
         let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Friends")
         fetchRequest.predicate = NSPredicate(format: "contact_number = %@", friendID)
@@ -2621,14 +2780,14 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                 
                 var count = updatObj.value(forKey: "read_count") as? Int ?? 0
                 count = count + 1
-               
+                
                 updatObj.setValue(msg, forKey: "last_msg")
                 updatObj.setValue(msg_type, forKey:"last_msg_type")
                 updatObj.setValue("0", forKey: "last_msg_ack")
                 updatObj.setValue(last_msg_time, forKey:"last_msg_time")
                 updatObj.setValue(isMine, forKey:"is_mine")
                 updatObj.setValue(String(count), forKey: "read_count")
-
+                
                 
                 do{
                     try context.save()
@@ -2641,15 +2800,56 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         }catch{
             print("error executing request")
         }
-     
+        
     }
     
     
-
+    func updateGrantMsgs(replyID : String){
+        
+        // update friend profile
+        
+        
+        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Msg")
+        fetchRequest.predicate = NSPredicate(format: "replyMsgId = %@", replyID)
+        
+        var results : [NSManagedObject] = []
+        
+        do{
+            results = try context.fetch(fetchRequest)
+            
+            if results.count != 0 {
+                
+                for r in results {
+                    
+                    let updatObj = r as! Msg
+                    
+                    
+                    updatObj.setValue("You have granted permission to download this file", forKey: "msg")
+                    updatObj.setValue("0", forKey:"is_permission")
+                    
+                    do{
+                        try context.save()
+                        
+                    }catch{
+                        print("Error in update")
+                    }
+                    
+                }
+            }
+            
+        }catch{
+            print("error executing request")
+        }
+        
+    }
+    
+    
+    
     /* ***********8 FILE UPLAD API *********/
     
     
-  
+    
     func uploadImageToServer(image : UIImage, msgId : String,type:String,fileURL: String,permission:String)
     {
         
@@ -2660,7 +2860,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         
         let param = [
             "msg_id"  : msgId,
-        ]
+            ]
         
         let boundary = generateBoundaryString()
         
@@ -2679,7 +2879,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                 
             }
             
-           
+            
         }else{
             imageData = UIImageJPEGRepresentation(image, 0.0)!
         }
@@ -2687,7 +2887,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         //if(imageData==nil)  { return; }
         
         request.httpBody = self.createBodyWithParameters(parameters: param, filePathKey: "image", imageDataKey: imageData as NSData, boundary: boundary, type:type) as Data
-    
+        
         print(request.httpBody!)
         
         let task = URLSession.shared.dataTask(with: request as URLRequest) {
@@ -2699,7 +2899,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             }
             
             // You can print out response object
-          //   print("******* response = \(response)")
+            //   print("******* response = \(response)")
             
             // Print out reponse body
             let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
@@ -2707,48 +2907,48 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             
             do {
                 let json = try JSONSerialization.jsonObject(with: data!, options: []) as? NSDictionary
-           
+                
                 DispatchQueue.main.async {
                     
                     //self.updateMsg(msg_id: json?.object(forKey: "msg_id") as! String, type: "uploaded", value: <#T##String#>)
                     
                     do{
-                    
-                    if json?.object(forKey: "responce") as! Int == 1 {
-                    
                         
-                        var desrc = ""
-                        
-                        if self.type == "destructive" {
+                        if json?.object(forKey: "responce") as! Int == 1 {
                             
-                            self.type = ""
-                            desrc = "2"
+                            
+                            var desrc = ""
+                            
+                            if self.type == "destructive" {
+                                
+                                self.type = ""
+                                desrc = "2"
+                            }else{
+                                desrc = ""
+                            }
+                            
+                            
+                            let body = CustomMessageModel(msgId: json?.object(forKey: "msg_id") as! String , msgType: type, message: "", fileUrl: json?.object(forKey: "data") as! String, destructiveTime: desrc ,fileType : type,filePermission:permission)
+                            
+                            let jsonData = try JSONEncoder().encode(body)
+                            let msg = String(data: jsonData, encoding: .utf8)
+                            
+                            print(msg ?? "")
+                            
+                            self.updateMsg(msg_id: json?.object(forKey: "msg_id") as! String , type : "upload" ,value: "1")
+                            
+                            OneMessage.sendMessage(msg!,msgId: json?.object(forKey: "msg_id") as! String  ,thread: "test", to:"\(self.friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
+                                
+                                
+                                
+                                
+                            })
+                            
+                            
                         }else{
-                            desrc = ""
+                            
+                            self.updateMsg(msg_id: msgId, type : "streaming" ,value: "3")
                         }
-                        
-                  
-                        let body = CustomMessageModel(msgId: json?.object(forKey: "msg_id") as! String , msgType: type, message: "", fileUrl: json?.object(forKey: "data") as! String, destructiveTime: desrc ,fileType : type,filePermission:permission)
-                        
-                        let jsonData = try JSONEncoder().encode(body)
-                        let msg = String(data: jsonData, encoding: .utf8)
-                        
-                        print(msg ?? "")
-                        
-                        self.updateMsg(msg_id: json?.object(forKey: "msg_id") as! String , type : "upload" ,value: "1")
-                        
-                        OneMessage.sendMessage(msg!,msgId: json?.object(forKey: "msg_id") as! String  ,thread: "test", to:"\(self.friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
-                        
-                            
-                          
-                            
-                        })
-                        
-                        
-                    }else{
-                        
-                           self.updateMsg(msg_id: msgId, type : "streaming" ,value: "3")
-                    }
                         
                     }catch{
                         
@@ -2761,7 +2961,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                 print(error)
             }
             
-           
+            
         }
         
         task.resume()
@@ -2781,10 +2981,10 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         
         var filename = ""
         var mimetype = ""
-
+        
         if type == kXMPP.TYPE_PDF{
-             filename = "\(self.getCurrentTime()).pdf"
-             mimetype = "pdf"
+            filename = "\(self.getCurrentTime()).pdf"
+            mimetype = "pdf"
         }else{
             filename = "\(self.getCurrentTime()).jpg"
             mimetype = "image/jpg"
@@ -2831,7 +3031,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         
         
         if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "FriendListVC") as? FriendListVC {
-        
+            
             vcNewSectionStarted.selectedArray = self.selectedArr
             vcNewSectionStarted.type = "forward"
             
@@ -2841,26 +3041,26 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             if self.selectedArr.count > 0 {
                 self.selectedArr.removeAll()
             }
-           
+            
             
             self.present(vcNewSectionStarted, animated: true, completion: nil)
         }
-    
         
-       
+        
+        
         
     }
     @IBAction func actionDeleteClicked(_ sender: Any) {
         
         
-            let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+        
+        
+        if self.selectedArr.count == 1 {
             
+            let item1 = self.selectedArr[0]
             
-            if self.selectedArr.count == 1 {
-                
-                let item1 = self.selectedArr[0]
-                
-               if item1.msg == kXMPP.DELETE_TEXT_FRIEND ||
+            if item1.msg == kXMPP.DELETE_TEXT_FRIEND ||
                 item1.msg == kXMPP.DELETE_TEXT_MY {
                 
                 for item in self.selectedArr{
@@ -2874,50 +3074,24 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     self.selectedArr.removeAll()
                 }
                 
-               }else{
+            }else{
                 
                 
                 if selectedArr[0].is_mine == "1" {
-                
-                
-                let alert:UIAlertController=UIAlertController(title: "Choose Option", message: nil, preferredStyle:.actionSheet)
-                let cameraAction = UIAlertAction(title: "Delete for me", style: .default) {
-                    UIAlertAction in
                     
                     
-                    
-                    for item in self.selectedArr{
+                    let alert:UIAlertController=UIAlertController(title: "Choose Option", message: nil, preferredStyle:.actionSheet)
+                    let cameraAction = UIAlertAction(title: "Delete for me", style: .default) {
+                        UIAlertAction in
                         
-                        context.delete(item)
-                        //print(item.created)
-                    }
-                    
-                    
-                    self.isMuliselectActionChecked = false
-                    self.toolbar.isHidden = false
-                    self.actionView.isHidden = true
-                    if self.selectedArr.count > 0 {
-                        self.selectedArr.removeAll()
-                    }
-                    self.tblView.reloadData()
-
-                    
-                }
-                let gallaryAction = UIAlertAction(title: "Delete for everyone", style: .default) {
-                    UIAlertAction in
-                    
-                    do{
-                    
-                    let text = kXMPP.DELETE_TEXT_FRIEND
-                        let body = CustomMessageModel(msgId: self.selectedArr[0].msg_id, msgType: kXMPP.TYPE_DELETE, message: text, fileUrl:self.selectedArr[0].file_url , destructiveTime : "",fileType : self.selectedArr[0].msg_type,filePermission:"")
-                    
-                    let jsonData = try JSONEncoder().encode(body)
-                    let msg = String(data: jsonData, encoding: .utf8)
-                    
-                    
-                    let msgID = self.getCurrentTime()
-                    
-                        self.updateMsg(msg_id: self.selectedArr[0].msg_id, type: "delete_type", value: kXMPP.DELETE_TEXT_MY)
+                        
+                        
+                        for item in self.selectedArr{
+                            
+                            context.delete(item)
+                            //print(item.created)
+                        }
+                        
                         
                         self.isMuliselectActionChecked = false
                         self.toolbar.isHidden = false
@@ -2925,51 +3099,77 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         if self.selectedArr.count > 0 {
                             self.selectedArr.removeAll()
                         }
-                        
                         self.tblView.reloadData()
-                   
-                    
-                    OneMessage.sendMessage(msg!,msgId: msgID,thread: "test", to:"\(self.friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
-                        
-                       
-                     
-                    
-                       
-                    })
                         
                         
+                    }
+                    let gallaryAction = UIAlertAction(title: "Delete for everyone", style: .default) {
+                        UIAlertAction in
                         
-                    }catch{
+                        do{
+                            
+                            let text = kXMPP.DELETE_TEXT_FRIEND
+                            let body = CustomMessageModel(msgId: self.selectedArr[0].msg_id, msgType: kXMPP.TYPE_DELETE, message: text, fileUrl:self.selectedArr[0].file_url , destructiveTime : "",fileType : self.selectedArr[0].msg_type,filePermission:"")
+                            
+                            let jsonData = try JSONEncoder().encode(body)
+                            let msg = String(data: jsonData, encoding: .utf8)
+                            
+                            
+                            let msgID = self.getCurrentTime()
+                            
+                            self.updateMsg(msg_id: self.selectedArr[0].msg_id, type: "delete_type", value: kXMPP.DELETE_TEXT_MY)
+                            
+                            self.isMuliselectActionChecked = false
+                            self.toolbar.isHidden = false
+                            self.actionView.isHidden = true
+                            if self.selectedArr.count > 0 {
+                                self.selectedArr.removeAll()
+                            }
+                            
+                            self.tblView.reloadData()
+                            
+                            
+                            OneMessage.sendMessage(msg!,msgId: msgID,thread: "test", to:"\(self.friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
+                                
+                                
+                                
+                                
+                                
+                            })
+                            
+                            
+                            
+                        }catch{
+                            
+                        }
+                        
+                        
+                        
+                        
                         
                     }
                     
                     
-                  
                     
-                    
-                }
-                
-                
-                
-                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {
-                    UIAlertAction in
-                    
-                    
-                    self.isMuliselectActionChecked = false
-                    self.toolbar.isHidden = false
-                    self.actionView.isHidden = true
-                    if self.selectedArr.count > 0 {
-                        self.selectedArr.removeAll()
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {
+                        UIAlertAction in
+                        
+                        
+                        self.isMuliselectActionChecked = false
+                        self.toolbar.isHidden = false
+                        self.actionView.isHidden = true
+                        if self.selectedArr.count > 0 {
+                            self.selectedArr.removeAll()
+                        }
                     }
-                }
-                
-                alert.addAction(cameraAction)
-                alert.addAction(gallaryAction)
-               
-                alert.addAction(cancelAction)
-                self.present(alert, animated: true, completion: nil)
                     
-                
+                    alert.addAction(cameraAction)
+                    alert.addAction(gallaryAction)
+                    
+                    alert.addAction(cancelAction)
+                    self.present(alert, animated: true, completion: nil)
+                    
+                    
                     
                 }else{
                     
@@ -2984,80 +3184,104 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         self.selectedArr.removeAll()
                     }
                     
-                  }
                 }
-                
-            }else{
-                
-                for item in self.selectedArr{
-                    
-                    context.delete(item)
-                    //print(item.created)
-                }
-                
-                
-                self.isMuliselectActionChecked = false
-                self.toolbar.isHidden = false
-                self.actionView.isHidden = true
-                if self.selectedArr.count > 0 {
-                    self.selectedArr.removeAll()
-                }
-                
             }
             
-           
-          //  self.tblView.reloadData()
-       
-      
+        }else{
+            
+            for item in self.selectedArr{
+                
+                context.delete(item)
+                //print(item.created)
+            }
+            
+            
+            self.isMuliselectActionChecked = false
+            self.toolbar.isHidden = false
+            self.actionView.isHidden = true
+            if self.selectedArr.count > 0 {
+                self.selectedArr.removeAll()
+            }
+            
+        }
+        
+        
+        //  self.tblView.reloadData()
+        
+        
     }
     
     /**** Send image    ***/
     
     
-        func sendNotify(item: Msg,type:String){
+    func sendNotify(item: Msg,type:String){
+        
+        var notificationText = ""
         
         do{
             
-        
-            if type == kXMPP.TYPE_PER_ASK {
             
-            self.replyeMessageID = item.msg_id
-      
-            do{
+            if type == kXMPP.TYPE_PER_ASK {
                 
-                var replyMsgId = ""
-                var msgType = kXMPP.TYPE_TEXT
-        
-                if self.replyeMessageID != "" {
-                    replyMsgId = self.replyeMessageID
-                    msgType = kXMPP.TYPE_REPLY
+                notificationText = "\(USERDETAILS.firstName) \(USERDETAILS.lastname) is asking for your permission to download this file.Click here to grant permission."
+                
+                self.replyeMessageID = item.msg_id
+                
+                do{
+                    
+                    var replyMsgId = ""
+                    var msgType = kXMPP.TYPE_TEXT
+                    
+                    if self.replyeMessageID != "" {
+                        replyMsgId = self.replyeMessageID
+                        msgType = kXMPP.TYPE_REPLY
+                    }
+                    
+                    
+                    let body = CustomMessageModel(msgId: replyMsgId, msgType: msgType, message: "\(USERDETAILS.firstName) \(USERDETAILS.lastname) is asking for your permission to download this file.Click here to grant permission.", fileUrl: "", destructiveTime: "",fileType : "",filePermission:"1")
+                    
+                    let jsonData = try JSONEncoder().encode(body)
+                    let msg = String(data: jsonData, encoding: .utf8)
+                    
+                    print(msg ?? "")
+                    
+                    self.editMsg.resignFirstResponder()
+                    self.editMsg.text = ""
+                    
+                    let msgID = self.getCurrentTime()
+                    
+                    
+                    
+                    self.replyeMessageID = ""
+                    
+                    OneMessage.sendMessage(msg!, msgId:msgID,  thread: "test", to:"\(friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
+                    })
+                    
+                    let body1 = CustomMessageModel(msgId: item.msg_id, msgType: kXMPP.TYPE_PER_ASK, message: "", fileUrl: "", destructiveTime: "",fileType:"",filePermission:"0")
+                    
+                    let jsonData1 = try JSONEncoder().encode(body1)
+                    let msg1 = String(data: jsonData1, encoding: .utf8)
+                    
+                    let params = ["friend_no": "\(self.friendModel.contact_number)","my_no":"\(USERDETAILS.mobile)", "data":"\(msg1!)", "message_id":"\(item.msg_id)","body":notificationText,"type":"0"]
+                    print(params)
+                    MakeHttpPostRequestChat(url: kXMPP.sendFileNotification, params: params, completion: {(success, response) in
+                        print(response)
+                        
+                    }, errorHandler: {(message) -> Void in
+                        print("message", message)
+                    })
+                    
                 }
-                
-                
-                let body = CustomMessageModel(msgId: replyMsgId, msgType: msgType, message: "Click here to grant permission to \(USERDETAILS.firstName) \(USERDETAILS.lastname)", fileUrl: "", destructiveTime: "",fileType : "",filePermission:"1")
-                
-                let jsonData = try JSONEncoder().encode(body)
-                let msg = String(data: jsonData, encoding: .utf8)
-                
-                print(msg ?? "")
-                
-                self.editMsg.resignFirstResponder()
-                self.editMsg.text = ""
-                
-                let msgID = self.getCurrentTime()
-                
-               
-                
-                self.replyeMessageID = ""
-                
-                OneMessage.sendMessage(msg!, msgId:msgID,  thread: "test", to:"\(friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
-                })
-                
-            }
-            catch {print(error)}
+                catch {print(error)}
                 
             } else{
                 
+                
+                /// update msg with text same replyid
+                // is permission 0
+                
+                
+                notificationText = "Permission granted  to download file"
                 
                 let body = CustomMessageModel(msgId: item.replyMsgId, msgType: kXMPP.TYPE_PER_GRANT, message: "", fileUrl: "", destructiveTime: "",fileType : "",filePermission:"1")
                 
@@ -3073,34 +3297,41 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                 
                 let msgID = self.getCurrentTime()
                 
-               
+                
+                
                 OneMessage.sendMessage(msg!, msgId:msgID,  thread: "test", to:"\(friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
+                    
+                    
+                    self.updateGrantMsgs(replyID: item.replyMsgId)
+                    
                 })
+                
+                let body1 = CustomMessageModel(msgId: item.msg_id, msgType: kXMPP.TYPE_PER_ASK, message: "", fileUrl: "", destructiveTime: "",fileType:"",filePermission:"0")
+                
+                let jsonData1 = try JSONEncoder().encode(body1)
+                let msg1 = String(data: jsonData1, encoding: .utf8)
+                
+                let params = ["friend_no": "\(self.friendModel.contact_number)","my_no":"\(USERDETAILS.mobile)", "data":"\(msg1!)", "message_id":"\(item.msg_id)","body":notificationText,"type":"1"]
+                print(params)
+                MakeHttpPostRequestChat(url: kXMPP.sendFileNotification, params: params, completion: {(success, response) in
+                    print(response)
+                    
+                }, errorHandler: {(message) -> Void in
+                    print("message", message)
+                })
+                
                 
                 
             }
             
             
-        
-        let body = CustomMessageModel(msgId: item.msg_id, msgType: kXMPP.TYPE_PER_ASK, message: "", fileUrl: "", destructiveTime: "",fileType:"",filePermission:"0")
-        
-        let jsonData = try JSONEncoder().encode(body)
-        let msg = String(data: jsonData, encoding: .utf8)
-      
-        let params = ["friend_no": "\(self.friendModel.contact_number)","my_no":"\(USERDETAILS.mobile)", "data":"\(msg!)", "message_id":"\(item.msg_id)","body":"Asking for permission to view file","type":"0"]
-        print(params)
-        MakeHttpPostRequestChat(url: kXMPP.sendFileNotification, params: params, completion: {(success, response) in
-            print(response)
-        
-        }, errorHandler: {(message) -> Void in
-            print("message", message)
-        })
-    
-   
-    }
-    catch {print(error)
-    
-    }
+            
+            
+            
+        }
+        catch {print(error)
+            
+        }
     }
     
     
@@ -3108,19 +3339,19 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     
     /* Edit Box Delegate */
     
-   
+    
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.editMsg.resignFirstResponder()
         self.replyView.isHidden = true
         self.isKeyEditing = false
-
-
+        
+        
         // self.bottomView.unbindToKeyboard()
         return true
     }
     
-  
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         if textField.text?.count == 0 {
@@ -3139,42 +3370,42 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         
         return true
     }
- 
- 
-    @objc func keyboardWillShow(notification: NSNotification) {
     
-
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        
+        
         
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             print("notification: Keyboard will show")
             
-           // if self.tblView.frame.origin.y == 0{
-               // self.tblView.frame.origin.y -= keyboardSize.height
-          //  }
+            // if self.tblView.frame.origin.y == 0{
+            // self.tblView.frame.origin.y -= keyboardSize.height
+            //  }
             
             if self.isKeyEditing == false {
-            self.isKeyEditing = true
-            let count = fetchedhResultController.sections?.first?.numberOfObjects ?? 0
-            if count != 0 {
-                let contentInset = UIEdgeInsetsMake(0.0, 0.0, keyboardSize.height , 0.0)
-                self.tblView.contentInset = contentInset
-                self.scrollToBottom()
-            }
-            
+                self.isKeyEditing = true
+                let count = fetchedhResultController.sections?.first?.numberOfObjects ?? 0
+                if count != 0 {
+                    let contentInset = UIEdgeInsetsMake(0.0, 0.0, keyboardSize.height , 0.0)
+                    self.tblView.contentInset = contentInset
+                    self.scrollToBottom()
+                }
                 
-            // self.bottomView.frame.origin.y = self.viewHeight - 40.0
-            // self.replyView.frame.origin.y = self.viewHeight - 40.0
                 
-            print(self.bottomView.frame.origin.y)
-            print(self.viewHeight)
-
-            self.bottomView.frame.origin.y -= keyboardSize.height
-            self.replyView.frame.origin.y -= keyboardSize.height
+                // self.bottomView.frame.origin.y = self.viewHeight - 40.0
+                // self.replyView.frame.origin.y = self.viewHeight - 40.0
                 
-            // self.viewHeight = self.bottomView.frame.origin.y
-            
+                print(self.bottomView.frame.origin.y)
+                print(self.viewHeight)
                 
-            print(self.bottomView.frame.origin.y)
+                self.bottomView.frame.origin.y -= keyboardSize.height
+                self.replyView.frame.origin.y -= keyboardSize.height
+                
+                // self.viewHeight = self.bottomView.frame.origin.y
+                
+                
+                print(self.bottomView.frame.origin.y)
                 
                 
             }
@@ -3183,7 +3414,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     }
     
     @objc func keyboardType(notification: NSNotification) {
-    
+        
         
         if self.isKeyEditing == true {
             
@@ -3203,21 +3434,21 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             
             
         }
-      
+        
         
     }
- 
+    
     @objc func keyboardWillHide(notification: NSNotification) {
         
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             
-           // if self.tblView.frame.origin.y != 0 {
+            // if self.tblView.frame.origin.y != 0 {
             //    self.tblView.frame.origin.y += keyboardSize.height
-           // }
+            // }
             
             let contentInset = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
             self.tblView.contentInset = contentInset
-           // self.tblView.scrollIndicatorInsets = self.tblView.contentInset
+            // self.tblView.scrollIndicatorInsets = self.tblView.contentInset
             
             self.bottomView.frame.origin.y = self.viewHeight
             self.replyView.frame.origin.y = self.replyHeight
@@ -3225,18 +3456,18 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             
             //self.tblView.reloadData()
             self.updateTableContentInset()
-    
-            //self.scrollToBottom()
-         
-
             
-        
+            //self.scrollToBottom()
+            
+            
+            
+            
         }
     }
     
-
     
- 
+    
+    
     /// Get Friend is Typing or not
     private func getFriend(id : String) -> String {
         let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
@@ -3280,13 +3511,13 @@ extension ChatVC: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         self.tblView.endUpdates()
         self.scrollToBottom()
-
-       // self.tblView.reloadData()
         
-       //     self.reloadData()
+        // self.tblView.reloadData()
         
-       
-       // self.updateTableContentInset()
+        //     self.reloadData()
+        
+        
+        // self.updateTableContentInset()
     }
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {

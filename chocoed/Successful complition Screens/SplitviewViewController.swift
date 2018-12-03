@@ -645,7 +645,7 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
     
     func sendFcm() {
         
-        self.checkChatConnection()
+       // self.checkChatConnection()
         self.getUnreadChatCount()
         
         var params =  Dictionary<String, String>()
@@ -675,6 +675,8 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         
         if OneChat.sharedInstance.isConnected() {
         } else {
+            
+            print(USERDETAILS)
             
             OneChat.sharedInstance.connect(username: "\(USERDETAILS.mobile)@13.232.161.176", password: USERDETAILS.mobile) { (stream, error) -> Void in
                 if let error = error {

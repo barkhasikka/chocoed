@@ -237,6 +237,7 @@ open class OneChat: NSObject {
     // MARK: Connect / Disconnect
     
     open func connect(username: String, password: String, completionHandler completion:@escaping OneChatConnectCompletionHandler) {
+        
         if isConnected() {
             streamDidConnectCompletionBlock = completion
             self.streamDidConnectCompletionBlock!(self.xmppStream!, nil)

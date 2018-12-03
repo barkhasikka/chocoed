@@ -28,7 +28,8 @@ public struct kXMPP {
     
     public static let SEEN_MSG : String = "..."
 
-    
+    public static let SELF_DESTRUCT_MSG : String = "This message was self-destructed"
+
 
     public static let DELETE_TEXT_FRIEND : String = "This message has been deleted"
     public static let DELETE_TEXT_MY : String = "You deleted this message"

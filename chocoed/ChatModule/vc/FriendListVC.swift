@@ -78,10 +78,15 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
     
     
     @IBAction func destructive_mg_clicked(_ sender: Any) {
-       self.lblTitle.text = "Send To..."
+       /* self.lblTitle.text = "Send To..."
         self.type = "destructive"
         self.searchBar.isHidden = true
         self.btnDestructive.isHidden = true
+         */
+        
+        if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "AddFriendVC") as? AddFriendVC{
+            self.present(vcNewSectionStarted, animated: true, completion: nil)
+        }
         
         
     }
@@ -482,7 +487,7 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
             
             print(response)
             
-            self.getNotificationCount()
+            //self.getNotificationCount()
             
             let jsonobject = response["data"] as? NSDictionary;
             let chatUserID = jsonobject?.object(forKey: "user_id") as? String ?? ""

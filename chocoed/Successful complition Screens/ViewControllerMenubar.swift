@@ -376,7 +376,7 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
         let clientid = UserDefaults.standard.string(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
         
-        let params = ["access_token":"\(accessToken)","userId":"\(userid)","clientId":"\(clientid)"] as Dictionary<String, String>
+        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clientId":"\(clientid)"] as Dictionary<String, String>
         activityUIView.isHidden = false
         activityUIView.startAnimation()
         MakeHttpPostRequest(url: getLanguageListCall, params: params, completion: {(success, response) -> Void in

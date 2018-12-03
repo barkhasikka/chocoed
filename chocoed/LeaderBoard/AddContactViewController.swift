@@ -147,9 +147,9 @@ class AddContactViewController: UIViewController,UITableViewDelegate,UITableView
         
         
         
-        if someArray.count == 0 {
+        if someArray.count > 4 {
             
-            let alert = GetAlertWithOKAction(message: "Select Friend")
+            let alert = GetAlertWithOKAction(message: "You can add only 4 friends")
             self.present(alert, animated: true, completion: nil)
         }
         
