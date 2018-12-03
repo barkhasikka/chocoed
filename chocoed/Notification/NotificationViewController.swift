@@ -194,7 +194,7 @@ class NotificationViewController: UIViewController,UITableViewDataSource,UITable
         
         
         let alertView = UIAlertController(title: arrayList[indexPath.row].notificationTitle, message: arrayList[indexPath.row].aboutNotification, preferredStyle: .alert)
-        let action = UIAlertAction(title: "Back", style: .default, handler: { (alert) in
+        let action = UIAlertAction(title: "backAlertKey", style: .default, handler: { (alert) in
             
             if self.arrayList.count > 0 {
                 
@@ -207,7 +207,7 @@ class NotificationViewController: UIViewController,UITableViewDataSource,UITable
             
         })
         alertView.addAction(action)
-        let actionSure = UIAlertAction(title: "Ok", style: .default, handler: { (alert) in
+        let actionSure = UIAlertAction(title: "okAlertKey", style: .default, handler: { (alert) in
         
             // CALENDER GET ASSIGNED - load my plan page -done  2
             // Todays topic - load my plan page --done 3
@@ -223,7 +223,7 @@ class NotificationViewController: UIViewController,UITableViewDataSource,UITable
                 self.present(v1, animated: true, completion: nil)
                 
                 
-            }else   if self.arrayList[indexPath.row].notificationType == "2" ||
+            }else if self.arrayList[indexPath.row].notificationType == "2" ||
                 self.arrayList[indexPath.row].notificationType == "3" {
                 
                 // load my plan

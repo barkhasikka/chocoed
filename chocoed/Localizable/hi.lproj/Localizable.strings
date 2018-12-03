@@ -138,3 +138,6 @@
 "alertKey" = "अलर्ट";
 "logoutAlert" = "क्या आप लॉग आउट करना चाहते हैं?";
 "noLogoutAlert" = "नहीं, मैं लॉगआउट नहीं करना चाहता हूं"
+"backAlertKey" = "वापस"
+"okAlertKey" = "ठीक"
+

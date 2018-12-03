@@ -138,3 +138,6 @@
 "alertKey" = "Alert";
 "logoutAlert" = "Are you sure you want to logout?";
 "noLogoutAlert" = "No I don't want to logout ";
+"backAlertKey" = "Back"
+"okAlertKey" = "Ok"
+
