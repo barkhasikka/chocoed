@@ -11,6 +11,8 @@ import UIKit
 class WevViewVC: UIViewController {
     
     
+    @IBOutlet weak var proceedbtn: UIButton!
+    @IBOutlet weak var examreviewLabel: UILabel!
     @IBOutlet var webView: UIWebView!
     
     var activityUIView: ActivityIndicatorUIView!
@@ -54,11 +56,17 @@ class WevViewVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+       
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)
-        activityUIView.isHidden = true
         
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        self.proceedbtn.setTitle("ProceedButtonKey".localizableString(loc: language!), for: .normal)
+        
+        examreviewLabel.text = "ExamReviewKey".localizableString(loc: language!)
+
+        activityUIView.isHidden = true
+
         self.loadExamDetails()
 
         // Do any additional setup after loading the view.

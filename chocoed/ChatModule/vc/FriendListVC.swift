@@ -47,8 +47,15 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         
         if self.type == "" {
             self.lblTitle.text = "My Talks"
+            let language = UserDefaults.standard.string(forKey: "currentlanguage")
+            
+            lblTitle.text = "MytalksKey".localizableString(loc: language!)
+            
+            btnDestructive.setTitle("destructiveKeybutton".localizableString(loc: language!), for: .normal)
+            
+            lblNoFriendFound.text = "contactNotFoundKey".localizableString(loc: language!)
         }
-        
+    
         self.registerToChat()
         
 
@@ -117,7 +124,7 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         lblTitle.text = "ChatKey".localizableString(loc: language!)
         lblNoFriendFound.text = "NoFriendFoundKey".localizableString(loc: language!)
         
-        
+        searchBar.placeholder = "searchfriendKey".localizableString(loc: language!)
         UserDefaults.standard.set("", forKey: "chatNo")
         self.lblNotificationCount.isHidden = true
         self.lblNotificationCount.layer.cornerRadius = 10

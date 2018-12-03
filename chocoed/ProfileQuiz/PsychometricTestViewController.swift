@@ -24,10 +24,10 @@ class PsychometricTestViewController: UIViewController {
         super.viewDidLoad()
         
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
-       /* self.letsBeginLabel.text = "चलिए शुरू करते हैं".localizableString(loc: language!)
-        self.psychometricTestLabel.text = "साइकोमेट्रिक जांच".localizableString(loc: language!)
-        self.continue1.setTitle("जारी रखें".localizableString(loc: language!), for: .normal)
-       */
+        self.letsBeginLabel.text = "LetsBeginKey".localizableString(loc: language!)
+        self.psychometricTestLabel.text = "PsycomatricKey".localizableString(loc: language!)
+        self.continue1.setTitle("ContinueKey".localizableString(loc: language!), for: .normal)
+       
         
         
         self.navigationItem.setHidesBackButton(true, animated: true)

@@ -30,6 +30,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     
     @IBOutlet weak var birthDateTextField: UITextField!
     var gender = ""
+    
     let datePicker = UIDatePicker()
     
     @IBOutlet weak var proceedLabel: imagetoButton!
@@ -79,20 +80,21 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         
         self.iAmBornOnLabel.text = "BornOnKey".localizableString(loc: language!)
         self.genderLabel.text = "GenderKey".localizableString(loc: language!)
-      //  self.createProfileButtonLabel.title = "प्रोफाइल बनाएं".localizableString(loc: language!)
-      /*  self.createProfileButtonLabel.title = "प्रोफाइल बनाएं".localizableString(loc: language!)
-        self.chooseGalleryLabel.text = "गैलरी से चुनें".localizableString(loc: language!)
-        self.chooseAvatarLabel.text = "कोई अवतार चुनें".localizableString(loc: language!)
-        self.proceedLabel.setTitle("आगे बढ़ें".localizableString(loc: language!), for: .normal)
-        self.labelFirstName.text = "पहला नाम*".localizableString(loc: language!)
-        self.labelLastName.text = "अंतिम नाम*".localizableString(loc: language!)
-        self.labelMobileno.text = "मोबाइल नंबर*".localizableString(loc: language!)
-        self.labelEmailId.text = "ईमेल आईडी*".localizableString(loc: language!)
-        self.proceedLabel.setTitle("आगे बढ़ें".localizableString(loc: language!), for: .normal)
-        self.btn.setTitle("पुरुष".localizableString(loc: language!), for: .normal)
-        self.btnFemale.setTitle("महिला".localizableString(loc: language!), for: .normal)
-        self.ButtonChoose.setTitle("प्रोफ़ाइल चित्र चुनें!", for: .normal)
-        */
+        self.createProfileButtonLabel.title = "CreateProfileKey".localizableString(loc: language!)
+        self.createProfileButtonLabel.title = "CreateProfileKey".localizableString(loc: language!)
+        self.chooseGalleryLabel.text = "ChooseImageKey".localizableString(loc: language!)
+        self.chooseAvatarLabel.text = "ChooseAvatar".localizableString(loc: language!)
+        self.proceedLabel.setTitle("ProceedButtonKey".localizableString(loc: language!), for: .normal)
+        self.labelFirstName.text = "FirstNameKey".localizableString(loc: language!)
+        self.labelLastName.text = "LastNAmeKey".localizableString(loc: language!)
+        self.labelMobileno.text = "MobileNoKey".localizableString(loc: language!)
+        self.labelEmailId.text = "EmailIDKey".localizableString(loc: language!)
+     //   self.proceedLabel.setTitle("आगे बढ़ें".localizableString(loc: language!), for: .normal)
+        self.btn.setTitle("MaleKey".localizableString(loc: language!), for: .normal)
+        self.btnFemale.setTitle("FemaleKey".localizableString(loc: language!), for: .normal)
+        self.ButtonChoose.setTitle("ChooseImageLabelKey".localizableString(loc: language!), for: .normal)
+       
+        
         
         submitButton.layer.cornerRadius = 20
         submitButton.clipsToBounds = true

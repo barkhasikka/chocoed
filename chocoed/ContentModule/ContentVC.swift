@@ -17,6 +17,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
     
     @IBOutlet var lblEmpty: UILabel!
     
+    @IBOutlet weak var myplanlabel: UILabel!
     
     @IBOutlet var imgCourse: UIImageView!
     
@@ -111,6 +112,10 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        
+        myplanlabel.text = "MyPlanKey".localizableString(loc: language!)
         
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)

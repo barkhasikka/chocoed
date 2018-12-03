@@ -43,8 +43,16 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
     
         override func viewDidLoad() {
             super.viewDidLoad()
-        
-     //let backgroundImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 315, height: 166))            viewLanguage.isHidden = true
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+           print(language)
+            if language == "hi"{
+                arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल","एप्लिकेशन भाषा","माध्यमिक शिक्षा की","लोग आउट"]
+            }else if language == "en"{
+                arraymenu = ["My Talks","My Thoughts","My Progress","My Profile","Application Language","Learning Language","Log out"]
+            }
+            
+     //let backgroundImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 315, height: 166))
+            viewLanguage.isHidden = true
             viewAlertchoice.isHidden = true
             activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
             self.view.addSubview(activityUIView)
@@ -153,13 +161,14 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
         cell.labelLanguageName.text = arrayLanguages[indexPath.row].langDispalyName
         
         return cell
-        }else if tableView == tabelviewSeclearning{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "secCell") as! SecondaryLangTableViewCell
-            
-            cell.dbNameLabel.text = arraysecLang[indexPath.row].dbname
-            cell.labelSecLanguage.text = arraysecLang[indexPath.row].langDispalyName
-             return cell
         }
+//        else if tableView == tabelviewSeclearning{
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "secCell") as! SecondaryLangTableViewCell
+//
+//            cell.dbNameLabel.text = arraysecLang[indexPath.row].dbname
+//            cell.labelSecLanguage.text = arraysecLang[indexPath.row].langDispalyName
+//             return cell
+//        }
         return UITableViewCell()
     }
     
@@ -387,11 +396,11 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                 self.arrayLanguages.append(LanguageList( languages as? NSDictionary))
                 
             }
-            let languagelearn = response.object(forKey: "learningList") as? NSArray ?? []
+          //  let languagelearn = response.object(forKey: "secondaryList") as? NSArray ?? []
             
-            for learninglanguage in languagelearn{
-                self.arraysecLang.append(LanguageList( learninglanguage as? NSDictionary))
-            }
+          //  for learninglanguage in languagelearn{
+          //      self.arraysecLang.append(LanguageList( learninglanguage as? NSDictionary))
+          //  }
             print(self.arraysecLang.count)
             DispatchQueue.main.async {
                 self.tableviewLanguage.reloadData()

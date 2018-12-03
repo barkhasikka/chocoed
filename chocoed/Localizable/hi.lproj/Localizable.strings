@@ -70,7 +70,7 @@
 "AlertKey" = "अलर्ट !";
 "OkKey" = "ठीक";
 "WelcomeKey" = "स्वागत!";
-"ProfileMsgForUserKey" = "There is only one You in this world. Let’s build your personal vitae";
+"ProfileMsgForUserKey" = "इस दुनिया में एक ही आप है। चलिए आपका व्यक्तिगत बायोडाटा बनाएं";
 "GetStartedKey"= "शुरु करे ➔";
 "AppraisalMsgKey" = "अब आपकीव्यक्तिगत करें चॉकॉएड अनिवार्य समीक्षा करते हैं";
 "KnowUserUniqenessKey" = "अपनी विशिष्टता को पहचानें ➔";
@@ -116,12 +116,19 @@
 "alertVideos" = "आपके द्वारा देखे जाने वाले वीडियोस अभी बाकि है";
 "alertCompletedAssessments" = " कुछ आकलन पूरा किए जाने हैं";
 "alertcompletedAssessmentMsg" = " आपको अभी कुछ आकलन पूरे करने है.क्या आप उन्हें अभी करना चाहते हैं?";
-"BadgesEKey" = "Badges Earned";
-"TopicCompletedProgressKey" = "Topic Completed";
+"BadgesEKey" = "अर्जित बैज";
+"TopicCompletedProgressKey" = "पूरे किये विषय ";
 "ChatKey" = "चैट";
 "NoFriendFoundKey" = "कोई दोस्त नहीं मिला, दोस्त जोड़ने के लिए + बटन पर टैप करें";
 "SearchFriendKey" = "दोस्तों को खोजें";
-
-
-
-
+"MytalksKey" = "मेरा वार्तालाप";
+"destructiveKeybutton" = "नया स्व-नष्ट संदेश";
+"contactNotFoundKey" = "कोई संपर्क नहीं मिला, संपर्क जोड़ने के लिए + बटन पर टैप करें";
+"MediabuttonKey" = " मीडिया";
+"DeleteButtonKey" = " मित्र हटाएं";
+"photoNotoficationKey" = "फोटो अधिसूचना";
+"NotificationKey" = "अधिसूचना";
+"MyprogressKey" = " मेरा विकास";
+"SelectContactsKey" = "संपर्क चुनिए";
+"searchfriendKey" = "दोस्तों को खोजें";
+"AddFriendsKey" = "मित्र बनाओ";

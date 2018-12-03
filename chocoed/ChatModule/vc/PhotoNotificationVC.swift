@@ -13,6 +13,7 @@ import SDWebImage
 class PhotoNotificationVC: UIViewController , UITableViewDelegate , UITableViewDataSource , UIDocumentInteractionControllerDelegate{
     
 
+    @IBOutlet weak var photoNotificationLabel: UILabel!
     @IBOutlet var tblView: UITableView!
     var arrayPhotos = [PhotoCellMsg]()
     
@@ -33,6 +34,10 @@ class PhotoNotificationVC: UIViewController , UITableViewDelegate , UITableViewD
         // Do any additional setup after loading the view.
         
         // user_id...contact no own
+        
+         let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        photoNotificationLabel.text = "photoNotoficationKey".localizableString(loc: language!)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

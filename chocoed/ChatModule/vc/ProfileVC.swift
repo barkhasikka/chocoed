@@ -16,6 +16,8 @@ class ProfileVC: UIViewController {
     @IBOutlet var lblName: UILabel!
     
     @IBOutlet var profileImage: UIImageView!
+    @IBOutlet weak var mediaButton: UIButton!
+    @IBOutlet weak var deleteFriendButton: UIButton!
     
     var contactMobileNumber : String = ""
     var profileiMage : String = ""
@@ -25,6 +27,13 @@ class ProfileVC: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        
+        mediaButton.setTitle("MediabuttonKey".localizableString(loc: language!), for: .normal)
+        deleteFriendButton.setTitle("DeleteButtonKey".localizableString(loc: language!), for: .normal)
+
+        
+        
         
         self.lblName.text = self.name
         self.profileImage.sd_setImage(with : URL(string: self.profileiMage))

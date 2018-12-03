@@ -29,8 +29,8 @@
 "HonestAnswerKey" = "Answer honestly, even if you don't like the answer";
 "Educationkey" = "Education";
 "WorkKey" = "Work";
-"NextButtonKey" = "NEXT ➔";
-"PrevButtonKey" = "PREV";
+"NextButtonKey" = "NEXT ➡︎";
+"PrevButtonKey" = " ⬅︎ PREV";
 "FirstStepKey" = "You are on the First Step";
 "AddNewWorkKey" = "Add New Work";
 "EducationTopMsgKey" = "Let us know about your education";
@@ -121,4 +121,14 @@
 "ChatKey" = "Chat";
 "NoFriendFoundKey" = "No Friend Found , Tap on + button to add friend";
 "SearchFriendKey" = "Search Friend";
-
+"MytalksKey" = "My Talks";
+"destructiveKeybutton" = "New Self - destruct Message";
+"contactNotFoundKey" = "No Contact Found, Tap on + button to add contact";
+"MediabuttonKey" = " Media";
+"DeleteButtonKey" = " Delete Friend";
+"SelectContactsKey" = "Select Contact";
+"photoNotoficationKey" = "Photo Notification";
+"NotificationKey" = "Notification";
+"MyprogressKey" = "My Progress";
+"searchfriendKey" = "Search Friends";
+"AddFriendsKey" = "Add Friends";

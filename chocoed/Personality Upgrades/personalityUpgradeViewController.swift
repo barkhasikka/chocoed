@@ -90,6 +90,7 @@ class personalityUpgradeViewController: UIViewController,UITableViewDelegate,UIT
             DispatchQueue.main.async {
                 self.activityUIView.isHidden = true
                 self.activityUIView.stopAnimation()
+            
                 self.tabelviewTopicsList.reloadData()
             }
             

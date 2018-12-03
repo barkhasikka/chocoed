@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TWi-rM-jqp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TWi-rM-jqp">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -777,7 +778,7 @@ the beginning of every beautiful journey.</string>
                                             <action selector="next_btn_clicked:" destination="61f-JK-TbK" eventType="touchUpInside" id="FTr-Dn-DNm"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="My Plan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="12K-TI-es1">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="My Plan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="12K-TI-es1">
                                         <rect key="frame" x="58" y="25" width="300.39983387299128" height="20.36609043206721"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -921,6 +922,7 @@ the beginning of every beautiful journey.</string>
                         <outlet property="lblActiveDate" destination="119-sH-Sh4" id="pQ9-il-dOV"/>
                         <outlet property="lblCourseTitle" destination="0W1-AJ-T0z" id="P5H-KH-H0d"/>
                         <outlet property="lblEmpty" destination="97Y-cn-hrV" id="dv8-rv-CLV"/>
+                        <outlet property="myplanlabel" destination="12K-TI-es1" id="ZG4-ul-0Mz"/>
                         <outlet property="tblView" destination="gn8-ad-PYV" id="yWZ-ix-R1E"/>
                     </connections>
                 </viewController>
@@ -1018,6 +1020,7 @@ the beginning of every beautiful journey.</string>
                         <viewLayoutGuide key="safeArea" id="vbp-ai-hM5"/>
                     </view>
                     <connections>
+                        <outlet property="pendingAssesmentlabel" destination="Qzc-an-dau" id="Pc7-u6-OMD"/>
                         <outlet property="tblView" destination="6Jr-a2-AAe" id="Hd9-dA-vLU"/>
                     </connections>
                 </viewController>
@@ -1239,6 +1242,8 @@ the beginning of every beautiful journey.</string>
                         <viewLayoutGuide key="safeArea" id="ise-ke-eie"/>
                     </view>
                     <connections>
+                        <outlet property="examreviewLabel" destination="GYr-5B-8kd" id="J10-yX-GPg"/>
+                        <outlet property="proceedbtn" destination="o6A-gR-Awk" id="d77-Kn-Fct"/>
                         <outlet property="webView" destination="6p5-B3-7lj" id="FuZ-Uh-WkA"/>
                     </connections>
                 </viewController>
@@ -1445,6 +1450,7 @@ the beginning of every beautiful journey.</string>
                         <outlet property="badgesView" destination="HLW-FV-8zS" id="wVt-0b-i7C"/>
                         <outlet property="lblBadges" destination="dgH-2c-fu8" id="CUU-OG-SXd"/>
                         <outlet property="lblCoins" destination="RwK-Hy-Saz" id="xMt-jN-TrI"/>
+                        <outlet property="notificationLabel" destination="eUs-Vf-Ipc" id="gWX-Dy-j5c"/>
                         <outlet property="tableBiewNotification" destination="bMO-NF-VfY" id="suO-H4-aDN"/>
                     </connections>
                 </viewController>
@@ -3357,7 +3363,7 @@ the beginning of every beautiful journey.</string>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="menucell" rowHeight="66" id="WUN-rv-H5r" customClass="MenuBarTableViewCell" customModule="chocoed" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="315" height="66"/>
                                                 <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WUN-rv-H5r" id="WIP-fj-cH1">
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WUN-rv-H5r" id="WIP-fj-cH1">
                                                     <rect key="frame" x="0.0" y="0.0" width="315" height="66"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
@@ -3531,7 +3537,7 @@ the beginning of every beautiful journey.</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pTT-13-J1t" userLabel="viewAlertChoice">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hGl-iQ-Ugr">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hGl-iQ-Ugr">
                                         <rect key="frame" x="37.5" y="199" width="300" height="250"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RTd-2f-jqo">
@@ -3554,7 +3560,7 @@ the beginning of every beautiful journey.</string>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="M32-0e-lHx">
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="M32-0e-lHx">
                                                 <rect key="frame" x="0.0" y="152" width="300" height="98"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <prototypes>
@@ -4196,7 +4202,7 @@ the beginning of every beautiful journey.</string>
                                                 <rect key="frame" x="88" y="397" width="200" height="150"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PS1-UI-Wo0">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PS1-UI-Wo0">
                                                         <rect key="frame" x="0.0" y="0.0" width="200" height="150"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="200" id="BQK-8w-Ryc"/>
@@ -5654,6 +5660,7 @@ the beginning of every beautiful journey.</string>
                     </view>
                     <navigationItem key="navigationItem" title="Learderboard" id="qP9-Fi-DbU"/>
                     <connections>
+                        <outlet property="Myprogress" destination="7s6-Rt-8qp" id="7Bf-eO-J5Q"/>
                         <outlet property="NameLabel" destination="JDv-hH-qB8" id="v87-U9-K0W"/>
                         <outlet property="addConatctButton" destination="qak-k8-UeQ" id="2jM-vB-ODD"/>
                         <outlet property="addContactImage" destination="2vv-JK-WR3" id="PQv-uf-z9U"/>
@@ -5797,6 +5804,8 @@ the beginning of every beautiful journey.</string>
                         <viewLayoutGuide key="safeArea" id="wqN-ky-eq8"/>
                     </view>
                     <connections>
+                        <outlet property="addFriend" destination="eos-nJ-uTW" id="AIX-Kb-CAw"/>
+                        <outlet property="save" destination="5cr-qT-vEm" id="IIs-ug-Oh0"/>
                         <outlet property="tableViewCOntacts" destination="tm9-bO-ITJ" id="DIx-Ec-wiI"/>
                     </connections>
                 </viewController>
@@ -6249,7 +6258,9 @@ the beginning of every beautiful journey.</string>
                         <viewLayoutGuide key="safeArea" id="tKI-ce-G1P"/>
                     </view>
                     <connections>
+                        <outlet property="deleteFriendButton" destination="qOa-c1-CpC" id="RaE-vS-Rcz"/>
                         <outlet property="lblName" destination="BKb-uW-phr" id="2w2-4h-m7F"/>
+                        <outlet property="mediaButton" destination="rAx-9j-9yR" id="Ykm-u1-KE1"/>
                         <outlet property="profileImage" destination="zpX-Hv-tfN" id="8gp-qD-QuE"/>
                     </connections>
                 </viewController>
@@ -6478,6 +6489,7 @@ the beginning of every beautiful journey.</string>
                         <viewLayoutGuide key="safeArea" id="VIL-cm-T7d"/>
                     </view>
                     <connections>
+                        <outlet property="selectContactlabel" destination="bNE-cf-f8q" id="dqb-am-NMz"/>
                         <outlet property="tblView" destination="t0v-w6-lrA" id="0Os-0K-uIp"/>
                     </connections>
                 </viewController>
@@ -6569,6 +6581,7 @@ the beginning of every beautiful journey.</string>
                         <viewLayoutGuide key="safeArea" id="lBy-F0-88J"/>
                     </view>
                     <connections>
+                        <outlet property="photoNotificationLabel" destination="7v4-1k-Ase" id="UaL-Z5-cGU"/>
                         <outlet property="tblView" destination="DHm-vH-eGP" id="XXD-3E-41a"/>
                     </connections>
                 </viewController>

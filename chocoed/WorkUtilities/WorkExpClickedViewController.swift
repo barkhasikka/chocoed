@@ -26,18 +26,23 @@ class WorkExpClickedViewController: UIViewController, UITableViewDelegate,UITabl
         super.viewDidLoad()
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
         
-       // self.educationLabel1.text = "शिक्षा".localizableString(loc: language!)
+        self.educationLabel1.text = "Educationkey".localizableString(loc: language!)
         //self.signUpButton.titleLabel?.text = "SignUpKey".localizableString(loc: StringLang)
         // self.loginButton.titleLabel?.text = "LoginButtonKey".localizableString(loc: StringLang)
         // self.signUpButton.setTitle("\("SignUpKey".localizableString(loc: StringLang))", for:.normal )
-       // self.workLabel1.text = "कार्य".localizableString(loc: language!)
-       // self.addnewWorkButton.setTitle("कार्य अनुभव डालें".localizableString(loc: language!), for: .normal)
-        //self.firstStepLabel.text = "आप पहले पायदान पर हो".localizableString(loc: language!)
-       // self.nextButtonLabel1.setTitle("आगे".localizableString(loc: language!), for: .normal)
-       // self.prevButtonLabel.setTitle("वापस".localizableString(loc: language!), for: .normal)
-        //self.addeducationButton.setTitle("नई शिक्षा दर्ज करें".localizableString(loc: language!), for: .normal)
-        // viewEdu.isHidden = false
-        //addeducationButton.setTitle("नई शिक्षा दर्ज करें", for: .normal)
+        self.workLabel1.text = "WorkKey".localizableString(loc: language!)
+
+        self.addnewWorkButton.setTitle("AddNewWorkKey".localizableString(loc: language!), for: .normal)
+        
+            //self.firstStepLabel.text = "FirstStepKey".localizableString(loc: language!)
+        self.nextButtonLabel1.setTitle("NextButtonKey".localizableString(loc: language!), for: .normal)
+        self.prevButtonLabel.setTitle("PrevButtonKey".localizableString(loc: language!), for: .normal)
+        //self.addeducationButton.setTitle("AddEducationButtonKey".localizableString(loc: language!), for: .normal)
+        
+       //  viewEdu.isHidden = false
+        addnewWorkButton.setTitle("AddNewWorkKey".localizableString(loc: language!), for: .normal)
+        
+        
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)
         activityUIView.isHidden = true
