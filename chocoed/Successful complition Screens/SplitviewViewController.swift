@@ -208,15 +208,6 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         
         self.availableString = "Dear \(USERDETAILS.firstName), this feature will be available to you soon. Please proceed with your learning journey."
         
-        
-//        self.labelInstruct.text = "RequestOfEnterMobileNoKey".localizableString(loc: language!)
-//        //self.signUpButton.titleLabel?.text = "SignUpKey".localizableString(loc: StringLang)
-//        // self.loginButton.titleLabel?.text = "LoginButtonKey".localizableString(loc: StringLang)
-//        
-//        // self.signUpButton.setTitle("\("SignUpKey".localizableString(loc: StringLang))", for:.normal )
-//        self.registerButton.setTitle("\("LoginButtonKey".localizableString(loc: language!))", for:.normal)
-//        self.otpReceivedLabel.text = "InputChocoedTokenKey".localizableString(loc: language!)
-        
 
         self.compTestLabel.text = "TestCompletedKey".localizableString(loc: language!)
         self.completedTopicsLabel.text = "TopicCompletedKey".localizableString(loc: language!)
@@ -265,6 +256,8 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        
+        navigationController?.navigationBar.topItem?.title = "MyRadarKey".localizableString(loc: language!)
 //        let frame1 = CGRect(x: 0, y: 620, width: UIScreen.main.bounds.width, height: 120)
 //        let backgroundImage1 = UIImageView(frame: frame1)
 //        backgroundImage1.image = UIImage(named: "ic_choice_conversion_content_connect")

@@ -182,6 +182,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let clientId = jsonobject?.object(forKey: "clientId") as? String ?? ""
             let url = jsonobject?.object(forKey: "profileImageUrl") as? String ?? ""
             let quizTaken =  jsonobject?.object(forKey:"quizTestGiven") as? Int ?? -1
+            print(quizTaken,"-------->")
             UserDefaults.standard.set(quizTaken, forKey: "quiztakenID")
             let quizID = UserDefaults.standard.string(forKey: "quiztakenID")
            // print(quizID)
@@ -189,7 +190,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UserDefaults.standard.set(Int(clientId), forKey: "clientid")
             
             USERDETAILS = UserDetails(email: temp.email, firstName: temp.firstName, lastname: temp.lastName, imageurl: url, mobile: temp.mobile)
-            
+            print(quizTaken,"-------->")
             if quizTaken == 1 {
                 print("1")
                 DispatchQueue.main.async {
