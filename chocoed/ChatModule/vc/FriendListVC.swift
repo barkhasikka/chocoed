@@ -108,7 +108,7 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         lblTitle.text = "ChatKey".localizableString(loc: language!)
         lblNoFriendFound.text = "NoFriendFoundKey".localizableString(loc: language!)
         
-        
+        searchBar.placeholder = "searchfriendKey".localizableString(loc: language!)
         UserDefaults.standard.set("", forKey: "chatNo")
         self.lblNotificationCount.isHidden = true
         self.lblNotificationCount.layer.cornerRadius = 10
