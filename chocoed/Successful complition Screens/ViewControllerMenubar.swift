@@ -44,7 +44,11 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
         override func viewDidLoad() {
             super.viewDidLoad()
         
-     //let backgroundImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 315, height: 166))            viewLanguage.isHidden = true
+            
+        if 
+            
+     //let backgroundImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 315, height: 166))
+            viewLanguage.isHidden = true
             viewAlertchoice.isHidden = true
             activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
             self.view.addSubview(activityUIView)
@@ -387,7 +391,7 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                 self.arrayLanguages.append(LanguageList( languages as? NSDictionary))
                 
             }
-            let languagelearn = response.object(forKey: "learningList") as? NSArray ?? []
+            let languagelearn = response.object(forKey: "secondaryList") as? NSArray ?? []
             
             for learninglanguage in languagelearn{
                 self.arraysecLang.append(LanguageList( learninglanguage as? NSDictionary))
