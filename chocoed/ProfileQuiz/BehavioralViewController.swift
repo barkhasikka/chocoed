@@ -26,12 +26,10 @@ class BehavioralViewController: UIViewController {
         
         
         
-      /*  self.LetsBeginLabel.text = "चलिए शुरू करते हैं".localizableString(loc: language!)
-        self.behavioralLabel.text = "व्यवहारिक जांच".localizableString(loc: language!)
-        self.continueButtonLabel.setTitle("जारी रखें".localizableString(loc: language!), for: .normal)
-     */
-        
-        
+        self.LetsBeginLabel.text = "LetsBeginKey".localizableString(loc: language!)
+        self.behavioralLabel.text = "BehaviourialKey".localizableString(loc: language!)
+        self.continueButtonLabel.setTitle("ContinueKey".localizableString(loc: language!), for: .normal)
+     
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(named: "ic_background_pattern")
         backgroundImage.contentMode = UIViewContentMode.scaleAspectFill

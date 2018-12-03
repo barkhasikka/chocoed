@@ -27,22 +27,14 @@ class SignUpViewController: UIViewController,UITableViewDelegate,UITableViewData
         super.viewDidLoad()
         
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
-        
-        //self.educationLabel.text = "शिक्षा".localizableString(loc: language!)
-        //self.signUpButton.titleLabel?.text = "SignUpKey".localizableString(loc: StringLang)
-        // self.loginButton.titleLabel?.text = "LoginButtonKey".localizableString(loc: StringLang)
-        
-        // self.signUpButton.setTitle("\("SignUpKey".localizableString(loc: StringLang))", for:.normal )
-       /* self.workLabel.text = "कार्य".localizableString(loc: language!)
-        self.firstStepLabel.text = "आप पहले पायदान पर हो".localizableString(loc: language!)
-        self.nextButtonLabel.setTitle("आगे".localizableString(loc: language!), for: .normal)
-        self.addeducationButton.setTitle("नई शिक्षा दर्ज करें".localizableString(loc: language!), for: .normal)
+          self.educationLabel.text = "Educationkey".localizableString(loc: language!)
+         self.workLabel.text = "WorkKey".localizableString(loc: language!)
+        self.firstStepLabel.text = "FirstStepKey".localizableString(loc: language!)
+        self.nextButtonLabel.setTitle("NextButtonKey".localizableString(loc: language!), for: .normal)
+        self.addeducationButton.setTitle("AddEducationButtonKey".localizableString(loc: language!), for: .normal)
 
-       // viewEdu.isHidden = false
-        addeducationButton.setTitle("नई शिक्षा दर्ज करें", for: .normal) */
-        
-        addeducationButton.setTitle("Add Education", for: .normal)
-        
+        viewEdu.isHidden = false
+      
         addeducationButton.backgroundColor = .clear
         addeducationButton.layer.cornerRadius = 10
         addeducationButton.layer.borderWidth = 1
