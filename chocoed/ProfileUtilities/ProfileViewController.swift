@@ -80,7 +80,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         self.iAmBornOnLabel.text = "BornOnKey".localizableString(loc: language!)
         self.genderLabel.text = "GenderKey".localizableString(loc: language!)
         self.createProfileButtonLabel.title = "CreateProfileKey".localizableString(loc: language!)
-        self.createProfileButtonLabel.title = "ChooseImageLabelKey".localizableString(loc: language!)
+        self.createProfileButtonLabel.title = "CreateProfileKey".localizableString(loc: language!)
         self.chooseGalleryLabel.text = "ChooseImageKey".localizableString(loc: language!)
         self.chooseAvatarLabel.text = "ChooseAvatar".localizableString(loc: language!)
         self.proceedLabel.setTitle("ProceedButtonKey".localizableString(loc: language!), for: .normal)
@@ -91,7 +91,8 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
      //   self.proceedLabel.setTitle("आगे बढ़ें".localizableString(loc: language!), for: .normal)
         self.btn.setTitle("MaleKey".localizableString(loc: language!), for: .normal)
         self.btnFemale.setTitle("FemaleKey".localizableString(loc: language!), for: .normal)
-        self.ButtonChoose.setTitle("ChooseImageLabelKey", for: .normal)
+        self.ButtonChoose.setTitle("ChooseImageLabelKey".localizableString(loc: language!), for: .normal)
+       
         
         
         submitButton.layer.cornerRadius = 20
