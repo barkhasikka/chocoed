@@ -30,6 +30,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     
     @IBOutlet weak var birthDateTextField: UITextField!
     var gender = ""
+    
     let datePicker = UIDatePicker()
     
     @IBOutlet weak var proceedLabel: imagetoButton!

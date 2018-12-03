@@ -43,12 +43,14 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)
         activityUIView.isHidden = true
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+
         if currentExamID == 1 {
-            self.navigationItem.title = "Behavioural Test"
+            self.navigationItem.title = "BehaviourialKey".localizableString(loc: language!)
         }else if currentExamID == 2 {
-            self.navigationItem.title = "Psychometric Test"
+            self.navigationItem.title = "PsycomatricKey".localizableString(loc: language!)
         }else if currentExamID == 3 {
-            self.navigationItem.title = "Personality Test"
+            self.navigationItem.title = "PersonalityKey".localizableString(loc: language!)
         }else {
             
             self.navigationItem.title = self.examName
