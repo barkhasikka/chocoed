@@ -68,7 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         func openVC(){
             
             let userID = UserDefaults.standard.integer(forKey: "userid")
-            UserDefaults.standard.set("en", forKey: "currentlanguage")
+            //UserDefaults.standard.set("en", forKey: "currentlanguage")
             if userID != 0 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 8) { // change 2 to desired number of seconds
                     self.GetUserInfo()

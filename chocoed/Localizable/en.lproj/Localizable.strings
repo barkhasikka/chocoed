@@ -132,3 +132,5 @@
 "MyprogressKey" = "My Progress";
 "searchfriendKey" = "Search Friends";
 "AddFriendsKey" = "Add Friends";
+"backAlertKey" = "Back"
+"okAlertKey" = "Ok"

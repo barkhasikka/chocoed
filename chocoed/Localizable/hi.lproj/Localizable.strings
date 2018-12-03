@@ -132,3 +132,5 @@
 "SelectContactsKey" = "संपर्क चुनिए";
 "searchfriendKey" = "दोस्तों को खोजें";
 "AddFriendsKey" = "मित्र बनाओ";
+"backAlertKey" = "वापस"
+"okAlertKey" = "ठीक"
