@@ -5804,6 +5804,8 @@ the beginning of every beautiful journey.</string>
                         <viewLayoutGuide key="safeArea" id="wqN-ky-eq8"/>
                     </view>
                     <connections>
+                        <outlet property="addFriend" destination="eos-nJ-uTW" id="AIX-Kb-CAw"/>
+                        <outlet property="save" destination="5cr-qT-vEm" id="IIs-ug-Oh0"/>
                         <outlet property="tableViewCOntacts" destination="tm9-bO-ITJ" id="DIx-Ec-wiI"/>
                     </connections>
                 </viewController>

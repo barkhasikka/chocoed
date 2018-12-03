@@ -56,12 +56,13 @@ class WevViewVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
+        activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
+        self.view.addSubview(activityUIView)
         
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
         self.proceedbtn.setTitle("ProceedButtonKey".localizableString(loc: language!), for: .normal)
         self.examreviewLabel.text = "ExamReviewKey".localizableString(loc: language!)
-        activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
-        self.view.addSubview(activityUIView)
         activityUIView.isHidden = true
         
         self.loadExamDetails()
