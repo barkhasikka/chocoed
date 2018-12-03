@@ -35,6 +35,20 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
         
     }
     
+    
+    override var shouldAutorotate: Bool{
+        return false
+    }
+    
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation{
+        return UIInterfaceOrientation.portrait
+    }
+    
+    override var supportedInterfaceOrientations:UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
+    }
+    
+    
     func LoadFriends(){
         
         let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
@@ -110,18 +124,17 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
         if type == "destructive" {
 
        
-        cell.lblName.text = arrayContactList[indexPath.row].friendName
-        let url = arrayContactList[indexPath.row].friendImageUrl
-        cell.profileImage?.sd_setImage(with : URL(string: url))
-        cell.profileImage?.layer.cornerRadius = (cell.profileImage?.frame.width)! / 2
-        cell.profileImage?.clipsToBounds = true
-        cell.profileImage?.contentMode = .scaleToFill
+            cell.lblName.text = arrayFriendList[indexPath.row].name
+            let url = arrayFriendList[indexPath.row].profile_image
+            cell.profileImage?.sd_setImage(with : URL(string: url))
+            cell.profileImage?.layer.cornerRadius = (cell.profileImage?.frame.width)! / 2
+            cell.profileImage?.clipsToBounds = true
+            cell.profileImage?.contentMode = .scaleToFill
             
         }else{
             
-            
-            cell.lblName.text = arrayFriendList[indexPath.row].name
-            let url = arrayFriendList[indexPath.row].profile_image
+            cell.lblName.text = arrayContactList[indexPath.row].friendName
+            let url = arrayContactList[indexPath.row].friendImageUrl
             cell.profileImage?.sd_setImage(with : URL(string: url))
             cell.profileImage?.layer.cornerRadius = (cell.profileImage?.frame.width)! / 2
             cell.profileImage?.clipsToBounds = true
@@ -237,6 +250,8 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
                 do {
                     try CoreDataStack.sharedInstance.persistentContainer.viewContext.save()
                     
+                    DispatchQueue.main.async {
+
                     
                     if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "ChatVC") as? ChatVC {
                         
@@ -244,6 +259,8 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
                         vcNewSectionStarted.type = ""
                         self.present(vcNewSectionStarted, animated: true, completion: nil)
                     }
+                        
+                }
 
                     
                 } catch let error {

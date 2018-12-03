@@ -12,7 +12,7 @@ public struct kXMPP {
 	public static let myJID: String = "myJID"
 	public static let myPassword: String = "myPass"
     
-
+    public static let DESTRUCT_TIME : String = "2"
     
     public static let msgSend: String = "0"
     public static let msgSent: String = "1"

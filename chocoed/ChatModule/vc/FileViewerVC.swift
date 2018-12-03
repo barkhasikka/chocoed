@@ -62,5 +62,19 @@ class FileViewerVC: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    
+    override var shouldAutorotate: Bool{
+        return false
+    }
+    
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation{
+        return UIInterfaceOrientation.portrait
+    }
+    
+    override var supportedInterfaceOrientations:UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
+    }
+    
+    
   
 }

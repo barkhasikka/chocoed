@@ -67,6 +67,21 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
     }
     
     
+    override var shouldAutorotate: Bool{
+        return false
+    }
+    
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation{
+        return UIInterfaceOrientation.portrait
+    }
+    
+    override var supportedInterfaceOrientations:UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
+    }
+    
+    
+    
+    
     @IBAction func notification_clicked(_ sender: Any) {
     
         
@@ -85,6 +100,7 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
          */
         
         if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "AddFriendVC") as? AddFriendVC{
+            vcNewSectionStarted.type = "destructive"
             self.present(vcNewSectionStarted, animated: true, completion: nil)
         }
         

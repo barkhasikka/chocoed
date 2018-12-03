@@ -711,7 +711,7 @@ extension OneMessage: XMPPStreamDelegate {
                             
                             let msgData = self.getMsg(msgId: json.value(forKey: "msgId") as! String)
                             
-                            // if msgData.is_download == "1" {
+                            if msgData.distructive_time != kXMPP.DESTRUCT_TIME {
                             
                             if msgData.msg_type == kXMPP.TYPE_IMAGE {
                                 
@@ -734,6 +734,10 @@ extension OneMessage: XMPPStreamDelegate {
                                 
                                 self.loadPDFAsync(url: msgData.file_url, msgid: msgData.msg_id)
                                 
+                            }
+                                
+                            }else{
+                                 self.updateMsg(msg_id: msgData.msg_id, type : "download" ,value: "1")
                             }
                             
                             //  }

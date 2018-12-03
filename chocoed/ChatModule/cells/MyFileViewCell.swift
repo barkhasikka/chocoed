@@ -11,14 +11,13 @@ import UIKit
 class MyFileViewCell: UITableViewCell {
     
     
+    @IBOutlet var btnUpload: UIImageView!
     
     @IBOutlet var lblDate: UILabel!
     
     @IBOutlet var progressView: UIActivityIndicatorView!
     
-    
-    @IBOutlet var btnUpload: UIButton!
-    
+ 
     
     @IBOutlet var msgAck: UIImageView!
     

@@ -73,6 +73,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     
     var count = 0
     
+    var isImageApiCalled = 0
     
     
     @IBAction func reply_cancel_clicked(_ sender: Any) {
@@ -133,8 +134,10 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         
         var desrc = ""
         
+        var isImageApiCalled = false
+        
         if self.type == "destructive" {
-            desrc = "2"
+            desrc = kXMPP.DESTRUCT_TIME
         }
         
         let msgId = self.getCurrentTime()
@@ -614,7 +617,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         let item1 = self.fetchedhResultController.object(at: row) as? Msg
         
         if item1?.msg == kXMPP.DELETE_TEXT_FRIEND ||
-            item1?.msg == kXMPP.DELETE_TEXT_MY {
+            item1?.msg == kXMPP.DELETE_TEXT_MY || item1?.msg == kXMPP.SELF_DESTRUCT_MSG  {
             
             
             let alert:UIAlertController=UIAlertController(title: "Choose Option", message: nil, preferredStyle:.actionSheet)
@@ -874,6 +877,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     
     override func viewWillAppear(_ animated: Bool) {
         self.isKeyEditing = false
+        var isImageApiCalled = false
+
         self.getFriendStatus()
         Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true, block: { (timer) in
             
@@ -954,7 +959,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             if self.type == "destructive" {
                 
                 self.type = ""
-                desrc = "2"
+                desrc = kXMPP.DESTRUCT_TIME
             }else{
                 
                 desrc = ""
@@ -1072,19 +1077,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
        // dismiss(animated: false, completion: nil)
         
     }
-    
-    /* func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-     
-     
-     let replyAction = UITableViewRowAction(style: .default, title: "") { (action, indexpath) in
-     
-     }
-     
-     replyAction.backgroundColor = UIColor(patternImage: UIImage(named: "icon_logout")!)
-     return [replyAction]
-     } */
-    
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let count = fetchedhResultController.sections?.first?.numberOfObjects {
             return count
@@ -1203,7 +1196,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     cell.replyView?.layer.borderWidth = 1
                     
                     
-                    if item.distructive_time == "2" || item.msg == kXMPP.SELF_DESTRUCT_MSG {
+                    if item.distructive_time == kXMPP.DESTRUCT_TIME || item.msg == kXMPP.SELF_DESTRUCT_MSG {
                         
                         cell.mainView?.layer.cornerRadius = 6
                         cell.mainView?.layer.borderColor = #colorLiteral(red: 0.9176470588, green: 0.07450980392, blue: 0.07450980392, alpha: 1)
@@ -1293,7 +1286,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     
                     
                     
-                    if item.distructive_time == "2" || item.msg == kXMPP.SELF_DESTRUCT_MSG {
+                    if item.distructive_time == kXMPP.DESTRUCT_TIME || item.msg == kXMPP.SELF_DESTRUCT_MSG {
                         
                         cell.mainView?.layer.cornerRadius = 6
                         cell.mainView?.layer.borderColor = #colorLiteral(red: 0.9176470588, green: 0.07450980392, blue: 0.07450980392, alpha: 1)
@@ -1368,7 +1361,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     cell.fileview?.contentMode = .scaleToFill
                     
                     
-                    if item.distructive_time == "2" || item.msg == kXMPP.SELF_DESTRUCT_MSG {
+                    if item.distructive_time == kXMPP.DESTRUCT_TIME || item.msg == kXMPP.SELF_DESTRUCT_MSG {
                         
                         cell.mainView?.layer.cornerRadius = 6
                         cell.mainView?.layer.borderColor = #colorLiteral(red: 0.9176470588, green: 0.07450980392, blue: 0.07450980392, alpha: 1)
@@ -1404,6 +1397,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                                 in
                                 
                                 if image != nil {
+                                    
                                     self.updateMsg(msg_id: item.msg_id, type : "streaming" ,value: "1")
                                     
                                     self.uploadImageToServer(image: image!, msgId: item.msg_id, type: item.msg_type, fileURL: "", permission: item.is_permission)
@@ -1431,8 +1425,15 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                             cell.btnUpload.isHidden = false
                             // show lock
                             
-                          //  cell.btnUpload.image = UIImage(named: "ic_play_gray")
+                            cell.btnUpload.image = UIImage(named: "per_lock")
 
+                        }else if item.is_permission == "3" {
+                            
+                            cell.btnUpload.isHidden = false
+                            // show lock
+                            
+                            cell.btnUpload.image = UIImage(named: "per_grant")
+                            
                         }else{
                             
                             cell.btnUpload.isHidden = true
@@ -1486,7 +1487,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     }
                     
                     
-                    if item.distructive_time == "2" || item.msg == kXMPP.SELF_DESTRUCT_MSG {
+                    if item.distructive_time == kXMPP.DESTRUCT_TIME || item.msg == kXMPP.SELF_DESTRUCT_MSG {
                         
                         cell.mainView?.layer.cornerRadius = 6
                         cell.mainView?.layer.borderColor = #colorLiteral(red: 0.9176470588, green: 0.07450980392, blue: 0.07450980392, alpha: 1)
@@ -1578,7 +1579,14 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                             cell.btnUpload.isHidden = false
                             // show lock
                             
-                           // cell.btnUpload.image = UIImage(named: "ic_play_gray")
+                            cell.btnUpload.image = UIImage(named: "per_lock")
+                            
+                        }else if item.is_permission == "3" {
+                            
+                            cell.btnUpload.isHidden = false
+                            // show lock
+                            
+                            cell.btnUpload.image = UIImage(named: "per_grant")
                             
                         }else{
                             
@@ -1654,7 +1662,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     
                     
                     
-                    if item.distructive_time == "2" || item.msg == kXMPP.SELF_DESTRUCT_MSG {
+                    if item.distructive_time == kXMPP.DESTRUCT_TIME || item.msg == kXMPP.SELF_DESTRUCT_MSG {
                         
                         cell.mainView?.layer.cornerRadius = 6
                         cell.mainView?.layer.borderColor = #colorLiteral(red: 0.9176470588, green: 0.07450980392, blue: 0.07450980392, alpha: 1)
@@ -1725,7 +1733,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     
                     
                     
-                    if item.distructive_time == "2" || item.msg == kXMPP.SELF_DESTRUCT_MSG {
+                    if item.distructive_time == kXMPP.DESTRUCT_TIME || item.msg == kXMPP.SELF_DESTRUCT_MSG {
                         
                         
                         cell.mainView?.layer.cornerRadius = 6
@@ -1777,7 +1785,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     cell.fileView?.sd_setImage(with : URL(string: item.file_url))
                     cell.fileView?.contentMode = .scaleToFill
                     
-                    if item.distructive_time == "2" || item.msg == kXMPP.SELF_DESTRUCT_MSG {
+                    if item.distructive_time == kXMPP.DESTRUCT_TIME || item.msg == kXMPP.SELF_DESTRUCT_MSG {
                         
                         
                         cell.mainView?.layer.cornerRadius = 6
@@ -1799,6 +1807,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     if item.is_permission == "1" {
                         
                         cell.btnDownload.isHidden = false
+                        cell.btnDownload.image = UIImage(named: "per_lock")
                         cell.progressView.isHidden = true
                         
                         cell.fileView?.sd_setImage(with: URL(string: item.file_url), placeholderImage: UIImage(named: "image_placeholder"), options: .continueInBackground, progress: nil, completed: nil)
@@ -1815,7 +1824,10 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         
                         // cell.progressView.isHidden = true
                         
-                        if item.distructive_time == "2" {
+                        if item.distructive_time == kXMPP.DESTRUCT_TIME {
+                            
+                            cell.btnDownload.isHidden = true
+                            cell.progressView.isHidden = true
                             
                             cell.fileView?.sd_setImage(with: URL(string: item.file_url), placeholderImage: UIImage(named: "image_placeholder"), options: .continueInBackground, progress: nil, completed: nil)
                             cell.fileView?.contentMode = .scaleToFill
@@ -1848,6 +1860,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                             cell.fileView?.addSubview(blueeffectView)
                             
                         }else{
+                            
+                            
                             cell.btnDownload.isHidden = true
                             cell.progressView.isHidden = true
                             
@@ -1890,7 +1904,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     cell.profileImage?.clipsToBounds = true
                     cell.profileImage?.contentMode = .scaleToFill
                     
-                    if item.distructive_time == "2" || item.msg == kXMPP.SELF_DESTRUCT_MSG {
+                    if item.distructive_time == kXMPP.DESTRUCT_TIME || item.msg == kXMPP.SELF_DESTRUCT_MSG {
                         
                         
                         cell.mainView?.layer.cornerRadius = 6
@@ -1913,13 +1927,26 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     
                     if item.is_permission == "1" {
                         
+                        cell.btnDownload.isHidden = false
+                        cell.btnDownload.image = UIImage(named: "per_lock")
+                        
+                        cell.progressView.isHidden = true
+                        
                         cell.fileView?.image = UIImage(named: "pdf_place")
                         cell.fileView?.contentMode = .scaleToFill
                         cell.progressView.isHidden = true
                         
+                        
                     }else {
                         
-                        if item.is_download == "0" {
+                        if item.distructive_time == kXMPP.DESTRUCT_TIME {
+                            
+                            cell.fileView?.image = UIImage(named: "pdf_place")
+                            cell.fileView?.contentMode = .scaleToFill
+                            cell.progressView.isHidden = true
+                            
+                            
+                        }else if item.is_download == "0" {
                             
                             
                             if item.is_streaming == "1" {
@@ -1966,62 +1993,6 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         }
         return UITableViewCell()
     }
-    
-    
-    /*  func numberOfSections(in tableView: UITableView) -> Int {
-     
-     if let sections = fetchedhResultController.sections {
-     return sections.count
-     }
-     
-     return 0
-     }
-     
-     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-     
-     let header = view as! UITableViewHeaderFooterView
-     header.textLabel?.textColor = UIColor.black
-     }
-     
-     
-     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-     
-     if let numberOfObjects = fetchedhResultController.sections?[section].indexTitle {
-     
-     let df = DateFormatter()
-     df.dateFormat = "yyyy-MM-DD" // Date format for exerciseDate
-     let exerciseDate = df.date(from: numberOfObjects)
-     let currentDate = NSDate()
-     let result = currentDate.compare(exerciseDate!)
-     let TommorrowDate = currentDate.addingTimeInterval(60 * 60 * 24)
-     let result1 = TommorrowDate.compare(exerciseDate!)
-     
-     if result == ComparisonResult.orderedSame
-     {
-     
-     return "TODAY"
-     
-     }
-     if result1 == ComparisonResult.orderedSame
-     {
-     
-     return "TOMMORROW"
-     
-     
-     }
-     
-     let df1 = DateFormatter()
-     df1.dateFormat = "dd MMMM, yyyy"
-     
-     
-     return df1.string(from: exerciseDate!)
-     
-     }
-     
-     return nil
-     }
-     */
-    
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -2129,7 +2100,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         if item?.msg_type == kXMPP.TYPE_IMAGE {
                             
                             
-                            if item?.distructive_time == "2" {
+                            if item?.distructive_time == kXMPP.DESTRUCT_TIME {
                                 
                                 self.showFile(fileURL: (item?.file_url)!)
 
@@ -2157,7 +2128,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         }else if item?.msg_type == kXMPP.TYPE_PDF {
                             
                             
-                            if item?.distructive_time == "2" {
+                            if item?.distructive_time == kXMPP.DESTRUCT_TIME {
                                 self.showFile(fileURL: (item?.file_url)!)
 
                                 
@@ -2175,7 +2146,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
 
                             if item?.msg_type == kXMPP.TYPE_IMAGE {
                                 
-                                if item?.distructive_time == "2" {
+                                if item?.distructive_time == kXMPP.DESTRUCT_TIME {
                                     
                                     self.showFile(fileURL: (item?.file_url)!)
                                     
@@ -2202,7 +2173,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                           }else if item?.msg_type == kXMPP.TYPE_PDF {
                                 
                                 
-                                if item?.distructive_time == "2" {
+                                if item?.distructive_time == kXMPP.DESTRUCT_TIME {
                                     
                                     self.showFile(fileURL: (item?.file_url)!)
 
@@ -2239,21 +2210,23 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     
     private func showFile(fileURL:String){
         
-        /*  }else{
-         
+        
+        if fileURL.contains("http") {
+     
          
          if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "FileViewerVC") as? FileViewerVC {
-         vcNewSectionStarted.fileURL = (item?.file_url)!
-         vcNewSectionStarted.type = (item?.msg_type)!
+            vcNewSectionStarted.fileURL = fileURL
+            vcNewSectionStarted.type = "image"
          self.present(vcNewSectionStarted, animated: true, completion: nil)
          }
-         
-         
-         } */
-    
-        let dc = UIDocumentInteractionController(url: URL(string: fileURL)!)
-        dc.delegate = self
-        dc.presentPreview(animated: true)
+            
+        }else{
+            
+            let dc = UIDocumentInteractionController(url: URL(string: fileURL)!)
+            dc.delegate = self
+            dc.presentPreview(animated: true)
+        }
+       
         
     }
     
@@ -2368,11 +2341,17 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     updatObj.setValue(value, forKey: "msg_ack")
                 }
                 
+                if type == "permission"{
+                    updatObj.setValue(value, forKey: "is_permission")
+                }
+                
                 do{
                     
                     try context.save()
                     
-                    // self.tblView.reloadData()
+                    
+                    
+                    //
                     // self.scrollToBottom()
                     
                 }catch{
@@ -2644,35 +2623,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         
     }
     
-    /*  private func uploadImage(url : String,msgID : String) {
-     
-     DispatchQueue.global(qos : .background).async {
-     
-     do{
-     let data = try Data.init(contentsOf: URL.init(string: url)!)
-     DispatchQueue.main.async {
-     
-     let image : UIImage = UIImage(data:data)!
-     
-     
-     // let imageData = UIImagePNGRepresentation(image)
-     
-     //self.uploadImageToServer(image: image, msgId: msgID)
-     
-     
-     
-     
-     
-     }
-     
-     }catch{
-     
-     }
-     }
-     
-     }
-     */
-    
+ 
     
     
     private func getCurrentTime() -> String {
@@ -2849,10 +2800,37 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     /* ***********8 FILE UPLAD API *********/
     
     
+    override var shouldAutorotate: Bool{
+        return false
+    }
+    
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation{
+        return UIInterfaceOrientation.portrait
+    }
+    
+    override var supportedInterfaceOrientations:UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
+    }
+    
+    
     
     func uploadImageToServer(image : UIImage, msgId : String,type:String,fileURL: String,permission:String)
     {
         
+        if self.isImageApiCalled == 1 {
+            print("<<<<<< API RETURN >>>>>")
+            return
+        }
+    
+        self.isImageApiCalled = 1
+        
+        
+       
+        
+        
+        print("<<<<<< API CALLLINGNGNGNNGNG >>>>>")
+      
+       
         let myUrl = URL(string: kXMPP.uploadImage);
         
         let request = NSMutableURLRequest(url:myUrl!);
@@ -2916,13 +2894,16 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         
                         if json?.object(forKey: "responce") as! Int == 1 {
                             
+                           
+                            
+                            
                             
                             var desrc = ""
                             
                             if self.type == "destructive" {
                                 
-                                self.type = ""
-                                desrc = "2"
+                                desrc = kXMPP.DESTRUCT_TIME
+
                             }else{
                                 desrc = ""
                             }
@@ -2933,13 +2914,16 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                             let jsonData = try JSONEncoder().encode(body)
                             let msg = String(data: jsonData, encoding: .utf8)
                             
+                            
                             print(msg ?? "")
                             
+                            self.updateMsg(msg_id: msgId, type : "streaming" ,value: "1")
                             self.updateMsg(msg_id: json?.object(forKey: "msg_id") as! String , type : "upload" ,value: "1")
                             
                             OneMessage.sendMessage(msg!,msgId: json?.object(forKey: "msg_id") as! String  ,thread: "test", to:"\(self.friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
                                 
-                                
+                                self.type = ""
+
                                 
                                 
                             })
@@ -3281,6 +3265,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                 // is permission 0
                 
                 
+                
                 notificationText = "Permission granted  to download file"
                 
                 let body = CustomMessageModel(msgId: item.replyMsgId, msgType: kXMPP.TYPE_PER_GRANT, message: "", fileUrl: "", destructiveTime: "",fileType : "",filePermission:"1")
@@ -3301,8 +3286,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                 
                 OneMessage.sendMessage(msg!, msgId:msgID,  thread: "test", to:"\(friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
                     
-                    
                     self.updateGrantMsgs(replyID: item.replyMsgId)
+                    self.updateMsg(msg_id: item.replyMsgId, type: "permission", value: "3")
                     
                 })
                 
