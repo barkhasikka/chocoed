@@ -15,6 +15,7 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
     
     @IBOutlet var myIcon: UIImageView!
     
+    @IBOutlet weak var Myprogress: UILabel!
     
     @IBOutlet weak var completedTestsLabel: UILabel!
     
@@ -82,6 +83,7 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
         self.completedTestsLabel.text = "BadgesEKey".localizableString(loc: language!)
         self.courseCompletedLabel.text = "TopicCompletedProgressKey".localizableString(loc: language!)
         self.friendsLabel.text = "FriendsKey".localizableString(loc: language!)
+        self.Myprogress.text = "MyprogressKey".localizableString(loc: language!)
         
        
         // Do any additional setup after loading the view.

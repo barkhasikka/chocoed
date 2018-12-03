@@ -128,4 +128,5 @@
 "DeleteButtonKey" = " Delete Friend";
 "SelectContactsKey" = "Select Contact";
 "photoNotoficationKey" = "Photo Notification";
-"NotificationKey" = "Notification"
+"NotificationKey" = "Notification";
+"MyprogressKey" = "My Progress";
