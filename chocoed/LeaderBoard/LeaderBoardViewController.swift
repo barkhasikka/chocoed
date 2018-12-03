@@ -44,10 +44,6 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-    
-    
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)
         activityUIView.isHidden = true
@@ -84,8 +80,7 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
         self.courseCompletedLabel.text = "TopicCompletedProgressKey".localizableString(loc: language!)
         self.friendsLabel.text = "FriendsKey".localizableString(loc: language!)
         self.Myprogress.text = "MyprogressKey".localizableString(loc: language!)
-        
-       
+        coursestoDisplaylable.text = "TopicCompletedKey".localizableString(loc: language!)
         // Do any additional setup after loading the view.
         
         

@@ -65,6 +65,8 @@ class WevViewVC: UIViewController {
         self.examreviewLabel.text = "ExamReviewKey".localizableString(loc: language!)
         activityUIView.isHidden = true
         
+        coursestoDisplaylable.text = "ExamReviewKey".localizableString(loc: language!)
+        
         self.loadExamDetails()
 
         // Do any additional setup after loading the view.
