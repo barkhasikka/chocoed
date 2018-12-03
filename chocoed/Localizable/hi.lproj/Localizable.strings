@@ -70,7 +70,7 @@
 "AlertKey" = "अलर्ट !";
 "OkKey" = "ठीक";
 "WelcomeKey" = "स्वागत!";
-"ProfileMsgForUserKey" = "There is only one You in this world. Let’s build your personal vitae";
+"ProfileMsgForUserKey" = "इस दुनिया में एक ही आप है। चलिए आपका व्यक्तिगत बायोडाटा बनाएं";
 "GetStartedKey"= "शुरु करे ➔";
 "AppraisalMsgKey" = "अब आपकीव्यक्तिगत करें चॉकॉएड अनिवार्य समीक्षा करते हैं";
 "KnowUserUniqenessKey" = "अपनी विशिष्टता को पहचानें ➔";
@@ -126,4 +126,5 @@
 "contactNotFoundKey" = "कोई संपर्क नहीं मिला, संपर्क जोड़ने के लिए + बटन पर टैप करें";
 "MediabuttonKey" = " मीडिया";
 "DeleteButtonKey" = " मित्र हटाएं";
-""
+"photoNotoficationKey" = "फोटो अधिसूचना";
+"NotificationKey" = "अधिसूचना";

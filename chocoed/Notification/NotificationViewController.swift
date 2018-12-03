@@ -12,6 +12,7 @@ class NotificationViewController: UIViewController,UITableViewDataSource,UITable
   
     
     
+    @IBOutlet weak var notificationLabel: UILabel!
     @IBOutlet var badgesView: UIView!
     
     @IBOutlet var lblBadges: UILabel!
@@ -44,12 +45,16 @@ class NotificationViewController: UIViewController,UITableViewDataSource,UITable
     @IBOutlet weak var tableBiewNotification: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+         let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        
+        self.notificationLabel.text = "NotificationKey".localizableString(loc: language!)
+        
         pageNo = 1
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)
         activityUIView.isHidden = true
         loadNotificationList()
+        
         
         self.tableBiewNotification.estimatedRowHeight = 80.0
         self.tableBiewNotification.rowHeight = UITableViewAutomaticDimension
