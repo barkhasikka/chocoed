@@ -10,6 +10,7 @@ import UIKit
 
 class PendingAssessment:UIViewController ,UITableViewDelegate,UITableViewDataSource  {
     
+    @IBOutlet weak var pendingAssesmentlabel: UILabel!
     @IBAction func back_btn_clicked(_ sender: Any) {
         
         let v1 = self.storyboard?.instantiateViewController(withIdentifier: "ContentVC") as! ContentVC
@@ -49,6 +50,11 @@ class PendingAssessment:UIViewController ,UITableViewDelegate,UITableViewDataSou
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        
+        pendingAssesmentlabel.text = "PendingAssessmentKey".localizableString(loc: language!)
+        
         self.loadSingleDayTopic()
     }
     

@@ -27,10 +27,8 @@ class MyChoiceSkillsViewController: UIViewController,UICollectionViewDelegate,UI
         super.viewDidLoad()
         
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
-       // self.myChoiceLabel.text = "मेरा विकल्प".localizableString(loc: language!)
-        
-
-        
+        self.myChoiceLabel.text = "MyChoiceKey".localizableString(loc: language!)
+        self.mySkills.text = "MySkillKey".localizableString(loc: language!)        
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(named: "background_pattern")
         backgroundImage.contentMode = UIViewContentMode.scaleAspectFill

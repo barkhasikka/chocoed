@@ -47,6 +47,10 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         
         if self.type == "" {
             self.lblTitle.text = "My Talks"
+            let language = UserDefaults.standard.string(forKey: "currentlanguage")
+            
+            lblTitle.text = "MytalksKey".localizableString(loc: language!)
+
         }
         
         self.registerToChat()
