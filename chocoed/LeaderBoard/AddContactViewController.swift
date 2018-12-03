@@ -10,6 +10,10 @@ import UIKit
 
 class AddContactViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
   
+    @IBOutlet weak var addFriend: UILabel!
+    
+    @IBOutlet weak var save: UIButton!
+    
     var activityUIView: ActivityIndicatorUIView!
     var arrayContactList = [FriendList]()
    // var arrayUpdateFriendList = [FriendListUpdate]()
@@ -17,6 +21,9 @@ class AddContactViewController: UIViewController,UITableViewDelegate,UITableView
     var contactArrayIndex = 0
     override func viewDidLoad() {
         super.viewDidLoad()
+         let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        self.addFriend.text = "AddFriendsKey".localizableString(loc: language!)
+        self.save.setTitle("saveButtonKey".localizableString(loc: language!), for: .normal)
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)
         activityUIView.isHidden = true
