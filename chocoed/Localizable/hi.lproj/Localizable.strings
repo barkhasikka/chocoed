@@ -116,11 +116,12 @@
 "alertVideos" = "आपके द्वारा देखे जाने वाले वीडियोस अभी बाकि है";
 "alertCompletedAssessments" = " कुछ आकलन पूरा किए जाने हैं";
 "alertcompletedAssessmentMsg" = " आपको अभी कुछ आकलन पूरे करने है.क्या आप उन्हें अभी करना चाहते हैं?";
-"BadgesEKey" = "Badges Earned";
-"TopicCompletedProgressKey" = "Topic Completed";
+"BadgesEKey" = "अर्जित बैज";
+"TopicCompletedProgressKey" = "पूरे किये विषय ";
 "ChatKey" = "चैट";
 "NoFriendFoundKey" = "कोई दोस्त नहीं मिला, दोस्त जोड़ने के लिए + बटन पर टैप करें";
 "SearchFriendKey" = "दोस्तों को खोजें";
+"You are 9 days behind as per calender" = "आप कैलेंडर के अनुसार 9 दिन पीछे हैं";
 
 
 

@@ -81,6 +81,8 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
         self.completedTestsLabel.text = "BadgesEKey".localizableString(loc: language!)
         self.courseCompletedLabel.text = "TopicCompletedProgressKey".localizableString(loc: language!)
+        self.reportLabel.text = "You are 9 days behind as per calender".localizableString(loc: language!)
+        self.friendsLabel.text = "FriendsKey".localizableString(loc: language!)
         
        
         // Do any additional setup after loading the view.
