@@ -18,11 +18,16 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
     var arrayContactList = [FriendList]()
     var arrayFriendList =  [Friends]()
 
+    @IBOutlet weak var selectContactlabel: UILabel!
     
     var type = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        
+        selectContactlabel.text = "SelectContactsKey".localizableString(loc: language!)
+        
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)
         activityUIView.isHidden = true
@@ -32,6 +37,8 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
         }else{
             LoadContacts()
         }
+        
+        
         
     }
     

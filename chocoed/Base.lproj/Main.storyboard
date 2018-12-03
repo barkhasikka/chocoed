@@ -6252,7 +6252,9 @@ the beginning of every beautiful journey.</string>
                         <viewLayoutGuide key="safeArea" id="tKI-ce-G1P"/>
                     </view>
                     <connections>
+                        <outlet property="deleteFriendButton" destination="qOa-c1-CpC" id="RaE-vS-Rcz"/>
                         <outlet property="lblName" destination="BKb-uW-phr" id="2w2-4h-m7F"/>
+                        <outlet property="mediaButton" destination="rAx-9j-9yR" id="Ykm-u1-KE1"/>
                         <outlet property="profileImage" destination="zpX-Hv-tfN" id="8gp-qD-QuE"/>
                     </connections>
                 </viewController>
@@ -6481,6 +6483,7 @@ the beginning of every beautiful journey.</string>
                         <viewLayoutGuide key="safeArea" id="VIL-cm-T7d"/>
                     </view>
                     <connections>
+                        <outlet property="selectContactlabel" destination="bNE-cf-f8q" id="dqb-am-NMz"/>
                         <outlet property="tblView" destination="t0v-w6-lrA" id="0Os-0K-uIp"/>
                     </connections>
                 </viewController>

@@ -122,5 +122,7 @@
 "NoFriendFoundKey" = "कोई दोस्त नहीं मिला, दोस्त जोड़ने के लिए + बटन पर टैप करें";
 "SearchFriendKey" = "दोस्तों को खोजें";
 "MytalksKey" = "मेरा वार्तालाप";
-
-
+"destructiveKeybutton" = "नया स्व-नष्ट संदेश";
+"contactNotFoundKey" = "कोई संपर्क नहीं मिला, संपर्क जोड़ने के लिए + बटन पर टैप करें";
+"MediabuttonKey" = " मीडिया";
+"DeleteButtonKey" = " मित्र हटाएं";

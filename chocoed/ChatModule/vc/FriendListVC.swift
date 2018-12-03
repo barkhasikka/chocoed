@@ -50,9 +50,12 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
             let language = UserDefaults.standard.string(forKey: "currentlanguage")
             
             lblTitle.text = "MytalksKey".localizableString(loc: language!)
-
+            
+            btnDestructive.setTitle("destructiveKeybutton".localizableString(loc: language!), for: .normal)
+            
+            lblNoFriendFound.text = "contactNotFoundKey".localizableString(loc: language!)
         }
-        
+    
         self.registerToChat()
         
 
