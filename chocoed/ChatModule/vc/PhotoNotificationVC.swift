@@ -384,13 +384,13 @@ class PhotoNotificationVC: UIViewController , UITableViewDelegate , UITableViewD
     
     
     private func permissionPopup(cell : PhotoCellMsg){
-        
-        let alertView = UIAlertController(title: "Permission", message: "Grant permission  to download file", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Not Now", style: .default, handler: { (alert) in
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        let alertView = UIAlertController(title: "PermissionKey".localizableString(loc: language!), message: "PermissionmessageKey".localizableString(loc: language!), preferredStyle: .alert)
+        let action = UIAlertAction(title: "NotNowKey".localizableString(loc: language!), style: .default, handler: { (alert) in
         })
         alertView.addAction(action)
         
-        let actionSure = UIAlertAction(title: "Yes", style: .default, handler: { (alert) in
+        let actionSure = UIAlertAction(title: "alertYes".localizableString(loc: language!), style: .default, handler: { (alert) in
            
             if self.isMsg(msgId: cell.msgId){
             let msgData = self.getMsg(msgId: cell.msgId)

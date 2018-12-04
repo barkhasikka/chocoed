@@ -92,15 +92,16 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     
     
     @IBAction func optionBtn_clicked(_ sender: UIButton) {
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
         
-        let alert:UIAlertController=UIAlertController(title: "Choose Option", message: nil, preferredStyle:.actionSheet)
-        let cameraAction = UIAlertAction(title: "Camera", style: .default) {
+        let alert:UIAlertController=UIAlertController(title: "ChooseoptionKey".localizableString(loc: language!), message: nil, preferredStyle:.actionSheet)
+        let cameraAction = UIAlertAction(title: "CameraKey".localizableString(loc: language!), style: .default) {
             UIAlertAction in
             // self.openCamera(UIImagePickerController.SourceType.camera)
             
             self.openCamera()
         }
-        let gallaryAction = UIAlertAction(title: "Gallary", style: .default) {
+        let gallaryAction = UIAlertAction(title: "GalleryKey".localizableString(loc: language!), style: .default) {
             UIAlertAction in
             //  self.openCamera(UIImagePickerController.SourceType.photoLibrary)
             
@@ -108,7 +109,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             
         }
         
-        let pdfAction = UIAlertAction(title: "Document", style: .default) {
+        let pdfAction = UIAlertAction(title: "DocumentKey".localizableString(loc: language!), style: .default) {
             UIAlertAction in
             //  self.openCamera(UIImagePickerController.SourceType.photoLibrary)
             
@@ -117,7 +118,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         }
         
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {
+        let cancelAction = UIAlertAction(title: "cancelKey".localizableString(loc: language!), style: .cancel) {
             UIAlertAction in
         }
         
@@ -169,15 +170,15 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     
     private func saveImage(fileurl:String,type:String) {
         
-        
-        let alert:UIAlertController=UIAlertController(title: "Secure it", message: nil, preferredStyle:.actionSheet)
-        let cameraAction = UIAlertAction(title: "With Permission", style: .default) {
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        let alert:UIAlertController=UIAlertController(title: "SecureItkey", message: nil, preferredStyle:.actionSheet)
+        let cameraAction = UIAlertAction(title: "withPermissionKey".localizableString(loc: language!), style: .default) {
             UIAlertAction in
             
             self.saveImageWithPer(fileurl: fileurl, type: type, permission: "1")
             
         }
-        let gallaryAction = UIAlertAction(title: "Without Permission", style: .default) {
+        let gallaryAction = UIAlertAction(title: "withoutPermissionKey".localizableString(loc: language!), style: .default) {
             UIAlertAction in
             //  self.openCamera(UIImagePickerController.SourceType.photoLibrary)
             
@@ -186,7 +187,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         }
         
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {
+        let cancelAction = UIAlertAction(title: "cancelKey".localizableString(loc: language!), style: .cancel) {
             UIAlertAction in
         }
         
@@ -612,7 +613,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     
     func openOptionForMsg(row : IndexPath){
         
-        
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
         
         let item1 = self.fetchedhResultController.object(at: row) as? Msg
         
@@ -620,8 +621,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             item1?.msg == kXMPP.DELETE_TEXT_MY || item1?.msg == kXMPP.SELF_DESTRUCT_MSG  {
             
             
-            let alert:UIAlertController=UIAlertController(title: "Choose Option", message: nil, preferredStyle:.actionSheet)
-            let deleteAction = UIAlertAction(title: "Delete", style: .default) {
+            let alert:UIAlertController=UIAlertController(title: "cancelKey".localizableString(loc: language!), message: nil, preferredStyle:.actionSheet)
+            let deleteAction = UIAlertAction(title: "DeleteKey".localizableString(loc: language!), style: .default) {
                 UIAlertAction in
                 
                 let item = self.fetchedhResultController.object(at: row) as? Msg
@@ -629,8 +630,6 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                 self.tblView.cellForRow(at: row)?.accessoryType = UITableViewCellAccessoryType.checkmark
                 
                 self.selectionType = "delete"
-                
-                
                 
                 self.toolbar.isHidden = true
                 self.actionView.isHidden = false
@@ -644,7 +643,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             
             
             
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {
+            let cancelAction = UIAlertAction(title: "cancelKey".localizableString(loc: language!), style: .cancel) {
                 UIAlertAction in
                 
                 self.isMuliselectActionChecked = false
@@ -663,8 +662,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         }else{
             
             
-            let alert:UIAlertController=UIAlertController(title: "Choose Option", message: nil, preferredStyle:.actionSheet)
-            let replyAction = UIAlertAction(title: "Reply", style: .default) {
+            let alert:UIAlertController=UIAlertController(title: "ChooseoptionKey".localizableString(loc: language!), message: nil, preferredStyle:.actionSheet)
+            let replyAction = UIAlertAction(title: "ReplyKey".localizableString(loc: language!), style: .default) {
                 UIAlertAction in
                 // self.openCamera(UIImagePickerController.SourceType.camera)
                 let item = self.fetchedhResultController.object(at: row) as? Msg
@@ -720,7 +719,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                 
                 // No multi Select
             }
-            let forwardAction = UIAlertAction(title: "Forward", style: .default) {
+            let forwardAction = UIAlertAction(title: "ForwardKey".localizableString(loc: language!), style: .default) {
                 UIAlertAction in
                 //  self.openCamera(UIImagePickerController.SourceType.photoLibrary)
                 
@@ -739,7 +738,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                 self.btnForward.isHidden = false
             }
             
-            let copyAction = UIAlertAction(title: "Copy", style: .default) {
+            let copyAction = UIAlertAction(title: "CopyKey".localizableString(loc: language!), style: .default) {
                 UIAlertAction in
                 //  self.openCamera(UIImagePickerController.SourceType.photoLibrary)
                 
@@ -754,7 +753,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                 
             }
             
-            let deleteAction = UIAlertAction(title: "Delete", style: .default) {
+            let deleteAction = UIAlertAction(title: "DeleteKey".localizableString(loc: language!), style: .default) {
                 UIAlertAction in
                 
                 let item = self.fetchedhResultController.object(at: row) as? Msg
@@ -777,7 +776,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             
             if item?.is_mine == "1" {
                 
-                let infoAction = UIAlertAction(title: "Info", style: .default) {
+                let infoAction = UIAlertAction(title: "InfoKey".localizableString(loc: language!), style: .default) {
                     UIAlertAction in
                     
                     self.infoDisplay(row: row)
@@ -789,7 +788,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             
             
             
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {
+            let cancelAction = UIAlertAction(title: "cancelKey".localizableString(loc: language!), style: .cancel) {
                 UIAlertAction in
                 
                 self.isMuliselectActionChecked = false
@@ -831,19 +830,20 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         }else{
             seenTime =  Utils.getDateTimeFromString(date :(item?.seen_time)!)
         }
+    
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
         
+        let alert:UIAlertController=UIAlertController(title: "MessageDetailsKey".localizableString(loc: language!), message: nil, preferredStyle:.actionSheet)
         
-        let alert:UIAlertController=UIAlertController(title: "Message Details", message: nil, preferredStyle:.actionSheet)
-        
-        let forwardAction = UIAlertAction(title: "Delivered (\(sentTime))", style: .default) {
+        let forwardAction = UIAlertAction(title: "\("DeliveredKey".localizableString(loc: language!)) (\(sentTime))", style: .default) {
             UIAlertAction in
         }
         
-        let copyAction = UIAlertAction(title: "Read (\(seenTime))", style: .default) {
+        let copyAction = UIAlertAction(title:" \("ReadKey".localizableString(loc: language!)) (\(seenTime))", style: .default) {
             UIAlertAction in
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {
+        let cancelAction = UIAlertAction(title: "cancelKey".localizableString(loc: language!), style: .cancel) {
             UIAlertAction in
         }
         
@@ -2018,18 +2018,19 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     }
     
     private func permissionPopup(item: Msg,type:String,msg:String){
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
         var msg1 = ""
         var title = ""
         if type == kXMPP.TYPE_PER_GRANT {
             msg1 = ""
-            title = "Grant Permission"
+            title = "GrantPermissionKey".localizableString(loc: language!)
         }else{
             msg1 = msg
-            title = "Request Permission"
+            title = "RequestPermissionKey".localizableString(loc: language!)
         }
         
-        let alertView = UIAlertController(title: "Secured Message", message: msg1, preferredStyle: .alert)
-        let action = UIAlertAction(title: "Not Now", style: .default, handler: { (alert) in
+        let alertView = UIAlertController(title: "SecuredMessageKey".localizableString(loc: language! ), message: msg1, preferredStyle: .alert)
+        let action = UIAlertAction(title: "NotNowKey".localizableString(loc: language!), style: .default, handler: { (alert) in
         })
         alertView.addAction(action)
         
@@ -3036,7 +3037,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     }
     @IBAction func actionDeleteClicked(_ sender: Any) {
         
-        
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
         let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
         
         
@@ -3064,8 +3065,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                 if selectedArr[0].is_mine == "1" {
                     
                     
-                    let alert:UIAlertController=UIAlertController(title: "Choose Option", message: nil, preferredStyle:.actionSheet)
-                    let cameraAction = UIAlertAction(title: "Delete for me", style: .default) {
+                    let alert:UIAlertController=UIAlertController(title: "cancelKey".localizableString(loc: language!), message: nil, preferredStyle:.actionSheet)
+                    let cameraAction = UIAlertAction(title: "DeleteformeKey".localizableString(loc: language!), style: .default) {
                         UIAlertAction in
                         
                         
@@ -3087,7 +3088,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         
                         
                     }
-                    let gallaryAction = UIAlertAction(title: "Delete for everyone", style: .default) {
+                    let gallaryAction = UIAlertAction(title: "DeleteforeveryoneKey".localizableString(loc: language!), style: .default) {
                         UIAlertAction in
                         
                         do{
@@ -3135,7 +3136,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     
                     
                     
-                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {
+                    let cancelAction = UIAlertAction(title: "cancelKey".localizableString(loc: language!), style: .cancel) {
                         UIAlertAction in
                         
                         
