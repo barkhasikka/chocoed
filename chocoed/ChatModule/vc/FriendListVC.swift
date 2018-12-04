@@ -194,10 +194,11 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
     }
     
     func openOptionForCell(row : IndexPath){
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
         
-        let alert:UIAlertController=UIAlertController(title: "Choose Option", message: nil, preferredStyle:.actionSheet)
+        let alert:UIAlertController=UIAlertController(title: "ChooseoptionKey".localizableString(loc: language!), message: nil, preferredStyle:.actionSheet)
       
-        let copyAction = UIAlertAction(title: "Profile", style: .default) {
+        let copyAction = UIAlertAction(title: "ProfileKey".localizableString(loc: language!), style: .default) {
             UIAlertAction in
           
             if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "ProfileVC") as? ProfileVC {
@@ -212,7 +213,7 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
             
         }
         
-        let deleteAction = UIAlertAction(title: "Delete Chat", style: .default) {
+        let deleteAction = UIAlertAction(title: "DeleteChatKey".localizableString(loc: language!), style: .default) {
             UIAlertAction in
             //  self.openCamera(UIImagePickerController.SourceType.photoLibrary)
             
@@ -223,7 +224,7 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         }
         
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {
+        let cancelAction = UIAlertAction(title: "cancelKey".localizableString(loc: language!), style: .cancel) {
             UIAlertAction in
         }
         
@@ -236,11 +237,9 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         
     }
     
-    
     func checkChatConnection(){
-    
+    let language = UserDefaults.standard.string(forKey: "currentlanguage")
     if OneChat.sharedInstance.isConnected() {
-    
     
     } else {
     
@@ -248,8 +247,8 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
             if let error = error {
                 
     
-                    let alertController = UIAlertController(title: "Sorry", message: "An error occured: \(error)", preferredStyle: UIAlertControllerStyle.alert)
-                    alertController.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default, handler: { (UIAlertAction) -> Void in
+                    let alertController = UIAlertController(title: "SorryKey".localizableString(loc: language!), message: " \("erroroccuredKey".localizableString(loc: language!)): \(error)", preferredStyle: UIAlertControllerStyle.alert)
+                    alertController.addAction(UIAlertAction(title: "TryAgainKey".localizableString(loc: language!), style: UIAlertActionStyle.default, handler: { (UIAlertAction) -> Void in
                     //do something
                     self.checkChatConnection()
                     

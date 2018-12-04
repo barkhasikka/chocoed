@@ -167,8 +167,9 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         }
         
         print(text)
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
         if count == 0 {
-            let alertcontrol = UIAlertController(title: "My Choice!", message: "Would you like \(text) as preferred language for learning with Chocoed ?", preferredStyle: .alert)
+            let alertcontrol = UIAlertController(title: "MyChoiceKey".localizableString(loc: language!), message: "\("PrefferedLanguageHalfKey".localizableString(loc: language!)) \(text) \("PrefferedLanguageNextHalfKey".localizableString(loc: language!))", preferredStyle: .alert)
             let alertaction = UIAlertAction(title: "No", style: .default) { (action) in
                 self.count = 1
                 
@@ -185,7 +186,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
                 
                 
             }
-            let alertaction1 = UIAlertAction(title: "Yes", style: .default) { (action) in
+            let alertaction1 = UIAlertAction(title: "alertYes".localizableString(loc: language!), style: .default) { (action) in
                 self.viewTable.isHidden = true
                 self.count = 0
                 //self.signUpButton.setTitle("\(text)", for: .normal)

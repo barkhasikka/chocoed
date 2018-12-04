@@ -171,30 +171,26 @@ class MyChoiceSkillsViewController: UIViewController,UICollectionViewDelegate,UI
         self.present(vcSkills!, animated: true, completion: nil)
             
         }else{
+            let language = UserDefaults.standard.string(forKey: "currentlanguage")
             
             if startdate >= finalDate {
             
                 // future
-                
-                let alert = GetAlertWithOKAction(message: "Dear \(USERDETAILS.firstName), You are yet to start learning this course.you can revise topics which are completed from here.")
+                let alert = GetAlertWithOKAction(message: "\("DearKey".localizableString(loc: language!)) \(USERDETAILS.firstName), \("yetToLearnKey".localizableString(loc: language!))")
                 self.present(alert, animated: true, completion: nil)
                 
             }else if enddate < finalDate{
                 
                 // completed
                 
-                let alert = GetAlertWithOKAction(message: "Dear \(USERDETAILS.firstName), This course subscription has already expired")
+                let alert = GetAlertWithOKAction(message: "\("DearKey".localizableString(loc: language!)) \(USERDETAILS.firstName), \("subcriptionExpierKey".localizableString(loc: language!))")
                 self.present(alert, animated: true, completion: nil)
                 
             }else{
                 
-                
-                let alert = GetAlertWithOKAction(message: "Dear \(USERDETAILS.firstName), You are yet to learn this topic, you can revise topics which are completed from here.")
+                let alert = GetAlertWithOKAction(message: " \("DearKey".localizableString(loc: language!)) \(USERDETAILS.firstName), \("yetToLearnKey".localizableString(loc: language!))")
                 self.present(alert, animated: true, completion: nil)
             }
-            
-         
-            
         }
         
     }

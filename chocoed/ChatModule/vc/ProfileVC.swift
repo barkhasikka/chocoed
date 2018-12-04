@@ -57,15 +57,16 @@ class ProfileVC: UIViewController {
         }
     }
     @IBAction func block_btn_clicked(_ sender: Any) {
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+
+        let alertView = UIAlertController(title: "DeleteKey".localizableString(loc: language!), message: "\("SureDeleteFriendKey".localizableString(loc: language!)) \(self.name) \("FriendDeleteKey".localizableString(loc: language!))", preferredStyle: .alert)
         
-        let alertView = UIAlertController(title: "Delete", message: "Are you sure you want to delete \(self.name) from your friend list?", preferredStyle: .alert)
-        
-        let action = UIAlertAction(title: "Not Now", style: .default, handler: { (alert) in
+        let action = UIAlertAction(title: "NotNowKey".localizableString(loc: language!), style: .default, handler: { (alert) in
           
         })
         alertView.addAction(action)
         
-        let actionSure = UIAlertAction(title: "Yes", style: .default, handler: { (alert) in
+        let actionSure = UIAlertAction(title: "alertYes".localizableString(loc: language!), style: .default, handler: { (alert) in
           
             self.deleteAPI()
             

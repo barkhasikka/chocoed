@@ -533,6 +533,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     }
 
     @IBAction func submitActionUIButton(_ sender: Any) {
+        
         let mobileNo = textfieldMobileNo.text!
         let emailId = textfieldEmailId.text!
         let lName = textfieldLastName.text!
@@ -541,9 +542,11 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         let userID = UserDefaults.standard.integer(forKey: "userid")
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+
         if mobileNo == "" || emailId == "" || lName == "" || fName == "" {
-            let alertcontrol = UIAlertController(title: "alert!", message: "Please fill all the mandatory fields.", preferredStyle: .alert)
-            let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            let alertcontrol = UIAlertController(title: "AlertKey".localizableString(loc: language!), message: "balnkFieldsKey".localizableString(loc: language!), preferredStyle: .alert)
+            let alertaction = UIAlertAction(title: "okAlertKey".localizableString(loc: language!), style: .default, handler: nil)
             alertcontrol.addAction(alertaction)
             self.present(alertcontrol, animated: true, completion: nil)
         }else {

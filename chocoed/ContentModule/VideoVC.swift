@@ -105,10 +105,10 @@ class VideoVC: UIViewController {
             
             //self.currentQuesIndex = self.currentQuesIndex + 1
             //self.loadQuest()
-            
             if self.selectAnsID == "" {
+                let language = UserDefaults.standard.string(forKey: "currentlanguage")
                 
-                let alert = GetAlertWithOKAction(message: "Select Answer")
+                let alert = GetAlertWithOKAction(message: "SelectAnswerKey".localizableString(loc: language!))
                 self.present(alert, animated: true, completion: nil)
                 
             }else{
@@ -714,9 +714,11 @@ class VideoVC: UIViewController {
             
         } else {
             
-            let alertView = UIAlertController(title: "Congratulations!", message: "Dear \(USERDETAILS.firstName),you are doing great .To completely get Chocoed ,watch today’s videos in \(userAppLang2!) ", preferredStyle: .alert)
+            let language = UserDefaults.standard.string(forKey: "currentlanguage")
             
-            let action = UIAlertAction(title: "Not Now", style: .default, handler: { (alert) in
+            let alertView = UIAlertController(title: "CongratulationKey".localizableString(loc: language!), message: "Dear \(USERDETAILS.firstName),\("todaysVideoKey".localizableString(loc: language!) )\(userAppLang2!) ", preferredStyle: .alert)
+            
+            let action = UIAlertAction(title: "NotNowKey".localizableString(loc: language!), style: .default, handler: { (alert) in
                 
                 // closed player
                 
@@ -728,7 +730,7 @@ class VideoVC: UIViewController {
                 
                 if self.currentPosition < self.arrayTopic.count {
                     
-                        self.showExamPopup()
+                    self.showExamPopup()
                     
                     
                 }else{
@@ -741,7 +743,7 @@ class VideoVC: UIViewController {
             })
             alertView.addAction(action)
             
-            let actionSure = UIAlertAction(title: "Yes", style: .default, handler: { (alert) in
+            let actionSure = UIAlertAction(title: "alertYes".localizableString(loc: language!), style: .default, handler: { (alert) in
                 
                 currentSelectedLang = userAppLang2!
                 
