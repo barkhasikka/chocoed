@@ -229,8 +229,10 @@ extension NSMutableData {
 }
 
 func GetAlertWithOKAction(message: String) -> UIViewController {
-    let alertcontrol = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
-    let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
+    let language = UserDefaults.standard.string(forKey: "currentlanguage")
+
+    let alertcontrol = UIAlertController(title: "AlertKey".localizableString(loc: language!), message: message, preferredStyle: .alert)
+    let alertaction = UIAlertAction(title: "okAlertKey".localizableString(loc: language!), style: .default, handler: nil)
     alertcontrol.addAction(alertaction)
     return alertcontrol
 }
