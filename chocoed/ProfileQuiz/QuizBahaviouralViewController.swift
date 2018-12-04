@@ -340,10 +340,12 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
     }
     
     func showEndTestAlert() {
-        let alertcontrol = UIAlertController(title: "Oh!", message: "Your Appraisal is incomplete.You are so close to knowing your uniqueness. Why don’t you complete this?", preferredStyle: .alert)
-        let alertaction = UIAlertAction(title: "Yes I will", style: .cancel) { (action) in
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        
+        let alertcontrol = UIAlertController(title: "ohkey".localizableString(loc: language!), message: "appraisalKey".localizableString(loc: language!), preferredStyle: .alert)
+        let alertaction = UIAlertAction(title: "YesIwillKey".localizableString(loc: language!), style: .cancel) { (action) in
         }
-        let alertaction1 = UIAlertAction(title: "Not now", style: .default) { (action) in
+        let alertaction1 = UIAlertAction(title: "NotnowKey".localizableString(loc: language!), style: .default) { (action) in
             self.loadSaveExamQuestionAnswer()
             self.callEndTestAPI()
         }

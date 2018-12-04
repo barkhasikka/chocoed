@@ -358,7 +358,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
             if self.previousDayStatus == 2 {
                 
                  let language = UserDefaults.standard.string(forKey: "currentlanguage")
-                let alertView = UIAlertController(title: "alertCompletedAssessments".localizableString(loc: language!), message: "\("alertDear".localizableString(loc: language!)) \(USERDETAILS.firstName), You have some assessments to be completed.Would you like to do them now ?", preferredStyle: .alert)
+                let alertView = UIAlertController(title: "alertCompletedAssessments".localizableString(loc: language!), message: "\("alertDear".localizableString(loc: language!)) \(USERDETAILS.firstName), \("assessmentCompletionKey".localizableString(loc: language!)) ", preferredStyle: .alert)
                 
                 
                 let action = UIAlertAction(title: "alertNotNow".localizableString(loc: language!), style: .default, handler: { (alert) in
@@ -430,12 +430,13 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                     
                     
                 }else{
-                    
+            
+                    let language = UserDefaults.standard.string(forKey: "currentlanguage")
                     
                     if arrayTopic[indexPath.row].videoViewCount >=  arrayTopic[indexPath.row].videoViewLimit{
                         
-                        let alertcontrol = UIAlertController(title: "Let’s get Chocoed!", message: "Dear \(USERDETAILS.firstName),there are many interesting videos awaiting you.Please proceed to watch them.", preferredStyle: .alert)
-                        let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alertcontrol = UIAlertController(title: "LetsGetChocoedButtonKey".localizableString(loc: language!), message: " \("DearKey".localizableString(loc: language!)) \(USERDETAILS.firstName),\("IntrestingVideoKey".localizableString(loc: language!))", preferredStyle: .alert)
+                        let alertaction = UIAlertAction(title: "okAlertKey".localizableString(loc: language!), style: .default, handler: nil)
                         alertcontrol.addAction(alertaction)
                         
                             self.present(alertcontrol, animated: true, completion: nil)
@@ -483,20 +484,16 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
     
     func loadNotNowVideo(){
         
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
         
         if arrayTopic[self.tableRowPosition].topicId == "0" {
             
             
             if arrayTopic[self.tableRowPosition].examStatus == "Completed"{
                 
-            let alert = GetAlertWithOKAction(message: "Dear \(USERDETAILS.firstName) You have already completed this assessment.")
+            let alert = GetAlertWithOKAction(message: " \("DearKey".localizableString(loc: language!)) \(USERDETAILS.firstName) \("AssesmentCompleteKey".localizableString(loc: language!))" )
+                
                     self.present(alert, animated: true, completion: nil)
- 
- 
-                
-            
-                
-                
             }else{
                 
                 self.loadExam(calendarid: arrayTopic[self.tableRowPosition].calenderId,examID: arrayTopic[self.tableRowPosition].examId, examName: arrayTopic[self.tableRowPosition].examName)
@@ -556,9 +553,9 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
             
         }else{
             
-            
-            let alertView = UIAlertController(title: "Awesome Commitment!", message: "In which language would you like to watch this topic again?", preferredStyle: .alert)
-            let action = UIAlertAction(title: "Not Now", style: .default, handler: { (alert) in
+            let language = UserDefaults.standard.string(forKey: "currentlanguage")
+            let alertView = UIAlertController(title: "AwesomeCommitmentKey".localizableString(loc: language! ), message: "watchAgainInLangKey".localizableString(loc: language!), preferredStyle: .alert)
+            let action = UIAlertAction(title: "NotNowKey".localizableString(loc: language!), style: .default, handler: { (alert) in
                 
             })
             alertView.addAction(action)

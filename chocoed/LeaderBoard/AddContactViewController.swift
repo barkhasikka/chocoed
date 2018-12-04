@@ -155,8 +155,8 @@ class AddContactViewController: UIViewController,UITableViewDelegate,UITableView
         
         
         if someArray.count > 4 {
-            
-            let alert = GetAlertWithOKAction(message: "You can add only 4 friends")
+            let language = UserDefaults.standard.string(forKey: "currentlanguage")
+            let alert = GetAlertWithOKAction(message: "add4FriendsKey".localizableString(loc: language!))
             self.present(alert, animated: true, completion: nil)
         }
         

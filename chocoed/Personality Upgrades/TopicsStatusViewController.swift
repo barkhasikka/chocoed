@@ -197,18 +197,23 @@ class TopicsStatusViewController: UIViewController,UITableViewDelegate,UITableVi
                 
             }else{
                 
-                let alert = GetAlertWithOKAction(message: "Dear \(USERDETAILS.firstName), You are yet to complete this Assessment.")
+                let language = UserDefaults.standard.string(forKey: "currentlanguage")
+                
+                let alert = GetAlertWithOKAction(message:" \("DearKey".localizableString(loc: language!)) \(USERDETAILS.firstName),\("AssessmentYetToCompelteKey".localizableString(loc: language!)) ")
                 self.present(alert, animated: true, completion: nil)
                 tableView.deselectRow(at: indexPath, animated: false)
                 
             }
             
         }else{
+            
+            let language = UserDefaults.standard.string(forKey: "currentlanguage")
+            
             print("video")
             if arrayCourseSubTopicList[indexPath.row].videoViewCount >=  arrayCourseSubTopicList[indexPath.row].videoViewLimit{
                 
-                let alertcontrol = UIAlertController(title: "Let’s get Chocoed!", message: "Dear \(USERDETAILS.firstName),there are many interesting videos awaiting you.Please proceed to watch them.", preferredStyle: .alert)
-                let alertaction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                let alertcontrol = UIAlertController(title: "".localizableString(loc: language!), message: " \("DearKey".localizableString(loc: language!)) \(USERDETAILS.firstName), \("awaitedAssessmentKey".localizableString(loc: language!))", preferredStyle: .alert)
+                let alertaction = UIAlertAction(title: "okAlertKey".localizableString(loc: language!), style: .default, handler: nil)
                 alertcontrol.addAction(alertaction)
                 
                 self.present(alertcontrol, animated: true, completion: nil)
@@ -223,7 +228,7 @@ class TopicsStatusViewController: UIViewController,UITableViewDelegate,UITableVi
   
             }else {
                 
-                let alert = GetAlertWithOKAction(message: "Dear \(USERDETAILS.firstName), You are yet to learn this topic, you can revise topics which is completed from here.")
+                let alert = GetAlertWithOKAction(message: "\("DearKey".localizableString(loc: language!) )\(USERDETAILS.firstName), \("yetToLearnKey".localizableString(loc: language!))")
                 self.present(alert, animated: true, completion: nil)
                 tableView.deselectRow(at: indexPath, animated: false)
                 
@@ -263,9 +268,10 @@ class TopicsStatusViewController: UIViewController,UITableViewDelegate,UITableVi
             
         }else{
             
+            let language = UserDefaults.standard.string(forKey: "currentlanguage")
             
-            let alertView = UIAlertController(title: "Awesome Commitment!", message: "In Which langage would you like to watch this topic again?", preferredStyle: .alert)
-            let action = UIAlertAction(title: "Cancel", style: .default, handler: { (alert) in
+            let alertView = UIAlertController(title: "\("AwesomeCommitmentKey".localizableString(loc: language!))", message: "\("watchAgainInLangKey".localizableString(loc: language!))", preferredStyle: .alert)
+            let action = UIAlertAction(title: "\("cancelKey".localizableString(loc: language!))", style: .default, handler: { (alert) in
                 
             })
             alertView.addAction(action)
