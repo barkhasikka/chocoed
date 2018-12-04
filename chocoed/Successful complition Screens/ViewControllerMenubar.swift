@@ -50,6 +50,8 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
             }else if language == "en"{
                 arraymenu = ["My Talks","My Thoughts","My Progress","My Profile","Application Language","Learning Language","Log out"]
             }
+            self.labelSelectPrefLang.text = "LabelLanguageStringAppKey".localizableString(loc: language!)
+            
             
      //let backgroundImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 315, height: 166))
             viewLanguage.isHidden = true
@@ -173,16 +175,16 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
     }
     
     func presentMainDashboard(){
-        
-        let alertcontrol = UIAlertController(title: "Alert!", message: "Are you sure you want to change the Application Language", preferredStyle: .alert)
-        let alertaction1 = UIAlertAction(title: "Yes", style: .default) { (action) in
+         let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        let alertcontrol = UIAlertController(title: "alertKey".localizableString(loc: language!), message: "ApplicationLangAlert".localizableString(loc: language!), preferredStyle: .alert)
+        let alertaction1 = UIAlertAction(title: "alertYes".localizableString(loc: language!), style: .default) { (action) in
             let startVC = self.storyboard?.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
             let aObjNavi = UINavigationController(rootViewController: startVC)
             aObjNavi.navigationBar.barTintColor = UIColor.blue
             self.present(aObjNavi, animated: true, completion: nil)
 
         }
-        let alertAction2 = UIAlertAction(title: "No", style: .cancel, handler: nil)
+        let alertAction2 = UIAlertAction(title: "alertNo".localizableString(loc: language!), style: .cancel, handler: nil)
         
         alertcontrol.addAction(alertaction1)
         alertcontrol.addAction(alertAction2)
@@ -315,12 +317,13 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                 break;
                 
             case 6:
+                 let language = UserDefaults.standard.string(forKey: "currentlanguage")
                 textfieldMbNumber = UserDefaults.standard.string(forKey: "mobileno")!
-                let alertcontrol = UIAlertController(title: "Alert", message: "Are you sure you want to logout?",preferredStyle: .alert)
-                let alertaction = UIAlertAction(title: "No", style: .default) { (action) in
-                    print("No I don't want to logout")
+                let alertcontrol = UIAlertController(title: "alertKey".localizableString(loc: language!), message: "logoutAlert".localizableString(loc: language!),preferredStyle: .alert)
+                let alertaction = UIAlertAction(title: "alertNo".localizableString(loc: language!), style: .default) { (action) in
+                    print("noLogoutAlert".localizableString(loc: language!))
                 }
-                let alertaction1 = UIAlertAction(title: "Yes", style: .default) { (action) in
+                let alertaction1 = UIAlertAction(title: "alertYes".localizableString(loc: language!), style: .default) { (action) in
                     
                     textfieldMbNumber = UserDefaults.standard.string(forKey: "mobileno")!
                     

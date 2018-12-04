@@ -6,6 +6,7 @@
   Copyright © 2018 barkha sikka. All rights reserved.
 */
 "LabelLanguageStringKey" = "Please select your preferred language for learning with Chocoed";
+"LabelLanguageStringAppKey" = "Please select the Preferred Application Language";
 "LoginButtonKey" = "Login";
 "SignUpKey" = "Select Preferred Language";
 "ChoicContectKey" = "Choice,Content,Conversation";
@@ -132,6 +133,11 @@
 "MyprogressKey" = "My Progress";
 "searchfriendKey" = "Search Friends";
 "AddFriendsKey" = "Add Friends";
+"ApplicationLangAlert" = "Are you sure you want to change the Application Language";
+"alertNo" = "No";
+"alertKey" = "Alert";
+"logoutAlert" = "Are you sure you want to logout?";
+"noLogoutAlert" = "No I don't want to logout ";
 "backAlertKey" = "Back"
 "okAlertKey" = "Ok"
 "ChooseoptionKey" = "Choose option";

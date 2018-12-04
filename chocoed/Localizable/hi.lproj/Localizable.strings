@@ -6,6 +6,7 @@
   Copyright © 2018 barkha sikka. All rights reserved.
 */
 "LabelLanguageStringKey" = "चोकॉइड के साथ सीखने के लिए कृपया अपनी पसंदीदा भाषा का चयन करें";
+"LabelLanguageStringAppKey" = "कृपया पसंदीदा एप्लिकेशन भाषा का चयन करें";
 "LoginButtonKey" = "लॉगइन";
 "SignUpKey" = "पसंदीदा भाषा चुनें";
 "ChoicContectKey" = "विकल्प, सामग्री, वार्तालाप";
@@ -132,6 +133,11 @@
 "SelectContactsKey" = "संपर्क चुनिए";
 "searchfriendKey" = "दोस्तों को खोजें";
 "AddFriendsKey" = "मित्र बनाओ";
+"ApplicationLangAlert" = " क्या आप वाकई एप्लीकेशन भाषा को बदलना चाहते हैं";
+"alertNo" = "नहीं";
+"alertKey" = "अलर्ट";
+"logoutAlert" = "क्या आप लॉग आउट करना चाहते हैं?";
+"noLogoutAlert" = "नहीं, मैं लॉगआउट नहीं करना चाहता हूं"
 "backAlertKey" = "वापस"
 "okAlertKey" = "ठीक"
 "ChooseoptionKey" = "विकल्प का चयन करें";
