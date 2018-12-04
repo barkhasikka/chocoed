@@ -161,43 +161,107 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
             
             UserDefaults.standard.set(temp.mobile, forKey: "mobileno")
 
+
             
             USERDETAILS = UserDetails(email: temp.email, firstName: temp.firstName, lastname: temp.lastName, imageurl: url, mobile : temp.mobile)
             
             let isFirstTimeUser =  jsonobject?.object(forKey:"isFirstTimeUser") as? String ?? "true"
             //self.sendLanguagesSelected()
             print(isFirstTimeUser, "<<<<<<<---- first time user flag")
+            
+             let userType = jsonobject?.object(forKey: "userType") as? Int ?? 0
+             UserDefaults.standard.set(userType, forKey: "userType")
+            
+             let priLang = jsonobject?.object(forKey: "clientLanguage") as? String ?? ""
+             UserDefaults.standard.set(priLang, forKey: "Language2")
+             let secLang = jsonobject?.object(forKey: "learningLanguage") as? String ?? ""
+             UserDefaults.standard.set(priLang, forKey: "Language3")
+
+            
             if isFirstTimeUser == "true" {
-                let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
-                DispatchQueue.main.async {
-                    self.present(startVC, animated: true, completion: nil)
-                }
-            }else {
-                if quizTaken == 1 {
-                    print("1")
-                    let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                    let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
-                    let aObjNavi = UINavigationController(rootViewController: startVC)
-                    aObjNavi.navigationBar.barTintColor = UIColor.blue
-                    DispatchQueue.main.async {
-                        self.present(aObjNavi, animated: true, completion: nil)
+                
+                
+                if userType == 1 {
+                    
+                    
+                    if secLang == "" {
+                        
+                        let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "LanguageVC") as! LanguageVC
+                        nextViewController.type = "secondary"
+                        nextViewController.back = "getstarted"
+                        self.present(nextViewController, animated:true, completion:nil)
+
+                    }else{
+                        
+                        let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                        let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
+                        DispatchQueue.main.async {
+                            self.present(startVC, animated: true, completion: nil)
+                        }
+                        
                         
                     }
                     
-                } else {
-                   
-                     let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                    let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "profile") as! ProfileViewController
-                    DispatchQueue.main.async {
-                        self.present(startVC, animated: true, completion: nil)
-                    }
+                }else if userType == 2 {
+                    
+                    let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "LanguageVC") as! LanguageVC
+                    nextViewController.type = "firsttime"
+                    nextViewController.back = "getstarted"
+                    self.present(nextViewController, animated:true, completion:nil)
+
                     
                 }
+                
+                
+            }else {
+                
+                if secLang == "" {
+                    
+                    let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "LanguageVC") as! LanguageVC
+                    nextViewController.type = "secondary"
+                    nextViewController.back = "quiz"
+                    nextViewController.quizTaken = quizTaken
+                    self.present(nextViewController, animated:true, completion:nil)
+
+                    
+                } else{
+                    
+                    
+                    if quizTaken == 1 {
+                        print("1")
+                        let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                        let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
+                        let aObjNavi = UINavigationController(rootViewController: startVC)
+                        aObjNavi.navigationBar.barTintColor = UIColor.blue
+                        DispatchQueue.main.async {
+                            self.present(aObjNavi, animated: true, completion: nil)
+                            
+                        }
+                        
+                    } else {
+                        
+                        let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                        let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "profile") as! ProfileViewController
+                        DispatchQueue.main.async {
+                            self.present(startVC, animated: true, completion: nil)
+                        }
+                        
+                        
+                    }
+                    
+                    
+                }
+
+             
+               
+                
                 DispatchQueue.main.async {
                     self.activityUIView.isHidden = true
                     self.activityUIView.stopAnimation()
                 }
+                
+                
+                
             }
         }, errorHandler: {(message) -> Void in
             let alert = GetAlertWithOKAction(message: message)

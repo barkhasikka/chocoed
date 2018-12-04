@@ -343,21 +343,36 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
              
                 
             case 4 :
-                arrayLanguages.removeAll()
-                
+               
+               /* arrayLanguages.removeAll()
                 viewLanguage.isHidden = false
                 loadGetLanguageList()
                 tabelViewMenu.isHidden = true
+               */
+                
+                let v1 = self.storyboard?.instantiateViewController(withIdentifier: "LanguageVC") as! LanguageVC
+                v1.type = "app"
+                v1.back = "main"
+                self.present(v1, animated: true, completion: nil)
+                
+                
                 break
                 
             case 5 :
                 
-                self.alertviewSecLanguage.layer.cornerRadius = 5
+               /* self.alertviewSecLanguage.layer.cornerRadius = 5
                 self.alertviewSecLanguage.clipsToBounds = true
                 self.viewAlertchoice.isHidden = false
                 arraysecLang.removeAll()
                 loadGetLanguageList()
-                self.slidingMenuView.isHidden = true
+                self.slidingMenuView.isHidden = true */
+                
+                let v1 = self.storyboard?.instantiateViewController(withIdentifier: "LanguageVC") as! LanguageVC
+                v1.type = "secondary"
+                v1.back = "main"
+                self.present(v1, animated: true, completion: nil)
+                
+                
                 break
 
            /* case 4:

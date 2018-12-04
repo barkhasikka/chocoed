@@ -37,6 +37,10 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         // Do any additional setup after loading the view, typically from a nib.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.LanguageChanged()
+    }
+    
     override var shouldAutorotate: Bool{
         return false
     }
@@ -47,6 +51,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
 
     @IBAction func loginButtonAction(_ sender: Any) {
+
         let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "login") as! LoginViewController
         self.present(nextViewController, animated:true, completion:nil)
     }
@@ -56,10 +61,16 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         
     }
     @IBAction func signUpButtonAction(_ sender: Any) {
-        self.count = 0
-        self.viewTable.isHidden = false
-        self.tableViewLanguage.isHidden = false
-        loadGetLanguageList()
+       
+        //self.count = 0
+        //self.viewTable.isHidden = false
+        //self.tableViewLanguage.isHidden = false
+        // loadGetLanguageList()
+        
+        let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "LanguageVC") as! LanguageVC
+        nextViewController.type = "app"
+        nextViewController.back = "app"
+        self.present(nextViewController, animated:true, completion:nil)
 
     }
     
@@ -123,11 +134,12 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     func LanguageChanged() {
-        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        var language = UserDefaults.standard.string(forKey: "currentlanguage")
+        if language == nil {
+            language = "en"
+        }
         self.labelLangChange.text = "LabelLanguageStringKey".localizableString(loc: language!)
-        //self.signUpButton.titleLabel?.text = "SignUpKey".localizableString(loc: StringLang)
-       // self.loginButton.titleLabel?.text = "LoginButtonKey".localizableString(loc: StringLang)
-    
+        
         self.signUpButton.setTitle("\("SignUpKey".localizableString(loc: language!))", for:.normal )
         print(loginButton.titleLabel?.text ?? "")
         self.loginButton.setTitle("\("LoginButtonKey".localizableString(loc: language!))", for:.normal)

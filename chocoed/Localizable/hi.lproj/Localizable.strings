@@ -137,9 +137,9 @@
 "alertNo" = "नहीं";
 "alertKey" = "अलर्ट";
 "logoutAlert" = "क्या आप लॉग आउट करना चाहते हैं?";
-"noLogoutAlert" = "नहीं, मैं लॉगआउट नहीं करना चाहता हूं"
-"backAlertKey" = "वापस"
-"okAlertKey" = "ठीक"
+"noLogoutAlert" = "नहीं, मैं लॉगआउट नहीं करना चाहता हूं";
+"backAlertKey" = "वापस";
+"okAlertKey" = "ठीक";
 "ChooseoptionKey" = "विकल्प का चयन करें";
 "GalleryKey" = "गेलरी";
 "CameraKey" = "कैमरा";
@@ -165,3 +165,8 @@
 "PermissionKey" = "अनुमति";
 "PermissionmessageKey" = "फ़ाइल डाउनलोड करने के लिए अनुमति ले";
 "InvalidMobileNumberKey" = "अमान्य मोबाइल नंबर";
+"appLangKey" = "Please select your preferred langauage for Chocoed app screens";
+"primaryLangKey" = "Please select your primary language for learning with Chocoed";
+"secondayLangDemoKey" ="Please select your secondary langauge for relearning and reinforcing knowledge with Chocoed";
+"secondLangKeyFirst" = "Your primary langauge for learning with Chocoed has been selected as " ;
+"secondLangKeySecond" = " by your Company. Please select your secondary language for relearning and reinforcing knowledge with Chocoed" ;

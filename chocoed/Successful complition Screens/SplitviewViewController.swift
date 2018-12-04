@@ -182,7 +182,9 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
     
     
     override func viewWillDisappear(_ animated: Bool) {
+        if imageViewLogo != nil {
         self.imageViewLogo.image = nil
+        }
     }
     
     
@@ -533,7 +535,8 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         let Gif = UIImage.gifImageWithName("chocoed_wave")
         self.imageViewLogo.image = Gif
         
-        self.GetUserInfo()
+        self.sendLanguagesSelected()
+        
         
         
     }
@@ -564,15 +567,19 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
             let notificationCount = jsonobject?.object(forKey: "notificationCount") as? Int ?? 0
 
             
-            self.sendFcm()
+            
             
             let applang = jsonobject?.object(forKey: "appLanguage") as? String ?? ""
             let learningLang = jsonobject?.object(forKey: "learningLanguage") as? String ?? ""
+            let clientLanguage = jsonobject?.object(forKey: "clientLanguage") as? String ?? ""
 
             
-            UserDefaults.standard.set(applang, forKey: "Language1")
-            UserDefaults.standard.set(learningLang, forKey: "Language2")
+            UserDefaults.standard.set(applang, forKey: "Language1")  //app
+            UserDefaults.standard.set(clientLanguage, forKey: "Language2") //pri
+            UserDefaults.standard.set(learningLang, forKey: "Language3") //sec
+
             
+            self.sendFcm()
             
             
             UserDefaults.standard.set(Int(clientId), forKey: "clientid")
@@ -636,8 +643,53 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         
     }
     
-    func sendFcm() {
+    func sendLanguagesSelected() {
         
+        
+        let clientID = UserDefaults.standard.integer(forKey: "clientid")
+        let userid = UserDefaults.standard.string(forKey: "userid")
+        let language1 = UserDefaults.standard.string(forKey: "Language1") // app
+        let language2 = UserDefaults.standard.string(forKey: "Language2") // pri
+        let language3 = UserDefaults.standard.string(forKey: "Language3") // sec
+
+        
+        var params =  Dictionary<String, String>()
+        if language1 != nil && language2 != nil && language2 != nil
+        {
+            
+            params = ["access_token":"\(accessToken)","userId":"\(userid!)","clientId":"\(clientID)","appLanguage":"\(language1!)","clientLanguage":"\(language2!)","learningLanguage":"\(language3!)"] as Dictionary<String, String>
+            print(params)
+            
+
+            MakeHttpPostRequest(url: saveLanguageSelected, params: params, completion: {(success, response) -> Void in
+                print(response)
+                
+                
+                DispatchQueue.main.async {
+
+                self.GetUserInfo()
+                    
+                }
+
+                
+            }, errorHandler: {(message) -> Void in
+                
+                DispatchQueue.main.async {
+                self.GetUserInfo()
+                }
+
+            })
+            
+        }else{
+            
+            self.GetUserInfo()
+
+        }
+        
+    }
+    
+    func sendFcm() {
+       
        // self.checkChatConnection()
         self.getUnreadChatCount()
         

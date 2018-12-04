@@ -227,6 +227,42 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.sendLanguagesSelected()
+    }
+    
+    func sendLanguagesSelected() {
+        
+        
+        let clientID = UserDefaults.standard.integer(forKey: "clientid")
+        let userid = UserDefaults.standard.string(forKey: "userid")
+        var language1 = UserDefaults.standard.string(forKey: "Language1") // app
+        let language2 = UserDefaults.standard.string(forKey: "Language2") // pri
+        let language3 = UserDefaults.standard.string(forKey: "Language3") // sec
+        
+        if language1 == nil {
+             UserDefaults.standard.set("English",forKey: "Language1")
+             language1 = "English"
+        }
+        
+        var params =  Dictionary<String, String>()
+        if language1 != nil && language2 != nil && language2 != nil
+        {
+            
+            params = ["access_token":"\(accessToken)","userId":"\(userid!)","clientId":"\(clientID)","appLanguage":"\(language1!)","clientLanguage":"\(language2!)","learningLanguage":"\(language3!)"] as Dictionary<String, String>
+            print(params)
+            
+            
+            MakeHttpPostRequest(url: saveLanguageSelected, params: params, completion: {(success, response) -> Void in
+                print(response)
+                
+            }, errorHandler: {(message) -> Void in
+            })
+            
+        }
+        
+    }
+    
 //    override func viewWillAppear(_ animated: Bool) {
 //        print("View will appear")
 //        super.viewWillAppear(animated)
