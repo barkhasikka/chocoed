@@ -72,7 +72,9 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
         labelUserNAme.text = USERDETAILS.firstName + " " + USERDETAILS.lastname
         buttonEmail.setTitle(USERDETAILS.email, for: .normal)
             
-        self.availableString = "Dear \(USERDETAILS.firstName), this feature will be available to you soon. Please proceed with your learning journey."
+       // self.availableString = "Dear \(USERDETAILS.firstName), this feature will be available to you soon. Please proceed with your learning journey."
+            
+            self.availableString = "DearKey".localizableString(loc: language!) + " \(USERDETAILS.firstName) "  + "availableStringKey".localizableString(loc: language!)
         
        // DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
     

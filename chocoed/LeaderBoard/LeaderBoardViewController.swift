@@ -13,6 +13,11 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
     var arrayProgress = [FriendProgress]()
     
     
+    
+    
+    
+    
+    
     @IBOutlet var myIcon: UIImageView!
     
     @IBOutlet weak var Myprogress: UILabel!
@@ -83,6 +88,7 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
         coursestoDisplaylable.text = "TopicCompletedKey".localizableString(loc: language!)
         // Do any additional setup after loading the view.
         
+        self.addContactLabel.text = "Add5Key".localizableString(loc: language!)
         
     }
     

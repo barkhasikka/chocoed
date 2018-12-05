@@ -7,7 +7,7 @@
 */
 "LabelLanguageStringKey" = "Please select your preferred language for learning with Chocoed";
 "LabelLanguageStringAppKey" = "Please select the Preferred Application Language";
-"LoginButtonKey" = "Login";
+"LoginButtonKey" = "Login / Register";
 "SignUpKey" = "Select Preferred Language";
 "ChoicContectKey" = "Choice,Content,Conversation";
 "RequestOfEnterMobileNoKey" = "Please enter the mobile number of the device on which you would be installing Chocoed";
@@ -96,7 +96,7 @@
 "CompletedTestKey" = "Completed Tests";
 "CompletedCourseKey" = "Courses Completed";
 "FriendsKey" = "Friends";
-"Add5Key" = "Add 5 of your contacts to see their progress as well.";
+"Add5Key" = "Add 4 of your contacts to see their progress as well.";
 "AddFriendLabelKey" = "Add Friend";
 "DoneKey" = "Done";
 "MyRadarKey" = "My Radar";
@@ -113,7 +113,7 @@
 "alertNotNow" = "Not Now";
 "alertYes" = "Yes";
 "alertInterestingVideos" = "Interesting Video";
-"alertDear" = "Dear";
+"alertDear" = "Dear ";
 "alertVideos" = "there are videos yet to be seen by you. Please watch them first.";
 "alertCompletedAssessments" = "Assessments to be Completed";
 "alertcompletedAssessmentMsg" = "You have some assessments to be completed.Would you like to do them now ?";
@@ -195,3 +195,13 @@
 "PrefferedLanguageHalfKey" = "I would like";
 "PrefferedLanguageNextHalfKey" = "as preferred language for learning with Chocoed ?";
 "balnkFieldsKey" = "Please fill all the mandatory fields.";
+"availableStringKey" = ", this feature will be available to you soon. Please proceed with your learning journey.";
+"DeleteChatKey" = "Delete Chat";
+"internetConnectionKey" = "Check internet connection";
+"somethingWentWrongKey" = "Oh! It's not you, it's Us, we are fixing the problem, don't worry";
+"validNameKey" = "Enter valid first name";
+"validLastNameKey" = "Enter valid last name";
+"validEmailKey" = "Enter valid email";
+
+
+

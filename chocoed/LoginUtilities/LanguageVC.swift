@@ -144,6 +144,12 @@ class LanguageVC: UIViewController , UITableViewDelegate , UITableViewDataSource
             
             UserDefaults.standard.set(text, forKey: "Language2")
             self.type = "secondary"
+            var language = UserDefaults.standard.string(forKey: "currentlanguage")
+            if language == nil {
+                language = "en"
+            }
+            self.lblTitle.text = "ChoiceKey".localizableString(loc: language!)
+            self.lblDescr.text = "secondayLangDemoKey".localizableString(loc: language!)
             self.loadGetLanguageList()
 
             
@@ -257,7 +263,7 @@ class LanguageVC: UIViewController , UITableViewDelegate , UITableViewDataSource
             
             if self.type == "firsttime" {
                 
-                let language = response.object(forKey: "primaryList") as? NSArray ?? []
+                let language = response.object(forKey: "appList") as? NSArray ?? []
                 for languages in language {
                     self.arrayLanguages.append(LanguageList( languages as! NSDictionary))
                     

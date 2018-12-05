@@ -293,13 +293,17 @@ struct TopicList{
     var subTopicName : String
     var topicId : String
     var topicName : String
-    var topicLayouts : NSArray
+   // var topicLayouts : NSArray
     var topicStatus : String
     var topicVideoUrl : String
     var videoViewCount : Int
     var videoViewLimit : Int
     var videoPosition : String
     var isBlock : Bool
+    
+    var primaryLayouts : NSArray
+    var secondaryLayouts : NSArray
+
     
     
     init(_ dictionary : NSDictionary) {
@@ -317,7 +321,12 @@ struct TopicList{
         self.videoViewCount = dictionary["videoViewCount"] as? Int ?? -1
         self.videoViewLimit = dictionary["videoViewLimit"] as? Int ?? -1
         self.videoPosition = dictionary["videoPosition"] as? String ?? ""
-        self.topicLayouts = dictionary["topicLayouts"] as? NSArray ?? []
+        
+        //self.topicLayouts = dictionary["topicLayouts"] as? NSArray ?? []
+        
+        self.primaryLayouts = dictionary["primaryLayouts"] as? NSArray ?? []
+        self.secondaryLayouts = dictionary["secondaryLayouts"] as? NSArray ?? []
+
         self.isBlock = false
     }
     

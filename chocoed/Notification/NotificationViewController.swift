@@ -192,9 +192,12 @@ class NotificationViewController: UIViewController,UITableViewDataSource,UITable
             self.readNotification(id: String(arrayList[indexPath.row].notificationId))
         }
         
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+
+        
         
         let alertView = UIAlertController(title: arrayList[indexPath.row].notificationTitle, message: arrayList[indexPath.row].aboutNotification, preferredStyle: .alert)
-        let action = UIAlertAction(title: "backAlertKey", style: .default, handler: { (alert) in
+        let action = UIAlertAction(title: "backAlertKey".localizableString(loc: language!), style: .default, handler: { (alert) in
             
             if self.arrayList.count > 0 {
                 
@@ -207,7 +210,7 @@ class NotificationViewController: UIViewController,UITableViewDataSource,UITable
             
         })
         alertView.addAction(action)
-        let actionSure = UIAlertAction(title: "okAlertKey", style: .default, handler: { (alert) in
+        let actionSure = UIAlertAction(title: "okAlertKey".localizableString(loc: language!), style: .default, handler: { (alert) in
         
             // CALENDER GET ASSIGNED - load my plan page -done  2
             // Todays topic - load my plan page --done 3

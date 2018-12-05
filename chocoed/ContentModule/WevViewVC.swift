@@ -63,7 +63,7 @@ class WevViewVC: UIViewController {
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
         self.proceedbtn.setTitle("ProceedButtonKey".localizableString(loc: language!), for: .normal)
         
-        examreviewLabel.text = "ExamReviewKey".localizableString(loc: language!)
+        examreviewLabel.text = "ExamReviewkey".localizableString(loc: language!)
 
         activityUIView.isHidden = true
 

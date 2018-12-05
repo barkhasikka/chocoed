@@ -7,7 +7,7 @@
 */
 "LabelLanguageStringKey" = "चोकॉइड के साथ सीखने के लिए कृपया अपनी पसंदीदा भाषा का चयन करें";
 "LabelLanguageStringAppKey" = "कृपया पसंदीदा एप्लिकेशन भाषा का चयन करें";
-"LoginButtonKey" = "लॉगइन";
+"LoginButtonKey" = "लॉगइन / रजिस्टर";
 "SignUpKey" = "पसंदीदा भाषा चुनें";
 "ChoicContectKey" = "विकल्प, सामग्री, वार्तालाप";
 "RequestOfEnterMobileNoKey" ="कृपया उस डिवाइस का मोबाइल नंबर दर्ज करें जिस पर आप चोकॉइड इंस्टॉल करेंगे।";
@@ -96,7 +96,7 @@
 "CompletedTestKey" = "पूरे किये टेस्ट";
 "CompletedCourseKey" = "पुरे किये विषय";
 "FriendsKey" = "दोस्त";
-"Add5Key" = "अपनी प्रगति को देखने के लिए अपने 5 संपर्क जोड़ें.";
+"Add5Key" = "अपनी प्रगति को देखने के लिए अपने 4 संपर्क जोड़ें.";
 "AddFriendLabelKey" = "दोस्त जोड़ें";
 "DoneKey" = "ठीक";
 "MyRadarKey" = "मेरा राडार";
@@ -113,7 +113,7 @@
 "alertNotNow" = "अभी नहीं";
 "alertYes" = "हाँ";
 "alertInterestingVideos" = "दिलचस्प वीडियो";
-"alertDear" = "प्रिय";
+"alertDear" = "प्रिय ";
 "alertVideos" = "आपके द्वारा देखे जाने वाले वीडियोस अभी बाकि है";
 "alertCompletedAssessments" = " कुछ आकलन पूरा किए जाने हैं";
 "alertcompletedAssessmentMsg" = " आपको अभी कुछ आकलन पूरे करने है.क्या आप उन्हें अभी करना चाहते हैं?";
@@ -165,11 +165,6 @@
 "PermissionKey" = "अनुमति";
 "PermissionmessageKey" = "फ़ाइल डाउनलोड करने के लिए अनुमति ले";
 "InvalidMobileNumberKey" = "अमान्य मोबाइल नंबर";
-"appLangKey" = "Please select your preferred langauage for Chocoed app screens";
-"primaryLangKey" = "Please select your primary language for learning with Chocoed";
-"secondayLangDemoKey" ="Please select your secondary langauge for relearning and reinforcing knowledge with Chocoed";
-"secondLangKeyFirst" = "Your primary langauge for learning with Chocoed has been selected as " ;
-"secondLangKeySecond" = " by your Company. Please select your secondary language for relearning and reinforcing knowledge with Chocoed" ;
 "SureDeleteFriendKey " = "क्या आप पक्का";
 "FriendDeleteKey" = "आपकी मित्र सूची से हटाना चाहते हैं";
 "ProfileKey" = "प्रोफाइल";
@@ -194,5 +189,20 @@
 "appraisalKey" = "आपका मूल्यांकन अपूर्ण है। आप अपनी विशिष्टता को जानने के बहुत करीब हैं। आप इसे क्यों पूरा नहीं करते?";
 "YesIwillKey" = "हां मैं करूंगा";
 "PrefferedLanguageHalfKey" = "मुझे";
-"PrefferedLanguageNextHalfKey" = "चाहिए Chocoed के साथ सीखने के लिए पसंदीदा भाषा के रूप में";
+"PrefferedLanguageNextHalfKey" = "चाहिए चोकोड के साथ सीखने के लिए पसंदीदा भाषा के रूप में";
 "balnkFieldsKey" = "कृपया सभी अनिवार्य फ़ील्ड भरें।";
+"availableStringKey" = ", यह सुविधा जल्द ही आपके लिए उपलब्ध होगी। कृपया अपनी सीखने की यात्रा के साथ आगे बढ़ें.";
+"DeleteChatKey" = "चैट हटाएं";
+"internetConnectionKey" = "कनेक्ट करने में असमर्थ। कृपया कुछ देर बाद प्रयास करें।";
+"somethingWentWrongKey" = "हम इसे अपने अंत से हल कर रहे हैं। चिंता मत करो!";
+"appLangKey" = "चोकोड ऐप स्क्रीन्स के लिए अपनी पसंदीदा भाषा चुनें।";
+"primaryLangKey" = "चोकोड ऐप के साथ सीखने के लिए अपनी पसंदीदा भाषा चुनें।";
+"secondayLangDemoKey" ="चोकोड के साथ ज्ञान को जारी करने और मजबूत करने के लिए कृपया अपना माध्यमिक लैंगेज चुनें";
+"secondLangKeyFirst" = "चोकोड के साथ सीखने के लिए आपका प्राथमिक लैंगेज चुना गया है " ;
+"secondLangKeySecond" = " आपकी कंपनी द्वारा . चोकोड के साथ ज्ञान को जारी करने और मजबूत करने के लिए कृपया अपनी माध्यमिक भाषा का चयन करें" ;
+"validNameKey" = "वैध पहला नाम दर्ज करें";
+"validLastNameKey" = "वैध अंतिम नाम दर्ज करें";
+"validEmailKey" = "वैध ईमेल दर्ज करें";
+
+
+

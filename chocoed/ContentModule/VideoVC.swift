@@ -287,11 +287,27 @@ class VideoVC: UIViewController {
          isLastQuestion = false
          isExamLoaded = false
         
+        let pri = UserDefaults.standard.string(forKey: "Language2")
+        let secondary = UserDefaults.standard.string(forKey: "Language3")
         
+      //  print(pri,"<<<<<< PRIMARY >>>>>>")
+      //  print(secondary)
+
         
-        for exam in self.arrayTopic[self.currentPosition].topicLayouts {
-            self.arrayExams.append(KnowledgeList( exam as! NSDictionary))
+        if currentSelectedLang == pri {
+            
+            for exam in self.arrayTopic[self.currentPosition].primaryLayouts {
+                self.arrayExams.append(KnowledgeList( exam as! NSDictionary))
+            }
+            
+        }else if currentSelectedLang == secondary {
+            
+            for exam in self.arrayTopic[self.currentPosition].secondaryLayouts {
+                self.arrayExams.append(KnowledgeList( exam as! NSDictionary))
+            }
         }
+        
+       
 
     }
     
@@ -684,8 +700,8 @@ class VideoVC: UIViewController {
     
     func showRewindOption(){
         
-        let userAppLang1 = "English"
-        let userAppLang2 = UserDefaults.standard.string(forKey: "Language2")
+        let userAppLang1 = UserDefaults.standard.string(forKey: "Language2")
+        let userAppLang2 = UserDefaults.standard.string(forKey: "Language3")
         
         if userAppLang1 == userAppLang2 {
             

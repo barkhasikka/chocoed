@@ -17,8 +17,6 @@ class LanguageUIView : UIView, UITableViewDelegate ,UITableViewDataSource {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
-        
     }
     
     override init(frame: CGRect) {

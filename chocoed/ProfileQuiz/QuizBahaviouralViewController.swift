@@ -11,6 +11,11 @@ import MobileCoreServices
 
 class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelegate {
     
+    
+    
+    
+    @IBOutlet var endButton: UIButton!
+    
     var dragCircle: UIImageView!
     @IBOutlet weak var pagesViews: UIView!
     @IBOutlet weak var optionsView: UIView!
@@ -67,6 +72,9 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
         questionsProgressUILabel.text = "\(self.currentQuestion + 1) / \(self.arrayBehaviouralQuestion.count)"
         startTime = self.getStartTime()
         
+        
+        self.nextUIButton.setTitle("NextButtonKey".localizableString(loc: language!), for: .normal)
+        self.endButton.setTitle("EndTestKey".localizableString(loc: language!), for: .normal)
       
     }
     
@@ -342,10 +350,10 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
     func showEndTestAlert() {
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
         
-        let alertcontrol = UIAlertController(title: "ohkey".localizableString(loc: language!), message: "appraisalKey".localizableString(loc: language!), preferredStyle: .alert)
+        let alertcontrol = UIAlertController(title: "ohKey".localizableString(loc: language!), message: "appraisalKey".localizableString(loc: language!), preferredStyle: .alert)
         let alertaction = UIAlertAction(title: "YesIwillKey".localizableString(loc: language!), style: .cancel) { (action) in
         }
-        let alertaction1 = UIAlertAction(title: "NotnowKey".localizableString(loc: language!), style: .default) { (action) in
+        let alertaction1 = UIAlertAction(title: "NotNowKey".localizableString(loc: language!), style: .default) { (action) in
             self.loadSaveExamQuestionAnswer()
             self.callEndTestAPI()
         }

@@ -25,9 +25,6 @@ class ProfileSucessViewController: UIViewController {
         self.letBeginButton.setTitle("KnowUserUniqenessKey".localizableString(loc: language!), for: .normal)
  
 
-        
-     
-
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(named: "Group 4")
         backgroundImage.contentMode = UIViewContentMode.scaleAspectFill

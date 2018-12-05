@@ -18,7 +18,7 @@ class GettingStartedViewController: UIViewController {
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
         
         self.welcomeLabel.text = "WelcomeKey".localizableString(loc: language!)
-        self.thereIsOnlyYouLabel.text = "ProfileMsgForUserKey बनाएं".localizableString(loc: language!)
+        self.thereIsOnlyYouLabel.text = "ProfileMsgForUserKey".localizableString(loc: language!)
          self.getStartedButtonLabel.setTitle("GetStartedKey".localizableString(loc: language!), for: .normal)
         // Do any additional setup after loading the view.
     }

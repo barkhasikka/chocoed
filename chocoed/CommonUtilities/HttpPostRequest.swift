@@ -10,9 +10,13 @@ import Foundation
 import UIKit
 func MakeHttpPostRequest(url: String, params: Dictionary<String, Any>, completion: @escaping ((_ success: Bool, _ response: NSDictionary) -> Void), errorHandler: @escaping ((_ message: String) -> Void))  {
     
+    var language = UserDefaults.standard.string(forKey: "currentlanguage")
+    if language == nil {
+        language = "en"
+    }
     
     if !ConnectionCheck.isConnectedToNetwork() {
-        errorHandler("Check your internet connection")
+        errorHandler("internetConnectionKey".localizableString(loc: language!))
     }
 
     let url = NSURL(string: url)
@@ -57,7 +61,7 @@ func MakeHttpPostRequest(url: String, params: Dictionary<String, Any>, completio
             }
         } catch let error {
             print(error.localizedDescription)
-            errorHandler("Oh! It's not you, it's Us, we are fixing the problem, don't worry")
+            errorHandler("somethingWentWrongKey".localizableString(loc: language!))
         }
     }
     task.resume()

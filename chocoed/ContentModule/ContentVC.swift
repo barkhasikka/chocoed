@@ -459,7 +459,8 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                     }else {
                         
                         currentTopiceDate = self.selectedDate
-                        currentSelectedLang = "English"
+                        currentSelectedLang = UserDefaults.standard.string(forKey: "Language2")!
+
 
                         
                         if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "VideoVC") as? VideoVC {
@@ -511,7 +512,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
             }else {
                 
                 currentTopiceDate = self.selectedDate
-                currentSelectedLang = "English"
+                currentSelectedLang = UserDefaults.standard.string(forKey: "Language2")!
 
                 if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "VideoVC") as? VideoVC {
                     vcNewSectionStarted.arrayTopic = self.arrayTopic
@@ -529,8 +530,8 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
     
     func revwindVideo() {
         
-        let userAppLang1 = "English"
-        let userAppLang2 = UserDefaults.standard.string(forKey: "Language2")
+        let userAppLang1 = UserDefaults.standard.string(forKey: "Language2")!
+        let userAppLang2 = UserDefaults.standard.string(forKey: "Language3")
         
         
         if userAppLang1 == userAppLang2 {
@@ -538,7 +539,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
             // same language
             
             currentTopiceDate = self.selectedDate
-            currentSelectedLang = "English"
+            currentSelectedLang = UserDefaults.standard.string(forKey: "Language2")!
             
             
             

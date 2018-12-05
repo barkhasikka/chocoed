@@ -119,11 +119,13 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
             
             let storedUserMobileNo = self.mobileNumberTextFIeld.text
             UserDefaults.standard.set(storedUserMobileNo, forKey: "mobileno")
-
-            UserDefaults.standard.set(Int(temp.userId), forKey: "userid")
+            UserDefaults.standard.set(Int(self.temp.userId), forKey: "userid")
             self.GetUserInfo()
+            
 //            let vcGetStarted = storyboard?.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
 //            self.present(vcGetStarted, animated: true, completion: nil)
+            
+            
         }else {
             let alertcontrol = UIAlertController(title: "RecheckKey".localizableString(loc: language!), message: "IncorrectIdKey".localizableString(loc: language!), preferredStyle: UIAlertControllerStyle.alert)
            
@@ -427,6 +429,10 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
         self.mobileNumberTextFIeld.inputAccessoryView = doneToolbar
         
     }
+    
+    
+   
+    
     func sendLanguagesSelected() {
         
         self.sendFcm()

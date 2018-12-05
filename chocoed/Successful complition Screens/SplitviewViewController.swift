@@ -208,7 +208,9 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         
         self.popUpViewforBadges.isHidden = true
         
-        self.availableString = "Dear \(USERDETAILS.firstName), this feature will be available to you soon. Please proceed with your learning journey."
+        self.availableString = "DearKey".localizableString(loc: language!) + " \(USERDETAILS.firstName) "  + "availableStringKey".localizableString(loc: language!)
+        
+        
         
 
         self.compTestLabel.text = "TestCompletedKey".localizableString(loc: language!)

@@ -161,9 +161,9 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         imageView6.addGestureRecognizer(tapGestureRecognizer6)
         
         GetUserInfo()
-        textfieldFirstName.isUserInteractionEnabled = false
-        textfieldLastName.isUserInteractionEnabled = false
-        textfieldEmailId.isUserInteractionEnabled = false
+        textfieldFirstName.isUserInteractionEnabled = true
+        textfieldLastName.isUserInteractionEnabled = true
+        textfieldEmailId.isUserInteractionEnabled = true
         textfieldMobileNo.isUserInteractionEnabled = false
    }
     
@@ -482,8 +482,8 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
                 
                 USERDETAILS = UserDetails(
                     email:self.textfieldEmailId.text!,
-                    firstName:self.textfieldLastName.text!,
-                    lastname: self.self.textfieldFirstName.text!,
+                    firstName:self.textfieldFirstName.text!,
+                    lastname: self.textfieldLastName.text!,
                     imageurl: url,
                     mobile : self.mobileNo
                 )
@@ -531,6 +531,49 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         })
         
     }
+    
+    private func showALert(){
+        
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        let alertcontrol = UIAlertController(title: "AlertKey".localizableString(loc: language!), message: "alertFieldsFilled".localizableString(loc: language!), preferredStyle: .alert)
+        let alertaction = UIAlertAction(title: "OkKey".localizableString(loc: language!), style: .default) { (action) in
+        }
+        alertcontrol.addAction(alertaction)
+        self.present(alertcontrol, animated: true, completion: nil)
+    }
+    
+    func isValidEmail(testStr:String) -> Bool {
+        print("validate emilId: \(testStr)")
+        let emailRegEx = "^(?:(?:(?:(?: )*(?:(?:(?:\\t| )*\\r\\n)?(?:\\t| )+))+(?: )*)|(?: )+)?(?:(?:(?:[-A-Za-z0-9!#$%&’*+/=?^_'{|}~]+(?:\\.[-A-Za-z0-9!#$%&’*+/=?^_'{|}~]+)*)|(?:\"(?:(?:(?:(?: )*(?:(?:[!#-Z^-~]|\\[|\\])|(?:\\\\(?:\\t|[ -~]))))+(?: )*)|(?: )+)\"))(?:@)(?:(?:(?:[A-Za-z0-9](?:[-A-Za-z0-9]{0,61}[A-Za-z0-9])?)(?:\\.[A-Za-z0-9](?:[-A-Za-z0-9]{0,61}[A-Za-z0-9])?)*)|(?:\\[(?:(?:(?:(?:(?:[0-9]|(?:[1-9][0-9])|(?:1[0-9][0-9])|(?:2[0-4][0-9])|(?:25[0-5]))\\.){3}(?:[0-9]|(?:[1-9][0-9])|(?:1[0-9][0-9])|(?:2[0-4][0-9])|(?:25[0-5]))))|(?:(?:(?: )*[!-Z^-~])*(?: )*)|(?:[Vv][0-9A-Fa-f]+\\.[-A-Za-z0-9._~!$&'()*+,;=:]+))\\])))(?:(?:(?:(?: )*(?:(?:(?:\\t| )*\\r\\n)?(?:\\t| )+))+(?: )*)|(?: )+)?$"
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        let result = emailTest.evaluate(with: testStr)
+        return result
+    }
+    
+    func isValidName(_ nameString: String) -> Bool {
+        
+        var returnValue = true
+        let mobileRegEx =  "[A-Za-z]{3}"  // {3} -> at least 3 alphabet are compulsory.
+        
+        do {
+            let regex = try NSRegularExpression(pattern: mobileRegEx)
+            let nsString = nameString as NSString
+            let results = regex.matches(in: nameString, range: NSRange(location: 0, length: nsString.length))
+            
+            if results.count == 0
+            {
+                returnValue = false
+            }
+            
+        } catch let error as NSError {
+            print("invalid regex: \(error.localizedDescription)")
+            returnValue = false
+        }
+        
+        return  returnValue
+    }
+    
+    
 
     @IBAction func submitActionUIButton(_ sender: Any) {
         
@@ -539,10 +582,53 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         let lName = textfieldLastName.text!
         let fName = textfieldFirstName.text!
         let birthDate = birthDateTextField.text!
+        
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+
+        
+        if fName.count == 0 {
+            self.showALert()
+            return
+        }
+        
+        if self.isValidName(fName) == false{
+            let alert = GetAlertWithOKAction(message: "validNameKey".localizableString(loc: language!))
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        if lName.count == 0 {
+            self.showALert()
+            return
+        }
+        
+        if self.isValidName(lName) == false{
+            let alert = GetAlertWithOKAction(message: "validLastNameKey".localizableString(loc: language!))
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        
+        if emailId.count == 0  {
+            self.showALert()
+            return
+        }
+        
+        if self.isValidEmail(testStr: emailId) == false{
+            let alert = GetAlertWithOKAction(message: "validEmailKey".localizableString(loc: language!))
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        
+        if birthDate.count == 0 {
+            self.showALert()
+            return
+        }
+      
+        
+        
+        
         let userID = UserDefaults.standard.integer(forKey: "userid")
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         
-        let language = UserDefaults.standard.string(forKey: "currentlanguage")
 
         if mobileNo == "" || emailId == "" || lName == "" || fName == "" {
             let alertcontrol = UIAlertController(title: "AlertKey".localizableString(loc: language!), message: "balnkFieldsKey".localizableString(loc: language!), preferredStyle: .alert)
