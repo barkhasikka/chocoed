@@ -656,7 +656,7 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
 
         
         var params =  Dictionary<String, String>()
-        if language1 != nil && language2 != nil && language2 != nil
+        if language1 != nil && language2 != nil && language3 != nil
         {
             
             params = ["access_token":"\(accessToken)","userId":"\(userid!)","clientId":"\(clientID)","appLanguage":"\(language1!)","clientLanguage":"\(language2!)","learningLanguage":"\(language3!)"] as Dictionary<String, String>
