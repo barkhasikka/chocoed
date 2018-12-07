@@ -52,12 +52,17 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
 
         if currentExamID == 1 {
             self.navigationItem.title = "BehaviourialKey".localizableString(loc: language!)
+             self.endButton.isHidden = true
         }else if currentExamID == 2 {
             self.navigationItem.title = "PsycomatricKey".localizableString(loc: language!)
+            self.endButton.isHidden = true
+
         }else if currentExamID == 3 {
             self.navigationItem.title = "PersonalityKey".localizableString(loc: language!)
+            self.endButton.isHidden = true
+
         }else {
-            
+            self.endButton.isHidden = false
             self.navigationItem.title = self.examName
         }
         
@@ -76,6 +81,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
         self.nextUIButton.setTitle("NextButtonKey".localizableString(loc: language!), for: .normal)
         self.endButton.setTitle("EndTestKey".localizableString(loc: language!), for: .normal)
       
+        
     }
     
     func backgroundImage(){
@@ -169,6 +175,7 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
     }
     
     func loadSaveExamQuestionAnswer(){
+        
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
         
@@ -184,7 +191,9 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
         MakeHttpPostRequest(url: saveUserExamQuestionAnswer , params: params, completion: {(success, response) -> Void in
             print(response, "<<<<<<-- SAVE ANSWER RESPONSE....")
   
-
+            
+            answerId = -1
+            
             DispatchQueue.main.async {
                 self.activityUIView.isHidden = true
                 self.activityUIView.stopAnimation()
@@ -202,6 +211,18 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
     }
     
     @IBAction func NextButton(_ sender: Any) {
+        
+        
+        if currentExamID == 1 || currentExamID == 2 || currentExamID == 3 {
+            if answerId == -1 {
+                let language = UserDefaults.standard.string(forKey: "currentlanguage")
+                let alert = GetAlertWithOKAction(message: "SelectAnswerKey".localizableString(loc: language!))
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+        }
+        
+        
         loadSaveExamQuestionAnswer()
         for subviews in self.optionsView.subviews {
 //            if subviews is UIButton {
@@ -217,6 +238,9 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
             //self.optionbutton.setTitle(arrayBehaviouralQuestion[self.currentQuestion], for: .normal)
             optionButtonfunction(ansType: self.arrayBehaviouralQuestion[self.currentQuestion].anstype)
             startTime = self.getStartTime()
+            
+            
+            
         } else {
             //user has traversed all the questions. Now we need to hide next button and call end test API and then present new type nest vc
             questionsProgressUILabel.text = "\(self.currentQuestion+1) / \(self.arrayBehaviouralQuestion.count)"
@@ -225,6 +249,15 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
             optionButtonfunction(ansType: self.arrayBehaviouralQuestion[self.currentQuestion].anstype)
             startTime = self.getStartTime()
             self.nextUIButton.isHidden = true
+            
+            if currentExamID == 1 {
+                self.endButton.isHidden = false
+            }else if currentExamID == 2 {
+                self.endButton.isHidden = false
+            }else if currentExamID == 3 {
+                self.endButton.isHidden = false
+            }
+
 
         }
 
@@ -335,6 +368,19 @@ class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelega
     }
     
     @IBAction func endTestAction(_ sender: Any) {
+        
+        if currentExamID == 1 || currentExamID == 2 || currentExamID == 3 {
+            if answerId == -1 {
+                let language = UserDefaults.standard.string(forKey: "currentlanguage")
+                let alert = GetAlertWithOKAction(message: "SelectAnswerKey".localizableString(loc: language!))
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+        }
+        
+       
+        
+        
         if arrayBehaviouralQuestion.count - 1 > self.currentQuestion {
             showEndTestAlert()
         } else {

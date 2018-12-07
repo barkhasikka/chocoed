@@ -117,11 +117,12 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if type == "destructive" {
-            return arrayContactList.count
+            return arrayFriendList.count
+
 
         }else{
-        
-        return arrayFriendList.count
+            return arrayContactList.count
+
         }
     }
     

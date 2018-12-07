@@ -67,6 +67,7 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
         
     
         if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "AddFriendVC") as? AddFriendVC{
+            vcNewSectionStarted.type = ""
             self.present(vcNewSectionStarted, animated: true, completion: nil)
         }
         
@@ -242,11 +243,11 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
     if OneChat.sharedInstance.isConnected() {
     
     } else {
-    
-        OneChat.sharedInstance.connect(username: "\(USERDETAILS.mobile)@13.232.161.176", password: USERDETAILS.mobile) { (stream, error) -> Void in
+        
+        let number =  UserDefaults.standard.string(forKey: "mobileno")
+        OneChat.sharedInstance.connect(username: "\(number!)@13.232.161.176", password: number!) { (stream, error) -> Void in
             if let error = error {
-                
-    
+
                     let alertController = UIAlertController(title: "SorryKey".localizableString(loc: language!), message: " \("erroroccuredKey".localizableString(loc: language!)): \(error)", preferredStyle: UIAlertControllerStyle.alert)
                     alertController.addAction(UIAlertAction(title: "TryAgainKey".localizableString(loc: language!), style: UIAlertActionStyle.default, handler: { (UIAlertAction) -> Void in
                     //do something

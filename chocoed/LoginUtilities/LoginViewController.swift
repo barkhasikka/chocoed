@@ -179,6 +179,10 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
              let secLang = jsonobject?.object(forKey: "learningLanguage") as? String ?? ""
              UserDefaults.standard.set(priLang, forKey: "Language3")
 
+            DispatchQueue.main.async {
+                self.activityUIView.isHidden = true
+                self.activityUIView.stopAnimation()
+            }
             
             if isFirstTimeUser == "true" {
                 
@@ -257,10 +261,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
              
                
                 
-                DispatchQueue.main.async {
-                    self.activityUIView.isHidden = true
-                    self.activityUIView.stopAnimation()
-                }
+              
                 
                 
                 

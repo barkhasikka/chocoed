@@ -245,9 +245,12 @@ class LanguageVC: UIViewController , UITableViewDelegate , UITableViewDataSource
             userid = ""
         }
         
+        DispatchQueue.main.async {
+            self.activityUIView.isHidden = false
+            self.activityUIView.startAnimation()
+        }
         let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clientId":"\(clientid!)"] as Dictionary<String, String>
-        activityUIView.isHidden = false
-        activityUIView.startAnimation()
+       
         MakeHttpPostRequest(url: getLanguageListCall, params: params, completion: {(success, response) -> Void in
             print(response)
             

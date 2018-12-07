@@ -14,6 +14,10 @@ import UserNotifications
 
 class SplitviewViewController: UIViewController , UNUserNotificationCenterDelegate {
 
+    
+    
+    @IBOutlet var lblChatCount: UILabel!
+    
     @IBOutlet var badgeImage: UIImageView!
     
     @IBOutlet weak var textcoinsEarned: UILabel!
@@ -195,6 +199,8 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.lblChatCount.layer.cornerRadius = 10
+        self.lblChatCount.clipsToBounds =  true
         
        self.lblnotificationCount.layer.cornerRadius = 10
        self.lblnotificationCount.clipsToBounds =  true
@@ -533,12 +539,18 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         
       //  OneMessage.sharedInstance.delegate = self
 
+       // self.checkChatConnection()
+
         
         let Gif = UIImage.gifImageWithName("chocoed_wave")
         self.imageViewLogo.image = Gif
         
         self.sendLanguagesSelected()
         
+        self.lblChatCount.isHidden = true
+        Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true, block: { (timer) in
+            self.getUnreadChatCount()
+        })
         
         
     }
@@ -581,7 +593,6 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
             UserDefaults.standard.set(learningLang, forKey: "Language3") //sec
 
             
-            self.sendFcm()
             
             
             UserDefaults.standard.set(Int(clientId), forKey: "clientid")
@@ -608,12 +619,10 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
                     self.lblnotificationCount.isHidden = true
                 }
                 
+                self.sendFcm()
+
                 
             }
-
-            
-            
-            
         }, errorHandler: {(message) -> Void in
             print("message", message)
         })
@@ -632,12 +641,24 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
             results = try context.fetch(fetchRequest)
             
             if results.count != 0 {
+                
                 for item in results{
                 let updatObj = item as! Friends
                 let c = Int(updatObj.value(forKey: "read_count") as? String ?? "0")!
                 count = count + c
                 }
+                
+                DispatchQueue.main.async {
+                self.lblChatCount.isHidden = false
+                self.lblChatCount.text = String(count)
+                }
+                
                 print(count,"<<<< UNREAD MSG COUNT>>>>")
+            }else{
+                DispatchQueue.main.async {
+                    self.lblChatCount.isHidden = true
+                }
+
             }
         }catch{
             print("error executing request")
@@ -692,8 +713,7 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
     
     func sendFcm() {
        
-       // self.checkChatConnection()
-        self.getUnreadChatCount()
+        self.checkChatConnection()
         
         var params =  Dictionary<String, String>()
       
@@ -718,24 +738,61 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         
     }
     
+    
     func checkChatConnection(){
         
-        if OneChat.sharedInstance.isConnected() {
-        } else {
+        self.registerToChat()
+
+        
+        
+    }
+    
+    private func registerToChat(){
+        
+        
+        
+        var fcm = UserDefaults.standard.string(forKey: "fcm")
+        
+        if fcm == nil {
             
-            print(USERDETAILS)
+            fcm = "1234"
+        }
+        
+        
+        
+        
+        let userID = UserDefaults.standard.integer(forKey: "userid")
+        print(userID, "USER ID IS HERE")
+        let params = ["user_name": "\(USERDETAILS.firstName) \(USERDETAILS.lastname)",  "user_contact_no":"\(USERDETAILS.mobile)",  "fcm_id":"\(fcm!)","user_photo":"\(USERDETAILS.imageurl)","user_email":"\(USERDETAILS.email)","password":"\(USERDETAILS.mobile)","device":"iPhone"] as Dictionary<String, String>
+        print(params)
+        MakeHttpPostRequestChat(url: kXMPP.registerUSER, params: params, completion: {(success, response) in
+            print(response)
             
-            OneChat.sharedInstance.connect(username: "\(USERDETAILS.mobile)@13.232.161.176", password: USERDETAILS.mobile) { (stream, error) -> Void in
-                if let error = error {
-                    
-                    print("not connected to chat",error)
-                   
-                } else {
-                    
-                    print("You are online")
+            if OneChat.sharedInstance.isConnected() {
+                
+            } else {
+                
+                let number =  UserDefaults.standard.string(forKey: "mobileno")
+                
+                
+                OneChat.sharedInstance.connect(username: "\(number!)@13.232.161.176", password: number!) { (stream, error) -> Void in
+                    if let error = error {
+                        print("error",error)
+                        
+                    } else {
+                        
+                        print("You are online")
+                    }
                 }
             }
-        }
-  }
+    
+        }, errorHandler: {(message) -> Void in
+            print("message", message)
+        })
+        
+        
+    }
+    
+   
     
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 import AVFoundation
 
 
@@ -164,6 +165,10 @@ class VideoVC: UIViewController {
       
         print("Sorted Array",self.arrayTopic)
         closed = false
+        
+        
+
+        
     }
     
     
@@ -732,7 +737,7 @@ class VideoVC: UIViewController {
             
             let language = UserDefaults.standard.string(forKey: "currentlanguage")
             
-            let alertView = UIAlertController(title: "CongratulationKey".localizableString(loc: language!), message: "Dear \(USERDETAILS.firstName),\("todaysVideoKey".localizableString(loc: language!) )\(userAppLang2!) ", preferredStyle: .alert)
+            let alertView = UIAlertController(title: "CongratulationKey".localizableString(loc: language!), message: "\("alertDear".localizableString(loc: language!)) \(USERDETAILS.firstName),\("todaysVideoKey".localizableString(loc: language!) ) \(userAppLang2!) ", preferredStyle: .alert)
             
             let action = UIAlertAction(title: "NotNowKey".localizableString(loc: language!), style: .default, handler: { (alert) in
                 

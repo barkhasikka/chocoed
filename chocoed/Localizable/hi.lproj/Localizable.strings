@@ -203,6 +203,5 @@
 "validNameKey" = "वैध पहला नाम दर्ज करें";
 "validLastNameKey" = "वैध अंतिम नाम दर्ज करें";
 "validEmailKey" = "वैध ईमेल दर्ज करें";
-
-
-
+"chocoinsBadgeKey" = "बैज अर्जित";
+"chocoinsCoinKey" = "चोकोइंस कमाई";

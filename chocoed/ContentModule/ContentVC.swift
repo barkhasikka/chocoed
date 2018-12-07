@@ -108,6 +108,9 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(UserDefaults.standard.string(forKey: "Language1")!)
+        print(UserDefaults.standard.string(forKey: "Language2")!)
+        print(UserDefaults.standard.string(forKey: "Language3")!)
     }
     
     override func viewWillAppear(_ animated: Bool) {

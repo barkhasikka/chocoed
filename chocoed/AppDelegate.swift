@@ -188,6 +188,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
            // print(quizID)
            // let fileUrl = URL(string: url)
             UserDefaults.standard.set(Int(clientId), forKey: "clientid")
+            UserDefaults.standard.set(temp.mobile, forKey: "mobileno")
+
             
             USERDETAILS = UserDetails(email: temp.email, firstName: temp.firstName, lastname: temp.lastName, imageurl: url, mobile: temp.mobile)
             print(quizTaken,"-------->")

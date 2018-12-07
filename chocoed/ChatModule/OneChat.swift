@@ -238,6 +238,11 @@ open class OneChat: NSObject {
     
     open func connect(username: String, password: String, completionHandler completion:@escaping OneChatConnectCompletionHandler) {
         
+        print(username)
+        print(password)
+        
+        do{
+        
         if isConnected() {
             streamDidConnectCompletionBlock = completion
             self.streamDidConnectCompletionBlock!(self.xmppStream!, nil)
@@ -270,9 +275,17 @@ open class OneChat: NSObject {
             streamDidConnectCompletionBlock = completion //was false
             streamDidConnectCompletionBlock!(self.xmppStream!, DDXMLElement(name: "Bad password"))
         }
-        try! xmppStream!.connect(withTimeout: XMPPStreamTimeoutNone)
+          
+            if xmppStream!.isConnected == false {
+                try xmppStream!.connect(withTimeout: XMPPStreamTimeoutNone)
+            }
+            
         
         streamDidConnectCompletionBlock = completion
+            
+        }catch{
+            
+        }
     }
     
     open func isConnected() -> Bool {

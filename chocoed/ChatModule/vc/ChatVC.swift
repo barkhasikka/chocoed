@@ -135,7 +135,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         
         var desrc = ""
         
-        var isImageApiCalled = false
+        isImageApiCalled = 0
         
         if self.type == "destructive" {
             desrc = kXMPP.DESTRUCT_TIME
@@ -218,6 +218,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     }
     
     func openPdf(){
+        
         
         let types : [String] = [kUTTypePDF as String]
         let documentPicker = UIDocumentPickerViewController(documentTypes: types, in: .import)
@@ -877,7 +878,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     
     override func viewWillAppear(_ animated: Bool) {
         self.isKeyEditing = false
-        var isImageApiCalled = false
+        isImageApiCalled = 0
 
         self.getFriendStatus()
         Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true, block: { (timer) in

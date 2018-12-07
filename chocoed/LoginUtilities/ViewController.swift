@@ -34,6 +34,8 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.viewTable.isHidden = true
         count = 0
         self.tableViewLanguage.isHidden = true
+        
+
         // Do any additional setup after loading the view, typically from a nib.
     }
     

@@ -228,7 +228,7 @@ class TopicsStatusViewController: UIViewController,UITableViewDelegate,UITableVi
   
             }else {
                 
-                let alert = GetAlertWithOKAction(message: "\("DearKey".localizableString(loc: language!) )\(USERDETAILS.firstName), \("yetToLearnKey".localizableString(loc: language!))")
+                let alert = GetAlertWithOKAction(message: "\("DearKey".localizableString(loc: language!) ) \(USERDETAILS.firstName), \("yetToLearnKey".localizableString(loc: language!))")
                 self.present(alert, animated: true, completion: nil)
                 tableView.deselectRow(at: indexPath, animated: false)
                 

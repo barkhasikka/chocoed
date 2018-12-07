@@ -246,7 +246,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         }
         
         var params =  Dictionary<String, String>()
-        if language1 != nil && language2 != nil && language2 != nil
+        if language1 != nil && language2 != nil && language3 != nil
         {
             
             params = ["access_token":"\(accessToken)","userId":"\(userid!)","clientId":"\(clientID)","appLanguage":"\(language1!)","clientLanguage":"\(language2!)","learningLanguage":"\(language3!)"] as Dictionary<String, String>
@@ -591,20 +591,20 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
             return
         }
         
-        if self.isValidName(fName) == false{
+      /*  if self.isValidName(fName) == false{
             let alert = GetAlertWithOKAction(message: "validNameKey".localizableString(loc: language!))
             self.present(alert, animated: true, completion: nil)
-        }
+        } */
         
         if lName.count == 0 {
             self.showALert()
             return
         }
         
-        if self.isValidName(lName) == false{
+      /*  if self.isValidName(lName) == false{
             let alert = GetAlertWithOKAction(message: "validLastNameKey".localizableString(loc: language!))
             self.present(alert, animated: true, completion: nil)
-        }
+        } */
         
         
         if emailId.count == 0  {
