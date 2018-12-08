@@ -9,7 +9,9 @@
 import UIKit
 
 class FriendTextMsgCell: UITableViewCell {
-    
+    //need to maake this 5 when you want to hide the yesterday label
+    //access it using cell.labelTopheight.constant = 5
+    @IBOutlet weak var labelTopHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet var mainView: UIView!
     
