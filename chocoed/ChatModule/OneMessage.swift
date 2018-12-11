@@ -340,6 +340,60 @@ extension OneMessage: XMPPStreamDelegate {
     
     
     
+    private func isFriendPrsent(item : String) -> Bool {
+        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Friends")
+        fetchRequest.predicate = NSPredicate(format: "contact_number = %@", item)
+        
+        var results : [NSManagedObject] = []
+        
+        do{
+            results = try context.fetch(fetchRequest)
+            
+        }catch{
+            print("error executing request")
+        }
+        
+        return results.count > 0
+    }
+    
+    private func createFriend(number: String) {
+        
+        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+        
+        if isFriendPrsent(item: number) == false {
+            
+            if let msgObject = NSEntityDescription.insertNewObject(forEntityName: "Friends", into: context) as? Friends {
+                
+                msgObject.contact_number = number
+                msgObject.created = ""
+                msgObject.fcm_id = ""
+                msgObject.is_mine = ""
+                msgObject.is_typing = "no"
+                msgObject.last_msg = ""
+                msgObject.last_msg_type = ""
+                msgObject.last_msg_time = ""
+                msgObject.modified = ""
+                msgObject.name = number
+                msgObject.profile_image = ""
+                msgObject.read_count = "0"
+                msgObject.status = ""
+                msgObject.user_id = ""
+            }
+            do {
+                try CoreDataStack.sharedInstance.persistentContainer.viewContext.save()
+            } catch let error {
+                print(error)
+            }
+            
+            
+        }
+        
+    }
+    
+    
+    
+    
     private func isMSgPrsent(item : Message) -> Bool {
         let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Msg")
@@ -677,6 +731,8 @@ extension OneMessage: XMPPStreamDelegate {
                 
                 
                 do{
+                    
+                    self.createFriend(number: friendID)
                     
                     let data = message.body?.data(using: .utf8)!
                     let json = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! NSDictionary

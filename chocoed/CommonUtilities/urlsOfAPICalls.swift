@@ -42,6 +42,8 @@ let sendWelcomeNotification = "https://dev.chocoed.com/development/api/user/send
 
 let empList = "https://dev.chocoed.com/development/api/user/getEmployeeList"
 
+let paymentLink = "https://dev.chocoed.com/development/payment?userId="
+
 
 var currentTopiceDate  = ""
 var currentCourseId  = ""

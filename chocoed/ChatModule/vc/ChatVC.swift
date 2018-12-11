@@ -314,6 +314,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         UIApplication.shared.cancelAllLocalNotifications()
         UIApplication.shared.applicationIconBadgeNumber = 0
         
+        
         self.userTitle.text = self.friendModel.name
         self.editMsg.borderStyle = .roundedRect
         
@@ -335,6 +336,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         self.tblView.estimatedRowHeight = 120.0
         self.tblView.rowHeight = UITableViewAutomaticDimension
         self.tblView.estimatedSectionHeaderHeight = 60.0
+        
+        self.tblView.tableFooterView = self.bottomView
         
         let myTextNib = UINib(nibName: "MyTextMsgCell", bundle: Bundle.main)
         self.tblView.register(myTextNib, forCellReuseIdentifier: "MyTextMsgCell")
@@ -382,8 +385,18 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         }
         
         
-        self.scrollToBottom()
-        self.updateTableContentInset()
+        //self.scrollToBottom()
+        //self.updateTableContentInset()
+        
+        
+      /*  NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardType), name: Notification.Name.UIKeyboardWillChangeFrame, object: nil)
+    */
+        
+
         
         
     }
@@ -902,16 +915,6 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         self.viewHeight = self.bottomView.frame.origin.y
         self.replyHeight = self.replyView.frame.origin.y
         
-        
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
-        
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardType), name: Notification.Name.UIKeyboardWillChangeFrame, object: nil)
-        
-        
-        
     }
     
     
@@ -1003,7 +1006,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             
             print(msg ?? "")
             
-            self.editMsg.resignFirstResponder()
+            //self.editMsg.resignFirstResponder()
             self.editMsg.text = ""
             
             let msgID = self.getCurrentTime()

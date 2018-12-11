@@ -57,6 +57,9 @@ class VideoVC: UIViewController {
 
     @IBOutlet var btnPlayAction: UIButton!
     
+    
+    var lastValue : Float = 0.0
+    
     //@IBOutlet var btnPlayAction: UIButton!
     
     
@@ -615,7 +618,10 @@ class VideoVC: UIViewController {
     
    
     @IBAction func sliderValueChanged(_ sender: UISlider) {
-        player.seek(to: CMTimeMake(Int64(sender.value*1000), 1000))
+        if  lastValue > sender.value {
+            player.seek(to: CMTimeMake(Int64(sender.value*1000), 1000))
+        }
+        lastValue = sender.value
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {

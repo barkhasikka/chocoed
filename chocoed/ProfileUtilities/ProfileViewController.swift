@@ -71,12 +71,14 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     var keyboardHeight: CGFloat!
     var lastOffset: CGFloat!
     var mobileNo = ""
+    var isImageSelected = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
         
+        isImageSelected = false
         
         self.iAmBornOnLabel.text = "BornOnKey".localizableString(loc: language!)
         self.genderLabel.text = "GenderKey".localizableString(loc: language!)
@@ -287,6 +289,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         picker.didSelectImage = { [unowned picker] img in
             // image picked
             print(img.size)
+            self.isImageSelected = true
             self.imageviewCircle.image = img
             self.imageviewCircle.contentMode = .scaleAspectFit
             picker.dismiss(animated: true, completion: nil)
@@ -311,7 +314,8 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     @objc func imageTappedAvatar1(tapGestureRecognizer: UITapGestureRecognizer){
         //let tappedImage = tapGestureRecognizer.view as! UIImageView
         print("Please select image")
-        
+        self.isImageSelected = true
+
         imageviewCircle.image = imageView1.image
         imageviewCircle.layer.borderWidth = 1.0
         imageviewCircle.layer.masksToBounds = false
@@ -325,7 +329,8 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     @objc func imageTappedAvatar6(tapGestureRecognizer: UITapGestureRecognizer){
         //let tappedImage = tapGestureRecognizer.view as! UIImageView
         print("Please select image")
-        
+        self.isImageSelected = true
+
         imageviewCircle.image = imageView6.image
         imageviewCircle.layer.borderWidth = 1.0
         imageviewCircle.layer.masksToBounds = false
@@ -339,7 +344,8 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     @objc func imageTappedAvatar2(tapGestureRecognizer: UITapGestureRecognizer){
         //let tappedImage = tapGestureRecognizer.view as! UIImageView
         print("Please select image")
-        
+        self.isImageSelected = true
+
         imageviewCircle.image = imageView2.image
         imageviewCircle.layer.borderWidth = 1.0
         imageviewCircle.layer.masksToBounds = false
@@ -353,7 +359,8 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     @objc func imageTappedAvatar3(tapGestureRecognizer: UITapGestureRecognizer){
         //let tappedImage = tapGestureRecognizer.view as! UIImageView
         print("Please select image")
-        
+        self.isImageSelected = true
+
         imageviewCircle.image = imageView3.image
         imageviewCircle.layer.borderWidth = 1.0
         imageviewCircle.layer.masksToBounds = false
@@ -367,7 +374,8 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     @objc func imageTappedAvatar4(tapGestureRecognizer: UITapGestureRecognizer){
         //let tappedImage = tapGestureRecognizer.view as! UIImageView
         print("Please select image")
-        
+        self.isImageSelected = true
+
         imageviewCircle.image = imageView4.image
         imageviewCircle.layer.borderWidth = 1.0
         imageviewCircle.layer.masksToBounds = false
@@ -381,7 +389,8 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     @objc func imageTappedAvatar5(tapGestureRecognizer: UITapGestureRecognizer){
         //let tappedImage = tapGestureRecognizer.view as! UIImageView
         print("Please select image")
-        
+        self.isImageSelected = true
+
         imageviewCircle.image = imageView5.image
         imageviewCircle.layer.borderWidth = 1.0
         imageviewCircle.layer.masksToBounds = false
@@ -623,8 +632,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
             return
         }
       
-        
-        
+         
         
         let userID = UserDefaults.standard.integer(forKey: "userid")
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
@@ -660,8 +668,10 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
             })
             
             
-            let imageData = UIImagePNGRepresentation(self.imageviewCircle.image!)
+            if self.isImageSelected == true
+            {
             
+            let imageData = UIImageJPEGRepresentation(self.imageviewCircle.image!, 0.0)
             let imageUploadParams = [ "access_token":"\(accessToken)", "userId": "\(userID)"] as! Dictionary<String, String>
             MakeHttpMIME2PostRequest(url: uploadProfilePicture, imageData: imageData as! NSData, param: imageUploadParams, completion: {(success, response) -> Void in
                 print(response, "UPLOAD PROFILE PIC RESPONSE")
@@ -679,6 +689,8 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
                 }
                
             })
+                
+            }
         }
     }
     
