@@ -89,7 +89,6 @@
                     <constraint firstItem="ok6-0G-6aj" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Iiu-SP-XxP"/>
                     <constraint firstItem="Ypp-L2-hRy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="155" id="Tgs-Nv-rPW"/>
                     <constraint firstItem="fXt-tm-EYc" firstAttribute="top" secondItem="ok6-0G-6aj" secondAttribute="bottom" constant="5" id="bzB-BD-zwl"/>
-                    <constraint firstItem="fXt-tm-EYc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="22" id="j7K-4Y-cOg"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -97,6 +96,7 @@
             <connections>
                 <outlet property="btnUpload" destination="Drw-Js-aWF" id="kbe-HE-kmm"/>
                 <outlet property="fileview" destination="UWY-XP-uUe" id="fYd-Es-ENa"/>
+                <outlet property="heightOfMyFileDateLabel" destination="JiZ-zR-jTE" id="Bgi-VY-rnV"/>
                 <outlet property="lblDate" destination="ok6-0G-6aj" id="B51-eB-VOL"/>
                 <outlet property="lblTime" destination="MSW-YU-U5o" id="d3d-pe-l7B"/>
                 <outlet property="mainView" destination="fXt-tm-EYc" id="0tp-ZT-AgS"/>

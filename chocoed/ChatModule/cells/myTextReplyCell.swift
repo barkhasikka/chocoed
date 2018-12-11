@@ -10,6 +10,7 @@ import UIKit
 
 class myTextReplyCell: UITableViewCell {
     
+    @IBOutlet weak var heightOfMyReplyDateConstraint: NSLayoutConstraint!
     
     @IBOutlet var lbDat: UILabel!
     

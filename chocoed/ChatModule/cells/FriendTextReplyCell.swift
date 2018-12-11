@@ -10,6 +10,7 @@ import UIKit
 
 class FriendTextReplyCell: UITableViewCell {
 
+    @IBOutlet weak var heightOfFrinedReplyDateConstraints: NSLayoutConstraint!
     @IBOutlet var lblDate: UILabel!
     
     

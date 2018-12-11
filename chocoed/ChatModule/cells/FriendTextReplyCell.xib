@@ -150,6 +150,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="heightOfFrinedReplyDateConstraints" destination="O6P-zw-t0S" id="KcK-Ex-MNP"/>
                 <outlet property="lblDate" destination="3Q1-iV-gzf" id="PXi-gB-08R"/>
                 <outlet property="mainView" destination="SWR-ll-NUl" id="SJ4-U3-5Gt"/>
                 <outlet property="msg" destination="AoV-wx-9ZI" id="ltA-Eu-Odx"/>

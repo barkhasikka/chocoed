@@ -91,6 +91,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="heightOfMytextMsgDateConstraints" destination="AlU-lb-cY6" id="Uff-Tu-ztU"/>
                 <outlet property="imgAck" destination="fvG-md-8FL" id="ZGc-ov-XjQ"/>
                 <outlet property="lblDate" destination="ym0-kK-haf" id="IOE-Kh-rLc"/>
                 <outlet property="lblMsg" destination="ior-fJ-eN1" id="xOi-RH-ZXJ"/>

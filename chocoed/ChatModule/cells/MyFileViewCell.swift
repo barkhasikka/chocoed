@@ -11,6 +11,7 @@ import UIKit
 class MyFileViewCell: UITableViewCell {
     
     
+    @IBOutlet weak var heightOfMyFileDateLabel: NSLayoutConstraint!
     @IBOutlet var btnUpload: UIImageView!
     
     @IBOutlet var lblDate: UILabel!

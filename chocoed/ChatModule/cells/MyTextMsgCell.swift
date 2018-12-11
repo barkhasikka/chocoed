@@ -12,6 +12,7 @@ class MyTextMsgCell: UITableViewCell {
     
     
     
+    @IBOutlet weak var heightOfMytextMsgDateConstraints: NSLayoutConstraint!
     
     
     @IBOutlet var imgAck: UIImageView!

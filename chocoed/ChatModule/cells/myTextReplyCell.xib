@@ -169,6 +169,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="heightOfMyReplyDateConstraint" destination="fha-Wc-KdU" id="cqO-b0-Mzp"/>
                 <outlet property="imgAck" destination="CeL-e9-uJu" id="fHY-qb-25S"/>
                 <outlet property="imgProfile" destination="9JV-Ex-K4g" id="2fM-26-Dez"/>
                 <outlet property="imgReplyType" destination="bVO-mW-2Zg" id="MVY-hb-hfi"/>

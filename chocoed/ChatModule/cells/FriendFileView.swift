@@ -10,7 +10,9 @@ import UIKit
 
 class FriendFileView: UITableViewCell {
     
+    @IBOutlet weak var heightOfDateLabelConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var topofFileViewConstraints: NSLayoutConstraint!
     
     @IBOutlet var btnDownload: UIImageView!
     
