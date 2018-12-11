@@ -54,6 +54,7 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
     var buttonThought = false
     var buttonchat = false
     var drag = ""
+    var timer : Timer!
     
     var coinsearned : Int  = 0
     var badesEarned : Int = 0
@@ -548,11 +549,17 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         self.sendLanguagesSelected()
         
         self.lblChatCount.isHidden = true
-        Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true, block: { (timer) in
+        self.timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true, block: { (timer) in
             self.getUnreadChatCount()
         })
         
-        
+    }
+    
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        if self.timer != nil {
+            self.timer.invalidate()
+        }
     }
     
     
@@ -591,8 +598,15 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
             UserDefaults.standard.set(applang, forKey: "Language1")  //app
             UserDefaults.standard.set(clientLanguage, forKey: "Language2") //pri
             UserDefaults.standard.set(learningLang, forKey: "Language3") //sec
-
             
+            
+            let previousType = Int(UserDefaults.standard.string(forKey: "userType")!)
+            let userType = jsonobject?.object(forKey: "userType") as? Int ?? 0
+            if previousType != userType {
+                self.clearData()
+            }
+            
+            UserDefaults.standard.set(userType, forKey: "userType")
             
             
             UserDefaults.standard.set(Int(clientId), forKey: "clientid")
@@ -630,7 +644,8 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
     
     
     private func getUnreadChatCount(){
-        
+        print("<<<< UNREAD MSG COUNT>>>>")
+
         var count = 0
         let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Friends")
@@ -644,8 +659,11 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
                 
                 for item in results{
                 let updatObj = item as! Friends
-                let c = Int(updatObj.value(forKey: "read_count") as? String ?? "0")!
-                count = count + c
+                    var c = 0
+                    if updatObj.value(forKey: "read_count") != nil {
+                       c = Int(updatObj.value(forKey: "read_count") as? String ?? "0")!
+                    }
+                        count = count + c
                 }
                 
                 DispatchQueue.main.async {
@@ -653,7 +671,6 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
                 self.lblChatCount.text = String(count)
                 }
                 
-                print(count,"<<<< UNREAD MSG COUNT>>>>")
             }else{
                 DispatchQueue.main.async {
                     self.lblChatCount.isHidden = true
@@ -791,6 +808,37 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         })
         
         
+    }
+    
+    
+    private func clearData() {
+        
+        do {
+            let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+            let fetchRequest = NSFetchRequest    <NSFetchRequestResult>(entityName: String(describing: Msg.self))
+            let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+            do {
+                try context.execute(deleteRequest)
+                try context.save()
+                
+            } catch let error {
+                print("ERROR DELETING : \(error)")
+            }
+        }
+        
+        
+        do {
+            let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+            let fetchRequest = NSFetchRequest    <NSFetchRequestResult>(entityName: String(describing: Friends.self))
+            let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+            do {
+                 try context.execute(deleteRequest)
+                 try context.save()
+                
+            } catch let error {
+                print("ERROR DELETING : \(error)")
+            }
+        }
     }
     
    

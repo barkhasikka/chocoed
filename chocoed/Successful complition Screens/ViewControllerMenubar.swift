@@ -43,13 +43,38 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
     
         override func viewDidLoad() {
             super.viewDidLoad()
-        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+          let language = UserDefaults.standard.string(forKey: "currentlanguage")
            print(language)
+           
+            let userType = Int(UserDefaults.standard.string(forKey: "userType")!);
+
             if language == "hi"{
-                arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल","एप्लिकेशन भाषा","माध्यमिक शिक्षा की","लोग आउट"]
+                
+
+                if userType == 2 {
+                    
+                    arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल","एप्लिकेशन भाषा","माध्यमिक शिक्षा की","Upgrade Chocoed"]
+                    
+                }else{
+                    
+                    arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल","एप्लिकेशन भाषा","माध्यमिक शिक्षा की"]
+                }
+                
+                
             }else if language == "en"{
-                arraymenu = ["My Talks","My Thoughts","My Progress","My Profile","Application Language","Learning Language","Log out"]
+                
+              if userType == 2 {
+                    
+                   arraymenu = ["My Talks","My Thoughts","My Progress","My Profile","Application Language","Learning Language","Upgrade Chocoed"]
+                    
+                }else{
+                    
+                    arraymenu = ["My Talks","My Thoughts","My Progress","My Profile","Application Language","Learning Language"]
+                }
+                
             }
+            
+            
             self.labelSelectPrefLang.text = "LabelLanguageStringAppKey".localizableString(loc: language!)
             
             
@@ -319,6 +344,11 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                 break;
                 
             case 6:
+                
+                let v1 = self.storyboard?.instantiateViewController(withIdentifier: "PaymentVC") as! PaymentVC
+                self.present(v1, animated: true, completion: nil)
+                
+                /*
                  let language = UserDefaults.standard.string(forKey: "currentlanguage")
                 textfieldMbNumber = UserDefaults.standard.string(forKey: "mobileno")!
                 let alertcontrol = UIAlertController(title: "alertKey".localizableString(loc: language!), message: "logoutAlert".localizableString(loc: language!),preferredStyle: .alert)
@@ -340,7 +370,10 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                 
                 alertcontrol.addAction(alertaction)
                 alertcontrol.addAction(alertaction1)
-                self.present(alertcontrol, animated: true, completion: nil)
+                self.present(alertcontrol, animated: true, completion: nil) */
+                 
+                 
+                 
                 break;
              
                 
