@@ -18,21 +18,24 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     
     private let cellID = "cellID"
     
+    @IBOutlet var detailView: UIView!
     
     
     private var isTyping : Bool = false
     
     
+    @IBOutlet var tblView: UITableView!
     @IBOutlet var lblReplyColor: UILabel!
     
     @IBOutlet var userTitle: UILabel!
     
     @IBOutlet var lblCurrentStatus: UILabel!
-    @IBOutlet var tblView: UITableView!
     @IBOutlet var editMsg: UITextField!
     
     var friendModel : Friends!
-    var imagePicker =  YPImagePicker()
+    
+    
+    
     
     @IBOutlet var myProfileImage: UIImageView!
     @IBOutlet var bottomView: UIView!
@@ -74,6 +77,9 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     var count = 0
     
     var isImageApiCalled = 0
+    
+    var keyboard = false
+    var lastKeyboardHeight : CGFloat!
     
     
     @IBAction func reply_cancel_clicked(_ sender: Any) {
@@ -135,7 +141,11 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         
         var desrc = ""
         
-        isImageApiCalled = 0
+        
+        self.isImageApiCalled = 0
+        
+        print(self.isImageApiCalled,"<<< APICalled>>>")
+
         
         if self.type == "destructive" {
             desrc = kXMPP.DESTRUCT_TIME
@@ -199,22 +209,54 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     }
     
     func openGallary(){
-        imagePicker.didSelectImage = { [unowned imagePicker] img in
-            self.imagePicker.dismiss(animated: true, completion: nil)
-            let url = self.savefiletoDirector(image: img)
-            self.saveImage(fileurl: url,type: kXMPP.TYPE_IMAGE)
+        
+        var config = YPImagePickerConfiguration()
+        config.showsFilters = false
+        config.screens = [.library]
+        let imagePicker =  YPImagePicker(configuration: config)
+        imagePicker.delegate = self
+        imagePicker.didFinishPicking { [unowned imagePicker] items, cancelled in
+            imagePicker.dismiss(animated: true, completion: nil)
+            if cancelled {
+                print("Picker was canceled")
+            }else{
+                let photo  = items.singlePhoto
+                let url = self.savefiletoDirector(image: photo!.image)
+                self.saveImage(fileurl: url,type: kXMPP.TYPE_IMAGE)
+            }
+            
+
+            
         }
         present(imagePicker, animated: true, completion: nil)
+
     }
     
     func openCamera(){
-        
-        imagePicker.didSelectImage = { [unowned imagePicker] img in
-            self.imagePicker.dismiss(animated: true, completion: nil)
-            let url = self.savefiletoDirector(image: img)
-            self.saveImage(fileurl: url,type: kXMPP.TYPE_IMAGE)
+        var config = YPImagePickerConfiguration()
+        config.showsFilters = false
+        config.screens = [.photo]
+        let imagePicker =  YPImagePicker(configuration: config)
+        imagePicker.delegate = self
+        imagePicker.didFinishPicking { [unowned imagePicker] items, cancelled in
+            imagePicker.dismiss(animated: true, completion: nil)
+            if cancelled {
+                print("Picker was canceled")
+                
+            }else{
+                
+                    let photo  = items.singlePhoto
+                    let url = self.savefiletoDirector(image: photo!.image)
+                    self.saveImage(fileurl: url,type: kXMPP.TYPE_IMAGE)
+                
+            }
+            
+
         }
+        
         present(imagePicker, animated: true, completion: nil)
+        
+       
     }
     
     func openPdf(){
@@ -296,7 +338,6 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         super.viewDidDisappear(animated)
         UserDefaults.standard.set("", forKey: "chatNo")
         OneMessage.sharedInstance.delegate = nil
-        imagePicker.delegate = nil
         self.editMsg.delegate = nil
         //self.updateReadCount()
     }
@@ -309,6 +350,14 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.isImageApiCalled = 0
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        
+        
+        
         UserDefaults.standard.set(self.friendModel.contact_number, forKey: "chatNo")
         
         UIApplication.shared.cancelAllLocalNotifications()
@@ -317,6 +366,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         
         self.userTitle.text = self.friendModel.name
         self.editMsg.borderStyle = .roundedRect
+        self.editMsg.autocorrectionType = .no
         
         self.replyView.isHidden = true
         self.replyView.layer.borderColor = UIColor.gray.cgColor
@@ -326,7 +376,6 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         self.actionView.isHidden = true
         
         OneMessage.sharedInstance.delegate = self
-        imagePicker.delegate = self
         self.editMsg.delegate = self
         
         
@@ -337,7 +386,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         self.tblView.rowHeight = UITableViewAutomaticDimension
         self.tblView.estimatedSectionHeaderHeight = 60.0
         
-        self.tblView.tableFooterView = self.bottomView
+       // self.tblView.tableFooterView = self.bottomView
         
         let myTextNib = UINib(nibName: "MyTextMsgCell", bundle: Bundle.main)
         self.tblView.register(myTextNib, forCellReuseIdentifier: "MyTextMsgCell")
@@ -385,19 +434,17 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         }
         
         
-        //self.scrollToBottom()
-        //self.updateTableContentInset()
+        self.scrollToBottom()
+        self.updateTableContentInset()
         
-        
-      /*  NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
+     /*   NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
         
-        
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardType), name: Notification.Name.UIKeyboardWillChangeFrame, object: nil)
-    */
+ 
+      */
         
-
-        
+     
         
     }
     
@@ -891,7 +938,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     
     override func viewWillAppear(_ animated: Bool) {
         self.isKeyEditing = false
-        isImageApiCalled = 0
+        self.isImageApiCalled = 0
 
         self.getFriendStatus()
         Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true, block: { (timer) in
@@ -1216,7 +1263,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         
                     }
                     
-                    
+                    cell.lbDat?.isHidden = true
+
                     
                     if self.selectedArr.contains(item){
                         
@@ -1267,6 +1315,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         cell.profileImga?.isHidden = true
                         
                     }
+                    
+                    cell.lblDate?.isHidden = true
                     
                     if isDateShow == true {
                         // cell.lblDate?.isHidden = false
@@ -1362,7 +1412,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     cell.profileImage?.contentMode = .scaleToFill
                     
                     cell.fileview?.sd_setImage(with : URL(string: item.file_url))
-                    cell.fileview?.contentMode = .scaleToFill
+                    cell.fileview?.contentMode = .scaleAspectFill
+                    cell.fileview?.clipsToBounds = true
                     
                     
                     if item.distructive_time == kXMPP.DESTRUCT_TIME || item.msg == kXMPP.SELF_DESTRUCT_MSG {
@@ -1447,7 +1498,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         
                     }
                     
-                    
+                     cell.lblDate?.isHidden = true
                   
                     
                     if self.selectedArr.contains(item){
@@ -1523,7 +1574,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     cell.profileImage?.contentMode = .scaleToFill
                     
                     cell.fileview?.image = UIImage(named: "pdf_place")
-                    cell.fileview?.contentMode = .scaleAspectFit
+                    cell.fileview?.contentMode = .scaleAspectFill
+                    cell.fileview?.clipsToBounds = true
                     
                     if item.is_download == "0" {
                         
@@ -1600,6 +1652,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         
                     }
                     
+                     cell.lblDate?.isHidden = true
                     
                     
                     if self.selectedArr.contains(item){
@@ -1682,6 +1735,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         
                     }
                     
+                     cell.lblDate?.isHidden = true
+                    
                     
                     if self.selectedArr.contains(item){
                         
@@ -1754,7 +1809,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         
                     }
                     
-                    
+                     cell.lblDate?.isHidden = true
                     
                     if self.selectedArr.contains(item){
                         
@@ -1787,7 +1842,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     
                     cell.fileView.alpha = 0.8
                     cell.fileView?.sd_setImage(with : URL(string: item.file_url))
-                    cell.fileView?.contentMode = .scaleToFill
+                    cell.fileView?.contentMode = .scaleAspectFill
+                    cell.fileView?.clipsToBounds = true
                     
                     if item.distructive_time == kXMPP.DESTRUCT_TIME || item.msg == kXMPP.SELF_DESTRUCT_MSG {
                         
@@ -1815,7 +1871,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         cell.progressView.isHidden = true
                         
                         cell.fileView?.sd_setImage(with: URL(string: item.file_url), placeholderImage: UIImage(named: "image_placeholder"), options: .continueInBackground, progress: nil, completed: nil)
-                        cell.fileView?.contentMode = .scaleToFill
+                        cell.fileView?.contentMode = .scaleAspectFill
+                        cell.fileView?.clipsToBounds = true
                         
                         let blureffect = UIBlurEffect(style: UIBlurEffectStyle
                             .regular)
@@ -1834,7 +1891,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                             cell.progressView.isHidden = true
                             
                             cell.fileView?.sd_setImage(with: URL(string: item.file_url), placeholderImage: UIImage(named: "image_placeholder"), options: .continueInBackground, progress: nil, completed: nil)
-                            cell.fileView?.contentMode = .scaleToFill
+                            cell.fileView?.contentMode = .scaleAspectFill
+                            cell.fileView?.clipsToBounds = true
                         
                         
                         }else if item.is_download == "0" {
@@ -1854,7 +1912,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                             
                             
                             cell.fileView?.sd_setImage(with: URL(string: item.file_url), placeholderImage: UIImage(named: "image_placeholder"), options: .continueInBackground, progress: nil, completed: nil)
-                            cell.fileView?.contentMode = .scaleToFill
+                            cell.fileView?.contentMode = .scaleAspectFill
+                            cell.fileView?.clipsToBounds = true
                             
                             let blureffect = UIBlurEffect(style: UIBlurEffectStyle
                                 .regular)
@@ -1871,12 +1930,14 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                             
                             
                             cell.fileView?.sd_setImage(with: URL(string: item.file_url), placeholderImage: UIImage(named: "image_placeholder"), options: .continueInBackground, progress: nil, completed: nil)
-                            cell.fileView?.contentMode = .scaleToFill
+                            cell.fileView?.contentMode = .scaleAspectFill
+                            cell.fileView?.clipsToBounds = true
                             
                         }
                         
                     }
                     
+                     cell.lblDate?.isHidden = true
                     
                     if self.selectedArr.contains(item){
                         
@@ -1937,7 +1998,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         cell.progressView.isHidden = true
                         
                         cell.fileView?.image = UIImage(named: "pdf_place")
-                        cell.fileView?.contentMode = .scaleToFill
+                        cell.fileView?.contentMode = .scaleAspectFill
+                        cell.fileView?.clipsToBounds = true
                         cell.progressView.isHidden = true
                         
                         
@@ -1946,7 +2008,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         if item.distructive_time == kXMPP.DESTRUCT_TIME {
                             
                             cell.fileView?.image = UIImage(named: "pdf_place")
-                            cell.fileView?.contentMode = .scaleToFill
+                            cell.fileView?.contentMode = .scaleAspectFill
+                            cell.fileView?.clipsToBounds = true
                             cell.progressView.isHidden = true
                             
                             
@@ -1962,7 +2025,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                             }
                             
                             cell.fileView?.image = UIImage(named: "pdf_place")
-                            cell.fileView?.contentMode = .scaleToFill
+                            cell.fileView?.contentMode = .scaleAspectFill
+                            cell.fileView?.clipsToBounds = true
                             cell.progressView.isHidden = true
                             
                         }else{
@@ -1973,11 +2037,14 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                             
                             
                             cell.fileView?.image = UIImage(named: "pdf_place")
-                            cell.fileView?.contentMode = .scaleToFill
+                            cell.fileView?.contentMode = .scaleAspectFill
+                            cell.fileView?.clipsToBounds = true
                             
                         }
                         
                     }
+                    
+                     cell.lblDate?.isHidden = true
                     
                     if self.selectedArr.contains(item){
                         
@@ -2013,7 +2080,9 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                 
             }else if item.msg_type == kXMPP.TYPE_REPLY    {
                 
-                return CGFloat(160)
+                // return CGFloat(200)
+                
+                 return CGFloat(210)
             }
         }
         
@@ -2821,6 +2890,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     
     func uploadImageToServer(image : UIImage, msgId : String,type:String,fileURL: String,permission:String)
     {
+        print(self.isImageApiCalled,"<<<< isImageApiCalled1 >>>>>")
         
         if self.isImageApiCalled == 1 {
             print("<<<<<< API RETURN >>>>>")
@@ -2829,7 +2899,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     
         self.isImageApiCalled = 1
         
-        
+        print(self.isImageApiCalled,"<<<< isImageApiCalled2 >>>>>")
+
        
         
         
@@ -3362,12 +3433,12 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     }
     
     
-    @objc func keyboardWillShow(notification: NSNotification) {
+ /*   @objc func keyboardWillShow(notification: NSNotification) {
         
         
         
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            print("notification: Keyboard will show")
+            print(keyboardSize.height,"notification: Keyboard will show")
             
             // if self.tblView.frame.origin.y == 0{
             // self.tblView.frame.origin.y -= keyboardSize.height
@@ -3386,16 +3457,11 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                 // self.bottomView.frame.origin.y = self.viewHeight - 40.0
                 // self.replyView.frame.origin.y = self.viewHeight - 40.0
                 
-                print(self.bottomView.frame.origin.y)
-                print(self.viewHeight)
-                
+        
                 self.bottomView.frame.origin.y -= keyboardSize.height
                 self.replyView.frame.origin.y -= keyboardSize.height
                 
                 // self.viewHeight = self.bottomView.frame.origin.y
-                
-                
-                print(self.bottomView.frame.origin.y)
                 
                 
             }
@@ -3405,6 +3471,14 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     
     @objc func keyboardType(notification: NSNotification) {
         
+               if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+                
+                
+                print(keyboardSize.height,"<<<< Keyboard SIZE  >>>>>")
+                
+               }
+        
+  
         
         if self.isKeyEditing == true {
             
@@ -3424,6 +3498,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             
             
         }
+     
         
         
     }
@@ -3454,8 +3529,76 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             
         }
     }
+    */
+ 
     
+
     
+    @objc func keyboardWillShow(notification: NSNotification) {
+        let keyboardSize = (notification.userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        
+        if keyboard == false{
+            keyboard = true
+            lastKeyboardHeight = keyboardSize.height
+           // chatDetailView.frame.origin.y = chatDetailView.frame.origin.y-(keyboardSize.height-bottomMenu.frame.height)
+            
+            let count = fetchedhResultController.sections?.first?.numberOfObjects ?? 0
+            if count != 0 {
+                let contentInset = UIEdgeInsetsMake(0.0, 0.0, keyboardSize.height , 0.0)
+                self.tblView.contentInset = contentInset
+                self.scrollToBottom()
+            }
+            
+            self.bottomView.frame.origin.y = self.bottomView.frame.origin.y - keyboardSize.height
+            self.replyView.frame.origin.y = self.replyView.frame.origin.y - keyboardSize.height
+        
+        }
+    }
+    
+    @objc func keyboardWillChange(notification: NSNotification) {
+        let keyboardSize1 = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        
+        if keyboard == true && lastKeyboardHeight != keyboardSize1.height {
+            if lastKeyboardHeight < keyboardSize1.height{
+                let keyboardDifference: CGFloat = keyboardSize1.height-lastKeyboardHeight
+               // chatDetailView.frame.origin.y -= keyboardDifference
+                
+                let contentInset = UIEdgeInsetsMake(0.0, 0.0,keyboardDifference , 0.0)
+                self.tblView.contentInset = contentInset
+                
+                self.bottomView.frame.origin.y -= keyboardDifference
+                self.replyView.frame.origin.y -= keyboardDifference
+                
+                
+            } else {
+                let keyboardDifference: CGFloat = lastKeyboardHeight-keyboardSize1.height
+              //  chatDetailView.frame.origin.y += keyboardDifference
+                
+                let contentInset = UIEdgeInsetsMake(0.0, 0.0,keyboardDifference , 0.0)
+                self.tblView.contentInset = contentInset
+                
+                self.bottomView.frame.origin.y += keyboardDifference
+                self.replyView.frame.origin.y += keyboardDifference
+                
+                
+
+            }
+            lastKeyboardHeight = keyboardSize1.height
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if keyboard == true {
+            keyboard = false
+           // chatDetailView.frame.origin.y = chatDetailView.frame.origin.y+(lastKeyboardHeight-bottomMenu.frame.height)
+            let contentInset = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
+            self.tblView.contentInset = contentInset
+            self.bottomView.frame.origin.y =  self.viewHeight
+            self.replyView.frame.origin.y = self.replyHeight
+            self.updateTableContentInset()
+            
+        }
+    }
     
     
     /// Get Friend is Typing or not

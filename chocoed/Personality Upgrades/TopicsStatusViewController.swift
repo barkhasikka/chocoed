@@ -243,15 +243,15 @@ class TopicsStatusViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func revwindVideo() {
         
-        let userAppLang1 = "English"
-        let userAppLang2 = UserDefaults.standard.string(forKey: "Language2")
+        let userAppLang1 = UserDefaults.standard.string(forKey: "Language2")
+        let userAppLang2 = UserDefaults.standard.string(forKey: "Language3")
         
         
         if userAppLang1 == userAppLang2 {
             
             // same language
             
-            currentSelectedLang = "English"
+            currentSelectedLang = userAppLang1!
             
             // directly play vide
             
@@ -260,6 +260,7 @@ class TopicsStatusViewController: UIViewController,UITableViewDelegate,UITableVi
                 vcNewSectionStarted.currentPosition = self.tableRowPosition
                 vcNewSectionStarted.courseId = courseid
                 vcNewSectionStarted.fromType = "choice"
+                vcNewSectionStarted.selectedTopicId = self.arrayCourseSubTopicList[self.tableRowPosition].topicId
                 self.present(vcNewSectionStarted, animated: true, completion: nil)
             }
             
@@ -278,13 +279,14 @@ class TopicsStatusViewController: UIViewController,UITableViewDelegate,UITableVi
             
             let actionSure = UIAlertAction(title: userAppLang1, style: .default, handler: { (alert) in
                 
-                currentSelectedLang = userAppLang1
+                currentSelectedLang = userAppLang1!
                 
                 if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "VideoVC") as? VideoVC {
                     vcNewSectionStarted.arrayTopic = self.arrayCourseSubTopicList
                     vcNewSectionStarted.currentPosition = self.tableRowPosition
                     vcNewSectionStarted.courseId = self.courseid
                     vcNewSectionStarted.fromType = "choice"
+                    vcNewSectionStarted.selectedTopicId = self.arrayCourseSubTopicList[self.tableRowPosition].topicId
                     self.present(vcNewSectionStarted, animated: true, completion: nil)
                 }
                 
@@ -302,6 +304,7 @@ class TopicsStatusViewController: UIViewController,UITableViewDelegate,UITableVi
                     vcNewSectionStarted.currentPosition = self.tableRowPosition
                     vcNewSectionStarted.courseId = self.courseid
                     vcNewSectionStarted.fromType = "choice"
+                    vcNewSectionStarted.selectedTopicId = self.arrayCourseSubTopicList[self.tableRowPosition].topicId
                     self.present(vcNewSectionStarted, animated: true, completion: nil)
                 }
                 

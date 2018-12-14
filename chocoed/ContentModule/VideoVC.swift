@@ -170,6 +170,7 @@ class VideoVC: UIViewController {
         closed = false
         
         
+        
 
         
     }
@@ -243,7 +244,22 @@ class VideoVC: UIViewController {
         
         let notificationCenter1 = NotificationCenter.default
         notificationCenter1.addObserver(self, selector: #selector(appMovedToFront), name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
+        
+        
+        if kXMPP.IS_RECORDING == true {
+            DispatchQueue.main.async {
+                //let alert = GetAlertWithOKAction(message: "Turn off recording..")
+                //self.present(alert, animated: true, completion: nil)
+                self.closedPlayer()
+            }
+        }
+        
     }
+    
+   
+    
+    
+
     
     @objc func appMovedToBackground() {
         print("App moved to background!")
@@ -625,9 +641,13 @@ class VideoVC: UIViewController {
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+       
         if keyPath == "duration", let duration = player.currentItem?.duration.seconds, duration > 0.0 {
             self.durationLabel.text = getTimeString(from: player.currentItem!.duration)
         }
+        
+      
+        
     }
     
     func getTimeString(from time: CMTime) -> String {

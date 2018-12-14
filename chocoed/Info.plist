@@ -17,7 +17,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.1</string>
 	<key>CFBundleVersion</key>
-	<string>28</string>
+	<string>30</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
@@ -38,11 +38,11 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Chocoed wants to access camera to upload your profile picture</string>
+	<string>Chocoed wants to access camera to upload picture</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Chocoed wants to access microphone to play videos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Chocoed wants to access Photos Library to upload your profile picture</string>
+	<string>Chocoed wants to access Photos Library to upload picture</string>
 	<key>NSSupportsSuddenTermination</key>
 	<false/>
 	<key>UILaunchStoryboardName</key>

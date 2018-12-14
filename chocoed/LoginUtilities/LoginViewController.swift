@@ -93,8 +93,14 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
         // Do any additional setup after loading the view.
         
         mobileNumberTextFIeld.becomeFirstResponder()
+        
+        
+       
     }
     
+    
+    
+   
     override var shouldAutorotate: Bool{
         return false
     }
@@ -490,9 +496,18 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
             
             fcm = ""
         }
+        
+        var deviceId = UIDevice.current.identifierForVendor?.uuidString
+        
+        if deviceId == nil {
+            
+            deviceId = ""
+        }
+        
+
 
         
-        params = ["access_token":"\(accessToken)","device_id":"","device_type":"iPhone","device_info":"","device_token":"\(fcm)","userId":"\(userID)"] as Dictionary<String, String>
+        params = ["access_token":"\(accessToken)","device_id":"\(deviceId!)","device_type":"iPhone","device_info":"iPhone","device_token":"\(fcm!)","userId":"\(userID)"] as Dictionary<String, String>
         print(params)
         
         MakeHttpPostRequest(url: saveDeviceToken, params: params, completion: {(success, response) -> Void in

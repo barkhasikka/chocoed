@@ -750,7 +750,7 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
                 do{
                     try context.save()
                     
-                   // self.tblView.reloadData()
+                    self.tblView.reloadData()
                     
                 }catch{
                     print("Error in update")

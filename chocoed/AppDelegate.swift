@@ -38,6 +38,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var shouldRotate = false
     static var menu_bool = true
     
+
+    
     //AAAAgSFpxh8:APA91bGGeQMgz_qm9bi61kY3iPQchcn3ooeTCwToMdK6cycrreGlzqJ9mkXRSR75EC2QhCvJ8SpGFT9yPH0o4iNtKGfK10p2uacPLjJppz71rvln42yNf5cUMI3o-ELWibBTpHUvMV9N
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions:
@@ -59,11 +61,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
             }
           }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(checkIFScreenIsCapture), name: NSNotification.Name.UIScreenCapturedDidChange, object: nil)
+        
+        
+        if  UIScreen.main.isCaptured == true {
+            print("<<<Recording TRUE>>>>>")
+            kXMPP.IS_RECORDING = true
+        }
 
         requestNotificationAuthorization(application: application)
         self.openVC()
         return true
     }
+    
+    @objc func checkIFScreenIsCapture(notification:Notification){
+        guard let screen = notification.object as? UIScreen else { return }
+        if screen.isCaptured == true {
+            print("<<<Recording TRUE>>>>>")
+            kXMPP.IS_RECORDING = true
+        }else{
+            print("<<<Recording FALSE>>>>>")
+            kXMPP.IS_RECORDING = false
+        }
+    }
+    
+    
 
         func openVC(){
             

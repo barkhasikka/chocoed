@@ -294,7 +294,10 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         let tapGestureRecognizer1 = UITapGestureRecognizer(target: self, action: #selector(badgeImageAction(tapGestureRecognizer:)))
         self.badgeImage.isUserInteractionEnabled = true
         self.badgeImage.addGestureRecognizer(tapGestureRecognizer1)
+        
     }
+ 
+    
     
     @objc func badgeImageAction(tapGestureRecognizer: UITapGestureRecognizer){
         
@@ -741,8 +744,16 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
             
             fcm = ""
         }
+        
+        var deviceId = UIDevice.current.identifierForVendor?.uuidString
+        
+        if deviceId == nil {
+            
+            deviceId = ""
+        }
 
-        params = ["access_token":"\(accessToken)","deviceId":"","deviceType":"iPhone","deviceInfo":"","deviceToken":"\(fcm!)","userId":"\(userID)"] as Dictionary<String, String>
+
+        params = ["access_token":"\(accessToken)","deviceId":"\(deviceId!)","deviceType":"iPhone","deviceInfo":"iPhone","deviceToken":"\(fcm!)","userId":"\(userID)"] as Dictionary<String, String>
         print(params)
         
         MakeHttpPostRequest(url: saveDeviceToken, params: params, completion: {(success, response) -> Void in
