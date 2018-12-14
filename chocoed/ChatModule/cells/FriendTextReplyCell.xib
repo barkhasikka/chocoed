@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,11 +18,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="203.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Q1-iV-gzf">
-                        <rect key="frame" x="141.5" y="2" width="37.5" height="15"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Q1-iV-gzf">
+                        <rect key="frame" x="120" y="5" width="80" height="15"/>
                         <color key="backgroundColor" red="0.1215686275" green="0.42352941179999998" blue="0.72549019609999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="70" id="7pK-sU-oRz"/>
+                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="80" id="7pK-sU-oRz"/>
                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="15" id="O6P-zw-t0S"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -143,7 +142,7 @@
                     <constraint firstItem="xhi-pD-mGF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="3" id="IqL-7h-7Sb"/>
                     <constraint firstAttribute="bottom" secondItem="SWR-ll-NUl" secondAttribute="bottom" constant="3" id="Or1-dq-vrs"/>
                     <constraint firstAttribute="bottom" secondItem="xhi-pD-mGF" secondAttribute="bottom" constant="3" id="ac9-Bb-cwL"/>
-                    <constraint firstItem="3Q1-iV-gzf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="eL6-0p-4sg"/>
+                    <constraint firstItem="3Q1-iV-gzf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="eL6-0p-4sg"/>
                     <constraint firstItem="3Q1-iV-gzf" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="kG4-xz-2LF"/>
                     <constraint firstItem="SWR-ll-NUl" firstAttribute="leading" secondItem="xhi-pD-mGF" secondAttribute="trailing" constant="8" id="w9Q-79-alD"/>
                 </constraints>
@@ -163,7 +162,7 @@
                 <outlet property="replyType" destination="3TO-Aq-WCZ" id="lA2-uk-cUs"/>
                 <outlet property="replyView" destination="sXe-rU-1bZ" id="THh-lH-vDL"/>
             </connections>
-            <point key="canvasLocation" x="51.200000000000003" y="80.959520239880064"/>
+            <point key="canvasLocation" x="51" y="80"/>
         </tableViewCell>
     </objects>
 </document>
