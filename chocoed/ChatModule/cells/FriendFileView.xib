@@ -19,8 +19,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="207.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uzD-ZP-dKT">
-                        <rect key="frame" x="139.5" y="2" width="41.5" height="13"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Today" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uzD-ZP-dKT">
+                        <rect key="frame" x="134" y="2" width="52" height="13"/>
                         <color key="backgroundColor" red="0.1215686275" green="0.42352941179999998" blue="0.72549019609999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="80" id="7sO-3t-sCS"/>
@@ -34,10 +34,10 @@
                         <rect key="frame" x="50" y="20" width="200" height="180"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xFB-4k-Gs8">
-                                <rect key="frame" x="5" y="0.0" width="190" height="175"/>
+                                <rect key="frame" x="5" y="0.0" width="190" height="158"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RaG-t0-bpB">
-                                <rect key="frame" x="164" y="160" width="28" height="12"/>
+                                <rect key="frame" x="164" y="163" width="28" height="12"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="12" id="RFc-dB-4Wi"/>
                                 </constraints>
@@ -57,12 +57,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="RaG-t0-bpB" firstAttribute="top" secondItem="aHN-Yu-pBf" secondAttribute="top" constant="160" id="JRS-cM-yXA"/>
+                            <constraint firstAttribute="bottom" secondItem="RaG-t0-bpB" secondAttribute="bottom" constant="5" id="P8r-Oz-hON"/>
                             <constraint firstAttribute="trailing" secondItem="xFB-4k-Gs8" secondAttribute="trailing" constant="5" id="biL-R3-Eyp"/>
                             <constraint firstItem="xFB-4k-Gs8" firstAttribute="top" secondItem="aHN-Yu-pBf" secondAttribute="top" id="iju-C3-sMY"/>
                             <constraint firstAttribute="trailing" secondItem="RaG-t0-bpB" secondAttribute="trailing" constant="8" id="kwt-JV-fdI"/>
                             <constraint firstAttribute="height" constant="180" id="l5k-Db-XMk"/>
-                            <constraint firstAttribute="bottom" secondItem="xFB-4k-Gs8" secondAttribute="bottom" constant="5" id="qUQ-Ko-jfm"/>
+                            <constraint firstAttribute="bottom" secondItem="xFB-4k-Gs8" secondAttribute="bottom" constant="22" id="qUQ-Ko-jfm"/>
                             <constraint firstItem="xFB-4k-Gs8" firstAttribute="leading" secondItem="aHN-Yu-pBf" secondAttribute="leading" constant="5" id="qZp-5P-edI"/>
                             <constraint firstAttribute="width" constant="200" id="x0z-wa-phv"/>
                         </constraints>
@@ -99,7 +99,7 @@
                 <outlet property="progressView" destination="ES5-Od-l60" id="ny2-fJ-5Mu"/>
                 <outlet property="topofFileViewConstraints" destination="Wqo-0Z-Vd7" id="odd-dA-aY3"/>
             </connections>
-            <point key="canvasLocation" x="-64" y="20"/>
+            <point key="canvasLocation" x="-64" y="19.790104947526238"/>
         </tableViewCell>
     </objects>
     <resources>

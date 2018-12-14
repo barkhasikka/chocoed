@@ -2078,11 +2078,10 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                 
                 return CGFloat(230)
                 
-            }else if item.msg_type == kXMPP.TYPE_REPLY    {
+            }else if item.msg_type == kXMPP.TYPE_REPLY   {
                 
-                // return CGFloat(200)
+                 return UITableViewAutomaticDimension
                 
-                 return CGFloat(210)
             }
         }
         
