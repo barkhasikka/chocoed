@@ -41,6 +41,9 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
     var arrayPendingExamList = [ExamList]()
     var arrayBehaviouralQuestion = [Question]()
     var activityUIView: ActivityIndicatorUIView!
+    
+    var thirdDayDate = Date()
+    var isThirdOrGreater = false
 
     
     
@@ -183,6 +186,13 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContentCell", for: indexPath) as! ContentCell
+        
+        
+        if self.isThirdOrGreater == true {
+            
+            let alert = GetAlertWithOKAction(message: "Upgread Chocoed")
+             self.present(alert, animated: true, completion: nil)
+        }
         
         var showLockLayout = true
         
@@ -670,9 +680,26 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
             self.datesBetweenArray = self.generateDatesArrayBetweenTwoDates(startDate:finalFromDate , endDate: finalToDate)
             
             
+            let userType = Int(UserDefaults.standard.string(forKey: "userType")!)
+            print("<<<USERTYPE>>>",userType)
+            if userType == 2{
+                if self.datesBetweenArray.count >= 3 {
+                    self.thirdDayDate = self.datesBetweenArray[2]
+                }
+            }
+
+            
+          
+            
             
             
             for adate in self.datesBetweenArray{
+                
+                if adate >= self.thirdDayDate{
+                    self.isThirdOrGreater = true
+                    print("greater")
+
+                }
                 
                 let predate = self.getStringFromDate(date:adate)
                 
@@ -810,6 +837,8 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                 }else{
                     self.lblEmpty.isHidden = false
                 }
+                
+              
             }
             
             
