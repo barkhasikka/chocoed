@@ -10,6 +10,7 @@ import UIKit
 
 class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
  
+    @IBOutlet weak var imageViewView: UIView!
     @IBOutlet var tblView: UITableView!
     @IBOutlet var btnNext: UIButton!
     @IBOutlet var btnPrev: UIButton!
@@ -114,6 +115,12 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
         print(UserDefaults.standard.string(forKey: "Language1")!)
         print(UserDefaults.standard.string(forKey: "Language2")!)
         print(UserDefaults.standard.string(forKey: "Language3")!)
+        
+        let backgroundImage = UIImageView(frame: self.imageViewView.bounds)
+        backgroundImage.image = UIImage(named: "dashboard_header")
+        backgroundImage.contentMode = UIViewContentMode.scaleToFill
+        self.imageViewView.insertSubview(backgroundImage, at: 0)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
