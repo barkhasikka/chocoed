@@ -282,7 +282,7 @@ class LanguageVC: UIViewController , UITableViewDelegate , UITableViewDataSource
                             UserDefaults.standard.set(text, forKey: "Language1")
                             
                         }
-                        dismiss(animated: true, completion: nil)
+                        self.dismiss(animated: true, completion: nil)
                     
                 }
                 

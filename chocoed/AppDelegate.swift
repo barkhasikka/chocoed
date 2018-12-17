@@ -128,7 +128,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     }
                 }
             }else {
-                    
+                if userID != 0{
                     DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
                         
                        // self.window = UIWindow(frame: UIScreen.main.bounds)
@@ -138,6 +138,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         self.window!.makeKeyAndVisible()
                         
                     }
+                }
+                else{
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
+                        
+                    let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "MasterVC") as! RootUIPageViewController
+                    self.window!.rootViewController = startVC
+                    self.window!.makeKeyAndVisible()
+                    }
+                }
                 }
     }
     var applicationStateString: String {
