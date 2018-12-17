@@ -13,6 +13,13 @@ import AVFoundation
 
 class VideoVC: UIViewController {
     
+
+    @IBOutlet var btnRewind: UIButton!
+    
+    @IBAction func btn_rewind_clicked(_ sender: Any) {
+            player.seek(to: CMTimeMake(Int64(-5*1000), 1000))
+    }
+    
     
     @IBOutlet var bottomView: UIView!
     
@@ -634,10 +641,10 @@ class VideoVC: UIViewController {
     
    
     @IBAction func sliderValueChanged(_ sender: UISlider) {
-        if  lastValue > sender.value {
+      /*  if  lastValue > sender.value {
             player.seek(to: CMTimeMake(Int64(sender.value*1000), 1000))
         }
-        lastValue = sender.value
+        lastValue = sender.value */
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {

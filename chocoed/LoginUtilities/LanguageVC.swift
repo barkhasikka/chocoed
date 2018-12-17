@@ -262,6 +262,30 @@ class LanguageVC: UIViewController , UITableViewDelegate , UITableViewDataSource
                     
                 }
                 
+                if self.arrayLanguages.count == 1 {
+                    
+                         let text = self.arrayLanguages[0].dbname
+                    
+                    
+                        if text == "English"{
+                            
+                            UserDefaults.standard.set("en", forKey: "currentlanguage")
+                            UserDefaults.standard.set(text, forKey: "Language1")
+                            
+                        }else if text == "Hindi"{
+                            UserDefaults.standard.set("hi", forKey: "currentlanguage")
+                            UserDefaults.standard.set(text, forKey: "Language1")
+                            
+                        }else{
+                            
+                            UserDefaults.standard.set("en", forKey: "currentlanguage")
+                            UserDefaults.standard.set(text, forKey: "Language1")
+                            
+                        }
+                        dismiss(animated: true, completion: nil)
+                    
+                }
+                
             }
             
             if self.type == "firsttime" {

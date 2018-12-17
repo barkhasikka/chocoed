@@ -57,7 +57,7 @@ class LaunchScreenViewController: UIViewController {
    
     
     func playSound() {
-        let url = Bundle.main.url(forResource: "chocoed_music", withExtension: "mp3")!
+        let url = Bundle.main.url(forResource: "music", withExtension: "mp3")!
         
         do {
             player = try AVAudioPlayer(contentsOf: url)

@@ -1068,7 +1068,7 @@ the beginning of every beautiful journey.</string>
                                 <rect key="frame" x="0.0" y="539" width="375" height="128"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="K7f-ZJ-hF6">
+                                    <slider hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="K7f-ZJ-hF6">
                                         <rect key="frame" x="5" y="25" width="360" height="30"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         <connections>
@@ -1095,6 +1095,14 @@ the beginning of every beautiful journey.</string>
                                         <state key="normal" image="icons_pause.png"/>
                                         <connections>
                                             <action selector="playPressed:" destination="qxx-eN-X9A" eventType="touchUpInside" id="2pD-6o-znw"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wM4-dZ-ika">
+                                        <rect key="frame" x="120" y="62" width="40" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="btn_rewind_clicked:" destination="qxx-eN-X9A" eventType="touchUpInside" id="5Vp-9D-WXw"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1178,6 +1186,7 @@ the beginning of every beautiful journey.</string>
                         <outlet property="btnOption3" destination="gDT-RY-nku" id="fJ6-uA-3t9"/>
                         <outlet property="btnOption4" destination="e3G-77-Li4" id="i5W-C2-2s1"/>
                         <outlet property="btnPlayAction" destination="FPS-hx-9xq" id="hry-oq-qbJ"/>
+                        <outlet property="btnRewind" destination="wM4-dZ-ika" id="grI-rR-JM7"/>
                         <outlet property="currentTimeLabel" destination="Bvy-Z3-GcF" id="w7L-Nd-Tcu"/>
                         <outlet property="durationLabel" destination="KU7-ms-D7M" id="bIX-ud-gtt"/>
                         <outlet property="lblQuestion" destination="xlX-HV-21K" id="Y7O-5m-lkH"/>
