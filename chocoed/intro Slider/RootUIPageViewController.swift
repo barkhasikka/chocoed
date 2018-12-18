@@ -11,10 +11,11 @@ import UIKit
 class RootUIPageViewController: UIPageViewController,UIPageViewControllerDataSource{
     lazy var viewcontrollerList:[UIViewController] = {
         let sb = UIStoryboard(name: "Main", bundle: nil)
-        let vc1 = sb.instantiateViewController(withIdentifier: "RedVC")
-        let vc2 = sb.instantiateViewController(withIdentifier: "orangeVC")
-        let vc3 = sb.instantiateViewController(withIdentifier: "BlueVC")
-        return [vc1,vc2,vc3]
+        let vc = sb.instantiateViewController(withIdentifier: "profileIntro")
+        let vc1 = sb.instantiateViewController(withIdentifier: "behaviourIntro")
+        let vc2 = sb.instantiateViewController(withIdentifier: "dailyIntro")
+        let vc3 = sb.instantiateViewController(withIdentifier: "ConversationsIntro")
+        return [vc,vc1,vc2,vc3]
     }()
     override func viewDidLoad() {
         super.viewDidLoad()

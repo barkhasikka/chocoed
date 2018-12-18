@@ -137,7 +137,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-         self.popupView.isHidden = true
+         self.popupView.isHidden = false
         
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
         

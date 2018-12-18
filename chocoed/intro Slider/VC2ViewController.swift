@@ -1,14 +1,14 @@
 //
-//  VC3ViewController.swift
+//  VC2ViewController.swift
 //  chocoed
 //
-//  Created by Tejal on 17/12/18.
+//  Created by Tejal on 18/12/18.
 //  Copyright © 2018 barkha sikka. All rights reserved.
 //
 
 import UIKit
 
-class VC3ViewController: UIViewController {
+class VC2ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,13 +19,7 @@ class VC3ViewController: UIViewController {
         
         // Do any additional setup after loading the view.
     }
-    @IBAction func doneButtonAction(_ sender: Any) {
-        
-        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "firstview") as! ViewController
-        self.present(nextVC, animated: true, completion: nil)
-        
-    }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
