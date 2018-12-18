@@ -13,13 +13,8 @@ import UserNotifications
 
 
 class SplitviewViewController: UIViewController , UNUserNotificationCenterDelegate {
-
-    
-    
     @IBOutlet var lblChatCount: UILabel!
-    
     @IBOutlet var badgeImage: UIImageView!
-    
     @IBOutlet weak var textcoinsEarned: UILabel!
     @IBOutlet weak var textbadgesEarned: UILabel!
     @IBOutlet weak var choiceLabel2: UILabel!
@@ -33,13 +28,10 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
     @IBOutlet weak var compTestLabel: UILabel!
     @IBOutlet weak var completedTopicsLabel: UILabel!
     @IBOutlet weak var topArcVIew: NSLayoutConstraint!
-    
-   
     @IBOutlet weak var myProgressHandUIView: UIView!
     @IBOutlet weak var myThoughtsHandUIView: UIView!
     @IBOutlet weak var myChatHandUIView: UIView!
     @IBOutlet var lblTestCount: UILabel!
-    
     @IBOutlet weak var myprogressConstraintOutlet: NSLayoutConstraint!
     @IBOutlet var lblBadgesCount: UILabel!
     @IBOutlet var lblTopicCount: UILabel!
