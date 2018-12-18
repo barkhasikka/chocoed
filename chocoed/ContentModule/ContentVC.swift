@@ -9,7 +9,21 @@
 import UIKit
 
 class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
- 
+    
+    
+    
+    @IBOutlet var popupView: UIView!
+    
+    @IBAction func laterBtn_clicked(_ sender: Any) {
+        self.popupView.isHidden = true
+    }
+    
+    @IBAction func upgrade_clicked(_ sender: Any) {
+        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "PaymentVC") as! PaymentVC
+        self.present(v1, animated: true, completion: nil)
+    }
+    
+    
     @IBOutlet var tblView: UITableView!
     @IBOutlet var btnNext: UIButton!
     @IBOutlet var btnPrev: UIButton!
@@ -119,6 +133,8 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+         self.popupView.isHidden = true
+        
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
         
         myplanlabel.text = "MyPlanKey".localizableString(loc: language!)
@@ -176,6 +192,11 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
         
     }
     
+    private func showUpgradePopup(){
+        
+        self.popupView.isHidden = false
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -188,11 +209,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContentCell", for: indexPath) as! ContentCell
         
         
-        if self.isThirdOrGreater == true {
-            
-            let alert = GetAlertWithOKAction(message: "Upgread Chocoed")
-             self.present(alert, animated: true, completion: nil)
-        }
+        
         
         var showLockLayout = true
         
@@ -250,6 +267,12 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
             if indexPath.row == 0 {
                 
                 showLockLayout = false
+                let userType = Int(UserDefaults.standard.string(forKey: "userType")!)
+                if userType == 2{
+                    if self.isThirdOrGreater == true {
+                        self.showUpgradePopup()
+                    }
+                }
                 
             }else{
                 
@@ -343,6 +366,14 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+       
+        let userType = Int(UserDefaults.standard.string(forKey: "userType")!)
+        if userType == 2{
+            if self.isThirdOrGreater == true {
+                self.showUpgradePopup()
+                return
+            }
+        }
         
         self.tableRowPosition = indexPath.row
         let topicid = arrayTopic[indexPath.row].topicId
@@ -681,11 +712,11 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
             
             
             let userType = Int(UserDefaults.standard.string(forKey: "userType")!)
-            print("<<<USERTYPE>>>",userType)
             if userType == 2{
                 if self.datesBetweenArray.count >= 3 {
                     self.thirdDayDate = self.datesBetweenArray[2]
                 }
+                
             }
 
             
@@ -694,12 +725,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
             
             
             for adate in self.datesBetweenArray{
-                
-                if adate >= self.thirdDayDate{
-                    self.isThirdOrGreater = true
-                    print("greater")
-
-                }
+             
                 
                 let predate = self.getStringFromDate(date:adate)
                 
@@ -771,6 +797,11 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
     func loadSingleDayTopic()
     {
         
+        if self.datesBetweenArray[self.currentPositon] >= self.thirdDayDate{
+            self.isThirdOrGreater = true
+        }else{
+            self.isThirdOrGreater = false
+        }
         
         let date = self.getStringFromDate(date: self.datesBetweenArray[self.currentPositon])
         
@@ -838,6 +869,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                     self.lblEmpty.isHidden = false
                 }
                 
+              
               
             }
             
@@ -953,7 +985,6 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
         
         return datesArray
     }
-    
-    
-    
+
 }
+  

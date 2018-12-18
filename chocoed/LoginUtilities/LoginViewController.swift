@@ -364,6 +364,8 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
     }
 
     func sendOTPAPI() {
+        
+        
         let startingLength = mobileNumberTextFIeld.text?.count ?? 0
         if startingLength != 10 {
              let language = UserDefaults.standard.string(forKey: "currentlanguage")
@@ -374,7 +376,16 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
             self.present(alertcontroller, animated: true, completion: nil)
 
         }else {
-            let params = ["phone":"\(mobileNumberTextFIeld.text!)", "access_token":"\(accessToken)"] as Dictionary<String, String>
+            
+            var deviceId = UIDevice.current.identifierForVendor?.uuidString
+            
+            if deviceId == nil {
+                
+                deviceId = ""
+            }
+
+            
+            let params = ["phone":"\(mobileNumberTextFIeld.text!)", "access_token":"\(accessToken)","deviceId":"\(deviceId!)"] as Dictionary<String, String>
             print(params)
             activityUIView.isHidden = false
             activityUIView.startAnimation()
