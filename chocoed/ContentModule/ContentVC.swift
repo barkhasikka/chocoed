@@ -9,11 +9,9 @@
 import UIKit
 
 class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
-    
-    
+
     
     @IBOutlet var popupView: UIView!
-    
     @IBAction func laterBtn_clicked(_ sender: Any) {
         self.popupView.isHidden = true
     }
@@ -22,8 +20,8 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
         let v1 = self.storyboard?.instantiateViewController(withIdentifier: "PaymentVC") as! PaymentVC
         self.present(v1, animated: true, completion: nil)
     }
-    
-    
+
+    @IBOutlet weak var imageViewView: UIView!
     @IBOutlet var tblView: UITableView!
     @IBOutlet var btnNext: UIButton!
     @IBOutlet var btnPrev: UIButton!
@@ -128,6 +126,12 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
         print(UserDefaults.standard.string(forKey: "Language1")!)
         print(UserDefaults.standard.string(forKey: "Language2")!)
         print(UserDefaults.standard.string(forKey: "Language3")!)
+        
+        let backgroundImage = UIImageView(frame: self.imageViewView.bounds)
+        backgroundImage.image = UIImage(named: "dashboard_header")
+        backgroundImage.contentMode = UIViewContentMode.scaleToFill
+        self.imageViewView.insertSubview(backgroundImage, at: 0)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
