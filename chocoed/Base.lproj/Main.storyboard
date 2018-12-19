@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TWi-rM-jqp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TWi-rM-jqp">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -64,8 +65,8 @@
                                 <color key="pageIndicatorTintColor" red="0.42470390159999999" green="0.42470390159999999" blue="0.42470390159999999" alpha="0.46575342469999997" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="currentPageIndicatorTintColor" red="0.15261782879999999" green="0.54715570979999995" blue="0.93766191710000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </pageControl>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check your profile and edit/complete as required. Fill in your Educational and Employment data." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xR9-Po-pFy">
-                                <rect key="frame" x="45" y="376" width="285" height="57.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check your profile and edit/complete as required. " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xR9-Po-pFy">
+                                <rect key="frame" x="45" y="376" width="285" height="38.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="j1H-Sg-73U"/>
                                 </constraints>
@@ -89,15 +90,27 @@
                                     <constraint firstAttribute="height" constant="150" id="qG9-mu-hGf"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fill in your Educational and Employment data." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eJ7-Wr-dCT">
+                                <rect key="frame" x="45" y="419.5" width="285" height="38.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="i0U-sv-j13"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="eJ7-Wr-dCT" firstAttribute="top" secondItem="xR9-Po-pFy" secondAttribute="bottom" constant="5" id="7z7-Xd-yOm"/>
                             <constraint firstItem="VMd-O5-dyX" firstAttribute="centerX" secondItem="BIJ-3Y-rCg" secondAttribute="centerX" id="8XZ-kT-diR"/>
+                            <constraint firstItem="eJ7-Wr-dCT" firstAttribute="leading" secondItem="aj8-0A-ati" secondAttribute="leading" constant="45" id="AFt-vL-2pE"/>
                             <constraint firstItem="xR9-Po-pFy" firstAttribute="top" secondItem="jtp-Ky-Kp6" secondAttribute="bottom" constant="120" id="AsR-Qi-kFv"/>
                             <constraint firstItem="VMd-O5-dyX" firstAttribute="top" secondItem="jtp-Ky-Kp6" secondAttribute="bottom" constant="74" id="JgB-Id-Z7f"/>
                             <constraint firstItem="xR9-Po-pFy" firstAttribute="leading" secondItem="aj8-0A-ati" secondAttribute="leading" constant="45" id="cp5-zG-OYF"/>
                             <constraint firstItem="aj8-0A-ati" firstAttribute="trailing" secondItem="xR9-Po-pFy" secondAttribute="trailing" constant="45" id="fpR-2q-bSa"/>
                             <constraint firstItem="jtp-Ky-Kp6" firstAttribute="top" secondItem="aj8-0A-ati" secondAttribute="top" constant="86" id="ikT-IN-mVc"/>
                             <constraint firstItem="jtp-Ky-Kp6" firstAttribute="centerX" secondItem="BIJ-3Y-rCg" secondAttribute="centerX" id="kCR-Xj-aiu"/>
+                            <constraint firstItem="aj8-0A-ati" firstAttribute="trailing" secondItem="eJ7-Wr-dCT" secondAttribute="trailing" constant="45" id="qAd-M5-giq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aj8-0A-ati"/>
                     </view>
@@ -127,23 +140,45 @@
                                     <constraint firstAttribute="width" constant="240" id="MIb-d5-C80"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HNi-M1-Tfg">
-                                <rect key="frame" x="45" y="350" width="285" height="134"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Complete the behaviour , Psychometric and Personality Vitae self appraisals." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HNi-M1-Tfg">
+                                <rect key="frame" x="45" y="350" width="285" height="38.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="Iw8-zG-kPl"/>
                                 </constraints>
-                                <string key="text">Complete the behaviour , Psychometric and Personality Vitae self appraisals.
-The Personal Vitae appraisals would take about 30 mins in total.Take break after completing each appraisal, if you wish to, but do not quit in between appraisals for best results.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Personal Vitae appraisals would take about 30 mins in total." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D8f-PD-whg">
+                                <rect key="frame" x="45" y="393.5" width="285" height="38.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="wDa-Z0-voE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Take break after completing each appraisal, if you wish to, but do not quit in between appraisals for best results." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jpx-3j-fLx">
+                                <rect key="frame" x="45" y="437" width="285" height="81.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="JbK-bW-3ee"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <constraints>
                             <constraint firstItem="JeU-TS-PSw" firstAttribute="centerX" secondItem="bWk-YZ-g4n" secondAttribute="centerX" id="2h7-x3-w3A"/>
+                            <constraint firstItem="Jpx-3j-fLx" firstAttribute="top" secondItem="D8f-PD-whg" secondAttribute="bottom" constant="5" id="3zu-ut-4aJ"/>
+                            <constraint firstItem="dbB-UO-8LW" firstAttribute="trailing" secondItem="D8f-PD-whg" secondAttribute="trailing" constant="45" id="Baa-la-FN8"/>
                             <constraint firstItem="HNi-M1-Tfg" firstAttribute="top" secondItem="JeU-TS-PSw" secondAttribute="bottom" constant="40" id="Kbn-4m-cj0"/>
                             <constraint firstItem="dbB-UO-8LW" firstAttribute="trailing" secondItem="HNi-M1-Tfg" secondAttribute="trailing" constant="45" id="LAD-8D-uIR"/>
+                            <constraint firstItem="D8f-PD-whg" firstAttribute="top" secondItem="HNi-M1-Tfg" secondAttribute="bottom" constant="5" id="N5S-P8-0Th"/>
                             <constraint firstItem="HNi-M1-Tfg" firstAttribute="leading" secondItem="dbB-UO-8LW" secondAttribute="leading" constant="45" id="UKa-dP-sLX"/>
+                            <constraint firstItem="dbB-UO-8LW" firstAttribute="trailing" secondItem="Jpx-3j-fLx" secondAttribute="trailing" constant="45" id="Una-kz-dRK"/>
+                            <constraint firstItem="D8f-PD-whg" firstAttribute="leading" secondItem="dbB-UO-8LW" secondAttribute="leading" constant="45" id="VS6-lE-ULQ"/>
+                            <constraint firstItem="Jpx-3j-fLx" firstAttribute="leading" secondItem="dbB-UO-8LW" secondAttribute="leading" constant="45" id="hxR-hg-Znu"/>
                             <constraint firstItem="JeU-TS-PSw" firstAttribute="top" secondItem="dbB-UO-8LW" secondAttribute="top" constant="50" id="nik-TD-mvb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dbB-UO-8LW"/>
@@ -185,19 +220,29 @@ The Personal Vitae appraisals would take about 30 mins in total.Take break after
                                     <constraint firstAttribute="width" constant="240" id="44O-Em-cS5"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nyY-C4-Rfm">
-                                <rect key="frame" x="45" y="350" width="285" height="76.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Enhance your productivity with Chocoed Conversations." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nyY-C4-Rfm">
+                                <rect key="frame" x="45" y="350" width="285" height="38.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="UE9-fK-f4V"/>
                                 </constraints>
-                                <string key="text"> Enhance your productivity with Chocoed Conversations
-Learn and Earn Chocoed Badges and Chocoins.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Learn and Earn Chocoed Badges and Chocoins." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNE-tg-rtJ">
+                                <rect key="frame" x="45" y="393.5" width="285" height="38.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="ahT-iR-7E8"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="WNE-tg-rtJ" firstAttribute="leading" secondItem="oyh-Ld-m7H" secondAttribute="leading" constant="45" id="FTI-an-e1o"/>
+                            <constraint firstItem="oyh-Ld-m7H" firstAttribute="trailing" secondItem="WNE-tg-rtJ" secondAttribute="trailing" constant="45" id="Mm2-FI-rVV"/>
+                            <constraint firstItem="WNE-tg-rtJ" firstAttribute="top" secondItem="nyY-C4-Rfm" secondAttribute="bottom" constant="5" id="Nm4-fI-jcW"/>
                             <constraint firstItem="YFs-5p-wpr" firstAttribute="centerX" secondItem="2AQ-lb-N1i" secondAttribute="centerX" id="Qua-jd-KcJ"/>
                             <constraint firstItem="YFs-5p-wpr" firstAttribute="top" secondItem="oyh-Ld-m7H" secondAttribute="top" constant="50" id="YJQ-lW-HY1"/>
                             <constraint firstItem="nyY-C4-Rfm" firstAttribute="top" secondItem="YFs-5p-wpr" secondAttribute="bottom" constant="40" id="c7f-VV-0io"/>
@@ -209,7 +254,7 @@ Learn and Earn Chocoed Badges and Chocoins.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qd1-mp-7D3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-702" y="1172"/>
+            <point key="canvasLocation" x="-703.20000000000005" y="1171.6641679160421"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="nkd-gG-dMk">
@@ -232,16 +277,21 @@ Learn and Earn Chocoed Badges and Chocoins.</string>
                                     <constraint firstAttribute="height" constant="240" id="mjf-hB-oE1"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="izx-kD-1Qr">
-                                <rect key="frame" x="45" y="350" width="285" height="210.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="izx-kD-1Qr">
+                                <rect key="frame" x="45" y="350" width="285" height="95.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="OaB-J4-e6r"/>
                                 </constraints>
                                 <string key="text">Start your daily learning with Chocoed Content
-Invest only 15 minutes daily with Chocoed Content to improves your knowledge and skills 
-Your daily Chocoed content consists of 2 videos and 2 assessments 
-Revise, reinforce, relearn with Chocoed Choice - anytime , anywhere , continuous.
-</string>
+Invest only 15 minutes daily with Chocoed Content to improves your knowledge and skills.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DXd-W2-QZ8">
+                                <rect key="frame" x="45" y="450.5" width="285" height="95.5"/>
+                                <string key="text">Your daily Chocoed content consists of 2 videos and 2 assessments 
+Revise, reinforce, relearn with Chocoed Choice - anytime , anywhere , continuous.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -250,8 +300,11 @@ Revise, reinforce, relearn with Chocoed Choice - anytime , anywhere , continuous
                         <constraints>
                             <constraint firstItem="rO5-mH-k9G" firstAttribute="centerX" secondItem="RKx-bC-hTB" secondAttribute="centerX" id="Qa6-yS-EFf"/>
                             <constraint firstItem="sFz-3d-KL5" firstAttribute="trailing" secondItem="izx-kD-1Qr" secondAttribute="trailing" constant="45" id="Zbo-Yr-vxf"/>
+                            <constraint firstItem="sFz-3d-KL5" firstAttribute="trailing" secondItem="DXd-W2-QZ8" secondAttribute="trailing" constant="45" id="k2N-OR-xYZ"/>
+                            <constraint firstItem="DXd-W2-QZ8" firstAttribute="top" secondItem="izx-kD-1Qr" secondAttribute="bottom" constant="5" id="lRR-Yc-ArS"/>
                             <constraint firstItem="izx-kD-1Qr" firstAttribute="top" secondItem="rO5-mH-k9G" secondAttribute="bottom" constant="40" id="nO5-Pa-9Fn"/>
                             <constraint firstItem="izx-kD-1Qr" firstAttribute="leading" secondItem="sFz-3d-KL5" secondAttribute="leading" constant="45" id="svg-Aj-X7n"/>
+                            <constraint firstItem="DXd-W2-QZ8" firstAttribute="leading" secondItem="sFz-3d-KL5" secondAttribute="leading" constant="45" id="vZk-4f-r3y"/>
                             <constraint firstItem="rO5-mH-k9G" firstAttribute="top" secondItem="sFz-3d-KL5" secondAttribute="top" constant="50" id="xRn-Rd-esT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="sFz-3d-KL5"/>
@@ -259,7 +312,7 @@ Revise, reinforce, relearn with Chocoed Choice - anytime , anywhere , continuous
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yrb-p6-SOu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1374" y="1172"/>
+            <point key="canvasLocation" x="-1375.2" y="1171.6641679160421"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -3785,7 +3838,7 @@ the beginning of every beautiful journey.</string>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="menucell" rowHeight="66" id="WUN-rv-H5r" customClass="MenuBarTableViewCell" customModule="chocoed" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="315" height="66"/>
                                                 <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WUN-rv-H5r" id="WIP-fj-cH1">
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WUN-rv-H5r" id="WIP-fj-cH1">
                                                     <rect key="frame" x="0.0" y="0.0" width="315" height="66"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
@@ -3959,7 +4012,7 @@ the beginning of every beautiful journey.</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pTT-13-J1t" userLabel="viewAlertChoice">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hGl-iQ-Ugr">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hGl-iQ-Ugr">
                                         <rect key="frame" x="37.5" y="199" width="300" height="250"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RTd-2f-jqo">
@@ -3982,7 +4035,7 @@ the beginning of every beautiful journey.</string>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="M32-0e-lHx">
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="M32-0e-lHx">
                                                 <rect key="frame" x="0.0" y="152" width="300" height="98"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <prototypes>
@@ -4649,7 +4702,7 @@ the beginning of every beautiful journey.</string>
                                                 <rect key="frame" x="88" y="397" width="200" height="150"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PS1-UI-Wo0">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PS1-UI-Wo0">
                                                         <rect key="frame" x="0.0" y="0.0" width="200" height="150"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="200" id="BQK-8w-Ryc"/>
