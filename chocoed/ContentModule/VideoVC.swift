@@ -18,7 +18,7 @@ class VideoVC: UIViewController {
     
     @IBAction func btn_rewind_clicked(_ sender: Any) {
         if player != nil {
-            let newtime = (player.currentItem?.currentTime().seconds)! - 5
+            let newtime = (player.currentItem?.currentTime().seconds)! - 15
             player.seek(to: CMTimeMake(Int64(newtime*1000), 1000))
         }
     }
@@ -263,6 +263,9 @@ class VideoVC: UIViewController {
                 self.closedPlayer()
             }
         }
+        
+        
+
         
     }
     
@@ -676,6 +679,14 @@ class VideoVC: UIViewController {
     func addTopicAudit(videopostion:Double,status:String)
     {
         
+        if status == "complete"{
+            
+            if self.currentExamID != "" {
+                self.callEndTestAPI(examId : self.currentExamID,videopostion:videopostion,status:status)
+            }
+            
+        }else{
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let currentDate = formatter.string(from: Date())
@@ -691,37 +702,11 @@ class VideoVC: UIViewController {
         
         print(params)
         
-        //activityUIView.isHidden = false
-        //activityUIView.startAnimation()
         MakeHttpPostRequest(url: userTopicsAudit, params: params, completion: {(success, response) -> Void in
             print(response)
             
             
-            if status == "complete"{
-                
-                
-                if self.currentExamID != "" {
-                    
-                    self.callEndTestAPI(examId : self.currentExamID)
-                }
-                
-                
-                
-                if self.isStartFromFirst == true {
-                
-                        DispatchQueue.main.async {
-                            self.playNext()
-                    }
-                    
-                }else{
-                    
-                    
-                    DispatchQueue.main.async {
-                        self.closedPlayer()
-                    }
-                }
-                
-            }else if status == "quit" {
+            if status == "quit" {
             
                DispatchQueue.main.async {
                     self.closedPlayer()
@@ -735,7 +720,58 @@ class VideoVC: UIViewController {
             }
         })
         
+        }
         
+    }
+    
+    
+    func completeAudit(videopostion:Double,status:String){
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let currentDate = formatter.string(from: Date())
+        
+        
+        let clientid = UserDefaults.standard.string(forKey: "clientid")
+        let userid = UserDefaults.standard.string(forKey: "userid")
+        
+        let position = String(format: "%.f", videopostion)
+        
+        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clientId":"\(clientid!)","courseId":"\(self.courseId)","calenderId":"\(self.calenderId)","topicId":"\(self.topicId)","videoPosition":"\(position)","language":"\(currentSelectedLang)"
+            ,"dateTime":"\(currentDate)","status":"\(status)"] as Dictionary<String, String>
+        
+        print(params)
+        
+        MakeHttpPostRequest(url: userTopicsAudit, params: params, completion: {(success, response) -> Void in
+            print(response)
+            
+            if status == "complete"{
+                
+                
+                if self.isStartFromFirst == true {
+                    
+                    DispatchQueue.main.async {
+                        self.playNext()
+                    }
+                    
+                }else{
+                    
+                    
+                    DispatchQueue.main.async {
+                        self.closedPlayer()
+                    }
+                }
+                
+            }
+            
+           
+            
+        }, errorHandler: {(message) -> Void in
+            let alert = GetAlertWithOKAction(message: message)
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+            }
+        })
     }
     
     func showRewindOption(){
@@ -1206,7 +1242,6 @@ class VideoVC: UIViewController {
                 
                 if self.isLastQuestion == true {
                     
-                   // self.callEndTestAPI()
                     
                     self.viewQues.isHidden = true;
                     self.isExamLoaded = false
@@ -1231,13 +1266,13 @@ class VideoVC: UIViewController {
     }
     
     
-    func callEndTestAPI(examId : String) {
+    func callEndTestAPI(examId : String,videopostion:Double,status:String) {
         
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm:ss"
+        formatter.dateFormat = "HH:mm:ss" 
         let endTime = formatter.string(from: Date())
         
         
@@ -1247,13 +1282,9 @@ class VideoVC: UIViewController {
         MakeHttpPostRequest(url: endExamAPI, params: params, completion: {(success, response) -> Void in
             print(response)
             
-           /* DispatchQueue.main.async {
-                
-                self.viewQues.isHidden = true;
-                self.isExamLoaded = false
-                self.currentQuesIndex = 0
-                self.player.play()
-            } */
+            DispatchQueue.main.async {
+                self.completeAudit(videopostion: videopostion, status: status)
+            }
           
         }, errorHandler: {(message) -> Void in
             let alert = GetAlertWithOKAction(message: message)

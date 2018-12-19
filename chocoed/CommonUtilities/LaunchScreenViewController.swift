@@ -17,14 +17,14 @@ class LaunchScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        
-//        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
-//        backgroundImage.image = UIImage(named: "background_blue")
-//        backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
-//        self.view.insertSubview(backgroundImage, at: 0)
+   
+        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.image = UIImage(named: "background_pattern")
+        backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
+        self.view.insertSubview(backgroundImage, at: 0)
         
         playSound()
-        let Gif = UIImage.gifImageWithName("logo_1")
+        let Gif = UIImage.gifImageWithName("new_anim")
         imageLogoView.image = Gif
         // Do any additional setup after loading the view.
         

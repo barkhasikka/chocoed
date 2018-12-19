@@ -1053,7 +1053,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             
             print(msg ?? "")
             
-            //self.editMsg.resignFirstResponder()
+            self.editMsg.resignFirstResponder()
             self.editMsg.text = ""
             
             let msgID = self.getCurrentTime()

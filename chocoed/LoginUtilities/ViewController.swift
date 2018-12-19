@@ -34,6 +34,8 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.viewTable.isHidden = true
         count = 0
         self.tableViewLanguage.isHidden = true
+        self.signUpButton.isHidden = true
+        self.loadGetLanguageList()
         
 
         // Do any additional setup after loading the view, typically from a nib.
@@ -240,35 +242,65 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     func loadGetLanguageList() {
-        let clientid = UserDefaults.standard.string(forKey: "clientid")
-        let userid = UserDefaults.standard.string(forKey: "userid")
+        var clientid = UserDefaults.standard.string(forKey: "clientid")
+        var userid = UserDefaults.standard.string(forKey: "userid")
         
-        let params = ["access_token":"\(accessToken)","userId":"\(userid)","clientId":"\(clientid)"] as Dictionary<String, String>
-        activityUIView.isHidden = false
-        activityUIView.startAnimation()
+        if clientid == nil {
+            clientid = ""
+        }
+        
+        if userid == nil {
+            userid = ""
+        }
+        
+        
+        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clientId":"\(clientid!)"] as Dictionary<String, String>
+       
         MakeHttpPostRequest(url: getLanguageListCall, params: params, completion: {(success, response) -> Void in
             print(response)
             let language = response.object(forKey: "appList") as? NSArray ?? []
 
             for languages in language {
                 self.arrayLanguages.append(LanguageList( languages as! NSDictionary))
-               
             }
-            DispatchQueue.main.async {
-                    self.tableViewLanguage.reloadData()
-                    self.activityUIView.isHidden = true
-                    self.activityUIView.stopAnimation()
+            
+            if self.arrayLanguages.count == 1 {
+                DispatchQueue.main.async {
+                self.signUpButton.isHidden = true
+                }
+                let text = self.arrayLanguages[0].dbname
+                
+                
+                if text == "English"{
+                    
+                    UserDefaults.standard.set("en", forKey: "currentlanguage")
+                    UserDefaults.standard.set(text, forKey: "Language1")
+                    
+                }else if text == "Hindi"{
+                    UserDefaults.standard.set("hi", forKey: "currentlanguage")
+                    UserDefaults.standard.set(text, forKey: "Language1")
+                    
+                }else{
+                    
+                    UserDefaults.standard.set("en", forKey: "currentlanguage")
+                    UserDefaults.standard.set(text, forKey: "Language1")
+                    
+                }
+                
+                
+                DispatchQueue.main.async {
+                self.LanguageChanged()
+                }
+                
+            }else{
+                DispatchQueue.main.async {
+                    self.signUpButton.isHidden = false
+                }
             }
-                print(self.arrayLanguages)
+           
             
         }, errorHandler: {(message) -> Void in
-            let alert = GetAlertWithOKAction(message: message)
-            DispatchQueue.main.async {
-                self.present(alert, animated: true, completion: nil)
-                self.activityUIView.isHidden = true
-                self.activityUIView.stopAnimation()
-
-            }
+            
         })
         
     }

@@ -88,18 +88,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
 
-        func openVC(){
-            
-            let userID = UserDefaults.standard.integer(forKey: "userid")
-            //UserDefaults.standard.set("en", forKey: "currentlanguage")
-            if userID != 0 {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 8) { // change 2 to desired number of seconds
-                    self.GetUserInfo()
-                    
-                }
-        // Override point for customization after application launch.
+    func openVC(){
+          
         let userID = UserDefaults.standard.integer(forKey: "userid")
-       // UserDefaults.standard.set("en", forKey: "currentlanguage")
         UserDefaults.standard.string(forKey: "currentlanguage")
         print(userID)
         if userID != 0 {
@@ -107,17 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.GetUserInfo()
             }
         }else {
-           /* let quiztakenid = UserDefaults.standard.string(forKey: "quiztakenID")
-            print(quiztakenid)
-            if quiztakenid == "1"{
-                self.window = UIWindow(frame: UIScreen.main.bounds)
-                let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
-                let navigationController = UINavigationController(rootViewController: startVC)
-                self.window!.rootViewController = navigationController
-            }
-            else{ */
-            
+          
             DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
 
                 self.window = UIWindow(frame: UIScreen.main.bounds)
@@ -126,30 +107,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.window!.rootViewController = startVC
                 self.window!.makeKeyAndVisible()
                     }
-                }
-            }else {
-                if userID != 0{
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
-                        
-                       // self.window = UIWindow(frame: UIScreen.main.bounds)
-                        let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                        let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "firstview") as! ViewController
-                        self.window!.rootViewController = startVC
-                        self.window!.makeKeyAndVisible()
-                        
-                    }
-                }
-                else{
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
-                        
-                    let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                    let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "MasterVC") as! RootUIPageViewController
-                    self.window!.rootViewController = startVC
-                    self.window!.makeKeyAndVisible()
-                    }
-                }
-                }
+           
+          }
+          
     }
+    
     var applicationStateString: String {
         if UIApplication.shared.applicationState == .active {
             return "active"
@@ -300,390 +262,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
     }
     
-    private func updateMsgAck(friendID : String){
-        
-        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Msg")
-        fetchRequest.predicate = NSPredicate(format: "to_id = %@ AND msg_ack != %@", friendID,"2")
-        
-        var results : [NSManagedObject] = []
-        
-        do{
-            results = try context.fetch(fetchRequest)
-            
-            if results.count != 0 {
-                
-                for item in results {
-                    
-                    item.setValue("2", forKey: "msg_ack")
-                    
-                    do{
-                        
-                        try context.save()
-                        
-                        
-                    }catch{
-                        print("Error in update")
-                    }
-                    
-                }
-                
-            }
-            
-        }catch{
-            print("error executing request")
-        }
-        
-    }
-    
-    
-    public func updateMsg(msg_id : String , type : String , value : String){
-        
-        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Msg")
-        fetchRequest.predicate = NSPredicate(format: "msg_id = %@", msg_id)
-        
-        var results : [NSManagedObject] = []
-        
-        do{
-            results = try context.fetch(fetchRequest)
-            
-            if results.count != 0 {
-                
-                let updatObj = results[0]
-                
-                
-                if type == "streaming"{
-                    updatObj.setValue(value, forKey: "is_streaming")
-                }
-                
-                if type == "upload"{
-                    updatObj.setValue(value, forKey: "is_download")
-                    updatObj.setValue("0", forKey: "msg_ack")
-                }
-                
-                if type == "download"{
-                    updatObj.setValue(value, forKey: "is_download")
-                }
-                
-                if type == "file"{
-                    updatObj.setValue(value, forKey: "file_url")
-                }
-                if type == "delete_type"{
-                    
-                    updatObj.setValue(value, forKey: "msg")
-                }
-                
-                if type == "msg_ack"{
-                    
-                    updatObj.setValue(value, forKey: "msg_ack")
-                }
-                
-                do{
-                    
-                    try context.save()
-                    
-                    
-                }catch{
-                    print("Error in update")
-                }
-            }
-            
-        }catch{
-            print("error executing request")
-        }
-        
-    }
-    
-    private func getFriend(id : String) -> String {
-        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Friends")
-        fetchRequest.predicate = NSPredicate(format: "contact_number = %@", id)
-        
-        var results : [NSManagedObject] = []
-        
-        do{
-            results = try context.fetch(fetchRequest)
-            
-            if results.count != 0 {
-                let f = results[0] as! Friends
-                return f.name
-            }
-        }catch{
-            print("error executing request")
-        }
-        
-        return ""
-    }
-    
-    
-    private func getMsg(msgId : String) -> Msg {
-        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Msg")
-        fetchRequest.predicate = NSPredicate(format: "msg_id = %@", msgId)
-        
-        var results : [NSManagedObject] = []
-        
-        do{
-            results = try context.fetch(fetchRequest)
-            
-            if results.count != 0 {
-                
-                return results[0] as! Msg
-                
-            }
-            
-            
-            
-        }catch{
-            print("error executing request")
-        }
-        
-        return results[0] as! Msg
-    }
-    
-    
-    private func isMSgPrsent(item : Message) -> Bool {
-        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Msg")
-        fetchRequest.predicate = NSPredicate(format: "msg_id = %@", item.msgId)
-        
-        var results : [NSManagedObject] = []
-        
-        do{
-            results = try context.fetch(fetchRequest)
-            
-            
-            
-        }catch{
-            print("error executing request")
-        }
-        
-        return results.count > 0
-    }
-    
-    private func createMsgEntityFrom(item: Message) {
-        
-        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
-        
-        if isMSgPrsent(item: item) == false {
-            
-            let msgObject = NSEntityDescription.insertNewObject(forEntityName: "Msg", into: context) as? Msg //{
-            
-            print(item.msgId)
-            
-            msgObject?.msg = item.msg
-            msgObject?.created = item.created
-            msgObject?.file_url = item.fileUrl
-            msgObject?.from_id = item.fromID
-            msgObject?.is_download = item.isDownload
-            msgObject?.is_mine = item.isMine
-            msgObject?.is_streaming = item.isStreaming
-            msgObject?.is_upload = item.isUpload
-            msgObject?.modified = item.modified
-            msgObject?.msg = item.msg
-            msgObject?.msg_ack = item.msgACk
-            msgObject?.msg_id = item.msgId
-            msgObject?.msg_type = item.msgType
-            msgObject?.status = item.status
-            msgObject?.to_id = item.toID
-            msgObject?.is_permission = item.is_permission
-            msgObject?.replyTitle = item.replyTitle
-            msgObject?.replyMsgType =  item.replyMsgType
-            msgObject?.replyMsgId = item.replyMsgId
-            msgObject?.replyMsgFile = item.replyMsgFile
-            msgObject?.replyMsg =  item.replyMsg
-            
-            msgObject?.sent_time =  item.sentTime
-            msgObject?.seen_time =  item.seenTime
-            msgObject?.distructive_time = item.destructiveTime
-            
-            
-            
-            do {
-                try context.save()
-            } catch let error {
-                print(error)
-            }
-            //  }
-        }else{
-            print("present")
-        }
-        
-        
-    }
-    private func getCurrentTime() -> String {
-        
-        let messageID = Int64(NSDate().timeIntervalSince1970 * 1000)
-        return String(messageID)
-        
-    }
-    
-    
-    private func updateFriendCell(last_msg_time : String , msg : String , msg_type :String , isMine : String, friendID : String){
-        
-        
-        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName : "Friends")
-        fetchRequest.predicate = NSPredicate(format: "contact_number = %@", friendID)
-        
-        var results : [NSManagedObject] = []
-        
-        do{
-            results = try context.fetch(fetchRequest)
-            
-            if results.count != 0 {
-                
-                let updatObj = results[0]
-                
-                var count = Int(updatObj.value(forKey: "read_count") as? String ?? "0")
-                count = count! + 1
-                
-                print(count!,"<<<< COUNT >>>>>>")
-                
-                updatObj.setValue(msg, forKey: "last_msg")
-                updatObj.setValue(msg_type, forKey:"last_msg_type")
-                updatObj.setValue("0", forKey: "last_msg_ack")
-                updatObj.setValue(last_msg_time, forKey:"last_msg_time")
-                updatObj.setValue(isMine, forKey:"is_mine")
-                updatObj.setValue(String(count!), forKey: "read_count")
-                
-                
-                do{
-                    try context.save()
-                    
-                }catch{
-                    print("Error in update")
-                }
-            }
-            
-        }catch{
-            print("error executing request")
-        }
-        
-    }
-    
-    
-    
-    
-    private func saveMsg(friendID:String,msg:String,msgID:String){
-        
-    
-        
-        do{
-            
-            
-            let data = msg.data(using: .utf8)
-            let json = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! NSDictionary
-            
-            print(json)
-            
-            
-            
-            if json.value(forKey: "msgType") as! String == kXMPP.TYPE_DELETE {
-                
-                // update msg by msgID
-                
-                self.updateMsg(msg_id: json.value(forKey: "msgId") as! String, type: "delete_type", value: kXMPP.DELETE_TEXT_FRIEND)
-                
-                
-            }else if json.value(forKey: "msgType") as! String == kXMPP.TYPE_SEEN {
-                
-                // update msg by msgID
-                
-                self.updateMsgAck(friendID: friendID)
-                
-            }else{
-                
-                var replyMsgType = ""
-                var replyMsgFile = ""
-                var replyMsg = ""
-                var replyTitle = ""
-                var replyMsgId = ""
-                
-                let msgType = json.value(forKey: "msgType") as! String
-                
-                if msgType == kXMPP.TYPE_REPLY {
-                    
-                    replyMsgId = json.value(forKey: "msgId") as! String
-                    
-                    
-                    let msgItem = self.getMsg(msgId: replyMsgId)
-                    
-                    replyMsg = msgItem.msg
-                    replyMsgFile = msgItem.file_url
-                    
-                    if msgItem.is_mine == "1" {
-                        replyTitle = "You"
-                    }else{
-                        replyTitle = self.getFriend(id: friendID)
-                    }
-                    
-                    replyMsgType = msgItem.msg_type
-                    
-                }
-                
-                
-                
-                self.createMsgEntityFrom(item: Message(
-                    msg: json.value(forKey: "message") as! String,
-                    msgId: msgID,
-                    msgType: msgType,
-                    msgACk: "0",
-                    fromID: UserDefaults.standard.string(forKey: "mobileno")!,
-                    toID: friendID,
-                    fileUrl: json.value(forKey: "fileUrl") as! String,
-                    isUpload: "0",
-                    isDownload: "0",
-                    isStreaming: "0",
-                    isMine: "0",
-                    created: self.getCurrentTime(),
-                    status: "",
-                    modified: self.getCurrentTime(),
-                    is_permission: "0",replyTitle: replyTitle, replyMsgType: replyMsgType, replyMsgId: replyMsgId, replyMsgFile: replyMsgFile, replyMsg: replyMsg, sentTime: kXMPP.SEEN_MSG, seenTime: kXMPP.SEEN_MSG, destructiveTime: ""))
-                
-                
-                self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: json.value(forKey: "message") as! String, msg_type: json.value(forKey: "msgType") as! String, isMine: "0" , friendID: friendID)
-                
-                
-                
-                
-                let friendNo = UserDefaults.standard.string(forKey: "chatNo")
-                if friendNo == nil || friendNo != friendID {
-                    
-                    let mainvc = SplitviewViewController()
-                    mainvc.showNotification(friendname: self.getFriend(id: friendID) , msg: json.value(forKey: "message") as! String)
-                }
-                
-                
-                
-               // self.sendSeenMsgAck(friendID: friendID)
-                
-                
-                let dsmsg =  json.value(forKey: "destructiveTime") as! String
-                
-                if dsmsg.count > 0 {
-                    
-                    // var timeVal = Float(json.value(forKey: "destructiveTime") as! String)
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 120.0, execute: {
-                        
-                        // updated msg by msg id
-                        
-                        self.updateMsg(msg_id: msgID, type:"delete_type", value: kXMPP.DELETE_TEXT_FRIEND)
-                        
-                    })
-                    
-                    
-                }
-                
-            }
-            
-        }catch{
-            
-        }
-        
-    }
 }
     
 
@@ -697,13 +275,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
        
         if let msg = userInfo["gcm.notification.type"] as? String {
         print(msg,"<<<<<< NOTIFICATION TYPE333 >>>>>>")
-        if  msg == "chat" {
-            print(msg,"<<<<<< Chat Msg>>>>>>")
-            let friid = userInfo["gcm.notification.friend"] as! String
-            let msg = userInfo["gcm.notification.message"] as! String
-            let msgid = userInfo["gcm.notification.message_id"] as! String
-           // self.saveMsg(friendID: friid, msg: msg, msgID: msgid)
-         }
+        
      }
         
         
@@ -720,13 +292,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         
         if let msg = userInfo["gcm.notification.type"] as? String {
             print(msg,"<<<<<< NOTIFICATION TYPE333 >>>>>>")
-            if  msg == "chat" {
-                print(msg,"<<<<<< Chat Msg>>>>>>")
-                let friid = userInfo["gcm.notification.friend"] as! String
-                let msg = userInfo["gcm.notification.message"] as! String
-                let msgid = userInfo["gcm.notification.message_id"] as! String
-               // self.saveMsg(friendID: friid, msg: msg, msgID: msgid)
-            }
+           
         }
         
         /*let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -751,13 +317,7 @@ extension AppDelegate : MessagingDelegate {
         
         if let msg = userInfo["gcm.notification.type"] as? String {
             print(msg,"<<<<<< NOTIFICATION TYPE333 >>>>>>")
-            if  msg == "chat" {
-                print(msg,"<<<<<< Chat Msg>>>>>>")
-                let friid = userInfo["gcm.notification.friend"] as! String
-                let msg = userInfo["gcm.notification.message"] as! String
-                let msgid = userInfo["gcm.notification.message_id"] as! String
-               // self.saveMsg(friendID: friid, msg: msg, msgID: msgid)
-            }
+          
         }
       
         

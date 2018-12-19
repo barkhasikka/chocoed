@@ -56,6 +56,8 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
     
     var thirdDayDate = Date()
     var isThirdOrGreater = false
+    var isPopupShow : Int = 0
+
 
     
     
@@ -123,6 +125,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.popupView.isHidden = true
         print(UserDefaults.standard.string(forKey: "Language1")!)
         print(UserDefaults.standard.string(forKey: "Language2")!)
         print(UserDefaults.standard.string(forKey: "Language3")!)
@@ -132,12 +135,13 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
         backgroundImage.contentMode = UIViewContentMode.scaleToFill
         self.imageViewView.insertSubview(backgroundImage, at: 0)
         
+        self.isPopupShow = 0
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-         self.popupView.isHidden = false
         
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
         
@@ -213,70 +217,22 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContentCell", for: indexPath) as! ContentCell
         
         
-        
+        let userType = Int(UserDefaults.standard.string(forKey: "userType")!)
+        if userType == 2{
+            if self.isThirdOrGreater == true {
+                self.showUpgradePopup()
+            }
+        }
         
         var showLockLayout = true
         
-     /*   if self.previousDayStatus == 99 || self.previousDayStatus == 2 {
-            
-            if indexPath.row == 0 {
-                
-                showLockLayout = false
-                
-            } /* else if (( [self.arrayTopic.count] > [indexPath.row - 1])  &&
-                (self.arrayTopic[indexPath.row - 1].videoViewCount > 0 ) ){
-                
-                showLockLayout = false
-            } */
-            
-            else {
-                
-              
-              //  for index in (0 ..< c ).reversed() {
-                
-                var index = indexPath.row - 1
-                
-                while index >= 0 {
-                    
-                   
-                    if self.arrayTopic[index].topicId != "0"{
-                        
-                        
-                        if self.arrayTopic[indexPath.row - 1].videoViewCount > 0 {
-                            
-                            showLockLayout = false
-                        }else{
-                            showLockLayout = true
-                        }
-                        break
-                    }else{
-                        
-                        showLockLayout = false
-                    }
-                    
-                     index -= 1
-                    //
-                }
-                
-                
-            }
-            
-        }
- 
-       */
-        
-        
+  
         if self.previousDayStatus == 99 || self.previousDayStatus == 2 {
             
             if indexPath.row == 0 {
                 
                 showLockLayout = false
-                let userType = Int(UserDefaults.standard.string(forKey: "userType")!)
-                if userType == 2{
-                    if self.isThirdOrGreater == true {
-                        self.showUpgradePopup()
-                    }
-                }
+                
                 
             }else{
                 
@@ -340,6 +296,15 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
             
             cell.videoView.isHidden = false
             cell.examView.isHidden = true
+            
+            if arrayTopic[indexPath.row].topicStatus != "Pending"{
+
+                print("<<<<<<<>>>>>>>>>>",arrayTopic[indexPath.row].topicStatus)
+                let userType = Int(UserDefaults.standard.string(forKey: "userType")!)
+                if userType == 2{
+                    self.showUpgradePopup()
+                }
+            }
         }
         
         
@@ -355,12 +320,17 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
         cell.lblExam.text="Assessment"
         
         if arrayTopic[indexPath.row].topicStatus == "Pending"{
+            
             cell.lblTopicStatus.textColor = UIColor.red
             cell.lblExamStatus.textColor = UIColor.red
+            
         }else{
             cell.lblTopicStatus.textColor = UIColor.blue
             cell.lblExamStatus.textColor = UIColor.blue
+            
         }
+        
+        
         
         
         cell.lblExamStatus.text=arrayTopic[indexPath.row].examStatus
@@ -371,13 +341,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
        
-        let userType = Int(UserDefaults.standard.string(forKey: "userType")!)
-        if userType == 2{
-            if self.isThirdOrGreater == true {
-                self.showUpgradePopup()
-                return
-            }
-        }
+       
         
         self.tableRowPosition = indexPath.row
         let topicid = arrayTopic[indexPath.row].topicId
@@ -385,9 +349,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
         if arrayTopic[indexPath.row].isBlock == true{
             
             let language = UserDefaults.standard.string(forKey: "currentlanguage")
-            
-
-         
+        
             let alertcontrol = UIAlertController(title: "alertInterestingVideos".localizableString(loc: language!), message: "\("alertDear".localizableString(loc: language!)) \(USERDETAILS.firstName) \("alertVideos".localizableString(loc: language!))", preferredStyle: .alert)
             let alertaction = UIAlertAction(title: "OkKey".localizableString(loc: language!), style: .default, handler: nil)
             alertcontrol.addAction(alertaction)
@@ -401,6 +363,14 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
         }else{
             
             print(topicid)
+            
+            let userType = Int(UserDefaults.standard.string(forKey: "userType")!)
+            if userType == 2{
+                if self.isThirdOrGreater == true {
+                    self.showUpgradePopup()
+                    return
+                }
+            }
             
             
             if self.previousDayStatus == 2 {
@@ -450,9 +420,12 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                 
                 if topicid == "0"{
                     
+                    
                     if arrayTopic[indexPath.row].examStatus == "Completed"{
                         
-                   
+                        
+                        
+                        
                         
                         if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "WevViewVC") as? WevViewVC {
                             
@@ -478,7 +451,9 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
                     
                     
                 }else{
-            
+                    
+                    
+                   
                     let language = UserDefaults.standard.string(forKey: "currentlanguage")
                     
                     if arrayTopic[indexPath.row].videoViewCount >=  arrayTopic[indexPath.row].videoViewLimit{

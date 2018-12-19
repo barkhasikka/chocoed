@@ -21,8 +21,11 @@ class VC3ViewController: UIViewController {
     }
     @IBAction func doneButtonAction(_ sender: Any) {
         
-        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "firstview") as! ViewController
-        self.present(nextVC, animated: true, completion: nil)
+        let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
+        DispatchQueue.main.async {
+            self.present(startVC, animated: true, completion: nil)
+        }
         
     }
     

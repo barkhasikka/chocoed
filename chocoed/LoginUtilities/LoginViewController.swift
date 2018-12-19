@@ -198,28 +198,45 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
                     
                     if secLang == "" {
                         
-                        let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "LanguageVC") as! LanguageVC
+                        // call secondary
+                        
+                        self.secondaryFuncNormalUserFirstTime()
+                        
+                       /* let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "LanguageVC") as! LanguageVC
                         nextViewController.type = "secondary"
                         nextViewController.back = "getstarted"
                         self.present(nextViewController, animated:true, completion:nil)
+                        */
+                        
+                        
 
                     }else{
                         
-                        let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                       /* let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                         let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
                         DispatchQueue.main.async {
                             self.present(startVC, animated: true, completion: nil)
                         }
+                        */
+                        
+                        let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                        let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "MasterVC") as! RootUIPageViewController
+                        self.present(startVC, animated: true, completion: nil)
                         
                         
                     }
                     
                 }else if userType == 2 {
                     
-                    let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "LanguageVC") as! LanguageVC
+                    // primary lang first time
+                    
+                    self.secondaryFuncDemoFirstTime()
+                    
+                   /* let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "LanguageVC") as! LanguageVC
                     nextViewController.type = "firsttime"
                     nextViewController.back = "getstarted"
                     self.present(nextViewController, animated:true, completion:nil)
+                    */
 
                     
                 }
@@ -229,11 +246,15 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
                 
                 if secLang == "" {
                     
-                    let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "LanguageVC") as! LanguageVC
+                    // secondary
+                    
+                    self.secondaryFuncNormalUser(quiz: quizTaken)
+                    
+                   /* let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "LanguageVC") as! LanguageVC
                     nextViewController.type = "secondary"
                     nextViewController.back = "quiz"
                     nextViewController.quizTaken = quizTaken
-                    self.present(nextViewController, animated:true, completion:nil)
+                    self.present(nextViewController, animated:true, completion:nil) */
 
                     
                 } else{
@@ -491,6 +512,221 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
         })
             
         }
+        
+    }
+    
+    private func secondaryFuncNormalUser(quiz : Int){
+        
+        var clientid = UserDefaults.standard.string(forKey: "clientid")
+        var userid = UserDefaults.standard.string(forKey: "userid")
+        
+        if clientid == nil {
+            clientid = ""
+        }
+        
+        if userid == nil {
+            userid = ""
+        }
+        
+       
+        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clientId":"\(clientid!)"] as Dictionary<String, String>
+        
+        MakeHttpPostRequest(url: getLanguageListCall, params: params, completion: {(success, response) -> Void in
+            print(response)
+            
+            
+                
+                let language = response.object(forKey: "secondaryList") as? NSArray ?? []
+                var arr = [LanguageList]()
+                for languages in language {
+                    arr.append(LanguageList( languages as! NSDictionary))
+                }
+            
+            DispatchQueue.main.async {
+
+                if arr.count == 1 {
+                    let text = arr[0].dbname
+                    UserDefaults.standard.set(text, forKey: "Language3")
+                    
+                    if quiz == 1 {
+                        print("1")
+                        let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                        let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
+                        let aObjNavi = UINavigationController(rootViewController: startVC)
+                        aObjNavi.navigationBar.barTintColor = UIColor.blue
+                        DispatchQueue.main.async {
+                            self.present(aObjNavi, animated: true, completion: nil)
+                            
+                        }
+                        
+                        
+                    } else {
+                        
+                        let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                        let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "profile") as! ProfileViewController
+                        DispatchQueue.main.async {
+                            self.present(startVC, animated: true, completion: nil)
+                        }
+                        
+                        
+                        
+                    }
+                    
+                    
+                }else{
+                    
+                    let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "LanguageVC") as! LanguageVC
+                    nextViewController.type = "secondary"
+                    nextViewController.back = "quiz"
+                    nextViewController.quizTaken = quiz
+                    self.present(nextViewController, animated:true, completion:nil)
+
+                }
+                
+            }
+                
+            
+            
+        }, errorHandler: {(message) -> Void in
+            
+        })
+        
+        
+    }
+    
+    
+    private func secondaryFuncNormalUserFirstTime(){
+        
+        var clientid = UserDefaults.standard.string(forKey: "clientid")
+        var userid = UserDefaults.standard.string(forKey: "userid")
+        
+        if clientid == nil {
+            clientid = ""
+        }
+        
+        if userid == nil {
+            userid = ""
+        }
+        
+        
+        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clientId":"\(clientid!)"] as Dictionary<String, String>
+        
+        MakeHttpPostRequest(url: getLanguageListCall, params: params, completion: {(success, response) -> Void in
+            print(response)
+            
+            
+            
+            let language = response.object(forKey: "secondaryList") as? NSArray ?? []
+            var arr = [LanguageList]()
+            for languages in language {
+                arr.append(LanguageList( languages as! NSDictionary))
+            }
+            
+            DispatchQueue.main.async {
+                
+                if arr.count == 1 {
+                    let text = arr[0].dbname
+                    UserDefaults.standard.set(text, forKey: "Language3")
+                    
+                    
+                    let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "MasterVC") as! RootUIPageViewController
+                    self.present(startVC, animated: true, completion: nil)
+                    
+                    
+                }else{
+                    
+                    let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "LanguageVC") as! LanguageVC
+                    nextViewController.type = "secondary"
+                    nextViewController.back = "getstarted"
+                    self.present(nextViewController, animated:true, completion:nil)
+                    
+                }
+                
+            }
+            
+            
+            
+        }, errorHandler: {(message) -> Void in
+            
+        })
+        
+        
+    }
+    
+    
+    private func secondaryFuncDemoFirstTime(){
+        
+        var clientid = UserDefaults.standard.string(forKey: "clientid")
+        var userid = UserDefaults.standard.string(forKey: "userid")
+        
+        if clientid == nil {
+            clientid = ""
+        }
+        
+        if userid == nil {
+            userid = ""
+        }
+        
+        
+        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clientId":"\(clientid!)"] as Dictionary<String, String>
+        
+        MakeHttpPostRequest(url: getLanguageListCall, params: params, completion: {(success, response) -> Void in
+            print(response)
+            
+            let languagepri = response.object(forKey: "primaryList") as? NSArray ?? []
+            var arrpri = [LanguageList]()
+            for languages in languagepri {
+                arrpri.append(LanguageList( languages as! NSDictionary))
+            }
+            
+            if arrpri.count == 1 {
+                
+                let text = arrpri[0].dbname
+                UserDefaults.standard.set(text, forKey: "Language2")
+                
+                
+                let language = response.object(forKey: "secondaryList") as? NSArray ?? []
+                var arr = [LanguageList]()
+                for languages in language {
+                    arr.append(LanguageList( languages as! NSDictionary))
+                }
+                
+                if arr.count == 1 {
+                    
+                    let text = arr[0].dbname
+                    UserDefaults.standard.set(text, forKey: "Language3")
+                    
+                    let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "MasterVC") as! RootUIPageViewController
+                    self.present(startVC, animated: true, completion: nil)
+                    
+                }else{
+                    
+                    let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "LanguageVC") as! LanguageVC
+                    nextViewController.type = "secondary"
+                    nextViewController.back = "getstarted"
+                    self.present(nextViewController, animated:true, completion:nil)
+                }
+                
+
+            }else{
+                
+                DispatchQueue.main.async {
+                    
+                    let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "LanguageVC") as! LanguageVC
+                    nextViewController.type = "firsttime"
+                    nextViewController.back = "getstarted"
+                    self.present(nextViewController, animated:true, completion:nil)
+
+                }
+                
+            }
+            
+        }, errorHandler: {(message) -> Void in
+            
+        })
+        
         
     }
     

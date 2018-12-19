@@ -36,45 +36,20 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
     @IBOutlet weak var buttonCloseView: UIButton!
     @IBOutlet weak var labelSelectPrefLang: UILabel!
     
+    var isApp = false
+    var isSec = false
+    
 //    @IBOutlet weak var tabelviewLanguage: UITableView!
 //    @IBOutlet weak var languageview: UIView!
-    var arraymenu = ["My Talks","My Thoughts","My Progress","My Profile","Application Language","Learning Language","Log out"]
-    let cousesImages = [UIImage(named:"chat"),UIImage(named: "discussion_room"), UIImage(named: "myprocess_improvement"), UIImage(named: "icons_user"),UIImage(named: "discussion_room"), UIImage(named: "myprocess_improvement"), UIImage(named: "icon_logout")]
+    var arraymenu = [String]()
+  
     
         override func viewDidLoad() {
             super.viewDidLoad()
-          let language = UserDefaults.standard.string(forKey: "currentlanguage")
-           print(language)
            
-            let userType = Int(UserDefaults.standard.string(forKey: "userType")!);
-
-            if language == "hi"{
-                
-
-                if userType == 2 {
-                    
-                    arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल","एप्लिकेशन भाषा","माध्यमिक शिक्षा की","Upgrade Chocoed"]
-                    
-                }else{
-                    
-                    arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल","एप्लिकेशन भाषा","माध्यमिक शिक्षा की"]
-                }
-                
-                
-            }else if language == "en"{
-                
-              if userType == 2 {
-                    
-                   arraymenu = ["My Talks","My Thoughts","My Progress","My Profile","Application Language","Learning Language","Upgrade Chocoed"]
-                    
-                }else{
-                    
-                    arraymenu = ["My Talks","My Thoughts","My Progress","My Profile","Application Language","Learning Language"]
-                }
-                
-            }
+          self.loadGetLanguageList()
             
-            
+            let language = UserDefaults.standard.string(forKey: "currentlanguage")
             self.labelSelectPrefLang.text = "LabelLanguageStringAppKey".localizableString(loc: language!)
             
             
@@ -177,12 +152,53 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
         if tableView == tabelViewMenu{
         let cell = tableView.dequeueReusableCell(withIdentifier: "menucell") as! MenuBarTableViewCell
         
-        let images = cousesImages[indexPath.row]
+       // let images = cousesImages[indexPath.row]
         
-        cell.labelName.text = arraymenu[indexPath.row]
-        
-        cell.labelimages.image = images
-        
+         cell.labelName.text = arraymenu[indexPath.row]
+            
+         if arraymenu[indexPath.row] == "My Talks"{
+                
+                cell.labelimages.image = UIImage(named:"chat")
+
+         }
+            
+         if arraymenu[indexPath.row] == "My Thoughts"{
+                
+                cell.labelimages.image = UIImage(named:"discussion_room")
+                
+         }
+            
+        if arraymenu[indexPath.row] == "My Progress"{
+                
+                cell.labelimages.image = UIImage(named:"myprocess_improvement")
+                
+         }
+            
+        if arraymenu[indexPath.row] == "My Profile"{
+                
+                cell.labelimages.image = UIImage(named:"icons_user")
+                
+        }
+            
+            
+        if arraymenu[indexPath.row] == "Application Language"{
+                
+                cell.labelimages.image = UIImage(named:"discussion_room")
+                
+        }
+            
+        if arraymenu[indexPath.row] == "Learning Language"{
+                
+                cell.labelimages.image = UIImage(named:"myprocess_improvement")
+                
+        }
+            
+        if arraymenu[indexPath.row] == "Upgrade Chocoed"{
+                
+                cell.labelimages.image = UIImage(named:"myprocess_improvement")
+                
+        }
+            
         return cell
         }else if tableView == tableviewLanguage{
         let cell = tableView.dequeueReusableCell(withIdentifier: "langcell") as! LanguageView1TableViewCell
@@ -218,6 +234,74 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
         self.present(alertcontrol, animated: true, completion: nil)
         
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let menu = self.arraymenu[indexPath.row]
+        print(menu)
+        
+        if arraymenu[indexPath.row] == "My Talks"{
+            
+            let v1 = self.storyboard?.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
+            self.present(v1, animated: true, completion: nil)
+            
+        }
+        
+        if arraymenu[indexPath.row] == "My Thoughts"{
+            
+            let alert = GetAlertWithOKAction(message: availableString)
+            self.present(alert, animated: true, completion: nil)
+            
+            
+        }
+        
+        if arraymenu[indexPath.row] == "My Progress"{
+            
+            let v1 = self.storyboard?.instantiateViewController(withIdentifier: "leader") as! LeaderBoardViewController
+            self.present(v1, animated: true, completion: nil)
+            
+        }
+        
+        if arraymenu[indexPath.row] == "My Profile"{
+            
+            let v1 = self.storyboard?.instantiateViewController(withIdentifier: "profile") as! ProfileViewController
+            self.present(v1, animated: true, completion: nil)
+            
+            
+        }
+        
+        
+        if arraymenu[indexPath.row] == "Application Language"{
+            
+            let v1 = self.storyboard?.instantiateViewController(withIdentifier: "LanguageVC") as! LanguageVC
+            v1.type = "app"
+            v1.back = "main"
+            self.present(v1, animated: true, completion: nil)
+            
+        }
+        
+        if arraymenu[indexPath.row] == "Learning Language"{
+            
+            let v1 = self.storyboard?.instantiateViewController(withIdentifier: "LanguageVC") as! LanguageVC
+            v1.type = "secondary"
+            v1.back = "main"
+            self.present(v1, animated: true, completion: nil)
+            
+        }
+        
+        if arraymenu[indexPath.row] == "Upgrade Chocoed"{
+            
+            let v1 = self.storyboard?.instantiateViewController(withIdentifier: "PaymentVC") as! PaymentVC
+            self.present(v1, animated: true, completion: nil)
+            
+        }
+
+        
+    }
+    
+    
+    /*
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == tableviewLanguage {
 //            let text = languageUIView.arrayLanguages[indexPath.row].dbname
@@ -433,8 +517,10 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
             
         }
     }
+ 
+ */
     
-    func loadGetLanguageList() {
+    func loadGetLanguageList1() {
         let clientid = UserDefaults.standard.string(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
         
@@ -488,7 +574,158 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
         
     }
     
+    
+    func loadGetLanguageList() {
+        
+        var clientid = UserDefaults.standard.string(forKey: "clientid")
+        var userid = UserDefaults.standard.string(forKey: "userid")
+        
+        if clientid == nil {
+            
+            clientid = ""
+        }
+        
+        if userid == nil {
+            
+            userid = ""
+        }
+        
+        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clientId":"\(clientid!)"] as Dictionary<String, String>
+        
+        MakeHttpPostRequest(url: getLanguageListCall, params: params, completion: {(success, response) -> Void in
+            print(response)
+            
+            let language = response.object(forKey: "appList") as? NSArray ?? []
+            
+            if language.count == 1 {
+                self.isApp = false
+            }else{
+                self.isApp = true
+            }
+            
+            
+            let languagesec = response.object(forKey: "secondaryList") as? NSArray ?? []
+            
+
+            if languagesec.count == 1 {
+                self.isSec = false
+            }else{
+                self.isSec = true
+            }
+            
+            DispatchQueue.main.async {
+
+                
+                let language = UserDefaults.standard.string(forKey: "currentlanguage")
+                let userType = Int(UserDefaults.standard.string(forKey: "userType")!);
+                
+                if language == "hi"{
+                    
+                    
+                    if userType == 2 {
+                        
+                        if self.isApp == true && self.isSec == true {
+                            
+                            self.arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल","एप्लिकेशन भाषा","माध्यमिक शिक्षा की","Upgrade Chocoed"]
+                            
+                        }else if self.isApp == true && self.isSec == false{
+                            
+                             self.arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल","एप्लिकेशन भाषा","Upgrade Chocoed"]
+                            
+                        }else if self.isApp == false && self.isSec == true{
+                            
+                           self.arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल","माध्यमिक शिक्षा की","Upgrade Chocoed"]
+                            
+                        }else if self.isApp == false && self.isSec == false{
+                            
+                            self.arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल","Upgrade Chocoed"]
+                        }
+                        
+                       
+                        
+                        
+                    }else{
+                        
+                        if self.isApp == true && self.isSec == true {
+                            
+                            self.arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल","एप्लिकेशन भाषा","माध्यमिक शिक्षा की"]
+                            
+                        }else if self.isApp == true && self.isSec == false{
+                            
+                            self.arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल","एप्लिकेशन भाषा"]
+                            
+                        }else if self.isApp == false && self.isSec == true{
+                            
+                            self.arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल","माध्यमिक शिक्षा की"]
+                            
+                        }else if self.isApp == false && self.isSec == false{
+                            
+                            self.arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल"]
+                        }
+                    }
+                    
+                    
+                }else if language == "en"{
+                    
+                    if userType == 2 {
+                        
+                        
+                        if self.isApp == true && self.isSec == true {
+                            
+                             self.arraymenu = ["My Talks","My Thoughts","My Progress","My Profile","Application Language","Learning Language","Upgrade Chocoed"]
+                            
+                        }else if self.isApp == true && self.isSec == false{
+                            
+                             self.arraymenu = ["My Talks","My Thoughts","My Progress","My Profile","Application Language","Upgrade Chocoed"]
+                            
+                        }else if self.isApp == false && self.isSec == true{
+                            
+                              self.arraymenu = ["My Talks","My Thoughts","My Progress","My Profile","Learning Language","Upgrade Chocoed"]
+                            
+                        }else if self.isApp == false && self.isSec == false{
+                            
+                             self.arraymenu = ["My Talks","My Thoughts","My Progress","My Profile","Upgrade Chocoed"]
+                        }
+                        
+                       
+                        
+                    }else{
+                        
+                        if self.isApp == true && self.isSec == true {
+                            
+                            self.arraymenu = ["My Talks","My Thoughts","My Progress","My Profile","Application Language","Learning Language"]
+                            
+                        }else if self.isApp == true && self.isSec == false{
+                            
+                            self.arraymenu = ["My Talks","My Thoughts","My Progress","My Profile","Application Language"]
+                            
+                        }else if self.isApp == false && self.isSec == true{
+                            
+                            self.arraymenu = ["My Talks","My Thoughts","My Progress","My Profile","Learning Language"]
+                            
+                        }else if self.isApp == false && self.isSec == false{
+                            
+                            self.arraymenu = ["My Talks","My Thoughts","My Progress","My Profile"]
+                        }
+                        
+                    }
+                    
+                }
+                
+                self.tabelViewMenu.reloadData()
+                
+            }
+            
+            
+        }, errorHandler: {(message) -> Void in
+           
+        })
+        
+    }
+    
+    
     func sendLanguagesSelected() {
+        
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
         let language1 = UserDefaults.standard.string(forKey: "Language1")
@@ -510,6 +747,7 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
             })
             
         }
+        
         
     }
 

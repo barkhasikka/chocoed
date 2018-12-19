@@ -170,12 +170,17 @@ class LanguageVC: UIViewController , UITableViewDelegate , UITableViewDataSource
             }else if back == "getstarted"{
                 
                 
-                let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+              /*  let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
                 DispatchQueue.main.async {
                     self.present(startVC, animated: true, completion: nil)
                 }
+               */
                 tableView.deselectRow(at: indexPath, animated: false)
+
+                let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "MasterVC") as! RootUIPageViewController
+               self.present(startVC, animated: true, completion: nil)
 
                
             }else if back == "main"{
@@ -290,7 +295,7 @@ class LanguageVC: UIViewController , UITableViewDelegate , UITableViewDataSource
             
             if self.type == "firsttime" {
                 
-                let language = response.object(forKey: "appList") as? NSArray ?? []
+                let language = response.object(forKey: "primaryList") as? NSArray ?? []
                 for languages in language {
                     self.arrayLanguages.append(LanguageList( languages as! NSDictionary))
                     
