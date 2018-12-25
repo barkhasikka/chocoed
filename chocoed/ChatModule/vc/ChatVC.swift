@@ -358,6 +358,9 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         
         
         
+        
+     
+        
         UserDefaults.standard.set(self.friendModel.contact_number, forKey: "chatNo")
         
         UIApplication.shared.cancelAllLocalNotifications()
@@ -443,7 +446,13 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardType), name: Notification.Name.UIKeyboardWillChangeFrame, object: nil)
  
       */
+        self.bottomView.isHidden = true
         
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+
+            self.bottomView.isHidden = false
+
+        })
      
         
     }
@@ -3341,7 +3350,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                 
                 
                 
-                notificationText = "Permission granted  to download file"
+                notificationText = "Permission granted to download file"
                 
                 let body = CustomMessageModel(msgId: item.replyMsgId, msgType: kXMPP.TYPE_PER_GRANT, message: "", fileUrl: "", destructiveTime: "",fileType : "",filePermission:"1")
                 

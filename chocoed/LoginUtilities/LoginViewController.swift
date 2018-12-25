@@ -191,57 +191,8 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
             }
             
             if isFirstTimeUser == "true" {
-                
-                
-                if userType == 1 {
-                    
-                    
-                    if secLang == "" {
-                        
-                        // call secondary
-                        
-                        self.secondaryFuncNormalUserFirstTime()
-                        
-                       /* let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "LanguageVC") as! LanguageVC
-                        nextViewController.type = "secondary"
-                        nextViewController.back = "getstarted"
-                        self.present(nextViewController, animated:true, completion:nil)
-                        */
-                        
-                        
+                self.secondaryFuncDemoFirstTime()
 
-                    }else{
-                        
-                       /* let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                        let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "getstarted") as! GettingStartedViewController
-                        DispatchQueue.main.async {
-                            self.present(startVC, animated: true, completion: nil)
-                        }
-                        */
-                        
-                        let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                        let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "MasterVC") as! RootUIPageViewController
-                        self.present(startVC, animated: true, completion: nil)
-                        
-                        
-                    }
-                    
-                }else if userType == 2 {
-                    
-                    // primary lang first time
-                    
-                    self.secondaryFuncDemoFirstTime()
-                    
-                   /* let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "LanguageVC") as! LanguageVC
-                    nextViewController.type = "firsttime"
-                    nextViewController.back = "getstarted"
-                    self.present(nextViewController, animated:true, completion:nil)
-                    */
-
-                    
-                }
-                
-                
             }else {
                 
                 if secLang == "" {
@@ -530,7 +481,8 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
         
        
         let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clientId":"\(clientid!)"] as Dictionary<String, String>
-        
+        print(params)
+
         MakeHttpPostRequest(url: getLanguageListCall, params: params, completion: {(success, response) -> Void in
             print(response)
             
@@ -579,7 +531,9 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
                     nextViewController.type = "secondary"
                     nextViewController.back = "quiz"
                     nextViewController.quizTaken = quiz
+                    DispatchQueue.main.async {
                     self.present(nextViewController, animated:true, completion:nil)
+                    }
 
                 }
                 
@@ -610,7 +564,8 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
         
         
         let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clientId":"\(clientid!)"] as Dictionary<String, String>
-        
+        print(params)
+
         MakeHttpPostRequest(url: getLanguageListCall, params: params, completion: {(success, response) -> Void in
             print(response)
             
@@ -625,13 +580,16 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
             DispatchQueue.main.async {
                 
                 if arr.count == 1 {
+                    
                     let text = arr[0].dbname
                     UserDefaults.standard.set(text, forKey: "Language3")
                     
                     
                     let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                     let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "MasterVC") as! RootUIPageViewController
+                    DispatchQueue.main.async {
                     self.present(startVC, animated: true, completion: nil)
+                    }
                     
                     
                 }else{
@@ -639,7 +597,9 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
                     let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "LanguageVC") as! LanguageVC
                     nextViewController.type = "secondary"
                     nextViewController.back = "getstarted"
+                    DispatchQueue.main.async {
                     self.present(nextViewController, animated:true, completion:nil)
+                    }
                     
                 }
                 
@@ -671,6 +631,8 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
         
         let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clientId":"\(clientid!)"] as Dictionary<String, String>
         
+        print(params)
+        
         MakeHttpPostRequest(url: getLanguageListCall, params: params, completion: {(success, response) -> Void in
             print(response)
             
@@ -697,16 +659,22 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
                     let text = arr[0].dbname
                     UserDefaults.standard.set(text, forKey: "Language3")
                     
+                    DispatchQueue.main.async {
                     let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                     let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "MasterVC") as! RootUIPageViewController
                     self.present(startVC, animated: true, completion: nil)
+                    }
                     
                 }else{
+                    
+                    DispatchQueue.main.async {
                     
                     let nextViewController = self.storyboard?.instantiateViewController(withIdentifier: "LanguageVC") as! LanguageVC
                     nextViewController.type = "secondary"
                     nextViewController.back = "getstarted"
                     self.present(nextViewController, animated:true, completion:nil)
+                        
+                    }
                 }
                 
 

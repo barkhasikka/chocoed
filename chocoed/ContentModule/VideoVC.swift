@@ -327,8 +327,8 @@ class VideoVC: UIViewController {
         let pri = UserDefaults.standard.string(forKey: "Language2")
         let secondary = UserDefaults.standard.string(forKey: "Language3")
         
-      //  print(pri,"<<<<<< PRIMARY >>>>>>")
-      //  print(secondary)
+       print(pri!,"<<<<<< PRIMARY >>>>>>")
+       print(secondary!,"<<<<<<<<< Secondary>>>>>>>")
 
         
         if currentSelectedLang == pri {
@@ -683,6 +683,9 @@ class VideoVC: UIViewController {
             
             if self.currentExamID != "" {
                 self.callEndTestAPI(examId : self.currentExamID,videopostion:videopostion,status:status)
+            }else{
+                
+                self.completeAudit(videopostion: videopostion, status: status)
             }
             
         }else{
@@ -767,9 +770,24 @@ class VideoVC: UIViewController {
            
             
         }, errorHandler: {(message) -> Void in
-            let alert = GetAlertWithOKAction(message: message)
-            DispatchQueue.main.async {
-                self.present(alert, animated: true, completion: nil)
+            
+            if status == "complete"{
+                
+                
+                if self.isStartFromFirst == true {
+                    
+                    DispatchQueue.main.async {
+                        self.playNext()
+                    }
+                    
+                }else{
+                    
+                    
+                    DispatchQueue.main.async {
+                        self.closedPlayer()
+                    }
+                }
+                
             }
         })
     }
@@ -1287,10 +1305,14 @@ class VideoVC: UIViewController {
             }
           
         }, errorHandler: {(message) -> Void in
-            let alert = GetAlertWithOKAction(message: message)
+            
+           // let alert = GetAlertWithOKAction(message: message)
             DispatchQueue.main.async {
-                self.present(alert, animated: true, completion: nil)
+                self.completeAudit(videopostion: videopostion, status: status)
+                //self.present(alert, animated: true, completion: nil)
             }
+            
+            
         })
     }
     

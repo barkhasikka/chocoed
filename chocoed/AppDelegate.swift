@@ -14,6 +14,8 @@ import Firebase
 import FirebaseMessaging
 import XMPPFramework
 
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -39,6 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static var menu_bool = true
     
 
+    var openningNotification = false
     
     //AAAAgSFpxh8:APA91bGGeQMgz_qm9bi61kY3iPQchcn3ooeTCwToMdK6cycrreGlzqJ9mkXRSR75EC2QhCvJ8SpGFT9yPH0o4iNtKGfK10p2uacPLjJppz71rvln42yNf5cUMI3o-ELWibBTpHUvMV9N
 
@@ -46,7 +49,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         if let userInfo = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] {
-             NSLog("[RemoteNotification] applicationState: \(applicationStateString) didFinishLaunchingWithOptions for iOS9: \(userInfo)")
+           
+            print("[RemoteNotification] applicationState: \(applicationStateString) didFinishLaunchingWithOptions for iOS9: \(userInfo)")
+            
+            
+            
         }
         FirebaseApp.configure()
         application.registerForRemoteNotifications()
@@ -89,6 +96,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
 
     func openVC(){
+        
+       
           
         let userID = UserDefaults.standard.integer(forKey: "userid")
         UserDefaults.standard.string(forKey: "currentlanguage")
@@ -96,11 +105,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if userID != 0 {
             DispatchQueue.main.asyncAfter(deadline: .now() + 8) { // change 2 to desired number of seconds
                 self.GetUserInfo()
+
             }
         }else {
           
             DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
-
+                
+              
                 self.window = UIWindow(frame: UIScreen.main.bounds)
                 let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "firstview") as! ViewController
@@ -160,6 +171,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationReceivedRemoteMessage(_ remoteMessage: MessagingRemoteMessage) {
         print(remoteMessage.appData)
+        
     }
     
     func GetUserInfo() {
@@ -188,6 +200,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             USERDETAILS = UserDetails(email: temp.email, firstName: temp.firstName, lastname: temp.lastName, imageurl: url, mobile: temp.mobile)
             print(quizTaken,"-------->")
+            
+            
+              if self.openningNotification == true {
+            
+            DispatchQueue.main.async {
+                
+                self.openningNotification = false
+                
+                let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "PaymentVC") as! PaymentVC
+                self.window!.rootViewController = startVC
+                self.window!.makeKeyAndVisible()
+            }
+            
+              } else
+            
+            
+            
             if quizTaken == 1 {
                 print("1")
                 DispatchQueue.main.async {
@@ -273,14 +303,10 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         NSLog("[UserNotificationCenter] applicationState: \(applicationStateString) willPresentNotification: \(userInfo)")
         
        
-        if let msg = userInfo["gcm.notification.type"] as? String {
-        print(msg,"<<<<<< NOTIFICATION TYPE333 >>>>>>")
+        //if let msg = userInfo["gcm.notification.type"] as? String {
+        print("<<<<<< NOTIFICATION TYPE kkkkk>>>>>>")
         
-     }
-        
-        
-        
-        
+     
         //TODO: Handle foreground notification
         completionHandler([.alert])
     }
@@ -290,19 +316,55 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         let userInfo = response.notification.request.content.userInfo
         NSLog("[UserNotificationCenter] applicationState: \(applicationStateString) didReceiveResponse: \(userInfo)")
         
-        if let msg = userInfo["gcm.notification.type"] as? String {
-            print(msg,"<<<<<< NOTIFICATION TYPE333 >>>>>>")
-           
-        }
+            print("<<<<<< NOTIFICATION TYPE333 mmm>>>>>>")
+       
+        
         
         /*let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "firstview") as! ViewController
         self.window!.rootViewController = startVC */
         
+       // if UIApplication.shared.applicationState == .active {
+            //TODO: Handle foreground notification
+       // } else {
+            //TODO: Handle background notification
+            
+            if let type = userInfo["gcm.notification.notificationType"] as? String {
+                
+                
+                if type == "8" {
+                    self.openningNotification = true
+                   /* let userID = UserDefaults.standard.integer(forKey: "userid")
+                    print(userID)
+                    if userID != 0 {
+                        
+                        self.window = UIWindow(frame: UIScreen.main.bounds)
+                        let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                        let v1 = mainStoryBoard.instantiateViewController(withIdentifier: "PaymentVC") as! PaymentVC
+                        self.window!.rootViewController = v1
+                        self.window!.makeKeyAndVisible()
+
+                    } */
+                    
+                    
+                    
+                }else{
+                    
+                    completionHandler()
+
+                }
+                
+            }else{
+                
+                completionHandler()
+
+             }
+            
+           
+      //  }
         
          //self.openVC()
         //TODO: Handle background notification
-        completionHandler()
     }
 }
 
@@ -315,11 +377,9 @@ extension AppDelegate : MessagingDelegate {
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
         NSLog("[RemoteNotification] applicationState: \(applicationStateString) didReceiveRemoteNotification for iOS9: \(userInfo)")
         
-        if let msg = userInfo["gcm.notification.type"] as? String {
-            print(msg,"<<<<<< NOTIFICATION TYPE333 >>>>>>")
+            print("<<<<<< NOTIFICATION TYPE333 >>>>>>")
           
-        }
-      
+       
         
         if UIApplication.shared.applicationState == .active {
             //TODO: Handle foreground notification

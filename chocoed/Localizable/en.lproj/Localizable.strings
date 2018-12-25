@@ -5,6 +5,7 @@
   Created by Tejal on 30/10/18.
   Copyright © 2018 barkha sikka. All rights reserved.
 */
+
 "LabelLanguageStringKey" = "Please select your preferred language for learning with Chocoed";
 "LabelLanguageStringAppKey" = "Please select the Preferred Application Language";
 "LoginButtonKey" = "Login / Register";

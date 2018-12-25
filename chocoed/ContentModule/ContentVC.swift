@@ -126,6 +126,7 @@ class ContentVC: UIViewController,UITableViewDelegate,UITableViewDataSource  {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.popupView.isHidden = true
+        self.popupView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         print(UserDefaults.standard.string(forKey: "Language1")!)
         print(UserDefaults.standard.string(forKey: "Language2")!)
         print(UserDefaults.standard.string(forKey: "Language3")!)

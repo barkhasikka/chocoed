@@ -149,6 +149,8 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        
+        
         if tableView == tabelViewMenu{
         let cell = tableView.dequeueReusableCell(withIdentifier: "menucell") as! MenuBarTableViewCell
         
@@ -156,46 +158,46 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
         
          cell.labelName.text = arraymenu[indexPath.row]
             
-         if arraymenu[indexPath.row] == "My Talks"{
+         if arraymenu[indexPath.row] == "My Talks" || arraymenu[indexPath.row] == "मेरा वार्तालाप"{
                 
                 cell.labelimages.image = UIImage(named:"chat")
 
          }
             
-         if arraymenu[indexPath.row] == "My Thoughts"{
+         if arraymenu[indexPath.row] == "My Thoughts" || arraymenu[indexPath.row] == "मेरे विचार"{
                 
                 cell.labelimages.image = UIImage(named:"discussion_room")
                 
          }
             
-        if arraymenu[indexPath.row] == "My Progress"{
+        if arraymenu[indexPath.row] == "My Progress" ||  arraymenu[indexPath.row] == "मेरा विकास"{
                 
                 cell.labelimages.image = UIImage(named:"myprocess_improvement")
                 
          }
             
-        if arraymenu[indexPath.row] == "My Profile"{
+        if arraymenu[indexPath.row] == "My Profile" || arraymenu[indexPath.row] == "मेरी प्रोफाइल"{
                 
                 cell.labelimages.image = UIImage(named:"icons_user")
                 
         }
             
             
-        if arraymenu[indexPath.row] == "Application Language"{
+        if arraymenu[indexPath.row] == "Application Language" || arraymenu[indexPath.row] == "एप्लिकेशन भाषा"{
                 
-                cell.labelimages.image = UIImage(named:"discussion_room")
-                
-        }
-            
-        if arraymenu[indexPath.row] == "Learning Language"{
-                
-                cell.labelimages.image = UIImage(named:"myprocess_improvement")
+                cell.labelimages.image = UIImage(named:"icons_lang")
                 
         }
             
-        if arraymenu[indexPath.row] == "Upgrade Chocoed"{
+        if arraymenu[indexPath.row] == "Learning Language" || arraymenu[indexPath.row] == "माध्यमिक शिक्षा की"{
                 
-                cell.labelimages.image = UIImage(named:"myprocess_improvement")
+                cell.labelimages.image = UIImage(named:"icons_lang")
+                
+        }
+            
+        if arraymenu[indexPath.row] == "Upgrade Chocoed" ||  arraymenu[indexPath.row] == "अपग्रेड चोकोड"{
+                
+                cell.labelimages.image = UIImage(named:"upgrade")
                 
         }
             
@@ -237,17 +239,19 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+    
+        
         let menu = self.arraymenu[indexPath.row]
         print(menu)
         
-        if arraymenu[indexPath.row] == "My Talks"{
+        if arraymenu[indexPath.row] == "My Talks" || arraymenu[indexPath.row] == "मेरा वार्तालाप"{
             
             let v1 = self.storyboard?.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
             self.present(v1, animated: true, completion: nil)
             
         }
         
-        if arraymenu[indexPath.row] == "My Thoughts"{
+        if arraymenu[indexPath.row] == "My Thoughts" || arraymenu[indexPath.row] == "मेरे विचार"{
             
             let alert = GetAlertWithOKAction(message: availableString)
             self.present(alert, animated: true, completion: nil)
@@ -255,14 +259,14 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
             
         }
         
-        if arraymenu[indexPath.row] == "My Progress"{
+        if arraymenu[indexPath.row] == "My Progress" || arraymenu[indexPath.row] == "मेरा विकास"{
             
             let v1 = self.storyboard?.instantiateViewController(withIdentifier: "leader") as! LeaderBoardViewController
             self.present(v1, animated: true, completion: nil)
             
         }
         
-        if arraymenu[indexPath.row] == "My Profile"{
+        if arraymenu[indexPath.row] == "My Profile" || arraymenu[indexPath.row] == "मेरी प्रोफाइल"{
             
             let v1 = self.storyboard?.instantiateViewController(withIdentifier: "profile") as! ProfileViewController
             self.present(v1, animated: true, completion: nil)
@@ -271,7 +275,7 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
         }
         
         
-        if arraymenu[indexPath.row] == "Application Language"{
+        if arraymenu[indexPath.row] == "Application Language" || arraymenu[indexPath.row] == "एप्लिकेशन भाषा"{
             
             let v1 = self.storyboard?.instantiateViewController(withIdentifier: "LanguageVC") as! LanguageVC
             v1.type = "app"
@@ -280,7 +284,7 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
             
         }
         
-        if arraymenu[indexPath.row] == "Learning Language"{
+        if arraymenu[indexPath.row] == "Learning Language" || arraymenu[indexPath.row] == "माध्यमिक शिक्षा की"{
             
             let v1 = self.storyboard?.instantiateViewController(withIdentifier: "LanguageVC") as! LanguageVC
             v1.type = "secondary"
@@ -289,7 +293,7 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
             
         }
         
-        if arraymenu[indexPath.row] == "Upgrade Chocoed"{
+        if arraymenu[indexPath.row] == "Upgrade Chocoed" || arraymenu[indexPath.row] == "अपग्रेड चोकोड"{
             
             let v1 = self.storyboard?.instantiateViewController(withIdentifier: "PaymentVC") as! PaymentVC
             self.present(v1, animated: true, completion: nil)
@@ -626,19 +630,19 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                         
                         if self.isApp == true && self.isSec == true {
                             
-                            self.arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल","एप्लिकेशन भाषा","माध्यमिक शिक्षा की","Upgrade Chocoed"]
+                            self.arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल","एप्लिकेशन भाषा","माध्यमिक शिक्षा की","अपग्रेड चोकोड"]
                             
                         }else if self.isApp == true && self.isSec == false{
                             
-                             self.arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल","एप्लिकेशन भाषा","Upgrade Chocoed"]
+                             self.arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल","एप्लिकेशन भाषा","अपग्रेड चोकोड"]
                             
                         }else if self.isApp == false && self.isSec == true{
                             
-                           self.arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल","माध्यमिक शिक्षा की","Upgrade Chocoed"]
+                           self.arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल","माध्यमिक शिक्षा की","अपग्रेड चोकोड"]
                             
                         }else if self.isApp == false && self.isSec == false{
                             
-                            self.arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल","Upgrade Chocoed"]
+                            self.arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल","अपग्रेड चोकोड"]
                         }
                         
                        

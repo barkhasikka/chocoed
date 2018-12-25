@@ -46,6 +46,8 @@ class NewEducationExperienceVC: UIViewController {
     var PassingYears: [String] = []
     var selectedEducation = EducationFields()
     
+    var originalSpecilization = [FieldsOfEducation]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -101,6 +103,9 @@ class NewEducationExperienceVC: UIViewController {
             print("Selected item: \(item) at index: \(index)")
             switch self.currentSelectedButton {
             case "Qualification":
+                
+                
+                
                 self.selectedEducation.educationLevel = self.educationLevel1[index].name
                 print(self.selectedEducation.educationLevel)
                 if self.selectedEducation.educationLevel == "10th Standard Board" || self.selectedEducation.educationLevel == "12th Standard Board / Diploma"
@@ -116,7 +121,7 @@ class NewEducationExperienceVC: UIViewController {
                    // self.labelPassing.topAnchor.constraint(equalTo: self.eduMediumButton.bottomAnchor , constant: 30 )
                     
                 }
-                else
+                else if self.selectedEducation.educationLevel == "Graduation / Degree"
                 {
                     self.buttonSpecification.isHidden = false
                     self.labelSpecialization.isHidden = false
@@ -126,7 +131,62 @@ class NewEducationExperienceVC: UIViewController {
                     self.outletofConstraints.constant = 40
                         self.view.layoutIfNeeded()
                     })
+                    
+                    
+                    
+                    if self.specializationList.count > 0 {
+                        self.specializationList.removeAll()
+                    }
+                    
+                    for spec in self.originalSpecilization {
+                        
+                        if spec.type == "1" {
+                            self.specializationList.append(spec)
+                        }
+                        
+                    }
+                    
+                    
                    // self.labelSpecialization.topAnchor.constraint(equalTo: self.eduMediumButton.bottomAnchor , constant: 30 )
+                    
+                }else if self.selectedEducation.educationLevel == "Post Graduation"
+                {
+                    self.buttonSpecification.isHidden = false
+                    self.labelSpecialization.isHidden = false
+                    
+                    self.view.layoutIfNeeded()
+                    UIView.animate(withDuration: 1, animations: {
+                        self.outletofConstraints.constant = 40
+                        self.view.layoutIfNeeded()
+                    })
+                    
+                    
+                    if self.specializationList.count > 0 {
+                        self.specializationList.removeAll()
+                    }
+                    
+                    for spec in self.originalSpecilization {
+                        
+                        if spec.type == "2" {
+                            
+                            self.specializationList.append(spec)
+
+                        }
+                        
+                    }
+                    
+                    // self.labelSpecialization.topAnchor.constraint(equalTo: self.eduMediumButton.bottomAnchor , constant: 30 )
+                }else
+                {
+                    self.buttonSpecification.isHidden = false
+                    self.labelSpecialization.isHidden = false
+                    
+                    self.view.layoutIfNeeded()
+                    UIView.animate(withDuration: 1, animations: {
+                        self.outletofConstraints.constant = 40
+                        self.view.layoutIfNeeded()
+                    })
+                    // self.labelSpecialization.topAnchor.constraint(equalTo: self.eduMediumButton.bottomAnchor , constant: 30 )
                 }
                 
                 self.buttonQualification.setTitle(self.educationLevel1[index].name, for: .normal)
@@ -169,7 +229,7 @@ class NewEducationExperienceVC: UIViewController {
         print(response)
             let educationLevelList = response.object(forKey: "educationLevelList") as? NSArray ?? []
             let specialisationList = response.object(forKey: "specializationList") as? NSArray ?? []
-            let mediumOfEducationList = response.object(forKey: "mediumOfEducationList") as? NSArray ?? []
+            let mediumOfEducationList = response.object(forKey: "languageList") as? NSArray ?? []
             let statelist = response.object(forKey: "statelist") as? NSArray ?? []
             
             for education in educationLevelList {
@@ -179,6 +239,8 @@ class NewEducationExperienceVC: UIViewController {
             for specialisation in specialisationList {
                 self.specializationList.append(FieldsOfEducation(specialisation as! NSDictionary))
             }
+            
+            self.originalSpecilization = self.specializationList
             
             for statelist in statelist {
                 self.stateList.append(FieldsOfEducation(statelist as! NSDictionary))

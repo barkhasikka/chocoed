@@ -17,7 +17,8 @@ class PaymentVC: UIViewController {
     
     @IBAction func close_btn_clicked(_ sender: Any) {
         
-        let startVC = self.storyboard?.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
+        let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
         let aObjNavi = UINavigationController(rootViewController: startVC)
         aObjNavi.navigationBar.barTintColor = UIColor.blue
         self.present(aObjNavi, animated: true, completion: nil)

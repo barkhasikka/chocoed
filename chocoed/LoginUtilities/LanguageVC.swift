@@ -66,20 +66,25 @@ class LanguageVC: UIViewController , UITableViewDelegate , UITableViewDataSource
             
             self.lblTitle.text = "ChoiceKey".localizableString(loc: language!)
 
-           let userType =  UserDefaults.standard.integer(forKey: "userType")
             
-            if userType == 1 {
-                
-                self.lblDescr.text = "secondLangKeyFirst".localizableString(loc: language!) + UserDefaults.standard.string(forKey: "Language2")! +  "secondLangKeySecond".localizableString(loc: language!)
+           if self.back == "main"{
+            
+            self.lblDescr.text = "secondayLangDemoKey".localizableString(loc: language!)
+
+            //self.lblDescr.text = "secondLangKeyFirst".localizableString(loc: language!) + UserDefaults.standard.string(forKey: "Language2")! +  "secondLangKeySecond".localizableString(loc: language!)
 
             }else{
-                
-                self.lblDescr.text = "secondayLangDemoKey".localizableString(loc: language!)
+            
+            //self.lblDescr.text = "secondayLangDemoKey".localizableString(loc: language!)
+
+              self.lblDescr.text = "secondLangKeyFirst".localizableString(loc: language!) + UserDefaults.standard.string(forKey: "Language2")! +  "secondLangKeySecond".localizableString(loc: language!)
 
             }
 
             
         }else if type == "firsttime"{
+            
+           
             self.lblTitle.text = ""
             self.lblDescr.text = "primaryLangKey".localizableString(loc: language!)
         }
@@ -134,7 +139,9 @@ class LanguageVC: UIViewController , UITableViewDelegate , UITableViewDataSource
                 let startVC = self.storyboard?.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
                 let aObjNavi = UINavigationController(rootViewController: startVC)
                 aObjNavi.navigationBar.barTintColor = UIColor.blue
+                DispatchQueue.main.async {
                 self.present(aObjNavi, animated: true, completion: nil)
+                }
                 tableView.deselectRow(at: indexPath, animated: false)
 
             }
@@ -180,7 +187,9 @@ class LanguageVC: UIViewController , UITableViewDelegate , UITableViewDataSource
 
                 let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "MasterVC") as! RootUIPageViewController
+                DispatchQueue.main.async {
                self.present(startVC, animated: true, completion: nil)
+                }
 
                
             }else if back == "main"{
@@ -188,7 +197,9 @@ class LanguageVC: UIViewController , UITableViewDelegate , UITableViewDataSource
                 let startVC = self.storyboard?.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
                 let aObjNavi = UINavigationController(rootViewController: startVC)
                 aObjNavi.navigationBar.barTintColor = UIColor.blue
+                DispatchQueue.main.async {
                 self.present(aObjNavi, animated: true, completion: nil)
+                }
                 tableView.deselectRow(at: indexPath, animated: false)
 
                 

@@ -44,7 +44,7 @@ struct FieldsOfEducation {
         print("inside init",dictionary["type"] as? String ?? "")
         
         self.id = dictionary["id"] as? String ?? ""
-        self.name = dictionary["name"] as? String ?? ""
+        self.name = dictionary["value"] as? String ?? ""
         self.type = dictionary["type"] as? String ?? ""
         
     }
