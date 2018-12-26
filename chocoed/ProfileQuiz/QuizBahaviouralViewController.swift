@@ -11,9 +11,6 @@ import MobileCoreServices
 
 class QuizBahaviouralViewController: UIViewController, UIGestureRecognizerDelegate {
     
-    
-    
-    
     @IBOutlet var endButton: UIButton!
     
     var dragCircle: UIImageView!

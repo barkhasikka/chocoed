@@ -38,6 +38,7 @@ let getNotificationList = "https://chocoed.com/development/admin/api/user/getNot
 let updateNotificationRead = "https://chocoed.com/development/admin/api/user/updateNotificationRead"
 let sendWelcomeNotification = "https://chocoed.com/development/admin/api/user/sendWelcomeNotification"
 
+let pollApi = "https://www.chocoed.com/development/admin/api/user/getPollList"
 
 
 let empList = "https://chocoed.com/development/admin/api/user/getEmployeeList"
