@@ -92,7 +92,7 @@ class PollViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
               let cell = tableView.dequeueReusableCell(withIdentifier: "pollcell") as! PollTableViewCell
         
         cell.pollName.text = arrayOfPoll[indexPath.row].namePoll
-        cell.pollDate.text = "\(arrayOfPoll[indexPath.row].startTime) - \(arrayOfPoll[indexPath.row].endTime)"
+        cell.pollDate.text = "\(arrayOfPoll[indexPath.row].startTime) to \(arrayOfPoll[indexPath.row].endTime)"
         cell.ViewPoll.layer.cornerRadius = 5
         cell.clipsToBounds = true
         

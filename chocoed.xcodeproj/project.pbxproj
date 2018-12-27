@@ -82,6 +82,8 @@
 		07A7920D21899C8F003DCAC9 /* AddContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A7920C21899C8F003DCAC9 /* AddContactViewController.swift */; };
 		07ABDDAC216E10480029CC54 /* MyChoiceSkillsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07ABDDAB216E10480029CC54 /* MyChoiceSkillsViewController.swift */; };
 		07ABDDAE216E10910029CC54 /* MyskillsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07ABDDAD216E10910029CC54 /* MyskillsCollectionViewCell.swift */; };
+		07AC233321D4E3E3000F59C3 /* ProgressPollsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AC233221D4E3E3000F59C3 /* ProgressPollsViewController.swift */; };
+		07AC233521D4EC2D000F59C3 /* YLProgressBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07AC233421D4EC2D000F59C3 /* YLProgressBar.framework */; };
 		07B3A53E219D49AE00CA1EAF /* myTextReplyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07B3A53D219D49AE00CA1EAF /* myTextReplyCell.xib */; };
 		07B3A540219D49BA00CA1EAF /* myTextReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3A53F219D49B900CA1EAF /* myTextReplyCell.swift */; };
 		07B3A542219D49CE00CA1EAF /* FriendTextReplyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07B3A541219D49CE00CA1EAF /* FriendTextReplyCell.xib */; };
@@ -227,6 +229,8 @@
 		07A7920C21899C8F003DCAC9 /* AddContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactViewController.swift; sourceTree = "<group>"; };
 		07ABDDAB216E10480029CC54 /* MyChoiceSkillsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyChoiceSkillsViewController.swift; sourceTree = "<group>"; };
 		07ABDDAD216E10910029CC54 /* MyskillsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyskillsCollectionViewCell.swift; sourceTree = "<group>"; };
+		07AC233221D4E3E3000F59C3 /* ProgressPollsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressPollsViewController.swift; sourceTree = "<group>"; };
+		07AC233421D4EC2D000F59C3 /* YLProgressBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YLProgressBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		07B3A53D219D49AE00CA1EAF /* myTextReplyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = myTextReplyCell.xib; sourceTree = "<group>"; };
 		07B3A53F219D49B900CA1EAF /* myTextReplyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = myTextReplyCell.swift; sourceTree = "<group>"; };
 		07B3A541219D49CE00CA1EAF /* FriendTextReplyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FriendTextReplyCell.xib; sourceTree = "<group>"; };
@@ -314,6 +318,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07AC233521D4EC2D000F59C3 /* YLProgressBar.framework in Frameworks */,
 				A2B2CB1A25278D36BECB09E6 /* Pods_chocoed.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -453,6 +458,7 @@
 				07B568BA21D20C230029778E /* PollViewController.swift */,
 				07B568BC21D20C3B0029778E /* PollTableViewCell.swift */,
 				07B568C021D249C60029778E /* PollOptionsViewController.swift */,
+				07AC233221D4E3E3000F59C3 /* ProgressPollsViewController.swift */,
 			);
 			path = "Poll Module";
 			sourceTree = "<group>";
@@ -523,6 +529,7 @@
 		BDB1478CD345D30760E7AD19 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				07AC233421D4EC2D000F59C3 /* YLProgressBar.framework */,
 				7B250FCA754272F8054867D5 /* Pods_chocoed.framework */,
 			);
 			name = Frameworks;
@@ -797,6 +804,7 @@
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SteviaLayout/Stevia.framework",
 				"${BUILT_PRODUCTS_DIR}/XMPPFramework/XMPPFramework.framework",
+				"${BUILT_PRODUCTS_DIR}/YLProgressBar/YLProgressBar.framework",
 				"${BUILT_PRODUCTS_DIR}/YPImagePicker/YPImagePicker.framework",
 				"${BUILT_PRODUCTS_DIR}/libidn/libidn.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -816,6 +824,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stevia.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XMPPFramework.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YLProgressBar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YPImagePicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libidn.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -926,6 +935,7 @@
 				BF356CBE2154D1E0003CC228 /* ProfileViewController.swift in Sources */,
 				07A7920D21899C8F003DCAC9 /* AddContactViewController.swift in Sources */,
 				BF40F43C215916E0000C8A3F /* EducationExpTableViewCell.swift in Sources */,
+				07AC233321D4E3E3000F59C3 /* ProgressPollsViewController.swift in Sources */,
 				07052DD82177411300748554 /* CommonTabelView.swift in Sources */,
 				BF356CC12155135E003CC228 /* HttpPostRequest.swift in Sources */,
 				0714A74B218B327C00979559 /* OneRoster.swift in Sources */,

@@ -26,10 +26,58 @@ class PollOptionsViewController: UIViewController {
     }
 
     @IBAction func SubmitAction(_ sender: Any) {
+        savePollCall()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func savePollCall(){
+        
+        let clientID = UserDefaults.standard.integer(forKey: "clientid")
+        let userID = UserDefaults.standard.integer(forKey: "userid")
+        var arrayOptionList = [Any]()
+
+        for item in QuestionData{
+            print(item.id)
+            print(item.option)
+           
+            for options in item.option{
+                let optionObject =  getOptions(options as! NSDictionary)
+               print(optionObject.id) 
+                
+                
+            if optionObject.id == "1"{
+                let addSelectedAnswer = ["id": optionObject.id,"name" : "\(optionObject.name)"] as Dictionary<String,Any>
+                arrayOptionList.append(addSelectedAnswer)
+                }
+            }
+        }
+        var poststring = ""
+            do{
+        
+            let postdat = try JSONSerialization.data(withJSONObject: arrayOptionList, options: JSONSerialization.WritingOptions.prettyPrinted)
+        
+            poststring = String(data : postdat,encoding : .utf8)!
+        
+        
+                }catch{
+        
+            }
+        poststring = String(poststring.filter {!" \n\t\r".contains($0)})
+        poststring = poststring.replacingOccurrences(of: "'\'", with: "")
+        
+        let params = ["access_token":"\(accessToken)","userId": "\(userID)" ,"clientId":"\(clientID)","pollId": "1" ,"list":poststring ] as Dictionary<String, Any>
+            print(params)
+            MakeHttpPostRequest(url: savepoll , params: params, completion: {(success, response) -> Void in
+            print(response)
+                
+            }, errorHandler: {(message) -> Void in
+                print(message)
+            })
+            
+        
     }
     
     func loadQuizExamDetails(){
@@ -53,8 +101,6 @@ class PollOptionsViewController: UIViewController {
         }
     }
     
-            
-
     class ResizableButton: UIButton {
         override var intrinsicContentSize: CGSize {
             let labelSize = titleLabel?.sizeThatFits(CGSize(width: frame.width, height: .greatestFiniteMagnitude)) ?? .zero
