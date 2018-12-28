@@ -12,12 +12,6 @@ class LeaderBoardViewController: UIViewController,UITableViewDataSource,UITableV
     var activityUIView: ActivityIndicatorUIView!
     var arrayProgress = [FriendProgress]()
     
-    
-    
-    
-    
-    
-    
     @IBOutlet var myIcon: UIImageView!
     
     @IBOutlet weak var Myprogress: UILabel!

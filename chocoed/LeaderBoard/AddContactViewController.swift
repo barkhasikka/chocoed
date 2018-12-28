@@ -135,9 +135,6 @@ class AddContactViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     func uploadAddContactData(){
-        
-        
-        
                 let userID = UserDefaults.standard.integer(forKey: "userid")
                 let clientID = UserDefaults.standard.integer(forKey: "clientid")
                 var someArray = [Any]()

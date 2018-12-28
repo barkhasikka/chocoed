@@ -432,6 +432,48 @@ struct FriendListUpdate{
     
 }
 
+struct getPollDataList{
+    var endTime : String
+    var startTime : String
+    var id : Int
+    var resultDeclared: Bool
+    var Voted : String
+    var namePoll : String
+    var ShowProgress : Int
+    var question : String
+    var status : Bool
+    var PollType : Int
+    var option : NSArray
+    
+    
+    init(_ dictionary : NSDictionary) {
+        self.endTime = dictionary["endTime"] as? String ?? ""
+        self.startTime = dictionary["startTime"] as? String ?? ""
+        self.resultDeclared = dictionary["isResultDeclared"] as? Bool ?? false
+        self.Voted = dictionary["isVoted"] as? String ?? ""
+        self.status = dictionary["status"] as? Bool ?? false
+        self.PollType = dictionary["pollType"] as? Int ?? 0
+        self.ShowProgress = dictionary["showProgress"] as? Int ?? 0
+        self.id = dictionary["id"] as? Int ?? 0
+        self.namePoll = dictionary["name"] as? String ?? ""
+        self.question = dictionary["question"] as? String ?? ""
+        self.option = dictionary["optionList"] as? NSArray ?? []
+        
+    }
+}
+
+struct getOptions {
+    var SelectedUserCount : Int
+    var name : String
+    var id : String
+init(_ dictionary : NSDictionary) {
+        self.name = dictionary["name"] as? String ?? ""
+        self.SelectedUserCount = dictionary["selectedUserCount"] as? Int ?? 0
+        self.id = dictionary["id"] as? String ?? ""
+    }
+}
+
+
 struct getNotificationListStruct{
     var aboutNotification : String
     var isRead : Bool

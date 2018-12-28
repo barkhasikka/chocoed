@@ -145,9 +145,10 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
    
     @IBAction func arcThoughtd(_ sender: UIButton) {
         
-        
-       let alert = GetAlertWithOKAction(message: availableString)
-       self.present(alert, animated: true, completion: nil)
+       let vc  = self.storyboard?.instantiateViewController(withIdentifier: "poll") as? PollViewController
+        present(vc!, animated: true, completion: nil)
+//       let alert = GetAlertWithOKAction(message: availableString)
+//       self.present(alert, animated: true, completion: nil)
        
         
     }
