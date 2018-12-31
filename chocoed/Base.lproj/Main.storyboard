@@ -7371,7 +7371,7 @@ the beginning of every beautiful journey.</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="63b-rv-Mdr" customClass="YLProgressBar">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="63b-rv-Mdr" customClass="YLProgressBar">
                                 <rect key="frame" x="16" y="147" width="343" height="43"/>
                                 <color key="backgroundColor" red="0.15261782879999999" green="0.54715570979999995" blue="0.93766191710000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -7379,14 +7379,14 @@ the beginning of every beautiful journey.</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PHd-j7-B8q" customClass="YLProgressBar">
-                                <rect key="frame" x="16" y="256" width="343" height="46"/>
+                                <rect key="frame" x="15" y="205" width="345" height="40"/>
                                 <color key="backgroundColor" red="0.15261782879999999" green="0.54715570979999995" blue="0.93766191710000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="GH0-af-WY0"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ngx-I1-is1">
-                                <rect key="frame" x="94" y="544" width="187" height="57"/>
+                                <rect key="frame" x="112.5" y="482" width="150" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="GFW-JH-Vxd"/>
                                     <constraint firstAttribute="width" constant="150" id="Oyt-2m-XOY"/>
@@ -7399,21 +7399,21 @@ the beginning of every beautiful journey.</string>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mgb-NX-BAd" customClass="YLProgressBar">
-                                <rect key="frame" x="16" y="360" width="343" height="46"/>
+                                <rect key="frame" x="15" y="311" width="345" height="40"/>
                                 <color key="backgroundColor" red="0.15261782879999999" green="0.54715570979999995" blue="0.93766191710000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="4EE-ah-tYy"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dk3-52-p3n" customClass="YLProgressBar">
-                                <rect key="frame" x="16" y="472" width="343" height="46"/>
+                                <rect key="frame" x="15" y="417" width="345" height="40"/>
                                 <color key="backgroundColor" red="0.15261782879999999" green="0.54715570979999995" blue="0.93766191710000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="QZo-sz-gdV"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Option 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dpz-He-yZ5">
-                                <rect key="frame" x="16" y="118" width="342" height="21"/>
+                                <rect key="frame" x="15" y="70" width="345" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="GFI-Vb-GJ4"/>
                                 </constraints>
@@ -7422,7 +7422,7 @@ the beginning of every beautiful journey.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Option 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YAm-4V-9rJ">
-                                <rect key="frame" x="16" y="227" width="342" height="21"/>
+                                <rect key="frame" x="15" y="176" width="345" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="dwT-pn-JzT"/>
                                 </constraints>
@@ -7431,7 +7431,7 @@ the beginning of every beautiful journey.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Option 3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v6l-yL-1Q9">
-                                <rect key="frame" x="16" y="331" width="342" height="21"/>
+                                <rect key="frame" x="15" y="282" width="345" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="qAy-nm-8Is"/>
                                 </constraints>
@@ -7440,7 +7440,7 @@ the beginning of every beautiful journey.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Option 4" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d61-1C-57u">
-                                <rect key="frame" x="16" y="443" width="342" height="21"/>
+                                <rect key="frame" x="15" y="388" width="345" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Rwg-AD-l6V"/>
                                 </constraints>
@@ -7449,7 +7449,7 @@ the beginning of every beautiful journey.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Percent O/p1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ds6-eF-QG8">
-                                <rect key="frame" x="278" y="198" width="80" height="21"/>
+                                <rect key="frame" x="280" y="147" width="80" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="Rv9-a4-Vg1"/>
                                     <constraint firstAttribute="height" constant="21" id="aqg-wl-RP0"/>
@@ -7459,7 +7459,7 @@ the beginning of every beautiful journey.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Percent O/p2" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O0d-1G-YmO">
-                                <rect key="frame" x="279" y="310" width="80" height="21"/>
+                                <rect key="frame" x="280" y="253" width="80" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="bU4-JY-vxh"/>
                                     <constraint firstAttribute="width" constant="80" id="uJ9-CV-h95"/>
@@ -7469,7 +7469,7 @@ the beginning of every beautiful journey.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Percent O/p3" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xcz-5G-a4m">
-                                <rect key="frame" x="279" y="414" width="80" height="21"/>
+                                <rect key="frame" x="280" y="359" width="80" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="GmH-IV-w07"/>
                                     <constraint firstAttribute="width" constant="80" id="ew0-Fd-jqh"/>
