@@ -10,7 +10,6 @@
 		0703A85D21834BE700D01C02 /* ProgressViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0703A85C21834BE700D01C02 /* ProgressViewTableViewCell.swift */; };
 		07052DD82177411300748554 /* CommonTabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07052DD72177411300748554 /* CommonTabelView.swift */; };
 		070791602170CF5600C01F70 /* TopicsStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0707915F2170CF5600C01F70 /* TopicsStatusViewController.swift */; };
-		0714A727218AD04E00979559 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0714A726218AD04E00979559 /* ChatViewController.swift */; };
 		0714A72A218B325300979559 /* chocoed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0714A728218B325200979559 /* chocoed.xcdatamodeld */; };
 		0714A72C218B325D00979559 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0714A72B218B325D00979559 /* GoogleService-Info.plist */; };
 		0714A741218B327C00979559 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0714A72F218B327C00979559 /* FriendCell.swift */; };
@@ -55,6 +54,13 @@
 		07D19E37218471B900687AF4 /* LeaderBoardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D19E36218471B900687AF4 /* LeaderBoardTableViewCell.swift */; };
 		07DB9F59216C866500696B5A /* ActivityIndicatorUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DB9F58216C866500696B5A /* ActivityIndicatorUIView.swift */; };
 		07E07B0B216F6A31004DBE2D /* SubViewPersonalityUpgradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E07B0A216F6A31004DBE2D /* SubViewPersonalityUpgradeViewController.swift */; };
+		3D09685321DC815000509344 /* PaymentSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D09685121DC811200509344 /* PaymentSDK.framework */; };
+		3D09685721DC819000509344 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D09685621DC818F00509344 /* SystemConfiguration.framework */; };
+		3D1095B321DB32710030565E /* PollOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1095AF21DB32700030565E /* PollOptionsViewController.swift */; };
+		3D1095B421DB32710030565E /* PollTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1095B021DB32700030565E /* PollTableViewCell.swift */; };
+		3D1095B521DB32710030565E /* PollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1095B121DB32700030565E /* PollViewController.swift */; };
+		3D1095B621DB32710030565E /* ProgressPollsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1095B221DB32700030565E /* ProgressPollsViewController.swift */; };
+		3D1095BA21DBAC610030565E /* PollResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1095B921DBAC600030565E /* PollResultVC.swift */; };
 		3D11621721A6A27700C2C02C /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D11621521A6A27600C2C02C /* DateCell.swift */; };
 		3D11621821A6A27700C2C02C /* DateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D11621621A6A27700C2C02C /* DateCell.xib */; };
 		3D37772F21C76A4A0091CDA6 /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3D37772E21C76A480091CDA6 /* music.mp3 */; };
@@ -154,7 +160,6 @@
 		0703A85C21834BE700D01C02 /* ProgressViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewTableViewCell.swift; sourceTree = "<group>"; };
 		07052DD72177411300748554 /* CommonTabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonTabelView.swift; sourceTree = "<group>"; };
 		0707915F2170CF5600C01F70 /* TopicsStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsStatusViewController.swift; sourceTree = "<group>"; };
-		0714A726218AD04E00979559 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		0714A729218B325200979559 /* chocoed.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = chocoed.xcdatamodel; sourceTree = "<group>"; };
 		0714A72B218B325D00979559 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		0714A72F218B327C00979559 /* FriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
@@ -204,6 +209,13 @@
 		07D19E36218471B900687AF4 /* LeaderBoardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderBoardTableViewCell.swift; sourceTree = "<group>"; };
 		07DB9F58216C866500696B5A /* ActivityIndicatorUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorUIView.swift; sourceTree = "<group>"; };
 		07E07B0A216F6A31004DBE2D /* SubViewPersonalityUpgradeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubViewPersonalityUpgradeViewController.swift; sourceTree = "<group>"; };
+		3D09685121DC811200509344 /* PaymentSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PaymentSDK.framework; sourceTree = "<group>"; };
+		3D09685621DC818F00509344 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		3D1095AF21DB32700030565E /* PollOptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollOptionsViewController.swift; sourceTree = "<group>"; };
+		3D1095B021DB32700030565E /* PollTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollTableViewCell.swift; sourceTree = "<group>"; };
+		3D1095B121DB32700030565E /* PollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollViewController.swift; sourceTree = "<group>"; };
+		3D1095B221DB32700030565E /* ProgressPollsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressPollsViewController.swift; sourceTree = "<group>"; };
+		3D1095B921DBAC600030565E /* PollResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollResultVC.swift; sourceTree = "<group>"; };
 		3D114A5E21A2BEAA009C40AA /* chocoed.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = chocoed.entitlements; sourceTree = "<group>"; };
 		3D11621521A6A27600C2C02C /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		3D11621621A6A27700C2C02C /* DateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DateCell.xib; sourceTree = "<group>"; };
@@ -313,6 +325,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D09685721DC819000509344 /* SystemConfiguration.framework in Frameworks */,
+				3D09685321DC815000509344 /* PaymentSDK.framework in Frameworks */,
 				A2B2CB1A25278D36BECB09E6 /* Pods_chocoed.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -444,6 +458,19 @@
 			path = LeaderBoard;
 			sourceTree = "<group>";
 		};
+		3D1095AE21DB32700030565E /* Poll Module */ = {
+			isa = PBXGroup;
+			children = (
+				3D1095AF21DB32700030565E /* PollOptionsViewController.swift */,
+				3D1095B021DB32700030565E /* PollTableViewCell.swift */,
+				3D1095B121DB32700030565E /* PollViewController.swift */,
+				3D1095B221DB32700030565E /* ProgressPollsViewController.swift */,
+				3D1095B921DBAC600030565E /* PollResultVC.swift */,
+			);
+			name = "Poll Module";
+			path = "chocoed/Poll Module";
+			sourceTree = SOURCE_ROOT;
+		};
 		3D54EF8A21A0734400B65139 /* Notification */ = {
 			isa = PBXGroup;
 			children = (
@@ -515,6 +542,7 @@
 		BDB1478CD345D30760E7AD19 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3D09685621DC818F00509344 /* SystemConfiguration.framework */,
 				7B250FCA754272F8054867D5 /* Pods_chocoed.framework */,
 			);
 			name = Frameworks;
@@ -523,6 +551,7 @@
 		BF2358DD214FD0AC00C73BE3 = {
 			isa = PBXGroup;
 			children = (
+				3D09685121DC811200509344 /* PaymentSDK.framework */,
 				BF2358E8214FD0AC00C73BE3 /* chocoed */,
 				BF2358E7214FD0AC00C73BE3 /* Products */,
 				43C0788A6ECEC072412F5644 /* Pods */,
@@ -542,6 +571,7 @@
 			isa = PBXGroup;
 			children = (
 				3D114A5E21A2BEAA009C40AA /* chocoed.entitlements */,
+				3D1095AE21DB32700030565E /* Poll Module */,
 				3D54EF8A21A0734400B65139 /* Notification */,
 				3D99EBFD21C7CF440026D0DA /* intro Slider */,
 				0714A72D218B327C00979559 /* ChatModule */,
@@ -572,7 +602,6 @@
 				0714A728218B325200979559 /* chocoed.xcdatamodeld */,
 				0714A72B218B325D00979559 /* GoogleService-Info.plist */,
 				BFCD0566215264B3009BE2C9 /* chocoed-Bridging-Header.h */,
-				0714A726218AD04E00979559 /* ChatViewController.swift */,
 			);
 			path = chocoed;
 			sourceTree = "<group>";
@@ -785,6 +814,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-chocoed/Pods-chocoed-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaAsyncSocket/CocoaAsyncSocket.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
 				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
@@ -798,12 +828,14 @@
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SteviaLayout/Stevia.framework",
 				"${BUILT_PRODUCTS_DIR}/XMPPFramework/XMPPFramework.framework",
+				"${BUILT_PRODUCTS_DIR}/YLProgressBar/YLProgressBar.framework",
 				"${BUILT_PRODUCTS_DIR}/YPImagePicker/YPImagePicker.framework",
 				"${BUILT_PRODUCTS_DIR}/libidn/libidn.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaAsyncSocket.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
@@ -817,6 +849,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stevia.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XMPPFramework.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YLProgressBar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YPImagePicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libidn.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -851,6 +884,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D1095B321DB32710030565E /* PollOptionsViewController.swift in Sources */,
 				3D54EF8E21A0734500B65139 /* NotificationViewController.swift in Sources */,
 				3D11621721A6A27700C2C02C /* DateCell.swift in Sources */,
 				3DA1678621B683FE0039B46E /* LanguageVC.swift in Sources */,
@@ -859,6 +893,7 @@
 				3D68570721B25AEF008C17B1 /* LanguageView1TableViewCell.swift in Sources */,
 				0770F792216DCAF100FE6132 /* dragExtension.swift in Sources */,
 				0714A747218B327C00979559 /* OneLastActivity.swift in Sources */,
+				3D1095B621DB32710030565E /* ProgressPollsViewController.swift in Sources */,
 				0714A72A218B325300979559 /* chocoed.xcdatamodeld in Sources */,
 				BF356CC32155233C003CC228 /* LanguageTableViewCell.swift in Sources */,
 				07D19E3521845E9C00687AF4 /* LeaderBoardViewController.swift in Sources */,
@@ -869,11 +904,13 @@
 				BFCD056C215264B4009BE2C9 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				07869429216F4F6D008DB9FF /* PersonalityUpgradeTableViewCell.swift in Sources */,
 				BF2CBBE82150DCE400E13EA5 /* NewWorkExperienceVC.swift in Sources */,
+				3D1095BA21DBAC610030565E /* PollResultVC.swift in Sources */,
 				0714A743218B327C00979559 /* CoreDataStack.swift in Sources */,
 				0714A745218B327C00979559 /* OneChat.swift in Sources */,
 				0714A74D218B327C00979559 /* Msg+CoreDataClass.swift in Sources */,
 				3D54EF7921A06C5F00B65139 /* AddFriendCell.swift in Sources */,
 				07D19E37218471B900687AF4 /* LeaderBoardTableViewCell.swift in Sources */,
+				3D1095B421DB32710030565E /* PollTableViewCell.swift in Sources */,
 				BF6166F32154D19D0009B991 /* urlsOfAPICalls.swift in Sources */,
 				070791602170CF5600C01F70 /* TopicsStatusViewController.swift in Sources */,
 				3D54EF8921A06CA100B65139 /* FileViewerVC.swift in Sources */,
@@ -946,6 +983,7 @@
 				3D54EF7321A06C5F00B65139 /* FriendTextReplyCell.swift in Sources */,
 				0714A74C218B327C00979559 /* Models.swift in Sources */,
 				0714A74A218B327C00979559 /* OneRoom.swift in Sources */,
+				3D1095B521DB32710030565E /* PollViewController.swift in Sources */,
 				07DB9F59216C866500696B5A /* ActivityIndicatorUIView.swift in Sources */,
 				3D54EF7E21A06C7200B65139 /* Friends+CoreDataClass.swift in Sources */,
 				3D54EF6E21A06C5F00B65139 /* PhotoCell.swift in Sources */,
@@ -955,7 +993,6 @@
 				3DF065582172F8E400C26F90 /* PendingAssessment.swift in Sources */,
 				BF2CBBE62150DC8800E13EA5 /* NewEducationExperienceVC.swift in Sources */,
 				BF2CBBE22150C94500E13EA5 /* TextFieldDesign.swift in Sources */,
-				0714A727218AD04E00979559 /* ChatViewController.swift in Sources */,
 				07967BF221679FBC00FB0E83 /* MenuBarTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1123,6 +1160,10 @@
 				DEVELOPMENT_TEAM = WFBZ498FZ4;
 				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = chocoed/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1151,6 +1192,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WFBZ498FZ4;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = chocoed/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
