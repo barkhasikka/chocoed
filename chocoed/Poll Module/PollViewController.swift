@@ -10,7 +10,6 @@ import UIKit
 
 class PollViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     var arrayOfPoll = [getPollDataList]()
-    var arrayoptions = [getOptions]()
     var activityUIView: ActivityIndicatorUIView!
     @IBOutlet weak var pollTableView: UITableView!
     override func viewDidLoad() {
@@ -18,7 +17,6 @@ class PollViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)
         activityUIView.isHidden = true
-        loadPollData()
         let backgroundImage = UIImageView(frame: self.view.bounds)
         backgroundImage.image = UIImage(named: "background_pattern")
         backgroundImage.contentMode = UIViewContentMode.scaleToFill
@@ -26,13 +24,23 @@ class PollViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loadPollData()
+    }
+    
     func loadPollData(){
+        
+        if self.arrayOfPoll.count > 0 {
+            self.arrayOfPoll.removeAll()
+        }
 
         let userID = UserDefaults.standard.integer(forKey: "userid")
         print(userID, "USER ID IS HERE")
         //let params = ["userId": "\(userID)",  "access_token":"\(accessToken)"] as Dictionary<String, String>
-        let params = ["userId": "17",  "access_token":"\(accessToken)"] as Dictionary<String, String>
+        let params = ["userId": "\(userID)",  "access_token":"\(accessToken)"] as Dictionary<String, String>
         
+        print(params)
 
         activityUIView.isHidden = false
         activityUIView.startAnimation()
@@ -73,10 +81,12 @@ class PollViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         })
     }
     @IBAction func BackButton(_ sender: Any) {
-        let optionVC = self.storyboard?.instantiateViewController(withIdentifier: "optionPoll") as? PollOptionsViewController
+       /* let optionVC = self.storyboard?.instantiateViewController(withIdentifier: "optionPoll") as? PollOptionsViewController
         optionVC?.optionData = arrayoptions
         optionVC?.QuestionData = arrayOfPoll
-        self.present(optionVC!, animated: true, completion: nil)
+        self.present(optionVC!, animated: true, completion: nil)*/
+        
+        dismiss(animated: true, completion: nil)
         
     }
     override func didReceiveMemoryWarning() {
@@ -92,32 +102,92 @@ class PollViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
               let cell = tableView.dequeueReusableCell(withIdentifier: "pollcell") as! PollTableViewCell
         
         cell.pollName.text = arrayOfPoll[indexPath.row].namePoll
-        cell.pollDate.text = "\(arrayOfPoll[indexPath.row].startTime) to \(arrayOfPoll[indexPath.row].endTime)"
+        cell.pollDate.text = "\(Utils.getDateTimePoll(date:arrayOfPoll[indexPath.row].startTime)) to \(Utils.getDateTimePoll(date:arrayOfPoll[indexPath.row].endTime))"
         cell.ViewPoll.layer.cornerRadius = 5
         cell.clipsToBounds = true
         
-        
-//        if cell.pollDate.text == "Pending"{
-//            cell.imageStatus.image = UIImage(named: "icons8-circle_filled_75")
-//        }else{
-//            cell.imageStatus.image = UIImage(named: "icons8-checked_filled-1")
-//
-//        }
+        print(arrayOfPoll[indexPath.row].status);
         
         
         
+        
+        if arrayOfPoll[indexPath.row].status == "0" {
+            // lock
+            cell.imageStatus.image = UIImage(named: "lock")
+            
+        }else  if arrayOfPoll[indexPath.row].Voted == 1 {
+            
+            cell.imageStatus.image = UIImage(named: "voted_green")
+
+            // in progress
+        }else if arrayOfPoll[indexPath.row].Voted == 0 {
+            // result finish
+            
+            cell.imageStatus.image = UIImage(named: "votepending")
+
+            
+        }
+        
+   
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let item = arrayOfPoll[indexPath.row]
+        
+        print(item)
+        
+    
+        
+        if item.status == "0" {
+            
+            
+        }else
+        
+            if item.Voted == 1 {
+            
+            if item.ShowProgress == 1 {
+                
+                // show graph
+                
+                let optionVC = self.storyboard?.instantiateViewController(withIdentifier: "PollResultVC") as? PollResultVC
+                // optionVC?.optionData = arrayoptions
+                optionVC?.QuestionData = arrayOfPoll
+                optionVC?.currentQuestion = indexPath.row
+                DispatchQueue.main.async {
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+                self.present(optionVC!, animated: true, completion: nil)
+                }
+                
+            }else{
+                
+                // popup msg
+                
+                let language = UserDefaults.standard.string(forKey: "currentlanguage")
+                let alertcontrol = UIAlertController(title:"Alert", message: "\("alertDear".localizableString(loc: language!)) \(USERDETAILS.firstName)  , You already registered your choice for this poll. You will be notified once the poll results are out", preferredStyle: .alert)
+                let alertaction = UIAlertAction(title: "OkKey".localizableString(loc: language!), style: .default, handler: nil)
+                alertcontrol.addAction(alertaction)
+                
+                self.present(alertcontrol, animated: true, completion: nil)
+                tableView.deselectRow(at: indexPath, animated: false)
+                
+                
+            }
+            
+        }else{
+            
+            
+            
+            let optionVC = self.storyboard?.instantiateViewController(withIdentifier: "optionPoll") as? PollOptionsViewController
+            optionVC?.QuestionData = arrayOfPoll
+            optionVC?.currentQuestion = indexPath.row
+                DispatchQueue.main.async {
+            self.present(optionVC!, animated: true, completion: nil)
+                }
+            
+        }
+        
     }
-    */
-
+    
 }

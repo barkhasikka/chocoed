@@ -88,6 +88,33 @@ class Utils: NSObject {
     }
     
     
+    public static func getDateFromStringPoll(date : String) -> String {
+        
+        // print(date)
+        
+        
+        if getCurrentData() == getDate(date: date){
+            
+            // print("Today")
+            
+            let dateformat = DateFormatter()
+            dateformat.dateFormat = "hh:mm a"
+            //print(dateformat.string(from: Date(milliseconds: Int(date)!)))
+            return  dateformat.string(from: Date(milliseconds: Int(date)!))
+            
+            
+        }else{
+            
+            let dateformat = DateFormatter()
+            dateformat.dateFormat = "dd-MMM hh:mm a"
+            //print(dateformat.string(from: Date(milliseconds: Int(date)!)))
+            return  dateformat.string(from: Date(milliseconds: Int(date)!))
+            
+        }
+        
+    }
+    
+    
     public static func getDateTime(date : String) -> String {
         // print(date)
         let dateformat = DateFormatter()
@@ -95,6 +122,19 @@ class Utils: NSObject {
         // print(dateformat.string(from: Date(milliseconds: Int(date)!)))
         return  dateformat.string(from: Date(milliseconds: Int(date)!))
     }
+    
+    public static func getDateTimePoll(date : String) -> String {
+        print(date)
+        let str = date.components(separatedBy: " ")
+        let dateformat = DateFormatter()
+        dateformat.dateFormat = "yyyy-MM-dd"
+        // print(dateformat.string(from: Date(milliseconds: Int(date)!)))
+        let date1 =  dateformat.date(from: str[0])
+        print(date1!)
+        dateformat.dateFormat = "dd-MMM"
+        return dateformat.string(from: date1!)
+    }
+    
     
     public static func getDateTimeToDate(date : String) -> Date {
         return  Date(milliseconds: Int(date)!)
