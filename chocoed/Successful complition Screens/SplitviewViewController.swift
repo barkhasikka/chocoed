@@ -171,9 +171,11 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
 //        
 //    }
     @IBAction func arcTagu_clicked(_ sender: Any) {
-        
-        let alert = GetAlertWithOKAction(message: availableString)
-        self.present(alert, animated: true, completion: nil)
+        let vc  = self.storyboard?.instantiateViewController(withIdentifier: "nominee") as? NominationViewController
+        present(vc!, animated: true, completion: nil)
+
+//        let alert = GetAlertWithOKAction(message: availableString)
+//        self.present(alert, animated: true, completion: nil)
         
        
     }
