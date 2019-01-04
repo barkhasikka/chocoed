@@ -148,17 +148,17 @@ class PollViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             if item.Voted == 1 {
             
             if item.ShowProgress == 1 {
-                
+                print("poll vc call")
                 // show graph
-                
-                let optionVC = self.storyboard?.instantiateViewController(withIdentifier: "PollResultVC") as? PollResultVC
-                // optionVC?.optionData = arrayoptions
-                optionVC?.QuestionData = arrayOfPoll
-                optionVC?.currentQuestion = indexPath.row
-                DispatchQueue.main.async {
-
-                self.present(optionVC!, animated: true, completion: nil)
-                }
+//
+//                let optionVC = self.storyboard?.instantiateViewController(withIdentifier: "PollResultVC") as? PollResultVC
+//                // optionVC?.optionData = arrayoptions
+//                optionVC?.QuestionData = arrayOfPoll
+//                optionVC?.currentQuestion = indexPath.row
+//                DispatchQueue.main.async {
+//
+//                self.present(optionVC!, animated: true, completion: nil)
+//                }
                 
             }else{
                 

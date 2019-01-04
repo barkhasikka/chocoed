@@ -8,19 +8,34 @@
 
 import UIKit
 
-class UsersOfNGOViewController: UIViewController {
+class UsersOfNGOViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+    var arrayUsersList = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        arrayUsersList = ["q","q1","q3"]
         // Do any additional setup after loading the view.
     }
 
+    @IBAction func backButton(_ sender: Any) {
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return arrayUsersList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "userngocell") as! UserNGOTableViewCell
+        
+        
+        return cell
+
+    }
 
     /*
     // MARK: - Navigation
