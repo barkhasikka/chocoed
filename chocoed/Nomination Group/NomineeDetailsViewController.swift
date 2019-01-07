@@ -22,11 +22,17 @@ class NomineeDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.image = UIImage(named: "background_pattern")
+        backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
+        self.view.insertSubview(backgroundImage, at: 0)
+        
         imgeProfile.image = UIImage(named: "Man1_1")
         imgeProfile.layer.cornerRadius = 42
         imgeProfile.layer.borderWidth = 2
         imgeProfile.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         imgeProfile.clipsToBounds = true
+        
         
     }
 

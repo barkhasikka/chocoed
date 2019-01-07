@@ -14,7 +14,10 @@ class MyConversationViewController: UIViewController,UICollectionViewDelegate,UI
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.image = UIImage(named: "background_pattern")
+        backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
+        self.view.insertSubview(backgroundImage, at: 0)
         // Do any additional setup after loading the view.
     }
 
