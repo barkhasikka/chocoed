@@ -135,7 +135,12 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
     
     
     @IBAction func conversation_btn_clicked(_ sender: Any) {
-        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
+//        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
+//        self.present(v1, animated: true, completion: nil)
+        
+        
+        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "conversationview") as! MyConversationViewController
+        
         self.present(v1, animated: true, completion: nil)
         
       //  let alert = GetAlertWithOKAction(message: availableString)
