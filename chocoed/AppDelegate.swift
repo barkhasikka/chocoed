@@ -13,6 +13,7 @@ import UserNotifications
 import Firebase
 import FirebaseMessaging
 import XMPPFramework
+import Highcharts
 
 
 
@@ -55,6 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             
         }
+        HIChartView.preload()
         FirebaseApp.configure()
         application.registerForRemoteNotifications()
         Messaging.messaging().delegate = self

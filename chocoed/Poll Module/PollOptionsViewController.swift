@@ -89,7 +89,40 @@ class PollOptionsViewController: UIViewController {
             MakeHttpPostRequest(url: savepoll , params: params, completion: {(success, response) -> Void in
             print(response)
                 
-                self.dismiss(animated: true, completion: nil)
+                let language = UserDefaults.standard.string(forKey: "currentlanguage")
+                let alertView = UIAlertController(title: "Alert", message: "\("alertDear".localizableString(loc: language!)) \(USERDETAILS.firstName), Thank you for registering your choice.", preferredStyle: .alert)
+                
+                
+                
+                let action = UIAlertAction(title: "Ok", style: .default, handler: { (alert) in
+                    
+                    if self.QuestionData[self.currentQuestion].ShowProgress == 1 {
+                        
+                        // show graph
+                        
+                        let optionVC = self.storyboard?.instantiateViewController(withIdentifier: "PollResultVC") as? PollResultVC
+                        // optionVC?.optionData = arrayoptions
+                        optionVC?.QuestionData = self.QuestionData
+                        optionVC?.currentQuestion = self.currentQuestion
+                        DispatchQueue.main.async {
+                            self.present(optionVC!, animated: true, completion: nil)
+                        }
+                        
+                    }else{
+                        
+                        // popup msg
+                        
+                        self.dismiss(animated: true, completion: nil)
+                        
+                        
+                    }
+                    
+                    
+                })
+                alertView.addAction(action)
+                
+                self.present(alertView, animated: true, completion: nil)
+
 
                 
             }, errorHandler: {(message) -> Void in
