@@ -7380,14 +7380,14 @@ the beginning of every beautiful journey.</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="63b-rv-Mdr" customClass="YLProgressBar">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="63b-rv-Mdr">
                                 <rect key="frame" x="16" y="147" width="343" height="43"/>
                                 <color key="backgroundColor" red="0.15261782879999999" green="0.54715570979999995" blue="0.93766191710000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="YNt-dD-eDt"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PHd-j7-B8q" customClass="YLProgressBar">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PHd-j7-B8q">
                                 <rect key="frame" x="15" y="205" width="345" height="40"/>
                                 <color key="backgroundColor" red="0.15261782879999999" green="0.54715570979999995" blue="0.93766191710000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -7407,14 +7407,14 @@ the beginning of every beautiful journey.</string>
                                     <action selector="button1:" destination="tIt-aV-whK" eventType="touchUpInside" id="dms-F0-R1h"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mgb-NX-BAd" customClass="YLProgressBar">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mgb-NX-BAd">
                                 <rect key="frame" x="15" y="311" width="345" height="40"/>
                                 <color key="backgroundColor" red="0.15261782879999999" green="0.54715570979999995" blue="0.93766191710000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="4EE-ah-tYy"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dk3-52-p3n" customClass="YLProgressBar">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dk3-52-p3n">
                                 <rect key="frame" x="15" y="417" width="345" height="40"/>
                                 <color key="backgroundColor" red="0.15261782879999999" green="0.54715570979999995" blue="0.93766191710000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -7578,8 +7578,16 @@ the beginning of every beautiful journey.</string>
                                 </subviews>
                                 <color key="backgroundColor" red="0.15294117647058825" green="0.5490196078431373" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vud-15-uKP" customClass="HorizontalBarChartView" customModule="Charts">
-                                <rect key="frame" x="0.0" y="88" width="375" height="579"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pwb-1h-IS5">
+                                <rect key="frame" x="5" y="90" width="360" height="60"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZHh-ki-tYH">
+                                <rect key="frame" x="0.0" y="158" width="375" height="509"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -7588,7 +7596,8 @@ the beginning of every beautiful journey.</string>
                         <viewLayoutGuide key="safeArea" id="HMv-xv-zKq"/>
                     </view>
                     <connections>
-                        <outlet property="chart" destination="vud-15-uKP" id="pwf-2K-jYk"/>
+                        <outlet property="lblResult" destination="pwb-1h-IS5" id="YAQ-zu-HWa"/>
+                        <outlet property="mainView" destination="ZHh-ki-tYH" id="xzD-SN-DbY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TMJ-T0-isJ" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -39,6 +39,7 @@ let updateNotificationRead = "https://chocoed.com/development/admin/api/user/upd
 let sendWelcomeNotification = "https://chocoed.com/development/admin/api/user/sendWelcomeNotification"
 
 let pollApi = "https://www.chocoed.com/development/admin/api/user/getPollList"
+let pollResult = "https://www.chocoed.com/development/admin/api/user/getPollResult"
 
 
 let empList = "https://chocoed.com/development/admin/api/user/getEmployeeList"
@@ -46,6 +47,8 @@ let empList = "https://chocoed.com/development/admin/api/user/getEmployeeList"
 let paymentLink = "https://chocoed.com/development/admin/payment?userId="
 
 let savepoll = "https://www.chocoed.com/development/admin/api/user/savePollVote"
+let ChecksumGeneration = "https://www.chocoed.com/development/admin/api/user/ChecksumGeneration"
+
 
 var currentTopiceDate  = ""
 var currentCourseId  = ""
