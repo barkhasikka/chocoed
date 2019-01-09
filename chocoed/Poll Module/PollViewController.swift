@@ -62,14 +62,23 @@ class PollViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
 //            for options in option {
 //                self.arrayoptions.append(getOptions( options as! NSDictionary))
 //            }
-
+            
+            
             
             DispatchQueue.main.async {
                 self.pollTableView.reloadData()
                 self.activityUIView.isHidden = true
                 self.activityUIView.stopAnimation()
                 
+                if poll.count == 0 {
+                    let msg =  response.object(forKey: "statusMessage") as? NSString ?? ""
+                    let alert = GetAlertWithOKAction(message: msg as String)
+                    self.present(alert, animated: true, completion: nil)
+                }
+                
             }
+            
+            
         }, errorHandler: {(message) -> Void in
             let alert = GetAlertWithOKAction(message: message)
             DispatchQueue.main.async {
@@ -86,7 +95,13 @@ class PollViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         optionVC?.QuestionData = arrayOfPoll
         self.present(optionVC!, animated: true, completion: nil)*/
         
-        dismiss(animated: true, completion: nil)
+        let vcbackDashboard = self.storyboard?.instantiateViewController(withIdentifier: "split") as? SplitviewViewController
+        let aObjNavi = UINavigationController(rootViewController: vcbackDashboard!)
+        aObjNavi.navigationBar.barTintColor = #colorLiteral(red: 0.08052674438, green: 0.186350315, blue: 0.8756543464, alpha: 1)
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        self.present(aObjNavi, animated: true, completion: nil)
+
         
     }
     override func didReceiveMemoryWarning() {
@@ -115,6 +130,10 @@ class PollViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             // lock
             cell.imageStatus.image = UIImage(named: "lock")
             
+        }else if arrayOfPoll[indexPath.row].status == "3" {
+            // lock
+            cell.imageStatus.image = UIImage(named: "podium")
+            
         }else  if arrayOfPoll[indexPath.row].Voted == 1 {
             
             cell.imageStatus.image = UIImage(named: "voted_green")
@@ -137,13 +156,34 @@ class PollViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         let item = arrayOfPoll[indexPath.row]
         
         print(item)
-        
     
-        
         if item.status == "0" {
             
+    
+            let language = UserDefaults.standard.string(forKey: "currentlanguage")
+            let alertcontrol = UIAlertController(title:"Alert", message: "\("alertDear".localizableString(loc: language!)) \(USERDETAILS.firstName), This poll is not open yet for accepting votes. Please refer to start time of poll.", preferredStyle: .alert)
             
-        }else
+            
+            let alertaction = UIAlertAction(title: "OkKey".localizableString(loc: language!), style: .default, handler: nil)
+            alertcontrol.addAction(alertaction)
+            
+            self.present(alertcontrol, animated: true, completion: nil)
+            tableView.deselectRow(at: indexPath, animated: false)
+            
+            
+            
+        }else if item.status == "3" {
+            
+            let optionVC = self.storyboard?.instantiateViewController(withIdentifier: "PollResultVC") as? PollResultVC
+            // optionVC?.optionData = arrayoptions
+            optionVC?.QuestionData = arrayOfPoll
+            optionVC?.currentQuestion = indexPath.row
+            DispatchQueue.main.async {
+                self.present(optionVC!, animated: true, completion: nil)
+            }
+            
+            
+        }else if item.status == "1" || item.status == "2" {
         
             if item.Voted == 1 {
             
@@ -156,8 +196,8 @@ class PollViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 optionVC?.QuestionData = arrayOfPoll
                 optionVC?.currentQuestion = indexPath.row
                 DispatchQueue.main.async {
-
                 self.present(optionVC!, animated: true, completion: nil)
+                
                 }
                 
             }else{
@@ -165,7 +205,7 @@ class PollViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 // popup msg
                 
                 let language = UserDefaults.standard.string(forKey: "currentlanguage")
-                let alertcontrol = UIAlertController(title:"Alert", message: "\("alertDear".localizableString(loc: language!)) \(USERDETAILS.firstName)  , You already registered your choice for this poll. You will be notified once the poll results are out", preferredStyle: .alert)
+                let alertcontrol = UIAlertController(title:"Alert", message: "\("alertDear".localizableString(loc: language!)) \(USERDETAILS.firstName)  , You already registered your choice for this poll. You will be notified once the poll results are declared", preferredStyle: .alert)
                 let alertaction = UIAlertAction(title: "OkKey".localizableString(loc: language!), style: .default, handler: nil)
                 alertcontrol.addAction(alertaction)
                 
@@ -176,18 +216,49 @@ class PollViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             }
             
         }else{
-            
-            
-            
-            let optionVC = self.storyboard?.instantiateViewController(withIdentifier: "optionPoll") as? PollOptionsViewController
-            optionVC?.QuestionData = arrayOfPoll
-            optionVC?.currentQuestion = indexPath.row
-                DispatchQueue.main.async {
-            self.present(optionVC!, animated: true, completion: nil)
+                
+                if item.status == "1" {
+                    
+                    let optionVC = self.storyboard?.instantiateViewController(withIdentifier: "optionPoll") as? PollOptionsViewController
+                    optionVC?.QuestionData = arrayOfPoll
+                    optionVC?.currentQuestion = indexPath.row
+                    DispatchQueue.main.async {
+                        self.present(optionVC!, animated: true, completion: nil)
+                    }
+                    
+                }else if item.status == "2"{
+                    
+                      if item.ShowProgress == 1 {
+                        
+                        let optionVC = self.storyboard?.instantiateViewController(withIdentifier: "PollResultVC") as? PollResultVC
+                        // optionVC?.optionData = arrayoptions
+                        optionVC?.QuestionData = arrayOfPoll
+                        optionVC?.currentQuestion = indexPath.row
+                        DispatchQueue.main.async {
+                            self.present(optionVC!, animated: true, completion: nil)
+                            
+                        }
+                        
+                      }else{
+                        
+                        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+                        let alertcontrol = UIAlertController(title:"Alert", message: "\("alertDear".localizableString(loc: language!)) \(USERDETAILS.firstName)  , You have missed end date for this poll. You will be notified once the poll results are available", preferredStyle: .alert)
+                        let alertaction = UIAlertAction(title: "OkKey".localizableString(loc: language!), style: .default, handler: nil)
+                        alertcontrol.addAction(alertaction)
+                        
+                        self.present(alertcontrol, animated: true, completion: nil)
+                        tableView.deselectRow(at: indexPath, animated: false)
+                        
+                      }
+                    
+                    
                 }
+            
+            
             
         }
         
+      }
     }
     
 }
