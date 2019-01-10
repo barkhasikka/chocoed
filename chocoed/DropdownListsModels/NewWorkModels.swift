@@ -474,6 +474,42 @@ init(_ dictionary : NSDictionary) {
 }
 
 
+struct getNgoDetails {
+    var imageURL : String
+    var name : String
+    var id : String
+    init(_ dictionary : NSDictionary) {
+        self.name = dictionary["name"] as? String ?? ""
+        self.imageURL = dictionary["imageUrl"] as? String ?? ""
+        self.id = dictionary["id"] as? String ?? ""
+    }
+}
+
+struct getNgoUserDetails {
+    var birthDate : String
+    var ngoId : String
+    var firstName : String
+    var lastName : String
+    var mobileNumber : String
+    var govtId : String
+    var age : String
+    var occupation : String
+    var learningLanguage : String
+    var profileImageUrl : String
+    init(_ dictionary : NSDictionary) {
+        self.birthDate = dictionary["birthDate"] as? String ?? ""
+        self.ngoId = dictionary["ngoId"] as? String ?? ""
+        self.firstName = dictionary["firstName"] as? String ?? ""
+        self.lastName = dictionary["lastName"] as? String ?? ""
+        self.mobileNumber = dictionary["mobileNumber"] as? String ?? ""
+        self.govtId = dictionary["govId"] as? String ?? ""
+        self.age = dictionary["age"] as? String ?? ""
+        self.occupation = dictionary["occupation"] as? String ?? ""
+        self.learningLanguage = dictionary["learningLanguage"] as? String ?? ""
+        self.profileImageUrl = dictionary["profileImageUrl"] as? String ?? ""
+    }
+}
+
 struct getNotificationListStruct{
     var aboutNotification : String
     var isRead : Bool

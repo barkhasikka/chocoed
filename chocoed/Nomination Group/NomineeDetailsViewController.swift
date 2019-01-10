@@ -19,9 +19,18 @@ class NomineeDetailsViewController: UIViewController {
     @IBOutlet weak var TopicsCompletedNo: UILabel!
     @IBOutlet weak var completedTestNo: UILabel!
     @IBOutlet weak var imgeProfile: UIImageView!
+    
+    var tempDataNgoUser : getNgoUserDetails?
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.nomineeAge.text = tempDataNgoUser?.age
+        nomineeName.text = "\(tempDataNgoUser?.firstName) \(tempDataNgoUser?.lastName)"
+        nomineeGovtid.text = tempDataNgoUser?.govtId
+        nomineeMobile.text = tempDataNgoUser?.mobileNumber
+        nomineeOccupation.text = tempDataNgoUser?.occupation
+        nomineeLearningLang.text = tempDataNgoUser?.learningLanguage
+        
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(named: "background_pattern")
         backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
@@ -32,6 +41,7 @@ class NomineeDetailsViewController: UIViewController {
         imgeProfile.layer.borderWidth = 2
         imgeProfile.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         imgeProfile.clipsToBounds = true
+        
         
         
     }

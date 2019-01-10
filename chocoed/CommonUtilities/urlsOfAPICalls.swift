@@ -41,6 +41,10 @@ let sendWelcomeNotification = "https://chocoed.com/development/admin/api/user/se
 let pollApi = "https://www.chocoed.com/development/admin/api/user/getPollList"
 let pollResult = "https://www.chocoed.com/development/admin/api/user/getPollResult"
 
+let getNgoList = "https://www.chocoed.com/development/admin/api/user/getNgoList"
+
+let getNGOUserList = "https://www.chocoed.com/development/admin/api/user/getNgoUserList"
+
 
 let empList = "https://chocoed.com/development/admin/api/user/getEmployeeList"
 
