@@ -9,17 +9,24 @@
 import UIKit
 
 class MyTagUlistViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
-   
-        @IBOutlet weak var tabelViewStickyList: UITableView!
-    var arrayTagUlist = ["List1","List2"]
+    
+    var activityUIView: ActivityIndicatorUIView!
+    @IBOutlet weak var tabelViewStickyList: UITableView!
+    var arrayTagUlist = [getStickyNotesList]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
+        self.view.addSubview(activityUIView)
+        activityUIView.isHidden = true
+
         
         let backgroundImage = UIImageView(frame: self.view.bounds)
         backgroundImage.image = UIImage(named: "background_pattern")
         backgroundImage.contentMode = UIViewContentMode.scaleToFill
         self.view.insertSubview(backgroundImage, at: 0)
 
+        loadSTickyNotesList()
         // Do any additional setup after loading the view.
     }
 
@@ -35,24 +42,49 @@ class MyTagUlistViewController: UIViewController,UITableViewDelegate,UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
          let cell = tableView.dequeueReusableCell(withIdentifier: "mytagu", for: indexPath) as! MytagUlistTableViewCell
-        cell.gradiantImage.image = UIImage(named: "pin")
+        cell.gradiantImage.backgroundColor = UIColor(named: "\(arrayTagUlist[indexPath.row].colour)")
         cell.imagePin.image = UIImage(named: "pin")
-        cell.labelName.text = arrayTagUlist[indexPath.row]
-        cell.labelDiscription.text = "Sometext"
+        cell.labelName.text = arrayTagUlist[indexPath.row].title
+        cell.labelDiscription.text = arrayTagUlist[indexPath.row].notes
         
         return cell
     }
     
+    func loadSTickyNotesList(){
+        let userID = UserDefaults.standard.integer(forKey: "userid")
+        let clientID = UserDefaults.standard.integer(forKey: "clientid")
+        print(userID, "USER ID IS HERE")
+        
+        let params = ["userId": "\(userID)","clientId": "\(clientID)",  "access_token":"\(accessToken)"] as Dictionary<String, String>
+        
+        
+        print(params)
+        
+        
+        MakeHttpPostRequest(url: StickyNotesList, params: params, completion: {(success, response) -> Void in
+            print(response)
+            let list = response.object(forKey: "list") as? NSArray ?? []
+            
+            for stickyNote in list {
+                self.arrayTagUlist.append(getStickyNotesList( stickyNote as! NSDictionary))
+            }
+            DispatchQueue.main.async {
+                self.tabelViewStickyList.reloadData()
+                self.activityUIView.isHidden = true
+                self.activityUIView.stopAnimation()
+            }
+            
+            
+        }, errorHandler: {(message) -> Void in
+            let alert = GetAlertWithOKAction(message: message)
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+                self.activityUIView.isHidden = true
+                self.activityUIView.stopAnimation()
+                
+            }
+        })
 
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
     }
-    */
 
 }

@@ -32,7 +32,7 @@ class NominationOfNGOViewController: UIViewController,UICollectionViewDelegate,U
         let userID = UserDefaults.standard.integer(forKey: "userid")
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         print(userID, "USER ID IS HERE")
-        //let params = ["userId": "\(userID)",  "access_token":"\(accessToken)"] as Dictionary<String, String>
+      
         let params = ["userId": "\(userID)","clientId": "\(clientID)",  "access_token":"\(accessToken)"] as Dictionary<String, String>
         
         

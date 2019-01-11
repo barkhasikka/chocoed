@@ -7622,6 +7622,9 @@ the beginning of every beautiful journey.</string>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="54X-sM-kmX" id="INu-iG-Vjp"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dEa-oJ-bUO">
                                         <rect key="frame" x="170" y="34" width="165" height="30"/>
@@ -7632,6 +7635,9 @@ the beginning of every beautiful journey.</string>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="54X-sM-kmX" id="Dao-mr-5Gz"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="igo-dP-pGA">
                                         <rect key="frame" x="0.0" y="173" width="165" height="30"/>
@@ -7641,7 +7647,10 @@ the beginning of every beautiful journey.</string>
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="54X-sM-kmX" id="CYL-qd-TSv"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Eb2-3i-2nb">
                                         <rect key="frame" x="170" y="173" width="165" height="30"/>
@@ -7652,6 +7661,9 @@ the beginning of every beautiful journey.</string>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="54X-sM-kmX" id="pha-A2-mCr"/>
+                                        </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mobile Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CLa-Pv-1x9">
                                         <rect key="frame" x="0.0" y="76" width="335" height="21"/>
@@ -7669,7 +7681,10 @@ the beginning of every beautiful journey.</string>
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="54X-sM-kmX" id="kv7-8d-thz"/>
+                                        </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+91" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9VK-i2-xmu">
                                         <rect key="frame" x="2" y="107" width="27.5" height="19.5"/>
@@ -7739,7 +7754,6 @@ the beginning of every beautiful journey.</string>
                                         </state>
                                         <connections>
                                             <action selector="nominateButtonAction:" destination="54X-sM-kmX" eventType="touchUpInside" id="EFA-xZ-XEK"/>
-                                            <segue destination="iMc-ij-9Qe" kind="show" id="FcH-aZ-0VB"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⎯⎯⎯⎯⎯⎯OR⎯⎯⎯⎯⎯" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Osn-XD-9eQ">
@@ -7756,7 +7770,7 @@ the beginning of every beautiful journey.</string>
                                         <rect key="frame" x="58" y="99" width="227" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="NTb-76-iDg"/>
-                                            <constraint firstAttribute="width" constant="227" id="eLA-2M-If7"/>
+                                            <constraint firstAttribute="width" constant="227" id="njk-6J-f9W"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="Select from Poll">
@@ -7764,7 +7778,7 @@ the beginning of every beautiful journey.</string>
                                         </state>
                                         <connections>
                                             <action selector="SelectPollButtonAction:" destination="54X-sM-kmX" eventType="touchUpInside" id="4rd-LA-jSK"/>
-                                            <segue destination="UU7-nJ-2hp" kind="show" id="YeH-zr-W7A"/>
+                                            <segue destination="Obf-hs-4SP" kind="show" id="ESY-WR-UX2"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -7817,7 +7831,7 @@ the beginning of every beautiful journey.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S3Z-GT-dLL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9694" y="490"/>
+            <point key="canvasLocation" x="9693.6000000000004" y="489.80509745127438"/>
         </scene>
         <!--Sticky Note View Controller-->
         <scene sceneID="Fll-ol-6DR">
@@ -8903,4 +8917,7 @@ the beginning of every beautiful journey.</string>
         <image name="transparent" width="180" height="113"/>
         <image name="voted" width="256" height="256"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="ESY-WR-UX2"/>
+    </inferredMetricsTieBreakers>
 </document>

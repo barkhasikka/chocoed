@@ -24,6 +24,8 @@ class NomineeDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        LoadNomineeDetails()
+        
         self.nomineeAge.text = tempDataNgoUser?.age
         nomineeName.text = "\(tempDataNgoUser?.firstName) \(tempDataNgoUser?.lastName)"
         nomineeGovtid.text = tempDataNgoUser?.govtId
@@ -51,8 +53,36 @@ class NomineeDetailsViewController: UIViewController {
         self.present(vc!, animated: true, completion: nil)
         
     }
+    
+    func LoadNomineeDetails(){
+        
+        let userID = UserDefaults.standard.integer(forKey: "userid")
+        let clientID = UserDefaults.standard.integer(forKey: "clientid")
+        
+        let params = [ "access_token":"\(accessToken)", "userId": "\(userID)","clientId":"\(clientID)"] as Dictionary<String, String>
+        
+        print(params)
+        
+        MakeHttpPostRequest(url: getNomineeDetails, params: params, completion: {(success, response) -> Void in
+            
+            print(response)
+//            let occupationList = response.object(forKey: "") as? NSArray ?? []
+//
+        }, errorHandler: {(message) -> Void in
+            let alert = GetAlertWithOKAction(message: message)
+            DispatchQueue.main.async {
+                //                self.activityUIView.isHidden = true
+                //                self.activityUIView.stopAnimation()
+                self.present(alert, animated: true, completion: nil)
+                
+            }
+        })
+
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
 }

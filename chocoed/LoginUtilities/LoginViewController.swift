@@ -92,6 +92,8 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
         self.hideKeyboardWhenTappedAround()
         // Do any additional setup after loading the view.
         
+        
+        
         mobileNumberTextFIeld.becomeFirstResponder()
         
         

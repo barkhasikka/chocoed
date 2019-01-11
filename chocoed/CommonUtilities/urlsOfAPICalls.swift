@@ -44,7 +44,9 @@ let pollResult = "https://www.chocoed.com/development/admin/api/user/getPollResu
 let getNgoList = "https://www.chocoed.com/development/admin/api/user/getNgoList"
 
 let getNGOUserList = "https://www.chocoed.com/development/admin/api/user/getNgoUserList"
-
+let nominateUser = "https://www.chocoed.com/development/admin/api/user/nominateUser"
+let StickyNotesList = "https://www.chocoed.com/development/admin/api/user/getStickyNotesList"
+let getNomineeDetails = "https://www.chocoed.com/development/admin/api/user/getNomineeDetails"
 
 let empList = "https://chocoed.com/development/admin/api/user/getEmployeeList"
 

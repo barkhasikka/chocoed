@@ -103,9 +103,6 @@ class NewEducationExperienceVC: UIViewController {
             print("Selected item: \(item) at index: \(index)")
             switch self.currentSelectedButton {
             case "Qualification":
-                
-                
-                
                 self.selectedEducation.educationLevel = self.educationLevel1[index].name
                 print(self.selectedEducation.educationLevel)
                 if self.selectedEducation.educationLevel == "10th Standard Board" || self.selectedEducation.educationLevel == "12th Standard Board / Diploma"
