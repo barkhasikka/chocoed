@@ -55,6 +55,11 @@ let paymentLink = "https://chocoed.com/development/admin/payment?userId="
 let savepoll = "https://www.chocoed.com/development/admin/api/user/savePollVote"
 let ChecksumGeneration = "https://www.chocoed.com/development/admin/api/user/ChecksumGeneration"
 
+let addEditStickyNotes = "https://www.chocoed.com/development/admin/api/user/addEditStickyNote"
+
+let deleteStickyNote = "https://www.chocoed.com/development/admin/api/user/deleteStickyNote"
+
+let sendStickyNote = "https://www.chocoed.com/development/admin/api/user/sendStickyNote"
 
 var currentTopiceDate  = ""
 var currentCourseId  = ""

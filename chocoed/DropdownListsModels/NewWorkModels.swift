@@ -577,8 +577,22 @@ struct getStickyNotesList {
         self.id = dictionary["id"] as? String ?? ""
         self.colour = dictionary["color"] as? String ?? ""
         self.notes = dictionary["notes"] as? String ?? ""
-        self.title = dictionary["notificationId"] as? String ?? ""
+        self.title = dictionary["title"] as? String ?? ""
         self.createdDataTime = dictionary["createdDateTime"] as? String ?? ""
         self.lastModifiedDataTime = dictionary["lastModifiedDataTime"] as? String ?? ""
     }
 }
+struct addEditStickyNotesStruct {
+    var color : String
+    var notes : String
+    var title : String
+    var stickyNoteId : String
+
+    init(_ dictionary : NSDictionary) {
+        self.color = dictionary["color"] as? String ?? ""
+        self.notes = dictionary["notes"] as? String ?? ""
+        self.title = dictionary["title"] as? String ?? ""
+        self.stickyNoteId = dictionary["stickyNoteId"] as? String ?? ""
+    }
+}
+
