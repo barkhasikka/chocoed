@@ -286,7 +286,8 @@ struct UserDetails{
     var lastname : String
     var imageurl : String
     var mobile : String
-
+//    var isNominee : Int
+    
 }
 
 

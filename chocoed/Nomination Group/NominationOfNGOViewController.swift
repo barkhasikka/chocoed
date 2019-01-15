@@ -20,6 +20,8 @@ class NominationOfNGOViewController: UIViewController,UICollectionViewDelegate,U
         activityUIView.isHidden = true
 
         loadNgoList()
+        
+        
         // Do any additional setup after loading the view.
     }
 
@@ -45,6 +47,12 @@ class NominationOfNGOViewController: UIViewController,UICollectionViewDelegate,U
             
             for Ngo in list {
                 self.arrayNGO.append(getNgoDetails( Ngo as! NSDictionary))
+            }
+            
+            if self.arrayNGO.count == 0{
+                let alert = GetAlertWithOKAction(message: "Not data to show")
+                self.present(alert, animated: true, completion: nil)
+                
             }
             DispatchQueue.main.async {
                 self.collectionNGO.reloadData()
@@ -72,7 +80,7 @@ class NominationOfNGOViewController: UIViewController,UICollectionViewDelegate,U
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ngolist", for: indexPath) as! NGONomineeCollectionViewCell
        
-        cell.imageViewBackground.image = UIImage.init(named: "icons_user")
+//        cell.imageViewBackground.image = UIImage.init(named: "icons_user")
         
         cell.labelName.text = arrayNGO[indexPath.row].name
       

@@ -160,8 +160,10 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
             temp.lastName = jsonobject?.object(forKey: "lastName") as? String ?? ""
             temp.email = jsonobject?.object(forKey: "email") as? String ?? ""
             temp.mobile = jsonobject?.object(forKey: "mobile") as? String ?? ""
+//            temp.isnominee = jsonobject?.object(forKey: "isNominatedUser") as? Int ?? 0
             let clientId = jsonobject?.object(forKey: "clientId") as? String ?? ""
             let url = jsonobject?.object(forKey: "profileImageUrl") as? String ?? ""
+            
             let quizTaken =  jsonobject?.object(forKey:"quizTestGiven") as? Int ?? -1
             UserDefaults.standard.set(quizTaken, forKey: "quiztakenID")
             let quizID = UserDefaults.standard.string(forKey: "quiztakenID")
@@ -174,6 +176,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
 
             
             USERDETAILS = UserDetails(email: temp.email, firstName: temp.firstName, lastname: temp.lastName, imageurl: url, mobile : temp.mobile)
+//                                      isNominee: temp.isnominee)
             
             let isFirstTimeUser =  jsonobject?.object(forKey:"isFirstTimeUser") as? String ?? "true"
             //self.sendLanguagesSelected()

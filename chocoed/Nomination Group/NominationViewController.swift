@@ -83,7 +83,7 @@ class NominationViewController: UIViewController,UITextFieldDelegate {
             let languageList = response.object(forKey: "languageList") as? NSArray ?? []
             
             for occupationListItems in occupationList {
- self.dropdownValueoccupation.append(FieldsOfDropDownList(occupationListItems as! NSDictionary))
+                self.dropdownValueoccupation.append(FieldsOfDropDownList(occupationListItems as! NSDictionary))
             }
             
             for languageListItems in languageList {
@@ -136,6 +136,17 @@ class NominationViewController: UIViewController,UITextFieldDelegate {
         dropDown.dataSource = tableViewData
 
     }
+    
+    
+    @IBAction func backButton(_ sender: Any) {
+    
+        let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
+        let aObjNavi = UINavigationController(rootViewController: startVC)
+        aObjNavi.navigationBar.barTintColor = UIColor.blue
+        self.present(aObjNavi, animated: true, completion: nil)
+    }
+    
     @IBAction func nominateButtonAction(_ sender: Any) {
         
         NominateUser()
@@ -145,7 +156,10 @@ class NominationViewController: UIViewController,UITextFieldDelegate {
     
     @IBAction func SelectPollButtonAction(_ sender: Any) {
         
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ngoNominee") as? NominationOfNGOViewController
         
+        self.present(vc!, animated: true, completion: nil)
+
         
     }
     override func didReceiveMemoryWarning() {
@@ -164,7 +178,7 @@ class NominationViewController: UIViewController,UITextFieldDelegate {
         let mobileno = mobileNo.text!
         let govtId = govtIdText.text!
         
-        let params = [ "access_token":"\(accessToken)", "userId": "\(userID)","clientId":"\(clientID)", "firstName": "\(firstname)", "lastName": "\(lastName)", "age": "\(age)", "govId" : "\(govtId)", "occupation": "\(self.ngoDataFetch.occupation)", "learningLanguage" : "\(self.ngoDataFetch.langLearning)", "mobileNumber" : "\(mobileno)", "ngoId": "1","nominationUserId":"1"] as Dictionary<String, String>
+        let params = [ "access_token":"\(accessToken)", "userId": "\(userID)","clientId":"\(clientID)", "firstName": "\(firstname)", "lastName": "\(lastName)", "age": "\(age)", "govId" : "\(govtId)", "occupation": "\(self.ngoDataFetch.occupation)", "learningLanguage" : "\(self.ngoDataFetch.langLearning)", "mobileNumber" : "\(mobileno)", "ngoId": "1","nominationUserId":"4"] as Dictionary<String, String>
         
         print(params)
         
@@ -179,10 +193,7 @@ class NominationViewController: UIViewController,UITextFieldDelegate {
                     self.activityUIView.isHidden = true
                     self.activityUIView.stopAnimation()
                     
-                    let vcGetStarted = self.storyboard?.instantiateViewController(withIdentifier: "nomineeView") as! NomineeDetailsViewController
-                    
-                    self.present(vcGetStarted, animated: true, completion: nil)
-                }
+            }
                 
             }, errorHandler: {(message) -> Void in
                 let alert = GetAlertWithOKAction(message: message)

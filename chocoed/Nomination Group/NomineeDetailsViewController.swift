@@ -26,12 +26,12 @@ class NomineeDetailsViewController: UIViewController {
 
         LoadNomineeDetails()
         
-        self.nomineeAge.text = tempDataNgoUser?.age
-        nomineeName.text = "\(tempDataNgoUser?.firstName) \(tempDataNgoUser?.lastName)"
-        nomineeGovtid.text = tempDataNgoUser?.govtId
-        nomineeMobile.text = tempDataNgoUser?.mobileNumber
-        nomineeOccupation.text = tempDataNgoUser?.occupation
-        nomineeLearningLang.text = tempDataNgoUser?.learningLanguage
+//        self.nomineeAge.text = tempDataNgoUser?.age
+//        nomineeName.text = "\(tempDataNgoUser?.firstName) \(tempDataNgoUser?.lastName)"
+//        nomineeGovtid.text = tempDataNgoUser?.govtId
+//        nomineeMobile.text = tempDataNgoUser?.mobileNumber
+//        nomineeOccupation.text = tempDataNgoUser?.occupation
+//        nomineeLearningLang.text = tempDataNgoUser?.learningLanguage
         
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(named: "background_pattern")
@@ -63,21 +63,26 @@ class NomineeDetailsViewController: UIViewController {
         
         print(params)
         
-        MakeHttpPostRequest(url: getNomineeDetails, params: params, completion: {(success, response) -> Void in
-            
+        MakeHttpPostRequest(url: getNomineeDetails , params: params, completion: {(success, response) -> Void in
             print(response)
-//            let occupationList = response.object(forKey: "") as? NSArray ?? []
+            
+//            DispatchQueue.main.async {
 //
+//                self.activityUIView.isHidden = true
+//                self.activityUIView.stopAnimation()
+//            }
+//            let vc = self.storyboard?.instantiateViewController(withIdentifier: "taguList") as? MyTagUlistViewController
+//            self.present(vc!, animated: true, completion: nil)
+            
         }, errorHandler: {(message) -> Void in
             let alert = GetAlertWithOKAction(message: message)
             DispatchQueue.main.async {
-                //                self.activityUIView.isHidden = true
-                //                self.activityUIView.stopAnimation()
                 self.present(alert, animated: true, completion: nil)
-                
+//                self.activityUIView.isHidden = true
+//                self.activityUIView.stopAnimation()
             }
         })
-
+        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

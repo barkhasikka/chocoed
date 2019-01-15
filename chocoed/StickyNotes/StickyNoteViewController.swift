@@ -68,36 +68,36 @@ class StickyNoteViewController: UIViewController,UITextViewDelegate,UITextFieldD
     @IBAction func PinkColourAction(_ sender: Any) {
         
         noteTitle.textColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
-        noteTextview.textColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
+        noteTextview.backgroundColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
     }
     @IBAction func parrotColourAction(_ sender: Any) {
         noteTitle.textColor = #colorLiteral(red: 0.3873848702, green: 1, blue: 0.1522773115, alpha: 1)
-        noteTextview.textColor = #colorLiteral(red: 0.3873848702, green: 1, blue: 0.1522773115, alpha: 1)
+        noteTextview.backgroundColor = #colorLiteral(red: 0.3873848702, green: 1, blue: 0.1522773115, alpha: 1)
 
     }
     @IBAction func redColourAction(_ sender: Any) {
         noteTitle.textColor = #colorLiteral(red: 0.9111873414, green: 0, blue: 0.008497319128, alpha: 1)
-        noteTextview.textColor = #colorLiteral(red: 0.9111873414, green: 0, blue: 0.008497319128, alpha: 1)
+        noteTextview.backgroundColor = #colorLiteral(red: 0.9111873414, green: 0, blue: 0.008497319128, alpha: 1)
 
     }
     @IBAction func orangecolourAction(_ sender: Any) {
         noteTitle.textColor = #colorLiteral(red: 1, green: 0.5843137255, blue: 0, alpha: 1)
-        noteTextview.textColor = #colorLiteral(red: 1, green: 0.5843137255, blue: 0, alpha: 1)
+        noteTextview.backgroundColor = #colorLiteral(red: 1, green: 0.5843137255, blue: 0, alpha: 1)
 
     }
     @IBAction func blueColourAction(_ sender: Any) {
         noteTitle.textColor = #colorLiteral(red: 0.1879768739, green: 0.3261032742, blue: 0.5664893617, alpha: 1)
-        noteTextview.textColor = #colorLiteral(red: 0.1879768739, green: 0.3261032742, blue: 0.5664893617, alpha: 1)
+        noteTextview.backgroundColor = #colorLiteral(red: 0.1879768739, green: 0.3261032742, blue: 0.5664893617, alpha: 1)
 
     }
     @IBAction func whiteColourAction(_ sender: Any) {
         noteTitle.textColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
-        noteTextview.textColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
+        noteTextview.backgroundColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
     }
     
     @IBAction func greenCOlourAction(_ sender: Any) {
         noteTitle.textColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
-        noteTextview.textColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+        noteTextview.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
     }
     
 //    @objc func keyboardWillShow(notification: NSNotification) {
@@ -125,7 +125,7 @@ class StickyNoteViewController: UIViewController,UITextViewDelegate,UITextFieldD
     func addEditStickyNotefunc(){
         let userID = UserDefaults.standard.integer(forKey: "userid")
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
-        let hex = noteTextview.textColor?.toHexString
+        let hex = noteTextview.backgroundColor?.toHexString
         print(hex)
         
         let params = [ "access_token":"\(accessToken)", "userId": "\(userID)","clientId":"\(clientID)", "color": "#\(hex ?? "000000")", "notes": "\(noteTextview.text!)", "title": "\(noteTitle.text ?? "")", "stickyNoteId" : "0"] as Dictionary<String, String>
@@ -136,11 +136,14 @@ class StickyNoteViewController: UIViewController,UITextViewDelegate,UITextFieldD
         activityUIView.startAnimation()
         MakeHttpPostRequest(url: addEditStickyNotes , params: params, completion: {(success, response) -> Void in
             print(response)
+            
             DispatchQueue.main.async {
                 
                 self.activityUIView.isHidden = true
                 self.activityUIView.stopAnimation()
             }
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "taguList") as? MyTagUlistViewController
+            self.present(vc!, animated: true, completion: nil)
             
         }, errorHandler: {(message) -> Void in
             let alert = GetAlertWithOKAction(message: message)
@@ -199,6 +202,7 @@ extension UIColor {
         )
     }
 }
+
 extension UIView {
     
     func bindToKeyboard(){
