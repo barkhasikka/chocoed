@@ -392,14 +392,25 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         self.myChatHandUIView.isHidden = true
         self.mychatButton.isHidden = false
         
+        
+       let isnominated = UserDefaults.standard.bool(forKey: "isnominated") ?? false
+//        UserDefaults.standard.set(isnominated, forKey: "isnominated")
+        
+        
 //        let alert = GetAlertWithOKAction(message: availableString)
 //        self.present(alert, animated: true, completion: nil)
         
 //        let vc = self.storyboard?.instantiateViewController(withIdentifier: "nomineeView") as? NomineeDetailsViewController
 //        self.present(vc!, animated: true, completion: nil)
        
+        if isnominated == false {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "nominee") as? NominationViewController
             self.present(vc!, animated: true, completion: nil)
+        }else{
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "nomineeView") as? NomineeDetailsViewController
+                self.present(vc!, animated: true, completion: nil)
+        }
+        
     }
     override var shouldAutorotate: Bool{
         return false
@@ -583,7 +594,7 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
             temp.lastName = jsonobject?.object(forKey: "lastName") as? String ?? ""
             temp.email = jsonobject?.object(forKey: "email") as? String ?? ""
             temp.mobile = jsonobject?.object(forKey: "mobile") as? String ?? ""
-//            temp.isnominee =  jsonobject?.object(forKey: "isNominatedUser") as? Int ?? 0
+            temp.isnominee =  jsonobject?.object(forKey: "isNominatedUser") as? Bool ?? false
             let clientId = jsonobject?.object(forKey: "clientId") as? String ?? ""
             let url = jsonobject?.object(forKey: "profileImageUrl") as? String ?? ""
             let quizTaken =  jsonobject?.object(forKey:"quizTestGiven") as? Int ?? -1

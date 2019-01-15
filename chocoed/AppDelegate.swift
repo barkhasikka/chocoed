@@ -187,7 +187,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             temp.lastName = jsonobject?.object(forKey: "lastName") as? String ?? ""
             temp.email = jsonobject?.object(forKey: "email") as? String ?? ""
             temp.mobile = jsonobject?.object(forKey: "mobile") as? String ?? ""
-//            temp.isnominee = jsonobject?.object(forKey: "isNominatedUser") as? Int ?? -1
+            temp.isnominee = jsonobject?.object(forKey: "isNominatedUser") as? Bool ?? false
+//            UserDefaults.standard.set(isnominated, forKey: "isnominated")
+            UserDefaults.standard.set(temp.isnominee, forKey: "isnominated")
+            
             let clientId = jsonobject?.object(forKey: "clientId") as? String ?? ""
             let url = jsonobject?.object(forKey: "profileImageUrl") as? String ?? ""
             let quizTaken =  jsonobject?.object(forKey:"quizTestGiven") as? Int ?? -1
