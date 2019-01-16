@@ -462,6 +462,18 @@ struct getPollDataList{
     }
 }
 
+struct barOption{
+    
+    var y : Int
+    var color : String
+    
+    init(_ value : Int , color : String) {
+        self.y = value
+        self.color = color
+    }
+    
+}
+
 struct getOptions {
     var SelectedUserCount : Int
     var name : String

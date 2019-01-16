@@ -32,9 +32,21 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
     var button: UIButton!
     var otpFromServer = -1
     
+    
+    @IBOutlet var btnResend: UIButton!
+    
+    @IBAction func resend_clicked(_ sender: Any) {
+        
+        sendOTPAPI()
+        self.btnResend.isHidden = true;
+        
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.btnResend.isHidden = true;
+
         var language = UserDefaults.standard.string(forKey: "currentlanguage")
         
 
@@ -50,6 +62,8 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
         self.registerButton.setTitle("\("LoginButtonKey".localizableString(loc: language!))", for:.normal)
         self.otpReceivedLabel.text = "InputChocoedTokenKey".localizableString(loc: language!)
 
+        self.btnResend.setTitle("\("ResendKey".localizableString(loc: language!))", for:.normal)
+        
         
         registerButton.isEnabled = false
         self.mobileNumberTextFIeld.text = textfieldMbNumber
@@ -113,6 +127,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
    
     @IBAction func sendOTPButtonAction(_ sender: Any) {
         
+      
     }
     
     @IBAction func registerButtonAction(_ sender: Any) {
@@ -393,6 +408,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate{
             self.otpReceivedLabel.isHidden = false
             self.receivedOTPUIView.isHidden = false
             self.registerButton.isHidden = false
+            self.btnResend.isHidden = false;
             
         }
         self.view.endEditing(true)

@@ -246,6 +246,13 @@ class NotificationViewController: UIViewController,UITableViewDataSource,UITable
                 
                 self.dismiss(animated: true, completion: nil)
                 
+            }else if self.arrayList[indexPath.row].notificationType == "8" {
+            
+                
+                let v1 = self.storyboard?.instantiateViewController(withIdentifier: "PaymentVC") as! PaymentVC
+                self.present(v1, animated: true, completion: nil)
+            
+            
             }else{
                 
                 if self.arrayList.count > 0 {

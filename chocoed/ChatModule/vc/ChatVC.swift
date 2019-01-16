@@ -233,6 +233,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     }
     
     func openCamera(){
+       
+        
         var config = YPImagePickerConfiguration()
         config.showsFilters = false
         config.screens = [.photo]

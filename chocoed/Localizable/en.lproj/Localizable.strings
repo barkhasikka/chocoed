@@ -18,6 +18,7 @@
 "BadgesEarnedKey" = "Badges Earned";
 "TalkKey" = "Talk";
 "ThoughtKey" = "Thought";
+"VoiceKey" = "Voice";
 "ProgressKey" = "Progress";
 "ChoiceKey" = "Choice";
 "ConversationKey" = "Conversation";
@@ -70,7 +71,7 @@
 "RecheckKey" = "Recheck !";
 "OkKey" = "OK";
 "EnterValidMobileKey" = "Please enter valid mobile number.";
-"AlertKey" = "alert!";
+"AlertKey" = "Alert!";
 "WelcomeKey" = "Welcome!";
 "ProfileMsgForUserKey" = "There is only one You in this world. Let’s build your personal vitae";
 "GetStartedKey"= "GET STARTED  ➔";
@@ -97,7 +98,7 @@
 "CompletedTestKey" = "Completed Tests";
 "CompletedCourseKey" = "Courses Completed";
 "FriendsKey" = "Friends";
-"Add5Key" = "Add 4 of your contacts to see their progress as well.";
+"Add5Key" = "Add friends to know your ranking in Chocoed";
 "AddFriendLabelKey" = "Add Friend";
 "DoneKey" = "Done";
 "MyRadarKey" = "My Radar";
@@ -206,6 +207,17 @@
 "chocoinsBadgeKey" = "Badges Earned";
 "chocoinsCoinKey" = "Chocoins Earned";
 "subcriptionExpierKey" = "this course subscription has already expired";
+"pollnotopenKey" = "This poll is not open yet for accepting votes. Please refer to start time of poll.";
+"pollregisteredKey" = "You already registered your choice for this poll. You will be notified once the poll results are declared";
+"pollmissedKey" = "You have missed end date for this poll. You will be notified once the poll results are available";
+"pollthankKey" = "Thank you for registering your choice.";
+"MyVoiceKey" = "My Voice";
+"ResultKey" = "Result";
+"MyThoughtKey" = "My Thoughts";
+"ResendKey" = "Resend Token";
+
+
+
 
 
 
