@@ -57,11 +57,13 @@ class PollOptionsViewController: UIViewController {
         
         if self.arrayOptionList.count == 0 {
             
-            let alert = GetAlertWithOKAction(message: "Select Answer")
             DispatchQueue.main.async {
+                let language = UserDefaults.standard.string(forKey: "currentlanguage")
+                let alert = GetAlertWithOKAction(message: "SelectAnswerKey".localizableString(loc: language!))
                 self.present(alert, animated: true, completion: nil)
             }
             
+           
             return
         }
         
@@ -90,10 +92,9 @@ class PollOptionsViewController: UIViewController {
             print(response)
                 
                 let language = UserDefaults.standard.string(forKey: "currentlanguage")
-                let alertView = UIAlertController(title: "Alert", message: "\("alertDear".localizableString(loc: language!)) \(USERDETAILS.firstName), Thank you for registering your choice.", preferredStyle: .alert)
+                let alertView = UIAlertController(title: "AlertKey".localizableString(loc: language!), message: "\("alertDear".localizableString(loc: language!)) \(USERDETAILS.firstName), \("pollthankKey".localizableString(loc: language!))", preferredStyle: .alert)
                 
-                
-                
+            
                 let action = UIAlertAction(title: "Ok", style: .default, handler: { (alert) in
                     
                     if self.QuestionData[self.currentQuestion].ShowProgress == 1 {

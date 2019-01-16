@@ -164,9 +164,9 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
 
          }
             
-         if arraymenu[indexPath.row] == "My Thoughts" || arraymenu[indexPath.row] == "मेरे विचार"{
+         if arraymenu[indexPath.row] == "My Voice" || arraymenu[indexPath.row] == "मेरी आवाज"{
                 
-                cell.labelimages.image = UIImage(named:"discussion_room")
+                cell.labelimages.image = UIImage(named:"elections")
                 
          }
             
@@ -251,11 +251,10 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
             
         }
         
-        if arraymenu[indexPath.row] == "My Thoughts" || arraymenu[indexPath.row] == "मेरे विचार"{
+        if arraymenu[indexPath.row] == "My Voice" || arraymenu[indexPath.row] == "मेरी आवाज"{
             
-            let alert = GetAlertWithOKAction(message: availableString)
-            self.present(alert, animated: true, completion: nil)
-            
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "poll") as? PollViewController
+            self.present(vc!, animated: true, completion: nil)
             
         }
         
@@ -630,19 +629,19 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                         
                         if self.isApp == true && self.isSec == true {
                             
-                            self.arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल","एप्लिकेशन भाषा","माध्यमिक शिक्षा की","अपग्रेड चोकोड"]
+                            self.arraymenu = ["मेरा वार्तालाप","मेरी आवाज","मेरा विकास","मेरी प्रोफाइल","एप्लिकेशन भाषा","माध्यमिक शिक्षा की","अपग्रेड चोकोड"]
                             
                         }else if self.isApp == true && self.isSec == false{
                             
-                             self.arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल","एप्लिकेशन भाषा","अपग्रेड चोकोड"]
+                             self.arraymenu = ["मेरा वार्तालाप","मेरी आवाज","मेरा विकास","मेरी प्रोफाइल","एप्लिकेशन भाषा","अपग्रेड चोकोड"]
                             
                         }else if self.isApp == false && self.isSec == true{
                             
-                           self.arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल","माध्यमिक शिक्षा की","अपग्रेड चोकोड"]
+                           self.arraymenu = ["मेरा वार्तालाप","मेरी आवाज","मेरा विकास","मेरी प्रोफाइल","माध्यमिक शिक्षा की","अपग्रेड चोकोड"]
                             
                         }else if self.isApp == false && self.isSec == false{
                             
-                            self.arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल","अपग्रेड चोकोड"]
+                            self.arraymenu = ["मेरा वार्तालाप","मेरी आवाज","मेरा विकास","मेरी प्रोफाइल","अपग्रेड चोकोड"]
                         }
                         
                        
@@ -652,19 +651,19 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                         
                         if self.isApp == true && self.isSec == true {
                             
-                            self.arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल","एप्लिकेशन भाषा","माध्यमिक शिक्षा की"]
+                            self.arraymenu = ["मेरा वार्तालाप","मेरी आवाज","मेरा विकास","मेरी प्रोफाइल","एप्लिकेशन भाषा","माध्यमिक शिक्षा की"]
                             
                         }else if self.isApp == true && self.isSec == false{
                             
-                            self.arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल","एप्लिकेशन भाषा"]
+                            self.arraymenu = ["मेरा वार्तालाप","मेरी आवाज","मेरा विकास","मेरी प्रोफाइल","एप्लिकेशन भाषा"]
                             
                         }else if self.isApp == false && self.isSec == true{
                             
-                            self.arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल","माध्यमिक शिक्षा की"]
+                            self.arraymenu = ["मेरा वार्तालाप","मेरी आवाज","मेरा विकास","मेरी प्रोफाइल","माध्यमिक शिक्षा की"]
                             
                         }else if self.isApp == false && self.isSec == false{
                             
-                            self.arraymenu = ["मेरा वार्तालाप","मेरे विचार","मेरा विकास","मेरी प्रोफाइल"]
+                            self.arraymenu = ["मेरा वार्तालाप","मेरी आवाज","मेरा विकास","मेरी प्रोफाइल"]
                         }
                     }
                     
@@ -676,19 +675,19 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                         
                         if self.isApp == true && self.isSec == true {
                             
-                             self.arraymenu = ["My Talks","My Thoughts","My Progress","My Profile","Application Language","Learning Language","Upgrade Chocoed"]
+                             self.arraymenu = ["My Talks","My Voice","My Progress","My Profile","Application Language","Learning Language","Upgrade Chocoed"]
                             
                         }else if self.isApp == true && self.isSec == false{
                             
-                             self.arraymenu = ["My Talks","My Thoughts","My Progress","My Profile","Application Language","Upgrade Chocoed"]
+                             self.arraymenu = ["My Talks","My Voice","My Progress","My Profile","Application Language","Upgrade Chocoed"]
                             
                         }else if self.isApp == false && self.isSec == true{
                             
-                              self.arraymenu = ["My Talks","My Thoughts","My Progress","My Profile","Learning Language","Upgrade Chocoed"]
+                              self.arraymenu = ["My Talks","My Voice","My Progress","My Profile","Learning Language","Upgrade Chocoed"]
                             
                         }else if self.isApp == false && self.isSec == false{
                             
-                             self.arraymenu = ["My Talks","My Thoughts","My Progress","My Profile","Upgrade Chocoed"]
+                             self.arraymenu = ["My Talks","My Voice","My Progress","My Profile","Upgrade Chocoed"]
                         }
                         
                        
@@ -697,19 +696,19 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                         
                         if self.isApp == true && self.isSec == true {
                             
-                            self.arraymenu = ["My Talks","My Thoughts","My Progress","My Profile","Application Language","Learning Language"]
+                            self.arraymenu = ["My Talks","My Voice","My Progress","My Profile","Application Language","Learning Language"]
                             
                         }else if self.isApp == true && self.isSec == false{
                             
-                            self.arraymenu = ["My Talks","My Thoughts","My Progress","My Profile","Application Language"]
+                            self.arraymenu = ["My Talks","My Voice","My Progress","My Profile","Application Language"]
                             
                         }else if self.isApp == false && self.isSec == true{
                             
-                            self.arraymenu = ["My Talks","My Thoughts","My Progress","My Profile","Learning Language"]
+                            self.arraymenu = ["My Talks","My Voice","My Progress","My Profile","Learning Language"]
                             
                         }else if self.isApp == false && self.isSec == false{
                             
-                            self.arraymenu = ["My Talks","My Thoughts","My Progress","My Profile"]
+                            self.arraymenu = ["My Talks","My Voice","My Progress","My Profile"]
                         }
                         
                     }

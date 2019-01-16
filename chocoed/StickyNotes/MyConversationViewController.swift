@@ -9,15 +9,32 @@
 import UIKit
 
 class MyConversationViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource {
-    var arrayList = ["My Thought","My Talk","My Voice"]
-    
+    var arrayList = [String]()
+    var availableString = ""
 
+    
+    @IBOutlet var lblTitle: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+
+         arrayList = ["MyThoughtKey".localizableString(loc:language!),
+                  "MytalksKey".localizableString(loc:language!),
+                  "MyVoiceKey".localizableString(loc: language!)]
+        
+        
+        
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(named: "background_pattern")
         backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
         self.view.insertSubview(backgroundImage, at: 0)
+        
+        self.availableString = "DearKey".localizableString(loc: language!) + " \(USERDETAILS.firstName) "  + "availableStringKey".localizableString(loc: language!)
+        
+        
         // Do any additional setup after loading the view.
     }
 
@@ -34,7 +51,19 @@ class MyConversationViewController: UIViewController,UICollectionViewDelegate,UI
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "conversationcell", for: indexPath) as! ConversationCollectionViewCell
         
         cell.labelName.text = arrayList[indexPath.row]
-        cell.imageView.image = UIImage(named: "Mythoughts")
+        
+        if indexPath.row == 0 {
+            cell.imageView.image = UIImage(named: "Mythoughts")
+        }
+        
+        if indexPath.row == 1 {
+            cell.imageView.image = UIImage(named: "Icon-App-40x40-2")
+        }
+        
+        if indexPath.row == 2 {
+            cell.imageView.image = UIImage(named: "elections")
+        }
+        
         return cell
     }
     
@@ -48,10 +77,9 @@ class MyConversationViewController: UIViewController,UICollectionViewDelegate,UI
         switch(indexPath.row)
         {
         case 0 :
-            let alert = UIAlertController(title: "Alert!", message: "coming soon", preferredStyle: .alert)
-            let alertAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-            alert.addAction(alertAction)
-            self.present(alert, animated: true, completion: nil)
+           
+             let alert = GetAlertWithOKAction(message: availableString)
+             self.present(alert, animated: true, completion: nil)
             
             break
         case 1:

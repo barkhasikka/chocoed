@@ -14,6 +14,10 @@ class PollResultVC: UIViewController {
     
    // @IBOutlet var chart: HorizontalBarChartView!
     
+    
+    
+    @IBOutlet var lblTitle: UILabel!
+    
     @IBOutlet var lblResult: UILabel!
     
     @IBOutlet var mainView: UIView!
@@ -23,7 +27,6 @@ class PollResultVC: UIViewController {
     
     var labels : [String] = [String]()
     var values : [Int] = [Int]()
-    
     var chartView : HIChartView!
     
    // weak var axisFormaterDelegate : IAxisValueFormatter?
@@ -52,6 +55,11 @@ class PollResultVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //axisFormaterDelegate = self
+        
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        self.lblTitle.text = "ResultKey".localizableString(loc: language!)
+
+        
         self.loadPollData()
         
         
@@ -74,6 +82,7 @@ class PollResultVC: UIViewController {
         options.title = title
         options.subtitle = subtitle
         
+       
         
         let optionList = self.QuestionData[self.currentQuestion].option
         for option in optionList {
@@ -94,15 +103,21 @@ class PollResultVC: UIViewController {
         yAxis.title.text = "Votes"
         options.yAxis = [yAxis]
         
+       
         let column = HISeries()
         column.data = values
-        //column.color = HIColor.init(rgb: <#T##Int32#>, green: <#T##Int32#>, blue: <#T##Int32#>)
         column.name = "Vote"
         options.series = [column]
+        
         
         let exporting = HIExporting()
         exporting.enabled = false
         options.exporting = exporting
+        
+        let credits = HICredits()
+        credits.enabled = false
+        options.credits = credits
+
         
         self.chartView.options = options
         self.mainView.addSubview(self.chartView)

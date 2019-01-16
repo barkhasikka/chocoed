@@ -64,7 +64,6 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var labelLastName: UILabel!
     @IBOutlet weak var labelFirstName: UILabel!
     
-    let picker = YPImagePicker()
     var activityUIView: ActivityIndicatorUIView!
     var fetchedvalueProfile = ModelProfileClass()
     var activeField: UITextField!
@@ -180,7 +179,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         datePicker.maximumDate = Date()
         
         var dateComponent = DateComponents()
-        dateComponent.year = -43
+        dateComponent.year = -100
         
         let maxdate  =  Calendar.current.date(byAdding: dateComponent, to: Date())
         
@@ -285,8 +284,10 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
         
         popUpView.isHidden = false
     
+       
+        
         //code of YPImagePickerView
-        picker.didSelectImage = { [unowned picker] img in
+       /* picker.didSelectImage = { [unowned picker] img in
             // image picked
             print(img.size)
             self.isImageSelected = true
@@ -294,9 +295,41 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
             self.imageviewCircle.contentMode = .scaleAspectFit
             picker.dismiss(animated: true, completion: nil)
         }
-        present(picker, animated: true, completion: nil)
+        present(picker, animated: true, completion: nil) */
+        
+        var config = YPImagePickerConfiguration()
+        config.showsFilters = false
+        let imagePicker =  YPImagePicker(configuration: config)
+        imagePicker.didFinishPicking { [unowned imagePicker] items, cancelled in
+            imagePicker.dismiss(animated: true, completion: nil)
+            if cancelled {
+                print("Picker was canceled")
+                
+            }else{
+                
+                let photo  = items.singlePhoto
+                self.isImageSelected = true
+                self.imageviewCircle.image =  photo?.image
+                self.imageviewCircle.contentMode = .scaleAspectFit
+                
+            }
+            
+            
+        }
+        
+        present(imagePicker, animated: true, completion: nil)
+        
+        
+        
+        
+        
 
         self.popUpView.isHidden = true
+        
+        
+        
+        
+        
     }
     
     

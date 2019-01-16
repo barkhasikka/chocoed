@@ -12,6 +12,11 @@ class PollViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     var arrayOfPoll = [getPollDataList]()
     var activityUIView: ActivityIndicatorUIView!
     @IBOutlet weak var pollTableView: UITableView!
+    
+    
+    
+    @IBOutlet var lblTitle: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
@@ -21,6 +26,11 @@ class PollViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         backgroundImage.image = UIImage(named: "background_pattern")
         backgroundImage.contentMode = UIViewContentMode.scaleToFill
         self.view.insertSubview(backgroundImage, at: 0)
+        
+        
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        self.lblTitle.text = "MyVoiceKey".localizableString(loc: language!)
+
         
         // Do any additional setup after loading the view.
     }
@@ -161,14 +171,14 @@ class PollViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             
     
             let language = UserDefaults.standard.string(forKey: "currentlanguage")
-            let alertcontrol = UIAlertController(title:"Alert", message: "\("alertDear".localizableString(loc: language!)) \(USERDETAILS.firstName), This poll is not open yet for accepting votes. Please refer to start time of poll.", preferredStyle: .alert)
-            
-            
+            let alertcontrol = UIAlertController(title:"AlertKey".localizableString(loc: language!), message: "\("alertDear".localizableString(loc: language!)) \(USERDETAILS.firstName), \("pollnotopenKey".localizableString(loc: language!))", preferredStyle: .alert)
             let alertaction = UIAlertAction(title: "OkKey".localizableString(loc: language!), style: .default, handler: nil)
             alertcontrol.addAction(alertaction)
             
             self.present(alertcontrol, animated: true, completion: nil)
             tableView.deselectRow(at: indexPath, animated: false)
+            
+            
             
             
             
@@ -190,7 +200,7 @@ class PollViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             if item.ShowProgress == 1 {
                 print("poll vc call")
                 // show graph
-<<<<<<< HEAD
+
                 
                 let optionVC = self.storyboard?.instantiateViewController(withIdentifier: "PollResultVC") as? PollResultVC
                 // optionVC?.optionData = arrayoptions
@@ -200,24 +210,14 @@ class PollViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 self.present(optionVC!, animated: true, completion: nil)
                 
                 }
-=======
-//
-//                let optionVC = self.storyboard?.instantiateViewController(withIdentifier: "PollResultVC") as? PollResultVC
-//                // optionVC?.optionData = arrayoptions
-//                optionVC?.QuestionData = arrayOfPoll
-//                optionVC?.currentQuestion = indexPath.row
-//                DispatchQueue.main.async {
-//
-//                self.present(optionVC!, animated: true, completion: nil)
-//                }
->>>>>>> 9e8e673a98ee20aa763527dc8efdec3632fa36e7
+
                 
             }else{
                 
                 // popup msg
                 
                 let language = UserDefaults.standard.string(forKey: "currentlanguage")
-                let alertcontrol = UIAlertController(title:"Alert", message: "\("alertDear".localizableString(loc: language!)) \(USERDETAILS.firstName)  , You already registered your choice for this poll. You will be notified once the poll results are declared", preferredStyle: .alert)
+                let alertcontrol = UIAlertController(title:"AlertKey".localizableString(loc: language!), message: "\("alertDear".localizableString(loc: language!)) \(USERDETAILS.firstName) ,  \("pollregisteredKey".localizableString(loc: language!))", preferredStyle: .alert)
                 let alertaction = UIAlertAction(title: "OkKey".localizableString(loc: language!), style: .default, handler: nil)
                 alertcontrol.addAction(alertaction)
                 
@@ -254,7 +254,7 @@ class PollViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                       }else{
                         
                         let language = UserDefaults.standard.string(forKey: "currentlanguage")
-                        let alertcontrol = UIAlertController(title:"Alert", message: "\("alertDear".localizableString(loc: language!)) \(USERDETAILS.firstName)  , You have missed end date for this poll. You will be notified once the poll results are available", preferredStyle: .alert)
+                        let alertcontrol = UIAlertController(title:"AlertKey".localizableString(loc: language!), message: "\("alertDear".localizableString(loc:language!)) \(USERDETAILS.firstName) , \("pollmissedKey".localizableString(loc: language!))", preferredStyle: .alert)
                         let alertaction = UIAlertAction(title: "OkKey".localizableString(loc: language!), style: .default, handler: nil)
                         alertcontrol.addAction(alertaction)
                         

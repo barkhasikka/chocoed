@@ -150,11 +150,8 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
    
     @IBAction func arcThoughtd(_ sender: UIButton) {
         
-       let vc  = self.storyboard?.instantiateViewController(withIdentifier: "poll") as? PollViewController
-        present(vc!, animated: true, completion: nil)
-//       let alert = GetAlertWithOKAction(message: availableString)
-//       self.present(alert, animated: true, completion: nil)
-       
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "poll") as? PollViewController
+        self.present(vc!, animated: true, completion: nil)
         
     }
     
@@ -176,11 +173,13 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
 //        
 //    }
     @IBAction func arcTagu_clicked(_ sender: Any) {
-        let vc  = self.storyboard?.instantiateViewController(withIdentifier: "nominee") as? NominationViewController
-        present(vc!, animated: true, completion: nil)
+        
+        
+       /* let vc  = self.storyboard?.instantiateViewController(withIdentifier: "nominee") as? NominationViewController
+        present(vc!, animated: true, completion: nil) */
 
-//        let alert = GetAlertWithOKAction(message: availableString)
-//        self.present(alert, animated: true, completion: nil)
+        let alert = GetAlertWithOKAction(message: availableString)
+        self.present(alert, animated: true, completion: nil)
         
        
     }
@@ -224,7 +223,7 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         self.completedTopicsLabel.text = "TopicCompletedKey".localizableString(loc: language!)
         self.badgesEarnedLabel.text = "BadgesEarnedKey".localizableString(loc: language!)
         self.talkLabel.text = "TalkKey".localizableString(loc: language!)
-        self.thought.text = "ThoughtKey".localizableString(loc: language!)
+        self.thought.text = "VoiceKey".localizableString(loc: language!)
         self.progressLabel.text = "ProgressKey".localizableString(loc: language!)
         self.choiceLabel2.text = "ChoiceKey".localizableString(loc: language!)
         self.conversationLabel1.text = "ConversationKey".localizableString(loc: language!)
@@ -295,8 +294,18 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         self.badgeImage.isUserInteractionEnabled = true
         self.badgeImage.addGestureRecognizer(tapGestureRecognizer1)
         
+        let tapGestureRecognizer2 = UITapGestureRecognizer(target: self, action: #selector(chatAction(tapGestureRecognizer:)))
+        self.myChatHandUIView.isUserInteractionEnabled = true
+        self.myChatHandUIView.addGestureRecognizer(tapGestureRecognizer2)
+        
     }
  
+    
+    @objc func chatAction(tapGestureRecognizer: UITapGestureRecognizer){
+        
+        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
+        self.present(v1, animated: true, completion: nil)
+    }
     
     
     @objc func badgeImageAction(tapGestureRecognizer: UITapGestureRecognizer){
@@ -368,6 +377,11 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         
         let alert = GetAlertWithOKAction(message: availableString)
         self.present(alert, animated: true, completion: nil)
+        
+        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
+        self.present(v1, animated: true, completion: nil)
+        
+        
     }
     
     @IBAction func MyThoughtsActionButton(_ sender: Any) {
@@ -393,8 +407,10 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         self.myChatHandUIView.isHidden = true
         self.mychatButton.isHidden = false
         
-        let alert = GetAlertWithOKAction(message: availableString)
-        self.present(alert, animated: true, completion: nil)
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "poll") as? PollViewController
+        self.present(vc!, animated: true, completion: nil)
+        
+        
     }
     override var shouldAutorotate: Bool{
         return false
