@@ -10,12 +10,18 @@ import UIKit
 
 class MytagUlistTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var viewRoundedcorner: UIView!
     @IBOutlet weak var imagePin: UIImageView!
     @IBOutlet weak var labelDiscription: UILabel!
     @IBOutlet weak var labelName: UILabel!
     @IBOutlet weak var gradiantImage: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+    self.viewRoundedcorner.layer.cornerRadius = 5
+    self.viewRoundedcorner.layer.shadowColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+    self.viewRoundedcorner.clipsToBounds = true
+        
         // Initialization code
     }
 

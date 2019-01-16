@@ -16,5 +16,5 @@ class ModelProfileClass{
     var quiztaken : String!
     var birthDate : String!
     var gender : String!
-    
+    var isnominee : Bool!
 }

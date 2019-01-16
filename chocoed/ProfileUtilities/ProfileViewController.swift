@@ -504,7 +504,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
             temp.mobile = jsonobject?.object(forKey: "mobile") as? String ?? ""
             temp.gender = jsonobject?.object(forKey: "gender") as? String ?? ""
             temp.birthDate = jsonobject?.object(forKey: "birthDate") as? String ?? ""
-
+//            temp.isnominee = jsonobject?.object(forKey: "isNominatedUser") as? Int ?? 0
             self.mobileNo = temp.mobile
             
             let clientId = jsonobject?.object(forKey: "clientId") as? String ?? ""
@@ -528,6 +528,8 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
                     lastname: self.textfieldLastName.text!,
                     imageurl: url,
                     mobile : self.mobileNo
+//                    isNominee: temp.isnominee
+                
                 )
                 
                 
@@ -717,6 +719,7 @@ class ProfileViewController: UIViewController,UITextFieldDelegate {
                     lastname: self.self.textfieldFirstName.text!,
                     imageurl: profileimg,
                     mobile : self.mobileNo
+//                    isNominee: 0
                 )
                     
                 }

@@ -96,6 +96,41 @@ struct WorkFields {
     }
 }
 
+struct NGODropDown {
+    var occupation : String
+    var langLearning : String
+    var firstName : String
+    var lastName : String
+    var mobileNo: String
+    var govtId : String
+    var age : String
+    var nominationUserId : String
+    var ngoId : String
+    
+    
+    init(_ dictionary : NSDictionary? = nil) {
+        self.occupation = dictionary?["occupation"] as? String ?? ""
+        self.langLearning = dictionary?["learningLanguage"] as? String ?? ""
+        self.age = dictionary?["age"] as? String ?? ""
+        self.firstName = dictionary?["firstName"] as? String ?? ""
+        self.lastName = dictionary?["lastName"] as? String ?? ""
+        self.govtId = dictionary?["govId"] as? String ?? ""
+        self.nominationUserId = dictionary?["nominationUserId"] as? String ?? ""
+        self.ngoId = dictionary?["ngoId"] as? String ?? ""
+        self.mobileNo = dictionary?["mobileNumber"] as? String ?? ""
+    }
+}
+
+struct FieldsOfDropDownList {
+    var id: String
+    var name: String
+    init(_ dictionary: NSDictionary) {
+        print("inside init", dictionary["name"]! as? String ?? "")
+        print("inside init", dictionary["id"]! as? String ?? "")
+        self.id = dictionary["id"] as? String ?? ""
+        self.name = dictionary["name"] as? String ?? ""
+    }
+}
 
 struct EducationFields {
     var boardUniversity: String
@@ -251,7 +286,8 @@ struct UserDetails{
     var lastname : String
     var imageurl : String
     var mobile : String
-
+//    var isNominee : Int
+    
 }
 
 
@@ -486,6 +522,42 @@ init(_ dictionary : NSDictionary) {
 }
 
 
+struct getNgoDetails {
+    var imageURL : String
+    var name : String
+    var id : String
+    init(_ dictionary : NSDictionary) {
+        self.name = dictionary["name"] as? String ?? ""
+        self.imageURL = dictionary["imageUrl"] as? String ?? ""
+        self.id = dictionary["id"] as? String ?? ""
+    }
+}
+
+struct getNgoUserDetails {
+    var birthDate : String
+    var ngoId : String
+    var firstName : String
+    var lastName : String
+    var mobileNumber : String
+    var govtId : String
+    var age : String
+    var occupation : String
+    var learningLanguage : String
+    var profileImageUrl : String
+    init(_ dictionary : NSDictionary) {
+        self.birthDate = dictionary["birthDate"] as? String ?? ""
+        self.ngoId = dictionary["ngoId"] as? String ?? ""
+        self.firstName = dictionary["firstName"] as? String ?? ""
+        self.lastName = dictionary["lastName"] as? String ?? ""
+        self.mobileNumber = dictionary["mobileNumber"] as? String ?? ""
+        self.govtId = dictionary["govId"] as? String ?? ""
+        self.age = dictionary["age"] as? String ?? ""
+        self.occupation = dictionary["occupation"] as? String ?? ""
+        self.learningLanguage = dictionary["learningLanguage"] as? String ?? ""
+        self.profileImageUrl = dictionary["profileImageUrl"] as? String ?? ""
+    }
+}
+
 struct getNotificationListStruct{
     var aboutNotification : String
     var isRead : Bool
@@ -503,5 +575,37 @@ struct getNotificationListStruct{
         self.notificationImageUrl = dictionary["notificationImageUrl"] as? String ?? ""
         self.notificationTitle = dictionary["notificationTitle"] as? String ?? ""
         self.notificationType = dictionary["notificationType"] as? String ?? ""
+        
+    }
 }
+struct getStickyNotesList {
+    var id : String
+    var colour : String
+    var notes : String
+    var title : String
+    var createdDataTime : String
+    var lastModifiedDataTime : String
+    
+    init(_ dictionary : NSDictionary) {
+        self.id = dictionary["id"] as? String ?? ""
+        self.colour = dictionary["color"] as? String ?? ""
+        self.notes = dictionary["notes"] as? String ?? ""
+        self.title = dictionary["title"] as? String ?? ""
+        self.createdDataTime = dictionary["createdDateTime"] as? String ?? ""
+        self.lastModifiedDataTime = dictionary["lastModifiedDataTime"] as? String ?? ""
+    }
 }
+struct addEditStickyNotesStruct {
+    var color : String
+    var notes : String
+    var title : String
+    var stickyNoteId : String
+
+    init(_ dictionary : NSDictionary) {
+        self.color = dictionary["color"] as? String ?? ""
+        self.notes = dictionary["notes"] as? String ?? ""
+        self.title = dictionary["title"] as? String ?? ""
+        self.stickyNoteId = dictionary["stickyNoteId"] as? String ?? ""
+    }
+}
+

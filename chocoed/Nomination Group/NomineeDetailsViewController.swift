@@ -19,9 +19,20 @@ class NomineeDetailsViewController: UIViewController {
     @IBOutlet weak var TopicsCompletedNo: UILabel!
     @IBOutlet weak var completedTestNo: UILabel!
     @IBOutlet weak var imgeProfile: UIImageView!
+    
+    var tempDataNgoUser : getNgoUserDetails?
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        LoadNomineeDetails()
+        
+//        self.nomineeAge.text = tempDataNgoUser?.age
+//        nomineeName.text = "\(tempDataNgoUser?.firstName) \(tempDataNgoUser?.lastName)"
+//        nomineeGovtid.text = tempDataNgoUser?.govtId
+//        nomineeMobile.text = tempDataNgoUser?.mobileNumber
+//        nomineeOccupation.text = tempDataNgoUser?.occupation
+//        nomineeLearningLang.text = tempDataNgoUser?.learningLanguage
+        
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(named: "background_pattern")
         backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
@@ -34,22 +45,49 @@ class NomineeDetailsViewController: UIViewController {
         imgeProfile.clipsToBounds = true
         
         
+        
     }
 
+    @IBAction func backButtonAction(_ sender: Any) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "userNGOcell") as? UsersOfNGOViewController
+        self.present(vc!, animated: true, completion: nil)
+        
+    }
+    
+    func LoadNomineeDetails(){
+        
+        let userID = UserDefaults.standard.integer(forKey: "userid")
+        let clientID = UserDefaults.standard.integer(forKey: "clientid")
+        
+        let params = [ "access_token":"\(accessToken)", "userId": "\(userID)","clientId":"\(clientID)"] as Dictionary<String, String>
+        
+        print(params)
+        
+        MakeHttpPostRequest(url: getNomineeDetails , params: params, completion: {(success, response) -> Void in
+            print(response)
+            
+//            DispatchQueue.main.async {
+//
+//                self.activityUIView.isHidden = true
+//                self.activityUIView.stopAnimation()
+//            }
+//            let vc = self.storyboard?.instantiateViewController(withIdentifier: "taguList") as? MyTagUlistViewController
+//            self.present(vc!, animated: true, completion: nil)
+            
+        }, errorHandler: {(message) -> Void in
+            let alert = GetAlertWithOKAction(message: message)
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+//                self.activityUIView.isHidden = true
+//                self.activityUIView.stopAnimation()
+            }
+        })
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
 }

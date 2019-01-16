@@ -41,6 +41,12 @@ let sendWelcomeNotification = "https://chocoed.com/admin/api/user/sendWelcomeNot
 let pollApi = "https://www.chocoed.com/admin/api/user/getPollList"
 let pollResult = "https://www.chocoed.com/admin/api/user/getPollResult"
 
+let getNgoList = "https://www.chocoed.com/development/admin/api/user/getNgoList"
+
+let getNGOUserList = "https://www.chocoed.com/development/admin/api/user/getNgoUserList"
+let nominateUser = "https://www.chocoed.com/development/admin/api/user/nominateUser"
+let StickyNotesList = "https://www.chocoed.com/development/admin/api/user/getStickyNotesList"
+let getNomineeDetails = "https://www.chocoed.com/development/admin/api/user/getNomineeDetails"
 
 let empList = "https://chocoed.com/admin/api/user/getEmployeeList"
 
@@ -49,6 +55,11 @@ let paymentLink = "https://chocoed.com/admin/payment?userId="
 let savepoll = "https://www.chocoed.com/admin/api/user/savePollVote"
 let ChecksumGeneration = "https://www.chocoed.com/admin/api/user/ChecksumGeneration"
 
+let addEditStickyNotes = "https://www.chocoed.com/development/admin/api/user/addEditStickyNote"
+
+let deleteStickyNote = "https://www.chocoed.com/development/admin/api/user/deleteStickyNote"
+
+let sendStickyNote = "https://www.chocoed.com/development/admin/api/user/sendStickyNote"
 
 var currentTopiceDate  = ""
 var currentCourseId  = ""

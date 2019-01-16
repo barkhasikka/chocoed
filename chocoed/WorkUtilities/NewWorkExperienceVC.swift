@@ -118,6 +118,8 @@ class NewWorkExperienceVC: UIViewController {
         activityUIView.startAnimation()
         
         MakeHttpPostRequest(url: userDropDown, params: params, completion: {(success, response) -> Void in
+            
+            print(response)
             let levelOfManagement = response.object(forKey: "levelOfManagemet") as? NSArray ?? []
             let teamsHandled = response.object(forKey: "teamsHandledList") as? NSArray ?? []
             let functionalDepartmentList = response.object(forKey: "functionalDepartmentList") as? NSArray ?? []

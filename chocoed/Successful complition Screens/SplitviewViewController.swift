@@ -173,6 +173,7 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
 //        
 //    }
     @IBAction func arcTagu_clicked(_ sender: Any) {
+<<<<<<< HEAD
         
         
        /* let vc  = self.storyboard?.instantiateViewController(withIdentifier: "nominee") as? NominationViewController
@@ -182,6 +183,10 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         self.present(alert, animated: true, completion: nil)
         
        
+=======
+        let vc  = self.storyboard?.instantiateViewController(withIdentifier: "taguList") as? MyTagUlistViewController
+        present(vc!, animated: true, completion: nil)
+>>>>>>> 60aa0bc50a568cd4c0162d7c024e2ac225d5cae3
     }
     
     
@@ -204,6 +209,7 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         
        self.lblnotificationCount.layer.cornerRadius = 10
        self.lblnotificationCount.clipsToBounds =  true
+        
         NotificationImageTapped()
         let language = UserDefaults.standard.string(forKey: "currentlanguage")
 
@@ -215,10 +221,6 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         self.popUpViewforBadges.isHidden = true
         
         self.availableString = "DearKey".localizableString(loc: language!) + " \(USERDETAILS.firstName) "  + "availableStringKey".localizableString(loc: language!)
-        
-        
-        
-
         self.compTestLabel.text = "TestCompletedKey".localizableString(loc: language!)
         self.completedTopicsLabel.text = "TopicCompletedKey".localizableString(loc: language!)
         self.badgesEarnedLabel.text = "BadgesEarnedKey".localizableString(loc: language!)
@@ -237,7 +239,14 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         self.arcView.isHidden = true
         let fileUrl = URL(string: USERDETAILS.imageurl)
         self.imageProfile.sd_setImage(with: fileUrl)
+//        if USERDETAILS.isNominee == 0{
+//            let vc = self.storyboard?.instantiateViewController(withIdentifier: "") as? NominationViewController
+//            self.present(vc!, animated: true, completion: nil)
+//        }else{
+//            let vc = self.storyboard?.instantiateViewController(withIdentifier: "") as? NomineeDetailsViewController
+//            self.present(vc!, animated: true, completion: nil)
 
+//        }
        /* if fileUrl != nil {
             if let data = try? Data(contentsOf: fileUrl!) {
                 if let image = UIImage(data: data) {
@@ -407,9 +416,30 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         self.myChatHandUIView.isHidden = true
         self.mychatButton.isHidden = false
         
+<<<<<<< HEAD
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "poll") as? PollViewController
         self.present(vc!, animated: true, completion: nil)
         
+=======
+        
+       let isnominated = UserDefaults.standard.bool(forKey: "isnominated") ?? false
+//        UserDefaults.standard.set(isnominated, forKey: "isnominated")
+        
+        
+//        let alert = GetAlertWithOKAction(message: availableString)
+//        self.present(alert, animated: true, completion: nil)
+        
+//        let vc = self.storyboard?.instantiateViewController(withIdentifier: "nomineeView") as? NomineeDetailsViewController
+//        self.present(vc!, animated: true, completion: nil)
+       
+        if isnominated == false {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "nominee") as? NominationViewController
+            self.present(vc!, animated: true, completion: nil)
+        }else{
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "nomineeView") as? NomineeDetailsViewController
+                self.present(vc!, animated: true, completion: nil)
+        }
+>>>>>>> 60aa0bc50a568cd4c0162d7c024e2ac225d5cae3
         
     }
     override var shouldAutorotate: Bool{
@@ -594,6 +624,7 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
             temp.lastName = jsonobject?.object(forKey: "lastName") as? String ?? ""
             temp.email = jsonobject?.object(forKey: "email") as? String ?? ""
             temp.mobile = jsonobject?.object(forKey: "mobile") as? String ?? ""
+            temp.isnominee =  jsonobject?.object(forKey: "isNominatedUser") as? Bool ?? false
             let clientId = jsonobject?.object(forKey: "clientId") as? String ?? ""
             let url = jsonobject?.object(forKey: "profileImageUrl") as? String ?? ""
             let quizTaken =  jsonobject?.object(forKey:"quizTestGiven") as? Int ?? -1
@@ -605,9 +636,6 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
             UserDefaults.standard.set(temp.mobile, forKey: "mobileno")
             
             let notificationCount = jsonobject?.object(forKey: "notificationCount") as? Int ?? 0
-
-            
-            
             
             let applang = jsonobject?.object(forKey: "appLanguage") as? String ?? ""
             let learningLang = jsonobject?.object(forKey: "learningLanguage") as? String ?? ""
@@ -631,6 +659,7 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
             UserDefaults.standard.set(Int(clientId), forKey: "clientid")
             
             USERDETAILS = UserDetails(email: temp.email, firstName: temp.firstName, lastname: temp.lastName, imageurl: url, mobile: temp.mobile)
+//                                      isNominee: temp.isnominee)
             
             self.coinsearned = jsonobject?.object(forKey: "coinsEarned") as? Int ?? 0
             self.badesEarned =  jsonobject?.object(forKey:"badesEarned") as? Int ?? 0
