@@ -38,6 +38,11 @@ class WevViewVC: UIViewController {
             self.dismiss(animated: true, completion: nil)
 
             
+        }else if self.fromType == "menu"{
+            
+            self.dismiss(animated: true, completion: nil)
+            
+            
         }else{
             
             let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "ContentVC") as! ContentVC
@@ -87,7 +92,7 @@ class WevViewVC: UIViewController {
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         let userid = UserDefaults.standard.string(forKey: "userid")
         
-        let params = ["access_token":"\(accessToken)","deviceId":"","deviceToken":"","deviceInfo":"","deviceType":"Andriod","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(self.currentExamID)","calendarId":"\(calenderId)"] as Dictionary<String, String>
+        let params = ["access_token":"\(accessToken)","userId":"\(userid!)","clienId":"\(clientID)","examId":"\(self.currentExamID)","calendarId":"\(calenderId)"] as Dictionary<String, String>
         activityUIView.isHidden = false
         activityUIView.startAnimation()
         MakeHttpPostRequest(url: examDetails, params: params, completion: {(success, response) -> Void in

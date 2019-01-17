@@ -10,6 +10,10 @@ import UIKit
 import DropDown
 
 class NominationViewController: UIViewController,UITextFieldDelegate {
+    
+    
+    @IBOutlet var insertView: UIView!
+    
 
     @IBOutlet weak var mobileNo: UITextField!
     @IBOutlet weak var mobNoLabel: UILabel!
@@ -34,6 +38,9 @@ class NominationViewController: UIViewController,UITextFieldDelegate {
     var ngoDataFetch = NGODropDown()
     var currentSelectedButton: String!
     var activityUIView: ActivityIndicatorUIView!
+    
+    let datePicker = UIDatePicker()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,10 +107,61 @@ class NominationViewController: UIViewController,UITextFieldDelegate {
             }
         })
         // Do any additional setup after loading the view.
+        
+        self.createDatePicker()
+        
+       /* let ownNominationAllowed = UserDefaults.standard.bool(forKey: "ownNominationAllowed") ?? false
+        
+        if ownNominationAllowed == false {
+            
+            self.insertView.isHidden = true
+            self.NominateButton.isHidden = true
+            self.OrLabel.isHidden = true
+            
+        }else{
+            
+            self.insertView.isHidden = false
+            self.NominateButton.isHidden = false
+            self.OrLabel.isHidden = false
+        } */
+        
     }
     
     override var shouldAutorotate: Bool{
         return false
+    }
+    
+    func createDatePicker(){
+        //for format of date
+        
+        datePicker.datePickerMode = .date
+        datePicker.maximumDate = Date()
+        
+        var dateComponent = DateComponents()
+        dateComponent.year = -100
+        
+        let maxdate  =  Calendar.current.date(byAdding: dateComponent, to: Date())
+        
+        datePicker.minimumDate = maxdate
+        
+        ageText.inputView = datePicker
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        //add done button
+        let donebutton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(toolBarAction) )
+        toolbar.setItems([donebutton], animated: true)
+        ageText.inputAccessoryView = toolbar
+        
+    }
+    
+    @objc func toolBarAction(){
+        //formate the date in text
+        print("123")
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        ageText.text = dateFormatter.string(from: datePicker.date)
+        print("\(String(describing: ageText.text))")
+        self.view.endEditing(true)
     }
     
     func initView() {
@@ -167,6 +225,15 @@ class NominationViewController: UIViewController,UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    private func showALert(){
+        
+        let language = UserDefaults.standard.string(forKey: "currentlanguage")
+        let alertcontrol = UIAlertController(title: "AlertKey".localizableString(loc: language!), message: "alertFieldsFilled".localizableString(loc: language!), preferredStyle: .alert)
+        let alertaction = UIAlertAction(title: "OkKey".localizableString(loc: language!), style: .default) { (action) in
+        }
+        alertcontrol.addAction(alertaction)
+        self.present(alertcontrol, animated: true, completion: nil)
+    }
     
     func NominateUser(){
         self.NominateButton.isEnabled = false
@@ -178,7 +245,45 @@ class NominationViewController: UIViewController,UITextFieldDelegate {
         let mobileno = mobileNo.text!
         let govtId = govtIdText.text!
         
-        let params = [ "access_token":"\(accessToken)", "userId": "\(userID)","clientId":"\(clientID)", "firstName": "\(firstname)", "lastName": "\(lastName)", "age": "\(age)", "govId" : "\(govtId)", "occupation": "\(self.ngoDataFetch.occupation)", "learningLanguage" : "\(self.ngoDataFetch.langLearning)", "mobileNumber" : "\(mobileno)", "ngoId": "1","nominationUserId":"4"] as Dictionary<String, String>
+        if firstname.count == 0
+        {
+            self.showALert()
+        }
+        
+        if lastName.count == 0
+        {
+            self.showALert()
+        }
+        
+        if age.count == 0
+        {
+            self.showALert()
+        }
+        
+        if mobileno.count == 0
+        {
+            self.showALert()
+        }
+        
+        if govtId.count == 0
+        {
+            self.showALert()
+        }
+        
+        if self.ngoDataFetch.occupation.count == 0{
+            
+            self.showALert()
+
+        }
+        
+        if self.ngoDataFetch.langLearning.count == 0{
+            
+            self.showALert()
+            
+        }
+        
+        
+        let params = [ "access_token":"\(accessToken)", "userId": "\(userID)","clientId":"\(clientID)", "firstName": "\(firstname)", "lastName": "\(lastName)", "birthDate": "\(age)", "govId" : "\(govtId)", "occupation": "\(self.ngoDataFetch.occupation)", "learningLanguage" : "\(self.ngoDataFetch.langLearning)", "mobileNumber" : "\(mobileno)", "ngoId": "0","nominationUserId":"0"] as Dictionary<String, String>
         
         print(params)
         
@@ -192,6 +297,26 @@ class NominationViewController: UIViewController,UITextFieldDelegate {
                     
                     self.activityUIView.isHidden = true
                     self.activityUIView.stopAnimation()
+                    
+                    let language = UserDefaults.standard.string(forKey: "currentlanguage")
+                    let alertView = UIAlertController(title: "AlertKey".localizableString(loc: language!), message: "\("alertDear".localizableString(loc: language!)) \(USERDETAILS.firstName), \("nominatethankKey".localizableString(loc: language!))", preferredStyle: .alert)
+                    
+                    
+                    let action = UIAlertAction(title: "Ok", style: .default, handler: { (alert) in
+                        
+                        let dashboardvc = self.storyboard?.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
+                        DispatchQueue.main.async {
+                            let aObjNavi = UINavigationController(rootViewController: dashboardvc)
+                            aObjNavi.navigationBar.barTintColor = UIColor.blue
+                            self.present(aObjNavi, animated: true, completion: nil)
+                        }
+                        
+                    })
+                    
+                    
+                    alertView.addAction(action)
+                    self.present(alertView, animated: true, completion: nil)
+                    
                     
             }
                 

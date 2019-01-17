@@ -200,10 +200,7 @@ class PollViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             if item.ShowProgress == 1 {
                 print("poll vc call")
                 // show graph
-<<<<<<< HEAD
 
-=======
->>>>>>> 60aa0bc50a568cd4c0162d7c024e2ac225d5cae3
                 
                 let optionVC = self.storyboard?.instantiateViewController(withIdentifier: "PollResultVC") as? PollResultVC
                 // optionVC?.optionData = arrayoptions
@@ -213,11 +210,7 @@ class PollViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 self.present(optionVC!, animated: true, completion: nil)
                 
                 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 60aa0bc50a568cd4c0162d7c024e2ac225d5cae3
-                
+ 
             }else{
                 
                 // popup msg

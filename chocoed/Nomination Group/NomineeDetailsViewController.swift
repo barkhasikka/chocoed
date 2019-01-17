@@ -24,14 +24,8 @@ class NomineeDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        LoadNomineeDetails()
         
-//        self.nomineeAge.text = tempDataNgoUser?.age
-//        nomineeName.text = "\(tempDataNgoUser?.firstName) \(tempDataNgoUser?.lastName)"
-//        nomineeGovtid.text = tempDataNgoUser?.govtId
-//        nomineeMobile.text = tempDataNgoUser?.mobileNumber
-//        nomineeOccupation.text = tempDataNgoUser?.occupation
-//        nomineeLearningLang.text = tempDataNgoUser?.learningLanguage
+
         
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(named: "background_pattern")
@@ -45,12 +39,19 @@ class NomineeDetailsViewController: UIViewController {
         imgeProfile.clipsToBounds = true
         
         
+        LoadNomineeDetails()
+
+        
         
     }
 
     @IBAction func backButtonAction(_ sender: Any) {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "userNGOcell") as? UsersOfNGOViewController
-        self.present(vc!, animated: true, completion: nil)
+        
+        let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
+        let aObjNavi = UINavigationController(rootViewController: startVC)
+        aObjNavi.navigationBar.barTintColor = UIColor.blue
+        self.present(aObjNavi, animated: true, completion: nil)
         
     }
     
@@ -66,13 +67,35 @@ class NomineeDetailsViewController: UIViewController {
         MakeHttpPostRequest(url: getNomineeDetails , params: params, completion: {(success, response) -> Void in
             print(response)
             
-//            DispatchQueue.main.async {
-//
-//                self.activityUIView.isHidden = true
-//                self.activityUIView.stopAnimation()
-//            }
-//            let vc = self.storyboard?.instantiateViewController(withIdentifier: "taguList") as? MyTagUlistViewController
-//            self.present(vc!, animated: true, completion: nil)
+           DispatchQueue.main.async {
+            
+            let firstname = response.object(forKey: "firstName") as? String ?? ""
+            let lastname = response.object(forKey: "lastName") as? String ?? ""
+
+            let test = response.object(forKey: "testCompletedCount") as? Int ?? 0
+            let topic = response.object(forKey: "topicCompletedCount") as? Int ?? 0
+            
+            let mobile = response.object(forKey: "mobileNumber") as? String ?? ""
+            let age = response.object(forKey: "birthDate") as? String ?? ""
+            let govID = response.object(forKey: "govId") as? String ?? ""
+            let occupation = response.object(forKey: "occupation") as? String ?? ""
+            let lang = response.object(forKey: "learningLanguage") as? String ?? ""
+            
+            self.completedTestNo.text = String(test)
+            self.TopicsCompletedNo.text = String(topic)
+            self.nomineeName.text = firstname + " " + lastname
+            self.nomineeMobile.text = mobile
+            self.nomineeAge.text = age
+            self.nomineeGovtid.text = govID
+            self.nomineeOccupation.text = occupation
+            self.nomineeLearningLang.text = lang
+            
+
+
+
+
+            }
+
             
         }, errorHandler: {(message) -> Void in
             let alert = GetAlertWithOKAction(message: message)

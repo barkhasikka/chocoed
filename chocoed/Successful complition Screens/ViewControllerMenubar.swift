@@ -170,6 +170,13 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                 
          }
             
+            
+        if arraymenu[indexPath.row] == "tagU" || arraymenu[indexPath.row] == "मेरी प्रोफाइल"{
+                
+                cell.labelimages.image = UIImage(named:"lotus_icon")
+                
+        }
+            
         if arraymenu[indexPath.row] == "My Progress" ||  arraymenu[indexPath.row] == "मेरा विकास"{
                 
                 cell.labelimages.image = UIImage(named:"myprocess_improvement")
@@ -258,12 +265,51 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
             
         }
         
+        if arraymenu[indexPath.row] == "My Core Evaluation" || arraymenu[indexPath.row] == "मेरी आवाज"{
+            
+            let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "WevViewVC") as! WevViewVC
+            vcNewSectionStarted.currentExamID = -10
+            vcNewSectionStarted.calenderId = "1"
+            vcNewSectionStarted.fromType = "menu"
+            self.present(vcNewSectionStarted, animated: true, completion: nil)
+            
+        }
+        
+        if arraymenu[indexPath.row] == "tagU" || arraymenu[indexPath.row] == "मेरी आवाज"{
+            
+            let vc  = self.storyboard?.instantiateViewController(withIdentifier: "taguList") as? MyTagUlistViewController
+            present(vc!, animated: true, completion: nil)
+            
+        }
+        
         if arraymenu[indexPath.row] == "My Progress" || arraymenu[indexPath.row] == "मेरा विकास"{
             
             let v1 = self.storyboard?.instantiateViewController(withIdentifier: "leader") as! LeaderBoardViewController
             self.present(v1, animated: true, completion: nil)
             
         }
+        
+        if arraymenu[indexPath.row] == "Nominate" || arraymenu[indexPath.row] == "मेरी आवाज"{
+            
+            
+            
+             let isnominated = UserDefaults.standard.bool(forKey: "isNominatedUser") ?? false
+            
+             if isnominated == false {
+                
+             let vc = self.storyboard?.instantiateViewController(withIdentifier: "nominee") as? NominationViewController
+             self.present(vc!, animated: true, completion: nil)
+                
+             }else{
+                
+             let vc = self.storyboard?.instantiateViewController(withIdentifier: "nomineeView") as? NomineeDetailsViewController
+             self.present(vc!, animated: true, completion: nil)
+                
+             }
+            
+            
+        }
+        
         
         if arraymenu[indexPath.row] == "My Profile" || arraymenu[indexPath.row] == "मेरी प्रोफाइल"{
             
@@ -622,53 +668,52 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                 let language = UserDefaults.standard.string(forKey: "currentlanguage")
                 let userType = Int(UserDefaults.standard.string(forKey: "userType")!);
                 
-                if language == "hi"{
+                
+                
+               // if language == "hi"{
                     
+                self.arraymenu.append("MyTalksKey".localizableString(loc: language!))
+                self.arraymenu.append("MyVoiceKey".localizableString(loc: language!))
+                self.arraymenu.append("MyCoreEvaluationKey".localizableString(loc: language!))
+                self.arraymenu.append("tagUKey".localizableString(loc: language!))
+                self.arraymenu.append("MyProgressKey".localizableString(loc: language!))
+                
+                let isnominatedallow = UserDefaults.standard.bool(forKey: "isNominationAllowed")
+                
+                if isnominatedallow == true{
                     
+                  self.arraymenu.append("NominateKey".localizableString(loc: language!))
+                }
+                
+              
+                
+                
+                self.arraymenu.append("MyProfileKey".localizableString(loc: language!))
+                
+                
+                    if self.isApp == true && self.isSec == true {
+                        
+                        self.arraymenu.append("ApplicationLanguageKey".localizableString(loc: language!))
+                        self.arraymenu.append("LearningLanguageKey".localizableString(loc: language!))
+                        
+                    }else if self.isApp == true && self.isSec == false{
+                        
+                       self.arraymenu.append("ApplicationLanguageKey".localizableString(loc: language!))
+                        //self.arraymenu.append("माध्यमिक शिक्षा की")
+                        
+                    }else if self.isApp == false && self.isSec == true{
+                        
+                        //self.arraymenu.append("एप्लिकेशन भाषा")
+                        self.arraymenu.append("LearningLanguageKey".localizableString(loc: language!))
+                        
+                    }
+
                     if userType == 2 {
-                        
-                        if self.isApp == true && self.isSec == true {
-                            
-                            self.arraymenu = ["मेरा वार्तालाप","मेरी आवाज","मेरा विकास","मेरी प्रोफाइल","एप्लिकेशन भाषा","माध्यमिक शिक्षा की","अपग्रेड चोकोड"]
-                            
-                        }else if self.isApp == true && self.isSec == false{
-                            
-                             self.arraymenu = ["मेरा वार्तालाप","मेरी आवाज","मेरा विकास","मेरी प्रोफाइल","एप्लिकेशन भाषा","अपग्रेड चोकोड"]
-                            
-                        }else if self.isApp == false && self.isSec == true{
-                            
-                           self.arraymenu = ["मेरा वार्तालाप","मेरी आवाज","मेरा विकास","मेरी प्रोफाइल","माध्यमिक शिक्षा की","अपग्रेड चोकोड"]
-                            
-                        }else if self.isApp == false && self.isSec == false{
-                            
-                            self.arraymenu = ["मेरा वार्तालाप","मेरी आवाज","मेरा विकास","मेरी प्रोफाइल","अपग्रेड चोकोड"]
-                        }
-                        
-                       
-                        
-                        
-                    }else{
-                        
-                        if self.isApp == true && self.isSec == true {
-                            
-                            self.arraymenu = ["मेरा वार्तालाप","मेरी आवाज","मेरा विकास","मेरी प्रोफाइल","एप्लिकेशन भाषा","माध्यमिक शिक्षा की"]
-                            
-                        }else if self.isApp == true && self.isSec == false{
-                            
-                            self.arraymenu = ["मेरा वार्तालाप","मेरी आवाज","मेरा विकास","मेरी प्रोफाइल","एप्लिकेशन भाषा"]
-                            
-                        }else if self.isApp == false && self.isSec == true{
-                            
-                            self.arraymenu = ["मेरा वार्तालाप","मेरी आवाज","मेरा विकास","मेरी प्रोफाइल","माध्यमिक शिक्षा की"]
-                            
-                        }else if self.isApp == false && self.isSec == false{
-                            
-                            self.arraymenu = ["मेरा वार्तालाप","मेरी आवाज","मेरा विकास","मेरी प्रोफाइल"]
-                        }
+                        self.arraymenu.append("UpgradeChocoedKey".localizableString(loc: language!))
                     }
                     
                     
-                }else if language == "en"{
+              /*  }else if language == "en"{
                     
                     if userType == 2 {
                         
@@ -713,7 +758,7 @@ class ViewControllerMenubar: UIViewController,UITableViewDelegate,UITableViewDat
                         
                     }
                     
-                }
+                } */
                 
                 self.tabelViewMenu.reloadData()
                 

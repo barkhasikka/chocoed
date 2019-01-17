@@ -71,6 +71,23 @@ class MyTagUlistViewController: UIViewController,UITableViewDelegate,UITableView
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "stickyNotes") as? StickyNoteViewController
+        vc?.type = "edit"
+        vc?.Ntitle = arrayTagUlist[indexPath.row].title
+        vc?.note = arrayTagUlist[indexPath.row].notes
+        vc?.color = arrayTagUlist[indexPath.row].colour
+        vc?.noteId = arrayTagUlist[indexPath.row].id
+        self.present(vc!, animated: true, completion: nil)
+        
+    }
+    
+    
+    
+    
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
             let delete = deleteAction(at: indexPath)
             let share = shareAction(at: indexPath)

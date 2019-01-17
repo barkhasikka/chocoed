@@ -85,15 +85,10 @@ class NominationOfNGOViewController: UIViewController,UICollectionViewDelegate,U
         cell.labelName.text = arrayNGO[indexPath.row].name
       
         let fileUrl = URL(string: arrayNGO[indexPath.row].imageURL)
-        if arrayNGO[indexPath.row].imageURL != "" {
-            if let data = try? Data(contentsOf: fileUrl!) {
-                if let image = UIImage(data: data) {
-                    cell.logoImage.contentMode = .scaleAspectFit
-                    
-                    cell.logoImage.image = image
-                }
-            }
-        }
+       
+        
+        cell.logoImage.sd_setImage(with: fileUrl)
+        
         return cell
 
     }
@@ -102,6 +97,15 @@ class NominationOfNGOViewController: UIViewController,UICollectionViewDelegate,U
         let collectionViewSize = collectionView.frame.size.width - padding
         
         return CGSize(width: collectionViewSize/2, height: collectionViewSize/2)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "userNGOcell") as? UsersOfNGOViewController
+        vc?.ngoId = self.arrayNGO[indexPath.row].id
+        self.present(vc!, animated: true, completion: nil)
+        
+        
     }
     
     @IBAction func backButton(_ sender: Any) {

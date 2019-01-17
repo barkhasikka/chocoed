@@ -20,10 +20,19 @@ class StickyNoteViewController: UIViewController,UITextViewDelegate,UITextFieldD
     @IBOutlet weak var greenColour: UIButton!
     @IBOutlet weak var whitecolour: UIButton!
     @IBOutlet weak var colourView: UIView!
+    
+    var type = ""
+    var noteId = "0"
+    var Ntitle = ""
+    var note = ""
+    var color = ""
+    
     var keyboard = false
     var activityUIView: ActivityIndicatorUIView!
     
-
+    
+    @IBOutlet var mainView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         noteTextview.delegate = self
@@ -34,11 +43,51 @@ class StickyNoteViewController: UIViewController,UITextViewDelegate,UITextFieldD
         activityUIView.isHidden = true
         
         self.addDoneButtonOnKeyboard()
+        
+        noteTitle.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+
+        
+        
+        if type == "edit" {
+            
+            noteTitle.text = self.Ntitle
+            noteTextview.text = self.note
+            
+            mainView.backgroundColor = self.hexStringToUIColor(hex: color)
+            noteTextview.backgroundColor = self.hexStringToUIColor(hex: color)
+
+            
+            print(noteId)
+            print(color)
+            
+        }
 
 //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
 //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
 //        colourView.bindToKeyboard()
 }
+    
+    func hexStringToUIColor (hex:String) -> UIColor {
+        var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        
+        if (cString.hasPrefix("#")) {
+            cString.remove(at: cString.startIndex)
+        }
+        
+        if ((cString.count) != 6) {
+            return UIColor.gray
+        }
+        
+        var rgbValue:UInt32 = 0
+        Scanner(string: cString).scanHexInt32(&rgbValue)
+        
+        return UIColor(
+            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+            alpha: CGFloat(1.0)
+        )
+    }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
@@ -67,37 +116,43 @@ class StickyNoteViewController: UIViewController,UITextViewDelegate,UITextFieldD
     }
     @IBAction func PinkColourAction(_ sender: Any) {
         
-        noteTitle.textColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
         noteTextview.backgroundColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
+        mainView.backgroundColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
     }
     @IBAction func parrotColourAction(_ sender: Any) {
-        noteTitle.textColor = #colorLiteral(red: 0.3873848702, green: 1, blue: 0.1522773115, alpha: 1)
         noteTextview.backgroundColor = #colorLiteral(red: 0.3873848702, green: 1, blue: 0.1522773115, alpha: 1)
+        mainView.backgroundColor = #colorLiteral(red: 0.3873848702, green: 1, blue: 0.1522773115, alpha: 1)
+
 
     }
     @IBAction func redColourAction(_ sender: Any) {
-        noteTitle.textColor = #colorLiteral(red: 0.9111873414, green: 0, blue: 0.008497319128, alpha: 1)
         noteTextview.backgroundColor = #colorLiteral(red: 0.9111873414, green: 0, blue: 0.008497319128, alpha: 1)
+        mainView.backgroundColor = #colorLiteral(red: 0.9111873414, green: 0, blue: 0.008497319128, alpha: 1)
+
 
     }
     @IBAction func orangecolourAction(_ sender: Any) {
-        noteTitle.textColor = #colorLiteral(red: 1, green: 0.5843137255, blue: 0, alpha: 1)
         noteTextview.backgroundColor = #colorLiteral(red: 1, green: 0.5843137255, blue: 0, alpha: 1)
+        mainView.backgroundColor = #colorLiteral(red: 1, green: 0.5843137255, blue: 0, alpha: 1)
+
 
     }
     @IBAction func blueColourAction(_ sender: Any) {
-        noteTitle.textColor = #colorLiteral(red: 0.1879768739, green: 0.3261032742, blue: 0.5664893617, alpha: 1)
         noteTextview.backgroundColor = #colorLiteral(red: 0.1879768739, green: 0.3261032742, blue: 0.5664893617, alpha: 1)
+        mainView.backgroundColor = #colorLiteral(red: 0.1879768739, green: 0.3261032742, blue: 0.5664893617, alpha: 1)
+
 
     }
     @IBAction func whiteColourAction(_ sender: Any) {
-        noteTitle.textColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
         noteTextview.backgroundColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
+        mainView.backgroundColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
+
     }
     
     @IBAction func greenCOlourAction(_ sender: Any) {
-        noteTitle.textColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
         noteTextview.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+        mainView.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+
     }
     
 //    @objc func keyboardWillShow(notification: NSNotification) {
@@ -128,7 +183,7 @@ class StickyNoteViewController: UIViewController,UITextViewDelegate,UITextFieldD
         let hex = noteTextview.backgroundColor?.toHexString
         print(hex)
         
-        let params = [ "access_token":"\(accessToken)", "userId": "\(userID)","clientId":"\(clientID)", "color": "#\(hex ?? "000000")", "notes": "\(noteTextview.text!)", "title": "\(noteTitle.text ?? "")", "stickyNoteId" : "0"] as Dictionary<String, String>
+        let params = [ "access_token":"\(accessToken)", "userId": "\(userID)","clientId":"\(clientID)", "color": "#\(hex ?? "000000")", "notes": "\(noteTextview.text!)", "title": "\(noteTitle.text ?? "")", "stickyNoteId" : self.noteId] as Dictionary<String, String>
         
         print(params)
         
