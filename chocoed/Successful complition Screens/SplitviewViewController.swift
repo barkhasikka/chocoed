@@ -173,20 +173,10 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
 //        
 //    }
     @IBAction func arcTagu_clicked(_ sender: Any) {
-<<<<<<< HEAD
-        
-        
-       /* let vc  = self.storyboard?.instantiateViewController(withIdentifier: "nominee") as? NominationViewController
-        present(vc!, animated: true, completion: nil) */
 
-        let alert = GetAlertWithOKAction(message: availableString)
-        self.present(alert, animated: true, completion: nil)
-        
-       
-=======
         let vc  = self.storyboard?.instantiateViewController(withIdentifier: "taguList") as? MyTagUlistViewController
         present(vc!, animated: true, completion: nil)
->>>>>>> 60aa0bc50a568cd4c0162d7c024e2ac225d5cae3
+        
     }
     
     
@@ -416,11 +406,11 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         self.myChatHandUIView.isHidden = true
         self.mychatButton.isHidden = false
         
-<<<<<<< HEAD
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "poll") as? PollViewController
-        self.present(vc!, animated: true, completion: nil)
-        
-=======
+//<<<<<<< HEAD
+//        let vc = self.storyboard?.instantiateViewController(withIdentifier: "poll") as? PollViewController
+//        self.present(vc!, animated: true, completion: nil)
+//
+//=======
         
        let isnominated = UserDefaults.standard.bool(forKey: "isnominated") ?? false
 //        UserDefaults.standard.set(isnominated, forKey: "isnominated")
@@ -439,8 +429,7 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "nomineeView") as? NomineeDetailsViewController
                 self.present(vc!, animated: true, completion: nil)
         }
->>>>>>> 60aa0bc50a568cd4c0162d7c024e2ac225d5cae3
-        
+
     }
     override var shouldAutorotate: Bool{
         return false
