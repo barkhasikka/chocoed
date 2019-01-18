@@ -12,9 +12,6 @@ class PollViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     var arrayOfPoll = [getPollDataList]()
     var activityUIView: ActivityIndicatorUIView!
     @IBOutlet weak var pollTableView: UITableView!
-    
-    
-    
     @IBOutlet var lblTitle: UILabel!
     
     override func viewDidLoad() {
@@ -209,7 +206,6 @@ class PollViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 self.present(optionVC!, animated: true, completion: nil)
                 
                 }
-                
             }else{
                 
                 // popup msg
@@ -263,9 +259,6 @@ class PollViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     
                     
                 }
-            
-            
-            
         }
         
       }

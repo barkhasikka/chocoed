@@ -164,8 +164,7 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         let v1 = self.storyboard?.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
         self.present(v1, animated: true, completion: nil)
         
-        
-        
+
     }
     
 //    @IBAction func notificationCheckClick(_ sender: UIBarButtonItem) {
@@ -176,7 +175,6 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
 
         let vc  = self.storyboard?.instantiateViewController(withIdentifier: "taguList") as? MyTagUlistViewController
         present(vc!, animated: true, completion: nil)
-        
     }
     
     
@@ -229,6 +227,7 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         self.arcView.isHidden = true
         let fileUrl = URL(string: USERDETAILS.imageurl)
         self.imageProfile.sd_setImage(with: fileUrl)
+        
 //        if USERDETAILS.isNominee == 0{
 //            let vc = self.storyboard?.instantiateViewController(withIdentifier: "") as? NominationViewController
 //            self.present(vc!, animated: true, completion: nil)
@@ -406,21 +405,8 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         self.myChatHandUIView.isHidden = true
         self.mychatButton.isHidden = false
         
-//<<<<<<< HEAD
-//        let vc = self.storyboard?.instantiateViewController(withIdentifier: "poll") as? PollViewController
-//        self.present(vc!, animated: true, completion: nil)
-//
-//=======
-        
+ 
        let isnominated = UserDefaults.standard.bool(forKey: "isnominated") ?? false
-//        UserDefaults.standard.set(isnominated, forKey: "isnominated")
-        
-        
-//        let alert = GetAlertWithOKAction(message: availableString)
-//        self.present(alert, animated: true, completion: nil)
-        
-//        let vc = self.storyboard?.instantiateViewController(withIdentifier: "nomineeView") as? NomineeDetailsViewController
-//        self.present(vc!, animated: true, completion: nil)
        
         if isnominated == false {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "nominee") as? NominationViewController
@@ -429,7 +415,8 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "nomineeView") as? NomineeDetailsViewController
                 self.present(vc!, animated: true, completion: nil)
         }
-
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "poll") as? PollViewController
+        self.present(vc!, animated: true, completion: nil)
     }
     override var shouldAutorotate: Bool{
         return false
@@ -600,7 +587,6 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         }
     }
     
-    
     func GetUserInfo() {
         let userID = UserDefaults.standard.integer(forKey: "userid")
         print(userID, "USER ID IS HERE")
@@ -613,7 +599,10 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
             temp.lastName = jsonobject?.object(forKey: "lastName") as? String ?? ""
             temp.email = jsonobject?.object(forKey: "email") as? String ?? ""
             temp.mobile = jsonobject?.object(forKey: "mobile") as? String ?? ""
-            temp.isnominee =  jsonobject?.object(forKey: "isNominatedUser") as? Bool ?? false
+            
+            //temp.isnominee =  jsonobject?.object(forKey: "isNominatedUser") as? Bool ?? false
+            
+            
             let clientId = jsonobject?.object(forKey: "clientId") as? String ?? ""
             let url = jsonobject?.object(forKey: "profileImageUrl") as? String ?? ""
             let quizTaken =  jsonobject?.object(forKey:"quizTestGiven") as? Int ?? -1
@@ -635,6 +624,15 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
             UserDefaults.standard.set(clientLanguage, forKey: "Language2") //pri
             UserDefaults.standard.set(learningLang, forKey: "Language3") //sec
             
+            let isNominatedUser = jsonobject?.object(forKey: "isNominatedUser") as? Bool ?? false
+            let isNominationAllowed = jsonobject?.object(forKey: "isNominationAllowed") as? Bool ?? false
+            
+             let ownNominationAllowed = jsonobject?.object(forKey: "ownNominationAllowed") as? Bool ?? false
+            
+            UserDefaults.standard.set(isNominatedUser, forKey: "isNominatedUser")
+            UserDefaults.standard.set(isNominationAllowed, forKey: "isNominationAllowed")
+            UserDefaults.standard.set(ownNominationAllowed, forKey: "ownNominationAllowed")
+
             
             let previousType = Int(UserDefaults.standard.string(forKey: "userType")!)
             let userType = jsonobject?.object(forKey: "userType") as? Int ?? 0
@@ -671,7 +669,6 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
                 }
                 
                 self.sendFcm()
-
                 
             }
         }, errorHandler: {(message) -> Void in

@@ -540,6 +540,7 @@ struct getNgoUserDetails {
     var lastName : String
     var mobileNumber : String
     var govtId : String
+    var userID : String
     var age : String
     var occupation : String
     var learningLanguage : String
@@ -555,6 +556,8 @@ struct getNgoUserDetails {
         self.occupation = dictionary["occupation"] as? String ?? ""
         self.learningLanguage = dictionary["learningLanguage"] as? String ?? ""
         self.profileImageUrl = dictionary["profileImageUrl"] as? String ?? ""
+        self.userID = dictionary["userId"] as? String ?? ""
+
     }
 }
 

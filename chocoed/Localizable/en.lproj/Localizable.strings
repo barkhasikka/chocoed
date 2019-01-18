@@ -215,6 +215,20 @@
 "ResultKey" = "Result";
 "MyThoughtKey" = "My Thoughts";
 "ResendKey" = "Resend Token";
+"MyTalksKey" = "My Talks";
+"MyVoiceKey" = "My Voice";
+"MyCoreEvaluationKey" = "My Core Evaluation";
+"tagUKey" = "tagU";
+"NominateKey" = "Nominate";
+"MyProfileKey" = "My Profile";
+"UpgradeChocoedKey" = "Upgrade Chocoed";
+"ApplicationLanguageKey" = "Application Language";
+"LearningLanguageKey" = "Learning Language";
+"nominatethankKey" = " Thank you for your nomination. Our team will verify the details provided by you and update same if your nomination accepted";
+
+
+
+
 
 
 
