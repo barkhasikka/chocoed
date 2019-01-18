@@ -322,7 +322,7 @@ Revise, reinforce, relearn with Chocoed Choice - anytime , anywhere , continuous
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gu3-VX-EYo" customClass="imagetoButton" customModule="chocoed" customModuleProvider="target">
-                                <rect key="frame" x="37.5" y="360" width="300" height="40"/>
+                                <rect key="frame" x="163" y="360" width="49" height="26"/>
                                 <color key="backgroundColor" red="0.12156862745098039" green="0.42352941176470588" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="contentEdgeInsets" minX="2" minY="2" maxX="2" maxY="2"/>
                                 <state key="normal" title="Login">
@@ -352,7 +352,7 @@ Revise, reinforce, relearn with Chocoed Choice - anytime , anywhere , continuous
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r8X-bD-qXe" customClass="imagetoButton" customModule="chocoed" customModuleProvider="target">
-                                <rect key="frame" x="37.5" y="430" width="300" height="40"/>
+                                <rect key="frame" x="-138" y="416" width="651" height="97"/>
                                 <inset key="contentEdgeInsets" minX="2" minY="2" maxX="2" maxY="2"/>
                                 <state key="normal" title="Select Prefered Language " backgroundImage="loginButtonBackground">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1148,7 +1148,7 @@ the beginning of every beautiful journey.</string>
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tup-Ek-juC" customClass="imagetoButton" customModule="chocoed" customModuleProvider="target">
-                                                <rect key="frame" x="19" y="290" width="300" height="40"/>
+                                                <rect key="frame" x="90" y="290" width="158" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="7cC-dF-BY3"/>
                                                 </constraints>
@@ -2188,7 +2188,7 @@ the beginning of every beautiful journey.</string>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Szk-Hf-Hyb" customClass="imagetoButton" customModule="chocoed" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="586" width="300" height="40"/>
+                                                <rect key="frame" x="20" y="529" width="335" height="97"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <state key="normal" title="Proceed" backgroundImage="loginButtonBackground">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2723,7 +2723,7 @@ the beginning of every beautiful journey.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fJE-Tr-yYw" customClass="imagetoButton" customModule="chocoed" customModuleProvider="target">
-                                <rect key="frame" x="37.5" y="506" width="300" height="40"/>
+                                <rect key="frame" x="-138" y="506" width="651" height="97"/>
                                 <state key="normal" title="Login" backgroundImage="loginButtonBackground">
                                     <color key="titleColor" white="0.97857142860000002" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -3373,7 +3373,7 @@ the beginning of every beautiful journey.</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PlO-so-8eC" customClass="ButtonWithImage" customModule="chocoed" customModuleProvider="target">
-                                                <rect key="frame" x="8" y="49" width="359" height="30"/>
+                                                <rect key="frame" x="8" y="49" width="359" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <state key="normal" title="Select Qualification" image="ic_drop_down">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -3383,13 +3383,13 @@ the beginning of every beautiful journey.</string>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name of College" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pPF-eQ-YiV">
-                                                <rect key="frame" x="8" y="109" width="359" height="21"/>
+                                                <rect key="frame" x="8" y="103" width="359" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Name of College" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z1B-2p-1cT" userLabel="Name of College Round Style Text Field">
-                                                <rect key="frame" x="8" y="138" width="359" height="30"/>
+                                                <rect key="frame" x="8" y="132" width="359" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="QWi-LQ-h3f"/>
                                                 </constraints>
@@ -3398,13 +3398,13 @@ the beginning of every beautiful journey.</string>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Board/ University" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E7R-M6-rD5">
-                                                <rect key="frame" x="8" y="198" width="359" height="21"/>
+                                                <rect key="frame" x="8" y="192" width="359" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Board / University " textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Caq-iW-Zfg" userLabel="Board Round Style Text Field">
-                                                <rect key="frame" x="8" y="227" width="359" height="30"/>
+                                                <rect key="frame" x="8" y="221" width="359" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="868-Pz-B6X"/>
                                                 </constraints>
@@ -3413,31 +3413,31 @@ the beginning of every beautiful journey.</string>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9xl-GW-8cr">
-                                                <rect key="frame" x="8" y="287" width="359" height="21"/>
+                                                <rect key="frame" x="8" y="281" width="359" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Education Medium" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C2l-44-wfh">
-                                                <rect key="frame" x="8" y="377" width="359" height="21"/>
+                                                <rect key="frame" x="8" y="371" width="359" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Specialization" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wlI-Eb-6xA">
-                                                <rect key="frame" x="8" y="466" width="359" height="21"/>
+                                                <rect key="frame" x="8" y="454" width="359" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Year of passing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xCH-mF-6Tw">
-                                                <rect key="frame" x="8" y="555" width="359" height="21"/>
+                                                <rect key="frame" x="8" y="537" width="359" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" alpha="0.94999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u7n-kt-Jes" userLabel="Save" customClass="imagetoButton" customModule="chocoed" customModuleProvider="target">
-                                                <rect key="frame" x="37.5" y="689" width="300" height="40"/>
+                                                <rect key="frame" x="170.5" y="665" width="34" height="30"/>
                                                 <state key="normal" title="Save">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
@@ -3446,7 +3446,7 @@ the beginning of every beautiful journey.</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xwH-f3-c5t" customClass="ButtonWithImage" customModule="chocoed" customModuleProvider="target">
-                                                <rect key="frame" x="8" y="406" width="359" height="30"/>
+                                                <rect key="frame" x="8" y="400" width="359" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <state key="normal" title="Select Educational Medium" image="ic_drop_down">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -3456,7 +3456,7 @@ the beginning of every beautiful journey.</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kok-is-sMh" customClass="ButtonWithImage" customModule="chocoed" customModuleProvider="target">
-                                                <rect key="frame" x="8" y="495" width="359" height="30"/>
+                                                <rect key="frame" x="8" y="483" width="359" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <state key="normal" title="Select Specification" image="ic_drop_down">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -3466,7 +3466,7 @@ the beginning of every beautiful journey.</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fvu-mv-i73" customClass="ButtonWithImage" customModule="chocoed" customModuleProvider="target">
-                                                <rect key="frame" x="8" y="584" width="359" height="30"/>
+                                                <rect key="frame" x="8" y="566" width="359" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <state key="normal" title="Select Year " image="ic_drop_down">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -3476,7 +3476,7 @@ the beginning of every beautiful journey.</string>
                                                 </connections>
                                             </button>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kOt-rX-Nex" userLabel="Board Round Style Text Field">
-                                                <rect key="frame" x="8" y="317" width="359" height="30"/>
+                                                <rect key="frame" x="8" y="311" width="359" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="UZF-Tx-zbZ"/>
                                                 </constraints>
@@ -3657,13 +3657,13 @@ the beginning of every beautiful journey.</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="254" text="Management Level" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0lz-ib-peu" userLabel="Management Level">
-                                                <rect key="frame" x="8" y="287" width="359" height="20.5"/>
+                                                <rect key="frame" x="8" y="281" width="359" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Q9-B3-Sk2" userLabel="Save" customClass="imagetoButton" customModule="chocoed" customModuleProvider="target">
-                                                <rect key="frame" x="37.5" y="651" width="300" height="40"/>
+                                                <rect key="frame" x="170.5" y="621" width="34" height="30"/>
                                                 <state key="normal" title="Save">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
@@ -3691,7 +3691,7 @@ the beginning of every beautiful journey.</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="veW-ck-xas" customClass="ButtonWithImage" customModule="chocoed" customModuleProvider="target">
-                                                <rect key="frame" x="8" y="227" width="359" height="30"/>
+                                                <rect key="frame" x="8" y="227" width="359" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <state key="normal" title="Select Year" image="ic_drop_down">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -3701,7 +3701,7 @@ the beginning of every beautiful journey.</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jTB-Y2-wLf" customClass="ButtonWithImage" customModule="chocoed" customModuleProvider="target">
-                                                <rect key="frame" x="8" y="315.5" width="359" height="30"/>
+                                                <rect key="frame" x="8" y="309.5" width="359" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <state key="normal" title="Select Management Level" image="ic_drop_down">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -3711,7 +3711,7 @@ the beginning of every beautiful journey.</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vH4-z1-jbn" customClass="ButtonWithImage" customModule="chocoed" customModuleProvider="target">
-                                                <rect key="frame" x="8" y="404" width="359" height="30"/>
+                                                <rect key="frame" x="8" y="392" width="359" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <state key="normal" title="Select Teams Handled" image="ic_drop_down">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -3721,7 +3721,7 @@ the beginning of every beautiful journey.</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xix-eF-dve" customClass="ButtonWithImage" customModule="chocoed" customModuleProvider="target">
-                                                <rect key="frame" x="8" y="492.5" width="359" height="30"/>
+                                                <rect key="frame" x="8" y="474.5" width="359" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <state key="normal" title="Select Current Industry" image="ic_drop_down">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -3731,7 +3731,7 @@ the beginning of every beautiful journey.</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ggM-u6-uAl" customClass="ButtonWithImage" customModule="chocoed" customModuleProvider="target">
-                                                <rect key="frame" x="8" y="581" width="359" height="30"/>
+                                                <rect key="frame" x="8" y="557" width="359" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <state key="normal" title="Select Functional Expertise" image="ic_drop_down">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -3741,19 +3741,19 @@ the beginning of every beautiful journey.</string>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="257" text="My Current Industry" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="apw-jG-CTM" userLabel="My Current Industry">
-                                                <rect key="frame" x="8" y="464" width="359" height="20.5"/>
+                                                <rect key="frame" x="8" y="446" width="359" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Functional Expertise" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zro-6m-gif" userLabel="My Functional Expertise">
-                                                <rect key="frame" x="8" y="552.5" width="359" height="20.5"/>
+                                                <rect key="frame" x="8" y="528.5" width="359" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="255" text="Teams Handled" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BZi-h0-YOu" userLabel="Teams handled">
-                                                <rect key="frame" x="8" y="375.5" width="359" height="20.5"/>
+                                                <rect key="frame" x="8" y="363.5" width="359" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -7771,7 +7771,7 @@ the beginning of every beautiful journey.</string>
                                 <rect key="frame" x="16" y="488" width="343" height="159"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hzh-wg-s98" customClass="imagetoButton" customModule="chocoed" customModuleProvider="target">
-                                        <rect key="frame" x="21.5" y="8" width="300" height="40"/>
+                                        <rect key="frame" x="58" y="8" width="227" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="227" id="eSQ-7H-xgf"/>
                                             <constraint firstAttribute="height" constant="40" id="xfU-3Q-ToV"/>
@@ -7795,7 +7795,7 @@ the beginning of every beautiful journey.</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gwm-g4-cpx" customClass="imagetoButton" customModule="chocoed" customModuleProvider="target">
-                                        <rect key="frame" x="21.5" y="99" width="300" height="40"/>
+                                        <rect key="frame" x="58" y="99" width="227" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="NTb-76-iDg"/>
                                             <constraint firstAttribute="width" constant="227" id="njk-6J-f9W"/>
@@ -8705,7 +8705,7 @@ the beginning of every beautiful journey.</string>
                                 <rect key="frame" x="0.0" y="597" width="375" height="70"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y4f-6Z-hhX" customClass="imagetoButton" customModule="chocoed" customModuleProvider="target">
-                                        <rect key="frame" x="37.5" y="15" width="300" height="40"/>
+                                        <rect key="frame" x="154.5" y="20" width="66" height="30"/>
                                         <state key="normal" title="Nominate">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -8928,6 +8928,182 @@ the beginning of every beautiful journey.</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TMJ-T0-isJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="9842" y="2392"/>
+        </scene>
+        <!--Empower View Controller-->
+        <scene sceneID="hyU-et-1RQ">
+            <objects>
+                <viewController storyboardIdentifier="empower" id="nNn-Fh-UT5" customClass="EmpowerViewController" customModule="chocoed" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="al2-s3-p0B">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Sa-8v-Zn8">
+                                <rect key="frame" x="0.0" y="20" width="375" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BZD-es-obH">
+                                        <rect key="frame" x="8" y="10" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="Nsq-zz-0n8"/>
+                                            <constraint firstAttribute="height" constant="40" id="Zdu-kY-Lwh"/>
+                                        </constraints>
+                                        <state key="normal" image="back.png"/>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Empower Others" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gfL-eh-S59">
+                                        <rect key="frame" x="68" y="19" width="133.5" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.21176470589999999" green="0.35294117650000001" blue="0.73333333329999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="gfL-eh-S59" firstAttribute="leading" secondItem="BZD-es-obH" secondAttribute="trailing" constant="20" id="2u0-db-Zxl"/>
+                                    <constraint firstItem="gfL-eh-S59" firstAttribute="centerY" secondItem="7Sa-8v-Zn8" secondAttribute="centerY" id="9Ll-Mc-Hrq"/>
+                                    <constraint firstAttribute="height" constant="60" id="RbA-cU-tcz"/>
+                                    <constraint firstItem="BZD-es-obH" firstAttribute="centerY" secondItem="7Sa-8v-Zn8" secondAttribute="centerY" id="aPh-Ol-Enp"/>
+                                    <constraint firstItem="BZD-es-obH" firstAttribute="leading" secondItem="7Sa-8v-Zn8" secondAttribute="leading" constant="8" id="i08-LE-62w"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can nominate a needy person and chocoed will provide them FREE softskills training on your behalf." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="55q-UE-Yrd">
+                                <rect key="frame" x="16" y="110" width="343" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="70" id="B9r-nF-tkG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EMp-Sw-iHo" customClass="imagetoButton" customModule="chocoed" customModuleProvider="target">
+                                <rect key="frame" x="10" y="195" width="150" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="7Sx-Sv-zan"/>
+                                    <constraint firstAttribute="height" constant="30" id="sXe-be-pot"/>
+                                </constraints>
+                                <state key="normal" title="Add Contact ">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="etq-JY-FWb" customClass="imagetoButton" customModule="chocoed" customModuleProvider="target">
+                                <rect key="frame" x="215" y="195" width="150" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="btq-yq-ghh"/>
+                                    <constraint firstAttribute="width" constant="150" id="daZ-UO-ecd"/>
+                                </constraints>
+                                <state key="normal" title="Select from NGO">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pDo-Gj-FkJ">
+                                <rect key="frame" x="0.0" y="230" width="375" height="437"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="79" id="sty-2I-foH" customClass="EmpowerTableViewCell" customModule="chocoed" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="79"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sty-2I-foH" id="NlU-La-Eaq">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="78.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0dW-sF-u0F">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="78.5"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hVM-ys-34g">
+                                                            <rect key="frame" x="16" y="10" width="60" height="60"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="60" id="E4a-cZ-kDc"/>
+                                                                <constraint firstAttribute="width" constant="60" id="Nte-2X-UrB"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VFF-J6-8WE">
+                                                            <rect key="frame" x="84" y="8" width="225" height="21"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="21" id="MNb-4b-NEQ"/>
+                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="wEy-cI-UeJ"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLz-Ta-nuu">
+                                                            <rect key="frame" x="84" y="41" width="271" height="21"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="95R-o4-7tG"/>
+                                                                <constraint firstAttribute="height" constant="21" id="9RJ-N0-nPy"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eJH-FQ-9Uu">
+                                                            <rect key="frame" x="317" y="10" width="50" height="21"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="50" id="8Lb-9B-tAs"/>
+                                                                <constraint firstAttribute="height" constant="21" id="8tt-yH-nae"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="78.5" id="4GF-1W-qrK"/>
+                                                        <constraint firstItem="hVM-ys-34g" firstAttribute="leading" secondItem="0dW-sF-u0F" secondAttribute="leading" constant="16" id="Lgb-np-Q0y"/>
+                                                        <constraint firstAttribute="trailing" secondItem="eJH-FQ-9Uu" secondAttribute="trailing" constant="8" id="TfS-DF-k3J"/>
+                                                        <constraint firstItem="hVM-ys-34g" firstAttribute="centerY" secondItem="0dW-sF-u0F" secondAttribute="centerY" id="aVa-Vg-LOk"/>
+                                                        <constraint firstItem="oLz-Ta-nuu" firstAttribute="top" secondItem="eJH-FQ-9Uu" secondAttribute="bottom" constant="10" id="dBJ-5R-2UZ"/>
+                                                        <constraint firstItem="eJH-FQ-9Uu" firstAttribute="top" secondItem="0dW-sF-u0F" secondAttribute="top" constant="10" id="lEm-SQ-y2z"/>
+                                                        <constraint firstItem="VFF-J6-8WE" firstAttribute="top" secondItem="0dW-sF-u0F" secondAttribute="top" constant="8" id="pLV-Hk-PRC"/>
+                                                        <constraint firstItem="VFF-J6-8WE" firstAttribute="leading" secondItem="hVM-ys-34g" secondAttribute="trailing" constant="8" id="vxc-Iy-a0C"/>
+                                                        <constraint firstItem="oLz-Ta-nuu" firstAttribute="leading" secondItem="hVM-ys-34g" secondAttribute="trailing" constant="8" id="w6M-tV-dmb"/>
+                                                        <constraint firstAttribute="trailing" secondItem="oLz-Ta-nuu" secondAttribute="trailing" constant="20" id="wXO-cS-ESx"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="0dW-sF-u0F" firstAttribute="leading" secondItem="NlU-La-Eaq" secondAttribute="leading" id="11j-2k-h4C"/>
+                                                <constraint firstAttribute="trailing" secondItem="0dW-sF-u0F" secondAttribute="trailing" id="5tm-Cc-oVe"/>
+                                                <constraint firstAttribute="bottom" secondItem="0dW-sF-u0F" secondAttribute="bottom" id="JUj-fs-efP"/>
+                                                <constraint firstItem="0dW-sF-u0F" firstAttribute="top" secondItem="NlU-La-Eaq" secondAttribute="top" id="eYV-Oy-zH1"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="NameofContact" destination="VFF-J6-8WE" id="JXd-AH-i8J"/>
+                                            <outlet property="amountlabel" destination="eJH-FQ-9Uu" id="Pcm-hA-bxk"/>
+                                            <outlet property="imageViewEmpower" destination="hVM-ys-34g" id="zvN-3A-dzp"/>
+                                            <outlet property="labelDescription" destination="oLz-Ta-nuu" id="dqu-Vm-QiL"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="nNn-Fh-UT5" id="mFX-Mk-2hH"/>
+                                    <outlet property="delegate" destination="nNn-Fh-UT5" id="aCy-px-Q07"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="DmM-u0-SqF" firstAttribute="trailing" secondItem="55q-UE-Yrd" secondAttribute="trailing" constant="16" id="7La-LO-Xio"/>
+                            <constraint firstItem="DmM-u0-SqF" firstAttribute="trailing" secondItem="etq-JY-FWb" secondAttribute="trailing" constant="10" id="Fif-IK-I5l"/>
+                            <constraint firstItem="7Sa-8v-Zn8" firstAttribute="trailing" secondItem="DmM-u0-SqF" secondAttribute="trailing" id="NQ7-xw-fVy"/>
+                            <constraint firstItem="EMp-Sw-iHo" firstAttribute="top" secondItem="55q-UE-Yrd" secondAttribute="bottom" constant="15" id="WNz-mi-C1y"/>
+                            <constraint firstItem="etq-JY-FWb" firstAttribute="top" secondItem="55q-UE-Yrd" secondAttribute="bottom" constant="15" id="XKh-6h-zja"/>
+                            <constraint firstItem="pDo-Gj-FkJ" firstAttribute="trailing" secondItem="DmM-u0-SqF" secondAttribute="trailing" id="aTe-Ne-q6d"/>
+                            <constraint firstItem="55q-UE-Yrd" firstAttribute="leading" secondItem="DmM-u0-SqF" secondAttribute="leading" constant="16" id="bOt-mP-URS"/>
+                            <constraint firstItem="7Sa-8v-Zn8" firstAttribute="top" secondItem="DmM-u0-SqF" secondAttribute="top" id="bqP-ox-hbC"/>
+                            <constraint firstItem="pDo-Gj-FkJ" firstAttribute="top" secondItem="EMp-Sw-iHo" secondAttribute="bottom" constant="5" id="ci7-9I-3pH"/>
+                            <constraint firstItem="pDo-Gj-FkJ" firstAttribute="bottom" secondItem="DmM-u0-SqF" secondAttribute="bottom" id="dWU-Jj-Jpn"/>
+                            <constraint firstItem="pDo-Gj-FkJ" firstAttribute="leading" secondItem="DmM-u0-SqF" secondAttribute="leading" id="f6X-ot-tVb"/>
+                            <constraint firstItem="55q-UE-Yrd" firstAttribute="top" secondItem="7Sa-8v-Zn8" secondAttribute="bottom" constant="30" id="lZP-Wc-DU5"/>
+                            <constraint firstItem="7Sa-8v-Zn8" firstAttribute="leading" secondItem="DmM-u0-SqF" secondAttribute="leading" id="m5X-cd-v2L"/>
+                            <constraint firstItem="EMp-Sw-iHo" firstAttribute="leading" secondItem="DmM-u0-SqF" secondAttribute="leading" constant="10" id="ohw-fb-Ox6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="DmM-u0-SqF"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2oC-0r-jbe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="10556" y="1894.9025487256374"/>
         </scene>
     </scenes>
     <resources>
