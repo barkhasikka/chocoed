@@ -42,7 +42,7 @@ class StickyNoteViewController: UIViewController,UITextViewDelegate,UITextFieldD
         self.view.addSubview(activityUIView)
         activityUIView.isHidden = true
         
-        self.addDoneButtonOnKeyboard()
+//        self.addDoneButtonOnKeyboard()
         
         noteTitle.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
 
@@ -61,10 +61,6 @@ class StickyNoteViewController: UIViewController,UITextViewDelegate,UITextFieldD
             print(color)
             
         }
-
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-//        colourView.bindToKeyboard()
 }
     
     func hexStringToUIColor (hex:String) -> UIColor {
@@ -109,6 +105,7 @@ class StickyNoteViewController: UIViewController,UITextViewDelegate,UITextFieldD
         return true
     }
     func textViewDidBeginEditing(_ textView: UITextView) {
+        noteTextview.text = " "
         colourView.bindToKeyboard()
     }
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -138,7 +135,7 @@ class StickyNoteViewController: UIViewController,UITextViewDelegate,UITextFieldD
 
     }
     @IBAction func blueColourAction(_ sender: Any) {
-        noteTextview.backgroundColor = #colorLiteral(red: 0.1879768739, green: 0.3261032742, blue: 0.5664893617, alpha: 1)
+    noteTextview.backgroundColor = #colorLiteral(red: 0.1879768739, green: 0.3261032742, blue: 0.5664893617, alpha: 1)
         mainView.backgroundColor = #colorLiteral(red: 0.1879768739, green: 0.3261032742, blue: 0.5664893617, alpha: 1)
 
 
@@ -210,24 +207,30 @@ class StickyNoteViewController: UIViewController,UITextViewDelegate,UITextFieldD
         })
 
     }
-    func addDoneButtonOnKeyboard() {
-        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
-        doneToolbar.barStyle = UIBarStyle.default
+    
+    
+    @IBAction func SaveNomineeButton(_ sender: Any) {
         
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        
-        let done: UIBarButtonItem = UIBarButtonItem(title: "send", style: UIBarButtonItemStyle.done, target: self, action: #selector(self.hideKeyboard))
-        
-        var items = [UIBarButtonItem]()
-        items.append(flexSpace)
-        items.append(done)
-        
-        doneToolbar.items = items
-        doneToolbar.sizeToFit()
-        
-        self.noteTextview.inputAccessoryView = doneToolbar
-        
+        hideKeyboard()
     }
+//    func addDoneButtonOnKeyboard() {
+//        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+//        doneToolbar.barStyle = UIBarStyle.default
+//
+//        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+//
+//        let done: UIBarButtonItem = UIBarButtonItem(title: "send", style: UIBarButtonItemStyle.done, target: self, action: #selector(self.hideKeyboard))
+//
+//        var items = [UIBarButtonItem]()
+//        items.append(flexSpace)
+//        items.append(done)
+//
+//        doneToolbar.items = items
+//        doneToolbar.sizeToFit()
+//
+//        self.noteTextview.inputAccessoryView = doneToolbar
+//
+//    }
     @objc
     func hideKeyboard(){
         self.view.endEditing(true)
