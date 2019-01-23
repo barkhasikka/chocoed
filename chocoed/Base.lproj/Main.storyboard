@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TWi-rM-jqp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TWi-rM-jqp">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -3903,7 +3904,7 @@ the beginning of every beautiful journey.</string>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="menucell" rowHeight="66" id="WUN-rv-H5r" customClass="MenuBarTableViewCell" customModule="chocoed" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="315" height="66"/>
                                                 <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WUN-rv-H5r" id="WIP-fj-cH1">
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WUN-rv-H5r" id="WIP-fj-cH1">
                                                     <rect key="frame" x="0.0" y="0.0" width="315" height="66"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
@@ -4077,7 +4078,7 @@ the beginning of every beautiful journey.</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pTT-13-J1t" userLabel="viewAlertChoice">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hGl-iQ-Ugr">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hGl-iQ-Ugr">
                                         <rect key="frame" x="37.5" y="199" width="300" height="250"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RTd-2f-jqo">
@@ -4100,7 +4101,7 @@ the beginning of every beautiful journey.</string>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="M32-0e-lHx">
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="M32-0e-lHx">
                                                 <rect key="frame" x="0.0" y="152" width="300" height="98"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <prototypes>
@@ -4540,7 +4541,7 @@ the beginning of every beautiful journey.</string>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EZ6-6G-ewL" customClass="BackgroundView" customModule="chocoed" customModuleProvider="target">
-                                                        <rect key="frame" x="112.5" y="15" width="150" height="150"/>
+                                                        <rect key="frame" x="113" y="15" width="150" height="150"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wae-KX-fg7">
                                                                 <rect key="frame" x="0.0" y="18" width="150" height="150"/>
@@ -4645,7 +4646,7 @@ the beginning of every beautiful journey.</string>
                                                                 <state key="normal" backgroundImage="back_circle_behind picture"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gzM-Ri-UZi">
-                                                                <rect key="frame" x="17.5" y="19" width="35" height="35"/>
+                                                                <rect key="frame" x="18" y="19" width="35" height="35"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="35" id="fQ6-0z-aZX"/>
                                                                     <constraint firstAttribute="width" constant="35" id="m1X-db-gmA"/>
@@ -4678,7 +4679,7 @@ the beginning of every beautiful journey.</string>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Ef-nv-uiv">
-                                                        <rect key="frame" x="122.5" y="60" width="80" height="80"/>
+                                                        <rect key="frame" x="123" y="60" width="80" height="80"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="waI-l6-iqr">
                                                                 <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
@@ -4690,7 +4691,7 @@ the beginning of every beautiful journey.</string>
                                                                 <state key="normal" backgroundImage="back_circle_behind picture"/>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Conversation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xnH-9Y-e2A">
-                                                                <rect key="frame" x="5.5" y="75" width="69" height="13.5"/>
+                                                                <rect key="frame" x="6" y="75" width="69" height="13.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -4734,7 +4735,7 @@ the beginning of every beautiful journey.</string>
                                                                 <state key="normal" backgroundImage="back_circle_behind picture"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M90-fN-e0Z">
-                                                                <rect key="frame" x="17.5" y="17" width="35" height="35"/>
+                                                                <rect key="frame" x="18" y="17" width="35" height="35"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="35" id="ZL3-i1-rJN"/>
                                                                     <constraint firstAttribute="height" constant="35" id="ep0-X4-1mv"/>
@@ -4779,10 +4780,10 @@ the beginning of every beautiful journey.</string>
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="yQT-wm-LJm">
-                                                <rect key="frame" x="88" y="397" width="200" height="150"/>
+                                                <rect key="frame" x="88" y="396" width="200" height="150"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PS1-UI-Wo0">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PS1-UI-Wo0">
                                                         <rect key="frame" x="0.0" y="0.0" width="200" height="150"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="200" id="BQK-8w-Ryc"/>
@@ -4791,6 +4792,86 @@ the beginning of every beautiful journey.</string>
                                                     </imageView>
                                                 </subviews>
                                             </stackView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B3s-P9-65E" userLabel="collectionDashView">
+                                                <rect key="frame" x="8" y="567" width="359" height="110"/>
+                                                <subviews>
+                                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="YaM-xs-f7r">
+                                                        <rect key="frame" x="0.0" y="0.0" width="359" height="110"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="wcF-fN-tcQ">
+                                                            <size key="itemSize" width="125" height="107"/>
+                                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        </collectionViewFlowLayout>
+                                                        <cells>
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="dashcell" id="jAx-7v-Kfu" customClass="DashButtonCollectionViewCell" customModule="chocoed" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="1.5" width="125" height="107"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="125" height="107"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                    <subviews>
+                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tI6-6N-uYz">
+                                                                            <rect key="frame" x="8" y="8" width="109" height="91"/>
+                                                                            <subviews>
+                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DGx-0m-rMy">
+                                                                                    <rect key="frame" x="32.5" y="5" width="60" height="60"/>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="width" constant="60" id="dGq-2P-gYo"/>
+                                                                                        <constraint firstAttribute="height" constant="60" id="nia-zD-Uui"/>
+                                                                                    </constraints>
+                                                                                </button>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ah-R2-LJo">
+                                                                                    <rect key="frame" x="43.5" y="66" width="37.5" height="21"/>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="height" constant="21" id="p0A-Ze-N6V"/>
+                                                                                    </constraints>
+                                                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                                    <nil key="textColor"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                </label>
+                                                                            </subviews>
+                                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <constraints>
+                                                                                <constraint firstItem="DGx-0m-rMy" firstAttribute="top" secondItem="tI6-6N-uYz" secondAttribute="top" constant="5" id="GhX-rE-ufI"/>
+                                                                                <constraint firstItem="2ah-R2-LJo" firstAttribute="top" secondItem="DGx-0m-rMy" secondAttribute="bottom" constant="1" id="cfZ-nz-FNC"/>
+                                                                                <constraint firstItem="DGx-0m-rMy" firstAttribute="centerX" secondItem="tI6-6N-uYz" secondAttribute="centerX" constant="8" id="nNb-Wf-X8x"/>
+                                                                                <constraint firstItem="2ah-R2-LJo" firstAttribute="centerX" secondItem="tI6-6N-uYz" secondAttribute="centerX" constant="7.75" id="vcF-LF-QiD"/>
+                                                                            </constraints>
+                                                                        </view>
+                                                                    </subviews>
+                                                                </view>
+                                                                <constraints>
+                                                                    <constraint firstItem="tI6-6N-uYz" firstAttribute="centerX" secondItem="jAx-7v-Kfu" secondAttribute="centerX" id="IQX-XU-Uvn"/>
+                                                                    <constraint firstItem="tI6-6N-uYz" firstAttribute="centerY" secondItem="jAx-7v-Kfu" secondAttribute="centerY" id="Mq9-Bn-xdl"/>
+                                                                    <constraint firstItem="tI6-6N-uYz" firstAttribute="top" secondItem="jAx-7v-Kfu" secondAttribute="topMargin" id="MzZ-OW-VIt"/>
+                                                                    <constraint firstItem="tI6-6N-uYz" firstAttribute="leading" secondItem="jAx-7v-Kfu" secondAttribute="leadingMargin" id="qZ3-xj-O2G"/>
+                                                                    <constraint firstAttribute="trailingMargin" secondItem="tI6-6N-uYz" secondAttribute="trailing" id="sSh-xK-l1v"/>
+                                                                    <constraint firstAttribute="bottomMargin" secondItem="tI6-6N-uYz" secondAttribute="bottom" id="tA8-8n-OCm"/>
+                                                                </constraints>
+                                                                <connections>
+                                                                    <outlet property="buttonImage" destination="DGx-0m-rMy" id="D3H-ka-gPL"/>
+                                                                    <outlet property="buttonTitle" destination="2ah-R2-LJo" id="FRq-GM-f3G"/>
+                                                                    <outlet property="viewRoundedcorner" destination="tI6-6N-uYz" id="pt6-eT-iJm"/>
+                                                                </connections>
+                                                            </collectionViewCell>
+                                                        </cells>
+                                                        <connections>
+                                                            <outlet property="dataSource" destination="fPi-hO-h0h" id="zA9-xy-I8Q"/>
+                                                            <outlet property="delegate" destination="fPi-hO-h0h" id="f9R-2N-t4f"/>
+                                                        </connections>
+                                                    </collectionView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="YaM-xs-f7r" secondAttribute="trailing" id="2C1-Z4-4Cr"/>
+                                                    <constraint firstAttribute="height" constant="110" id="3ZP-RR-urQ"/>
+                                                    <constraint firstAttribute="bottom" secondItem="YaM-xs-f7r" secondAttribute="bottom" id="ES9-cV-Vo1"/>
+                                                    <constraint firstItem="YaM-xs-f7r" firstAttribute="top" secondItem="B3s-P9-65E" secondAttribute="top" id="W4v-Sv-Rlw"/>
+                                                    <constraint firstItem="YaM-xs-f7r" firstAttribute="leading" secondItem="B3s-P9-65E" secondAttribute="leading" id="n1t-yr-sv0"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="750" id="86q-KO-k1n"/>
@@ -4799,14 +4880,22 @@ the beginning of every beautiful journey.</string>
                                             <constraint firstAttribute="trailing" secondItem="DU5-kb-2BZ" secondAttribute="trailing" id="IA8-5E-7pr"/>
                                             <constraint firstItem="kb4-gy-yRW" firstAttribute="top" secondItem="ZPM-Xp-P3g" secondAttribute="bottom" constant="35" id="Iua-3x-XOJ"/>
                                             <constraint firstItem="kb4-gy-yRW" firstAttribute="leading" secondItem="Exg-cb-DbN" secondAttribute="leading" constant="8" id="K6R-9c-4uz"/>
+                                            <constraint firstItem="B3s-P9-65E" firstAttribute="top" secondItem="ZPM-Xp-P3g" secondAttribute="bottom" constant="35" id="Pw8-Gs-Uki"/>
                                             <constraint firstItem="ZPM-Xp-P3g" firstAttribute="top" secondItem="GvJ-xK-LRd" secondAttribute="bottom" constant="25" id="WOZ-oU-LjF"/>
                                             <constraint firstItem="GvJ-xK-LRd" firstAttribute="top" secondItem="DU5-kb-2BZ" secondAttribute="bottom" constant="10" id="XDA-N3-Yrg"/>
                                             <constraint firstAttribute="trailing" secondItem="kb4-gy-yRW" secondAttribute="trailing" constant="8" id="b50-qZ-RGK"/>
                                             <constraint firstAttribute="trailing" secondItem="GvJ-xK-LRd" secondAttribute="trailing" constant="14" id="g3M-SJ-ATn"/>
                                             <constraint firstItem="ZPM-Xp-P3g" firstAttribute="leading" secondItem="Exg-cb-DbN" secondAttribute="leading" constant="24" id="k5Z-vI-MFd"/>
                                             <constraint firstItem="DU5-kb-2BZ" firstAttribute="top" secondItem="Exg-cb-DbN" secondAttribute="top" id="nxj-57-UUZ"/>
+                                            <constraint firstAttribute="trailing" secondItem="B3s-P9-65E" secondAttribute="trailing" constant="8" id="oYG-I9-bno"/>
                                             <constraint firstAttribute="trailing" secondItem="ZPM-Xp-P3g" secondAttribute="trailing" constant="26" id="u1H-Wh-5LY"/>
+                                            <constraint firstItem="B3s-P9-65E" firstAttribute="leading" secondItem="Exg-cb-DbN" secondAttribute="leading" constant="8" id="zQw-7l-IpM"/>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="subviews">
+                                                <exclude reference="kb4-gy-yRW"/>
+                                            </mask>
+                                        </variation>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -4817,7 +4906,7 @@ the beginning of every beautiful journey.</string>
                                     <constraint firstAttribute="trailing" secondItem="Exg-cb-DbN" secondAttribute="trailing" id="gAh-7S-FwO"/>
                                 </constraints>
                             </scrollView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BTC-Vg-IaD">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BTC-Vg-IaD">
                                 <rect key="frame" x="0.0" y="487" width="375" height="180"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -4906,6 +4995,11 @@ the beginning of every beautiful journey.</string>
                             <constraint firstItem="ZPM-Xp-P3g" firstAttribute="leading" secondItem="Qrs-iv-y1R" secondAttribute="leading" constant="24" id="wXx-1V-cyB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Qrs-iv-y1R"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="BTC-Vg-IaD"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="My Radar" id="76L-Cc-eeo">
                         <barButtonItem key="leftBarButtonItem" image="icons8-menu_filled" id="hkG-VQ-WxJ">
@@ -4919,13 +5013,11 @@ the beginning of every beautiful journey.</string>
                                 <rect key="frame" x="276" y="5.5" width="83" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="notification_bell" translatesAutoresizingMaskIntoConstraints="NO" id="TVl-MV-jgn">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="notification_bell" translatesAutoresizingMaskIntoConstraints="NO" id="TVl-MV-jgn">
                                         <rect key="frame" x="35" y="-4" width="40" height="40"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Keg-ne-Q62">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Keg-ne-Q62">
                                         <rect key="frame" x="60" y="-7" width="20" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="0.91118734140000002" green="0.0" blue="0.0084973191279999992" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4933,6 +5025,16 @@ the beginning of every beautiful journey.</string>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="TVl-MV-jgn" firstAttribute="leading" secondItem="WbL-PM-rOP" secondAttribute="leading" constant="35" id="118-LP-VFU"/>
+                                    <constraint firstItem="Keg-ne-Q62" firstAttribute="top" secondItem="WbL-PM-rOP" secondAttribute="top" constant="-7" id="3iq-EH-mq4"/>
+                                    <constraint firstAttribute="bottom" secondItem="Keg-ne-Q62" secondAttribute="bottom" constant="20" symbolic="YES" id="534-kH-rPU"/>
+                                    <constraint firstAttribute="trailing" secondItem="Keg-ne-Q62" secondAttribute="trailing" constant="3" id="IZi-w2-zyI"/>
+                                    <constraint firstItem="Keg-ne-Q62" firstAttribute="leading" secondItem="WbL-PM-rOP" secondAttribute="leading" constant="60" id="RqH-bT-7u8"/>
+                                    <constraint firstAttribute="trailing" secondItem="TVl-MV-jgn" secondAttribute="trailing" constant="8" id="ntA-BY-fXj"/>
+                                    <constraint firstItem="TVl-MV-jgn" firstAttribute="centerY" secondItem="WbL-PM-rOP" secondAttribute="centerY" id="qZe-Ko-RhT"/>
+                                    <constraint firstItem="TVl-MV-jgn" firstAttribute="top" secondItem="WbL-PM-rOP" secondAttribute="top" constant="-4" id="toJ-KG-RLo"/>
+                                </constraints>
                             </view>
                         </barButtonItem>
                     </navigationItem>
@@ -4950,6 +5052,7 @@ the beginning of every beautiful journey.</string>
                         <outlet property="completedTopicsLabel" destination="zLg-vT-3nE" id="NcJ-I0-LbM"/>
                         <outlet property="contentLabel1" destination="Ta8-Eh-KP3" id="Gxo-EB-PAS"/>
                         <outlet property="conversationLabel1" destination="xnH-9Y-e2A" id="xvh-tH-7vo"/>
+                        <outlet property="dashBoardButtonCollectionView" destination="YaM-xs-f7r" id="rdT-lP-Tma"/>
                         <outlet property="heightMyThought" destination="ISa-cL-Vbz" id="BC3-98-wdE"/>
                         <outlet property="heightmychat" destination="3G7-y8-bLX" id="D5m-hK-6Gz"/>
                         <outlet property="heightprogrss" destination="UPw-kb-PNS" id="KM1-vi-OtH"/>

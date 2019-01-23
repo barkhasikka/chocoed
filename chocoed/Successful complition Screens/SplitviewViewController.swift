@@ -12,7 +12,8 @@ import XMPPFramework
 import UserNotifications
 
 
-class SplitviewViewController: UIViewController , UNUserNotificationCenterDelegate {
+class SplitviewViewController: UIViewController , UNUserNotificationCenterDelegate,UICollectionViewDelegate,UICollectionViewDataSource {
+    
     @IBOutlet var lblChatCount: UILabel!
     @IBOutlet var badgeImage: UIImageView!
     @IBOutlet weak var textcoinsEarned: UILabel!
@@ -40,6 +41,7 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
     @IBOutlet var lblTagCount: UILabel!
     
     
+    @IBOutlet weak var dashBoardButtonCollectionView: UICollectionView!
     @IBOutlet var notificationimgae: UIImageView!
     @IBOutlet weak var viewChoice: UIView!
     @IBOutlet weak var viewvonversation: UIView!
@@ -135,8 +137,50 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         
     }
    */
+    var arrayDoc = ["Talk","Voice","Progress","Talk","Voice","Progress"]
+    var imagesArrayButton = [UIImage(named: "MyHand"),UIImage(named: "elections_small"),UIImage(named: "Icon-App-40x40-1"),UIImage(named: "MyHand"),UIImage(named: "elections_small"),UIImage(named: "Icon-App-40x40-1")]
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return arrayDoc.count
+    }
     
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "dashcell", for: indexPath) as! DashButtonCollectionViewCell
+        
+            cell.buttonTitle.text = arrayDoc[indexPath.row]
     
+            cell.buttonImage.setImage(imagesArrayButton[indexPath.row], for: .normal)
+        
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch(indexPath.row) {
+        case 0:
+            let v1 = self.storyboard?.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
+            self.present(v1, animated: true, completion: nil)
+        case 1:
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "poll") as? PollViewController
+            self.present(vc!, animated: true, completion: nil)
+            
+        case 2:
+            let v1 = self.storyboard?.instantiateViewController(withIdentifier: "leader") as! LeaderBoardViewController
+            self.present(v1, animated: true, completion: nil)
+
+        case 3:
+            let v1 = self.storyboard?.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
+            self.present(v1, animated: true, completion: nil)
+        case 4:
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "poll") as? PollViewController
+            self.present(vc!, animated: true, completion: nil)
+            
+        case 5:
+            let v1 = self.storyboard?.instantiateViewController(withIdentifier: "leader") as! LeaderBoardViewController
+            self.present(v1, animated: true, completion: nil)
+
+        default:
+            print("default case is selected")
+        }
+    }
     
     @IBAction func conversation_btn_clicked(_ sender: Any) {
 //        let v1 = self.storyboard?.instantiateViewController(withIdentifier: "FriendListVC") as! FriendListVC
