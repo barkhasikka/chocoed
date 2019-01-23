@@ -36,6 +36,10 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
     @IBOutlet var lblBadgesCount: UILabel!
     @IBOutlet var lblTopicCount: UILabel!
     @IBOutlet var lblnotificationCount: UILabel!
+    
+    @IBOutlet var lblTagCount: UILabel!
+    
+    
     @IBOutlet var notificationimgae: UIImageView!
     @IBOutlet weak var viewChoice: UIView!
     @IBOutlet weak var viewvonversation: UIView!
@@ -194,6 +198,9 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         
         self.lblChatCount.layer.cornerRadius = 10
         self.lblChatCount.clipsToBounds =  true
+        
+        self.lblTagCount.layer.cornerRadius = 10
+        self.lblTagCount.clipsToBounds =  true
         
        self.lblnotificationCount.layer.cornerRadius = 10
        self.lblnotificationCount.clipsToBounds =  true
@@ -406,15 +413,6 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         self.mychatButton.isHidden = false
         
  
-       let isnominated = UserDefaults.standard.bool(forKey: "isnominated") ?? false
-       
-        if isnominated == false {
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "nominee") as? NominationViewController
-            self.present(vc!, animated: true, completion: nil)
-        }else{
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "nomineeView") as? NomineeDetailsViewController
-                self.present(vc!, animated: true, completion: nil)
-        }
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "poll") as? PollViewController
         self.present(vc!, animated: true, completion: nil)
     }
@@ -574,6 +572,9 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
         self.sendLanguagesSelected()
         
         self.lblChatCount.isHidden = true
+        self.lblTagCount.isHidden = true
+        
+        
         self.timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true, block: { (timer) in
             self.getUnreadChatCount()
         })
@@ -652,7 +653,10 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
             self.badesEarned =  jsonobject?.object(forKey:"badesEarned") as? Int ?? 0
             let completedTestCout =  jsonobject?.object(forKey:"completedTestCout") as? Int ?? 0
             let completedTopicCout =  jsonobject?.object(forKey:"completedTopicCout") as? Int ?? 0
+            
+            let tagCount = jsonobject?.object(forKey: "tagUcount") as? Int ?? 0
 
+            
             
             DispatchQueue.main.async {
                 self.lblBadgesCount.text = String(self.badesEarned)
@@ -666,6 +670,13 @@ class SplitviewViewController: UIViewController , UNUserNotificationCenterDelega
                     self.lblnotificationCount.text = String(notificationCount)
                 }else{
                     self.lblnotificationCount.isHidden = true
+                }
+                
+                if tagCount != 0 {
+                    self.lblTagCount.isHidden = false
+                    self.lblTagCount.text = String(tagCount)
+                }else{
+                    self.lblTagCount.isHidden = true
                 }
                 
                 self.sendFcm()

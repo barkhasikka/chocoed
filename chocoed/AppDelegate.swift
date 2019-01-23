@@ -41,7 +41,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static var menu_bool = true
     
 
+    
+
     var openningNotification = false
+    
+    var notificationID = ""
     
     //AAAAgSFpxh8:APA91bGGeQMgz_qm9bi61kY3iPQchcn3ooeTCwToMdK6cycrreGlzqJ9mkXRSR75EC2QhCvJ8SpGFT9yPH0o4iNtKGfK10p2uacPLjJppz71rvln42yNf5cUMI3o-ELWibBTpHUvMV9N
 
@@ -98,8 +102,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func openVC(){
         
-       
-          
         let userID = UserDefaults.standard.integer(forKey: "userid")
         UserDefaults.standard.string(forKey: "currentlanguage")
         print(userID)
@@ -213,12 +215,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             DispatchQueue.main.async {
                 
-                self.openningNotification = false
+                if self.notificationID == "8"{
+                    
+                    self.openningNotification = false
+                    
+                    let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "PaymentVC") as! PaymentVC
+                    self.window!.rootViewController = startVC
+                    self.window!.makeKeyAndVisible()
+                    
+                }else{
+                    
+                    
+                    self.openningNotification = false
+                    
+                    let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "poll") as! PollViewController
+                    self.window!.rootViewController = startVC
+                    self.window!.makeKeyAndVisible()
+                    
+                    
+                }
                 
-                let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "PaymentVC") as! PaymentVC
-                self.window!.rootViewController = startVC
-                self.window!.makeKeyAndVisible()
+                
             }
             
               } else
@@ -341,21 +360,11 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
                 
                 if type == "8" {
                     self.openningNotification = true
-                   /* let userID = UserDefaults.standard.integer(forKey: "userid")
-                    print(userID)
-                    if userID != 0 {
-                        
-                        self.window = UIWindow(frame: UIScreen.main.bounds)
-                        let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                        let v1 = mainStoryBoard.instantiateViewController(withIdentifier: "PaymentVC") as! PaymentVC
-                        self.window!.rootViewController = v1
-                        self.window!.makeKeyAndVisible()
-
-                    } */
-                    
-                    
-                    
-                }else{
+                    self.notificationID = type
+                }else if type == "9"{
+                    self.openningNotification = true
+                    self.notificationID = type
+                }else {
                     
                     completionHandler()
 

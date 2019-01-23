@@ -11,6 +11,7 @@ import UIKit
 class TopicsStatusViewController: UIViewController,UITableViewDelegate,UITableViewDataSource{
     
     @IBOutlet weak var tableviewTopics: UITableView!
+    
     var arrayCourseSubTopicList = [TopicList]()
     var activityUIView: ActivityIndicatorUIView!
     var topicid = ""
@@ -21,16 +22,19 @@ class TopicsStatusViewController: UIViewController,UITableViewDelegate,UITableVi
     var navTitle = ""
     
     @IBAction func back_btn_clicked(_ sender: Any) {
-        
         self.dismiss(animated: true, completion: nil)
-
-        
     }
     
 
     @IBOutlet var lblTitle: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.topicid = choiceTopiceID
+        self.courseid = choiceCourseID
+        self.calanderid = choiceCalID
+        self.navTitle = choiceTitle
+        
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)

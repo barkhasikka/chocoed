@@ -104,7 +104,7 @@
 "MyRadarKey" = "My Radar";
 "MyPlanKey" = "My Plan";
 "PendingAssementKey" = "Pending Assessment";
-"ExamReviewkey" = "Exam Review";
+"ExamReviewkey" = "Result";
 "AwesomeToKnowMsgKey" = "Awesome! To know oneself is the beginning of every beautiful journey.";
 "LetsGetChocoedButtonKey" = "Let’s get Chocoed";
 "EndTestKey" = "END";
@@ -219,12 +219,20 @@
 "MyVoiceKey" = "My Voice";
 "MyCoreEvaluationKey" = "My Core Evaluation";
 "tagUKey" = "tagU";
-"NominateKey" = "Nominate";
+"NominateKey" = "Change A Life";
 "MyProfileKey" = "My Profile";
 "UpgradeChocoedKey" = "Upgrade Chocoed";
 "ApplicationLanguageKey" = "Application Language";
 "LearningLanguageKey" = "Learning Language";
-"nominatethankKey" = " Thank you for your nomination. Our team will verify the details provided by you and update same if your nomination accepted";
+"nominatethankKey" = " Thank you for your nomination. Our team will verify the details provided by you and update if your nomination is accepted";
+"MyprogressKeyMenu" = "My Progress";
+"EmpowerOthersKey" = "Empower Others";
+"MyDailyKey" = "My Daily Skilling";
+"nomiationApprovedMsgkey" = "Our team is reviewing your nomination, we will notify you if your nomination is accepted";
+"userLoggedFirst" = "Your nomination is approved, we are waiting for ";
+"userLoggedSecond" = " to download and start the chocoed journey.";
+
+
 
 
 

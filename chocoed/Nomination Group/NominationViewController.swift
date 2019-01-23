@@ -9,12 +9,16 @@
 import UIKit
 import DropDown
 
+protocol AddContactProtocol {
+    func setUserData()
+}
+
 class NominationViewController: UIViewController,UITextFieldDelegate {
     
     
-    @IBOutlet var insertView: UIView!
     
-
+    @IBOutlet var lblTitle: UILabel!
+    @IBOutlet var insertView: UIView!
     @IBOutlet weak var mobileNo: UITextField!
     @IBOutlet weak var mobNoLabel: UILabel!
     @IBOutlet weak var ageText: UITextField!
@@ -40,6 +44,11 @@ class NominationViewController: UIViewController,UITextFieldDelegate {
     var activityUIView: ActivityIndicatorUIView!
     
     let datePicker = UIDatePicker()
+    
+    var delegate:AddContactProtocol?
+    
+    var from : String = ""
+
 
 
     override func viewDidLoad() {
@@ -110,20 +119,34 @@ class NominationViewController: UIViewController,UITextFieldDelegate {
         
         self.createDatePicker()
         
-       /* let ownNominationAllowed = UserDefaults.standard.bool(forKey: "ownNominationAllowed") ?? false
+       
         
-        if ownNominationAllowed == false {
+        
+        if from == "sponsership" {
             
-            self.insertView.isHidden = true
-            self.NominateButton.isHidden = true
             self.OrLabel.isHidden = true
-            
+            self.selectPollButton.isHidden = true
+            self.lblTitle.text = "Add"
+            self.labelHeaderOutlet.text = ""
+            self.NominateButton.setTitle("Add", for: .normal)
         }else{
             
-            self.insertView.isHidden = false
-            self.NominateButton.isHidden = false
-            self.OrLabel.isHidden = false
-        } */
+            let ownNominationAllowed = UserDefaults.standard.bool(forKey: "ownNominationAllowed") ?? false
+            
+            if ownNominationAllowed == false {
+                
+                self.insertView.isHidden = true
+                self.NominateButton.isHidden = true
+                self.OrLabel.isHidden = true
+                
+            }else{
+                
+                self.insertView.isHidden = false
+                self.NominateButton.isHidden = false
+                self.OrLabel.isHidden = false
+            }
+            
+        }
         
     }
     
@@ -197,12 +220,17 @@ class NominationViewController: UIViewController,UITextFieldDelegate {
     
     
     @IBAction func backButton(_ sender: Any) {
+        
+         if from == "sponsership" {
+            dismiss(animated: true, completion: nil)
+         }else{
     
         let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let startVC = mainStoryBoard.instantiateViewController(withIdentifier: "split") as! SplitviewViewController
         let aObjNavi = UINavigationController(rootViewController: startVC)
         aObjNavi.navigationBar.barTintColor = UIColor.blue
         self.present(aObjNavi, animated: true, completion: nil)
+        }
     }
     
     @IBAction func nominateButtonAction(_ sender: Any) {
@@ -248,39 +276,67 @@ class NominationViewController: UIViewController,UITextFieldDelegate {
         if firstname.count == 0
         {
             self.showALert()
+            return
         }
         
         if lastName.count == 0
         {
             self.showALert()
-        }
-        
-        if age.count == 0
-        {
-            self.showALert()
+            return
         }
         
         if mobileno.count == 0
         {
-            self.showALert()
-        }
-        
-        if govtId.count == 0
-        {
-            self.showALert()
-        }
-        
-        if self.ngoDataFetch.occupation.count == 0{
             
             self.showALert()
+            return
+        }
+        
+        
+        if from != "sponsership" {
+            
+            
+            if age.count == 0
+            {
+                self.showALert()
+                return
+            }
+            
+            
+            if govtId.count == 0
+            {
+                self.showALert()
+                return
+            }
+            
+            if self.ngoDataFetch.occupation.count == 0{
+                
+                self.showALert()
+                return
+                
+            }
+            
+            if self.ngoDataFetch.langLearning.count == 0{
+                
+                self.showALert()
+                return
+                
+            }
+            
+        }
+        
+       
+        
+        if from == "sponsership" {
 
-        }
-        
-        if self.ngoDataFetch.langLearning.count == 0{
+            UserList = NgoUserDetails(birthDate:age,ngoId:"0",firstName:firstname,lastName:lastName,mobileNumber:mobileno,govtId:govtId,userID:"0",age:age,occupation:self.ngoDataFetch.occupation,learningLanguage:self.ngoDataFetch.langLearning,profileImageUrl:"")
             
-            self.showALert()
+            GlobalUsersList.append(UserList)
             
-        }
+            delegate?.setUserData()
+            dismiss(animated: true, completion: nil)
+            
+        }else{
         
         
         let params = [ "access_token":"\(accessToken)", "userId": "\(userID)","clientId":"\(clientID)", "firstName": "\(firstname)", "lastName": "\(lastName)", "birthDate": "\(age)", "govId" : "\(govtId)", "occupation": "\(self.ngoDataFetch.occupation)", "learningLanguage" : "\(self.ngoDataFetch.langLearning)", "mobileNumber" : "\(mobileno)", "ngoId": "0","nominationUserId":"0"] as Dictionary<String, String>
@@ -331,7 +387,9 @@ class NominationViewController: UIViewController,UITextFieldDelegate {
 
                 }
             })
+            
         }
+    }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)

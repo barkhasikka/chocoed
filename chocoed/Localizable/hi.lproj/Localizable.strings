@@ -102,7 +102,7 @@
 "MyRadarKey" = "मेरा राडार";
 "MyPlanKey" = "मेरी योजना";
 "PendingAssessmentKey" = "लंबित मूल्यांकन";
-"ExamReviewkey" = "परीक्षा समीक्षण";
+"ExamReviewkey" = "परिणाम";
 "AwesomeToKnowMsgKey" = "बहुत बढ़िया! खुद को जानना हर खूबसूरत यात्रा की शुरुआत है।";
 "LetsGetChocoedButtonKey" = "चलिए चोकॉएड हो जाएं";
 "EndTestKey" = "समाप्त";
@@ -218,12 +218,20 @@
 "MyVoiceKey" = "मेरी आवाज";
 "MyCoreEvaluationKey" = "My Core Evaluation";
 "tagUKey" = "tagU";
-"NominateKey" = "Nominate";
+"NominateKey" = "Change A Life";
 "MyProfileKey" = "मेरी प्रोफाइल";
 "UpgradeChocoedKey" = "अपग्रेड चोकोड";
 "ApplicationLanguageKey" = "एप्लिकेशन भाषा";
 "LearningLanguageKey" = "Learning Language";
-"nominatethankKey" = " Thank you for your nomination. Our team will verify the details provided by you and update same if your nomination accepted";
+"nominatethankKey" = " Thank you for your nomination. Our team will verify the details provided by you and update if your nomination accepted";
+"MyprogressKeyMenu" = " मेरा विकास";
+"EmpowerOthersKey" = "Empower Others";
+"MyDailyKey" = "My Daily Skilling";
+"nomiationApprovedMsgkey" = ", Our team is reviewing your nomination, We will notify you if your nomination is accepted";
+"userLoggedFirst" = "Your nomination is approved, we are waiting for ";
+"userLoggedSecond" = " to download and start the chocoed journey.";
+
+
 
 
 

@@ -10,6 +10,12 @@ import UIKit
 
 class StickyNoteViewController: UIViewController,UITextViewDelegate,UITextFieldDelegate{
 
+    @IBOutlet var btnSave: UIButton!
+    
+    
+    @IBOutlet var lblTitle: UILabel!
+    
+    
     @IBOutlet weak var noteTitle: UITextField!
     @IBOutlet weak var noteTextview: UITextView!
     @IBOutlet weak var pinkColour: UIButton!
@@ -45,7 +51,7 @@ class StickyNoteViewController: UIViewController,UITextViewDelegate,UITextFieldD
 //        self.addDoneButtonOnKeyboard()
         
         noteTitle.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-
+        
         
         
         if type == "edit" {
@@ -60,6 +66,12 @@ class StickyNoteViewController: UIViewController,UITextViewDelegate,UITextFieldD
             print(noteId)
             print(color)
             
+        }else if type == "chat" {
+            
+            self.lblTitle.text = "tagU"
+            btnSave.isHidden = true
+            colourView.isHidden = true
+            self.getTagDetails()
         }
 }
     
@@ -105,7 +117,11 @@ class StickyNoteViewController: UIViewController,UITextViewDelegate,UITextFieldD
         return true
     }
     func textViewDidBeginEditing(_ textView: UITextView) {
-        noteTextview.text = " "
+        
+        if noteTextview.text == "Note"{
+            noteTextview.text = ""
+        }
+        
         colourView.bindToKeyboard()
     }
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -169,16 +185,30 @@ class StickyNoteViewController: UIViewController,UITextViewDelegate,UITextFieldD
     
 
     @IBAction func backButton(_ sender: Any) {
-     let vc = storyboard?.instantiateViewController(withIdentifier: "taguList") as? MyTagUlistViewController
-        self.present(vc!, animated: true, completion: nil)
+        
+        if type == "chat"{
+            
+            dismiss(animated: true, completion: nil)
+            
+        }else{
+            
+            let vc = storyboard?.instantiateViewController(withIdentifier: "taguList") as? MyTagUlistViewController
+            self.present(vc!, animated: true, completion: nil)
+            
+        }
+        
+    
         
     }
     
     func addEditStickyNotefunc(){
+        
+        self.activityUIView.isHidden = false
+        self.activityUIView.startAnimation()
+        
         let userID = UserDefaults.standard.integer(forKey: "userid")
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
-        let hex = noteTextview.backgroundColor?.toHexString
-        print(hex)
+        let hex = mainView.backgroundColor?.toHexString
         
         let params = [ "access_token":"\(accessToken)", "userId": "\(userID)","clientId":"\(clientID)", "color": "#\(hex ?? "000000")", "notes": "\(noteTextview.text!)", "title": "\(noteTitle.text ?? "")", "stickyNoteId" : self.noteId] as Dictionary<String, String>
         
@@ -193,9 +223,11 @@ class StickyNoteViewController: UIViewController,UITextViewDelegate,UITextFieldD
                 
                 self.activityUIView.isHidden = true
                 self.activityUIView.stopAnimation()
+                
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "taguList") as? MyTagUlistViewController
+                self.present(vc!, animated: true, completion: nil)
             }
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "taguList") as? MyTagUlistViewController
-            self.present(vc!, animated: true, completion: nil)
+            
             
         }, errorHandler: {(message) -> Void in
             let alert = GetAlertWithOKAction(message: message)
@@ -206,6 +238,51 @@ class StickyNoteViewController: UIViewController,UITextViewDelegate,UITextFieldD
             }
         })
 
+    }
+    
+    
+    func getTagDetails(){
+        
+        self.activityUIView.isHidden = false
+        self.activityUIView.startAnimation()
+        
+        let userID = UserDefaults.standard.integer(forKey: "userid")
+        let clientID = UserDefaults.standard.integer(forKey: "clientid")
+        
+        let params = [ "access_token":"\(accessToken)", "userId": "\(userID)","clientId":"\(clientID)","stickyNoteId" : self.noteId] as Dictionary<String, String>
+        
+        print(params)
+        
+        activityUIView.isHidden = false
+        activityUIView.startAnimation()
+        MakeHttpPostRequest(url: getTaguDetail , params: params, completion: {(success, response) -> Void in
+            print(response)
+            
+            DispatchQueue.main.async {
+                self.activityUIView.isHidden = true
+                self.activityUIView.stopAnimation()
+                
+                let title = response.object(forKey: "title") as? String ?? ""
+                let note = response.object(forKey: "notes") as? String ?? ""
+                let color = response.object(forKey: "color") as? String ?? ""
+
+                self.noteTitle.text = title
+                self.noteTextview.text = note
+                self.mainView.backgroundColor = self.hexStringToUIColor(hex: color)
+                self.noteTextview.backgroundColor = self.hexStringToUIColor(hex: color)
+
+            }
+            
+            
+        }, errorHandler: {(message) -> Void in
+            let alert = GetAlertWithOKAction(message: message)
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+                self.activityUIView.isHidden = true
+                self.activityUIView.stopAnimation()
+            }
+        })
+        
     }
     
     

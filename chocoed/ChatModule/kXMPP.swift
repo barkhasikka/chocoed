@@ -10,6 +10,7 @@ import Foundation
 
 public struct kXMPP {
     
+
 	public static let myJID: String = "myJID"
 	public static let myPassword: String = "myPass"
     public static let DESTRUCT_TIME : String = "2"
@@ -18,6 +19,7 @@ public struct kXMPP {
     public static let msgSeen: String = "2"
     public static let msgFail: String = "3"
     public static let TYPE_TEXT: String = "text"
+    public static let TYPE_TAGU: String = "tag_u"
     public static let TYPE_IMAGE: String = "image"
     public static let TYPE_PDF: String = "pdf"
     public static let TYPE_REPLY: String = "reply"
@@ -40,4 +42,5 @@ public struct kXMPP {
      public static let deleteNotification : String  = "http://13.232.161.176/index.php/Api_openfire/delete_file_notification"
     public static let notificationCount : String  = "http://13.232.161.176/index.php/Api_openfire/notification_count"
 
+    
 }

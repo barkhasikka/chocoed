@@ -419,7 +419,7 @@ class PhotoNotificationVC: UIViewController , UITableViewDelegate , UITableViewD
             
            // let msgId = self.getCurrentTime()
             
-            let body = CustomMessageModel(msgId: item.msg_id, msgType: kXMPP.TYPE_PER_GRANT, message: "", fileUrl: "", destructiveTime: "",fileType:"",filePermission:"0")
+            let body = CustomMessageModel(msgId: item.msg_id, msgType: kXMPP.TYPE_PER_GRANT, message: "", fileUrl: "", destructiveTime: "",fileType:"",filePermission:"0",tagUId:"")
             
             let jsonData = try JSONEncoder().encode(body)
             let msg = String(data: jsonData, encoding: .utf8)

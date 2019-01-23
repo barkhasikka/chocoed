@@ -8,9 +8,15 @@
 
 import UIKit
 
+
+
 class UsersOfNGOViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     var ngoId : String = ""
+
+    var from : String = ""
+    
+
 
     
     var arrayUsersList = [getNgoUserDetails]()
@@ -22,13 +28,20 @@ class UsersOfNGOViewController: UIViewController,UITableViewDelegate,UITableView
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
         self.view.addSubview(activityUIView)
         activityUIView.isHidden = true
+        
+        
         loadNgoUserList()
         // Do any additional setup after loading the view.
     }
 
     @IBAction func backButton(_ sender: Any) {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ngoNominee") as? NominationOfNGOViewController
-        self.present(vc!, animated: true, completion: nil)
+        
+        if from == "" {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ngoNominee") as? NominationOfNGOViewController
+            self.present(vc!, animated: true, completion: nil)
+        }else{
+            dismiss(animated: true, completion: nil)
+        }
         
     }
     override func didReceiveMemoryWarning() {
@@ -46,23 +59,21 @@ class UsersOfNGOViewController: UIViewController,UITableViewDelegate,UITableView
         cell.mobileLabel.text = arrayUsersList[indexPath.row].occupation
         cell.nameLabel.text = "\(arrayUsersList[indexPath.row].firstName) \(arrayUsersList[indexPath.row].lastName)"
         let fileUrl = URL(string: arrayUsersList[indexPath.row].profileImageUrl)
-        if arrayUsersList[indexPath.row].profileImageUrl != "" {
-            if let data = try? Data(contentsOf: fileUrl!) {
-                if let image = UIImage(data: data) {
-                    cell.imageName.contentMode = .scaleAspectFit
-                    cell.imageName.image = image
-                }
-            }
-        }
+        cell.imageName.sd_setImage(with: fileUrl)
         return cell
 
     }
     
     func loadNgoUserList(){
+        
+        
+        self.activityUIView.isHidden = false
+        self.activityUIView.startAnimation()
+        
         let userID = UserDefaults.standard.integer(forKey: "userid")
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         print(userID, "USER ID IS HERE")
-        //let params = ["userId": "\(userID)",  "access_token":"\(accessToken)"] as Dictionary<String, String>
+     
         let params = ["userId": "\(userID)","clientId": "\(clientID)",  "access_token":"\(accessToken)","ngoId": "\(self.ngoId)" ] as Dictionary<String, String>
         
         print(params)
@@ -77,9 +88,11 @@ class UsersOfNGOViewController: UIViewController,UITableViewDelegate,UITableView
                 self.arrayUsersList.append(getNgoUserDetails( NgoUser as! NSDictionary))
             }
             DispatchQueue.main.async {
+                self.activityUIView.isHidden = true
+                self.activityUIView.stopAnimation()
+                
                 self.tableViewNgoUser.reloadData()
-//                self.activityUIView.isHidden = true
-//                self.activityUIView.stopAnimation()
+
             }
             
             
@@ -87,8 +100,8 @@ class UsersOfNGOViewController: UIViewController,UITableViewDelegate,UITableView
             let alert = GetAlertWithOKAction(message: message)
             DispatchQueue.main.async {
                 self.present(alert, animated: true, completion: nil)
-//                self.activityUIView.isHidden = true
-//                self.activityUIView.stopAnimation()
+                self.activityUIView.isHidden = true
+                self.activityUIView.stopAnimation()
                 
             }
         })
@@ -100,7 +113,36 @@ class UsersOfNGOViewController: UIViewController,UITableViewDelegate,UITableView
         self.present(vc!, animated: true, completion: nil)
       */
         
-        self.NominateUser(item: self.arrayUsersList[indexPath.row])
+        if from == "" {
+            
+            self.NominateUser(item: self.arrayUsersList[indexPath.row])
+
+            
+        }else{
+            
+            //arrayUsersList.append(NgoUserDetails())
+            let item = self.arrayUsersList[indexPath.row]
+            let firstname = item.firstName
+            let lastName = item.lastName
+            let age = item.age
+            let mobileno = item.mobileNumber
+            let govtId = item.govtId
+            let occupation = item.occupation
+            let lang = item.learningLanguage
+            let imag = item.profileImageUrl
+            let id = item.userID
+            
+            
+          
+        UserList = NgoUserDetails(birthDate:age,ngoId:self.ngoId,firstName:firstname,lastName:lastName,mobileNumber:mobileno,govtId:govtId,userID:id,age:age,occupation:occupation,learningLanguage:lang,profileImageUrl:imag)
+            
+            GlobalUsersList.append(UserList)
+            
+            let v1 = self.storyboard?.instantiateViewController(withIdentifier: "empower") as! EmpowerViewController
+            self.present(v1, animated: true, completion: nil)
+            
+        }
+        
         
     }
     
@@ -123,44 +165,7 @@ class UsersOfNGOViewController: UIViewController,UITableViewDelegate,UITableView
         let age = item.age
         let mobileno = item.mobileNumber
         let govtId = item.govtId
-        
-      /*  if firstname.count == 0
-        {
-            self.showALert()
-        }
-        
-        if lastName.count == 0
-        {
-            self.showALert()
-        }
-        
-        if age.count == 0
-        {
-            self.showALert()
-        }
-        
-        if mobileno.count == 0
-        {
-            self.showALert()
-        }
-        
-        if govtId.count == 0
-        {
-            self.showALert()
-        }
-        
-        if item.occupation.count == 0{
-            
-            self.showALert()
-            
-        }
-        
-        if item.learningLanguage.count == 0{
-            
-            self.showALert()
-            
-        } */
-        
+      
         
         let params = [ "access_token":"\(accessToken)", "userId": "\(userID)","clientId":"\(clientID)", "firstName": "\(firstname)", "lastName": "\(lastName)", "age": "\(age)", "govId" : "\(govtId)", "occupation": "\(item.occupation)", "learningLanguage" : "\(item.learningLanguage)", "mobileNumber" : "\(mobileno)", "ngoId": item.ngoId,"nominationUserId":item.userID] as Dictionary<String, String>
         

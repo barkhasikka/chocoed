@@ -141,6 +141,10 @@ class PollViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             // lock
             cell.imageStatus.image = UIImage(named: "podium")
             
+        }else if arrayOfPoll[indexPath.row].status == "2" {
+            // lock
+            cell.imageStatus.image = UIImage(named: "votepmissed")
+            
         }else  if arrayOfPoll[indexPath.row].Voted == 1 {
             
             cell.imageStatus.image = UIImage(named: "voted_green")

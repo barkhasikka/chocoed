@@ -38,11 +38,6 @@ class WevViewVC: UIViewController {
             self.dismiss(animated: true, completion: nil)
 
             
-        }else if self.fromType == "menu"{
-            
-            self.dismiss(animated: true, completion: nil)
-            
-            
         }else{
             
             let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "ContentVC") as! ContentVC
@@ -52,8 +47,19 @@ class WevViewVC: UIViewController {
             
         }else{
             
-            let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "newscreen") as! ExamComplitionScreenViewController
-            self.present(vcNewSectionStarted, animated: true, completion: nil)
+            if self.fromType == "menu"{
+                
+                self.dismiss(animated: true, completion: nil)
+                
+                
+            }else{
+                
+                let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "newscreen") as! ExamComplitionScreenViewController
+                self.present(vcNewSectionStarted, animated: true, completion: nil)
+                
+            }
+            
+            
                 
         }
     }

@@ -67,9 +67,11 @@ class MyChoiceSkillsViewController: UIViewController,UICollectionViewDelegate,UI
             for (index, courses) in list.enumerated() {
                 self.arrayCourseList.append(CourseList(courses as! NSDictionary))
             }
+           
+            let bpp = ["calenderId" : "0", "courseId" : "-1", "courseImageUrl" : "CoreSkills", "courseName" : "My Core Evaluation" ,"startdate":"0","enddate":"0"] as [String : Any]
+            self.arrayCourseList.append(CourseList(bpp as NSDictionary))
             
-           /* var something = ["calenderId" : "0", "courseId" : "-1", "courseImageUrl" : "sales_skills", "courseName" : "Sales Skills"] as [String : Any]
-            self.arrayCourseList.append(CourseList(something as NSDictionary))
+           /*
             
             something = ["calenderId" : "0","courseId" : "-1","courseImageUrl" : "customer_skills","courseName" : "Customer Skills"] as [String : Any]
             self.arrayCourseList.append(CourseList(something as NSDictionary))
@@ -122,7 +124,11 @@ class MyChoiceSkillsViewController: UIViewController,UICollectionViewDelegate,UI
         
         cell.name.text = self.arrayCourseList[indexPath.row].courseName
         if self.arrayCourseList[indexPath.row].courseId == "-1" {
+            
+            
             cell.imageview.image = UIImage(named: self.arrayCourseList[indexPath.row].courseImageUrl)
+            cell.imageview.contentMode = .scaleAspectFit
+
             
         }else {
             let fileUrl = URL(string: arrayCourseList[indexPath.row].courseImageUrl)
@@ -148,6 +154,17 @@ class MyChoiceSkillsViewController: UIViewController,UICollectionViewDelegate,UI
         return CGSize(width: collectionViewSize/2, height: collectionViewSize/2)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if self.arrayCourseList[indexPath.row].courseId == "-1" {
+            
+            let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "WevViewVC") as! WevViewVC
+            vcNewSectionStarted.currentExamID = -10
+            vcNewSectionStarted.calenderId = "1"
+            vcNewSectionStarted.fromType = "menu"
+            self.present(vcNewSectionStarted, animated: true, completion: nil)
+            
+            
+        }else{
         
         let startdate = self.getDateFromString(date: self.arrayCourseList[indexPath.row].startdate)
         
@@ -194,6 +211,8 @@ class MyChoiceSkillsViewController: UIViewController,UICollectionViewDelegate,UI
         }
         
     }
+        
+}
     
     @IBAction func back_btn_clicked(_ sender: Any) {
         

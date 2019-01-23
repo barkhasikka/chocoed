@@ -124,12 +124,16 @@ class personalityUpgradeViewController: UIViewController,UITableViewDelegate,UIT
     
         
         
-        let vcnextDetails = self.storyboard?.instantiateViewController(withIdentifier: "topicstatus") as? TopicsStatusViewController
-        vcnextDetails?.topicid = arrayCourseTopicList[indexPath.row].topicId
-        vcnextDetails?.courseid = self.temp
-        vcnextDetails?.calanderid = self.temp1
-        vcnextDetails?.navTitle = arrayCourseTopicList [indexPath.row].topicName
+        let vcnextDetails = self.storyboard?.instantiateViewController(withIdentifier: "TabVC") as? TabVC
+        
+        choiceTopiceID = arrayCourseTopicList[indexPath.row].topicId
+        choiceCourseID = self.temp
+        choiceCalID = self.temp1
+        choiceTitle = arrayCourseTopicList [indexPath.row].topicName
+       
         self.present(vcnextDetails!, animated: true, completion: nil)
+        
+        
     }
     
 

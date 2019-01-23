@@ -280,13 +280,30 @@ struct CourseSubTopicList{
     }
     
 }
-struct UserDetails{
+struct UserDetails {
+    
     var email : String
     var firstName : String
     var lastname : String
     var imageurl : String
     var mobile : String
 //    var isNominee : Int
+    
+}
+
+struct NgoUserDetails {
+    
+    var birthDate : String
+    var ngoId : String
+    var firstName : String
+    var lastName : String
+    var mobileNumber : String
+    var govtId : String
+    var userID : String
+    var age : String
+    var occupation : String
+    var learningLanguage : String
+    var profileImageUrl : String
     
 }
 
@@ -318,6 +335,53 @@ struct KnowledgeList {
     }
 }
 
+
+struct TopicListExam{
+    
+    var calenderId : String
+    var calenderName : String
+    var examId : String
+    var examName : String
+    var examStatus : String
+    var subTopicName : String
+    var topicId : String
+    var topicName : String
+    // var topicLayouts : NSArray
+    var topicStatus : String
+    var topicVideoUrl : String
+    var videoViewCount : Int
+    var videoViewLimit : Int
+    var isBlock : Bool
+    
+    var primaryLayouts : NSArray
+    var secondaryLayouts : NSArray
+    
+    
+    
+    init(_ dictionary : NSDictionary) {
+        
+        self.calenderId = dictionary["calenderId"] as? String ?? ""
+        self.calenderName = dictionary["calenderName"] as? String ?? ""
+        self.examId = dictionary["examId"] as? String ?? ""
+        self.examName = dictionary["examName"] as? String ?? ""
+        self.examStatus = dictionary["examStatus"] as? String ?? ""
+        self.subTopicName = dictionary["subTopicName"] as? String ?? ""
+        self.topicId = dictionary["topicId"] as? String ?? ""
+        self.topicName = dictionary["topicName"] as? String ?? ""
+        self.topicStatus = dictionary["topicStatus"] as? String ?? ""
+        self.topicVideoUrl = dictionary["topicVideoUrl"] as? String ?? ""
+        self.videoViewCount = dictionary["videoViewCount"] as? Int ?? -1
+        self.videoViewLimit = dictionary["videoViewLimit"] as? Int ?? -1
+        
+        //self.topicLayouts = dictionary["topicLayouts"] as? NSArray ?? []
+        
+        self.primaryLayouts = dictionary["primaryLayouts"] as? NSArray ?? []
+        self.secondaryLayouts = dictionary["secondaryLayouts"] as? NSArray ?? []
+        
+        self.isBlock = false
+    }
+    
+}
 
 struct TopicList{
     
@@ -560,6 +624,8 @@ struct getNgoUserDetails {
 
     }
 }
+
+
 
 struct getNotificationListStruct{
     var aboutNotification : String

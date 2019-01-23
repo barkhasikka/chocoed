@@ -10,6 +10,10 @@ import UIKit
 
 class NomineeDetailsViewController: UIViewController {
 
+    
+    @IBOutlet var lblMsg: UILabel!
+    
+    
     @IBOutlet weak var nomineeLearningLang: UILabel!
     @IBOutlet weak var nomineeOccupation: UILabel!
     @IBOutlet weak var nomineeGovtid: UILabel!
@@ -32,11 +36,7 @@ class NomineeDetailsViewController: UIViewController {
         backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
         self.view.insertSubview(backgroundImage, at: 0)
         
-        imgeProfile.image = UIImage(named: "Man1_1")
-        imgeProfile.layer.cornerRadius = 42
-        imgeProfile.layer.borderWidth = 2
-        imgeProfile.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-        imgeProfile.clipsToBounds = true
+      
         
         
         LoadNomineeDetails()
@@ -81,6 +81,11 @@ class NomineeDetailsViewController: UIViewController {
             let occupation = response.object(forKey: "occupation") as? String ?? ""
             let lang = response.object(forKey: "learningLanguage") as? String ?? ""
             
+            let isUserVerified = response.object(forKey: "isUserVerified") as? Bool ?? false
+            let profileImageUrl = response.object(forKey: "profileImageUrl") as? String ?? ""
+            let isUserLogged = response.object(forKey: "isLoggedIn") as? Bool ?? false
+            
+        
             self.completedTestNo.text = String(test)
             self.TopicsCompletedNo.text = String(topic)
             self.nomineeName.text = firstname + " " + lastname
@@ -90,10 +95,51 @@ class NomineeDetailsViewController: UIViewController {
             self.nomineeOccupation.text = occupation
             self.nomineeLearningLang.text = lang
             
-
-
-
-
+            let fileUrl = URL(string: profileImageUrl)
+            self.imgeProfile.sd_setImage(with: fileUrl, completed: nil)
+            self.imgeProfile.layer.cornerRadius = 42
+            self.imgeProfile.layer.borderWidth = 2
+            self.imgeProfile.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+            self.imgeProfile.clipsToBounds = true
+            
+            if isUserVerified == true {
+                
+                if isUserLogged == false {
+                    
+                    
+                    let language = UserDefaults.standard.string(forKey: "currentlanguage")
+                    
+                    self.lblMsg.text = "\("alertDear".localizableString(loc: language!)) \(USERDETAILS.firstName), \("userLoggedFirst".localizableString(loc: language!)) \(self.nomineeName.text!) \("userLoggedSecond".localizableString(loc: language!))"
+                    
+                    let alertView = UIAlertController(title: "AlertKey".localizableString(loc: language!), message: "\("alertDear".localizableString(loc: language!)) \(USERDETAILS.firstName), \("userLoggedFirst".localizableString(loc: language!)) \(self.nomineeName.text!) \("userLoggedSecond".localizableString(loc: language!))", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "Ok", style: .default, handler: { (alert) in
+                    })
+                    alertView.addAction(action)
+                    self.present(alertView, animated: true, completion: nil)
+                    
+                    
+                    
+                }else{
+                    
+                    
+                }
+                
+                
+            }else{
+                
+                let language = UserDefaults.standard.string(forKey: "currentlanguage")
+                self.lblMsg.text = "\("alertDear".localizableString(loc: language!)) \(USERDETAILS.firstName), \("nomiationApprovedMsgkey".localizableString(loc: language!))"
+                
+                let alertView = UIAlertController(title: "AlertKey".localizableString(loc: language!), message: "\("alertDear".localizableString(loc: language!)) \(USERDETAILS.firstName), \("nomiationApprovedMsgkey".localizableString(loc: language!))", preferredStyle: .alert)
+                let action = UIAlertAction(title: "Ok", style: .default, handler: { (alert) in
+                })
+                alertView.addAction(action)
+                self.present(alertView, animated: true, completion: nil)
+                
+            }
+            
+            
+             
             }
 
             

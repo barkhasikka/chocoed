@@ -40,10 +40,11 @@
         <attribute name="seen_time" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sent_time" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tagid" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="to_id" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="Friends" positionX="-63" positionY="-18" width="128" height="270"/>
-        <element name="Msg" positionX="-63" positionY="90" width="128" height="390"/>
+        <element name="Msg" positionX="-63" positionY="90" width="128" height="405"/>
     </elements>
 </model>

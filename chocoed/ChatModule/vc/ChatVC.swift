@@ -14,7 +14,7 @@ import SDWebImage
 import YPImagePicker
 
 
-class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,UIImagePickerControllerDelegate,UINavigationControllerDelegate , UIDocumentPickerDelegate , UITextFieldDelegate, XMPPLastActivityDelegate  , OneMessageDelegate , UIDocumentInteractionControllerDelegate {
+class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,UIImagePickerControllerDelegate,UINavigationControllerDelegate , UIDocumentPickerDelegate , UITextFieldDelegate, XMPPLastActivityDelegate  , OneMessageDelegate , UIDocumentInteractionControllerDelegate , TagProtocol {
     
     private let cellID = "cellID"
     
@@ -44,6 +44,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
     var selectionType : String = ""
     var type = ""
     var isMuliselectActionChecked = false
+    var tagid = ""
     
     
     @IBOutlet var toolbar: UIView!
@@ -123,6 +124,14 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             
         }
         
+        let taguAction = UIAlertAction(title: "tagUKey".localizableString(loc: language!), style: .default) {
+            UIAlertAction in
+            //  self.openCamera(UIImagePickerController.SourceType.photoLibrary)
+            
+            self.openTagVC()
+            
+        }
+        
         
         let cancelAction = UIAlertAction(title: "cancelKey".localizableString(loc: language!), style: .cancel) {
             UIAlertAction in
@@ -131,10 +140,148 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         alert.addAction(cameraAction)
         alert.addAction(gallaryAction)
         alert.addAction(pdfAction)
+        alert.addAction(taguAction)
+
         
         alert.addAction(cancelAction)
         self.present(alert, animated: true, completion: nil)
         
+    }
+    
+    private func openTagVC(){
+        
+        let vc  = self.storyboard?.instantiateViewController(withIdentifier: "taguList") as? MyTagUlistViewController
+        vc?.from = "chat"
+        vc?.delegate = self
+        present(vc!, animated: true, completion: nil)
+        
+    }
+    
+    func setTagId(tagid: String) {
+        
+        do{
+            
+            
+            
+            var desrc = ""
+            
+            if self.type == "destructive" {
+                
+                self.type = ""
+                desrc = kXMPP.DESTRUCT_TIME
+            }else{
+                
+                desrc = ""
+            }
+            
+            var replyMsgId = ""
+            var msgType = kXMPP.TYPE_TAGU
+            
+            var replyMsgType = ""
+            var replyMsgFile = ""
+            var replyMsg = ""
+            var replyTitle = ""
+            
+            if self.replyeMessageID != "" {
+                
+                replyMsgId = self.replyeMessageID
+                msgType = kXMPP.TYPE_REPLY
+                
+                let msgItem = self.getMsg(msgId: replyMsgId)
+                
+                replyMsg = self.lblReplyMsg.text!
+                replyMsgFile = msgItem.file_url
+                
+                if msgItem.is_mine == "1" {
+                    replyTitle = "You"
+                }else{
+                    replyTitle = self.friendModel.name
+                }
+                
+                replyMsgType = msgItem.msg_type
+                
+                
+            }
+            
+            
+            let body = CustomMessageModel(msgId: replyMsgId, msgType: msgType, message: "", fileUrl: "", destructiveTime: desrc,fileType : "",filePermission:"",tagUId:tagid)
+            
+            let jsonData = try JSONEncoder().encode(body)
+            let msg = String(data: jsonData, encoding: .utf8)
+            
+            print(msg ?? "")
+            
+            //self.editMsg.resignFirstResponder()
+            //self.editMsg.text = ""
+            
+            let msgID = self.getCurrentTime()
+            
+            self.createMsgEntityFrom(item: Message(
+                msg: "",
+                msgId: msgID,
+                msgType: msgType,
+                msgACk: kXMPP.msgSend,
+                fromID: USERDETAILS.mobile,
+                toID: self.friendModel.contact_number,
+                fileUrl: "",
+                isUpload: "0",
+                isDownload: "0",
+                isStreaming: "0",
+                isMine: "1",
+                created: self.getCurrentTime(),
+                status: "",
+                modified: self.getCurrentTime(),
+                is_permission: "0", replyTitle: replyTitle, replyMsgType: replyMsgType, replyMsgId: self.replyeMessageID, replyMsgFile: replyMsgFile, replyMsg : replyMsg, sentTime: kXMPP.SEEN_MSG, seenTime: kXMPP.SEEN_MSG, destructiveTime: desrc, tagid: tagid))
+            
+            self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: "tagU", msg_type: kXMPP.TYPE_TAGU, isMine: "1", friendID: self.friendModel.contact_number)
+            
+        
+            self.replyeMessageID = ""
+            
+            OneMessage.sendMessage(msg!, msgId:msgID,  thread: "test", to:"\(friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
+            })
+            
+            
+            if self.lblCurrentStatus.text != "Online"  {
+                
+                let params = ["friend_no": "\(self.friendModel.contact_number)","my_no":"\(USERDETAILS.mobile)", "data":"Tagu", "message_id":"\(msgID)","body":"Tagu"]
+                print(params)
+                MakeHttpPostRequestChat(url: kXMPP.sendNotification, params: params, completion: {(success, response) in
+                    print(response)
+                    
+                }, errorHandler: {(message) -> Void in
+                    print("message", message)
+                })
+                
+            }
+            
+            
+            self.sendTagu(tagid: tagid)
+            
+        }
+        catch {print(error)}
+        
+        
+        
+    }
+    
+    
+    private func sendTagu(tagid : String)
+    {
+        let userID = UserDefaults.standard.integer(forKey: "userid")
+        let clientID = UserDefaults.standard.integer(forKey: "clientid")
+        let params = ["access_token":"\(accessToken)","userId":"\(userID)","clientId":"\(clientID)","stickyNoteId":"\(tagid)","assignedUserNumber":"\(self.friendModel.contact_number)"] as Dictionary<String, String>
+        
+        print(params)
+        
+        MakeHttpPostRequest(url: sendStickyNote , params: params, completion: {(success, response) -> Void in
+            print(response)
+          
+            
+        }, errorHandler: {(message) -> Void in
+            print(message)
+
+        })
     }
     
     private func saveImageWithPer(fileurl:String,type:String,permission:String) {
@@ -170,7 +317,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             is_permission: permission, replyTitle: "", replyMsgType: "", replyMsgId: "", replyMsgFile: "", replyMsg: "",
             sentTime: kXMPP.SEEN_MSG,
             seenTime: kXMPP.SEEN_MSG,
-            destructiveTime: desrc))
+            destructiveTime: desrc, tagid: ""))
         
         
         //self.tblView.reloadData()
@@ -436,18 +583,18 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         if self.type == "forward"{
             self.type = ""
             self.sendForwardedMsg()
+            
+        }else if self.type == "tagu"{
+            self.type = ""
+            self.setTagId(tagid: self.tagid)
+            self.tagid = ""
         }
         
         
         self.scrollToBottom()
         self.updateTableContentInset()
         
-     /*   NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardType), name: Notification.Name.UIKeyboardWillChangeFrame, object: nil)
- 
-      */
+     
         self.bottomView.isHidden = true
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
@@ -503,7 +650,11 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         
         for item in self.selectedArr {
             
-            if item.msg_type == kXMPP.TYPE_TEXT {
+            if item.msg_type == kXMPP.TYPE_TAGU {
+                
+                self.setTagId(tagid: item.tagid)
+
+            }else if item.msg_type == kXMPP.TYPE_TEXT {
                 
                 do{
                     
@@ -511,7 +662,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     
                     
                     
-                    let body = CustomMessageModel(msgId: "", msgType: kXMPP.TYPE_TEXT, message: text, fileUrl: "", destructiveTime : "",fileType : "",filePermission:"")
+                    let body = CustomMessageModel(msgId: "", msgType: kXMPP.TYPE_TEXT, message: text, fileUrl: "", destructiveTime : "",fileType : "",filePermission:"" ,tagUId:"")
                     
                     
                     
@@ -536,7 +687,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         created: self.getCurrentTime(),
                         status: "",
                         modified: self.getCurrentTime(),
-                        is_permission: "0",replyTitle: "", replyMsgType: "", replyMsgId: "", replyMsgFile: "", replyMsg: "", sentTime: kXMPP.SEEN_MSG, seenTime: kXMPP.SEEN_MSG, destructiveTime: ""))
+                        is_permission: "0",replyTitle: "", replyMsgType: "", replyMsgId: "", replyMsgFile: "", replyMsg: "", sentTime: kXMPP.SEEN_MSG, seenTime: kXMPP.SEEN_MSG, destructiveTime: "", tagid: ""))
                     
                     self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: text, msg_type: kXMPP.TYPE_TEXT, isMine: "1", friendID: self.friendModel.contact_number)
                     
@@ -579,7 +730,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     created: self.getCurrentTime(),
                     status: "",
                     modified: self.getCurrentTime(),
-                    is_permission: "0",replyTitle: "", replyMsgType: "", replyMsgId: "", replyMsgFile: "", replyMsg: "", sentTime: kXMPP.SEEN_MSG, seenTime: kXMPP.SEEN_MSG, destructiveTime: ""))
+                    is_permission: "0",replyTitle: "", replyMsgType: "", replyMsgId: "", replyMsgFile: "", replyMsg: "", sentTime: kXMPP.SEEN_MSG, seenTime: kXMPP.SEEN_MSG, destructiveTime: "", tagid: ""))
                 
                 // self.tblView.reloadData()
                 // self.scrollToBottom()
@@ -623,9 +774,11 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             
             
             if item?.is_mine == "1" {
+                
                 self.lblReplyTitle.text = "You"
                 self.lblReplyTitle.textColor = #colorLiteral(red: 0.1215686275, green: 0.4235294118, blue: 0.7254901961, alpha: 1)
                 self.lblReplyColor.backgroundColor = #colorLiteral(red: 0.1215686275, green: 0.4235294118, blue: 0.7254901961, alpha: 1)
+                
             }else{
                 self.lblReplyTitle.text = self.friendModel.name
                 self.lblReplyTitle.textColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
@@ -655,6 +808,15 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                 
                 self.imgReplyType.image = UIImage(named: "pdf_gray_icon")
                 self.imgReplyFile.image = UIImage(named: "pdf_place")
+                
+            }else  if item?.msg_type == kXMPP.TYPE_TAGU {
+                
+                self.imgReplyFile.isHidden = false
+                self.imgReplyType.isHidden = true
+                self.lblReplyMsg.text = "tagU"
+                
+                self.imgReplyType.image = UIImage(named: "pdf_gray_icon")
+                self.imgReplyFile.image = UIImage(named: "notes")
                 
             }else if item?.msg_type == kXMPP.TYPE_REPLY {
                 
@@ -778,6 +940,15 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     
                     self.imgReplyType.image = UIImage(named: "pdf_gray_icon")
                     self.imgReplyFile.image = UIImage(named: "pdf_place")
+                    
+                }else  if item?.msg_type == kXMPP.TYPE_TAGU {
+                    
+                    self.imgReplyFile.isHidden = false
+                    self.imgReplyType.isHidden = true
+                    self.lblReplyMsg.text = "tagU"
+                    
+                    self.imgReplyType.image = UIImage(named: "pdf_gray_icon")
+                    self.imgReplyFile.image = UIImage(named: "notes")
                     
                 }else if item?.msg_type == kXMPP.TYPE_REPLY {
                     
@@ -995,7 +1166,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
         
         do{
             
-            let body = CustomMessageModel(msgId: "", msgType: kXMPP.TYPE_SEEN, message: "", fileUrl: "", destructiveTime: "",fileType : "",filePermission:"")
+            let body = CustomMessageModel(msgId: "", msgType: kXMPP.TYPE_SEEN, message: "", fileUrl: "", destructiveTime: "",fileType : "",filePermission:"",tagUId:"")
             
             let jsonData = try JSONEncoder().encode(body)
             let msg = String(data: jsonData, encoding: .utf8)
@@ -1057,7 +1228,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             }
             
             
-            let body = CustomMessageModel(msgId: replyMsgId, msgType: msgType, message: text, fileUrl: "", destructiveTime: desrc,fileType : "",filePermission:"")
+            let body = CustomMessageModel(msgId: replyMsgId, msgType: msgType, message: text, fileUrl: "", destructiveTime: desrc,fileType : "",filePermission:"",tagUId:"")
             
             let jsonData = try JSONEncoder().encode(body)
             let msg = String(data: jsonData, encoding: .utf8)
@@ -1084,7 +1255,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                 created: self.getCurrentTime(),
                 status: "",
                 modified: self.getCurrentTime(),
-                is_permission: "0", replyTitle: replyTitle, replyMsgType: replyMsgType, replyMsgId: self.replyeMessageID, replyMsgFile: replyMsgFile, replyMsg : replyMsg, sentTime: kXMPP.SEEN_MSG, seenTime: kXMPP.SEEN_MSG, destructiveTime: desrc))
+                is_permission: "0", replyTitle: replyTitle, replyMsgType: replyMsgType, replyMsgId: self.replyeMessageID, replyMsgFile: replyMsgFile, replyMsg : replyMsg, sentTime: kXMPP.SEEN_MSG, seenTime: kXMPP.SEEN_MSG, destructiveTime: desrc, tagid: ""))
             
             self.updateFriendCell(last_msg_time: self.getCurrentTime(), msg: text, msg_type: kXMPP.TYPE_TEXT, isMine: "1", friendID: self.friendModel.contact_number)
             
@@ -1213,6 +1384,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     }
                     else if item.replyMsgType == kXMPP.TYPE_PDF {
                         cell.lblreplyMsg?.text = "Pdf"
+                    }else if item.replyMsgType == kXMPP.TYPE_TAGU {
+                        cell.lblreplyMsg?.text = "tagU"
                     }else  if item.replyMsgType == kXMPP.TYPE_REPLY {
                         cell.lblreplyMsg?.text = item.replyMsg
                     }
@@ -1677,6 +1850,84 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     return cell
                     
                     
+                }else if item.msg_type == kXMPP.TYPE_TAGU {
+                    
+                    
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "MyFileViewCell", for: indexPath) as! MyFileViewCell
+                    
+                    cell.lblTime?.text  = Utils.getTimeFromString(date: item.created!)
+                    cell.lblTime?.frame.size = (cell.lblTime?.intrinsicContentSize)!
+                    
+                    
+                    if item.msg_ack == kXMPP.msgSend{
+                        
+                        cell.msgAck.image = UIImage(named: "send_gray_icon")
+                        
+                    }else  if item.msg_ack == kXMPP.msgSent{
+                        
+                        cell.msgAck.image = UIImage(named: "receive_gray_icon")
+                        
+                        
+                    }else  if item.msg_ack == kXMPP.msgSeen{
+                        
+                        cell.msgAck.image = UIImage(named: "read_blue_icon")
+                        
+                    }
+                    
+                    
+                    if item.distructive_time == kXMPP.DESTRUCT_TIME || item.msg == kXMPP.SELF_DESTRUCT_MSG {
+                        
+                        cell.mainView?.layer.cornerRadius = 6
+                        cell.mainView?.layer.borderColor = #colorLiteral(red: 0.9176470588, green: 0.07450980392, blue: 0.07450980392, alpha: 1)
+                        cell.mainView?.layer.borderWidth = 1
+                        cell.mainView?.backgroundColor = #colorLiteral(red: 0.9647058824, green: 0.862745098, blue: 0.8705882353, alpha: 1)
+                        
+                    }else{
+                        
+                        cell.mainView?.layer.cornerRadius = 6
+                        cell.mainView?.layer.borderColor = #colorLiteral(red: 0.1333333333, green: 0.4941176471, blue: 0.8156862745, alpha: 1)
+                        cell.mainView?.layer.borderWidth = 1
+                        cell.mainView?.backgroundColor = #colorLiteral(red: 0.8980392157, green: 0.9568627451, blue: 0.9882352941, alpha: 1)
+                        
+                    }
+                    
+                    
+                    if isMyProfileShow == true {
+                        
+                        cell.profileImage?.isHidden = false
+                        
+                    }else{
+                        cell.profileImage?.isHidden = true
+                        
+                    }
+                    
+                    cell.profileImage?.sd_setImage(with : URL(string: USERDETAILS.imageurl))
+                    cell.profileImage?.layer.cornerRadius = (cell.profileImage?.frame.width)! / 2
+                    cell.profileImage?.clipsToBounds = true
+                    cell.profileImage?.contentMode = .scaleToFill
+                    
+                    cell.fileview?.image = UIImage(named: "notes")
+                    cell.fileview?.contentMode = .scaleAspectFill
+                    cell.fileview?.clipsToBounds = true
+                    
+                    cell.progressView.isHidden = true
+                    cell.progressView.stopAnimating()
+                    cell.btnUpload.isHidden = false
+
+                    cell.lblDate?.isHidden = true
+                    
+                    
+                    if self.selectedArr.contains(item){
+                        
+                        cell.accessoryType = UITableViewCellAccessoryType.checkmark
+                    }else{
+                        cell.accessoryType = UITableViewCellAccessoryType.none
+                        
+                    }
+                    
+                    return cell
+                    
+                    
                 }
                 
                 
@@ -1703,6 +1954,8 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     }
                     else if item.replyMsgType == kXMPP.TYPE_PDF {
                         cell.replyMsg?.text = "Pdf"
+                    }else if item.replyMsgType == kXMPP.TYPE_TAGU {
+                        cell.replyMsg?.text = "tagU"
                     }
                     
                     cell.msgTime?.text  = Utils.getTimeFromString(date: item.created!)
@@ -2067,6 +2320,63 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     
                     return cell
                     
+                }else if item.msg_type == kXMPP.TYPE_TAGU {
+                    
+                    
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "FriendFileView", for: indexPath) as! FriendFileView
+                    
+                    cell.lblTime?.text  = Utils.getTimeFromString(date: item.created!)
+                    cell.lblTime?.frame.size = (cell.lblTime?.intrinsicContentSize)!
+                    
+                    if isMyProfileShow == true {
+                        cell.profileImage?.isHidden = false
+                    }else{
+                        cell.profileImage?.isHidden = true
+                    }
+                    
+                    cell.profileImage?.sd_setImage(with : URL(string: self.friendModel.profile_image))
+                    cell.profileImage?.layer.cornerRadius = (cell.profileImage?.frame.width)! / 2
+                    cell.profileImage?.clipsToBounds = true
+                    cell.profileImage?.contentMode = .scaleToFill
+                    
+                    if item.distructive_time == kXMPP.DESTRUCT_TIME || item.msg == kXMPP.SELF_DESTRUCT_MSG {
+                        
+                        
+                        cell.mainView?.layer.cornerRadius = 6
+                        cell.mainView?.layer.borderColor = #colorLiteral(red: 0.9176470588, green: 0.07450980392, blue: 0.07450980392, alpha: 1)
+                        cell.mainView?.layer.borderWidth = 1
+                        cell.mainView?.backgroundColor = #colorLiteral(red: 0.9647058824, green: 0.862745098, blue: 0.8705882353, alpha: 1)
+                        
+                    }else{
+                        
+                        cell.mainView?.layer.cornerRadius = 6
+                        cell.mainView?.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+                        cell.mainView?.layer.borderWidth = 1
+                        cell.mainView?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                        
+                    }
+                    
+                    
+                    cell.fileView?.image = UIImage(named: "notes")
+                    cell.fileView?.contentMode = .scaleAspectFill
+                    cell.fileView?.clipsToBounds = true
+                    
+                    cell.progressView.isHidden = true
+                    cell.progressView.stopAnimating()
+                    cell.btnDownload.isHidden = true
+
+                    
+                    
+                    cell.lblDate?.isHidden = true
+                    
+                    if self.selectedArr.contains(item){
+                        cell.accessoryType = UITableViewCellAccessoryType.checkmark
+                    }else{
+                        cell.accessoryType = UITableViewCellAccessoryType.none
+                    }
+                    
+                    return cell
+                    
                 }
                 
                 
@@ -2089,14 +2399,17 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                 
                 return CGFloat(230)
                 
+            }else if item.msg_type == kXMPP.TYPE_TAGU   {
+                
+                return CGFloat(230)
+                
             }else if item.msg_type == kXMPP.TYPE_REPLY   {
                 
                  return UITableViewAutomaticDimension
                 
             }
         }
-        
-        
+    
         return UITableViewAutomaticDimension
     }
     
@@ -2137,6 +2450,16 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             self.selectedArr.append(item!)
             tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.checkmark
         }else{
+            
+            
+            if item?.msg_type == kXMPP.TYPE_TAGU {
+                
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "stickyNotes") as? StickyNoteViewController
+                vc?.type = "chat"
+                vc?.noteId = (item?.tagid)!
+                present(vc!, animated: true, completion: nil)
+                
+            }
             
             
             if item?.msg_type == kXMPP.TYPE_REPLY && item?.is_permission == "1" {
@@ -2600,7 +2923,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
             msgObject?.sent_time =  item.sentTime
             msgObject?.seen_time =  item.seenTime
             msgObject?.distructive_time = item.destructiveTime
-            
+            msgObject?.tagid = item.tagid
             
             do {
                 try CoreDataStack.sharedInstance.persistentContainer.viewContext.save()
@@ -2995,7 +3318,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                             }
                             
                             
-                            let body = CustomMessageModel(msgId: json?.object(forKey: "msg_id") as! String , msgType: type, message: "", fileUrl: json?.object(forKey: "data") as! String, destructiveTime: desrc ,fileType : type,filePermission:permission)
+                            let body = CustomMessageModel(msgId: json?.object(forKey: "msg_id") as! String , msgType: type, message: "", fileUrl: json?.object(forKey: "data") as! String, destructiveTime: desrc ,fileType : type,filePermission:permission,tagUId:"")
                             
                             let jsonData = try JSONEncoder().encode(body)
                             let msg = String(data: jsonData, encoding: .utf8)
@@ -3179,7 +3502,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                         do{
                             
                             let text = kXMPP.DELETE_TEXT_FRIEND
-                            let body = CustomMessageModel(msgId: self.selectedArr[0].msg_id, msgType: kXMPP.TYPE_DELETE, message: text, fileUrl:self.selectedArr[0].file_url , destructiveTime : "",fileType : self.selectedArr[0].msg_type,filePermission:"")
+                            let body = CustomMessageModel(msgId: self.selectedArr[0].msg_id, msgType: kXMPP.TYPE_DELETE, message: text, fileUrl:self.selectedArr[0].file_url , destructiveTime : "",fileType : self.selectedArr[0].msg_type,filePermission:"",tagUId:"")
                             
                             let jsonData = try JSONEncoder().encode(body)
                             let msg = String(data: jsonData, encoding: .utf8)
@@ -3308,7 +3631,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     }
                     
                     
-                    let body = CustomMessageModel(msgId: replyMsgId, msgType: msgType, message: "\(USERDETAILS.firstName) \(USERDETAILS.lastname) is asking for your permission to download this file.Click here to grant permission.", fileUrl: "", destructiveTime: "",fileType : "",filePermission:"1")
+                    let body = CustomMessageModel(msgId: replyMsgId, msgType: msgType, message: "\(USERDETAILS.firstName) \(USERDETAILS.lastname) is asking for your permission to download this file.Click here to grant permission.", fileUrl: "", destructiveTime: "",fileType : "",filePermission:"1",tagUId:"")
                     
                     let jsonData = try JSONEncoder().encode(body)
                     let msg = String(data: jsonData, encoding: .utf8)
@@ -3327,7 +3650,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     OneMessage.sendMessage(msg!, msgId:msgID,  thread: "test", to:"\(friendModel.contact_number)@ip-172-31-9-114.ap-south-1.compute.internal", completionHandler: { (stream, message) -> Void in
                     })
                     
-                    let body1 = CustomMessageModel(msgId: item.msg_id, msgType: kXMPP.TYPE_PER_ASK, message: "", fileUrl: "", destructiveTime: "",fileType:"",filePermission:"0")
+                    let body1 = CustomMessageModel(msgId: item.msg_id, msgType: kXMPP.TYPE_PER_ASK, message: "", fileUrl: "", destructiveTime: "",fileType:"",filePermission:"0",tagUId:"")
                     
                     let jsonData1 = try JSONEncoder().encode(body1)
                     let msg1 = String(data: jsonData1, encoding: .utf8)
@@ -3354,7 +3677,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                 
                 notificationText = "Permission granted to download file"
                 
-                let body = CustomMessageModel(msgId: item.replyMsgId, msgType: kXMPP.TYPE_PER_GRANT, message: "", fileUrl: "", destructiveTime: "",fileType : "",filePermission:"1")
+                let body = CustomMessageModel(msgId: item.replyMsgId, msgType: kXMPP.TYPE_PER_GRANT, message: "", fileUrl: "", destructiveTime: "",fileType : "",filePermission:"1",tagUId:"")
                 
                 //1543567377997
                 
@@ -3377,7 +3700,7 @@ class ChatVC: UIViewController  , UITableViewDelegate , UITableViewDataSource ,U
                     
                 })
                 
-                let body1 = CustomMessageModel(msgId: item.msg_id, msgType: kXMPP.TYPE_PER_ASK, message: "", fileUrl: "", destructiveTime: "",fileType:"",filePermission:"0")
+                let body1 = CustomMessageModel(msgId: item.msg_id, msgType: kXMPP.TYPE_PER_ASK, message: "", fileUrl: "", destructiveTime: "",fileType:"",filePermission:"0",tagUId:"")
                 
                 let jsonData1 = try JSONEncoder().encode(body1)
                 let msg1 = String(data: jsonData1, encoding: .utf8)

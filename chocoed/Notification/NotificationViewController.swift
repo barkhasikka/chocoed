@@ -253,6 +253,13 @@ class NotificationViewController: UIViewController,UITableViewDataSource,UITable
                 self.present(v1, animated: true, completion: nil)
             
             
+            }else if self.arrayList[indexPath.row].notificationType == "9" {
+                
+                
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "poll") as? PollViewController
+                self.present(vc!, animated: true, completion: nil)
+                
+                
             }else{
                 
                 if self.arrayList.count > 0 {

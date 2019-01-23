@@ -21,6 +21,7 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
     @IBOutlet weak var selectContactlabel: UILabel!
     
     var type = ""
+    var tagid = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +34,11 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
         activityUIView.isHidden = true
         
         if type == "destructive" {
+            LoadFriends()
+        }else if type == "tagu" {
+            print(type)
+            print(tagid)
+
             LoadFriends()
         }else{
             LoadContacts()
@@ -74,6 +80,13 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
                 self.tblView.reloadData()
                 self.activityUIView.isHidden = true
                 self.activityUIView.stopAnimation()
+                
+                if self.arrayFriendList.count == 0{
+                    self.LoadContacts()
+                    self.type = ""
+                }
+                
+                
             }
             
         }catch{
@@ -116,7 +129,7 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if type == "destructive" {
+        if type == "destructive" || type == "tagu" {
             return arrayFriendList.count
 
 
@@ -129,7 +142,7 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AddFriendCell", for: indexPath) as! AddFriendCell
         
-        if type == "destructive" {
+        if type == "destructive" || type == "tagu" {
 
        
             cell.lblName.text = arrayFriendList[indexPath.row].name
@@ -164,6 +177,18 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
                 let item = self.arrayFriendList[indexPath.row]
                 vcNewSectionStarted.friendModel = item
                 vcNewSectionStarted.type = "destructive"
+                self.present(vcNewSectionStarted, animated: true, completion: nil)
+            }
+            
+            
+        }else if type == "tagu" {
+            
+            if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "ChatVC") as? ChatVC {
+                
+                let item = self.arrayFriendList[indexPath.row]
+                vcNewSectionStarted.friendModel = item
+                vcNewSectionStarted.type = "tagu"
+                vcNewSectionStarted.tagid = self.tagid
                 self.present(vcNewSectionStarted, animated: true, completion: nil)
             }
             
@@ -222,8 +247,8 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
             
             // call api
             
-            let userID =  UserDefaults.standard.string(forKey: "chat_user_id")
-            let mobileNo = UserDefaults.standard.string(forKey: "mobileno")
+          //  let userID =  UserDefaults.standard.string(forKey: "chat_user_id")
+           // let mobileNo = UserDefaults.standard.string(forKey: "mobileno")
 
 
             let params = ["user_id": "\(USERDETAILS.mobile)",  "friend_contact_no":"\(item.contact_number)",  "img_link":"\(item.profile_image)","friend_name":"\(item.name)","fcm_id":"\(item.fcm_id)","device_type":"\(type)"] as Dictionary<String, String>
@@ -264,7 +289,18 @@ class AddFriendVC: UIViewController , UITableViewDelegate , UITableViewDataSourc
                     if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "ChatVC") as? ChatVC {
                         
                         vcNewSectionStarted.friendModel = self.getFriend(item: item.contact_number)
-                        vcNewSectionStarted.type = ""
+                        
+                        if self.tagid != "" {
+                            
+                            vcNewSectionStarted.type = "tagu"
+                            vcNewSectionStarted.tagid = self.tagid
+                            
+                        }else{
+                            
+                            vcNewSectionStarted.type = ""
+                        }
+                        
+                       
                         self.present(vcNewSectionStarted, animated: true, completion: nil)
                     }
                         

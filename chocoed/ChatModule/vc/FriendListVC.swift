@@ -101,6 +101,7 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
     
     
     @IBAction func destructive_mg_clicked(_ sender: Any) {
+        
        /* self.lblTitle.text = "Send To..."
         self.type = "destructive"
         self.searchBar.isHidden = true
@@ -386,6 +387,10 @@ class FriendListVC: UIViewController , UITableViewDelegate , UITableViewDataSour
                         }else if item.msg_type == kXMPP.TYPE_PDF {
                             
                             cell.last_msg?.text = "Pdf"
+                            
+                        }else if item.msg_type == kXMPP.TYPE_TAGU {
+                            
+                            cell.last_msg?.text = "tagU"
                             
                         }
                         

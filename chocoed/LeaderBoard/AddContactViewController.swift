@@ -155,6 +155,7 @@ class AddContactViewController: UIViewController,UITableViewDelegate,UITableView
             let language = UserDefaults.standard.string(forKey: "currentlanguage")
             let alert = GetAlertWithOKAction(message: "add4FriendsKey".localizableString(loc: language!))
             self.present(alert, animated: true, completion: nil)
+            return
         }
         
         var poststring = ""

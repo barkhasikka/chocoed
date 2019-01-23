@@ -127,11 +127,11 @@ class Utils: NSObject {
         print(date)
         let str = date.components(separatedBy: " ")
         let dateformat = DateFormatter()
-        dateformat.dateFormat = "yyyy-MM-dd"
+        dateformat.dateFormat = "yyyy-MM-dd HH:mm:ss"
         // print(dateformat.string(from: Date(milliseconds: Int(date)!)))
-        let date1 =  dateformat.date(from: str[0])
+        let date1 =  dateformat.date(from: date)
         print(date1!)
-        dateformat.dateFormat = "dd-MMM"
+        dateformat.dateFormat = "dd-MMM HH:mm"
         return dateformat.string(from: date1!)
     }
     

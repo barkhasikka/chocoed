@@ -42,6 +42,8 @@ extension Msg {
     @NSManaged public var   sent_time : String
     @NSManaged public var   seen_time : String
     @NSManaged public var   distructive_time : String
+    @NSManaged public var   tagid : String
+
 
     
 }

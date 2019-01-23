@@ -8,12 +8,24 @@
 
 import UIKit
 
+
+protocol TagProtocol {
+    func setTagId(tagid: String)
+}
+
 class MyTagUlistViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     @IBOutlet weak var noStickyView: UIView!
     @IBOutlet weak var circleView: UIView!
     
     @IBOutlet weak var addStickyLabel: UILabel!
+    
+    @IBOutlet var addBtn: UIButton!
+    
+    
+    var delegate:TagProtocol?
+    
+    var from = ""
     
     var activityUIView: ActivityIndicatorUIView!
     @IBOutlet weak var tabelViewStickyList: UITableView!
@@ -36,19 +48,39 @@ class MyTagUlistViewController: UIViewController,UITableViewDelegate,UITableView
         backgroundImage.contentMode = UIViewContentMode.scaleToFill
         self.view.insertSubview(backgroundImage, at: 0)
         
-//        self.noStickyView.isHidden = false
+        self.noStickyView.isHidden = true
         
-        loadSTickyNotesList()
-        print(arrayTagUlist.count)
+        //self.noStickyView.isHidden = false
+        
         
         // Do any additional setup after loading the view.
+        
+         if from == "chat"{
+            
+            self.noStickyView.isHidden = true
+            self.addBtn.isHidden = true
+            
+        }
+        
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loadSTickyNotesList()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     @IBAction func backButton(_ sender: Any) {
+        
+        if from == "chat"{
+            
+            dismiss(animated: true, completion: nil)
+            
+        }else{
         
         let vcbackDashboard = self.storyboard?.instantiateViewController(withIdentifier: "split") as? SplitviewViewController
         let aObjNavi = UINavigationController(rootViewController: vcbackDashboard!)
@@ -56,6 +88,10 @@ class MyTagUlistViewController: UIViewController,UITableViewDelegate,UITableView
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
         self.present(aObjNavi, animated: true, completion: nil)
+
+        }
+        
+        
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arrayTagUlist.count
@@ -74,13 +110,23 @@ class MyTagUlistViewController: UIViewController,UITableViewDelegate,UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "stickyNotes") as? StickyNoteViewController
-        vc?.type = "edit"
-        vc?.Ntitle = arrayTagUlist[indexPath.row].title
-        vc?.note = arrayTagUlist[indexPath.row].notes
-        vc?.color = arrayTagUlist[indexPath.row].colour
-        vc?.noteId = arrayTagUlist[indexPath.row].id
-        self.present(vc!, animated: true, completion: nil)
+        if self.from == "chat" {
+            
+            delegate?.setTagId(tagid: arrayTagUlist[indexPath.row].id)
+            dismiss(animated: true, completion: nil)
+            
+        }else{
+            
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "stickyNotes") as? StickyNoteViewController
+            vc?.type = "edit"
+            vc?.Ntitle = arrayTagUlist[indexPath.row].title
+            vc?.note = arrayTagUlist[indexPath.row].notes
+            vc?.color = arrayTagUlist[indexPath.row].colour
+            vc?.noteId = arrayTagUlist[indexPath.row].id
+            self.present(vc!, animated: true, completion: nil)
+        }
+        
+        
         
     }
     
@@ -93,14 +139,18 @@ class MyTagUlistViewController: UIViewController,UITableViewDelegate,UITableView
             let share = shareAction(at: indexPath)
             
             return UISwipeActionsConfiguration(actions: [delete,share])
-    
-        return UISwipeActionsConfiguration()
-    }
+        }
     
     func shareAction(at indexpath: IndexPath) -> UIContextualAction{
         let todo =  arrayTagUlist[indexpath.row].id
         let action = UIContextualAction(style: .normal, title: "Share") { (action, view, completion) in
             completion(true)
+            
+            if let vcNewSectionStarted = self.storyboard?.instantiateViewController(withIdentifier: "AddFriendVC") as? AddFriendVC{
+                vcNewSectionStarted.type = "tagu"
+                vcNewSectionStarted.tagid = todo
+                self.present(vcNewSectionStarted, animated: true, completion: nil)
+            }
             
         }
        // action.image =
@@ -122,12 +172,14 @@ class MyTagUlistViewController: UIViewController,UITableViewDelegate,UITableView
     
     
     func deleteAction(at indexpath: IndexPath) -> UIContextualAction{
-        let todo = arrayTagUlist[indexpath.row].id
         let action = UIContextualAction(style: .normal, title: "Delete") { (action, view, completion) in
             completion(true)
             let userID = UserDefaults.standard.integer(forKey: "userid")
             let clientID = UserDefaults.standard.integer(forKey: "clientid")
             print(userID, "USER ID IS HERE")
+            
+            self.activityUIView.isHidden = false
+            self.activityUIView.startAnimation()
             
             let params = ["userId": "\(userID)","clientId": "\(clientID)",  "access_token":"\(accessToken)","stickyNoteId" : "\(self.arrayTagUlist[indexpath.row].id)"] as Dictionary<String, String>
             
@@ -139,12 +191,12 @@ class MyTagUlistViewController: UIViewController,UITableViewDelegate,UITableView
                 
                 DispatchQueue.main.async {
                     
-                    self.tabelViewStickyList.reloadData()
                     self.activityUIView.isHidden = true
                     self.activityUIView.stopAnimation()
+                    self.arrayTagUlist.removeAll()
+                    self.loadSTickyNotesList()
                 }
-                self.arrayTagUlist.removeAll()
-                self.loadSTickyNotesList()
+               
                 
             }, errorHandler: {(message) -> Void in
                 let alert = GetAlertWithOKAction(message: message)
@@ -185,6 +237,11 @@ class MyTagUlistViewController: UIViewController,UITableViewDelegate,UITableView
         )
     }
     func loadSTickyNotesList(){
+        
+        if self.arrayTagUlist.count > 0 {
+            self.arrayTagUlist.removeAll()
+        }
+        
         let userID = UserDefaults.standard.integer(forKey: "userid")
         let clientID = UserDefaults.standard.integer(forKey: "clientid")
         print(userID, "USER ID IS HERE")
@@ -200,7 +257,8 @@ class MyTagUlistViewController: UIViewController,UITableViewDelegate,UITableView
             let list = response.object(forKey: "list") as? NSArray ?? []
             
             for stickyNote in list {
-                self.arrayTagUlist.append(getStickyNotesList( stickyNote as! NSDictionary))
+                    self.arrayTagUlist.append(getStickyNotesList( stickyNote as! NSDictionary))
+                
             }
             
             
@@ -215,6 +273,15 @@ class MyTagUlistViewController: UIViewController,UITableViewDelegate,UITableView
                 self.noStickyView.isHidden = true
                 self.tabelViewStickyList.isHidden = false
                 }
+                
+                if self.from == "chat"{
+                    
+                    self.noStickyView.isHidden = true
+                    self.addBtn.isHidden = true
+                    
+                }
+                
+                
                 self.tabelViewStickyList.reloadData()
                 self.activityUIView.isHidden = true
                 self.activityUIView.stopAnimation()
@@ -227,7 +294,6 @@ class MyTagUlistViewController: UIViewController,UITableViewDelegate,UITableView
                 self.present(alert, animated: true, completion: nil)
                 self.activityUIView.isHidden = true
                 self.activityUIView.stopAnimation()
-                
             }
         })
 

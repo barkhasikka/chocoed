@@ -59,6 +59,7 @@ struct CustomMessageModel : Codable {
     var destructiveTime : String = ""
     var fileType : String = ""
     var filePermission : String = ""
+    var tagUId : String = ""
 
    /* init(msgID : String,msgType : String , message : String , fileURL : String ,time : String) {
         
@@ -121,6 +122,8 @@ struct Message {
     var sentTime : String
     var seenTime : String
     var destructiveTime : String
+    var tagid : String
+
 
     
 }

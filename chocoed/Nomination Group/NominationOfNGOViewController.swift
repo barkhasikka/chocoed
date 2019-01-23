@@ -8,11 +8,18 @@
 
 import UIKit
 
+
+
 class NominationOfNGOViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource {
     @IBOutlet weak var collectionNGO: UICollectionView!
     
     var activityUIView: ActivityIndicatorUIView!
     var arrayNGO = [getNgoDetails]()
+    
+    var from : String = ""
+    
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         activityUIView = ActivityIndicatorUIView(frame: self.view.frame)
@@ -101,16 +108,37 @@ class NominationOfNGOViewController: UIViewController,UICollectionViewDelegate,U
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "userNGOcell") as? UsersOfNGOViewController
-        vc?.ngoId = self.arrayNGO[indexPath.row].id
-        self.present(vc!, animated: true, completion: nil)
+        if from == "" {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "userNGOcell") as? UsersOfNGOViewController
+            vc?.ngoId = self.arrayNGO[indexPath.row].id
+            self.present(vc!, animated: true, completion: nil)
+            
+        }else{
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "userNGOcell") as? UsersOfNGOViewController
+            vc?.ngoId = self.arrayNGO[indexPath.row].id
+            vc?.from = "sponsership"
+            self.present(vc!, animated: true, completion: nil)
+            
+        }
+        
+        
         
         
     }
     
     @IBAction func backButton(_ sender: Any) {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "nominee") as? NominationViewController
-        self.present(vc!, animated: true, completion: nil)
+        
+        if from == "sponsership" {
+            
+            let v1 = self.storyboard?.instantiateViewController(withIdentifier: "empower") as! EmpowerViewController
+            self.present(v1, animated: true, completion: nil)
+            
+        }else{
+            
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "nominee") as? NominationViewController
+            self.present(vc!, animated: true, completion: nil)
+        }
+        
         
     }
     
